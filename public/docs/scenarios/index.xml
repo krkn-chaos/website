@@ -2,116 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scenarios on Krkn</title>
-    <link>//localhost:50777/docs/scenarios/</link>
+    <link>//localhost:64001/docs/scenarios/</link>
     <description>Recent content in Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 03 Sep 2024 17:00:47 -0400</lastBuildDate>
-    <atom:link href="//localhost:50777/docs/scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:64001/docs/scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Application outage Scenario</title>
-      <link>//localhost:50777/docs/scenarios/application-outages/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/application-outages/</guid>
-      <description>This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer docs for more details.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
+      <title>ManagedCluster Scenarios</title>
+      <link>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</guid>
+      <description>ManagedCluster scenarios provide a way to integrate kraken with Open Cluster Management (OCM) and Red Hat Advanced Cluster Management for Kubernetes (ACM).&#xA;ManagedCluster scenarios leverage ManifestWorks to inject faults into the ManagedClusters.&#xA;The following ManagedCluster chaos scenarios are supported:&#xA;managedcluster_start_scenario: Scenario to start the ManagedCluster instance. managedcluster_stop_scenario: Scenario to stop the ManagedCluster instance. managedcluster_stop_start_scenario: Scenario to stop and then start the ManagedCluster instance. start_klusterlet_scenario: Scenario to start the klusterlet of the ManagedCluster instance.</description>
     </item>
     <item>
-      <title>Container Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/container-scenarios/</link>
+      <title>All Scenarios Variables</title>
+      <link>//localhost:64001/docs/scenarios/all-scenario-env/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/container-scenarios/</guid>
-      <description>This scenario disrupts the containers matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:container-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+      <guid>//localhost:64001/docs/scenarios/all-scenario-env/</guid>
+      <description>These variables are to be used for the top level configuration template that are shared by all the scenarios&#xA;See the description and default values below&#xA;Supported parameters The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:&#xA;example: export &amp;lt;parameter_name&amp;gt;=&amp;lt;value&amp;gt;&#xA;Parameter Description Default CERBERUS_ENABLED Set this to true if cerberus is running and monitoring the cluster False CERBERUS_URL URL to poll for the go/no-go signal http://0.</description>
     </item>
     <item>
-      <title>Network Chaos Scenario</title>
-      <link>//localhost:50777/docs/scenarios/network-chaos/</link>
+      <title>Supported Cloud Providers</title>
+      <link>//localhost:64001/docs/scenarios/cloud_setup/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/network-chaos/</guid>
-      <description>This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node&amp;rsquo;s interface using the tc and Netem. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
-    </item>
-    <item>
-      <title>Node CPU hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-cpu-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-cpu-hog/</guid>
-      <description>This scenario hogs the cpu on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node IO hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-io-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-io-hog/</guid>
-      <description>This scenario hogs the IO on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/root/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node Memory hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-memory-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-memory-hog/</guid>
-      <description>This scenario hogs the memory on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/node-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-scenarios/</guid>
-      <description>This scenario disrupts the node(s) matching the label on a Kubernetes/OpenShift cluster. Actions/disruptions supported are listed here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Pod Network Chaos Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pod-network-chaos/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pod-network-chaos/</guid>
-      <description>This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Pod Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pod-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pod-scenarios/</guid>
-      <description>This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Power Outage Scenario</title>
-      <link>//localhost:50777/docs/scenarios/power-outages/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/power-outages/</guid>
-      <description>This scenario shuts down Kubernetes/OpenShift cluster for the specified duration to simulate power outages, brings it back online and checks if it&amp;rsquo;s healthy. More information can be found here&#xA;Right now power outage and cluster shutdown are one in the same. We originally created this scenario to stop all the nodes and then start them back up how a customer would shut their cluster down.&#xA;In a real life chaos scenario though, we figured this scenario was close to if the power went out on the aws side so all of our ec2 nodes would be stopped/powered off.</description>
-    </item>
-    <item>
-      <title>PVC Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pvc-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pvc-scenarios/</guid>
-      <description>This scenario fills up a given PersistenVolumeClaim by creating a temp file on the PVC from a pod associated with it. The purpose of this scenario is to fill up a volume to understand faults cause by the application using this volume. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
-    </item>
-    <item>
-      <title>Service Disruption Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/service-disruption-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/service-disruption-scenarios/</guid>
-      <description>This scenario deletes main objects within a namespace in your Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:service-disruption-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Service Hijacking Scenario</title>
-      <link>//localhost:50777/docs/scenarios/service-hijacking/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/service-hijacking/</guid>
-      <description>This scenario reroutes traffic intended for a target service to a custom web service that is automatically deployed by Krkn. This web service responds with user-defined HTTP statuses, MIME types, and bodies. For more details, please refer to the following documentation.&#xA;Run Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. You must set up the scenario in a local file following the scenario syntax, and then pass this file&amp;rsquo;s base64-encoded content to the container via the SCENARIO_BASE64 variable.</description>
-    </item>
-    <item>
-      <title>Time Skew Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/time-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/time-scenarios/</guid>
-      <description>This scenario skews the date and time of the nodes and pods matching the label on a Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Zone Outage Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/zone-outages/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/zone-outages/</guid>
-      <description>This scenario disrupts a targeted zone in the public cloud by blocking egress and ingress traffic to understand the impact on both Kubernetes/OpenShift platforms control plane as well as applications running on the worker nodes in that zone. More information is documented here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
+      <guid>//localhost:64001/docs/scenarios/cloud_setup/</guid>
+      <description>AWS GCP Openstack Azure Alibaba VMware IBMCloud AWS NOTE: For clusters with AWS make sure AWS CLI is installed and properly configured using an AWS account&#xA;GCP NOTE: For clusters with GCP make sure GCP CLI is installed.&#xA;A google service account is required to give proper authentication to GCP for node actions. See here for how to create a service account.&#xA;NOTE: A user with &amp;lsquo;resourcemanager.projects.setIamPolicy&amp;rsquo; permission is required to grant project-level permissions to the service account.</description>
     </item>
   </channel>
 </rss>

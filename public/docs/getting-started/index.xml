@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Installation on Krkn</title>
-    <link>//localhost:50777/docs/getting-started/</link>
+    <link>//localhost:52212/docs/getting-started/</link>
     <description>Recent content in Installation on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:50777/docs/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:52212/docs/getting-started/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>krkn-hub</title>
-      <link>//localhost:50777/docs/getting-started/krkn-hub/</link>
+      <link>//localhost:52212/docs/getting-started/krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/getting-started/krkn-hub/</guid>
+      <guid>//localhost:52212/docs/getting-started/krkn-hub/</guid>
       <description>Hosts container images and wrapper for running scenarios supported by Krkn, a chaos testing tool for Kubernetes clusters to ensure it is resilient to failures. All we need to do is run the containers with the respective environment variables defined as supported by the scenarios without having to maintain and tweak files!&#xA;Set Up You can use docker or podman to run kraken-hub&#xA;Install Podman your certain operating system based on these instructions</description>
     </item>
   </channel>

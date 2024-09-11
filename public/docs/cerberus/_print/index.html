@@ -1,0 +1,954 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=64001&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="//localhost:64001/docs/cerberus/">
+<link rel="alternate" type="application/rss&#43;xml" href="//localhost:64001/docs/cerberus/index.xml">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Cerberus | Krkn</title>
+<meta name="description" content="Krkn Chaos Tool">
+<meta property="og:url" content="//localhost:64001/docs/cerberus/">
+  <meta property="og:site_name" content="Krkn">
+  <meta property="og:title" content="Cerberus">
+  <meta property="og:description" content="Cerberus Guardian of Kubernetes and OpenShift Clusters
+Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.
+Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.
+What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Cerberus">
+  <meta itemprop="description" content="Cerberus Guardian of Kubernetes and OpenShift Clusters
+Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.
+Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.
+What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.">
+  <meta itemprop="datePublished" content="2017-01-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2017-01-05T00:00:00+00:00">
+  <meta itemprop="wordCount" content="966">
+  <meta itemprop="keywords" content="Test,Docs">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cerberus">
+  <meta name="twitter:description" content="Cerberus Guardian of Kubernetes and OpenShift Clusters
+Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.
+Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.
+What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/prism.css"/>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand" href="/"><span class="navbar-brand__logo navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><defs><style>.cls-1{fill:none}.cls-1,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8{stroke-width:0}.cls-3{fill:#0e58a0}.cls-4{fill:#0d58a1}.cls-5{fill:#102d4f}.cls-6{fill:#9b1c1f}.cls-7{fill:#fff}.cls-8{fill:#ec1c24}</style></defs><path class="cls-3" d="M163.75 116.65l-1.36.66c.57-.17 1.15-.32 1.73-.48l-.37-.18z"/><path class="cls-3" d="M133 133.87h0q.72.61.0.0z"/><polygon class="cls-8" points="133 133.87 147.09 124.7 133 133.87 133 133.87"/><path class="cls-8" d="M124.41 150.23l3.24-12.87 5.36-3.49 14.09-9.17v-.02l12.83-6.18 2.47-1.19c-2.4.69-4.75 1.48-7.06 2.25-3.11 1.04-6.13 2.05-9.09 2.77l-1.51-4.27c-1.64-4.1-3.34-9.2-4.98-14.56.74-4.26.97-8.66.72-13.04.92.34 1.86.65 2.83.9 6.74 1.69 13.32.05 17.61-4.39 4.76-4.92 6.22-13.03 3.74-20.65-1.97-6.05-5.76-10.64-9.11-14.68l-.39-.48-10.48-8.4c-2.6-2.08-6.38-1.67-8.47.93-2.08 2.59-1.67 6.38.93 8.47l9.51 7.63c2.67 3.23 5.34 6.58 6.55 10.27 1.05 3.22.64 6.9-.95 8.55-1.48 1.53-4.08 1.56-6.02 1.07-2.7-.68-5.46-2.34-8.37-4.1-.11-.07-.22-.13-.32-.19-.7-2.04-1.52-4.03-2.47-5.94-10.92-22.15-37.7-31.28-59.8-20.38-22.1 10.9-31.17 37.69-20.25 59.85 4.99 10.12 14.09 18.58 24.61 23.75l1.1 10.21c-.41 4.17-.89 8.43-2.65 11.89-1.54 3.02-4.43 5.32-6.72 5.36h-.06c-2.11.0-3.94-1.8-4.95-3.5-1.43-2.39-2.19-5.52-3.01-8.83-.13-.51-.25-1.02-.38-1.53-1.32-5.25-3.18-11.31-6.97-16.41-3.27-4.39-7.43-7.25-12.03-8.26-5.44-1.19-10.48.36-13.75 1.86-4.16 1.92-7.57 4.69-10.07 6.89s-2.74 6-.54 8.5c2.2 2.5 6 2.74 8.5.54 2.8-2.46 5-4 7.15-4.99 2.23-1.02 4.47-1.4 6.14-1.04 2.18.48 3.89 2.26 4.94 3.67 2.52 3.39 3.87 7.85 4.96 12.16.12.49.24.98.36 1.46.94 3.84 2.01 8.18 4.36 12.12 3.51 5.89 9.21 9.38 15.3 9.38.08.0.16.0.25.0 6.85-.11 13.62-4.79 17.26-11.93 2.89-5.67 3.46-11.59 3.97-16.82l.06-.61-.33-3.02c2.07 2.29 4.06 4.75 5.87 7.35.44 3.01.79 5.93 1.01 8.43.24 7.96-.97 12.64-3.8 14.71-1.38 1.01-3.42 1.58-5.77 2.24-1.49.42-3.03.85-4.61 1.46-11.1 4.23-18.84 15.49-18.81 27.37.0 3.32 2.7 6.01 6.02 6.01h.01c3.33.0 6.02-2.71 6.01-6.04-.01-6.87 4.64-13.64 11.06-16.09 1.08-.41 2.29-.75 3.58-1.12 3.03-.85 6.47-1.82 9.61-4.11 8.37-6.1 8.99-17.19 8.74-25l-.02-.32c-.06-.72-.18-1.93-.35-3.49l.13-.31.84.31c.01 1.03.29 2.07.85 3.01 3.23 5.38 3.3 12.64.17 18.08-.95 1.65-2.23 3.29-3.6 5.02-2.59 3.3-5.52 7.03-6.86 11.89-2.57 9.32 1.89 18.34 4.84 24.3 1.05 2.12 3.18 3.36 5.4 3.36.9.0 1.81-.2 2.66-.63 2.98-1.47 4.2-5.09 2.73-8.07-2.83-5.73-5.27-11.25-4.02-15.77.69-2.53 2.56-4.9 4.72-7.65.22-.28.44-.56.66-.84.92-1.18 1.84-2.39 2.71-3.69.42-.62.82-1.26 1.2-1.93 4.53-7.88 5.1-17.68 1.77-26.07h0c-.24-.61-.51-1.22-.79-1.81"/><path class="cls-8" d="M125.27 152.2c-.24-.61-.51-1.22-.79-1.81.28.6.55 1.2.79 1.81z"/><polygon class="cls-8" points="133 133.87 127.64 137.36 133 133.87 133 133.87"/><path class="cls-7" d="M109.05 60.27c10.17 5.87 16.58 14.81 16.72 22.23 3.48-7.92-2.18-19.01-13.23-25.4-8.92-5.15-18.74-5.72-24.89-2.09 6.21-.75 14.01.98 21.41 5.25z"/><ellipse class="cls-7" cx="124.64" cy="108.25" rx="4.78" ry="5.91"/><circle class="cls-2" cx="126.13" cy="111.92" r="2.42"/><path class="cls-7" d="M115.8 130.96c.85-.76 1.86-1.52 3.05-2.22-3.01-.86-12.56-3.14-13.32 2.08.0.0-.81 2.32 7.25 3.67.28-.44.63-.95 1.09-1.51l1.92-2.02z"/><path class="cls-2" d="M128.78 125.87c-4.22.28-7.47 1.44-9.93 2.87-1.2.7-2.21 1.46-3.05 2.22l-4.43-1.05c-.65-.16-1.3.25-1.45.89-.15.65.25 1.3.89 1.45l3.06.72c-.45.56-.81 1.07-1.09 1.51-.49.77-.73 1.3-.76 1.39-.26.61.02 1.31.63 1.58.16.07.32.1.48.1.47.0.91-.27 1.11-.73.14-.32 3.54-7.83 14.71-8.56.66-.04 1.17-.62 1.12-1.28-.04-.66-.62-1.16-1.28-1.12z"/><path class="cls-2" d="M80.49 116.01c.54-2.16 2.42-3.9 4.67-4.1 2.96-.26 5.7 1.9 8.24 3.08 2.89 1.35 6.87 3.08 9.93 1.27 3.06-1.82 2.93-6.13-.39-7.51-1-.42-2.21.45-2.47 1.4-.32 1.15.4 2.05 1.4 2.47.67.28-.45-.25-.32-.23.65.09-.17.34.03.13-.26.27-.48.41-.87.48-1.21.2-2.61-.43-3.71-.83-2.71-.99-5.09-2.68-7.82-3.64-2.64-.93-5.48-.86-7.96.49-2.26 1.23-3.97 3.42-4.6 5.91-.63 2.51 3.24 3.58 3.87 1.07h0z"/><path class="cls-4" d="M71.99 65.75 55.66 50.84S31.43 66.09 37.64 85.85l19.46 7.44s14.67-24.51 14.89-27.53z"/><path class="cls-6" d="M57.17 93.18l-.07.1c.36 4.79 2.63 7.89 5.31 9.9 3.72 2.79 9.04.19 9.06-4.46.02-6.87.95-16.03 1.7-22.41-.61 2.13-1.57 4.39-2.86 6.63-3.89 6.73-9.45 10.94-13.14 10.23z"/><path class="cls-4" d="M73.95 70.21c-.03-.34-.07-.66-.13-.97-.3-1.66-1.02-2.93-2.18-3.6-3.59-2.07-10 2.32-14.32 9.81-4.32 7.49-4.92 15.24-1.34 17.31.36.21.76.34 1.18.42 3.69.71 9.26-3.5 13.14-10.23 1.29-2.24 2.25-4.5 2.86-6.63.65-2.25.92-4.35.78-6.11z"/><ellipse class="cls-5" cx="48.91" cy="70.52" rx="15.66" ry="7.5" transform="translate(-36.62 77.62) rotate(-60)"/><path class="cls-2" d="M96.23 128.29c-.63.0-1.16-.48-1.2-1.12.0-.12-.17-2.97 2.19-5.08 2.33-2.07 6.15-2.64 11.38-1.69.65.12 1.09.75.97 1.4s-.75 1.08-1.4.97c-4.37-.8-7.59-.43-9.31 1.09-1.49 1.31-1.42 3.08-1.42 3.15.03.66-.47 1.23-1.13 1.27-.02.0-.05.0-.07.0z"/><path class="cls-4" d="M45.67 79.05s-6.32-13.34 9.3-15.44c0 0 .88 9.3-9.3 15.44z"/><path class="cls-7" d="M66.44 80.81c-.08.0-.16-.02-.23-.07l-7.44-5.27c-.18-.13-.22-.38-.1-.56.13-.18.38-.22.56-.1l7.44 5.27c.18.13.22.38.1.56-.08.11-.2.17-.33.17z"/><path class="cls-7" d="M61.37 83.61c-.22.0-.4-.18-.4-.4s.18-.4.4-.4c2.12.0 3.68-.62 4.64-1.86 1.89-2.43.89-6.45.88-6.49-.05-.21.08-.43.29-.49.21-.06.43.08.49.29.05.18 1.1 4.45-1.02 7.18-1.12 1.44-2.89 2.17-5.27 2.17z"/><path class="cls-7" d="M59.92 80.51c-.07.0-.15-.02-.21-.06-.19-.12-.25-.36-.13-.55l3.68-5.94c.12-.19.37-.24.55-.13.19.12.25.36.13.55l-3.68 5.94c-.08.12-.21.19-.34.19z"/><path class="cls-3" d="M133 133.87l-5.36 3.49-3.24 12.87c.03.05.05.11.07.16.28.6.55 1.2.79 1.81h0c3.33 8.39 2.76 18.18-1.77 26.07-.38.67-.79 1.31-1.2 1.93-.87 1.3-1.79 2.51-2.71 3.69l19.75 24.77 2.65 3.33h43.52l2.65-3.33 3.87-4.86-2.11-4.44-2.11-4.44-1.53-3.21 5.22-1.42 1.9-.52.81-2.88 1.46-5.22 2.26.55 4.73 1.16 4.73 1.16 2.59-3.25 2.65-3.33-.95-4.15-5.08-22.27-2.71-11.87-.95-4.15-3.83-1.85-31.54-15.19-3.46-1.67c-.58.15-1.16.31-1.73.48l-2.47 1.19-12.84 6.18v.02l-14.08 9.17"/><path class="cls-7" d="M176.83 169.95c.1-.37.43-.63.81-.63h4.41c.14-.9.21-1.77.21-2.65s-.07-1.74-.21-2.65h-4.41c-.38.0-.72-.26-.81-.63-.31-1.18-.78-2.31-1.4-3.35-.2-.33-.14-.75.13-1.02l3.11-3.11c-1.07-1.43-2.33-2.68-3.76-3.73l-3.13 3.13c-.27.27-.69.32-1.01.13-1.03-.6-2.15-1.05-3.33-1.34-.37-.09-.64-.43-.64-.82v-4.39c-1.84-.27-3.52-.25-5.29.03v4.43c0 .38-.25.71-.62.81-1.14.31-2.23.77-3.24 1.37-.33.2-.75.15-1.02-.13l-3.11-3.11c-1.43 1.07-2.68 2.33-3.73 3.76l3.13 3.13c.27.27.32.69.13 1.02-.58.99-1.02 2.08-1.32 3.21-.1.37-.43.63-.81.63h-4.41c-.14.9-.21 1.77-.21 2.65s.07 1.74.21 2.65h4.41c.38.0.72.26.81.63.3 1.14.74 2.22 1.32 3.21.19.33.14.75-.13 1.02l-3.13 3.13c1.05 1.43 2.3 2.68 3.73 3.76l3.11-3.11c.27-.27.7-.32 1.02-.13 1.01.6 2.1 1.06 3.24 1.37.37.1.62.43.62.81v4.43c1.77.28 3.45.3 5.29.03v-4.39c0-.39.26-.72.64-.82 1.17-.29 2.29-.75 3.33-1.34.33-.19.74-.14 1.01.13l3.13 3.13c1.43-1.05 2.69-2.3 3.76-3.73l-3.11-3.11c-.27-.27-.32-.69-.13-1.02.62-1.04 1.09-2.17 1.4-3.35zM164.28 174.34c-4.23.0-7.67-3.44-7.67-7.67s3.44-7.67 7.67-7.67 7.67 3.44 7.67 7.67-3.44 7.67-7.67 7.67z"/><polygon class="cls-5" points="195.75 132.09 189.83 137.14 192.61 143.99 180.11 144.21 191.23 147.66 189.37 154.85 195.84 146.32 193.15 138.65 200.11 134.06 195.75 132.09"/><polygon class="cls-5" points="126.43 142.34 133.2 146.69 139.04 142.17 142.63 154.14 142.95 142.5 150.38 142.35 140.41 138.43 133.75 143.09 127.55 137.77 126.43 142.34"/><polygon class="cls-5" points="141.99 211.98 151.62 206.63 147.49 195.75 149.23 193.05 153.13 187.67 143.3 194.01 147.65 204.83 138.76 207.97 141.99 211.98"/><path class="cls-1" d="M125.19 96.63c-6.01.0-10.89 4.89-10.89 10.89s4.89 10.89 10.89 10.89 10.89-4.89 10.89-10.89-4.89-10.89-10.89-10.89z"/><path class="cls-2" d="M158.9 109.67h9.99c1.33.0 2.41-1.08 2.41-2.41s-1.08-2.41-2.41-2.41h-5.48c-1.71 1.37-3.22 2.99-4.5 4.82z"/><path class="cls-8" d="M213.42 121.88l-.06.08c-.57-19.01-16.2-34.3-35.35-34.3-12.46.0-23.94 6.56-30.32 17.19-.24.4-.49.79-.71 1.2-.63 1.15-.84 2.41-.69 3.62.23 1.86 1.31 3.59 3.08 4.56 2.92 1.6 6.58.53 8.18-2.39.41-.76.88-1.48 1.36-2.17 1.28-1.83 2.8-3.45 4.5-4.82 4.08-3.27 9.2-5.14 14.6-5.14 12.86.0 23.33 10.47 23.33 23.33.0 2.63-.13 3.57-.77 5.61-.21.68-.29 1.37-.26 2.05-7.77-8.95-17.68-16.91-29.9-15.17-2.15.31-4.24.76-6.29 1.31l3.46 1.67 31.54 15.19 3.83 1.85.95 4.15 2.71 11.87c.49-.19.97-.42 1.42-.75 2.69-1.96 3.29-5.72 1.33-8.41-.17-.24-.35-.48-.52-.72 1.88-3.42 2.99-7.38 3.64-10.85.75-2.8.9-4.87.9-7.78.0-.01.0-.02.0-.03.03-.71.03-1.12.03-1.12z"/><path class="cls-2" d="M147.69 104.85h-7.04c-1.28-7.39-7.72-13.04-15.47-13.04-8.66.0-15.71 7.05-15.71 15.71s7.05 15.71 15.71 15.71c7.94.0 14.5-5.92 15.55-13.57h5.55c-.15-1.21.06-2.47.69-3.62.22-.41.47-.8.71-1.2zm-22.5 13.57c-6.01.0-10.89-4.89-10.89-10.89s4.89-10.89 10.89-10.89 10.89 4.89 10.89 10.89-4.89 10.89-10.89 10.89z"/><polygon class="cls-4" points="23.71 152.66 40.01 153.84 40.9 145.48 47.6 142.38 39.37 130.63 20.5 143.35 23.71 152.66"/></svg></span><span class="navbar-brand__name">Krkn</span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="/docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/blog/"><span>Blog</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/krkn-chaos/" target="_blank" rel="noopener"><i class='fab fa-github'></i> <span>Github</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    
+  </div>
+</div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/cerberus/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Cerberus</h1>
+
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-2ff67b136c71c2a08174669fbf2d344d">Installation</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-72c880d1d638941a4e30e0c6916c8f47">Config</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-35bbedcac6771a21142e8ca78bc8e0ff">Example Report</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-4c228cfc2415b191b59fb8446f977274">Usage</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-757a8dd261ba40e0ca5b0593378a7086">Alerts</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-b190bfdc5464d39eeebf07936769c72a">Node Problem Detector</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-f6d34f30535049c05bb8b5e73a3d5b92">Slack Integration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-6c4f8214a4098b69dd33dbf386bacb8a">Contribute</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <h1 id="cerberus">Cerberus<a class="td-heading-self-link" href="#cerberus" aria-label="Heading self-link"></a></h1>
+<p>Guardian of Kubernetes and OpenShift Clusters</p>
+<p>Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.</p>
+<h3 id="workflow">Workflow<a class="td-heading-self-link" href="#workflow" aria-label="Heading self-link"></a></h3>
+<p><img alt="Cerberus workflow" src="/images/cerberus-workflow.png"></p>
+<h3 id="installation">Installation<a class="td-heading-self-link" href="#installation" aria-label="Heading self-link"></a></h3>
+<p>Instructions on how to setup, configure and run Cerberus can be found at <a href="/docs/cerberus/installation/">Installation</a>.</p>
+<h3 id="what-kubernetesopenshift-components-can-cerberus-monitor">What Kubernetes/OpenShift components can Cerberus monitor?<a class="td-heading-self-link" href="#what-kubernetesopenshift-components-can-cerberus-monitor" aria-label="Heading self-link"></a></h3>
+<p>Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+<th>Working</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nodes</td>
+<td>Watches all the nodes including masters, workers as well as nodes created using custom MachineSets</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Namespaces</td>
+<td>Watches all the pods including containers running inside the pods in the namespaces specified in the config</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Cluster Operators</td>
+<td>Watches all Cluster Operators</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Masters Schedulability</td>
+<td>Watches and warns if masters nodes are marked as schedulable</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Routes</td>
+<td>Watches specified routes</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>CSRs</td>
+<td>Warns if any CSRs are not approved</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Critical Alerts</td>
+<td>Warns the user on observing abnormal behavior which might effect the health of the cluster</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td>Bring your own checks</td>
+<td>Users can bring their own checks and Ceberus runs and includes them in the reporting as wells as go/no-go signal</td>
+<td>:heavy_check_mark:</td>
+</tr>
+</tbody>
+</table>
+<p>An explanation of all the components that Cerberus can monitor are explained <a href="/docs/cerberus/config/">here</a></p>
+<h3 id="how-does-cerberus-report-cluster-health">How does Cerberus report cluster health?<a class="td-heading-self-link" href="#how-does-cerberus-report-cluster-health" aria-label="Heading self-link"></a></h3>
+<p>Cerberus exposes the cluster health and failures through a go/no-go signal, report and metrics API.</p>
+<h4 id="go-or-no-go-signal">Go or no-go signal<a class="td-heading-self-link" href="#go-or-no-go-signal" aria-label="Heading self-link"></a></h4>
+<p>When the cerberus is configured to run in the daemon mode, it will continuosly monitor the components specified, runs a light weight http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.</p>
+<h4 id="report">Report<a class="td-heading-self-link" href="#report" aria-label="Heading self-link"></a></h4>
+<p>The report is generated in the run directory and it contains the information about each check/monitored component status per iteration with timestamps. It also displays information about the components in case of failure. Refer <a href="docs/example_report.md">report</a> for example.</p>
+<p>You can use the &ldquo;-o &lt;file_path_name&gt;&rdquo; option to change the location of the created report</p>
+<h4 id="metrics-api">Metrics API<a class="td-heading-self-link" href="#metrics-api" aria-label="Heading self-link"></a></h4>
+<p>Cerberus exposes the metrics including the failures observed during the run through an API. Tools consuming Cerberus can query the API to get a blob of json with the observed failures to scrape and act accordingly. For example, we can query for etcd failures within a start and end time and take actions to determine pass/fail for test cases or report whether the cluster is healthy or unhealthy for that duration.</p>
+<ul>
+<li>The failures in the past 1 hour can be retrieved in the json format by visiting http://0.0.0.0:8080/history.</li>
+<li>The failures in a specific time window can be retrieved in the json format by visiting http://0.0.0.0:8080/history?loopback=<interval>.</li>
+<li>The failures between two time timestamps, the failures of specific issues types and the failures related to specific components can be retrieved in the json format by visiting http://0.0.0.0:8080/analyze url. The filters have to be applied to scrape the failures accordingly.</li>
+</ul>
+<h3 id="slack-integration">Slack integration<a class="td-heading-self-link" href="#slack-integration" aria-label="Heading self-link"></a></h3>
+<p>Cerberus supports reporting failures in slack. Refer <a href="/docs/cerberus/slack/">slack integration</a> for information on how to set it up.</p>
+<h3 id="node-problem-detector">Node Problem Detector<a class="td-heading-self-link" href="#node-problem-detector" aria-label="Heading self-link"></a></h3>
+<p>Cerberus also consumes <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> to detect various failures in Kubernetes/OpenShift nodes. More information on setting it up can be found at <a href="/docs/cerberus/node-problem-detector/">node-problem-detector</a></p>
+<h3 id="bring-your-own-checks">Bring your own checks<a class="td-heading-self-link" href="#bring-your-own-checks" aria-label="Heading self-link"></a></h3>
+<p>Users can add additional checks to monitor components that are not being monitored by Cerberus and consume it as part of the go/no-go signal.  This can be accomplished by placing relative paths of files containing additional checks under custom_checks in config file. All the checks should be placed within the main function of the file. If the additional checks need to be considered in determining the go/no-go signal of Cerberus, the main function can return a boolean value for the same. Having a dict return value of the format {&lsquo;status&rsquo;:status, &lsquo;message&rsquo;:message} shall send signal to Cerberus along with message to be displayed in slack notification. However, it&rsquo;s optional to return a value.
+Refer to <a href="https://github.com/openshift-scale/cerberus/blob/master/custom_checks/custom_check_sample.py">example_check</a> for an example custom check file.</p>
+<h3 id="alerts">Alerts<a class="td-heading-self-link" href="#alerts" aria-label="Heading self-link"></a></h3>
+<p>Monitoring metrics and alerting on abnormal behavior is critical as they are the indicators for clusters health. Information on supported alerts can be found at <a href="/docs/cerberus/alerts/">alerts</a>.</p>
+<h3 id="use-cases">Use cases<a class="td-heading-self-link" href="#use-cases" aria-label="Heading self-link"></a></h3>
+<p>There can be number of use cases, here are some of them:</p>
+<ul>
+<li>
+<p>We run tools to push the limits of Kubernetes/OpenShift to look at the performance and scalability. There are a number of instances where system components or nodes start to degrade, which invalidates the results and the workload generator continues to push the cluster until it is unrecoverable.</p>
+</li>
+<li>
+<p>When running chaos experiments on a kubernetes/OpenShift cluster, they can potentially break the components unrelated to the targeted components which means that the chaos experiment won&rsquo;t be able to find it. The go/no-go signal can be used here to decide whether the cluster recovered from the failure injection as well as to decide whether to continue with the next chaos scenario.</p>
+</li>
+</ul>
+<h3 id="tools-consuming-cerberus">Tools consuming Cerberus<a class="td-heading-self-link" href="#tools-consuming-cerberus" aria-label="Heading self-link"></a></h3>
+<ul>
+<li>
+<p><a href="https://github.com/cloud-bulldozer/benchmark-operator">Benchmark Operator</a>: The intent of this Operator is to deploy common workloads to establish a performance baseline of Kubernetes cluster on your provider. Benchmark Operator consumes Cerberus to determine if the cluster was healthy during the benchmark run. More information can be found at <a href="https://github.com/cloud-bulldozer/benchmark-operator#cerberus-integration">cerberus-integration</a>.</p>
+</li>
+<li>
+<p><a href="https://github.com/openshift-scale/kraken/">Kraken</a>: Tool to inject deliberate failures into Kubernetes/OpenShift clusters to check if it is resilient. Kraken consumes Cerberus to determine if the cluster is healthy as a whole in addition to the targeted component during chaos testing. More information can be found at <a href="https://github.com/openshift-scale/kraken#kraken-scenario-passfail-criteria-and-report">cerberus-integration</a>.</p>
+</li>
+</ul>
+<h3 id="blogs-and-other-useful-resources">Blogs and other useful resources<a class="td-heading-self-link" href="#blogs-and-other-useful-resources" aria-label="Heading self-link"></a></h3>
+<ul>
+<li><a href="https://www.openshift.com/blog/openshift-scale-ci-part-4-introduction-to-cerberus-guardian-of-kubernetes/openshift-clouds">https://www.openshift.com/blog/openshift-scale-ci-part-4-introduction-to-cerberus-guardian-of-kubernetes/openshift-clouds</a></li>
+<li><a href="https://www.openshift.com/blog/reinforcing-cerberus-guardian-of-openshift/kubernetes-clusters">https://www.openshift.com/blog/reinforcing-cerberus-guardian-of-openshift/kubernetes-clusters</a></li>
+</ul>
+<h3 id="contributions">Contributions<a class="td-heading-self-link" href="#contributions" aria-label="Heading self-link"></a></h3>
+<p>We are always looking for more enhancements, fixes to make it better, any contributions are most welcome. Feel free to report or work on the issues filed on github.</p>
+<p><a href="/docs/cerberus/contribute/">More information on how to Contribute</a></p>
+<h3 id="community">Community<a class="td-heading-self-link" href="#community" aria-label="Heading self-link"></a></h3>
+<p>Key Members(slack_usernames): paige, rook, mffiedler, mohit, dry923, rsevilla, ravi</p>
+<ul>
+<li><a href="https://kubernetes.slack.com"><strong>#sig-scalability on Kubernetes Slack</strong></a></li>
+<li><a href="https://coreos.slack.com"><strong>#forum-perfscale on CoreOS Slack</strong></a></li>
+</ul>
+<h3 id="credits">Credits<a class="td-heading-self-link" href="#credits" aria-label="Heading self-link"></a></h3>
+<p>Thanks to Mary Shakshober ( <a href="https://github.com/maryshak1996">https://github.com/maryshak1996</a> ) for designing the logo.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-2ff67b136c71c2a08174669fbf2d344d">1 - Installation</h1>
+    
+	<p>Following ways are supported to run Cerberus:</p>
+<ul>
+<li>Standalone python program through Git or python package</li>
+<li>Containerized version using either Podman or Docker as the runtime</li>
+<li>Kubernetes or OpenShift deployment</li>
+</ul>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    Only OpenShift 4.x versions are tested.
+
+</div>
+
+<h2 id="git">Git<a class="td-heading-self-link" href="#git" aria-label="Heading self-link"></a></h2>
+<p>Pick the latest stable release to install <a href="https://github.com/redhat-chaos/cerberus/releases/">here</a>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone https://github.com/redhat-chaos/cerberus.git --branch &lt;release&gt;
+</span></span></code></pre></div><h3 id="install-the-dependencies">Install the dependencies<a class="td-heading-self-link" href="#install-the-dependencies" aria-label="Heading self-link"></a></h3>
+<p><strong>NOTE</strong>: Recommended to use a virtual environment(pyenv,venv) so as to prevent conflicts with already installed packages.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ pip3 install -r requirements.txt
+</span></span></code></pre></div><h3 id="configure-and-run">Configure and Run<a class="td-heading-self-link" href="#configure-and-run" aria-label="Heading self-link"></a></h3>
+<p>Setup the <a href="https://github.com/redhat-chaos/cerberus/tree/master/config">config</a> according to your requirements. Information on the available options can be found at <a href="/docs/cerberus/usage/">usage</a>.</p>
+<h4 id="run">Run<a class="td-heading-self-link" href="#run" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ python3 start_cerberus.py --config &lt;config_file_location&gt;
+</span></span></code></pre></div><p><strong>NOTE</strong>: When config file location is not passed, default <a href="https://github.com/redhat-chaos/cerberus/tree/master/config">config</a> is used.</p>
+<h2 id="python-package">Python Package<a class="td-heading-self-link" href="#python-package" aria-label="Heading self-link"></a></h2>
+<p>Cerberus is also available as a python package to ease the installation and setup.</p>
+<p>To install the lastest release:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ pip3 install cerberus-client
+</span></span></code></pre></div><h3 id="configure-and-run-1">Configure and Run<a class="td-heading-self-link" href="#configure-and-run-1" aria-label="Heading self-link"></a></h3>
+<p>Setup the <a href="https://github.com/redhat-chaos/cerberus/tree/master/config">config</a> according to your requirements. Information on the available options can be found at <a href="/docs/cerberus/usage/">usage</a>.</p>
+<h4 id="run-1">Run<a class="td-heading-self-link" href="#run-1" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cerberus_client -c &lt;config_file_location&gt;<span style="color:#4e9a06">`</span>
+</span></span></code></pre></div><p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    When config_file_location is not passed, default <a href="https://github.com/redhat-chaos/cerberus/tree/master/config">config</a> is used.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    It’s recommended to run Cerberus either using the containerized  or github version to be able to use the latest enhancements and fixes.
+
+</div>
+</p>
+<h2 id="containerized-version">Containerized version<a class="td-heading-self-link" href="#containerized-version" aria-label="Heading self-link"></a></h2>
+<p>Assuming docker ( 17.05 or greater with multi-build support ) is intalled on the host, run:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker pull quay.io/redhat-chaos/cerberus
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># Setup the [config](https://github.com/redhat-chaos/cerberus/tree/master/config) according to your requirements. Information on the available options can be found at [usage](usage.md).</span>
+</span></span><span style="display:flex;"><span>$ docker run --name<span style="color:#ce5c00;font-weight:bold">=</span>cerberus --net<span style="color:#ce5c00;font-weight:bold">=</span>host -v &lt;path_to_kubeconfig&gt;:/root/.kube/config -v &lt;path_to_cerberus_config&gt;:/root/cerberus/config/config.yaml -d quay.io/redhat-chaos/cerberus:latest
+</span></span><span style="display:flex;"><span>$ docker logs -f cerberus
+</span></span></code></pre></div><p>Similarly, podman can be used to achieve the same:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ podman pull quay.io/redhat-chaos/cerberus
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># Setup the [config](https://github.com/redhat-chaos/cerberus/tree/master/config) according to your requirements. Information on the available options can be found at [usage](usage.md).</span>
+</span></span><span style="display:flex;"><span>$ podman run --name<span style="color:#ce5c00;font-weight:bold">=</span>cerberus --net<span style="color:#ce5c00;font-weight:bold">=</span>host -v &lt;path_to_kubeconfig&gt;:/root/.kube/config:Z -v &lt;path_to_cerberus_config&gt;:/root/cerberus/config/config.yaml:Z -d quay.io/redhat-chaos/cerberus:latest
+</span></span><span style="display:flex;"><span>$ podman logs -f cerberus
+</span></span></code></pre></div><p>The go/no-go signal ( True or False ) gets published at http://<code>&lt;hostname&gt;</code>:8080. Note that the cerberus will only support ipv4 for the time being.</p>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    The report is generated at /root/cerberus/cerberus.report inside the container, it can mounted to a directory on the host in case we want to capture it.
+
+</div>
+
+<p>If you want to build your own Cerberus image, see <a href="https://github.com/redhat-chaos/cerberus/tree/master/containers/build_own_image-README.md">here</a>.
+To run Cerberus on Power (ppc64le) architecture, build and run a containerized version by following the instructions given <a href="https://github.com/cloud-bulldozer/cerberus/tree/master/containers/build_own_image-README.md">here</a>.</p>
+<h2 id="run-containerized-cerberus-as-a-kubernetesopenshift-deployment">Run containerized Cerberus as a Kubernetes/OpenShift deployment<a class="td-heading-self-link" href="#run-containerized-cerberus-as-a-kubernetesopenshift-deployment" aria-label="Heading self-link"></a></h2>
+<p>Refer to the <a href="https://github.com/redhat-chaos/cerberus/blob/master/containers/README.md#cerberus-as-a-kubernetesopenshift-application">instructions</a> for information on how to run cerberus as a Kubernetes or OpenShift application.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-72c880d1d638941a4e30e0c6916c8f47">2 - Config</h1>
+    
+	<p>Cerberus Config Components Explained</p>
+<ul>
+<li><a href="/docs/cerberus/config/#config">Sample Config</a></li>
+<li><a href="/docs/cerberus/config/#watch-nodes">Watch Nodes</a></li>
+<li><a href="/docs/cerberus/config/#watch-cluster-operators">Watch Operators</a></li>
+<li><a href="/docs/cerberus/config/#watch-routes">Watch Routes</a></li>
+<li><a href="/docs/cerberus/config/#watch-master-schedulable-status">Watch Master Schedulable Status</a></li>
+<li><a href="/docs/cerberus/config/#watch-namespaces">Watch Namespaces</a></li>
+<li><a href="/docs/cerberus/config/#watch-terminating-namespaces">Watch Terminating Namespaces</a></li>
+<li><a href="/docs/cerberus/config/#publish-status">Publish Status</a></li>
+<li><a href="/docs/cerberus/config/#inspect-components">Inpsect Components</a></li>
+<li><a href="/docs/cerberus/config/#custom-checks">Custom Checks</a></li>
+</ul>
+<h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
+<p>Set the components to monitor and the tunings like duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">cerberus</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">distribution</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">openshift                             </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Distribution can be kubernetes or openshift</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">kubeconfig_path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">/root/.kube/config                     </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Path to kubeconfig</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">port</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">8081</span><span style="color:#f8f8f8;text-decoration:underline">                                           </span><span style="color:#8f5902;font-style:italic"># http server port where cerberus status is published</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_nodes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Set to True for the cerberus to monitor the cluster nodes</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_cluster_operators</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#8f5902;font-style:italic"># Set to True for cerberus to monitor cluster operators</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_terminating_namespaces</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                   </span><span style="color:#8f5902;font-style:italic"># Set to True to monitor if any namespaces (set below under &#39;watch_namespaces&#39; start terminating</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_url_routes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#8f5902;font-style:italic"># Route url&#39;s you want to monitor, this is a double array with the url and optional authorization parameter</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_master_schedulable</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                            </span><span style="color:#8f5902;font-style:italic"># When enabled checks for the schedulable master nodes with given label.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">enabled</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">label</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">node-role.kubernetes.io/master</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_namespaces</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># List of namespaces to be monitored</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-etcd</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-apiserver</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-apiserver</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-monitoring</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-controller-manager</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-machine-api</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-scheduler</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-ingress</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-sdn                                  </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># When enabled, it will check for the cluster sdn and monitor that namespace</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_namespaces_ignore_pattern</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">[]</span><span style="color:#f8f8f8;text-decoration:underline">                  </span><span style="color:#8f5902;font-style:italic"># Ignores pods matching the regex pattern in the namespaces specified under watch_namespaces</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">cerberus_publish_status</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus starts a light weight http server and publishes the status</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">inspect_components</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                            </span><span style="color:#8f5902;font-style:italic"># Enable it only when OpenShift client is supported to run</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus collects logs, events and metrics of failed components</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">prometheus_url</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                      </span><span style="color:#8f5902;font-style:italic"># The prometheus url/route is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">prometheus_bearer_token</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                             </span><span style="color:#8f5902;font-style:italic"># The bearer token is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes. This is needed to authenticate with prometheus.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># This enables Cerberus to query prometheus and alert on observing high Kube API Server latencies.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">slack_integration</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                             </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus reports the failed iterations in the slack channel</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># The following env vars needs to be set: SLACK_API_TOKEN ( Bot User OAuth Access Token ) and SLACK_CHANNEL ( channel to send notifications in case of failures )</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># When slack_integration is enabled, a watcher can be assigned for each day. The watcher of the day is tagged while reporting failures in the slack channel. Values are slack member ID&#39;s.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watcher_slack_ID:                                        # (NOTE</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Defining the watcher id&#39;s is optional and when the watcher slack id&#39;s are not defined, the slack_team_alias tag is used if it is set else no tag is used while reporting failures in the slack channel.)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Monday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Tuesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Wednesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Thursday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Friday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Saturday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Sunday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">slack_team_alias</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># The slack team alias to be tagged while reporting failures in the slack channel when no watcher is assigned</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">custom_checks</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">custom_checks/custom_check_sample.py      </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Relative paths of files conataining additional user defined checks</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">tunings</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">timeout</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">20</span><span style="color:#f8f8f8;text-decoration:underline">                                          </span><span style="color:#8f5902;font-style:italic"># Number of seconds before requests fail</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">iterations</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#f8f8f8;text-decoration:underline">                                        </span><span style="color:#8f5902;font-style:italic"># Iterations to loop before stopping the watch, it will be replaced with infinity when the daemon mode is enabled</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">sleep_time</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#f8f8f8;text-decoration:underline">                                       </span><span style="color:#8f5902;font-style:italic"># Sleep duration between each iteration</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">kube_api_request_chunk_size</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">250</span><span style="color:#f8f8f8;text-decoration:underline">                     </span><span style="color:#8f5902;font-style:italic"># Large requests will be broken into the specified chunk size to reduce the load on API server and improve responsiveness.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">daemon_mode</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Iterations are set to infinity which means that the cerberus will monitor the resources forever</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">cores_usage_percentage</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0.5</span><span style="color:#f8f8f8;text-decoration:underline">                          </span><span style="color:#8f5902;font-style:italic"># Set the fraction of cores to be used for multiprocessing</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">database</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">database_path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">/tmp/cerberus.db                     </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Path where cerberus database needs to be stored</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">reuse_database</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                                </span><span style="color:#8f5902;font-style:italic"># When enabled, the database is reused to store the failures</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h4 id="watch-nodes">Watch Nodes<a class="td-heading-self-link" href="#watch-nodes" aria-label="Heading self-link"></a></h4>
+<p>This flag returns any nodes where the KernelDeadlock is not set to False and does not have a <code>Ready</code> status</p>
+<h4 id="watch-cluster-operators">Watch Cluster Operators<a class="td-heading-self-link" href="#watch-cluster-operators" aria-label="Heading self-link"></a></h4>
+<p>When <code>watch_cluster_operators</code> is set to True, this will monitor the degraded status of all the cluster operators and report a failure if any are degraded.
+If set to False will not query or report the status of the cluster operators</p>
+<h4 id="watch-routes">Watch Routes<a class="td-heading-self-link" href="#watch-routes" aria-label="Heading self-link"></a></h4>
+<p>This parameter expects a double array with each item having the url and an optional bearer token or authorization for each of the url&rsquo;s to properly connect</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">watch_url_routes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span>- - <span style="color:#000">&lt;url&gt;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">  </span>- <span style="color:#000">&lt;authorization&gt; (optional)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span>- - <span style="color:#000">https://prometheus-k8s-openshift-monitoring.apps.****.devcluster.openshift.com</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">  </span>- <span style="color:#000">Bearer ****</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span>- - <span style="color:#000">http://nodejs-mongodb-example-default.apps.****.devcluster.openshift.com</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><h4 id="watch-master-schedulable-status">Watch Master Schedulable Status<a class="td-heading-self-link" href="#watch-master-schedulable-status" aria-label="Heading self-link"></a></h4>
+<p>When this check is enabled, cerberus queries each of the nodes for the given label and verifies the taint effect does not equal &ldquo;NoSchedule&rdquo;</p>
+<pre tabindex="0"><code>watch_master_schedulable:                            # When enabled checks for the schedulable master nodes with given label.
+    enabled: True
+    label: &lt;label of master nodes&gt;
+</code></pre><h4 id="watch-namespaces">Watch Namespaces<a class="td-heading-self-link" href="#watch-namespaces" aria-label="Heading self-link"></a></h4>
+<p>It supports monitoring pods in any namespaces specified in the config, the watch is enabled for system components mentioned in the <a href="https://github.com/openshift-scale/cerberus/blob/master/config/config.yaml">config</a> by default as they are critical for running the operations on Kubernetes/OpenShift clusters.</p>
+<p><code>watch_namespaces</code> support regex patterns. Any valid regex pattern can be used to watch all the namespaces matching the regex pattern.
+For example, <code>^openshift-.*$</code> can be used to watch all namespaces that start with <code>openshift-</code> or <code>openshift</code> can be used to watch all namespaces that have <code>openshift</code> in it.
+Or you can use <code>^.*$</code> to watch all namespaces in your cluster</p>
+<h4 id="watch-terminating-namespaces">Watch Terminating Namespaces<a class="td-heading-self-link" href="#watch-terminating-namespaces" aria-label="Heading self-link"></a></h4>
+<p>When <code>watch_terminating_namespaces</code> is set to True, this will monitor the status of all the namespaces defind under watch namespaces and report a failure if any are terminating.
+If set to False will not query or report the status of the terminating namespaces</p>
+<h4 id="publish-status">Publish Status<a class="td-heading-self-link" href="#publish-status" aria-label="Heading self-link"></a></h4>
+<p>Parameter to set if you want to publish the go/no-go signal to the http server</p>
+<h4 id="inspect-components">Inspect Components<a class="td-heading-self-link" href="#inspect-components" aria-label="Heading self-link"></a></h4>
+<p><code>inspect_components</code> if set to True will perform an <code>oc adm inspect namespace &lt;namespace&gt;</code> when any namespace has any failing pods</p>
+<h4 id="custom-checks">Custom Checks<a class="td-heading-self-link" href="#custom-checks" aria-label="Heading self-link"></a></h4>
+<p>Users can add additional checks to monitor components that are not being monitored by Cerberus and consume it as part of the go/no-go signal.  This can be accomplished by placing relative paths of files containing additional checks under custom_checks in config file. All the checks should be placed within the main function of the file. If the additional checks need to be considered in determining the go/no-go signal of Cerberus, the main function can return a boolean value for the same. Having a dict return value of the format {&lsquo;status&rsquo;:status, &lsquo;message&rsquo;:message} shall send signal to Cerberus along with message to be displayed in slack notification. However, it&rsquo;s optional to return a value.</p>
+<p>Refer to <a href="https://github.com/openshift-scale/cerberus/blob/master/custom_checks/custom_check_sample.py">example_check</a> for an example custom check file.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-35bbedcac6771a21142e8ca78bc8e0ff">3 - Example Report</h1>
+    
+	<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>2020-03-26 22:05:06,393 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Starting ceberus
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,401 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Initializing client to talk to the Kubernetes cluster
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,434 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Fetching cluster info
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,739 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Publishing cerberus status at http://0.0.0.0:8080
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,753 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Starting http server at http://0.0.0.0:8080
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,753 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Daemon mode enabled, cerberus will monitor forever
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:06,753 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Ignoring the iterations <span style="color:#204a87">set</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,104 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Node status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,133 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Etcd member pods status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,161 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: OpenShift apiserver status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,546 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Kube ApiServer status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,717 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Monitoring stack status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,720 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Kube controller status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,746 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Machine API components status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,945 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: Kube scheduler status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:25,963 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: OpenShift ingress status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:26,077 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 4: OpenShift SDN status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:26,077 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> HTTP requests served: <span style="color:#0000cf;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:26,077 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Sleeping <span style="color:#204a87;font-weight:bold">for</span> the specified duration: <span style="color:#0000cf;font-weight:bold">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,134 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Node status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,162 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Etcd member pods status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,190 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: OpenShift apiserver status: True
+</span></span><span style="display:flex;"><span>127.0.0.1 - - <span style="color:#ce5c00;font-weight:bold">[</span>26/Mar/2020 22:05:31<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#4e9a06">&#34;GET / HTTP/1.1&#34;</span> <span style="color:#0000cf;font-weight:bold">200</span> -
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,588 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Kube ApiServer status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,759 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Monitoring stack status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,763 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Kube controller status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,788 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Machine API components status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:31,989 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: Kube scheduler status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:32,007 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: OpenShift ingress status: True
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:32,118 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Iteration 5: OpenShift SDN status: False
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:32,118 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> HTTP requests served: <span style="color:#0000cf;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:32,118 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Sleeping <span style="color:#204a87;font-weight:bold">for</span> the specified duration: <span style="color:#0000cf;font-weight:bold">5</span>
+</span></span><span style="display:flex;"><span>+--------------------------------------------------Failed Components--------------------------------------------------+
+</span></span><span style="display:flex;"><span>2020-03-26 22:05:37,123 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Failed openshfit sdn components: <span style="color:#ce5c00;font-weight:bold">[</span><span style="color:#4e9a06">&#39;sdn-xmqhd&#39;</span><span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> ------------------------- Iteration Stats ---------------------------------------------
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Time taken to run watch_nodes in iteration 1: 0.0996248722076416 seconds
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Time taken to run watch_cluster_operators in iteration 1: 0.3672499656677246 seconds
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Time taken to run watch_namespaces in iteration 1: 1.085144281387329 seconds
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> Time taken to run entire_iteration in iteration 1: 4.107403039932251 seconds
+</span></span><span style="display:flex;"><span>2020-05-23 23:26:43,041 <span style="color:#ce5c00;font-weight:bold">[</span>INFO<span style="color:#ce5c00;font-weight:bold">]</span> ---------------------------------------------------------------------------------------
+</span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-4c228cfc2415b191b59fb8446f977274">4 - Usage</h1>
+    
+	<h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
+<p>Set the supported components to monitor and the tunings like number of iterations to monitor and duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">cerberus</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">distribution</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">openshift                             </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Distribution can be kubernetes or openshift</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">kubeconfig_path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">~/.kube/config                     </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Path to kubeconfig</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">port</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">8080</span><span style="color:#f8f8f8;text-decoration:underline">                                           </span><span style="color:#8f5902;font-style:italic"># http server port where cerberus status is published</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_nodes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Set to True for the cerberus to monitor the cluster nodes</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_cluster_operators</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#8f5902;font-style:italic"># Set to True for cerberus to monitor cluster operators. Parameter is optional, will set to True if not specified</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_url_routes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Route url&#39;s you want to monitor</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- - <span style="color:#000">https://...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">          </span>- <span style="color:#000">Bearer ****                                 </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># This parameter is optional, specify authorization need for get call to route</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- - <span style="color:#000">http://...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_master_schedulable</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                            </span><span style="color:#8f5902;font-style:italic"># When enabled checks for the schedulable</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">enabled</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                                     </span><span style="color:#000">master nodes with given label.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">label</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">node-role.kubernetes.io/master</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watch_namespaces</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># List of namespaces to be monitored</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-etcd</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-apiserver</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-apiserver</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-monitoring</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-controller-manager</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-machine-api</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-kube-scheduler</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-ingress</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">   </span><span style="color:#000">openshift-sdn</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">cerberus_publish_status</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                        </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus starts a light weight http server and publishes the status</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">inspect_components</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                            </span><span style="color:#8f5902;font-style:italic"># Enable it only when OpenShift client is supported to run.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus collects logs, events and metrics of failed components</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">prometheus_url</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                      </span><span style="color:#8f5902;font-style:italic"># The prometheus url/route is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">prometheus_bearer_token</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                             </span><span style="color:#8f5902;font-style:italic"># The bearer token is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes. This is needed to authenticate with prometheus.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># This enables Cerberus to query prometheus and alert on observing high Kube API Server latencies.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">slack_integration</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                             </span><span style="color:#8f5902;font-style:italic"># When enabled, cerberus reports status of failed iterations in the slack channel</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># The following env vars need to be set: SLACK_API_TOKEN ( Bot User OAuth Access Token ) and SLACK_CHANNEL ( channel to send notifications in case of failures )</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">                                                         </span><span style="color:#8f5902;font-style:italic"># When slack_integration is enabled, a watcher can be assigned for each day. The watcher of the day is tagged while reporting failures in the slack channel. Values are slack member ID&#39;s.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watcher_slack_ID:                                        # (NOTE</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Defining the watcher id&#39;s is optional and when the watcher slack id&#39;s are not defined, the slack_team_alias tag is used if it is set else no tag is used while reporting failures in the slack channel.)</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Monday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Tuesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Wednesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Thursday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Friday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Saturday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Sunday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">slack_team_alias</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># The slack team alias to be tagged while reporting failures in the slack channel when no watcher is assigned</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">custom_checks</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                       </span><span style="color:#8f5902;font-style:italic"># Relative paths of files conataining additional user defined checks</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">custom_checks/custom_check_sample.py</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span>- <span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#000">custom_check.py</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">tunings</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">iterations</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">5</span><span style="color:#f8f8f8;text-decoration:underline">                                        </span><span style="color:#8f5902;font-style:italic"># Iterations to loop before stopping the watch, it will be replaced with infinity when the daemon mode is enabled</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">sleep_time</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">60</span><span style="color:#f8f8f8;text-decoration:underline">                                       </span><span style="color:#8f5902;font-style:italic"># Sleep duration between each iteration</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">kube_api_request_chunk_size</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">250</span><span style="color:#f8f8f8;text-decoration:underline">                     </span><span style="color:#8f5902;font-style:italic"># Large requests will be broken into the specified chunk size to reduce the load on API server and improve responsiveness.</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">daemon_mode</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">True</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Iterations are set to infinity which means that the cerberus will monitor the resources forever</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">cores_usage_percentage</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">0.5</span><span style="color:#f8f8f8;text-decoration:underline">                          </span><span style="color:#8f5902;font-style:italic"># Set the fraction of cores to be used for multiprocessing</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">database</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">database_path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">/tmp/cerberus.db                     </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># Path where cerberus database needs to be stored</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">reuse_database</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">False</span><span style="color:#f8f8f8;text-decoration:underline">                                </span><span style="color:#8f5902;font-style:italic"># When enabled, the database is reused to store the failures</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    watch_namespaces support regex patterns. Any valid regex pattern can be used to watch all the namespaces matching the regex pattern. For example, <code>^openshift-.*$</code> can be used to watch all namespaces that start with <code>openshift-</code> or <code>openshift</code> can be used to watch all namespaces that have <code>openshift</code> in it.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    The current implementation can monitor only one cluster from one host. It can be used to monitor multiple clusters provided multiple instances of Cerberus are launched on different hosts.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    The components especially the namespaces needs to be changed depending on the distribution i.e Kubernetes or OpenShift. The default specified in the config assumes that the distribution is OpenShift. A config file for Kubernetes is located at config/kubernetes_config.yaml
+
+</div>
+
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-757a8dd261ba40e0ca5b0593378a7086">5 - Alerts</h1>
+    
+	<p>Cerberus consumes the metrics from Prometheus deployed on the cluster to report the alerts.</p>
+<p>When provided the prometheus url and bearer token in the config, Cerberus reports the following alerts:</p>
+<ul>
+<li>
+<p>KubeAPILatencyHigh: alerts at the end of each iteration and warns if 99th percentile latency for given requests to the kube-apiserver is above 1 second. It is the official SLI/SLO defined for Kubernetes.</p>
+</li>
+<li>
+<p>High number of etcd leader changes: alerts the user when an increase in etcd leader changes are observed on the cluster. Frequent elections may be a sign of insufficient resources, high network latency, or disruptions by other components and should be investigated.</p>
+</li>
+</ul>
+<p><strong>NOTE</strong>: The prometheus url and bearer token are automatically picked from the cluster if the distribution is OpenShift since it&rsquo;s the default metrics solution. In case of Kubernetes, they need to be provided in the config if prometheus is deployed.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-b190bfdc5464d39eeebf07936769c72a">6 - Node Problem Detector</h1>
+    
+	<p><a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> aims to make various node problems visible to the upstream layers in cluster management stack.</p>
+<h3 id="installation">Installation<a class="td-heading-self-link" href="#installation" aria-label="Heading self-link"></a></h3>
+<p>Please follow the instructions in the <a href="https://github.com/kubernetes/node-problem-detector#installation">installation</a> section to setup Node Problem Detector on Kubernetes. The following instructions are setting it up on OpenShift:</p>
+<ol>
+<li>Create <code>openshift-node-problem-detector</code> namespace <a href="https://github.com/openshift/node-problem-detector-operator/blob/master/deploy/ns.yaml">ns.yaml</a> with        <code>oc create -f ns.yaml</code></li>
+<li>Add cluster role with <code>oc adm policy add-cluster-role-to-user system:node-problem-detector -z default -n openshift-node-problem-detector</code></li>
+<li>Add security context constraints with <code>oc adm policy add-scc-to-user privileged system:serviceaccount:openshift-node-problem-detector:default </code></li>
+<li>Edit <a href="https://github.com/kubernetes/node-problem-detector/blob/master/deployment/node-problem-detector.yaml">node-problem-detector.yaml</a> to fit your environment.</li>
+<li>Edit <a href="https://github.com/kubernetes/node-problem-detector/blob/master/deployment/node-problem-detector-config.yaml">node-problem-detector-config.yaml</a> to configure node-problem-detector.</li>
+<li>Create the ConfigMap with    <code>oc create -f node-problem-detector-config.yaml</code></li>
+<li>Create the DaemonSet with <code>oc create -f node-problem-detector.yaml</code></li>
+</ol>
+<p>Once installed you will see node-problem-detector pods in openshift-node-problem-detector namespace.
+Now enable openshift-node-problem-detector in the <a href="https://github.com/openshift-scale/cerberus/blob/master/config/config.yaml">config.yaml</a>.
+Cerberus just monitors <code>KernelDeadlock</code> condition provided by the node problem detector as it is system critical and can hinder node performance.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-f6d34f30535049c05bb8b5e73a3d5b92">7 - Slack Integration</h1>
+    
+	<p>The user has the option to enable/disable the slack integration ( disabled by default ). To use the slack integration, the user has to first create an <a href="https://api.slack.com/apps?new_granular_bot_app=1">app</a> and add a bot to it on slack. SLACK_API_TOKEN and SLACK_CHANNEL environment variables have to be set. SLACK_API_TOKEN refers to Bot User OAuth Access Token and SLACK_CHANNEL refers to the slack channel ID the user wishes to receive the notifications. Make sure the Slack Bot Token Scopes contains this permission [calls:read] [channels:read] [chat:write] [groups:read] [im:read] [mpim:read]</p>
+<ul>
+<li>Reports when cerberus starts monitoring a cluster in the specified slack channel.</li>
+<li>Reports the component failures in the slack channel.</li>
+<li>A watcher can be assigned for each day of the week. The watcher of the day is tagged while reporting failures in the slack channel instead of everyone. (NOTE: Defining the watcher id&rsquo;s is optional and when the watcher slack id&rsquo;s are not defined, the slack_team_alias tag is used if it is set else no tag is used while reporting failures in the slack channel.)</li>
+</ul>
+<h4 id="go-or-no-go-signal">Go or no-go signal<a class="td-heading-self-link" href="#go-or-no-go-signal" aria-label="Heading self-link"></a></h4>
+<p>When the cerberus is configured to run in the daemon mode, it will continuosly monitor the components specified, runs a simple http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.</p>
+<h4 id="failures-in-a-time-window">Failures in a time window<a class="td-heading-self-link" href="#failures-in-a-time-window" aria-label="Heading self-link"></a></h4>
+<ol>
+<li>The failures in the past 1 hour can be retrieved in the json format by visiting http://0.0.0.0:8080/history.</li>
+<li>The failures in a specific time window can be retrieved in the json format by visiting http://0.0.0.0:8080/history?loopback=<interval>.</li>
+<li>The failures between two time timestamps, the failures of specific issues types and the failures related to specific components can be retrieved in the json format by visiting http://0.0.0.0:8080/analyze url. The filters have to be applied to scrape the failures accordingly.</li>
+</ol>
+<h4 id="sample-slack-config">Sample Slack Config<a class="td-heading-self-link" href="#sample-slack-config" aria-label="Heading self-link"></a></h4>
+<p>This is a snippet of how would your slack config could look like within your <code>cerberus_config.yaml</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">watcher_slack_ID</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Monday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">U1234ABCD  </span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># replace with your Slack ID from Profile-&gt; More -&gt; Copy Member ID</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Tuesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">            </span><span style="color:#8f5902;font-style:italic"># Same or different ID can be used for remaining days depending on who you want to tag</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Wednesday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Thursday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Friday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Saturday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">Sunday</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">slack_team_alias</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">   </span>@<span style="color:#000">group_or_team_id</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-6c4f8214a4098b69dd33dbf386bacb8a">8 - Contribute</h1>
+    
+	<h3 id="how-to-contribute">How to contribute<a class="td-heading-self-link" href="#how-to-contribute" aria-label="Heading self-link"></a></h3>
+<p>Contributions are always appreciated.</p>
+<p>How to:</p>
+<ul>
+<li><a href="/docs/cerberus/contribute/#pull-request">Submit Pull Request</a></li>
+<li><a href="/docs/cerberus/contribute/#fix-formatting">Fix Formatting</a></li>
+<li><a href="/docs/cerberus/contribute/#squash-commits">Squash Commits</a></li>
+</ul>
+<h2 id="pull-request">Pull request<a class="td-heading-self-link" href="#pull-request" aria-label="Heading self-link"></a></h2>
+<p>In order to submit a change or a PR, please fork the project and follow instructions:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone http://github.com/&lt;me&gt;/cerberus
+</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">cd</span> cerberus
+</span></span><span style="display:flex;"><span>$ git checkout -b &lt;branch_name&gt;
+</span></span><span style="display:flex;"><span>$ &lt;make change&gt;
+</span></span><span style="display:flex;"><span>$ git add &lt;changes&gt;
+</span></span><span style="display:flex;"><span>$ git commit -a
+</span></span><span style="display:flex;"><span>$ &lt;insert good message&gt;
+</span></span><span style="display:flex;"><span>$ git push
+</span></span></code></pre></div><h2 id="fix-formatting">Fix Formatting<a class="td-heading-self-link" href="#fix-formatting" aria-label="Heading self-link"></a></h2>
+<p>Cerberus uses <a href="https://pre-commit.com">pre-commit</a> framework to maintain the code linting and python code styling.
+The CI would run the pre-commit check on each pull request.
+We encourage our contributors to follow the same pattern, while contributing to the code.</p>
+<p>The pre-commit configuration file is present in the repository <code>.pre-commit-config.yaml</code>
+It contains the different code styling and linting guide which we use for the application.</p>
+<p>Following command can be used to run the pre-commit:
+<code>pre-commit run --all-files</code></p>
+<p>If pre-commit is not installed in your system, it can be install with : <code>pip install pre-commit</code></p>
+<h2 id="squash-commits">Squash Commits<a class="td-heading-self-link" href="#squash-commits" aria-label="Heading self-link"></a></h2>
+<p>If there are mutliple commits, please rebase/squash multiple commits
+before creating the PR by following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout &lt;my-working-branch&gt;
+</span></span><span style="display:flex;"><span>$ git rebase -i HEAD~&lt;num_of_commits_to_merge&gt;
+</span></span><span style="display:flex;"><span>   -OR-
+</span></span><span style="display:flex;"><span>$ git rebase -i &lt;commit_id_of_first_change_commit&gt;
+</span></span></code></pre></div><p>In the interactive rebase screen, set the first commit to <code>pick</code> and all others to <code>squash</code> (or whatever else you may need to do).</p>
+<p>Push your rebased commits (you may need to force), then issue your PR.</p>
+<pre tabindex="0"><code>$ git push origin &lt;my-working-branch&gt; --force
+</code></pre>
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/krkn-chaos/" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Slack" aria-label="Slack">
+    <a target="_blank" rel="noopener" href="https://kubernetes.slack.com/archives/C05SFMHRWK1" aria-label="Slack">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2024
+    <span class="td-footer__authors">The Krkn-Chaos authors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script src='/js/prism.js'></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

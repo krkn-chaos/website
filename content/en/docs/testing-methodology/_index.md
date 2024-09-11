@@ -3,7 +3,7 @@ title: Test Strategies and Methodology
 description: 
 categories: [Examples, Placeholders]
 tags: [test, docs]
-weight: 2
+weight: 4
 ---
 
 <!-- {{% pageinfo %}}

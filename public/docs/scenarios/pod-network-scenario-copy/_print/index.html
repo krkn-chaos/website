@@ -1,0 +1,425 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52212&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="//localhost:52212/docs/scenarios/pod-network-scenario-copy/">
+<link rel="alternate" type="application/rss&#43;xml" href="//localhost:52212/docs/scenarios/pod-network-scenario-copy/index.xml">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Pod Scenarios | Krkn</title>
+<meta name="description" content="Krkn Chaos Tool">
+<meta property="og:url" content="//localhost:52212/docs/scenarios/pod-network-scenario-copy/">
+  <meta property="og:site_name" content="Krkn">
+  <meta property="og:title" content="Pod Scenarios">
+  <meta property="og:description" content="Krkn recently replaced PowerfulSeal with its own internal pod scenarios using a plugin system. This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Pod Scenarios">
+  <meta itemprop="description" content="Krkn recently replaced PowerfulSeal with its own internal pod scenarios using a plugin system. This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.">
+  <meta itemprop="datePublished" content="2017-01-04T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2017-01-04T00:00:00+00:00">
+  <meta itemprop="wordCount" content="30">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pod Scenarios">
+  <meta name="twitter:description" content="Krkn recently replaced PowerfulSeal with its own internal pod scenarios using a plugin system. This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/prism.css"/>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand" href="/"><span class="navbar-brand__logo navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><defs><style>.cls-1{fill:none}.cls-1,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8{stroke-width:0}.cls-3{fill:#0e58a0}.cls-4{fill:#0d58a1}.cls-5{fill:#102d4f}.cls-6{fill:#9b1c1f}.cls-7{fill:#fff}.cls-8{fill:#ec1c24}</style></defs><path class="cls-3" d="M163.75 116.65l-1.36.66c.57-.17 1.15-.32 1.73-.48l-.37-.18z"/><path class="cls-3" d="M133 133.87h0q.72.61.0.0z"/><polygon class="cls-8" points="133 133.87 147.09 124.7 133 133.87 133 133.87"/><path class="cls-8" d="M124.41 150.23l3.24-12.87 5.36-3.49 14.09-9.17v-.02l12.83-6.18 2.47-1.19c-2.4.69-4.75 1.48-7.06 2.25-3.11 1.04-6.13 2.05-9.09 2.77l-1.51-4.27c-1.64-4.1-3.34-9.2-4.98-14.56.74-4.26.97-8.66.72-13.04.92.34 1.86.65 2.83.9 6.74 1.69 13.32.05 17.61-4.39 4.76-4.92 6.22-13.03 3.74-20.65-1.97-6.05-5.76-10.64-9.11-14.68l-.39-.48-10.48-8.4c-2.6-2.08-6.38-1.67-8.47.93-2.08 2.59-1.67 6.38.93 8.47l9.51 7.63c2.67 3.23 5.34 6.58 6.55 10.27 1.05 3.22.64 6.9-.95 8.55-1.48 1.53-4.08 1.56-6.02 1.07-2.7-.68-5.46-2.34-8.37-4.1-.11-.07-.22-.13-.32-.19-.7-2.04-1.52-4.03-2.47-5.94-10.92-22.15-37.7-31.28-59.8-20.38-22.1 10.9-31.17 37.69-20.25 59.85 4.99 10.12 14.09 18.58 24.61 23.75l1.1 10.21c-.41 4.17-.89 8.43-2.65 11.89-1.54 3.02-4.43 5.32-6.72 5.36h-.06c-2.11.0-3.94-1.8-4.95-3.5-1.43-2.39-2.19-5.52-3.01-8.83-.13-.51-.25-1.02-.38-1.53-1.32-5.25-3.18-11.31-6.97-16.41-3.27-4.39-7.43-7.25-12.03-8.26-5.44-1.19-10.48.36-13.75 1.86-4.16 1.92-7.57 4.69-10.07 6.89s-2.74 6-.54 8.5c2.2 2.5 6 2.74 8.5.54 2.8-2.46 5-4 7.15-4.99 2.23-1.02 4.47-1.4 6.14-1.04 2.18.48 3.89 2.26 4.94 3.67 2.52 3.39 3.87 7.85 4.96 12.16.12.49.24.98.36 1.46.94 3.84 2.01 8.18 4.36 12.12 3.51 5.89 9.21 9.38 15.3 9.38.08.0.16.0.25.0 6.85-.11 13.62-4.79 17.26-11.93 2.89-5.67 3.46-11.59 3.97-16.82l.06-.61-.33-3.02c2.07 2.29 4.06 4.75 5.87 7.35.44 3.01.79 5.93 1.01 8.43.24 7.96-.97 12.64-3.8 14.71-1.38 1.01-3.42 1.58-5.77 2.24-1.49.42-3.03.85-4.61 1.46-11.1 4.23-18.84 15.49-18.81 27.37.0 3.32 2.7 6.01 6.02 6.01h.01c3.33.0 6.02-2.71 6.01-6.04-.01-6.87 4.64-13.64 11.06-16.09 1.08-.41 2.29-.75 3.58-1.12 3.03-.85 6.47-1.82 9.61-4.11 8.37-6.1 8.99-17.19 8.74-25l-.02-.32c-.06-.72-.18-1.93-.35-3.49l.13-.31.84.31c.01 1.03.29 2.07.85 3.01 3.23 5.38 3.3 12.64.17 18.08-.95 1.65-2.23 3.29-3.6 5.02-2.59 3.3-5.52 7.03-6.86 11.89-2.57 9.32 1.89 18.34 4.84 24.3 1.05 2.12 3.18 3.36 5.4 3.36.9.0 1.81-.2 2.66-.63 2.98-1.47 4.2-5.09 2.73-8.07-2.83-5.73-5.27-11.25-4.02-15.77.69-2.53 2.56-4.9 4.72-7.65.22-.28.44-.56.66-.84.92-1.18 1.84-2.39 2.71-3.69.42-.62.82-1.26 1.2-1.93 4.53-7.88 5.1-17.68 1.77-26.07h0c-.24-.61-.51-1.22-.79-1.81"/><path class="cls-8" d="M125.27 152.2c-.24-.61-.51-1.22-.79-1.81.28.6.55 1.2.79 1.81z"/><polygon class="cls-8" points="133 133.87 127.64 137.36 133 133.87 133 133.87"/><path class="cls-7" d="M109.05 60.27c10.17 5.87 16.58 14.81 16.72 22.23 3.48-7.92-2.18-19.01-13.23-25.4-8.92-5.15-18.74-5.72-24.89-2.09 6.21-.75 14.01.98 21.41 5.25z"/><ellipse class="cls-7" cx="124.64" cy="108.25" rx="4.78" ry="5.91"/><circle class="cls-2" cx="126.13" cy="111.92" r="2.42"/><path class="cls-7" d="M115.8 130.96c.85-.76 1.86-1.52 3.05-2.22-3.01-.86-12.56-3.14-13.32 2.08.0.0-.81 2.32 7.25 3.67.28-.44.63-.95 1.09-1.51l1.92-2.02z"/><path class="cls-2" d="M128.78 125.87c-4.22.28-7.47 1.44-9.93 2.87-1.2.7-2.21 1.46-3.05 2.22l-4.43-1.05c-.65-.16-1.3.25-1.45.89-.15.65.25 1.3.89 1.45l3.06.72c-.45.56-.81 1.07-1.09 1.51-.49.77-.73 1.3-.76 1.39-.26.61.02 1.31.63 1.58.16.07.32.1.48.1.47.0.91-.27 1.11-.73.14-.32 3.54-7.83 14.71-8.56.66-.04 1.17-.62 1.12-1.28-.04-.66-.62-1.16-1.28-1.12z"/><path class="cls-2" d="M80.49 116.01c.54-2.16 2.42-3.9 4.67-4.1 2.96-.26 5.7 1.9 8.24 3.08 2.89 1.35 6.87 3.08 9.93 1.27 3.06-1.82 2.93-6.13-.39-7.51-1-.42-2.21.45-2.47 1.4-.32 1.15.4 2.05 1.4 2.47.67.28-.45-.25-.32-.23.65.09-.17.34.03.13-.26.27-.48.41-.87.48-1.21.2-2.61-.43-3.71-.83-2.71-.99-5.09-2.68-7.82-3.64-2.64-.93-5.48-.86-7.96.49-2.26 1.23-3.97 3.42-4.6 5.91-.63 2.51 3.24 3.58 3.87 1.07h0z"/><path class="cls-4" d="M71.99 65.75 55.66 50.84S31.43 66.09 37.64 85.85l19.46 7.44s14.67-24.51 14.89-27.53z"/><path class="cls-6" d="M57.17 93.18l-.07.1c.36 4.79 2.63 7.89 5.31 9.9 3.72 2.79 9.04.19 9.06-4.46.02-6.87.95-16.03 1.7-22.41-.61 2.13-1.57 4.39-2.86 6.63-3.89 6.73-9.45 10.94-13.14 10.23z"/><path class="cls-4" d="M73.95 70.21c-.03-.34-.07-.66-.13-.97-.3-1.66-1.02-2.93-2.18-3.6-3.59-2.07-10 2.32-14.32 9.81-4.32 7.49-4.92 15.24-1.34 17.31.36.21.76.34 1.18.42 3.69.71 9.26-3.5 13.14-10.23 1.29-2.24 2.25-4.5 2.86-6.63.65-2.25.92-4.35.78-6.11z"/><ellipse class="cls-5" cx="48.91" cy="70.52" rx="15.66" ry="7.5" transform="translate(-36.62 77.62) rotate(-60)"/><path class="cls-2" d="M96.23 128.29c-.63.0-1.16-.48-1.2-1.12.0-.12-.17-2.97 2.19-5.08 2.33-2.07 6.15-2.64 11.38-1.69.65.12 1.09.75.97 1.4s-.75 1.08-1.4.97c-4.37-.8-7.59-.43-9.31 1.09-1.49 1.31-1.42 3.08-1.42 3.15.03.66-.47 1.23-1.13 1.27-.02.0-.05.0-.07.0z"/><path class="cls-4" d="M45.67 79.05s-6.32-13.34 9.3-15.44c0 0 .88 9.3-9.3 15.44z"/><path class="cls-7" d="M66.44 80.81c-.08.0-.16-.02-.23-.07l-7.44-5.27c-.18-.13-.22-.38-.1-.56.13-.18.38-.22.56-.1l7.44 5.27c.18.13.22.38.1.56-.08.11-.2.17-.33.17z"/><path class="cls-7" d="M61.37 83.61c-.22.0-.4-.18-.4-.4s.18-.4.4-.4c2.12.0 3.68-.62 4.64-1.86 1.89-2.43.89-6.45.88-6.49-.05-.21.08-.43.29-.49.21-.06.43.08.49.29.05.18 1.1 4.45-1.02 7.18-1.12 1.44-2.89 2.17-5.27 2.17z"/><path class="cls-7" d="M59.92 80.51c-.07.0-.15-.02-.21-.06-.19-.12-.25-.36-.13-.55l3.68-5.94c.12-.19.37-.24.55-.13.19.12.25.36.13.55l-3.68 5.94c-.08.12-.21.19-.34.19z"/><path class="cls-3" d="M133 133.87l-5.36 3.49-3.24 12.87c.03.05.05.11.07.16.28.6.55 1.2.79 1.81h0c3.33 8.39 2.76 18.18-1.77 26.07-.38.67-.79 1.31-1.2 1.93-.87 1.3-1.79 2.51-2.71 3.69l19.75 24.77 2.65 3.33h43.52l2.65-3.33 3.87-4.86-2.11-4.44-2.11-4.44-1.53-3.21 5.22-1.42 1.9-.52.81-2.88 1.46-5.22 2.26.55 4.73 1.16 4.73 1.16 2.59-3.25 2.65-3.33-.95-4.15-5.08-22.27-2.71-11.87-.95-4.15-3.83-1.85-31.54-15.19-3.46-1.67c-.58.15-1.16.31-1.73.48l-2.47 1.19-12.84 6.18v.02l-14.08 9.17"/><path class="cls-7" d="M176.83 169.95c.1-.37.43-.63.81-.63h4.41c.14-.9.21-1.77.21-2.65s-.07-1.74-.21-2.65h-4.41c-.38.0-.72-.26-.81-.63-.31-1.18-.78-2.31-1.4-3.35-.2-.33-.14-.75.13-1.02l3.11-3.11c-1.07-1.43-2.33-2.68-3.76-3.73l-3.13 3.13c-.27.27-.69.32-1.01.13-1.03-.6-2.15-1.05-3.33-1.34-.37-.09-.64-.43-.64-.82v-4.39c-1.84-.27-3.52-.25-5.29.03v4.43c0 .38-.25.71-.62.81-1.14.31-2.23.77-3.24 1.37-.33.2-.75.15-1.02-.13l-3.11-3.11c-1.43 1.07-2.68 2.33-3.73 3.76l3.13 3.13c.27.27.32.69.13 1.02-.58.99-1.02 2.08-1.32 3.21-.1.37-.43.63-.81.63h-4.41c-.14.9-.21 1.77-.21 2.65s.07 1.74.21 2.65h4.41c.38.0.72.26.81.63.3 1.14.74 2.22 1.32 3.21.19.33.14.75-.13 1.02l-3.13 3.13c1.05 1.43 2.3 2.68 3.73 3.76l3.11-3.11c.27-.27.7-.32 1.02-.13 1.01.6 2.1 1.06 3.24 1.37.37.1.62.43.62.81v4.43c1.77.28 3.45.3 5.29.03v-4.39c0-.39.26-.72.64-.82 1.17-.29 2.29-.75 3.33-1.34.33-.19.74-.14 1.01.13l3.13 3.13c1.43-1.05 2.69-2.3 3.76-3.73l-3.11-3.11c-.27-.27-.32-.69-.13-1.02.62-1.04 1.09-2.17 1.4-3.35zM164.28 174.34c-4.23.0-7.67-3.44-7.67-7.67s3.44-7.67 7.67-7.67 7.67 3.44 7.67 7.67-3.44 7.67-7.67 7.67z"/><polygon class="cls-5" points="195.75 132.09 189.83 137.14 192.61 143.99 180.11 144.21 191.23 147.66 189.37 154.85 195.84 146.32 193.15 138.65 200.11 134.06 195.75 132.09"/><polygon class="cls-5" points="126.43 142.34 133.2 146.69 139.04 142.17 142.63 154.14 142.95 142.5 150.38 142.35 140.41 138.43 133.75 143.09 127.55 137.77 126.43 142.34"/><polygon class="cls-5" points="141.99 211.98 151.62 206.63 147.49 195.75 149.23 193.05 153.13 187.67 143.3 194.01 147.65 204.83 138.76 207.97 141.99 211.98"/><path class="cls-1" d="M125.19 96.63c-6.01.0-10.89 4.89-10.89 10.89s4.89 10.89 10.89 10.89 10.89-4.89 10.89-10.89-4.89-10.89-10.89-10.89z"/><path class="cls-2" d="M158.9 109.67h9.99c1.33.0 2.41-1.08 2.41-2.41s-1.08-2.41-2.41-2.41h-5.48c-1.71 1.37-3.22 2.99-4.5 4.82z"/><path class="cls-8" d="M213.42 121.88l-.06.08c-.57-19.01-16.2-34.3-35.35-34.3-12.46.0-23.94 6.56-30.32 17.19-.24.4-.49.79-.71 1.2-.63 1.15-.84 2.41-.69 3.62.23 1.86 1.31 3.59 3.08 4.56 2.92 1.6 6.58.53 8.18-2.39.41-.76.88-1.48 1.36-2.17 1.28-1.83 2.8-3.45 4.5-4.82 4.08-3.27 9.2-5.14 14.6-5.14 12.86.0 23.33 10.47 23.33 23.33.0 2.63-.13 3.57-.77 5.61-.21.68-.29 1.37-.26 2.05-7.77-8.95-17.68-16.91-29.9-15.17-2.15.31-4.24.76-6.29 1.31l3.46 1.67 31.54 15.19 3.83 1.85.95 4.15 2.71 11.87c.49-.19.97-.42 1.42-.75 2.69-1.96 3.29-5.72 1.33-8.41-.17-.24-.35-.48-.52-.72 1.88-3.42 2.99-7.38 3.64-10.85.75-2.8.9-4.87.9-7.78.0-.01.0-.02.0-.03.03-.71.03-1.12.03-1.12z"/><path class="cls-2" d="M147.69 104.85h-7.04c-1.28-7.39-7.72-13.04-15.47-13.04-8.66.0-15.71 7.05-15.71 15.71s7.05 15.71 15.71 15.71c7.94.0 14.5-5.92 15.55-13.57h5.55c-.15-1.21.06-2.47.69-3.62.22-.41.47-.8.71-1.2zm-22.5 13.57c-6.01.0-10.89-4.89-10.89-10.89s4.89-10.89 10.89-10.89 10.89 4.89 10.89 10.89-4.89 10.89-10.89 10.89z"/><polygon class="cls-4" points="23.71 152.66 40.01 153.84 40.9 145.48 47.6 142.38 39.37 130.63 20.5 143.35 23.71 152.66"/></svg></span><span class="navbar-brand__name">Krkn</span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="/docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/blog/"><span>Blog</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/krkn-chaos/" target="_blank" rel="noopener"><i class='fab fa-github'></i> <span>Github</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    
+  </div>
+</div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/scenarios/pod-network-scenario-copy/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Pod Scenarios</h1>
+
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-7b7a951509a3e7654eda24c54fa96f95">Pod Scenarios using Krkn</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-e4cfc263b534119c88b595072876dd48">Pod Network Chaos Scenarios using Krkn-hub</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>Krkn recently replaced PowerfulSeal with its own internal pod scenarios using a plugin system. This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-7b7a951509a3e7654eda24c54fa96f95">1 - Pod Scenarios using Krkn</h1>
+    
+	<h4 id="example-config">Example Config<a class="td-heading-self-link" href="#example-config" aria-label="Heading self-link"></a></h4>
+<p>The following are the components of Kubernetes for which a basic chaos scenario config exists today.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">kraken</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">chaos_scenarios</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span>- <span style="color:#204a87;font-weight:bold">plugin_scenarios</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#000">path/to/scenario.yaml</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><p>You can then create the scenario file with the following contents:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># yaml-language-server: $schema=../plugin.schema.json</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline"></span>- <span style="color:#204a87;font-weight:bold">id</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">kill-pods</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">config</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">namespace_pattern</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">^kube-system$</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">label_selector</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">k8s-app=kube-scheduler</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">krkn_pod_recovery_time</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#0000cf;font-weight:bold">120</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span><span style="display:flex;"><span><span style="color:#f8f8f8;text-decoration:underline">    
+</span></span></span></code></pre></div><p>Please adjust the schema reference to point to the <a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/plugin.schema.json">schema file</a>. This file will give you code completion and documentation for the available options in your IDE.</p>
+<h4 id="pod-chaos-scenarios">Pod Chaos Scenarios<a class="td-heading-self-link" href="#pod-chaos-scenarios" aria-label="Heading self-link"></a></h4>
+<p>The following are the components of Kubernetes/OpenShift for which a basic chaos scenario config exists today.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+<th>Working</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/kube/pod.yml">Basic pod scenario</a></td>
+<td>Kill a pod.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/etcd.yml">Etcd</a></td>
+<td>Kills a single/multiple etcd replicas.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/openshift-kube-apiserver.yml">Kube ApiServer</a></td>
+<td>Kills a single/multiple kube-apiserver replicas.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/openshift-apiserver.yml">ApiServer</a></td>
+<td>Kills a single/multiple apiserver replicas.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/prometheus.yml">Prometheus</a></td>
+<td>Kills a single/multiple prometheus replicas.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
+<td><a href="https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/regex_openshift_pod_kill.yml">OpenShift System Pods</a></td>
+<td>Kills random pods running in the OpenShift system namespaces.</td>
+<td>:heavy_check_mark:</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-e4cfc263b534119c88b595072876dd48">2 - Pod Network Chaos Scenarios using Krkn-hub</h1>
+    
+	<p>This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.</p>
+<h4 id="run">Run<a class="td-heading-self-link" href="#run" aria-label="Heading self-link"></a></h4>
+<p>If enabling <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster and pass/fail the scenario post chaos, refer <a href="/docs/cerberus/">docs</a>. Make sure to start it before injecting the chaos and set <code>CERBERUS_ENABLED</code> environment variable for the chaos injection container to autoconnect.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ podman run --name<span style="color:#ce5c00;font-weight:bold">=</span>&lt;container_name&gt; --net<span style="color:#ce5c00;font-weight:bold">=</span>host --env-host<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">true</span> -v &lt;path-to-kube-config&gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos
+</span></span><span style="display:flex;"><span>$ podman logs -f &lt;container_name or container_id&gt; <span style="color:#8f5902;font-style:italic"># Streams Kraken logs</span>
+</span></span><span style="display:flex;"><span>$ podman inspect &lt;container-name or container-id&gt; --format <span style="color:#4e9a06">&#34;{{.State.ExitCode}}&#34;</span> <span style="color:#8f5902;font-style:italic"># Outputs exit code which can considered as pass/fail for the scenario</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker run <span style="color:#204a87;font-weight:bold">$(</span>./get_docker_params.sh<span style="color:#204a87;font-weight:bold">)</span> --name<span style="color:#ce5c00;font-weight:bold">=</span>&lt;container_name&gt; --net<span style="color:#ce5c00;font-weight:bold">=</span>host -v &lt;path-to-kube-config&gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos
+</span></span><span style="display:flex;"><span>OR 
+</span></span><span style="display:flex;"><span>$ docker run -e &lt;VARIABLE&gt;<span style="color:#ce5c00;font-weight:bold">=</span>&lt;value&gt; --name<span style="color:#ce5c00;font-weight:bold">=</span>&lt;container_name&gt; --net<span style="color:#ce5c00;font-weight:bold">=</span>host -v &lt;path-to-kube-config&gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ docker logs -f &lt;container_name or container_id&gt; <span style="color:#8f5902;font-style:italic"># Streams Kraken logs</span>
+</span></span><span style="display:flex;"><span>$ docker inspect &lt;container-name or container-id&gt; --format <span style="color:#4e9a06">&#34;{{.State.ExitCode}}&#34;</span> <span style="color:#8f5902;font-style:italic"># Outputs exit code which can considered as pass/fail for the scenario</span>
+</span></span></code></pre></div>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Tip</h4>
+
+    Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
+<code>kubectl config view --flatten &gt; ~/kubeconfig &amp;&amp; chmod 444 ~/kubeconfig &amp;&amp; docker run $(./get_docker_params.sh) --name=&lt;container_name&gt; --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:&lt;scenario&gt;</code>
+
+</div>
+
+<h4 id="supported-parameters">Supported parameters<a class="td-heading-self-link" href="#supported-parameters" aria-label="Heading self-link"></a></h4>
+<p>The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:</p>
+<p>example:
+<code>export &lt;parameter_name&gt;=&lt;value&gt;</code>
+See list of variables that apply to all scenarios <a href="/docs/scenarios/all-scenario-env/">here</a> that can be used/set in addition to these scenario specific variables</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NAMESPACE</td>
+<td>Required - Namespace of the pod to which filter need to be applied</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>LABEL_SELECTOR</td>
+<td>Label of the pod(s) to target</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>POD_NAME</td>
+<td>When label_selector is not specified, pod matching the name will be selected for the chaos scenario</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>INSTANCE_COUNT</td>
+<td>Number of pods to perform action/select that match the label selector</td>
+<td>1</td>
+</tr>
+<tr>
+<td>TRAFFIC_TYPE</td>
+<td>List of directions to apply filters - egress/ingress ( needs to be a list )</td>
+<td>[ingress, egress]</td>
+</tr>
+<tr>
+<td>INGRESS_PORTS</td>
+<td>Ingress ports to block ( needs to be a list )</td>
+<td>[] i.e all ports</td>
+</tr>
+<tr>
+<td>EGRESS_PORTS</td>
+<td>Egress ports to block ( needs to be a list )</td>
+<td>[] i.e all ports</td>
+</tr>
+<tr>
+<td>WAIT_DURATION</td>
+<td>Ensure that it is at least about twice of test_duration</td>
+<td>300</td>
+</tr>
+<tr>
+<td>TEST_DURATION</td>
+<td>Duration of the test run</td>
+<td>120</td>
+</tr>
+</tbody>
+</table>
+<p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    In case of using custom metrics profile or alerts profile when <code>CAPTURE_METRICS</code> or <code>ENABLE_ALERTS</code> is enabled, mount the metrics profile from the host on which the container is run using podman/docker under <code>/home/krkn/kraken/config/metrics-aggregated.yaml</code> and <code>/home/krkn/kraken/config/alerts</code>.
+
+</div>
+
+For example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ podman run --name<span style="color:#ce5c00;font-weight:bold">=</span>&lt;container_name&gt; --net<span style="color:#ce5c00;font-weight:bold">=</span>host --env-host<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">true</span> -v &lt;path-to-custom-metrics-profile&gt;:/home/krkn/kraken/config/metrics-aggregated.yaml -v &lt;path-to-custom-alerts-profile&gt;:/home/krkn/kraken/config/alerts -v &lt;path-to-kube-config&gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos
+</span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/krkn-chaos/" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Slack" aria-label="Slack">
+    <a target="_blank" rel="noopener" href="https://kubernetes.slack.com/archives/C05SFMHRWK1" aria-label="Slack">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2024
+    <span class="td-footer__authors">The Krkn-Chaos authors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script src='/js/prism.js'></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

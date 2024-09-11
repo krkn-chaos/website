@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Application Outage Scenarios on Krkn</title>
+    <link>//localhost:52212/docs/scenarios/application-outage-copy/</link>
+    <description>Recent content in Application Outage Scenarios on Krkn</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:52212/docs/scenarios/application-outage-copy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Application outage Scenario using Krkn-hub</title>
+      <link>//localhost:52212/docs/scenarios/application-outage-copy/application-outages/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:52212/docs/scenarios/application-outage-copy/application-outages/</guid>
+      <description>This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer docs for more details.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
+    </item>
+  </channel>
+</rss>

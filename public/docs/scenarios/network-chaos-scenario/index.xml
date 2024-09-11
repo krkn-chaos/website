@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network Chaos Scenario on Krkn</title>
+    <link>//localhost:64001/docs/scenarios/network-chaos-scenario/</link>
+    <description>Recent content in Network Chaos Scenario on Krkn</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:64001/docs/scenarios/network-chaos-scenario/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PVC Scenario using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn/</guid>
+      <description>Sample scenario config for egress traffic shaping network_chaos: # Scenario to create an outage by simulating random variations in the network. duration: 300 # In seconds - duration network chaos will be applied. node_name: # Comma separated node names on which scenario has to be injected. label_selector: node-role.kubernetes.io/master # When node_name is not specified, a node with matching label_selector is selected for running the scenario. instance_count: 1 # Number of nodes in which to execute network chaos.</description>
+    </item>
+    <item>
+      <title>Network Chaos Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn-hub/</guid>
+      <description>This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node&amp;rsquo;s interface using the tc and Netem. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
+    </item>
+  </channel>
+</rss>

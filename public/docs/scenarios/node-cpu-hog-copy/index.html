@@ -297,7 +297,7 @@ $ podman run --name=&lt;container_name&gt; --net=host --env-host=true -v &lt;pat
   </header>
 	<p>This scenario hogs the cpu on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following <a href="https://github.com/krkn-chaos/krkn/blob/main/docs/arcaflow_scenarios/cpu_hog.md">documentation</a>.</p>
 <h4 id="run">Run<a class="td-heading-self-link" href="#run" aria-label="Heading self-link"></a></h4>
-<p>If enabling <a href="https://github.com/krkn-chaos/krkn#kraken-scenario-passfail-criteria-and-report">Cerberus</a> to monitor the cluster and pass/fail the scenario post chaos, refer <a href="https://github.com/redhat-chaos/krkn-hub/tree/main/docs/cerberus.md">docs</a>. Make sure to start it before injecting the chaos and set <code>CERBERUS_ENABLED</code> environment variable for the chaos injection container to autoconnect.</p>
+<p>If enabling <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster and pass/fail the scenario post chaos, refer <a href="/docs/cerberus/">docs</a>. Make sure to start it before injecting the chaos and set <code>CERBERUS_ENABLED</code> environment variable for the chaos injection container to autoconnect.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ podman run --name<span style="color:#ce5c00;font-weight:bold">=</span>&lt;container_name&gt; --net<span style="color:#ce5c00;font-weight:bold">=</span>host --env-host<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">true</span> -v &lt;path-to-kube-config&gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-cpu-hog
 </span></span><span style="display:flex;"><span>$ podman logs -f &lt;container_name or container_id&gt; <span style="color:#8f5902;font-style:italic"># Streams Kraken logs</span>
 </span></span><span style="display:flex;"><span>$ podman inspect &lt;container-name or container-id&gt; --format <span style="color:#4e9a06">&#34;{{.State.ExitCode}}&#34;</span> <span style="color:#8f5902;font-style:italic"># Outputs exit code which can considered as pass/fail for the scenario</span>
@@ -321,7 +321,7 @@ $ podman run --name=&lt;container_name&gt; --net=host --env-host=true -v &lt;pat
 <p>The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:</p>
 <p>example:
 <code>export &lt;parameter_name&gt;=&lt;value&gt;</code></p>
-<p>See list of variables that apply to all scenarios <a href="https://github.com/krkn-chaos/krkn-hub/blob/main/docs/all_scenarios_env.md">here</a> that can be used/set in addition to these scenario specific variables</p>
+<p>See list of variables that apply to all scenarios <a href="/docs/scenarios/all-scenario-env.md">here</a> that can be used/set in addition to these scenario specific variables</p>
 <table>
 <thead>
 <tr>

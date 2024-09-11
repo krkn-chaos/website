@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>krkn-chaos on Krkn</title>
-    <link>//localhost:50777/docs/</link>
+    <link>//localhost:64001/docs/</link>
     <description>Recent content in krkn-chaos on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:50777/docs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:64001/docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>krkn</title>
-      <link>//localhost:50777/docs/overview/</link>
+      <link>//localhost:64001/docs/overview/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/overview/</guid>
+      <guid>//localhost:64001/docs/overview/</guid>
       <description>krkn is a chaos and resiliency testing tool for Kubernetes. Kraken injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.&#xA;Why do I want it? There are a couple of false assumptions that users might have when operating and running their applications in distributed systems:&#xA;The network is reliable There is zero latency Bandwidth is infinite The network is secure Topology never changes The network is homogeneous Consistent resource usage with no spikes All shared resources are available from all places Various assumptions led to a number of outages in production environments in the past.</description>
     </item>
     <item>
       <title>Contribution Guidelines</title>
-      <link>//localhost:50777/docs/contribution-guidelines/</link>
+      <link>//localhost:64001/docs/contribution-guidelines/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/contribution-guidelines/</guid>
+      <guid>//localhost:64001/docs/contribution-guidelines/</guid>
       <description>Adding New Scenarios/Testing Changes Refer to the 2 docs below to be able to test your own images with any changes and be able to contribute them to the repository&#xA;Testing Your Changes Contribute </description>
     </item>
   </channel>

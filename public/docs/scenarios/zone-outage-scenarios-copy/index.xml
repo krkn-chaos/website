@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zone Outage Scenarios on Krkn</title>
+    <link>//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/</link>
+    <description>Recent content in Zone Outage Scenarios on Krkn</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zone Outage Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/zone-outage-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/zone-outage-scenarios-krkn/</guid>
+      <description>Zone outage can be injected by placing the zone_outage config file under zone_outages option in the kraken config. Refer to zone_outage_scenario config file for the parameters that need to be defined.&#xA;Refer to cloud setup to configure your cli properly for the cloud provider of the cluster you want to shut down.&#xA;Current accepted cloud types: AWS Sample scenario config zone_outage: # Scenario to create an outage of a zone by tweaking network ACL.</description>
+    </item>
+    <item>
+      <title>Zone Outage Scenarios using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/zone-outage-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/zone-outage-scenarios-copy/zone-outage-scenarios-krkn-hub/</guid>
+      <description>This scenario disrupts a targeted zone in the public cloud by blocking egress and ingress traffic to understand the impact on both Kubernetes/OpenShift platforms control plane as well as applications running on the worker nodes in that zone. More information is documented here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
+    </item>
+  </channel>
+</rss>

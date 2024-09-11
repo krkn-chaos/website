@@ -2,156 +2,352 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>krkn-chaos on Krkn</title>
-    <link>//localhost:50777/</link>
+    <link>//localhost:64001/</link>
     <description>Recent content in krkn-chaos on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:50777/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:64001/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installation</title>
+      <link>//localhost:64001/docs/cerberus/installation/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/installation/</guid>
+      <description>Following ways are supported to run Cerberus:&#xA;Standalone python program through Git or python package Containerized version using either Podman or Docker as the runtime Kubernetes or OpenShift deployment Note Only OpenShift 4.x versions are tested. Git Pick the latest stable release to install here.&#xA;$ git clone https://github.com/redhat-chaos/cerberus.git --branch &amp;lt;release&amp;gt; Install the dependencies NOTE: Recommended to use a virtual environment(pyenv,venv) so as to prevent conflicts with already installed packages.</description>
+    </item>
+    <item>
+      <title>Krkn</title>
+      <link>//localhost:64001/docs/installation/krkn/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/installation/krkn/</guid>
+      <description>Installation Git Clone the repository $ git clone https://github.com/krkn-chaos/krkn.git --branch &amp;lt;release version&amp;gt; $ cd krkn Install the dependencies $ python3.9 -m venv chaos $ source chaos/bin/activate $ pip3.9 install -r requirements.txt Note Make sure python3-devel and latest pip versions are installed on the system. The dependencies install has been tested with pip &amp;gt;= 21.1.3 versions. Where can your user find your project code? How can they install it (binaries, installable package, build from source)?</description>
+    </item>
+    <item>
+      <title>ManagedCluster Scenarios</title>
+      <link>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</guid>
+      <description>ManagedCluster scenarios provide a way to integrate kraken with Open Cluster Management (OCM) and Red Hat Advanced Cluster Management for Kubernetes (ACM).&#xA;ManagedCluster scenarios leverage ManifestWorks to inject faults into the ManagedClusters.&#xA;The following ManagedCluster chaos scenarios are supported:&#xA;managedcluster_start_scenario: Scenario to start the ManagedCluster instance. managedcluster_stop_scenario: Scenario to stop the ManagedCluster instance. managedcluster_stop_start_scenario: Scenario to stop and then start the ManagedCluster instance. start_klusterlet_scenario: Scenario to start the klusterlet of the ManagedCluster instance.</description>
+    </item>
     <item>
       <title>krkn</title>
-      <link>//localhost:50777/docs/overview/</link>
+      <link>//localhost:64001/docs/overview/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/overview/</guid>
+      <guid>//localhost:64001/docs/overview/</guid>
       <description>krkn is a chaos and resiliency testing tool for Kubernetes. Kraken injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.&#xA;Why do I want it? There are a couple of false assumptions that users might have when operating and running their applications in distributed systems:&#xA;The network is reliable There is zero latency Bandwidth is infinite The network is secure Topology never changes The network is homogeneous Consistent resource usage with no spikes All shared resources are available from all places Various assumptions led to a number of outages in production environments in the past.</description>
     </item>
     <item>
-      <title>Application outage Scenario</title>
-      <link>//localhost:50777/docs/scenarios/application-outages/</link>
+      <title>Config</title>
+      <link>//localhost:64001/docs/cerberus/config/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/application-outages/</guid>
-      <description>This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer docs for more details.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
-    </item>
-    <item>
-      <title>Container Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/container-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/container-scenarios/</guid>
-      <description>This scenario disrupts the containers matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:container-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Network Chaos Scenario</title>
-      <link>//localhost:50777/docs/scenarios/network-chaos/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/network-chaos/</guid>
-      <description>This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node&amp;rsquo;s interface using the tc and Netem. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
-    </item>
-    <item>
-      <title>Node CPU hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-cpu-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-cpu-hog/</guid>
-      <description>This scenario hogs the cpu on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node IO hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-io-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-io-hog/</guid>
-      <description>This scenario hogs the IO on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/root/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node Memory hog Scenario</title>
-      <link>//localhost:50777/docs/scenarios/node-memory-hog/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-memory-hog/</guid>
-      <description>This scenario hogs the memory on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Node Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/node-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/node-scenarios/</guid>
-      <description>This scenario disrupts the node(s) matching the label on a Kubernetes/OpenShift cluster. Actions/disruptions supported are listed here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Pod Network Chaos Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pod-network-chaos/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pod-network-chaos/</guid>
-      <description>This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Pod Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pod-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pod-scenarios/</guid>
-      <description>This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Power Outage Scenario</title>
-      <link>//localhost:50777/docs/scenarios/power-outages/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/power-outages/</guid>
-      <description>This scenario shuts down Kubernetes/OpenShift cluster for the specified duration to simulate power outages, brings it back online and checks if it&amp;rsquo;s healthy. More information can be found here&#xA;Right now power outage and cluster shutdown are one in the same. We originally created this scenario to stop all the nodes and then start them back up how a customer would shut their cluster down.&#xA;In a real life chaos scenario though, we figured this scenario was close to if the power went out on the aws side so all of our ec2 nodes would be stopped/powered off.</description>
-    </item>
-    <item>
-      <title>PVC Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/pvc-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/pvc-scenarios/</guid>
-      <description>This scenario fills up a given PersistenVolumeClaim by creating a temp file on the PVC from a pod associated with it. The purpose of this scenario is to fill up a volume to understand faults cause by the application using this volume. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
-    </item>
-    <item>
-      <title>Service Disruption Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/service-disruption-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/service-disruption-scenarios/</guid>
-      <description>This scenario deletes main objects within a namespace in your Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:service-disruption-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
-    </item>
-    <item>
-      <title>Service Hijacking Scenario</title>
-      <link>//localhost:50777/docs/scenarios/service-hijacking/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/service-hijacking/</guid>
-      <description>This scenario reroutes traffic intended for a target service to a custom web service that is automatically deployed by Krkn. This web service responds with user-defined HTTP statuses, MIME types, and bodies. For more details, please refer to the following documentation.&#xA;Run Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. You must set up the scenario in a local file following the scenario syntax, and then pass this file&amp;rsquo;s base64-encoded content to the container via the SCENARIO_BASE64 variable.</description>
-    </item>
-    <item>
-      <title>Time Skew Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/time-scenarios/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/time-scenarios/</guid>
-      <description>This scenario skews the date and time of the nodes and pods matching the label on a Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
-    </item>
-    <item>
-      <title>Zone Outage Scenarios</title>
-      <link>//localhost:50777/docs/scenarios/zone-outages/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/scenarios/zone-outages/</guid>
-      <description>This scenario disrupts a targeted zone in the public cloud by blocking egress and ingress traffic to understand the impact on both Kubernetes/OpenShift platforms control plane as well as applications running on the worker nodes in that zone. More information is documented here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
-    </item>
-    <item>
-      <title>Contribution Guidelines</title>
-      <link>//localhost:50777/docs/contribution-guidelines/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/contribution-guidelines/</guid>
-      <description>Adding New Scenarios/Testing Changes Refer to the 2 docs below to be able to test your own images with any changes and be able to contribute them to the repository&#xA;Testing Your Changes Contribute </description>
-    </item>
-    <item>
-      <title>Articles</title>
-      <link>//localhost:50777/blog/2021/10/01/articles/</link>
-      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/blog/2021/10/01/articles/</guid>
-      <description>Presentations and Blogs Blog post on introduction to Kraken: https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes Discussion and demo on how Kraken can be leveraged to ensure OpenShift is reliable, performant and scalable: https://www.youtube.com/watch?v=s1PvupI5sD0&amp;ab_channel=OpenShift Blog post emphasizing the importance of making Chaos part of Performance and Scale runs to mimic the production environments: https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests Blog post on findings from Chaos test runs: https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories Discussion with CNCF TAG App Delivery on Krkn workflow, features and addition to CNCF sandbox: Github, Tracker, recording Blog post on supercharging chaos testing using AI integration in Krkn: https://www.</description>
+      <guid>//localhost:64001/docs/cerberus/config/</guid>
+      <description>Cerberus Config Components Explained&#xA;Sample Config Watch Nodes Watch Operators Watch Routes Watch Master Schedulable Status Watch Namespaces Watch Terminating Namespaces Publish Status Inpsect Components Custom Checks Config Set the components to monitor and the tunings like duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:&#xA;cerberus: distribution: openshift # Distribution can be kubernetes or openshift kubeconfig_path: /root/.kube/config # Path to kubeconfig port: 8081 # http server port where cerberus status is published watch_nodes: True # Set to True for the cerberus to monitor the cluster nodes watch_cluster_operators: True # Set to True for cerberus to monitor cluster operators watch_terminating_namespaces: True # Set to True to monitor if any namespaces (set below under &amp;#39;watch_namespaces&amp;#39; start terminating watch_url_routes: # Route url&amp;#39;s you want to monitor, this is a double array with the url and optional authorization parameter watch_master_schedulable: # When enabled checks for the schedulable master nodes with given label.</description>
     </item>
     <item>
       <title>krkn-hub</title>
-      <link>//localhost:50777/docs/getting-started/krkn-hub/</link>
+      <link>//localhost:64001/docs/installation/krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/getting-started/krkn-hub/</guid>
+      <guid>//localhost:64001/docs/installation/krkn-hub/</guid>
       <description>Hosts container images and wrapper for running scenarios supported by Krkn, a chaos testing tool for Kubernetes clusters to ensure it is resilient to failures. All we need to do is run the containers with the respective environment variables defined as supported by the scenarios without having to maintain and tweak files!&#xA;Set Up You can use docker or podman to run kraken-hub&#xA;Install Podman your certain operating system based on these instructions</description>
     </item>
     <item>
-      <title>Best Practices</title>
-      <link>//localhost:50777/docs/testing-methodology/example-page/</link>
+      <title>Application Outage Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/application-outage/application-outage-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/application-outage/application-outage-krkn/</guid>
+      <description>Sample scenario config application_outage: # Scenario to create an outage of an application by blocking traffic duration: 600 # Duration in seconds after which the routes will be accessible namespace: &amp;lt;namespace-with-application&amp;gt; # Namespace to target - all application routes will go inaccessible if pod selector is empty pod_selector: {app: foo} # Pods to target block: [Ingress, Egress] # It can be Ingress or Egress or Ingress, Egress Debugging steps in case of failures Kraken creates a network policy blocking the ingress/egress traffic to create an outage, in case of failures before reverting back the network policy, you can delete it manually by executing the following commands to stop the outage:</description>
+    </item>
+    <item>
+      <title>Arcaflow Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</guid>
+      <description>Usage To enable arcaflow scenarios edit the kraken config file, go to the section kraken -&amp;gt; chaos_scenarios of the yaml structure and add a new element to the list named arcaflow_scenarios then add the desired scenario pointing to the input.yaml file.&#xA;kraken: ... chaos_scenarios: - arcaflow_scenarios: - scenarios/arcaflow/cpu-hog/input.yaml input.yaml The implemented scenarios can be found in scenarios/arcaflow/&amp;lt;scenario_name&amp;gt; folder. The entrypoint of each scenario is the input.yaml file. In this file there are all the options to set up the scenario accordingly to the desired target</description>
+    </item>
+    <item>
+      <title>Container Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/container-scenario/container-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/container-scenario/container-scenarios-krkn/</guid>
+      <description>Example Config The following are the components of Kubernetes for which a basic chaos scenario config exists today.&#xA;scenarios: - name: &amp;#34;&amp;lt;name of scenario&amp;gt;&amp;#34; namespace: &amp;#34;&amp;lt;specific namespace&amp;gt;&amp;#34; # can specify &amp;#34;*&amp;#34; if you want to find in all namespaces label_selector: &amp;#34;&amp;lt;label of pod(s)&amp;gt;&amp;#34; container_name: &amp;#34;&amp;lt;specific container name&amp;gt;&amp;#34; # This is optional, can take out and will kill all containers in all pods found under namespace and label pod_names: # This is optional, can take out and will select all pods with given namespace and label - &amp;lt;pod_name&amp;gt; count: &amp;lt;number of containers to disrupt, default=1&amp;gt; action: &amp;lt;kill signal to run.</description>
+    </item>
+    <item>
+      <title>CPU Hog Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn/</guid>
+      <description>To enable this plugin add the pointer to the scenario input file scenarios/arcaflow/cpu-hog/input.yaml as described in the Usage section. This scenario takes a list of objects named input_list with the following properties:&#xA;kubeconfig : string the kubeconfig needed by the deployer to deploy the sysbench plugin in the target cluster namespace : string the namespace where the scenario container will be deployed Note: this parameter will be automatically filled by kraken if the kubeconfig_path property is correctly set node_selector : key-value map the node label that will be used as nodeSelector by the pod to target a specific cluster node duration : string stop stress test after N seconds.</description>
+    </item>
+    <item>
+      <title>IO Hog Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn/</guid>
+      <description>To enable this plugin add the pointer to the scenario input file scenarios/arcaflow/io-hog/input.yaml as described in the Usage section. This scenario takes a list of objects named input_list with the following properties:&#xA;kubeconfig : string the kubeconfig needed by the deployer to deploy the sysbench plugin in the target cluster namespace : string the namespace where the scenario container will be deployed Note: this parameter will be automatically filled by kraken if the kubeconfig_path property is correctly set node_selector : key-value map the node label that will be used as nodeSelector by the pod to target a specific cluster node duration : string stop stress test after N seconds.</description>
+    </item>
+    <item>
+      <title>Memory Hog Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn/</guid>
+      <description>To enable this plugin add the pointer to the scenario input file scenarios/arcaflow/memory-hog/input.yaml as described in the Usage section. This scenario takes a list of objects named input_list with the following properties:&#xA;kubeconfig : string the kubeconfig needed by the deployer to deploy the sysbench plugin in the target cluster namespace : string the namespace where the scenario container will be deployed Note: this parameter will be automatically filled by kraken if the kubeconfig_path property is correctly set node_selector : key-value map the node label that will be used as nodeSelector by the pod to target a specific cluster node duration : string stop stress test after N seconds.</description>
+    </item>
+    <item>
+      <title>Node Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/node-scenarios/node-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/node-scenarios/node-scenarios-krkn/</guid>
+      <description>The following node chaos scenarios are supported:&#xA;node_start_scenario: Scenario to stop the node instance. node_stop_scenario: Scenario to stop the node instance. node_stop_start_scenario: Scenario to stop and then start the node instance. Not supported on VMware. node_termination_scenario: Scenario to terminate the node instance. node_reboot_scenario: Scenario to reboot the node instance. stop_kubelet_scenario: Scenario to stop the kubelet of the node instance. stop_start_kubelet_scenario: Scenario to stop and start the kubelet of the node instance.</description>
+    </item>
+    <item>
+      <title>Pod Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</guid>
+      <description>Sample scenario config (using a plugin) - id: pod_network_outage config: namespace: openshift-console # Required - Namespace of the pod to which filter need to be applied direction: # Optioinal - List of directions to apply filters - ingress # Blocks ingress traffic, Default both egress and ingress ingress_ports: # Optional - List of ports to block traffic on - 8443 # Blocks 8443, Default [], i.e. all ports. label_selector: &amp;#39;component=ui&amp;#39; # Blocks access to openshift console Pod Network shaping Scenario to introduce network latency, packet loss, and bandwidth restriction in the Pod&amp;rsquo;s network interface.</description>
+    </item>
+    <item>
+      <title>Pod Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/pod-scenario/pod-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pod-scenario/pod-scenarios-krkn/</guid>
+      <description>Example Config The following are the components of Kubernetes for which a basic chaos scenario config exists today.&#xA;kraken: chaos_scenarios: - plugin_scenarios: - path/to/scenario.yaml You can then create the scenario file with the following contents:&#xA;# yaml-language-server: $schema=../plugin.schema.json - id: kill-pods config: namespace_pattern: ^kube-system$ label_selector: k8s-app=kube-scheduler krkn_pod_recovery_time: 120 Please adjust the schema reference to point to the schema file. This file will give you code completion and documentation for the available options in your IDE.</description>
+    </item>
+    <item>
+      <title>Power Outage Scenario using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</guid>
+      <description>Power Outage/ Cluster shut down scenario can be injected by placing the shut_down config file under cluster_shut_down_scenario option in the kraken config. Refer to cluster_shut_down_scenario config file.&#xA;Refer to cloud setup to configure your cli properly for the cloud provider of the cluster you want to shut down.&#xA;Current accepted cloud types:&#xA;Azure GCP AWS Openstack cluster_shut_down_scenario: # Scenario to stop all the nodes for specified duration and restart the nodes.</description>
+    </item>
+    <item>
+      <title>PVC Scenario using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn/</guid>
+      <description>Sample scenario config for egress traffic shaping network_chaos: # Scenario to create an outage by simulating random variations in the network. duration: 300 # In seconds - duration network chaos will be applied. node_name: # Comma separated node names on which scenario has to be injected. label_selector: node-role.kubernetes.io/master # When node_name is not specified, a node with matching label_selector is selected for running the scenario. instance_count: 1 # Number of nodes in which to execute network chaos.</description>
+    </item>
+    <item>
+      <title>PVC Scenario using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/pvc-scenario/pvc-scenario-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pvc-scenario/pvc-scenario-krkn/</guid>
+      <description>Sample scenario config pvc_scenario: pvc_name: &amp;lt;pvc_name&amp;gt; # Name of the target PVC. pod_name: &amp;lt;pod_name&amp;gt; # Name of the pod where the PVC is mounted. It will be ignored if the pvc_name is defined. namespace: &amp;lt;namespace_name&amp;gt; # Namespace where the PVC is. fill_percentage: 50 # Target percentage to fill up the cluster. Value must be higher than current percentage. Valid values are between 0 and 99. duration: 60 # Duration in seconds for the fault.</description>
+    </item>
+    <item>
+      <title>Service Disruption Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</guid>
+      <description>Configuration Options: namespace: Specific namespace or regex style namespace of what you want to delete. Gets all namespaces if not specified; set to &amp;quot;&amp;quot; if you want to use the label_selector field.&#xA;Set to &amp;lsquo;^.*$&amp;rsquo; and label_selector to &amp;quot;&amp;quot; to randomly select any namespace in your cluster.&#xA;label_selector: Label on the namespace you want to delete. Set to &amp;quot;&amp;quot; if you are using the namespace variable.&#xA;delete_count: Number of namespaces to kill in each run.</description>
+    </item>
+    <item>
+      <title>Service Hijacking Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</guid>
+      <description>The web service&amp;rsquo;s source code is available here. It employs a time-based test plan from the scenario configuration file, which specifies the behavior of resources during the chaos scenario as follows:&#xA;service_target_port: http-web-svc # The port of the service to be hijacked (can be named or numeric, based on the workload and service configuration). service_name: nginx-service # The name of the service that will be hijacked. service_namespace: default # The namespace where the target service is located.</description>
+    </item>
+    <item>
+      <title>Time Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn/</guid>
+      <description>Configuration Options: action: skew_time or skew_date.&#xA;object_type: pod or node.&#xA;namespace: namespace of the pods you want to skew. Needs to be set if setting a specific pod name.&#xA;label_selector: Label on the nodes or pods you want to skew.&#xA;container_name: Container name in pod you want to reset time on. If left blank it will randomly select one.&#xA;object_name: List of the names of pods or nodes you want to skew.</description>
+    </item>
+    <item>
+      <title>Zone Outage Scenarios using Krkn</title>
+      <link>//localhost:64001/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn/</guid>
+      <description>Zone outage can be injected by placing the zone_outage config file under zone_outages option in the kraken config. Refer to zone_outage_scenario config file for the parameters that need to be defined.&#xA;Refer to cloud setup to configure your cli properly for the cloud provider of the cluster you want to shut down.&#xA;Current accepted cloud types: AWS Sample scenario config zone_outage: # Scenario to create an outage of a zone by tweaking network ACL.</description>
+    </item>
+    <item>
+      <title>Example Report</title>
+      <link>//localhost:64001/docs/cerberus/example_report/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/example_report/</guid>
+      <description>2020-03-26 22:05:06,393 [INFO] Starting ceberus 2020-03-26 22:05:06,401 [INFO] Initializing client to talk to the Kubernetes cluster 2020-03-26 22:05:06,434 [INFO] Fetching cluster info 2020-03-26 22:05:06,739 [INFO] Publishing cerberus status at http://0.0.0.0:8080 2020-03-26 22:05:06,753 [INFO] Starting http server at http://0.0.0.0:8080 2020-03-26 22:05:06,753 [INFO] Daemon mode enabled, cerberus will monitor forever 2020-03-26 22:05:06,753 [INFO] Ignoring the iterations set 2020-03-26 22:05:25,104 [INFO] Iteration 4: Node status: True 2020-03-26 22:05:25,133 [INFO] Iteration 4: Etcd member pods status: True 2020-03-26 22:05:25,161 [INFO] Iteration 4: OpenShift apiserver status: True 2020-03-26 22:05:25,546 [INFO] Iteration 4: Kube ApiServer status: True 2020-03-26 22:05:25,717 [INFO] Iteration 4: Monitoring stack status: True 2020-03-26 22:05:25,720 [INFO] Iteration 4: Kube controller status: True 2020-03-26 22:05:25,746 [INFO] Iteration 4: Machine API components status: True 2020-03-26 22:05:25,945 [INFO] Iteration 4: Kube scheduler status: True 2020-03-26 22:05:25,963 [INFO] Iteration 4: OpenShift ingress status: True 2020-03-26 22:05:26,077 [INFO] Iteration 4: OpenShift SDN status: True 2020-03-26 22:05:26,077 [INFO] HTTP requests served: 0 2020-03-26 22:05:26,077 [INFO] Sleeping for the specified duration: 5 2020-03-26 22:05:31,134 [INFO] Iteration 5: Node status: True 2020-03-26 22:05:31,162 [INFO] Iteration 5: Etcd member pods status: True 2020-03-26 22:05:31,190 [INFO] Iteration 5: OpenShift apiserver status: True 127.</description>
+    </item>
+    <item>
+      <title>Pod Network Chaos Scenarios using Krkn-hub</title>
+      <link>//localhost:64001/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</guid>
+      <description>This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+    </item>
+    <item>
+      <title>Pod Scenarios using Krkn-hub</title>
+      <link>//localhost:64001/docs/scenarios/pod-scenario/pod-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pod-scenario/pod-scenarios-krkn-hub/</guid>
+      <description>This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+    </item>
+    <item>
+      <title>All Scenarios Variables</title>
+      <link>//localhost:64001/docs/scenarios/all-scenario-env/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/all-scenario-env/</guid>
+      <description>These variables are to be used for the top level configuration template that are shared by all the scenarios&#xA;See the description and default values below&#xA;Supported parameters The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:&#xA;example: export &amp;lt;parameter_name&amp;gt;=&amp;lt;value&amp;gt;&#xA;Parameter Description Default CERBERUS_ENABLED Set this to true if cerberus is running and monitoring the cluster False CERBERUS_URL URL to poll for the go/no-go signal http://0.</description>
+    </item>
+    <item>
+      <title>Application outage Scenario using Krkn-hub</title>
+      <link>//localhost:64001/docs/scenarios/application-outage/application-outages-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/application-outage/application-outages-krkn-hub/</guid>
+      <description>This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer docs for more details.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
+    </item>
+    <item>
+      <title>Container Scenarios using Krkn-hub</title>
+      <link>//localhost:64001/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</guid>
+      <description>This scenario disrupts the containers matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:container-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+    </item>
+    <item>
+      <title>CPU Hog Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn-hub/</guid>
+      <description>This scenario hogs the cpu on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
+    </item>
+    <item>
+      <title>IO Hog Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn-hub/</guid>
+      <description>This scenario hogs the IO on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/root/.kube/config:Z -d quay.</description>
+    </item>
+    <item>
+      <title>Memory Hog Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn-hub/</guid>
+      <description>This scenario hogs the memory on the specified node on a Kubernetes/OpenShift cluster for a specified duration. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
+    </item>
+    <item>
+      <title>Network Chaos Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn-hub/</guid>
+      <description>This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node&amp;rsquo;s interface using the tc and Netem. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.</description>
+    </item>
+    <item>
+      <title>Node Scenarios using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/node-scenarios/node-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/node-scenarios/node-scenarios-krkn-hub/</guid>
+      <description>This scenario disrupts the node(s) matching the label on a Kubernetes/OpenShift cluster. Actions/disruptions supported are listed here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+    </item>
+    <item>
+      <title>Power Outage Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</guid>
+      <description>This scenario shuts down Kubernetes/OpenShift cluster for the specified duration to simulate power outages, brings it back online and checks if it&amp;rsquo;s healthy. More information can be found here&#xA;Right now power outage and cluster shutdown are one in the same. We originally created this scenario to stop all the nodes and then start them back up how a customer would shut their cluster down.&#xA;In a real life chaos scenario though, we figured this scenario was close to if the power went out on the aws side so all of our ec2 nodes would be stopped/powered off.</description>
+    </item>
+    <item>
+      <title>PVC Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/pvc-scenario/pvc-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/pvc-scenario/pvc-scenario-krkn-hub/</guid>
+      <description>This scenario fills up a given PersistenVolumeClaim by creating a temp file on the PVC from a pod associated with it. The purpose of this scenario is to fill up a volume to understand faults cause by the application using this volume. For more information refer the following documentation.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
+    </item>
+    <item>
+      <title>Service Disruption Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</guid>
+      <description>This scenario deletes main objects within a namespace in your Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:service-disruption-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
+    </item>
+    <item>
+      <title>Service Hijacking Scenario using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</guid>
+      <description>This scenario reroutes traffic intended for a target service to a custom web service that is automatically deployed by Krkn. This web service responds with user-defined HTTP statuses, MIME types, and bodies. For more details, please refer to the following documentation.&#xA;Run Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. You must set up the scenario in a local file following the scenario syntax, and then pass this file&amp;rsquo;s base64-encoded content to the container via the SCENARIO_BASE64 variable.</description>
+    </item>
+    <item>
+      <title>Time Skew Scenarios using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</guid>
+      <description>This scenario skews the date and time of the nodes and pods matching the label on a Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
+    </item>
+    <item>
+      <title>Usage</title>
+      <link>//localhost:64001/docs/cerberus/usage/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/usage/</guid>
+      <description>Config Set the supported components to monitor and the tunings like number of iterations to monitor and duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:&#xA;cerberus: distribution: openshift # Distribution can be kubernetes or openshift kubeconfig_path: ~/.kube/config # Path to kubeconfig port: 8080 # http server port where cerberus status is published watch_nodes: True # Set to True for the cerberus to monitor the cluster nodes watch_cluster_operators: True # Set to True for cerberus to monitor cluster operators.</description>
+    </item>
+    <item>
+      <title>Zone Outage Scenarios using Krkn-Hub</title>
+      <link>//localhost:64001/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn-hub/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn-hub/</guid>
+      <description>This scenario disrupts a targeted zone in the public cloud by blocking egress and ingress traffic to understand the impact on both Kubernetes/OpenShift platforms control plane as well as applications running on the worker nodes in that zone. More information is documented here&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.</description>
+    </item>
+    <item>
+      <title>Alerts</title>
+      <link>//localhost:64001/docs/cerberus/alerts/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/alerts/</guid>
+      <description>Cerberus consumes the metrics from Prometheus deployed on the cluster to report the alerts.&#xA;When provided the prometheus url and bearer token in the config, Cerberus reports the following alerts:&#xA;KubeAPILatencyHigh: alerts at the end of each iteration and warns if 99th percentile latency for given requests to the kube-apiserver is above 1 second. It is the official SLI/SLO defined for Kubernetes.&#xA;High number of etcd leader changes: alerts the user when an increase in etcd leader changes are observed on the cluster.</description>
+    </item>
+    <item>
+      <title>Node Problem Detector</title>
+      <link>//localhost:64001/docs/cerberus/node-problem-detector/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/node-problem-detector/</guid>
+      <description>node-problem-detector aims to make various node problems visible to the upstream layers in cluster management stack.&#xA;Installation Please follow the instructions in the installation section to setup Node Problem Detector on Kubernetes. The following instructions are setting it up on OpenShift:&#xA;Create openshift-node-problem-detector namespace ns.yaml with oc create -f ns.yaml Add cluster role with oc adm policy add-cluster-role-to-user system:node-problem-detector -z default -n openshift-node-problem-detector Add security context constraints with oc adm policy add-scc-to-user privileged system:serviceaccount:openshift-node-problem-detector:default Edit node-problem-detector.</description>
+    </item>
+    <item>
+      <title>Slack Integration</title>
+      <link>//localhost:64001/docs/cerberus/slack/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/slack/</guid>
+      <description>The user has the option to enable/disable the slack integration ( disabled by default ). To use the slack integration, the user has to first create an app and add a bot to it on slack. SLACK_API_TOKEN and SLACK_CHANNEL environment variables have to be set. SLACK_API_TOKEN refers to Bot User OAuth Access Token and SLACK_CHANNEL refers to the slack channel ID the user wishes to receive the notifications. Make sure the Slack Bot Token Scopes contains this permission [calls:read] [channels:read] [chat:write] [groups:read] [im:read] [mpim:read]</description>
+    </item>
+    <item>
+      <title>Contribution Guidelines</title>
+      <link>//localhost:64001/docs/contribution-guidelines/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/docs/testing-methodology/example-page/</guid>
+      <guid>//localhost:64001/docs/contribution-guidelines/</guid>
+      <description>Adding New Scenarios/Testing Changes Refer to the 2 docs below to be able to test your own images with any changes and be able to contribute them to the repository&#xA;Testing Your Changes Contribute </description>
+    </item>
+    <item>
+      <title>Contribute</title>
+      <link>//localhost:64001/docs/cerberus/contribute/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/cerberus/contribute/</guid>
+      <description>How to contribute Contributions are always appreciated.&#xA;How to:&#xA;Submit Pull Request Fix Formatting Squash Commits Pull request In order to submit a change or a PR, please fork the project and follow instructions:&#xA;$ git clone http://github.com/&amp;lt;me&amp;gt;/cerberus $ cd cerberus $ git checkout -b &amp;lt;branch_name&amp;gt; $ &amp;lt;make change&amp;gt; $ git add &amp;lt;changes&amp;gt; $ git commit -a $ &amp;lt;insert good message&amp;gt; $ git push Fix Formatting Cerberus uses pre-commit framework to maintain the code linting and python code styling.</description>
+    </item>
+    <item>
+      <title>Supported Cloud Providers</title>
+      <link>//localhost:64001/docs/scenarios/cloud_setup/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/scenarios/cloud_setup/</guid>
+      <description>AWS GCP Openstack Azure Alibaba VMware IBMCloud AWS NOTE: For clusters with AWS make sure AWS CLI is installed and properly configured using an AWS account&#xA;GCP NOTE: For clusters with GCP make sure GCP CLI is installed.&#xA;A google service account is required to give proper authentication to GCP for node actions. See here for how to create a service account.&#xA;NOTE: A user with &amp;lsquo;resourcemanager.projects.setIamPolicy&amp;rsquo; permission is required to grant project-level permissions to the service account.</description>
+    </item>
+    <item>
+      <title>Articles</title>
+      <link>//localhost:64001/blog/2021/10/01/articles/</link>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/blog/2021/10/01/articles/</guid>
+      <description>Presentations and Blogs Blog post on introduction to Kraken: https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes Discussion and demo on how Kraken can be leveraged to ensure OpenShift is reliable, performant and scalable: https://www.youtube.com/watch?v=s1PvupI5sD0&amp;ab_channel=OpenShift Blog post emphasizing the importance of making Chaos part of Performance and Scale runs to mimic the production environments: https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests Blog post on findings from Chaos test runs: https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories Discussion with CNCF TAG App Delivery on Krkn workflow, features and addition to CNCF sandbox: Github, Tracker, recording Blog post on supercharging chaos testing using AI integration in Krkn: https://www.</description>
+    </item>
+    <item>
+      <title>Best Practices</title>
+      <link>//localhost:64001/docs/testing-methodology/example-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:64001/docs/testing-methodology/example-page/</guid>
       <description>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster. On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:&#xA;Alerts with appropriate severity should get fired.&#xA;Alerts are key to identify when a component starts degrading, and can help focus the investigation effort on affected system components.</description>
     </item>
     <item>
       <title>Search Results</title>
-      <link>//localhost:50777/search/</link>
+      <link>//localhost:64001/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:50777/search/</guid>
+      <guid>//localhost:64001/search/</guid>
       <description></description>
     </item>
   </channel>

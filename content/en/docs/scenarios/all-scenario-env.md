@@ -1,0 +1,52 @@
+---
+title: All Scenarios Variables
+description: >
+date: 2017-01-05
+weight: 4
+---
+These variables are to be used for the top level configuration template that are shared by all the scenarios 
+
+See the description and default values below 
+
+#### Supported parameters
+
+The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
+
+example:
+`export <parameter_name>=<value>`
+
+Parameter               | Description                                                           | Default
+----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
+CERBERUS_ENABLED        | Set this to true if cerberus is running and monitoring the cluster    | False                                |
+CERBERUS_URL            | URL to poll for the go/no-go signal                                   | http://0.0.0.0:8080                  |
+WAIT_DURATION           | Duration in seconds to wait between each chaos scenario               | 60                                   |
+ITERATIONS              | Number of times to execute the scenarios                              | 1                                    |
+DAEMON_MODE             | Iterations are set to infinity which means that the kraken will cause chaos forever | False                  |
+PUBLISH_KRAKEN_STATUS              | If you want                         | True                                    |
+SIGNAL_ADDRESS              | Address to print kraken status to                          | 0.0.0.0                                    |
+PORT              | Port to print kraken status to                             | 8081                                    |         |
+SIGNAL_STATE      | Waits for the RUN signal when set to PAUSE before running the scenarios, refer [docs](https://github.com/redhat-chaos/krkn/blob/master/docs/signal.md) for more details | RUN |
+DEPLOY_DASHBOARDS | Deploys mutable grafana loaded with dashboards visualizing performance metrics pulled from in-cluster prometheus. The dashboard will be exposed as a route. | False |
+CAPTURE_METRICS   | Captures metrics as specified in the profile from in-cluster prometheus. Default metrics captures are listed [here](https://github.com/redhat-chaos/krkn/blob/master/config/metrics-aggregated.yaml) | False |
+ENABLE_ALERTS     | Evaluates expressions from in-cluster prometheus and exits 0 or 1 based on the severity set. [Default profile](https://github.com/redhat-chaos/krkn/blob/master/config/alerts). More details can be found [here](https://github.com/redhat-chaos/krkn#alerts) | False |
+ALERTS_PATH       | Path to the alerts file to use when ENABLE_ALERTS is set | config/alerts |
+CHECK_CRITICAL_ALERTS | When enabled will check prometheus for critical alerts firing post chaos | False |
+TELEMETRY_ENABLED | Enable/disables the telemetry collection feature | False |
+TELEMETRY_API_URL | telemetry service endpoint | https://ulnmf9xv7j.execute-api.us-west-2.amazonaws.com/production |
+TELEMETRY_USERNAME | telemetry service username | redhat-chaos |
+TELEMETRY_PASSWORD | | No default |
+TELEMETRY_PROMETHEUS_BACKUP | enables/disables prometheus data collection | True |
+TELEMTRY_FULL_PROMETHEUS_BACKUP | if is set to False only the /prometheus/wal folder will be downloaded | False |
+TELEMETRY_BACKUP_THREADS | number of telemetry download/upload threads | 5 |
+TELEMETRY_ARCHIVE_PATH | local path where the archive files will be temporarly stored | /tmp |
+TELEMETRY_MAX_RETRIES | maximum number of upload retries (if 0 will retry forever)  | 0 |
+TELEMETRY_RUN_TAG | if set, this will be appended to the run folder in the bucket (useful to group the runs | chaos |
+TELEMETRY_GROUP | if set will archive the telemetry in the S3 bucket on a folder named after the value | default |
+TELEMETRY_ARCHIVE_SIZE | the size of the prometheus data archive size in KB. The lower the size of archive is | 1000 |
+TELEMETRY_LOGS_BACKUP  | Logs backup to s3 | False |
+TELEMETRY_FILTER_PATTER | Filter logs based on certain time stamp patterns |["(\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+).+","kinit (\\d+/\\d+/\\d+\\s\\d{2}:\\d{2}:\\d{2})\\s+","(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z).+"]  | 
+TELEMETRY_CLI_PATH | OC Cli path, if not specified will be search in $PATH | _blank_ |
+ELASTIC_SERVER | Be able to track telemtry data in elasticsearch, this is the url of the elasticsearch data storage | _blank_ |
+ELASTIC_INDEX | Elastic search index pattern to post results to | _blank_ |
+
+{{% alert title="Note" %}} For setting the TELEMETRY_ARCHIVE_SIZE,the higher the number of archive files will be produced and uploaded (and processed by backup_thread simultaneously).For unstable/slow connection is better to keep this value low increasing the number of backup_threads, in this way, on upload failure, the retry will happen only on the failed chunk without affecting the whole upload.{{% /alert %}}

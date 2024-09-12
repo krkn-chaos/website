@@ -2,17 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Installation on Krkn</title>
-    <link>//localhost:64001/categories/installation/</link>
+    <link>//localhost:62035/categories/installation/</link>
     <description>Recent content in Installation on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:64001/categories/installation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62035/categories/installation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installation</title>
-      <link>//localhost:64001/docs/installation/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/installation/</guid>
+      <link>//localhost:62035/docs/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:62035/docs/installation/</guid>
       <description>The following ways are supported to run Kraken:&#xA;Standalone python program through Git. Containerized version using either Podman or Docker as the runtime via Krkn-hub Kubernetes or OpenShift deployment ( unsupported ) Note It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster’s API server instability.</description>
     </item>
   </channel>

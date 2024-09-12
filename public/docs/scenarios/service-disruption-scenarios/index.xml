@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Service Disruption Scenarios on Krkn</title>
-    <link>//localhost:64001/docs/scenarios/service-disruption-scenarios/</link>
+    <link>//localhost:62035/docs/scenarios/service-disruption-scenarios/</link>
     <description>Recent content in Service Disruption Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:64001/docs/scenarios/service-disruption-scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
+    <atom:link href="//localhost:62035/docs/scenarios/service-disruption-scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Service Disruption Scenarios using Krkn</title>
-      <link>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</link>
+      <link>//localhost:62035/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</guid>
+      <guid>//localhost:62035/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/</guid>
       <description>Configuration Options: namespace: Specific namespace or regex style namespace of what you want to delete. Gets all namespaces if not specified; set to &amp;quot;&amp;quot; if you want to use the label_selector field.&#xA;Set to &amp;lsquo;^.*$&amp;rsquo; and label_selector to &amp;quot;&amp;quot; to randomly select any namespace in your cluster.&#xA;label_selector: Label on the namespace you want to delete. Set to &amp;quot;&amp;quot; if you are using the namespace variable.&#xA;delete_count: Number of namespaces to kill in each run.</description>
     </item>
     <item>
       <title>Service Disruption Scenario using Krkn-Hub</title>
-      <link>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</link>
+      <link>//localhost:62035/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</guid>
+      <guid>//localhost:62035/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/</guid>
       <description>This scenario deletes main objects within a namespace in your Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:service-disruption-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
     </item>
   </channel>

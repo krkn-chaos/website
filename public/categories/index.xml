@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Krkn</title>
-    <link>//localhost:64001/categories/</link>
+    <link>//localhost:62035/categories/</link>
     <description>Recent content in Categories on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 04 Sep 2024 09:49:46 -0400</lastBuildDate>
-    <atom:link href="//localhost:64001/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
+    <atom:link href="//localhost:62035/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Examples</title>
-      <link>//localhost:64001/categories/examples/</link>
+      <link>//localhost:62035/categories/examples/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/categories/examples/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Installation</title>
-      <link>//localhost:64001/categories/installation/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/categories/installation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Placeholders</title>
-      <link>//localhost:64001/categories/placeholders/</link>
-      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/categories/placeholders/</guid>
+      <guid>//localhost:62035/categories/examples/</guid>
       <description></description>
     </item>
     <item>
       <title>Best Practices</title>
-      <link>//localhost:64001/categories/best-practices/</link>
+      <link>//localhost:62035/categories/best-practices/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/categories/best-practices/</guid>
+      <guid>//localhost:62035/categories/best-practices/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Installation</title>
+      <link>//localhost:62035/categories/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:62035/categories/installation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Placeholders</title>
+      <link>//localhost:62035/categories/placeholders/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:62035/categories/placeholders/</guid>
       <description></description>
     </item>
   </channel>

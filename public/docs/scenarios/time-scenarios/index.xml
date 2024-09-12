@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Time Scenarios on Krkn</title>
-    <link>//localhost:64001/docs/scenarios/time-scenarios/</link>
+    <link>//localhost:62035/docs/scenarios/time-scenarios/</link>
     <description>Recent content in Time Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:64001/docs/scenarios/time-scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
+    <atom:link href="//localhost:62035/docs/scenarios/time-scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Time Scenarios using Krkn</title>
-      <link>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn/</link>
+      <link>//localhost:62035/docs/scenarios/time-scenarios/time-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn/</guid>
+      <guid>//localhost:62035/docs/scenarios/time-scenarios/time-scenarios-krkn/</guid>
       <description>Configuration Options: action: skew_time or skew_date.&#xA;object_type: pod or node.&#xA;namespace: namespace of the pods you want to skew. Needs to be set if setting a specific pod name.&#xA;label_selector: Label on the nodes or pods you want to skew.&#xA;container_name: Container name in pod you want to reset time on. If left blank it will randomly select one.&#xA;object_name: List of the names of pods or nodes you want to skew.</description>
     </item>
     <item>
       <title>Time Skew Scenarios using Krkn-Hub</title>
-      <link>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</link>
+      <link>//localhost:62035/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</guid>
+      <guid>//localhost:62035/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/</guid>
       <description>This scenario skews the date and time of the nodes and pods matching the label on a Kubernetes/OpenShift cluster. More information can be found here.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.</description>
     </item>
   </channel>

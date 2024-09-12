@@ -37,5 +37,5 @@ How can we best avoid this from happening? This is where **Chaos testing** can a
 
 Give your users next steps from the Overview. For example:
 
-- [Getting Started](/docs/getting-started/): Get started using krkn!
-- [Examples](/docs/examples/): Check out some example code!
+- [Installation](/docs/installation/): Get started using krkn!
+- [Scenarios](/docs/scenarios/): Check out the scenarios we offer!

@@ -2,66 +2,65 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cerberus on Krkn</title>
-    <link>//localhost:64001/docs/cerberus/</link>
+    <link>//localhost:62035/docs/cerberus/</link>
     <description>Recent content in Cerberus on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:64001/docs/cerberus/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62035/docs/cerberus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installation</title>
-      <link>//localhost:64001/docs/cerberus/installation/</link>
+      <link>//localhost:62035/docs/cerberus/installation/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/installation/</guid>
+      <guid>//localhost:62035/docs/cerberus/installation/</guid>
       <description>Following ways are supported to run Cerberus:&#xA;Standalone python program through Git or python package Containerized version using either Podman or Docker as the runtime Kubernetes or OpenShift deployment Note Only OpenShift 4.x versions are tested. Git Pick the latest stable release to install here.&#xA;$ git clone https://github.com/redhat-chaos/cerberus.git --branch &amp;lt;release&amp;gt; Install the dependencies NOTE: Recommended to use a virtual environment(pyenv,venv) so as to prevent conflicts with already installed packages.</description>
     </item>
     <item>
       <title>Config</title>
-      <link>//localhost:64001/docs/cerberus/config/</link>
+      <link>//localhost:62035/docs/cerberus/config/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/config/</guid>
+      <guid>//localhost:62035/docs/cerberus/config/</guid>
       <description>Cerberus Config Components Explained&#xA;Sample Config Watch Nodes Watch Operators Watch Routes Watch Master Schedulable Status Watch Namespaces Watch Terminating Namespaces Publish Status Inpsect Components Custom Checks Config Set the components to monitor and the tunings like duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:&#xA;cerberus: distribution: openshift # Distribution can be kubernetes or openshift kubeconfig_path: /root/.kube/config # Path to kubeconfig port: 8081 # http server port where cerberus status is published watch_nodes: True # Set to True for the cerberus to monitor the cluster nodes watch_cluster_operators: True # Set to True for cerberus to monitor cluster operators watch_terminating_namespaces: True # Set to True to monitor if any namespaces (set below under &amp;#39;watch_namespaces&amp;#39; start terminating watch_url_routes: # Route url&amp;#39;s you want to monitor, this is a double array with the url and optional authorization parameter watch_master_schedulable: # When enabled checks for the schedulable master nodes with given label.</description>
     </item>
     <item>
       <title>Example Report</title>
-      <link>//localhost:64001/docs/cerberus/example_report/</link>
+      <link>//localhost:62035/docs/cerberus/example_report/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/example_report/</guid>
+      <guid>//localhost:62035/docs/cerberus/example_report/</guid>
       <description>2020-03-26 22:05:06,393 [INFO] Starting ceberus 2020-03-26 22:05:06,401 [INFO] Initializing client to talk to the Kubernetes cluster 2020-03-26 22:05:06,434 [INFO] Fetching cluster info 2020-03-26 22:05:06,739 [INFO] Publishing cerberus status at http://0.0.0.0:8080 2020-03-26 22:05:06,753 [INFO] Starting http server at http://0.0.0.0:8080 2020-03-26 22:05:06,753 [INFO] Daemon mode enabled, cerberus will monitor forever 2020-03-26 22:05:06,753 [INFO] Ignoring the iterations set 2020-03-26 22:05:25,104 [INFO] Iteration 4: Node status: True 2020-03-26 22:05:25,133 [INFO] Iteration 4: Etcd member pods status: True 2020-03-26 22:05:25,161 [INFO] Iteration 4: OpenShift apiserver status: True 2020-03-26 22:05:25,546 [INFO] Iteration 4: Kube ApiServer status: True 2020-03-26 22:05:25,717 [INFO] Iteration 4: Monitoring stack status: True 2020-03-26 22:05:25,720 [INFO] Iteration 4: Kube controller status: True 2020-03-26 22:05:25,746 [INFO] Iteration 4: Machine API components status: True 2020-03-26 22:05:25,945 [INFO] Iteration 4: Kube scheduler status: True 2020-03-26 22:05:25,963 [INFO] Iteration 4: OpenShift ingress status: True 2020-03-26 22:05:26,077 [INFO] Iteration 4: OpenShift SDN status: True 2020-03-26 22:05:26,077 [INFO] HTTP requests served: 0 2020-03-26 22:05:26,077 [INFO] Sleeping for the specified duration: 5 2020-03-26 22:05:31,134 [INFO] Iteration 5: Node status: True 2020-03-26 22:05:31,162 [INFO] Iteration 5: Etcd member pods status: True 2020-03-26 22:05:31,190 [INFO] Iteration 5: OpenShift apiserver status: True 127.</description>
     </item>
     <item>
       <title>Usage</title>
-      <link>//localhost:64001/docs/cerberus/usage/</link>
+      <link>//localhost:62035/docs/cerberus/usage/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/usage/</guid>
+      <guid>//localhost:62035/docs/cerberus/usage/</guid>
       <description>Config Set the supported components to monitor and the tunings like number of iterations to monitor and duration to wait between each check in the config file located at config/config.yaml. A sample config looks like:&#xA;cerberus: distribution: openshift # Distribution can be kubernetes or openshift kubeconfig_path: ~/.kube/config # Path to kubeconfig port: 8080 # http server port where cerberus status is published watch_nodes: True # Set to True for the cerberus to monitor the cluster nodes watch_cluster_operators: True # Set to True for cerberus to monitor cluster operators.</description>
     </item>
     <item>
       <title>Alerts</title>
-      <link>//localhost:64001/docs/cerberus/alerts/</link>
+      <link>//localhost:62035/docs/cerberus/alerts/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/alerts/</guid>
+      <guid>//localhost:62035/docs/cerberus/alerts/</guid>
       <description>Cerberus consumes the metrics from Prometheus deployed on the cluster to report the alerts.&#xA;When provided the prometheus url and bearer token in the config, Cerberus reports the following alerts:&#xA;KubeAPILatencyHigh: alerts at the end of each iteration and warns if 99th percentile latency for given requests to the kube-apiserver is above 1 second. It is the official SLI/SLO defined for Kubernetes.&#xA;High number of etcd leader changes: alerts the user when an increase in etcd leader changes are observed on the cluster.</description>
     </item>
     <item>
       <title>Node Problem Detector</title>
-      <link>//localhost:64001/docs/cerberus/node-problem-detector/</link>
+      <link>//localhost:62035/docs/cerberus/node-problem-detector/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/node-problem-detector/</guid>
+      <guid>//localhost:62035/docs/cerberus/node-problem-detector/</guid>
       <description>node-problem-detector aims to make various node problems visible to the upstream layers in cluster management stack.&#xA;Installation Please follow the instructions in the installation section to setup Node Problem Detector on Kubernetes. The following instructions are setting it up on OpenShift:&#xA;Create openshift-node-problem-detector namespace ns.yaml with oc create -f ns.yaml Add cluster role with oc adm policy add-cluster-role-to-user system:node-problem-detector -z default -n openshift-node-problem-detector Add security context constraints with oc adm policy add-scc-to-user privileged system:serviceaccount:openshift-node-problem-detector:default Edit node-problem-detector.</description>
     </item>
     <item>
       <title>Slack Integration</title>
-      <link>//localhost:64001/docs/cerberus/slack/</link>
+      <link>//localhost:62035/docs/cerberus/slack/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/slack/</guid>
+      <guid>//localhost:62035/docs/cerberus/slack/</guid>
       <description>The user has the option to enable/disable the slack integration ( disabled by default ). To use the slack integration, the user has to first create an app and add a bot to it on slack. SLACK_API_TOKEN and SLACK_CHANNEL environment variables have to be set. SLACK_API_TOKEN refers to Bot User OAuth Access Token and SLACK_CHANNEL refers to the slack channel ID the user wishes to receive the notifications. Make sure the Slack Bot Token Scopes contains this permission [calls:read] [channels:read] [chat:write] [groups:read] [im:read] [mpim:read]</description>
     </item>
     <item>
       <title>Contribute</title>
-      <link>//localhost:64001/docs/cerberus/contribute/</link>
+      <link>//localhost:62035/docs/cerberus/contribute/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/cerberus/contribute/</guid>
+      <guid>//localhost:62035/docs/cerberus/contribute/</guid>
       <description>How to contribute Contributions are always appreciated.&#xA;How to:&#xA;Submit Pull Request Fix Formatting Squash Commits Pull request In order to submit a change or a PR, please fork the project and follow instructions:&#xA;$ git clone http://github.com/&amp;lt;me&amp;gt;/cerberus $ cd cerberus $ git checkout -b &amp;lt;branch_name&amp;gt; $ &amp;lt;make change&amp;gt; $ git add &amp;lt;changes&amp;gt; $ git commit -a $ &amp;lt;insert good message&amp;gt; $ git push Fix Formatting Cerberus uses pre-commit framework to maintain the code linting and python code styling.</description>
     </item>
   </channel>

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scenarios on Krkn</title>
-    <link>//localhost:64001/docs/scenarios/</link>
+    <link>//localhost:62035/docs/scenarios/</link>
     <description>Recent content in Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:64001/docs/scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
+    <atom:link href="//localhost:62035/docs/scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ManagedCluster Scenarios</title>
-      <link>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</link>
+      <link>//localhost:62035/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</guid>
+      <guid>//localhost:62035/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/</guid>
       <description>ManagedCluster scenarios provide a way to integrate kraken with Open Cluster Management (OCM) and Red Hat Advanced Cluster Management for Kubernetes (ACM).&#xA;ManagedCluster scenarios leverage ManifestWorks to inject faults into the ManagedClusters.&#xA;The following ManagedCluster chaos scenarios are supported:&#xA;managedcluster_start_scenario: Scenario to start the ManagedCluster instance. managedcluster_stop_scenario: Scenario to stop the ManagedCluster instance. managedcluster_stop_start_scenario: Scenario to stop and then start the ManagedCluster instance. start_klusterlet_scenario: Scenario to start the klusterlet of the ManagedCluster instance.</description>
     </item>
     <item>
       <title>All Scenarios Variables</title>
-      <link>//localhost:64001/docs/scenarios/all-scenario-env/</link>
+      <link>//localhost:62035/docs/scenarios/all-scenario-env/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/all-scenario-env/</guid>
+      <guid>//localhost:62035/docs/scenarios/all-scenario-env/</guid>
       <description>These variables are to be used for the top level configuration template that are shared by all the scenarios&#xA;See the description and default values below&#xA;Supported parameters The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:&#xA;example: export &amp;lt;parameter_name&amp;gt;=&amp;lt;value&amp;gt;&#xA;Parameter Description Default CERBERUS_ENABLED Set this to true if cerberus is running and monitoring the cluster False CERBERUS_URL URL to poll for the go/no-go signal http://0.</description>
     </item>
     <item>
       <title>Supported Cloud Providers</title>
-      <link>//localhost:64001/docs/scenarios/cloud_setup/</link>
+      <link>//localhost:62035/docs/scenarios/cloud_setup/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:64001/docs/scenarios/cloud_setup/</guid>
+      <guid>//localhost:62035/docs/scenarios/cloud_setup/</guid>
       <description>AWS GCP Openstack Azure Alibaba VMware IBMCloud AWS NOTE: For clusters with AWS make sure AWS CLI is installed and properly configured using an AWS account&#xA;GCP NOTE: For clusters with GCP make sure GCP CLI is installed.&#xA;A google service account is required to give proper authentication to GCP for node actions. See here for how to create a service account.&#xA;NOTE: A user with &amp;lsquo;resourcemanager.projects.setIamPolicy&amp;rsquo; permission is required to grant project-level permissions to the service account.</description>
     </item>
   </channel>

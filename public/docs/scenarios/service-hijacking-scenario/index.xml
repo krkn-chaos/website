@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Service Hijacking Scenario on Krkn</title>
-    <link>//localhost:62035/docs/scenarios/service-hijacking-scenario/</link>
+    <link>//localhost:60576/docs/scenarios/service-hijacking-scenario/</link>
     <description>Recent content in Service Hijacking Scenario on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
-    <atom:link href="//localhost:62035/docs/scenarios/service-hijacking-scenario/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
+    <atom:link href="//localhost:60576/docs/scenarios/service-hijacking-scenario/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Service Hijacking Scenarios using Krkn</title>
-      <link>//localhost:62035/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</link>
+      <link>//localhost:60576/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</guid>
+      <guid>//localhost:60576/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/</guid>
       <description>The web service&amp;rsquo;s source code is available here. It employs a time-based test plan from the scenario configuration file, which specifies the behavior of resources during the chaos scenario as follows:&#xA;service_target_port: http-web-svc # The port of the service to be hijacked (can be named or numeric, based on the workload and service configuration). service_name: nginx-service # The name of the service that will be hijacked. service_namespace: default # The namespace where the target service is located.</description>
     </item>
     <item>
       <title>Service Hijacking Scenario using Krkn-Hub</title>
-      <link>//localhost:62035/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</link>
+      <link>//localhost:60576/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</guid>
+      <guid>//localhost:60576/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/</guid>
       <description>This scenario reroutes traffic intended for a target service to a custom web service that is automatically deployed by Krkn. This web service responds with user-defined HTTP statuses, MIME types, and bodies. For more details, please refer to the following documentation.&#xA;Run Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. You must set up the scenario in a local file following the scenario syntax, and then pass this file&amp;rsquo;s base64-encoded content to the container via the SCENARIO_BASE64 variable.</description>
     </item>
   </channel>

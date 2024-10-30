@@ -1,10 +1,8 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52212&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60576&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="alternate" type="text/html" href="//localhost:52212/docs/getting-started/_print/">
-<link rel="alternate" type="application/rss&#43;xml" href="//localhost:52212/docs/getting-started/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -19,26 +17,26 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Installation | Krkn</title>
-<meta name="description" content="Krkn Chaos Tool">
-<meta property="og:url" content="//localhost:52212/docs/getting-started/">
+<title>Krkn</title>
+<meta name="description" content="Getting Started Running Chaos Scenarios Adding New Scenarios Adding a new scenario is as simple as adding a new config file under scenarios directory and defining it in the main kraken config. You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.
+Templates Pod Scenario Yaml Template For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:">
+<meta property="og:url" content="//localhost:60576/docs/getting-started/">
   <meta property="og:site_name" content="Krkn">
-  <meta property="og:title" content="Installation">
-  <meta property="og:description" content="The following ways are supported to run Kraken:
-Standalone python program through Git. Containerized version using either Podman or Docker as the runtime via Krkn-hub Kubernetes or OpenShift deployment ( unsupported ) Note It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster’s API server instability.">
+  <meta property="og:title" content="Krkn">
+  <meta property="og:description" content="Getting Started Running Chaos Scenarios Adding New Scenarios Adding a new scenario is as simple as adding a new config file under scenarios directory and defining it in the main kraken config. You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.
+Templates Pod Scenario Yaml Template For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:">
   <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
 
-  <meta itemprop="name" content="Installation">
-  <meta itemprop="description" content="The following ways are supported to run Kraken:
-Standalone python program through Git. Containerized version using either Podman or Docker as the runtime via Krkn-hub Kubernetes or OpenShift deployment ( unsupported ) Note It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster’s API server instability.">
-  <meta itemprop="dateModified" content="2024-09-04T09:49:46-04:00">
-  <meta itemprop="wordCount" content="288">
-  <meta itemprop="keywords" content="Install,Docs">
+  <meta itemprop="name" content="Krkn">
+  <meta itemprop="description" content="Getting Started Running Chaos Scenarios Adding New Scenarios Adding a new scenario is as simple as adding a new config file under scenarios directory and defining it in the main kraken config. You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.
+Templates Pod Scenario Yaml Template For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:">
+  <meta itemprop="wordCount" content="280">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Installation">
-  <meta name="twitter:description" content="The following ways are supported to run Kraken:
-Standalone python program through Git. Containerized version using either Podman or Docker as the runtime via Krkn-hub Kubernetes or OpenShift deployment ( unsupported ) Note It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster’s API server instability.">
+  <meta name="twitter:title" content="Krkn">
+  <meta name="twitter:description" content="Getting Started Running Chaos Scenarios Adding New Scenarios Adding a new scenario is as simple as adding a new config file under scenarios directory and defining it in the main kraken config. You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.
+Templates Pod Scenario Yaml Template For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:">
 <link href="/scss/main.css" rel="stylesheet">
 <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -47,7 +45,7 @@ Standalone python program through Git. Containerized version using either Podman
 <link rel="stylesheet" href="/css/prism.css"/>
 
   </head>
-  <body class="td-section">
+  <body class="td-page">
     <header>
       <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
 <div class="container-fluid flex-column flex-md-row">
@@ -147,6 +145,287 @@ Standalone python program through Git. Containerized version using either Podman
   <input type="checkbox" id="m-docsoverview-check"/>
   <label for="m-docsoverview-check"><a href="/docs/overview/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsoverview"><span class="">krkn</span></a></label>
   
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsinstallation-li">
+  <input type="checkbox" id="m-docsinstallation-check"/>
+  <label for="m-docsinstallation-check"><a href="/docs/installation/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsinstallation"><span class="">Installation</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstallationkrkn-li">
+  <input type="checkbox" id="m-docsinstallationkrkn-check"/>
+  <label for="m-docsinstallationkrkn-check"><a href="/docs/installation/krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsinstallationkrkn"><span class="">Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstallationkrkn-hub-li">
+  <input type="checkbox" id="m-docsinstallationkrkn-hub-check"/>
+  <label for="m-docsinstallationkrkn-hub-check"><a href="/docs/installation/krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsinstallationkrkn-hub"><span class="">krkn-hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenarios-li">
+  <input type="checkbox" id="m-docsscenarios-check"/>
+  <label for="m-docsscenarios-check"><a href="/docs/scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenarios"><span class="">Scenarios</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosapplication-outage-li">
+  <input type="checkbox" id="m-docsscenariosapplication-outage-check"/>
+  <label for="m-docsscenariosapplication-outage-check"><a href="/docs/scenarios/application-outage/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosapplication-outage"><span class="">Application Outage Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosapplication-outageapplication-outage-krkn-li">
+  <input type="checkbox" id="m-docsscenariosapplication-outageapplication-outage-krkn-check"/>
+  <label for="m-docsscenariosapplication-outageapplication-outage-krkn-check"><a href="/docs/scenarios/application-outage/application-outage-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosapplication-outageapplication-outage-krkn"><span class="">Application Outage Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosapplication-outageapplication-outages-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosapplication-outageapplication-outages-krkn-hub-check"/>
+  <label for="m-docsscenariosapplication-outageapplication-outages-krkn-hub-check"><a href="/docs/scenarios/application-outage/application-outages-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosapplication-outageapplication-outages-krkn-hub"><span class="">Application outage Scenario using Krkn-hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosarcaflow-scenarios-li">
+  <input type="checkbox" id="m-docsscenariosarcaflow-scenarios-check"/>
+  <label for="m-docsscenariosarcaflow-scenarios-check"><a href="/docs/scenarios/arcaflow-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosarcaflow-scenarios"><span class="">Arcaflow Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosarcaflow-scenariosarcaflow-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariosarcaflow-scenariosarcaflow-scenarios-krkn-check"/>
+  <label for="m-docsscenariosarcaflow-scenariosarcaflow-scenarios-krkn-check"><a href="/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosarcaflow-scenariosarcaflow-scenarios-krkn"><span class="">Arcaflow Scenarios using Krkn</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenarioscontainer-scenario-li">
+  <input type="checkbox" id="m-docsscenarioscontainer-scenario-check"/>
+  <label for="m-docsscenarioscontainer-scenario-check"><a href="/docs/scenarios/container-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenarioscontainer-scenario"><span class="">Container Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-check"/>
+  <label for="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-check"><a href="/docs/scenarios/container-scenario/container-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn"><span class="">Container Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-hub-check"><a href="/docs/scenarios/container-scenario/container-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscontainer-scenariocontainer-scenarios-krkn-hub"><span class="">Container Scenarios using Krkn-hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenarioscpu-hog-scenario-li">
+  <input type="checkbox" id="m-docsscenarioscpu-hog-scenario-check"/>
+  <label for="m-docsscenarioscpu-hog-scenario-check"><a href="/docs/scenarios/cpu-hog-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenarioscpu-hog-scenario"><span class="">CPU Hog Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-check"/>
+  <label for="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-check"><a href="/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn"><span class="">CPU Hog Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-hub-check"/>
+  <label for="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-hub-check"><a href="/docs/scenarios/cpu-hog-scenario/cpu-hog-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscpu-hog-scenariocpu-hog-scenario-krkn-hub"><span class="">CPU Hog Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosio-hog-scenario-li">
+  <input type="checkbox" id="m-docsscenariosio-hog-scenario-check"/>
+  <label for="m-docsscenariosio-hog-scenario-check"><a href="/docs/scenarios/io-hog-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosio-hog-scenario"><span class="">IO Hog Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-check"/>
+  <label for="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-check"><a href="/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn"><span class="">IO Hog Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-hub-check"><a href="/docs/scenarios/io-hog-scenario/io-hog-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosio-hog-scenarioio-hog-scenario-krkn-hub"><span class="">IO Hog Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosmanaged-cluster-scenariomanaged-cluster-scenario-li">
+  <input type="checkbox" id="m-docsscenariosmanaged-cluster-scenariomanaged-cluster-scenario-check"/>
+  <label for="m-docsscenariosmanaged-cluster-scenariomanaged-cluster-scenario-check"><a href="/docs/scenarios/managed-cluster-scenario/managed-cluster-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosmanaged-cluster-scenariomanaged-cluster-scenario"><span class="">ManagedCluster Scenarios</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosmemory-hog-scenario-li">
+  <input type="checkbox" id="m-docsscenariosmemory-hog-scenario-check"/>
+  <label for="m-docsscenariosmemory-hog-scenario-check"><a href="/docs/scenarios/memory-hog-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosmemory-hog-scenario"><span class="">Memory Hog Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-check"/>
+  <label for="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-check"><a href="/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn"><span class="">Memory Hog Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-hub-check"><a href="/docs/scenarios/memory-hog-scenario/memory-hog-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosmemory-hog-scenariomemory-hog-scenario-krkn-hub"><span class="">Memory Hog Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosnetwork-chaos-scenario-li">
+  <input type="checkbox" id="m-docsscenariosnetwork-chaos-scenario-check"/>
+  <label for="m-docsscenariosnetwork-chaos-scenario-check"><a href="/docs/scenarios/network-chaos-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosnetwork-chaos-scenario"><span class="">Network Chaos Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-check"/>
+  <label for="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-check"><a href="/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn"><span class="">Network Chaos Scenario using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-hub-check"><a href="/docs/scenarios/network-chaos-scenario/network-chaos-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnetwork-chaos-scenarionetwork-chaos-scenario-krkn-hub"><span class="">Network Chaos Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosnode-scenarios-li">
+  <input type="checkbox" id="m-docsscenariosnode-scenarios-check"/>
+  <label for="m-docsscenariosnode-scenarios-check"><a href="/docs/scenarios/node-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosnode-scenarios"><span class="">Node Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-scenariosnode-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariosnode-scenariosnode-scenarios-krkn-check"/>
+  <label for="m-docsscenariosnode-scenariosnode-scenarios-krkn-check"><a href="/docs/scenarios/node-scenarios/node-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-scenariosnode-scenarios-krkn"><span class="">Node Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-scenariosnode-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosnode-scenariosnode-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenariosnode-scenariosnode-scenarios-krkn-hub-check"><a href="/docs/scenarios/node-scenarios/node-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-scenariosnode-scenarios-krkn-hub"><span class="">Node Scenarios using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariospod-network-scenario-li">
+  <input type="checkbox" id="m-docsscenariospod-network-scenario-check"/>
+  <label for="m-docsscenariospod-network-scenario-check"><a href="/docs/scenarios/pod-network-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariospod-network-scenario"><span class="">Pod Network Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-network-scenariopod-network-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariospod-network-scenariopod-network-scenarios-krkn-check"/>
+  <label for="m-docsscenariospod-network-scenariopod-network-scenarios-krkn-check"><a href="/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-network-scenariopod-network-scenarios-krkn"><span class="">Pod Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-network-scenariopod-network-chaos-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariospod-network-scenariopod-network-chaos-krkn-hub-check"/>
+  <label for="m-docsscenariospod-network-scenariopod-network-chaos-krkn-hub-check"><a href="/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-network-scenariopod-network-chaos-krkn-hub"><span class="">Pod Network Chaos Scenarios using Krkn-hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariospod-scenario-li">
+  <input type="checkbox" id="m-docsscenariospod-scenario-check"/>
+  <label for="m-docsscenariospod-scenario-check"><a href="/docs/scenarios/pod-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariospod-scenario"><span class="">Pod Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-scenariopod-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariospod-scenariopod-scenarios-krkn-check"/>
+  <label for="m-docsscenariospod-scenariopod-scenarios-krkn-check"><a href="/docs/scenarios/pod-scenario/pod-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-scenariopod-scenarios-krkn"><span class="">Pod Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-scenariopod-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariospod-scenariopod-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenariospod-scenariopod-scenarios-krkn-hub-check"><a href="/docs/scenarios/pod-scenario/pod-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-scenariopod-scenarios-krkn-hub"><span class="">Pod Scenarios using Krkn-hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariospower-outage-scenarios-li">
+  <input type="checkbox" id="m-docsscenariospower-outage-scenarios-check"/>
+  <label for="m-docsscenariospower-outage-scenarios-check"><a href="/docs/scenarios/power-outage-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariospower-outage-scenarios"><span class="">Power Outage Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-check"/>
+  <label for="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-check"><a href="/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn"><span class="">Power Outage Scenario using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-hub-check"><a href="/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospower-outage-scenariospower-outage-scenario-krkn-hub"><span class="">Power Outage Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariospvc-scenario-li">
+  <input type="checkbox" id="m-docsscenariospvc-scenario-check"/>
+  <label for="m-docsscenariospvc-scenario-check"><a href="/docs/scenarios/pvc-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariospvc-scenario"><span class="">PVC Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospvc-scenariopvc-scenario-krkn-li">
+  <input type="checkbox" id="m-docsscenariospvc-scenariopvc-scenario-krkn-check"/>
+  <label for="m-docsscenariospvc-scenariopvc-scenario-krkn-check"><a href="/docs/scenarios/pvc-scenario/pvc-scenario-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospvc-scenariopvc-scenario-krkn"><span class="">PVC Scenario using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospvc-scenariopvc-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariospvc-scenariopvc-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariospvc-scenariopvc-scenario-krkn-hub-check"><a href="/docs/scenarios/pvc-scenario/pvc-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospvc-scenariopvc-scenario-krkn-hub"><span class="">PVC Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosservice-disruption-scenarios-li">
+  <input type="checkbox" id="m-docsscenariosservice-disruption-scenarios-check"/>
+  <label for="m-docsscenariosservice-disruption-scenarios-check"><a href="/docs/scenarios/service-disruption-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosservice-disruption-scenarios"><span class="">Service Disruption Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-check"/>
+  <label for="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-check"><a href="/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn"><span class="">Service Disruption Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-hub-check"><a href="/docs/scenarios/service-disruption-scenarios/service-disruption-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-disruption-scenariosservice-disruption-scenarios-krkn-hub"><span class="">Service Disruption Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosservice-hijacking-scenario-li">
+  <input type="checkbox" id="m-docsscenariosservice-hijacking-scenario-check"/>
+  <label for="m-docsscenariosservice-hijacking-scenario-check"><a href="/docs/scenarios/service-hijacking-scenario/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosservice-hijacking-scenario"><span class="">Service Hijacking Scenario</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenarios-krkn-check"/>
+  <label for="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenarios-krkn-check"><a href="/docs/scenarios/service-hijacking-scenario/service-hijacking-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenarios-krkn"><span class="">Service Hijacking Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenario-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenario-krkn-hub-check"/>
+  <label for="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenario-krkn-hub-check"><a href="/docs/scenarios/service-hijacking-scenario/service-hijacking-scenario-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-hijacking-scenarioservice-hijacking-scenario-krkn-hub"><span class="">Service Hijacking Scenario using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariostime-scenarios-li">
+  <input type="checkbox" id="m-docsscenariostime-scenarios-check"/>
+  <label for="m-docsscenariostime-scenarios-check"><a href="/docs/scenarios/time-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariostime-scenarios"><span class="">Time Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariostime-scenariostime-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenariostime-scenariostime-scenarios-krkn-check"/>
+  <label for="m-docsscenariostime-scenariostime-scenarios-krkn-check"><a href="/docs/scenarios/time-scenarios/time-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariostime-scenariostime-scenarios-krkn"><span class="">Time Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariostime-scenariostime-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenariostime-scenariostime-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenariostime-scenariostime-scenarios-krkn-hub-check"><a href="/docs/scenarios/time-scenarios/time-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariostime-scenariostime-scenarios-krkn-hub"><span class="">Time Skew Scenarios using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenarioszone-outage-scenarios-li">
+  <input type="checkbox" id="m-docsscenarioszone-outage-scenarios-check"/>
+  <label for="m-docsscenarioszone-outage-scenarios-check"><a href="/docs/scenarios/zone-outage-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenarioszone-outage-scenarios"><span class="">Zone Outage Scenarios</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-li">
+  <input type="checkbox" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-check"/>
+  <label for="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-check"><a href="/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn"><span class="">Zone Outage Scenarios using Krkn</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-hub-li">
+  <input type="checkbox" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-hub-check"/>
+  <label for="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-hub-check"><a href="/docs/scenarios/zone-outage-scenarios/zone-outage-scenarios-krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioszone-outage-scenarioszone-outage-scenarios-krkn-hub"><span class="">Zone Outage Scenarios using Krkn-Hub</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosall-scenario-env-li">
+  <input type="checkbox" id="m-docsscenariosall-scenario-env-check"/>
+  <label for="m-docsscenariosall-scenario-env-check"><a href="/docs/scenarios/all-scenario-env/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosall-scenario-env"><span class="">All Scenarios Variables</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscloud_setup-li">
+  <input type="checkbox" id="m-docsscenarioscloud_setup-check"/>
+  <label for="m-docsscenarioscloud_setup-check"><a href="/docs/scenarios/cloud_setup/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscloud_setup"><span class="">Supported Cloud Providers</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docschaos-testing-guide-li">
+  <input type="checkbox" id="m-docschaos-testing-guide-check"/>
+  <label for="m-docschaos-testing-guide-check"><a href="/docs/chaos-testing-guide/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docschaos-testing-guide"><span class="">Chaos Testing Guide</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docschaos-testing-guideexample-page-li">
+  <input type="checkbox" id="m-docschaos-testing-guideexample-page-check"/>
+  <label for="m-docschaos-testing-guideexample-page-check"><a href="/docs/chaos-testing-guide/example-page/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docschaos-testing-guideexample-page"><span class="">Best Practices</span></a></label>
+  
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscerberus-li">
   <input type="checkbox" id="m-docscerberus-check"/>
   <label for="m-docscerberus-check"><a href="/docs/cerberus/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docscerberus"><span class="">Cerberus</span></a></label>
@@ -186,105 +465,36 @@ Standalone python program through Git. Containerized version using either Podman
   
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsgetting-started-li">
-  <input type="checkbox" id="m-docsgetting-started-check" checked/>
-  <label for="m-docsgetting-started-check"><a href="/docs/getting-started/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__section" id="m-docsgetting-started"><span class="td-sidebar-nav-active-item">Installation</span></a></label>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docschaos-recommender-li">
+  <input type="checkbox" id="m-docschaos-recommender-check"/>
+  <label for="m-docschaos-recommender-check"><a href="/docs/chaos-recommender/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docschaos-recommender"><span class="">Chaos Recommendation Tool</span></a></label>
   
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsgetting-startedkrkn-hub-li">
-  <input type="checkbox" id="m-docsgetting-startedkrkn-hub-check"/>
-  <label for="m-docsgetting-startedkrkn-hub-check"><a href="/docs/getting-started/krkn-hub/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsgetting-startedkrkn-hub"><span class="">krkn-hub</span></a></label>
-  
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docstesting-methodology-li">
-  <input type="checkbox" id="m-docstesting-methodology-check"/>
-  <label for="m-docstesting-methodology-check"><a href="/docs/testing-methodology/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docstesting-methodology"><span class="">Test Strategies and Methodology</span></a></label>
-  
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstesting-methodologyexample-page-li">
-  <input type="checkbox" id="m-docstesting-methodologyexample-page-check"/>
-  <label for="m-docstesting-methodologyexample-page-check"><a href="/docs/testing-methodology/example-page/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstesting-methodologyexample-page"><span class="">Best Practices</span></a></label>
-  
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenarios-li">
-  <input type="checkbox" id="m-docsscenarios-check"/>
-  <label for="m-docsscenarios-check"><a href="/docs/scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenarios"><span class="">Scenarios</span></a></label>
-  
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioscontainer-scenarios-li">
-  <input type="checkbox" id="m-docsscenarioscontainer-scenarios-check"/>
-  <label for="m-docsscenarioscontainer-scenarios-check"><a href="/docs/scenarios/container-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioscontainer-scenarios"><span class="">Container Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnetwork-chaos-li">
-  <input type="checkbox" id="m-docsscenariosnetwork-chaos-check"/>
-  <label for="m-docsscenariosnetwork-chaos-check"><a href="/docs/scenarios/network-chaos/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnetwork-chaos"><span class="">Network Chaos Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-cpu-hog-li">
-  <input type="checkbox" id="m-docsscenariosnode-cpu-hog-check"/>
-  <label for="m-docsscenariosnode-cpu-hog-check"><a href="/docs/scenarios/node-cpu-hog/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-cpu-hog"><span class="">Node CPU hog Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-io-hog-li">
-  <input type="checkbox" id="m-docsscenariosnode-io-hog-check"/>
-  <label for="m-docsscenariosnode-io-hog-check"><a href="/docs/scenarios/node-io-hog/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-io-hog"><span class="">Node IO hog Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-memory-hog-li">
-  <input type="checkbox" id="m-docsscenariosnode-memory-hog-check"/>
-  <label for="m-docsscenariosnode-memory-hog-check"><a href="/docs/scenarios/node-memory-hog/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-memory-hog"><span class="">Node Memory hog Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosnode-scenarios-li">
-  <input type="checkbox" id="m-docsscenariosnode-scenarios-check"/>
-  <label for="m-docsscenariosnode-scenarios-check"><a href="/docs/scenarios/node-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosnode-scenarios"><span class="">Node Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-network-chaos-li">
-  <input type="checkbox" id="m-docsscenariospod-network-chaos-check"/>
-  <label for="m-docsscenariospod-network-chaos-check"><a href="/docs/scenarios/pod-network-chaos/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-network-chaos"><span class="">Pod Network Chaos Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospod-scenarios-li">
-  <input type="checkbox" id="m-docsscenariospod-scenarios-check"/>
-  <label for="m-docsscenariospod-scenarios-check"><a href="/docs/scenarios/pod-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospod-scenarios"><span class="">Pod Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospower-outages-li">
-  <input type="checkbox" id="m-docsscenariospower-outages-check"/>
-  <label for="m-docsscenariospower-outages-check"><a href="/docs/scenarios/power-outages/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospower-outages"><span class="">Power Outage Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariospvc-scenarios-li">
-  <input type="checkbox" id="m-docsscenariospvc-scenarios-check"/>
-  <label for="m-docsscenariospvc-scenarios-check"><a href="/docs/scenarios/pvc-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariospvc-scenarios"><span class="">PVC Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-disruption-scenarios-li">
-  <input type="checkbox" id="m-docsscenariosservice-disruption-scenarios-check"/>
-  <label for="m-docsscenariosservice-disruption-scenarios-check"><a href="/docs/scenarios/service-disruption-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-disruption-scenarios"><span class="">Service Disruption Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosservice-hijacking-li">
-  <input type="checkbox" id="m-docsscenariosservice-hijacking-check"/>
-  <label for="m-docsscenariosservice-hijacking-check"><a href="/docs/scenarios/service-hijacking/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosservice-hijacking"><span class="">Service Hijacking Scenario</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariostime-scenarios-li">
-  <input type="checkbox" id="m-docsscenariostime-scenarios-check"/>
-  <label for="m-docsscenariostime-scenarios-check"><a href="/docs/scenarios/time-scenarios/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariostime-scenarios"><span class="">Time Skew Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenarioszone-outages-li">
-  <input type="checkbox" id="m-docsscenarioszone-outages-check"/>
-  <label for="m-docsscenarioszone-outages-check"><a href="/docs/scenarios/zone-outages/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenarioszone-outages"><span class="">Zone Outage Scenarios</span></a></label>
-  
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsscenariosapplication-outage-li">
-  <input type="checkbox" id="m-docsscenariosapplication-outage-check"/>
-  <label for="m-docsscenariosapplication-outage-check"><a href="/docs/scenarios/application-outage/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsscenariosapplication-outage"><span class="">Application Outage Scenarios</span></a></label>
-  
-  <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsscenariosapplication-outageapplication-outages-li">
-  <input type="checkbox" id="m-docsscenariosapplication-outageapplication-outages-check"/>
-  <label for="m-docsscenariosapplication-outageapplication-outages-check"><a href="/docs/scenarios/application-outage/application-outages/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsscenariosapplication-outageapplication-outages"><span class="">Application outage Scenario using Krkn-hub</span></a></label>
-  
-</li>
-  </ul>
-</li>
-  </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscontribution-guidelines-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscontribution-guidelines-li">
   <input type="checkbox" id="m-docscontribution-guidelines-check"/>
-  <label for="m-docscontribution-guidelines-check"><a href="/docs/contribution-guidelines/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docscontribution-guidelines"><span class="">Contribution Guidelines</span></a></label>
+  <label for="m-docscontribution-guidelines-check"><a href="/docs/contribution-guidelines/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docscontribution-guidelines"><span class="">Contribution Guidelines</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscontribution-guidelinestesting-changes-li">
+  <input type="checkbox" id="m-docscontribution-guidelinestesting-changes-check"/>
+  <label for="m-docscontribution-guidelinestesting-changes-check"><a href="/docs/contribution-guidelines/testing-changes/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docscontribution-guidelinestesting-changes"><span class="">Testing your changes</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscontribution-guidelinescontribute-li">
+  <input type="checkbox" id="m-docscontribution-guidelinescontribute-check"/>
+  <label for="m-docscontribution-guidelinescontribute-check"><a href="/docs/contribution-guidelines/contribute/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docscontribution-guidelinescontribute"><span class="">Contributions</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconfig-li">
+  <input type="checkbox" id="m-docsconfig-check"/>
+  <label for="m-docsconfig-check"><a href="/docs/config/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconfig"><span class=""></span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsgetting-started-li">
+  <input type="checkbox" id="m-docsgetting-started-check" checked/>
+  <label for="m-docsgetting-started-check"><a href="/docs/getting-started/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__page" id="m-docsgetting-started"><span class="td-sidebar-nav-active-item"></span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docssignal-li">
+  <input type="checkbox" id="m-docssignal-check"/>
+  <label for="m-docssignal-check"><a href="/docs/signal/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docssignal"><span class=""></span></a></label>
   
 </li>
   </ul>
@@ -296,26 +506,25 @@ Standalone python program through Git. Containerized version using either Podman
           </aside>
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/krkn-chaos/website/tree/main/content/en/docs/getting-started/_index.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/krkn-chaos/website/edit/main/content/en/docs/getting-started/_index.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/krkn-chaos/website/new/main/content/en/docs/getting-started?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child td-page-meta__child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
-  <a href="https://github.com/krkn-chaos/website/issues/new?title=Installation" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/krkn-chaos/website/tree/main/content/en/docs/getting-started.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/krkn-chaos/website/edit/main/content/en/docs/getting-started.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/krkn-chaos/website/new/main/content/en/docs?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child td-page-meta__child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/krkn-chaos/website/issues/new?title=" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/krkn-chaos/krkn/issues/new" class="td-page-meta--project td-page-meta__project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
-  <a id="print" href="/docs/getting-started/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+  <a id="print" href="/docs/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
 
 </div>
 
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#installation">Installation</a>
+    <li><a href="#getting-started-running-chaos-scenarios">Getting Started Running Chaos Scenarios</a>
       <ul>
         <li></li>
+        <li><a href="#templates">Templates</a></li>
+        <li><a href="#common-scenario-edits">Common Scenario Edits</a></li>
       </ul>
     </li>
-    <li><a href="#running-krkn">Running Krkn</a></li>
-    <li><a href="#run-containerized-version">Run containerized version</a></li>
   </ul>
 </nav>
       </div>
@@ -323,19 +532,19 @@ Standalone python program through Git. Containerized version using either Podman
             <div class="taxonomy taxonomy-terms-cloud taxo-tags">
       <h5 class="taxonomy-title">Tag Cloud</h5>
       <ul class="taxonomy-terms">
-        <li><a class="taxonomy-term" href="//localhost:52212/tags/docs/" data-taxonomy-term="docs"><span class="taxonomy-label">Docs</span><span class="taxonomy-count">5</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/tags/install/" data-taxonomy-term="install"><span class="taxonomy-label">Install</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/tags/sample/" data-taxonomy-term="sample"><span class="taxonomy-label">Sample</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/tags/test/" data-taxonomy-term="test"><span class="taxonomy-label">Test</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/tags/docs/" data-taxonomy-term="docs"><span class="taxonomy-label">Docs</span><span class="taxonomy-count">7</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/tags/install/" data-taxonomy-term="install"><span class="taxonomy-label">Install</span><span class="taxonomy-count">1</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/tags/sample/" data-taxonomy-term="sample"><span class="taxonomy-label">Sample</span><span class="taxonomy-count">2</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/tags/test/" data-taxonomy-term="test"><span class="taxonomy-label">Test</span><span class="taxonomy-count">3</span></a></li>
         </ul>
     </div>
   <div class="taxonomy taxonomy-terms-cloud taxo-categories">
       <h5 class="taxonomy-title">Categories</h5>
       <ul class="taxonomy-terms">
-        <li><a class="taxonomy-term" href="//localhost:52212/categories/best-practices/" data-taxonomy-term="best-practices"><span class="taxonomy-label">Best Practices</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/categories/examples/" data-taxonomy-term="examples"><span class="taxonomy-label">Examples</span><span class="taxonomy-count">3</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/categories/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">Installation</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:52212/categories/placeholders/" data-taxonomy-term="placeholders"><span class="taxonomy-label">Placeholders</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/categories/best-practices/" data-taxonomy-term="best-practices"><span class="taxonomy-label">Best Practices</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/categories/examples/" data-taxonomy-term="examples"><span class="taxonomy-label">Examples</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/categories/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">Installation</span><span class="taxonomy-count">1</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:60576/categories/placeholders/" data-taxonomy-term="placeholders"><span class="taxonomy-label">Placeholders</span><span class="taxonomy-count">4</span></a></li>
         </ul>
     </div>
   
@@ -350,110 +559,55 @@ Standalone python program through Git. Containerized version using either Podman
   <li class="breadcrumb-item">
     <a href="/docs/">Documentation</a></li>
   <li class="breadcrumb-item active" aria-current="page">
-    Installation</li>
+    </li>
   </ol>
 </nav>
             
 <div class="td-content">
-	<h1>Installation</h1>
-  
+	<h1></h1>
+	
 	<header class="article-meta">
-		<div class="taxonomy taxonomy-terms-article taxo-tags">
-  <h5 class="taxonomy-title">Tags:</h5>
-  <ul class="taxonomy-terms">
-    <li><a class="taxonomy-term" href="//localhost:52212/tags/install/" data-taxonomy-term="install"><span class="taxonomy-label">Install</span></a></li>
-    <li><a class="taxonomy-term" href="//localhost:52212/tags/docs/" data-taxonomy-term="docs"><span class="taxonomy-label">Docs</span></a></li>
-    </ul>
-</div>
-<div class="taxonomy taxonomy-terms-article taxo-categories">
-  <h5 class="taxonomy-title">Categories:</h5>
-  <ul class="taxonomy-terms">
-    <li><a class="taxonomy-term" href="//localhost:52212/categories/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">Installation</span></a></li>
-    </ul>
-</div>
-
+		
   </header>
-	<!-- 
+	<h2 id="getting-started-running-chaos-scenarios">Getting Started Running Chaos Scenarios<a class="td-heading-self-link" href="#getting-started-running-chaos-scenarios" aria-label="Heading self-link"></a></h2>
+<h4 id="adding-new-scenarios">Adding New Scenarios<a class="td-heading-self-link" href="#adding-new-scenarios" aria-label="Heading self-link"></a></h4>
+<p>Adding a new scenario is as simple as adding a new config file under <a href="https://github.com/redhat-chaos/krkn/tree/main/scenarios">scenarios directory</a> and defining it in the main kraken <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml#L8">config</a>.
+You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.</p>
+<h3 id="templates">Templates<a class="td-heading-self-link" href="#templates" aria-label="Heading self-link"></a></h3>
+<h4 id="pod-scenario-yaml-template">Pod Scenario Yaml Template<a class="td-heading-self-link" href="#pod-scenario-yaml-template" aria-label="Heading self-link"></a></h4>
+<p>For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># yaml-language-server: $schema=../plugin.schema.json</span>
+</span></span><span style="display:flex;"><span>- id: kill-pods
+</span></span><span style="display:flex;"><span>  config:
+</span></span><span style="display:flex;"><span>    namespace_pattern: ^&lt;namespace&gt;$
+</span></span><span style="display:flex;"><span>    label_selector: &lt;pod label&gt;
+</span></span><span style="display:flex;"><span>    kill: &lt;number of pods to kill&gt;
+</span></span><span style="display:flex;"><span>    krkn_pod_recovery_time: &lt;expected <span style="color:#204a87">time</span> <span style="color:#204a87;font-weight:bold">for</span> the pod to become ready&gt;
+</span></span></code></pre></div><h4 id="node-scenario-yaml-template">Node Scenario Yaml Template<a class="td-heading-self-link" href="#node-scenario-yaml-template" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>node_scenarios:
+</span></span><span style="display:flex;"><span>  - actions:  <span style="color:#8f5902;font-style:italic"># Node chaos scenarios to be injected.</span>
+</span></span><span style="display:flex;"><span>    - &lt;chaos scenario&gt;
+</span></span><span style="display:flex;"><span>    - &lt;chaos scenario&gt;
+</span></span><span style="display:flex;"><span>    node_name: &lt;node name&gt;  <span style="color:#8f5902;font-style:italic"># Can be left blank.</span>
+</span></span><span style="display:flex;"><span>    label_selector: &lt;node label&gt;
+</span></span><span style="display:flex;"><span>    instance_kill_count: &lt;number of nodes on which to perform action&gt;
+</span></span><span style="display:flex;"><span>    timeout: &lt;duration to <span style="color:#204a87">wait</span> <span style="color:#204a87;font-weight:bold">for</span> completion&gt;
+</span></span><span style="display:flex;"><span>    cloud_type: &lt;cloud provider&gt;
+</span></span></code></pre></div><h4 id="time-chaos-scenario-template">Time Chaos Scenario Template<a class="td-heading-self-link" href="#time-chaos-scenario-template" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>time_scenarios:
+</span></span><span style="display:flex;"><span>  - action: <span style="color:#4e9a06">&#39;skew_time&#39;</span> or <span style="color:#4e9a06">&#39;skew_date&#39;</span>
+</span></span><span style="display:flex;"><span>    object_type: <span style="color:#4e9a06">&#39;pod&#39;</span> or <span style="color:#4e9a06">&#39;node&#39;</span>
+</span></span><span style="display:flex;"><span>    label_selector: &lt;label of pod or node&gt;
+</span></span></code></pre></div><h3 id="common-scenario-edits">Common Scenario Edits<a class="td-heading-self-link" href="#common-scenario-edits" aria-label="Heading self-link"></a></h3>
+<p>If you just want to make small changes to pre-existing scenarios, feel free to edit the scenario file itself.</p>
+<h4 id="example-of-quick-pod-scenario-edit">Example of Quick Pod Scenario Edit:<a class="td-heading-self-link" href="#example-of-quick-pod-scenario-edit" aria-label="Heading self-link"></a></h4>
+<p>If you want to kill 2 pods instead of 1 in any of the pre-existing scenarios, you can either edit the number located at filters -&gt; randomSample -&gt; size or the runs under the config -&gt; runStrategy section.</p>
+<h4 id="example-of-quick-nodes-scenario-edit">Example of Quick Nodes Scenario Edit:<a class="td-heading-self-link" href="#example-of-quick-nodes-scenario-edit" aria-label="Heading self-link"></a></h4>
+<p>If your cluster is build on GCP instead of AWS, just change the cloud type in the node_scenarios_example.yml file.</p>
 
-<div class="pageinfo pageinfo-primary">
-<p>This is a placeholder page that shows you how to use this template site.</p>
-
-</div>
- -->
-<p>The following ways are supported to run Kraken:</p>
-<ul>
-<li>Standalone python program through Git.</li>
-<li>Containerized version using either Podman or Docker as the runtime via <a href="https://github.com/krkn-chaos/krkn-hub">Krkn-hub</a></li>
-<li>Kubernetes or OpenShift deployment ( unsupported )</li>
-</ul>
-
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster’s API server instability.
-
-</div>
-
-
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    To run Kraken on Power (ppc64le) architecture, build and run a containerized version by following the instructions given <a href="https://github.com/krkn-chaos/krkn/blob/main/containers/build_own_image-README.md">here</a>.
-
-</div>
-
-
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    Helper functions for interactions in Krkn are part of <a href="https://github.com/krkn-chaos/krkn-lib">krkn-lib</a>. Please feel free to reuse and expand them as you see fit when adding a new scenario or expanding the capabilities of the current supported scenarios.
-
-</div>
-
-<h2 id="prerequisites">Prerequisites<a class="td-heading-self-link" href="#prerequisites" aria-label="Heading self-link"></a></h2>
-<p>Are there any system requirements for using your project? What languages are supported (if any)? Do users need to already have any software or tools installed?</p>
-<h2 id="installation">Installation<a class="td-heading-self-link" href="#installation" aria-label="Heading self-link"></a></h2>
-<h4 id="git">Git<a class="td-heading-self-link" href="#git" aria-label="Heading self-link"></a></h4>
-<h6 id="clone-the-repository">Clone the repository<a class="td-heading-self-link" href="#clone-the-repository" aria-label="Heading self-link"></a></h6>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone https://github.com/krkn-chaos/krkn.git --branch &lt;release version&gt;
-</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">cd</span> krkn 
-</span></span></code></pre></div><h6 id="install-the-dependencies">Install the dependencies<a class="td-heading-self-link" href="#install-the-dependencies" aria-label="Heading self-link"></a></h6>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ python3.9 -m venv chaos
-</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">source</span> chaos/bin/activate
-</span></span><span style="display:flex;"><span>$ pip3.9 install -r requirements.txt
-</span></span></code></pre></div><p>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    Make sure python3-devel and latest pip versions are installed on the system. The dependencies install has been tested with pip &gt;= 21.1.3 versions.
-
+	
 </div>
 
-Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?</p>
-<h2 id="running-krkn">Running Krkn<a class="td-heading-self-link" href="#running-krkn" aria-label="Heading self-link"></a></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ python3.9 run_kraken.py --config &lt;config_file_location&gt;
-</span></span></code></pre></div><h2 id="run-containerized-version">Run containerized version<a class="td-heading-self-link" href="#run-containerized-version" aria-label="Heading self-link"></a></h2>
-<p><a href="https://github.com/krkn-chaos/krkn-hub">Krkn-hub</a> is a wrapper that allows running Krkn chaos scenarios via podman or docker runtime with scenario parameters/configuration defined as environment variables.</p>
-
-  <div class="section-index">
-    
-    
-    <hr class="panel-line">
-        <div class="entry">
-                <h5>
-                    <a href="/docs/getting-started/krkn-hub/">krkn-hub</a>
-                </h5>
-                <p>Krkn-hub aka kraken-hub</p>
-            </div>
-        </div>
-<div class="td-page-meta__lastmod">
-  Last modified September 4, 2024: <a href="https://github.com/krkn-chaos/website/commit/fc9ac62d77a40e65e8acbaef76274eb6abebd6b4">Krkn Chaos Website v1 (fc9ac62)</a>
-</div>
-</div>
 
           </main>
         </div>

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Container Scenarios on Krkn</title>
-    <link>//localhost:62035/docs/scenarios/container-scenario/</link>
+    <link>//localhost:60576/docs/scenarios/container-scenario/</link>
     <description>Recent content in Container Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
-    <atom:link href="//localhost:62035/docs/scenarios/container-scenario/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
+    <atom:link href="//localhost:60576/docs/scenarios/container-scenario/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Container Scenarios using Krkn</title>
-      <link>//localhost:62035/docs/scenarios/container-scenario/container-scenarios-krkn/</link>
+      <link>//localhost:60576/docs/scenarios/container-scenario/container-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/scenarios/container-scenario/container-scenarios-krkn/</guid>
+      <guid>//localhost:60576/docs/scenarios/container-scenario/container-scenarios-krkn/</guid>
       <description>Example Config The following are the components of Kubernetes for which a basic chaos scenario config exists today.&#xA;scenarios: - name: &amp;#34;&amp;lt;name of scenario&amp;gt;&amp;#34; namespace: &amp;#34;&amp;lt;specific namespace&amp;gt;&amp;#34; # can specify &amp;#34;*&amp;#34; if you want to find in all namespaces label_selector: &amp;#34;&amp;lt;label of pod(s)&amp;gt;&amp;#34; container_name: &amp;#34;&amp;lt;specific container name&amp;gt;&amp;#34; # This is optional, can take out and will kill all containers in all pods found under namespace and label pod_names: # This is optional, can take out and will select all pods with given namespace and label - &amp;lt;pod_name&amp;gt; count: &amp;lt;number of containers to disrupt, default=1&amp;gt; action: &amp;lt;kill signal to run.</description>
     </item>
     <item>
       <title>Container Scenarios using Krkn-hub</title>
-      <link>//localhost:62035/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</link>
+      <link>//localhost:60576/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</guid>
+      <guid>//localhost:60576/docs/scenarios/container-scenario/container-scenarios-krkn-hub/</guid>
       <description>This scenario disrupts the containers matching the label in the specified namespace on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:container-scenarios $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
     </item>
   </channel>

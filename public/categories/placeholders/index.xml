@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Placeholders on Krkn</title>
-    <link>//localhost:62035/categories/placeholders/</link>
+    <link>//localhost:60576/categories/placeholders/</link>
     <description>Recent content in Placeholders on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:62035/categories/placeholders/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:60576/categories/placeholders/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Test Strategies and Methodology</title>
-      <link>//localhost:62035/docs/testing-methodology/</link>
+      <title>Chaos Testing Guide</title>
+      <link>//localhost:60576/docs/chaos-testing-guide/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/testing-methodology/</guid>
+      <guid>//localhost:60576/docs/chaos-testing-guide/</guid>
       <description>Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:&#xA;Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment. Through implementation of a chaos engineering strategy, we can discover potential causes of service degradation. We need to understand the systems’ behavior under unpredictable conditions in order to find the areas to harden, and use performance data points to size the clusters to handle failures in order to keep downtime to a minimum.</description>
     </item>
     <item>
       <title>Cerberus</title>
-      <link>//localhost:62035/docs/cerberus/</link>
+      <link>//localhost:60576/docs/cerberus/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/cerberus/</guid>
+      <guid>//localhost:60576/docs/cerberus/</guid>
       <description>Cerberus Guardian of Kubernetes and OpenShift Clusters&#xA;Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.&#xA;Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.&#xA;What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.</description>
     </item>
     <item>
       <title>Best Practices</title>
-      <link>//localhost:62035/docs/testing-methodology/example-page/</link>
+      <link>//localhost:60576/docs/chaos-testing-guide/example-page/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/testing-methodology/example-page/</guid>
+      <guid>//localhost:60576/docs/chaos-testing-guide/example-page/</guid>
       <description>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster. On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:&#xA;Alerts with appropriate severity should get fired.&#xA;Alerts are key to identify when a component starts degrading, and can help focus the investigation effort on affected system components.</description>
     </item>
   </channel>

@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Test on Krkn</title>
-    <link>//localhost:62035/tags/test/</link>
+    <link>//localhost:60576/tags/test/</link>
     <description>Recent content in Test on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2024 17:37:33 -0400</lastBuildDate>
-    <atom:link href="//localhost:62035/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
+    <atom:link href="//localhost:60576/tags/test/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Krkn</title>
-      <link>//localhost:62035/docs/installation/krkn/</link>
+      <link>//localhost:60576/docs/installation/krkn/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/installation/krkn/</guid>
+      <guid>//localhost:60576/docs/installation/krkn/</guid>
       <description>Installation Git Clone the repository $ git clone https://github.com/krkn-chaos/krkn.git --branch &amp;lt;release version&amp;gt; $ cd krkn Install the dependencies $ python3.9 -m venv chaos $ source chaos/bin/activate $ pip3.9 install -r requirements.txt Note Make sure python3-devel and latest pip versions are installed on the system. The dependencies install has been tested with pip &amp;gt;= 21.1.3 versions. Where can your user find your project code? How can they install it (binaries, installable package, build from source)?</description>
     </item>
     <item>
       <title>krkn-hub</title>
-      <link>//localhost:62035/docs/installation/krkn-hub/</link>
+      <link>//localhost:60576/docs/installation/krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/installation/krkn-hub/</guid>
+      <guid>//localhost:60576/docs/installation/krkn-hub/</guid>
       <description>Hosts container images and wrapper for running scenarios supported by Krkn, a chaos testing tool for Kubernetes clusters to ensure it is resilient to failures. All we need to do is run the containers with the respective environment variables defined as supported by the scenarios without having to maintain and tweak files!&#xA;Set Up You can use docker or podman to run kraken-hub&#xA;Install Podman your certain operating system based on these instructions</description>
     </item>
     <item>
-      <title>Test Strategies and Methodology</title>
-      <link>//localhost:62035/docs/testing-methodology/</link>
+      <title>Chaos Testing Guide</title>
+      <link>//localhost:60576/docs/chaos-testing-guide/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/testing-methodology/</guid>
+      <guid>//localhost:60576/docs/chaos-testing-guide/</guid>
       <description>Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:&#xA;Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment. Through implementation of a chaos engineering strategy, we can discover potential causes of service degradation. We need to understand the systems’ behavior under unpredictable conditions in order to find the areas to harden, and use performance data points to size the clusters to handle failures in order to keep downtime to a minimum.</description>
     </item>
     <item>
       <title>Cerberus</title>
-      <link>//localhost:62035/docs/cerberus/</link>
+      <link>//localhost:60576/docs/cerberus/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62035/docs/cerberus/</guid>
+      <guid>//localhost:60576/docs/cerberus/</guid>
       <description>Cerberus Guardian of Kubernetes and OpenShift Clusters&#xA;Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.&#xA;Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.&#xA;What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.</description>
     </item>
   </channel>

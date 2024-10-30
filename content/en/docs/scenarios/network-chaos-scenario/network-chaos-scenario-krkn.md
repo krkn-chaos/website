@@ -1,5 +1,5 @@
 ---
-title: PVC Scenario using Krkn
+title: Network Chaos Scenario using Krkn
 description: 
 date: 2017-01-04
 weight: 2

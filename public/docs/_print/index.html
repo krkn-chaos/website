@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62035&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60576&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="//localhost:62035/docs/">
-<link rel="alternate" type="application/rss&#43;xml" href="//localhost:62035/docs/index.xml">
+<link rel="canonical" type="text/html" href="//localhost:60576/docs/">
+<link rel="alternate" type="application/rss&#43;xml" href="//localhost:60576/docs/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -21,7 +21,7 @@
 
 <title>krkn-chaos | Krkn</title>
 <meta name="description" content="Krkn Chaos Tool">
-<meta property="og:url" content="//localhost:62035/docs/">
+<meta property="og:url" content="//localhost:60576/docs/">
   <meta property="og:site_name" content="Krkn">
   <meta property="og:title" content="krkn-chaos">
   <meta property="og:description" content="Chaos and resiliency testing tool for Kubernetes with a focus on improving performance under failure conditions. A CNCF sandbox project. Github">
@@ -30,7 +30,7 @@
 
   <meta itemprop="name" content="krkn-chaos">
   <meta itemprop="description" content="Chaos and resiliency testing tool for Kubernetes with a focus on improving performance under failure conditions. A CNCF sandbox project. Github">
-  <meta itemprop="dateModified" content="2024-09-11T17:37:33-04:00">
+  <meta itemprop="dateModified" content="2024-09-16T09:27:31-04:00">
   <meta itemprop="wordCount" content="21">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="krkn-chaos">
@@ -442,7 +442,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3.8.1: <a href="#pg-6946ebccc0f4758c518336c6a1eab7ef">PVC Scenario using Krkn</a></li>
+<li>3.8.1: <a href="#pg-6946ebccc0f4758c518336c6a1eab7ef">Network Chaos Scenario using Krkn</a></li>
 
 
     
@@ -797,7 +797,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-59ce81d42b4943ca2995b953fde7aa04">Test Strategies and Methodology</a></li>
+<li>4: <a href="#pg-c0ffe4f5ae7990ffa2481add52e8ce49">Chaos Testing Guide</a></li>
 
 
     
@@ -812,7 +812,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4.1: <a href="#pg-2049bbfdf9884b8e6460623e57385039">Best Practices</a></li>
+<li>4.1: <a href="#pg-dd3d706a34e25895e6ae4cd97f6de487">Best Practices</a></li>
 
 
     
@@ -907,7 +907,66 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-54889070d33ff8ba421707b96841ef23">Contribution Guidelines</a></li>
+<li>6: <a href="#pg-e28bedba0f169b3cc306e40f3a990286">Chaos Recommendation Tool</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-99a93ef9534d11fef4be3e4b3b1a6381">Contribution Guidelines</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>7.1: <a href="#pg-cb673d42652e2dadae972711a10addab">Testing your changes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.2: <a href="#pg-17ea1d6a1e6627d08a7d6f4d2898cca1">Contributions</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-d39a8a737bc5c13f36e41aa92a0c7602"></a></li>
+
+
+    
+  
+    
+    
+	
+<li>9: <a href="#pg-a39c9f7aa728d5fa3b973bc6ba49228a"></a></li>
+
+
+    
+  
+    
+    
+	
+<li>10: <a href="#pg-8b98cd9a1c9e3bb7243f12e47e925f13"></a></li>
 
 
     
@@ -957,24 +1016,18 @@ This is the multi-page printable view of this section.
 </ul>
 <p>Various assumptions led to a number of outages in production environments in the past. The services suffered from poor performance or were inaccessible to the customers, leading to missing Service Level Agreement uptime promises, revenue loss, and a degradation in the perceived reliability of said services.</p>
 <p>How can we best avoid this from happening? This is where <strong>Chaos testing</strong> can add value</p>
-<ul>
-<li>
-<p><strong>What is it good for?</strong>: What types of problems does your project solve? What
-are the benefits of using it?</p>
-</li>
-<li>
-<p><strong>What is it not good for?</strong>: For example, point out situations that might
-intuitively seem suited for your project, but aren&rsquo;t for some reason. Also
-mention known limitations, scaling issues, or anything else that might let
-your users know if the project is not for them.</p>
-</li>
-<li>
-<p><strong>What is it <em>not yet</em> good for?</strong>: Highlight any useful features that are
-coming soon.</p>
-</li>
-</ul>
+<h3 id="workflow">Workflow<a class="td-heading-self-link" href="#workflow" aria-label="Heading self-link"></a></h3>
+<p><img alt="Kraken workflow" src="/images/kraken-workflow.png"></p>
+<h3 id="how-to-get-started">How to Get Started<a class="td-heading-self-link" href="#how-to-get-started" aria-label="Heading self-link"></a></h3>
+<p>Instructions on how to setup, configure and run Kraken can be found at <a href="/docs/installation/">Installation</a>.</p>
+<p>You may consider utilizing the chaos recommendation tool prior to initiating the chaos runs to profile the application service(s) under test. This tool discovers a list of Krkn scenarios with a high probability of causing failures or disruptions to your application service(s). The tool can be accessed at <a href="/docs/chaos-recommender/">Chaos-Recommender</a>.</p>
+<p>See the <a href="/docs/getting-started/">getting started doc</a> on support on how to get started with your own custom scenario or editing current scenarios for your specific usage.</p>
+<p>After installation, refer back to the below sections for supported scenarios and how to tweak the kraken config to load them on your cluster.</p>
+<h4 id="running-kraken-with-minimal-configuration-tweaks">Running Kraken with minimal configuration tweaks<a class="td-heading-self-link" href="#running-kraken-with-minimal-configuration-tweaks" aria-label="Heading self-link"></a></h4>
+<p>For cases where you want to run Kraken with minimal configuration changes, refer to <a href="https://github.com/krkn-chaos/krkn-hub">krkn-hub</a>. One use case is CI integration where you do not want to carry around different configuration files for the scenarios.</p>
+<h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
+<p>Instructions on how to setup the config and the options supported can be found at <a href="/docs/config/">Config</a>.</p>
 <h2 id="where-should-i-go-next">Where should I go next?<a class="td-heading-self-link" href="#where-should-i-go-next" aria-label="Heading self-link"></a></h2>
-<p>Give your users next steps from the Overview. For example:</p>
 <ul>
 <li><a href="/docs/installation/">Installation</a>: Get started using krkn!</li>
 <li><a href="/docs/scenarios/">Scenarios</a>: Check out the scenarios we offer!</li>
@@ -2381,7 +2434,7 @@ For example:</p>
 
 <div class="td-content" style="">
     
-	<h1 id="pg-6946ebccc0f4758c518336c6a1eab7ef">3.8.1 - PVC Scenario using Krkn</h1>
+	<h1 id="pg-6946ebccc0f4758c518336c6a1eab7ef">3.8.1 - Network Chaos Scenario using Krkn</h1>
     
 	<h5 id="sample-scenario-config-for-egress-traffic-shaping">Sample scenario config for egress traffic shaping<a class="td-heading-self-link" href="#sample-scenario-config-for-egress-traffic-shaping" aria-label="Heading self-link"></a></h5>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">network_chaos</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">                                    </span><span style="color:#8f5902;font-style:italic"># Scenario to create an outage by simulating random variations in the network.</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -4722,7 +4775,7 @@ For example:</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-59ce81d42b4943ca2995b953fde7aa04">4 - Test Strategies and Methodology</h1>
+	<h1 id="pg-c0ffe4f5ae7990ffa2481add52e8ce49">4 - Chaos Testing Guide</h1>
     
 	<!-- 
 
@@ -4745,6 +4798,27 @@ For example:</p>
 </ul>
 </li>
 </ul>
+<h3 id="kraken-scenario-passfail-criteria-and-report">Kraken scenario pass/fail criteria and report<a class="td-heading-self-link" href="#kraken-scenario-passfail-criteria-and-report" aria-label="Heading self-link"></a></h3>
+<p>It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:</p>
+<ul>
+<li>Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.</li>
+<li>Leveraging <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found <a href="/docs/cerberus/">here</a> or can be installed from Kraken using the <a href="/docs/installation/">instructions</a>. Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. Cerberus can monitor <a href="/docs/cerberus/config/">application routes</a> during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers, or users environment as well. It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress etc. It can be enabled by setting <code>check_applicaton_routes: True</code> in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">Kraken config</a> provided application routes are being monitored in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml">cerberus config</a>.</li>
+<li>Leveraging built-in alert collection feature to fail the runs in case of critical alerts.</li>
+</ul>
+<h3 id="signaling">Signaling<a class="td-heading-self-link" href="#signaling" aria-label="Heading self-link"></a></h3>
+<p>In CI runs or any external job it is useful to stop Kraken once a certain test or state gets reached. We created a way to signal to kraken to pause the chaos or stop it completely using a signal posted to a port of your choice.</p>
+<p>For example if we have a test run loading the cluster running and kraken separately running; we want to be able to know when to start/stop the kraken run based on when the test run completes or gets to a certain loaded state.</p>
+<p>More detailed information on enabling and leveraging this feature can be found <a href="/docs/signal/">here</a>.</p>
+<h3 id="performance-monitoring">Performance monitoring<a class="td-heading-self-link" href="#performance-monitoring" aria-label="Heading self-link"></a></h3>
+<p>Monitoring the Kubernetes/OpenShift cluster to observe the impact of Kraken chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it can be found <a href="docs/performance_dashboards.md">here</a>.</p>
+<h3 id="slos-validation-during-and-post-chaos">SLOs validation during and post chaos<a class="td-heading-self-link" href="#slos-validation-during-and-post-chaos" aria-label="Heading self-link"></a></h3>
+<ul>
+<li>In addition to checking the recovery and health of the cluster and components under test, Kraken takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics.</li>
+<li>Kraken also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail&rsquo;s.</li>
+</ul>
+<p>Information on enabling and leveraging this feature can be found <a href="docs/SLOs_validation.md">here</a></p>
+<h3 id="ocm--acm-integration">OCM / ACM integration<a class="td-heading-self-link" href="#ocm--acm-integration" aria-label="Heading self-link"></a></h3>
+<p>Kraken supports injecting faults into <a href="https://open-cluster-management.io/">Open Cluster Management (OCM)</a> and <a href="https://www.krkn.com/en/technologies/management/advanced-cluster-management">Red Hat Advanced Cluster Management for Kubernetes (ACM)</a> managed clusters through <a href="docs/managedcluster_scenarios.md">ManagedCluster Scenarios</a>.</p>
 
 </div>
 
@@ -4768,7 +4842,7 @@ For example:</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-2049bbfdf9884b8e6460623e57385039">4.1 - Best Practices</h1>
+	<h1 id="pg-dd3d706a34e25895e6ae4cd97f6de487">4.1 - Best Practices</h1>
     <div class="lead">Let us take a look at the best practices for an Kubernetes cluster.</div>
 	<!-- 
 
@@ -5556,15 +5630,492 @@ before creating the PR by following:</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-54889070d33ff8ba421707b96841ef23">6 - Contribution Guidelines</h1>
+	<h1 id="pg-e28bedba0f169b3cc306e40f3a990286">6 - Chaos Recommendation Tool</h1>
+    
+	<p>This tool, designed for Redhat Kraken, operates through the command line and offers recommendations for chaos testing. It suggests probable chaos test cases that can disrupt application services by analyzing their behavior and assessing their susceptibility to specific fault types.</p>
+<p>This tool profiles an application and gathers telemetry data such as CPU, Memory, and Network usage, analyzing it to suggest probable chaos scenarios. For optimal results, it is recommended to activate the utility while the application is under load.</p>
+<h2 id="pre-requisites">Pre-requisites<a class="td-heading-self-link" href="#pre-requisites" aria-label="Heading self-link"></a></h2>
+<ul>
+<li>Openshift Or Kubernetes Environment where the application is hosted</li>
+<li>Access to the metrics via the exposed Prometheus endpoint</li>
+<li>Python3.9</li>
+</ul>
+<h2 id="usage">Usage<a class="td-heading-self-link" href="#usage" aria-label="Heading self-link"></a></h2>
+<ol>
+<li>
+<p>To run</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ python3.9 -m venv chaos
+</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">source</span> chaos/bin/activate
+</span></span><span style="display:flex;"><span>$ git clone https://github.com/krkn-chaos/krkn.git 
+</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">cd</span> krkn
+</span></span><span style="display:flex;"><span>$ pip3 install -r requirements.txt
+</span></span><span style="display:flex;"><span>Edit configuration file:
+</span></span><span style="display:flex;"><span>$ vi config/recommender_config.yaml 
+</span></span><span style="display:flex;"><span>$ python3.9 utils/chaos_recommender/chaos_recommender.py -c utils/chaos_recommender/recommender_config.yaml
+</span></span></code></pre></div></li>
+<li>
+<p>Follow the prompts to provide the required information.</p>
+</li>
+</ol>
+<h2 id="configuration">Configuration<a class="td-heading-self-link" href="#configuration" aria-label="Heading self-link"></a></h2>
+<p>To run the recommender with a config file specify the config file path with the <code>-c</code> argument.
+You can customize the default values by editing the <code>recommender_config.yaml</code> file. The configuration file contains the following options:</p>
+<ul>
+<li><code>application</code>: Specify the application name.</li>
+<li><code>namespaces</code>: Specify the namespaces names (separated by coma or space). If you want to profile</li>
+<li><code>labels</code>: Specify the labels (not used).</li>
+<li><code>kubeconfig</code>: Specify the location of the kubeconfig file (not used).</li>
+<li><code>prometheus_endpoint</code>: Specify the prometheus endpoint (must).</li>
+<li><code>auth_token</code>: Auth token to connect to prometheus endpoint (must).</li>
+<li><code>scrape_duration</code>: For how long data should be fetched, e.g., &lsquo;1m&rsquo; (must).</li>
+<li><code>chaos_library</code>: &ldquo;kraken&rdquo; (currently it only supports kraken).</li>
+<li><code>json_output_file</code>: True or False (by default False).</li>
+<li><code>json_output_folder_path</code>: Specify folder path where output should be saved. If empty the default path is used.</li>
+<li><code>chaos_tests</code>: (for output purpose only do not change if not needed)
+<ul>
+<li><code>GENERAL</code>: list of general purpose tests available in Krkn</li>
+<li><code>MEM</code>: list of memory related tests available in Krkn</li>
+<li><code>NETWORK</code>: list of network related tests available in Krkn</li>
+<li><code>CPU</code>: list of memory related tests available in Krkn</li>
+</ul>
+</li>
+<li><code>threshold</code>: Specify the threshold to use for comparison and identifying outliers</li>
+<li><code>cpu_threshold</code>: Specify the cpu threshold to compare with the cpu limits set on the pods and identify outliers</li>
+<li><code>mem_threshold</code>: Specify the memory threshold to compare with the memory limits set on the pods and identify outliers</li>
+</ul>
+<p><em>TIP:</em> to collect prometheus endpoint and token from your OpenShift cluster you can run the following commands:
+<code>prometheus_url=$(kubectl get routes -n openshift-monitoring prometheus-k8s --no-headers | awk '{print $2}') #TO USE YOUR CURRENT SESSION TOKEN token=$(oc whoami -t) #TO CREATE A NEW TOKEN token=$(kubectl create token -n openshift-monitoring prometheus-k8s --duration=6h || oc sa new-token -n openshift-monitoring prometheus-k8s)</code></p>
+<p>You can also provide the input values through command-line arguments launching the recommender with <code>-o</code> option:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  -o, --options         Evaluate <span style="color:#204a87">command</span> line options
+</span></span><span style="display:flex;"><span>  -a APPLICATION, --application APPLICATION
+</span></span><span style="display:flex;"><span>                        Kubernetes application name
+</span></span><span style="display:flex;"><span>  -n NAMESPACES, --namespaces NAMESPACE
+</span></span><span style="display:flex;"><span>                        Kubernetes application namespaces separated by space
+</span></span><span style="display:flex;"><span>  -l LABELS, --labels LABELS
+</span></span><span style="display:flex;"><span>                        Kubernetes application labels
+</span></span><span style="display:flex;"><span>  -p PROMETHEUS_ENDPOINT, --prometheus-endpoint PROMETHEUS_ENDPOINT
+</span></span><span style="display:flex;"><span>                        Prometheus endpoint URI
+</span></span><span style="display:flex;"><span>  -k KUBECONFIG, --kubeconfig KUBECONFIG
+</span></span><span style="display:flex;"><span>                        Kubeconfig path
+</span></span><span style="display:flex;"><span>  -t TOKEN, --token TOKEN
+</span></span><span style="display:flex;"><span>                        Kubernetes authentication token
+</span></span><span style="display:flex;"><span>  -s SCRAPE_DURATION, --scrape-duration SCRAPE_DURATION
+</span></span><span style="display:flex;"><span>                        Prometheus scrape duration
+</span></span><span style="display:flex;"><span>  -i LIBRARY, --library LIBRARY
+</span></span><span style="display:flex;"><span>                        Chaos library
+</span></span><span style="display:flex;"><span>  -L LOG_LEVEL, --log-level LOG_LEVEL
+</span></span><span style="display:flex;"><span>                        log level <span style="color:#ce5c00;font-weight:bold">(</span>DEBUG, INFO, WARNING, ERROR, CRITICAL
+</span></span><span style="display:flex;"><span>  -J <span style="color:#ce5c00;font-weight:bold">[</span>FOLDER_PATH<span style="color:#ce5c00;font-weight:bold">]</span>, --json-output-file <span style="color:#ce5c00;font-weight:bold">[</span>FOLDER_PATH<span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>                        Create output file, the path to the folder can be specified, <span style="color:#204a87;font-weight:bold">if</span> not specified the default folder is used.
+</span></span><span style="display:flex;"><span>  -M MEM <span style="color:#ce5c00;font-weight:bold">[</span>MEM ...<span style="color:#ce5c00;font-weight:bold">]</span>, --MEM MEM <span style="color:#ce5c00;font-weight:bold">[</span>MEM ...<span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>                        Memory related chaos tests <span style="color:#ce5c00;font-weight:bold">(</span>space separated list<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>  -C CPU <span style="color:#ce5c00;font-weight:bold">[</span>CPU ...<span style="color:#ce5c00;font-weight:bold">]</span>, --CPU CPU <span style="color:#ce5c00;font-weight:bold">[</span>CPU ...<span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>                        CPU related chaos tests <span style="color:#ce5c00;font-weight:bold">(</span>space separated list<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>  -N NETWORK <span style="color:#ce5c00;font-weight:bold">[</span>NETWORK ...<span style="color:#ce5c00;font-weight:bold">]</span>, --NETWORK NETWORK <span style="color:#ce5c00;font-weight:bold">[</span>NETWORK ...<span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>                        Network related chaos tests <span style="color:#ce5c00;font-weight:bold">(</span>space separated list<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>  -G GENERIC <span style="color:#ce5c00;font-weight:bold">[</span>GENERIC ...<span style="color:#ce5c00;font-weight:bold">]</span>, --GENERIC GENERIC <span style="color:#ce5c00;font-weight:bold">[</span>GENERIC ...<span style="color:#ce5c00;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>                        Memory related chaos tests <span style="color:#ce5c00;font-weight:bold">(</span>space separated list<span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>  --threshold THRESHOLD
+</span></span><span style="display:flex;"><span>                        Threshold
+</span></span><span style="display:flex;"><span>  --cpu_threshold CPU_THRESHOLD
+</span></span><span style="display:flex;"><span>                        CPU threshold to compare with the cpu limits
+</span></span><span style="display:flex;"><span>  --mem_threshold MEM_THRESHOLD
+</span></span><span style="display:flex;"><span>                        Memory threshold to compare with the memory limits
+</span></span></code></pre></div><p>If you provide the input values through command-line arguments, the corresponding config file inputs would be ignored.</p>
+<h2 id="podman--docker-image">Podman &amp; Docker image<a class="td-heading-self-link" href="#podman--docker-image" aria-label="Heading self-link"></a></h2>
+<p>To run the recommender image please visit the <a href="/docs/installation/krkn-hub/">krkn-hub</a> for further infos.</p>
+<h2 id="how-it-works">How it works<a class="td-heading-self-link" href="#how-it-works" aria-label="Heading self-link"></a></h2>
+<p>After obtaining telemetry data, sourced either locally or from Prometheus, the tool conducts a comprehensive data analysis to detect anomalies. Employing the Z-score method and heatmaps, it identifies outliers by evaluating CPU, memory, and network usage against established limits. Services with Z-scores surpassing a specified threshold are categorized as outliers. This categorization classifies services as network, CPU, or memory-sensitive, consequently leading to the recommendation of relevant test cases.</p>
+<h2 id="customizing-thresholds-and-options">Customizing Thresholds and Options<a class="td-heading-self-link" href="#customizing-thresholds-and-options" aria-label="Heading self-link"></a></h2>
+<p>You can customize the thresholds and options used for data analysis and identifying the outliers by setting the threshold, cpu_threshold and mem_threshold parameters in the config.</p>
+<h2 id="additional-files">Additional Files<a class="td-heading-self-link" href="#additional-files" aria-label="Heading self-link"></a></h2>
+<ul>
+<li><code>recommender_config.yaml</code>: The configuration file containing default values for application, namespace, labels, and kubeconfig.</li>
+</ul>
+<p>Happy Chaos!</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-99a93ef9534d11fef4be3e4b3b1a6381">7 - Contribution Guidelines</h1>
     
 	<h3 id="adding-new-scenariostesting-changes">Adding New Scenarios/Testing Changes<a class="td-heading-self-link" href="#adding-new-scenariostesting-changes" aria-label="Heading self-link"></a></h3>
 <p>Refer to the 2 docs below to be able to test your own images with any changes and be able to contribute them to the repository</p>
 <ul>
-<li><a href="https://github.com/krkn-chaos/krkn-hub/blob/main/docs/test_your_changes.md">Testing Your Changes</a></li>
-<li><a href="https://github.com/krkn-chaos/krkn-hub/blob/main/docs/contribute.md">Contribute</a></li>
+<li><a href="/docs/contribution-guidelines/testing-changes/">Testing Your Changes</a></li>
+<li><a href="/docs/contribution-guidelines/contribute/">Contribute</a></li>
 </ul>
 
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-cb673d42652e2dadae972711a10addab">7.1 - Testing your changes</h1>
+    
+	<h1 id="how-to-test-your-changesadditions">How to Test Your Changes/Additions<a class="td-heading-self-link" href="#how-to-test-your-changesadditions" aria-label="Heading self-link"></a></h1>
+<h2 id="install-podmandocker-compose">Install Podman/Docker Compose<a class="td-heading-self-link" href="#install-podmandocker-compose" aria-label="Heading self-link"></a></h2>
+<p>You can use either podman-compose or docker-compose for this step</p>
+<p><strong>NOTE:</strong> Podman might not work on Mac&rsquo;s</p>
+<p><code>pip3 install docker-compose</code></p>
+<p>OR</p>
+<p>To get latest podman-compose features we need, use this installation command</p>
+<p><code>pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz</code></p>
+<h2 id="current-list-of-scenario-types">Current list of Scenario Types<a class="td-heading-self-link" href="#current-list-of-scenario-types" aria-label="Heading self-link"></a></h2>
+<p>Scenario Types:</p>
+<ul>
+<li>pod-scenarios</li>
+<li>node-scenarios</li>
+<li>zone-outages</li>
+<li>time-scenarios</li>
+<li>cerberus</li>
+<li>cluster-shutdown</li>
+<li>container-scenarios</li>
+<li>node-cpu-hog</li>
+<li>node-io-hog</li>
+<li>node-memory-hog</li>
+<li>application-outages</li>
+</ul>
+<h2 id="adding-a-new-scenario">Adding a New Scenario<a class="td-heading-self-link" href="#adding-a-new-scenario" aria-label="Heading self-link"></a></h2>
+<ol>
+<li>
+<p>Create folder with scenario name</p>
+</li>
+<li>
+<p>Create generic scenario template with enviornment variables</p>
+<p>a. See <a href="../application-outages/app_outages.yaml.template">scenario.yaml</a> for example</p>
+<p>b. Almost all parameters should be set using a variable (these will be set in the env.sh file or through the command line environment variables)</p>
+</li>
+<li>
+<p>Add defaults for any environment variables in an &ldquo;env.sh&rdquo; file</p>
+<p>a.  See <a href="../application-outages/env.sh">env.sh</a> for example</p>
+</li>
+<li>
+<p>Create script to run.sh chaos scenario
+a. See <a href="../application-outages/run.sh">run.sh</a> for example</p>
+<p>b. edit line 16 with your scenario yaml template</p>
+<p>c. edit line 17 and 23 with your yaml config location</p>
+</li>
+<li>
+<p>Create Dockerfile template</p>
+<p>a. See <a href="../application-outages/Dockerfile.template">dockerfile</a> for example</p>
+<p>b. Lines to edit</p>
+<pre><code> i. 15: replace &quot;application-outages&quot; with your folder name 
+
+ ii. 17: replace &quot;application-outages&quot; with your folder name
+
+ iii. 19: replace &quot;application-outages&quot; with your folder name and config file name 
+</code></pre>
+</li>
+<li>
+<p>Add service/scenario to <a href="/docker-compose.yaml">docker-compose.yaml</a> file following syntax of other services</p>
+</li>
+<li>
+<p>Point the dockerfile parameter in your docker-compose to the Dockerfile file in your new folder</p>
+</li>
+<li>
+<p>Update this doc and main README with new scenario type</p>
+</li>
+<li>
+<p>Add CI test for new scenario</p>
+<p>a. See <a href="../CI/tests/test_application_outages.sh">test_application_outages.sh</a> for example</p>
+<p>b. Lines to change</p>
+<pre><code> i. 14 and 31: Give a new function name 
+
+ ii.  19: Give it a meaningful container name
+
+ iii. Edit line 20 to give scenario type defined in docker-compose file 
+</code></pre>
+<p>c. Add test name to <a href="../CI/tests/all_tests">all_tests</a> file</p>
+</li>
+</ol>
+<p>NOTE:</p>
+<ol>
+<li>If you added any variables or new sections be sure to update <a href="../config.yaml.template">config.yaml.template</a></li>
+<li>Similar to above, also add the default parameter values to <a href="../env.sh">env.sh</a></li>
+</ol>
+<h2 id="build-your-changes">Build Your Changes<a class="td-heading-self-link" href="#build-your-changes" aria-label="Heading self-link"></a></h2>
+<ol>
+<li>Run <a href="../build.sh">build.sh</a> to get Dockerfiles for each scenario</li>
+<li>Edit the docker-compose.yaml file to point to your quay.io repository (optional)</li>
+<li>Build your image(s) from base kraken-hub directory</li>
+</ol>
+<p>Builds all images in docker-compose file
+<code>docker-compose build</code></p>
+<p>Builds single image defined by service/scenario name
+<code>docker-compose build &lt;scenario_type&gt;</code></p>
+<p>OR</p>
+<p>Builds all images in podman-compose file
+<code>podman-compose build</code></p>
+<p>Builds single image defined by service/scenario name
+<code>podman-compose build &lt;scenario_type&gt;</code></p>
+<h2 id="push-images-to-your-quayio">Push Images to your quay.io<a class="td-heading-self-link" href="#push-images-to-your-quayio" aria-label="Heading self-link"></a></h2>
+<p>All Images
+<code>docker image push --all-tags quay.io/&lt;username&gt;/kraken-hub</code></p>
+<p>Single image
+<code>docker image push quay.io/&lt;username&gt;/kraken-hub:&lt;scenario_type&gt;</code></p>
+<p>OR</p>
+<p>Single Image (have to go one by one to push images through podman)
+<code>podman image push quay.io/&lt;username&gt;/kraken-hub:&lt;scenario_type&gt;</code></p>
+<h2 id="run-your-scenario">Run your scenario<a class="td-heading-self-link" href="#run-your-scenario" aria-label="Heading self-link"></a></h2>
+<p><code>docker run -d -v &lt;kube_config_path&gt;:/root/.kube/config:Z quay.io/&lt;username&gt;/kraken-hub:&lt;scenario_type&gt;</code></p>
+<p>OR</p>
+<p><code>podman run -d -v &lt;kube_config_path&gt;:/root/.kube/config:Z quay.io/&lt;username&gt;/kraken-hub:&lt;scenario_type&gt;</code></p>
+<h2 id="follow-contribute-guide">Follow Contribute guide<a class="td-heading-self-link" href="#follow-contribute-guide" aria-label="Heading self-link"></a></h2>
+<p>Once all you&rsquo;re happy with your changes, follow the <a href="/docs/contribution-guidelines/testing-changes/#docs/contribute.md">contribution</a> guide on how to create your own branch and squash your commits</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-17ea1d6a1e6627d08a7d6f4d2898cca1">7.2 - Contributions</h1>
+    
+	<h1 id="how-to-contribute">How to contribute<a class="td-heading-self-link" href="#how-to-contribute" aria-label="Heading self-link"></a></h1>
+<p>Contributions are always appreciated.</p>
+<p>How to:</p>
+<ul>
+<li><a href="/docs/contribution-guidelines/contribute/#pull-request">Submit Pull Request</a></li>
+<li><a href="/docs/contribution-guidelines/contribute/#squash-commits">Squash Commits</a></li>
+</ul>
+<h2 id="pull-request">Pull request<a class="td-heading-self-link" href="#pull-request" aria-label="Heading self-link"></a></h2>
+<p>In order to submit a change or a PR, please fork the project and follow instructions:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone http://github.com/&lt;me&gt;/kraken-hub
+</span></span><span style="display:flex;"><span>$ <span style="color:#204a87">cd</span> kraken-hub
+</span></span><span style="display:flex;"><span>$ git checkout -b &lt;branch_name&gt;
+</span></span><span style="display:flex;"><span>$ &lt;make change&gt;
+</span></span><span style="display:flex;"><span>$ git add &lt;changes&gt;
+</span></span><span style="display:flex;"><span>$ git commit -a
+</span></span><span style="display:flex;"><span>$ &lt;insert good message&gt;
+</span></span><span style="display:flex;"><span>$ git push
+</span></span></code></pre></div><h2 id="squash-commits">Squash Commits<a class="td-heading-self-link" href="#squash-commits" aria-label="Heading self-link"></a></h2>
+<p>If there are mutliple commits, please rebase/squash multiple commits
+before creating the PR by following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout &lt;my-working-branch&gt;
+</span></span><span style="display:flex;"><span>$ git rebase -i HEAD~&lt;num_of_commits_to_merge&gt;
+</span></span><span style="display:flex;"><span>   -OR-
+</span></span><span style="display:flex;"><span>$ git rebase -i &lt;commit_id_of_first_change_commit&gt;
+</span></span></code></pre></div><p>In the interactive rebase screen, set the first commit to <code>pick</code> and all others to <code>squash</code> (or whatever else you may need to do).</p>
+<p>Push your rebased commits (you may need to force), then issue your PR.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git push origin &lt;my-working-branch&gt; --force
+</span></span></code></pre></div>
+</div>
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d39a8a737bc5c13f36e41aa92a0c7602">8 - </h1>
+    
+	<h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
+<p>Set the scenarios to inject and the tunings like duration to wait between each scenario in the config file located at <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">config/config.yaml</a>.</p>
+<p><strong>NOTE</strong>: <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config_performance.yaml">config</a> can be used if leveraging the <a href="https://github.com/redhat-chaos/krkn#setting-up-infrastructure-dependencies">automated way</a> to install the infrastructure pieces.</p>
+<p>Config components:</p>
+<ul>
+<li><a href="/docs/config/#kraken">Kraken</a></li>
+<li><a href="/docs/config/#cerberus">Cerberus</a></li>
+<li><a href="/docs/config/#performance-monitoring">Performance Monitoring</a></li>
+<li><a href="/docs/config/#tunings">Tunings</a></li>
+</ul>
+<h1 id="kraken">Kraken<a class="td-heading-self-link" href="#kraken" aria-label="Heading self-link"></a></h1>
+<p>This section defines scenarios and specific data to the chaos run</p>
+<h2 id="distribution">Distribution<a class="td-heading-self-link" href="#distribution" aria-label="Heading self-link"></a></h2>
+<p>Either <strong>openshift</strong> or <strong>kubernetes</strong> depending on the type of cluster you want to run chaos on.
+The prometheus url/route and bearer token are automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes.</p>
+<h2 id="exit-on-failure">Exit on failure<a class="td-heading-self-link" href="#exit-on-failure" aria-label="Heading self-link"></a></h2>
+<p><strong>exit_on_failure</strong>:  Exit when a post action check or cerberus run fails</p>
+<h2 id="publish-kraken-status">Publish kraken status<a class="td-heading-self-link" href="#publish-kraken-status" aria-label="Heading self-link"></a></h2>
+<p><strong>publish_kraken_status</strong>: Can be accessed at http://0.0.0.0:8081 (or what signal_address and port you set in signal address section)
+<strong>signal_state</strong>: State you want kraken to start at; will wait for the RUN signal to start running a chaos iteration. When set to PAUSE before running the scenarios, refer to <a href="/docs/signal/">signal.md</a> for more details</p>
+<h2 id="signal-address">Signal Address<a class="td-heading-self-link" href="#signal-address" aria-label="Heading self-link"></a></h2>
+<p><strong>signal_address</strong>: Address to listen/post the signal state to
+<strong>port</strong>: port to listen/post the signal state to</p>
+<h2 id="chaos-scenarios">Chaos Scenarios<a class="td-heading-self-link" href="#chaos-scenarios" aria-label="Heading self-link"></a></h2>
+<p><strong>chaos_scenarios</strong>: List of different types of chaos scenarios you want to run with paths to their specific yaml file configurations</p>
+<p>If a scenario has a post action check script, it will be run before and after each scenario to validate the component under test starts and ends at the same state</p>
+<p>Currently the scenarios are run one after another (in sequence) and will exit if one of the scenarios fail, without moving onto the next one</p>
+<p>Chaos scenario types:</p>
+<ul>
+<li>container_scenarios</li>
+<li>plugin_scenarios</li>
+<li>node_scenarios</li>
+<li>time_scenarios</li>
+<li>cluster_shut_down_scenarios</li>
+<li>namespace_scenarios</li>
+<li>zone_outages</li>
+<li>application_outages</li>
+<li>pvc_scenarios</li>
+<li>network_chaos</li>
+</ul>
+<h1 id="cerberus">Cerberus<a class="td-heading-self-link" href="#cerberus" aria-label="Heading self-link"></a></h1>
+<p>Parameters to set for enabling of cerberus checks at the end of each executed scenario. The given url will pinged after the scenario and post action check have been completed for each scenario and iteration.
+<strong>cerberus_enabled</strong>: Enable it when cerberus is previously installed
+<strong>cerberus_url</strong>: When cerberus_enabled is set to True, provide the url where cerberus publishes go/no-go signal
+<strong>check_applicaton_routes</strong>:  When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run</p>
+<h1 id="performance-monitoring">Performance Monitoring<a class="td-heading-self-link" href="#performance-monitoring" aria-label="Heading self-link"></a></h1>
+<p>There are 2 main sections defined in this part of the config <a href="metrics.md">metrics</a> and <a href="alerts.md">alerts</a>; read more about each of these configurations in their respective docs</p>
+<h1 id="tunings">Tunings<a class="td-heading-self-link" href="#tunings" aria-label="Heading self-link"></a></h1>
+<p><strong>wait_duration</strong>: Duration to wait between each chaos scenario
+<strong>iterations</strong>: Number of times to execute the scenarios
+<strong>daemon_mode</strong>: True or False; If true, iterations are set to infinity which means that the kraken will cause chaos forever and number of iterations is ignored</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-a39c9f7aa728d5fa3b973bc6ba49228a">9 - </h1>
+    
+	<h2 id="getting-started-running-chaos-scenarios">Getting Started Running Chaos Scenarios<a class="td-heading-self-link" href="#getting-started-running-chaos-scenarios" aria-label="Heading self-link"></a></h2>
+<h4 id="adding-new-scenarios">Adding New Scenarios<a class="td-heading-self-link" href="#adding-new-scenarios" aria-label="Heading self-link"></a></h4>
+<p>Adding a new scenario is as simple as adding a new config file under <a href="https://github.com/redhat-chaos/krkn/tree/main/scenarios">scenarios directory</a> and defining it in the main kraken <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml#L8">config</a>.
+You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.</p>
+<h3 id="templates">Templates<a class="td-heading-self-link" href="#templates" aria-label="Heading self-link"></a></h3>
+<h4 id="pod-scenario-yaml-template">Pod Scenario Yaml Template<a class="td-heading-self-link" href="#pod-scenario-yaml-template" aria-label="Heading self-link"></a></h4>
+<p>For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># yaml-language-server: $schema=../plugin.schema.json</span>
+</span></span><span style="display:flex;"><span>- id: kill-pods
+</span></span><span style="display:flex;"><span>  config:
+</span></span><span style="display:flex;"><span>    namespace_pattern: ^&lt;namespace&gt;$
+</span></span><span style="display:flex;"><span>    label_selector: &lt;pod label&gt;
+</span></span><span style="display:flex;"><span>    kill: &lt;number of pods to kill&gt;
+</span></span><span style="display:flex;"><span>    krkn_pod_recovery_time: &lt;expected <span style="color:#204a87">time</span> <span style="color:#204a87;font-weight:bold">for</span> the pod to become ready&gt;
+</span></span></code></pre></div><h4 id="node-scenario-yaml-template">Node Scenario Yaml Template<a class="td-heading-self-link" href="#node-scenario-yaml-template" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>node_scenarios:
+</span></span><span style="display:flex;"><span>  - actions:  <span style="color:#8f5902;font-style:italic"># Node chaos scenarios to be injected.</span>
+</span></span><span style="display:flex;"><span>    - &lt;chaos scenario&gt;
+</span></span><span style="display:flex;"><span>    - &lt;chaos scenario&gt;
+</span></span><span style="display:flex;"><span>    node_name: &lt;node name&gt;  <span style="color:#8f5902;font-style:italic"># Can be left blank.</span>
+</span></span><span style="display:flex;"><span>    label_selector: &lt;node label&gt;
+</span></span><span style="display:flex;"><span>    instance_kill_count: &lt;number of nodes on which to perform action&gt;
+</span></span><span style="display:flex;"><span>    timeout: &lt;duration to <span style="color:#204a87">wait</span> <span style="color:#204a87;font-weight:bold">for</span> completion&gt;
+</span></span><span style="display:flex;"><span>    cloud_type: &lt;cloud provider&gt;
+</span></span></code></pre></div><h4 id="time-chaos-scenario-template">Time Chaos Scenario Template<a class="td-heading-self-link" href="#time-chaos-scenario-template" aria-label="Heading self-link"></a></h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>time_scenarios:
+</span></span><span style="display:flex;"><span>  - action: <span style="color:#4e9a06">&#39;skew_time&#39;</span> or <span style="color:#4e9a06">&#39;skew_date&#39;</span>
+</span></span><span style="display:flex;"><span>    object_type: <span style="color:#4e9a06">&#39;pod&#39;</span> or <span style="color:#4e9a06">&#39;node&#39;</span>
+</span></span><span style="display:flex;"><span>    label_selector: &lt;label of pod or node&gt;
+</span></span></code></pre></div><h3 id="common-scenario-edits">Common Scenario Edits<a class="td-heading-self-link" href="#common-scenario-edits" aria-label="Heading self-link"></a></h3>
+<p>If you just want to make small changes to pre-existing scenarios, feel free to edit the scenario file itself.</p>
+<h4 id="example-of-quick-pod-scenario-edit">Example of Quick Pod Scenario Edit:<a class="td-heading-self-link" href="#example-of-quick-pod-scenario-edit" aria-label="Heading self-link"></a></h4>
+<p>If you want to kill 2 pods instead of 1 in any of the pre-existing scenarios, you can either edit the number located at filters -&gt; randomSample -&gt; size or the runs under the config -&gt; runStrategy section.</p>
+<h4 id="example-of-quick-nodes-scenario-edit">Example of Quick Nodes Scenario Edit:<a class="td-heading-self-link" href="#example-of-quick-nodes-scenario-edit" aria-label="Heading self-link"></a></h4>
+<p>If your cluster is build on GCP instead of AWS, just change the cloud type in the node_scenarios_example.yml file.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-8b98cd9a1c9e3bb7243f12e47e925f13">10 - </h1>
+    
+	<h3 id="signaling-to-kraken">Signaling to Kraken<a class="td-heading-self-link" href="#signaling-to-kraken" aria-label="Heading self-link"></a></h3>
+<p>This functionality allows a user to be able to pause or stop the kraken run at any time no matter the number of iterations or daemon_mode set in the config.</p>
+<p>If publish_kraken_status is set to True in the config, kraken will start up a connection to a url at a certain port to decide if it should continue running.</p>
+<p>By default, it will get posted to http://0.0.0.0:8081/</p>
+<p>An example use case for this feature would be coordinating kraken runs based on the status of the service installation or load on the cluster.</p>
+<h4 id="states">States<a class="td-heading-self-link" href="#states" aria-label="Heading self-link"></a></h4>
+<p>There are 3 states in the kraken status:</p>
+<p><code>PAUSE</code>: When the Kraken signal is &lsquo;PAUSE&rsquo;, this will pause the kraken test and wait for the wait_duration until the signal returns to RUN.</p>
+<p><code>STOP</code>: When the Kraken signal is &lsquo;STOP&rsquo;, end the kraken run and print out report.</p>
+<p><code>RUN</code>: When the Kraken signal is &lsquo;RUN&rsquo;, continue kraken run based on iterations.</p>
+<h4 id="configuration">Configuration<a class="td-heading-self-link" href="#configuration" aria-label="Heading self-link"></a></h4>
+<p>In the config you need to set these parameters to tell kraken which port to post the kraken run status to.
+As well if you want to publish and stop running based on the kraken status or not.
+The signal is set to <code>RUN</code> by default, meaning it will continue to run the scenarios. It can set to <code>PAUSE</code> for Kraken to act as listener and wait until set to <code>RUN</code> before injecting chaos.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    port: <span style="color:#0000cf;font-weight:bold">8081</span>
+</span></span><span style="display:flex;"><span>    publish_kraken_status: True
+</span></span><span style="display:flex;"><span>    signal_state: RUN
+</span></span></code></pre></div><h4 id="setting-signal">Setting Signal<a class="td-heading-self-link" href="#setting-signal" aria-label="Heading self-link"></a></h4>
+<p>You can reset the kraken status during kraken execution with a <code>set_stop_signal.py</code> script with the following contents:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>import http.client as cli
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">conn</span> <span style="color:#ce5c00;font-weight:bold">=</span> cli.HTTPConnection<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;0.0.0.0&#34;</span>, <span style="color:#4e9a06">&#34;&lt;port&gt;&#34;</span><span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>conn.request<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;POST&#34;</span>, <span style="color:#4e9a06">&#34;/STOP&#34;</span>, <span style="color:#ce5c00;font-weight:bold">{})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># conn.request(&#39;POST&#39;, &#39;/PAUSE&#39;, {})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># conn.request(&#39;POST&#39;, &#39;/RUN&#39;, {})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">response</span> <span style="color:#ce5c00;font-weight:bold">=</span> conn.getresponse<span style="color:#ce5c00;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#ce5c00;font-weight:bold">(</span>response.read<span style="color:#ce5c00;font-weight:bold">()</span>.decode<span style="color:#ce5c00;font-weight:bold">())</span>
+</span></span></code></pre></div><p>Make sure to set the correct port number in your set_stop_signal script.</p>
+<h5 id="url-examples">Url Examples<a class="td-heading-self-link" href="#url-examples" aria-label="Heading self-link"></a></h5>
+<p>To stop run:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http:/0.0.0.0:8081/STOP
+</span></span></code></pre></div><p>To pause run:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http:/0.0.0.0:8081/PAUSE
+</span></span></code></pre></div><p>To start running again:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http:/0.0.0.0:8081/RUN
+</span></span></code></pre></div>
 </div>
 
 

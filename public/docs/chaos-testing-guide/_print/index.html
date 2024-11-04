@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62401&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=64853&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="//localhost:62401/docs/chaos-testing-guide/">
-<link rel="alternate" type="application/rss&#43;xml" href="//localhost:62401/docs/chaos-testing-guide/index.xml">
+<link rel="canonical" type="text/html" href="//localhost:64853/docs/chaos-testing-guide/">
+<link rel="alternate" type="application/rss&#43;xml" href="//localhost:64853/docs/chaos-testing-guide/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -21,7 +21,7 @@
 
 <title>Chaos Testing Guide | Krkn</title>
 <meta name="description" content="Krkn Chaos Tool">
-<meta property="og:url" content="//localhost:62401/docs/chaos-testing-guide/">
+<meta property="og:url" content="//localhost:64853/docs/chaos-testing-guide/">
   <meta property="og:site_name" content="Krkn">
   <meta property="og:title" content="Chaos Testing Guide">
   <meta property="og:description" content="Table of Contents Test Stratagies and Methodology Best Practices Tooling Cluster recovery checks, metrics evaluation and pass/fail criteria Scenarios Test Environment Recommendations - how and where to run chaos tests Chaos testing in Practice OpenShift organization startx-lab Test Strategies and Methodology Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:
@@ -32,8 +32,8 @@ Be proactive vs reactive. We have different types of test suites in place - unit
   <meta itemprop="name" content="Chaos Testing Guide">
   <meta itemprop="description" content="Table of Contents Test Stratagies and Methodology Best Practices Tooling Cluster recovery checks, metrics evaluation and pass/fail criteria Scenarios Test Environment Recommendations - how and where to run chaos tests Chaos testing in Practice OpenShift organization startx-lab Test Strategies and Methodology Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:
 Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment.">
-  <meta itemprop="dateModified" content="2024-10-30T16:36:06-04:00">
-  <meta itemprop="wordCount" content="3008">
+  <meta itemprop="dateModified" content="2024-11-04T10:25:19-05:00">
+  <meta itemprop="wordCount" content="3190">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Chaos Testing Guide">
   <meta name="twitter:description" content="Table of Contents Test Stratagies and Methodology Best Practices Tooling Cluster recovery checks, metrics evaluation and pass/fail criteria Scenarios Test Environment Recommendations - how and where to run chaos tests Chaos testing in Practice OpenShift organization startx-lab Test Strategies and Methodology Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:
@@ -422,6 +422,25 @@ If the monitoring tool, cerberus is enabled it will consume the signal and conti
 <li>Bandwidth limitation</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>
+<p>Pod Network Scenario (<a href="/docs/scenarios/pod-network-scenario/">Documentation</a>)</p>
+<ul>
+<li>Scenario to block the traffic ( Ingress/Egress ) of a pod matching the labels for the specified duration of time to understand the behavior of the service/other services which depend on it during downtime. This helps with planning the requirements accordingly, be it improving the timeouts or tweaking the alerts etc.</li>
+<li>With the current network policies, it is not possible to explicitly block ports which are enabled by allowed network policy rule. This chaos scenario addresses this issue by using OVS flow rules to block ports related to the pod. It supports OpenShiftSDN and OVNKubernetes based networks.</li>
+</ul>
+</li>
+<li>
+<p>Service Disruption Scenarios (<a href="/docs/scenarios/service-disruption-scenarios/">Documentation</a>)</p>
+<ul>
+<li>Using this type of scenario configuration one is able to delete crucial objects in a specific namespace, or a namespace matching a certain regex string.</li>
+</ul>
+</li>
+<li>
+<p>Service Hijacking Scenarios (<a href="/docs/scenarios/service-hijacking-scenario/">Documentation</a>)</p>
+<ul>
+<li>Service Hijacking Scenarios aim to simulate fake HTTP responses from a workload targeted by a Service already deployed in the cluster. This scenario is executed by deploying a custom-made web service and modifying the target Service selector to direct traffic to this web service for a specified duration.</li>
 </ul>
 </li>
 </ul>

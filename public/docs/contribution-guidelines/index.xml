@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Contribution Guidelines on Krkn</title>
-    <link>//localhost:62401/docs/contribution-guidelines/</link>
+    <link>//localhost:64853/docs/contribution-guidelines/</link>
     <description>Recent content in Contribution Guidelines on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:62401/docs/contribution-guidelines/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:64853/docs/contribution-guidelines/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing your changes</title>
-      <link>//localhost:62401/docs/contribution-guidelines/testing-changes/</link>
+      <link>//localhost:64853/docs/contribution-guidelines/testing-changes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62401/docs/contribution-guidelines/testing-changes/</guid>
+      <guid>//localhost:64853/docs/contribution-guidelines/testing-changes/</guid>
       <description>How to Test Your Changes/Additions Install Podman/Docker Compose You can use either podman-compose or docker-compose for this step&#xA;NOTE: Podman might not work on Mac&amp;rsquo;s&#xA;pip3 install docker-compose&#xA;OR&#xA;To get latest podman-compose features we need, use this installation command&#xA;pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz&#xA;Current list of Scenario Types Scenario Types:&#xA;pod-scenarios node-scenarios zone-outages time-scenarios cerberus cluster-shutdown container-scenarios node-cpu-hog node-io-hog node-memory-hog application-outages Adding a New Scenario Create folder with scenario name</description>
     </item>
     <item>
       <title>Contributions</title>
-      <link>//localhost:62401/docs/contribution-guidelines/contribute/</link>
+      <link>//localhost:64853/docs/contribution-guidelines/contribute/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62401/docs/contribution-guidelines/contribute/</guid>
+      <guid>//localhost:64853/docs/contribution-guidelines/contribute/</guid>
       <description>How to contribute Contributions are always appreciated.&#xA;How to:&#xA;Submit Pull Request Squash Commits Pull request In order to submit a change or a PR, please fork the project and follow instructions:&#xA;$ git clone http://github.com/&amp;lt;me&amp;gt;/kraken-hub $ cd kraken-hub $ git checkout -b &amp;lt;branch_name&amp;gt; $ &amp;lt;make change&amp;gt; $ git add &amp;lt;changes&amp;gt; $ git commit -a $ &amp;lt;insert good message&amp;gt; $ git push Squash Commits If there are mutliple commits, please rebase/squash multiple commits before creating the PR by following:</description>
     </item>
   </channel>

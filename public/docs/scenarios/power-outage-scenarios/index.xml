@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Power Outage Scenarios on Krkn</title>
-    <link>//localhost:62401/docs/scenarios/power-outage-scenarios/</link>
+    <link>//localhost:64853/docs/scenarios/power-outage-scenarios/</link>
     <description>Recent content in Power Outage Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
-    <atom:link href="//localhost:62401/docs/scenarios/power-outage-scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:64853/docs/scenarios/power-outage-scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Power Outage Scenario using Krkn</title>
-      <link>//localhost:62401/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</link>
+      <link>//localhost:64853/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62401/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</guid>
+      <guid>//localhost:64853/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn/</guid>
       <description>Power Outage/ Cluster shut down scenario can be injected by placing the shut_down config file under cluster_shut_down_scenario option in the kraken config. Refer to cluster_shut_down_scenario config file.&#xA;Refer to cloud setup to configure your cli properly for the cloud provider of the cluster you want to shut down.&#xA;Current accepted cloud types:&#xA;Azure GCP AWS Openstack cluster_shut_down_scenario: # Scenario to stop all the nodes for specified duration and restart the nodes.</description>
     </item>
     <item>
       <title>Power Outage Scenario using Krkn-Hub</title>
-      <link>//localhost:62401/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</link>
+      <link>//localhost:64853/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:62401/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</guid>
+      <guid>//localhost:64853/docs/scenarios/power-outage-scenarios/power-outage-scenario-krkn-hub/</guid>
       <description>This scenario shuts down Kubernetes/OpenShift cluster for the specified duration to simulate power outages, brings it back online and checks if it&amp;rsquo;s healthy. More information can be found here&#xA;Right now power outage and cluster shutdown are one in the same. We originally created this scenario to stop all the nodes and then start them back up how a customer would shut their cluster down.&#xA;In a real life chaos scenario though, we figured this scenario was close to if the power went out on the aws side so all of our ec2 nodes would be stopped/powered off.</description>
     </item>
   </channel>

@@ -154,6 +154,15 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
     - Packet corruption
     - Bandwidth limitation
 
+- Pod Network Scenario ([Documentation](/docs/scenarios/pod-network-scenario))
+  - Scenario to block the traffic ( Ingress/Egress ) of a pod matching the labels for the specified duration of time to understand the behavior of the service/other services which depend on it during downtime. This helps with planning the requirements accordingly, be it improving the timeouts or tweaking the alerts etc.
+  - With the current network policies, it is not possible to explicitly block ports which are enabled by allowed network policy rule. This chaos scenario addresses this issue by using OVS flow rules to block ports related to the pod. It supports OpenShiftSDN and OVNKubernetes based networks.
+
+- Service Disruption Scenarios ([Documentation](/docs/scenarios/service-disruption-scenarios))
+  - Using this type of scenario configuration one is able to delete crucial objects in a specific namespace, or a namespace matching a certain regex string.
+
+- Service Hijacking Scenarios ([Documentation](/docs/scenarios/service-hijacking-scenario))
+  - Service Hijacking Scenarios aim to simulate fake HTTP responses from a workload targeted by a Service already deployed in the cluster. This scenario is executed by deploying a custom-made web service and modifying the target Service selector to direct traffic to this web service for a specified duration.
 
 
 

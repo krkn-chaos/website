@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chaos Testing Guide on Krkn</title>
-    <link>//localhost:62401/docs/chaos-testing-guide/</link>
+    <link>//localhost:64853/docs/chaos-testing-guide/</link>
     <description>Recent content in Chaos Testing Guide on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:62401/docs/chaos-testing-guide/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:64853/docs/chaos-testing-guide/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

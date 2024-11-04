@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Placeholders on Krkn</title>
-    <link>//localhost:60576/categories/placeholders/</link>
+    <link>//localhost:62401/categories/placeholders/</link>
     <description>Recent content in Placeholders on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:60576/categories/placeholders/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62401/categories/placeholders/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Chaos Testing Guide</title>
-      <link>//localhost:60576/docs/chaos-testing-guide/</link>
+      <title>Testing your changes</title>
+      <link>//localhost:62401/docs/contribution-guidelines/testing-changes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/chaos-testing-guide/</guid>
-      <description>Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:&#xA;Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment. Through implementation of a chaos engineering strategy, we can discover potential causes of service degradation. We need to understand the systems’ behavior under unpredictable conditions in order to find the areas to harden, and use performance data points to size the clusters to handle failures in order to keep downtime to a minimum.</description>
+      <guid>//localhost:62401/docs/contribution-guidelines/testing-changes/</guid>
+      <description>How to Test Your Changes/Additions Install Podman/Docker Compose You can use either podman-compose or docker-compose for this step&#xA;NOTE: Podman might not work on Mac&amp;rsquo;s&#xA;pip3 install docker-compose&#xA;OR&#xA;To get latest podman-compose features we need, use this installation command&#xA;pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz&#xA;Current list of Scenario Types Scenario Types:&#xA;pod-scenarios node-scenarios zone-outages time-scenarios cerberus cluster-shutdown container-scenarios node-cpu-hog node-io-hog node-memory-hog application-outages Adding a New Scenario Create folder with scenario name</description>
+    </item>
+    <item>
+      <title>Contributions</title>
+      <link>//localhost:62401/docs/contribution-guidelines/contribute/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:62401/docs/contribution-guidelines/contribute/</guid>
+      <description>How to contribute Contributions are always appreciated.&#xA;How to:&#xA;Submit Pull Request Squash Commits Pull request In order to submit a change or a PR, please fork the project and follow instructions:&#xA;$ git clone http://github.com/&amp;lt;me&amp;gt;/kraken-hub $ cd kraken-hub $ git checkout -b &amp;lt;branch_name&amp;gt; $ &amp;lt;make change&amp;gt; $ git add &amp;lt;changes&amp;gt; $ git commit -a $ &amp;lt;insert good message&amp;gt; $ git push Squash Commits If there are mutliple commits, please rebase/squash multiple commits before creating the PR by following:</description>
     </item>
     <item>
       <title>Cerberus</title>
-      <link>//localhost:60576/docs/cerberus/</link>
+      <link>//localhost:62401/docs/cerberus/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/cerberus/</guid>
+      <guid>//localhost:62401/docs/cerberus/</guid>
       <description>Cerberus Guardian of Kubernetes and OpenShift Clusters&#xA;Cerberus watches the Kubernetes/OpenShift clusters for dead nodes, system component failures/health and exposes a go or no-go signal which can be consumed by other workload generators or applications in the cluster and act accordingly.&#xA;Workflow Installation Instructions on how to setup, configure and run Cerberus can be found at Installation.&#xA;What Kubernetes/OpenShift components can Cerberus monitor? Following are the components of Kubernetes/OpenShift that Cerberus can monitor today, we will be adding more soon.</description>
-    </item>
-    <item>
-      <title>Best Practices</title>
-      <link>//localhost:60576/docs/chaos-testing-guide/example-page/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/chaos-testing-guide/example-page/</guid>
-      <description>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster. On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:&#xA;Alerts with appropriate severity should get fired.&#xA;Alerts are key to identify when a component starts degrading, and can help focus the investigation effort on affected system components.</description>
     </item>
   </channel>
 </rss>

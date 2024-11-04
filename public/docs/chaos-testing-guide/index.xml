@@ -2,17 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chaos Testing Guide on Krkn</title>
-    <link>//localhost:60576/docs/chaos-testing-guide/</link>
+    <link>//localhost:62401/docs/chaos-testing-guide/</link>
     <description>Recent content in Chaos Testing Guide on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:60576/docs/chaos-testing-guide/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Best Practices</title>
-      <link>//localhost:60576/docs/chaos-testing-guide/example-page/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/chaos-testing-guide/example-page/</guid>
-      <description>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster. On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:&#xA;Alerts with appropriate severity should get fired.&#xA;Alerts are key to identify when a component starts degrading, and can help focus the investigation effort on affected system components.</description>
-    </item>
+    <atom:link href="//localhost:62401/docs/chaos-testing-guide/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

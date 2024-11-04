@@ -1,6 +1,6 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60576&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62401&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
@@ -19,19 +19,19 @@
 
 <title>krkn | Krkn</title>
 <meta name="description" content="Chaos and Resiliency Testing Tool for Kubernetes">
-<meta property="og:url" content="//localhost:60576/docs/overview/">
+<meta property="og:url" content="//localhost:62401/docs/overview/">
   <meta property="og:site_name" content="Krkn">
   <meta property="og:title" content="krkn">
   <meta property="og:description" content="Chaos and Resiliency Testing Tool for Kubernetes">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
-    <meta property="article:modified_time" content="2024-09-16T09:27:31-04:00">
+    <meta property="article:modified_time" content="2024-10-30T16:36:06-04:00">
 
   <meta itemprop="name" content="krkn">
   <meta itemprop="description" content="Chaos and Resiliency Testing Tool for Kubernetes">
-  <meta itemprop="dateModified" content="2024-09-16T09:27:31-04:00">
-  <meta itemprop="wordCount" content="341">
+  <meta itemprop="dateModified" content="2024-10-30T16:36:06-04:00">
+  <meta itemprop="wordCount" content="865">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="krkn">
   <meta name="twitter:description" content="Chaos and Resiliency Testing Tool for Kubernetes">
@@ -413,17 +413,10 @@
   
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docschaos-testing-guide-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docschaos-testing-guide-li">
   <input type="checkbox" id="m-docschaos-testing-guide-check"/>
   <label for="m-docschaos-testing-guide-check"><a href="/docs/chaos-testing-guide/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docschaos-testing-guide"><span class="">Chaos Testing Guide</span></a></label>
   
-  <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docschaos-testing-guideexample-page-li">
-  <input type="checkbox" id="m-docschaos-testing-guideexample-page-check"/>
-  <label for="m-docschaos-testing-guideexample-page-check"><a href="/docs/chaos-testing-guide/example-page/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docschaos-testing-guideexample-page"><span class="">Best Practices</span></a></label>
-  
-</li>
-  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscerberus-li">
   <input type="checkbox" id="m-docscerberus-check"/>
   <label for="m-docscerberus-check"><a href="/docs/cerberus/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docscerberus"><span class="">Cerberus</span></a></label>
@@ -482,6 +475,10 @@
   
 </li>
   </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docschaos-recommender-copy-li">
+  <input type="checkbox" id="m-docschaos-recommender-copy-check"/>
+  <label for="m-docschaos-recommender-copy-check"><a href="/docs/chaos-recommender-copy/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docschaos-recommender-copy"><span class="">Krkn Roadmap</span></a></label>
+  
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconfig-li">
   <input type="checkbox" id="m-docsconfig-check"/>
   <label for="m-docsconfig-check"><a href="/docs/config/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconfig"><span class=""></span></a></label>
@@ -521,6 +518,11 @@
         <li><a href="#workflow">Workflow</a></li>
         <li><a href="#how-to-get-started">How to Get Started</a></li>
         <li><a href="#config">Config</a></li>
+        <li><a href="#kraken-scenario-passfail-criteria-and-report">Kraken scenario pass/fail criteria and report</a></li>
+        <li><a href="#signaling">Signaling</a></li>
+        <li><a href="#performance-monitoring">Performance monitoring</a></li>
+        <li><a href="#slos-validation-during-and-post-chaos">SLOs validation during and post chaos</a></li>
+        <li><a href="#ocm--acm-integration">OCM / ACM integration</a></li>
       </ul>
     </li>
     <li><a href="#where-should-i-go-next">Where should I go next?</a></li>
@@ -531,19 +533,19 @@
             <div class="taxonomy taxonomy-terms-cloud taxo-tags">
       <h5 class="taxonomy-title">Tag Cloud</h5>
       <ul class="taxonomy-terms">
-        <li><a class="taxonomy-term" href="//localhost:60576/tags/docs/" data-taxonomy-term="docs"><span class="taxonomy-label">Docs</span><span class="taxonomy-count">7</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/tags/install/" data-taxonomy-term="install"><span class="taxonomy-label">Install</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/tags/sample/" data-taxonomy-term="sample"><span class="taxonomy-label">Sample</span><span class="taxonomy-count">2</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/tags/test/" data-taxonomy-term="test"><span class="taxonomy-label">Test</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/tags/docs/" data-taxonomy-term="docs"><span class="taxonomy-label">Docs</span><span class="taxonomy-count">6</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/tags/install/" data-taxonomy-term="install"><span class="taxonomy-label">Install</span><span class="taxonomy-count">1</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/tags/sample/" data-taxonomy-term="sample"><span class="taxonomy-label">Sample</span><span class="taxonomy-count">2</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/tags/test/" data-taxonomy-term="test"><span class="taxonomy-label">Test</span><span class="taxonomy-count">3</span></a></li>
         </ul>
     </div>
   <div class="taxonomy taxonomy-terms-cloud taxo-categories">
       <h5 class="taxonomy-title">Categories</h5>
       <ul class="taxonomy-terms">
-        <li><a class="taxonomy-term" href="//localhost:60576/categories/best-practices/" data-taxonomy-term="best-practices"><span class="taxonomy-label">Best Practices</span><span class="taxonomy-count">3</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/categories/examples/" data-taxonomy-term="examples"><span class="taxonomy-label">Examples</span><span class="taxonomy-count">3</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/categories/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">Installation</span><span class="taxonomy-count">1</span></a></li>
-        <li><a class="taxonomy-term" href="//localhost:60576/categories/placeholders/" data-taxonomy-term="placeholders"><span class="taxonomy-label">Placeholders</span><span class="taxonomy-count">4</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/categories/best-practices/" data-taxonomy-term="best-practices"><span class="taxonomy-label">Best Practices</span><span class="taxonomy-count">2</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/categories/examples/" data-taxonomy-term="examples"><span class="taxonomy-label">Examples</span><span class="taxonomy-count">3</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/categories/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">Installation</span><span class="taxonomy-count">1</span></a></li>
+        <li><a class="taxonomy-term" href="//localhost:62401/categories/placeholders/" data-taxonomy-term="placeholders"><span class="taxonomy-label">Placeholders</span><span class="taxonomy-count">3</span></a></li>
         </ul>
     </div>
   
@@ -594,6 +596,27 @@
 <p>For cases where you want to run Kraken with minimal configuration changes, refer to <a href="https://github.com/krkn-chaos/krkn-hub">krkn-hub</a>. One use case is CI integration where you do not want to carry around different configuration files for the scenarios.</p>
 <h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
 <p>Instructions on how to setup the config and the options supported can be found at <a href="/docs/config/">Config</a>.</p>
+<h3 id="kraken-scenario-passfail-criteria-and-report">Kraken scenario pass/fail criteria and report<a class="td-heading-self-link" href="#kraken-scenario-passfail-criteria-and-report" aria-label="Heading self-link"></a></h3>
+<p>It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:</p>
+<ul>
+<li>Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.</li>
+<li>Leveraging <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found <a href="/docs/cerberus/">here</a> or can be installed from Kraken using the <a href="/docs/installation/">instructions</a>. Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. Cerberus can monitor <a href="/docs/cerberus/config/">application routes</a> during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers, or users environment as well. It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress etc. It can be enabled by setting <code>check_applicaton_routes: True</code> in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">Kraken config</a> provided application routes are being monitored in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml">cerberus config</a>.</li>
+<li>Leveraging built-in alert collection feature to fail the runs in case of critical alerts.</li>
+</ul>
+<h3 id="signaling">Signaling<a class="td-heading-self-link" href="#signaling" aria-label="Heading self-link"></a></h3>
+<p>In CI runs or any external job it is useful to stop Kraken once a certain test or state gets reached. We created a way to signal to kraken to pause the chaos or stop it completely using a signal posted to a port of your choice.</p>
+<p>For example if we have a test run loading the cluster running and kraken separately running; we want to be able to know when to start/stop the kraken run based on when the test run completes or gets to a certain loaded state.</p>
+<p>More detailed information on enabling and leveraging this feature can be found <a href="/docs/signal/">here</a>.</p>
+<h3 id="performance-monitoring">Performance monitoring<a class="td-heading-self-link" href="#performance-monitoring" aria-label="Heading self-link"></a></h3>
+<p>Monitoring the Kubernetes/OpenShift cluster to observe the impact of Kraken chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it can be found <a href="docs/performance_dashboards.md">here</a>.</p>
+<h3 id="slos-validation-during-and-post-chaos">SLOs validation during and post chaos<a class="td-heading-self-link" href="#slos-validation-during-and-post-chaos" aria-label="Heading self-link"></a></h3>
+<ul>
+<li>In addition to checking the recovery and health of the cluster and components under test, Kraken takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics.</li>
+<li>Kraken also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail&rsquo;s.</li>
+</ul>
+<p>Information on enabling and leveraging this feature can be found <a href="docs/SLOs_validation.md">here</a></p>
+<h3 id="ocm--acm-integration">OCM / ACM integration<a class="td-heading-self-link" href="#ocm--acm-integration" aria-label="Heading self-link"></a></h3>
+<p>Kraken supports injecting faults into <a href="https://open-cluster-management.io/">Open Cluster Management (OCM)</a> and <a href="https://www.krkn.com/en/technologies/management/advanced-cluster-management">Red Hat Advanced Cluster Management for Kubernetes (ACM)</a> managed clusters through <a href="docs/managedcluster_scenarios.md">ManagedCluster Scenarios</a>.</p>
 <h2 id="where-should-i-go-next">Where should I go next?<a class="td-heading-self-link" href="#where-should-i-go-next" aria-label="Heading self-link"></a></h2>
 <ul>
 <li><a href="/docs/installation/">Installation</a>: Get started using krkn!</li>
@@ -601,7 +624,7 @@
 </ul>
 
 	<div class="td-page-meta__lastmod">
-  Last modified September 16, 2024: <a href="https://github.com/krkn-chaos/website/commit/accdf9adf221412ba29ca1e2987b85deeb883c6b">Adding krkn and krkn-hub files to each scenario (#1) (accdf9a)</a>
+  Last modified October 30, 2024: <a href="https://github.com/krkn-chaos/website/commit/359c10a3b76e983c7be802a0c8ceb766710c52de">Adding remaining docs to website (359c10a)</a>
 </div>
 
 </div>

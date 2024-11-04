@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pod Network Scenarios on Krkn</title>
-    <link>//localhost:60576/docs/scenarios/pod-network-scenario/</link>
+    <link>//localhost:62401/docs/scenarios/pod-network-scenario/</link>
     <description>Recent content in Pod Network Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
-    <atom:link href="//localhost:60576/docs/scenarios/pod-network-scenario/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62401/docs/scenarios/pod-network-scenario/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pod Scenarios using Krkn</title>
-      <link>//localhost:60576/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</link>
+      <link>//localhost:62401/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</guid>
+      <guid>//localhost:62401/docs/scenarios/pod-network-scenario/pod-network-scenarios-krkn/</guid>
       <description>Sample scenario config (using a plugin) - id: pod_network_outage config: namespace: openshift-console # Required - Namespace of the pod to which filter need to be applied direction: # Optioinal - List of directions to apply filters - ingress # Blocks ingress traffic, Default both egress and ingress ingress_ports: # Optional - List of ports to block traffic on - 8443 # Blocks 8443, Default [], i.e. all ports. label_selector: &amp;#39;component=ui&amp;#39; # Blocks access to openshift console Pod Network shaping Scenario to introduce network latency, packet loss, and bandwidth restriction in the Pod&amp;rsquo;s network interface.</description>
     </item>
     <item>
       <title>Pod Network Chaos Scenarios using Krkn-hub</title>
-      <link>//localhost:60576/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</link>
+      <link>//localhost:62401/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</guid>
+      <guid>//localhost:62401/docs/scenarios/pod-network-scenario/pod-network-chaos-krkn-hub/</guid>
       <description>This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.&#xA;Run If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer docs. Make sure to start it before injecting the chaos and set CERBERUS_ENABLED environment variable for the chaos injection container to autoconnect.&#xA;$ podman run --name=&amp;lt;container_name&amp;gt; --net=host --env-host=true -v &amp;lt;path-to-kube-config&amp;gt;:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:pod-network-chaos $ podman logs -f &amp;lt;container_name or container_id&amp;gt; # Streams Kraken logs $ podman inspect &amp;lt;container-name or container-id&amp;gt; --format &amp;#34;{{.</description>
     </item>
   </channel>

@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60576&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62401&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="//localhost:60576/docs/">
-<link rel="alternate" type="application/rss&#43;xml" href="//localhost:60576/docs/index.xml">
+<link rel="canonical" type="text/html" href="//localhost:62401/docs/">
+<link rel="alternate" type="application/rss&#43;xml" href="//localhost:62401/docs/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -21,7 +21,7 @@
 
 <title>krkn-chaos | Krkn</title>
 <meta name="description" content="Krkn Chaos Tool">
-<meta property="og:url" content="//localhost:60576/docs/">
+<meta property="og:url" content="//localhost:62401/docs/">
   <meta property="og:site_name" content="Krkn">
   <meta property="og:title" content="krkn-chaos">
   <meta property="og:description" content="Chaos and resiliency testing tool for Kubernetes with a focus on improving performance under failure conditions. A CNCF sandbox project. Github">
@@ -809,14 +809,6 @@ This is the multi-page printable view of this section.
   
 
   
-    
-    
-	
-<li>4.1: <a href="#pg-dd3d706a34e25895e6ae4cd97f6de487">Best Practices</a></li>
-
-
-    
-  
 
     </ul>
     
@@ -950,7 +942,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>8: <a href="#pg-d39a8a737bc5c13f36e41aa92a0c7602"></a></li>
+<li>8: <a href="#pg-cacc86c0981c574189511ed7af3b1c64">Krkn Roadmap</a></li>
 
 
     
@@ -958,7 +950,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>9: <a href="#pg-a39c9f7aa728d5fa3b973bc6ba49228a"></a></li>
+<li>9: <a href="#pg-d39a8a737bc5c13f36e41aa92a0c7602"></a></li>
 
 
     
@@ -966,7 +958,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>10: <a href="#pg-8b98cd9a1c9e3bb7243f12e47e925f13"></a></li>
+<li>10: <a href="#pg-a39c9f7aa728d5fa3b973bc6ba49228a"></a></li>
+
+
+    
+  
+    
+    
+	
+<li>11: <a href="#pg-8b98cd9a1c9e3bb7243f12e47e925f13"></a></li>
 
 
     
@@ -1027,6 +1027,27 @@ This is the multi-page printable view of this section.
 <p>For cases where you want to run Kraken with minimal configuration changes, refer to <a href="https://github.com/krkn-chaos/krkn-hub">krkn-hub</a>. One use case is CI integration where you do not want to carry around different configuration files for the scenarios.</p>
 <h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
 <p>Instructions on how to setup the config and the options supported can be found at <a href="/docs/config/">Config</a>.</p>
+<h3 id="kraken-scenario-passfail-criteria-and-report">Kraken scenario pass/fail criteria and report<a class="td-heading-self-link" href="#kraken-scenario-passfail-criteria-and-report" aria-label="Heading self-link"></a></h3>
+<p>It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:</p>
+<ul>
+<li>Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.</li>
+<li>Leveraging <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found <a href="/docs/cerberus/">here</a> or can be installed from Kraken using the <a href="/docs/installation/">instructions</a>. Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. Cerberus can monitor <a href="/docs/cerberus/config/">application routes</a> during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers, or users environment as well. It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress etc. It can be enabled by setting <code>check_applicaton_routes: True</code> in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">Kraken config</a> provided application routes are being monitored in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml">cerberus config</a>.</li>
+<li>Leveraging built-in alert collection feature to fail the runs in case of critical alerts.</li>
+</ul>
+<h3 id="signaling">Signaling<a class="td-heading-self-link" href="#signaling" aria-label="Heading self-link"></a></h3>
+<p>In CI runs or any external job it is useful to stop Kraken once a certain test or state gets reached. We created a way to signal to kraken to pause the chaos or stop it completely using a signal posted to a port of your choice.</p>
+<p>For example if we have a test run loading the cluster running and kraken separately running; we want to be able to know when to start/stop the kraken run based on when the test run completes or gets to a certain loaded state.</p>
+<p>More detailed information on enabling and leveraging this feature can be found <a href="/docs/signal/">here</a>.</p>
+<h3 id="performance-monitoring">Performance monitoring<a class="td-heading-self-link" href="#performance-monitoring" aria-label="Heading self-link"></a></h3>
+<p>Monitoring the Kubernetes/OpenShift cluster to observe the impact of Kraken chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it can be found <a href="docs/performance_dashboards.md">here</a>.</p>
+<h3 id="slos-validation-during-and-post-chaos">SLOs validation during and post chaos<a class="td-heading-self-link" href="#slos-validation-during-and-post-chaos" aria-label="Heading self-link"></a></h3>
+<ul>
+<li>In addition to checking the recovery and health of the cluster and components under test, Kraken takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics.</li>
+<li>Kraken also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail&rsquo;s.</li>
+</ul>
+<p>Information on enabling and leveraging this feature can be found <a href="docs/SLOs_validation.md">here</a></p>
+<h3 id="ocm--acm-integration">OCM / ACM integration<a class="td-heading-self-link" href="#ocm--acm-integration" aria-label="Heading self-link"></a></h3>
+<p>Kraken supports injecting faults into <a href="https://open-cluster-management.io/">Open Cluster Management (OCM)</a> and <a href="https://www.krkn.com/en/technologies/management/advanced-cluster-management">Red Hat Advanced Cluster Management for Kubernetes (ACM)</a> managed clusters through <a href="docs/managedcluster_scenarios.md">ManagedCluster Scenarios</a>.</p>
 <h2 id="where-should-i-go-next">Where should I go next?<a class="td-heading-self-link" href="#where-should-i-go-next" aria-label="Heading self-link"></a></h2>
 <ul>
 <li><a href="/docs/installation/">Installation</a>: Get started using krkn!</li>
@@ -1089,41 +1110,6 @@ This is the multi-page printable view of this section.
 
 </div>
 
-<!-- ## Installation
-
-#### Git 
-###### Clone the repository
-```bash
-$ git clone https://github.com/krkn-chaos/krkn.git --branch <release version>
-$ cd krkn 
-```
-###### Install the dependencies
-
-```bash
-$ python3.9 -m venv chaos
-$ source chaos/bin/activate
-$ pip3.9 install -r requirements.txt
-```
-
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    Make sure python3-devel and latest pip versions are installed on the system. The dependencies install has been tested with pip &gt;= 21.1.3 versions.
-
-</div>
-
-Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?
-
-## Running Krkn
-
-```bash
-$ python3.9 run_kraken.py --config <config_file_location>
-```
-
-## Run containerized version
-
-[Krkn-hub](https://github.com/krkn-chaos/krkn-hub) is a wrapper that allows running Krkn chaos scenarios via podman or docker runtime with scenario parameters/configuration defined as environment variables. -->
 
 </div>
 
@@ -4777,94 +4763,56 @@ For example:</p>
     
 	<h1 id="pg-c0ffe4f5ae7990ffa2481add52e8ce49">4 - Chaos Testing Guide</h1>
     
-	<!-- 
-
-<div class="pageinfo pageinfo-primary">
-<p>This is a placeholder page that shows you how to use this template site.</p>
-
-</div>
- -->
+	<h3 id="table-of-contents">Table of Contents<a class="td-heading-self-link" href="#table-of-contents" aria-label="Heading self-link"></a></h3>
+<ul>
+<li><a href="/docs/chaos-testing-guide/#test-strategies-and-methodology">Test Stratagies and Methodology</a></li>
+<li><a href="/docs/chaos-testing-guide/#best-practices">Best Practices</a></li>
+<li><a href="/docs/chaos-testing-guide/#tooling">Tooling</a>
+<ul>
+<li><a href="/docs/chaos-testing-guide/#cluster-recovery-checks-metrics-evaluation-and-passfail-criteria">Cluster recovery checks, metrics evaluation and pass/fail criteria</a></li>
+</ul>
+</li>
+<li><a href="/docs/chaos-testing-guide/#scenarios">Scenarios</a></li>
+<li><a href="/docs/chaos-testing-guide/#test-environment-recommendations---how-and-where-to-run-chaos-tests">Test Environment Recommendations - how and where to run chaos tests</a></li>
+<li><a href="/docs/chaos-testing-guide/#chaos-testing-in-practice">Chaos testing in Practice</a>
+<ul>
+<li><a href="/docs/chaos-testing-guide/#openshift-organization">OpenShift organization</a></li>
+<li><a href="/docs/chaos-testing-guide/#startx-lab">startx-lab</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="test-strategies-and-methodology">Test Strategies and Methodology<a class="td-heading-self-link" href="#test-strategies-and-methodology" aria-label="Heading self-link"></a></h3>
 <p>Failures in production are costly. To help mitigate risk to service health, consider the following strategies and approaches to service testing:</p>
 <ul>
 <li>
-<p>Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment. Through implementation of a chaos engineering strategy, we can discover potential causes of service degradation. We need to understand the systems’ behavior under unpredictable conditions in order to find the areas to harden, and use performance data points to size the clusters to handle failures in order to keep downtime to a minimum.</p>
+<p>Be proactive vs reactive. We have different types of test suites in place - unit, integration and end-to-end - that help expose bugs in code in a controlled environment.  Through implementation of a chaos engineering strategy, we can discover potential causes of service degradation. We need to understand the systems&rsquo; behavior under unpredictable conditions in order to find the areas to harden, and use performance data points to size the clusters to handle failures in order to keep downtime to a minimum.</p>
 </li>
 <li>
 <p>Test the resiliency of a system under turbulent conditions by running tests that are designed to disrupt while monitoring the systems adaptability and performance:</p>
 <ul>
-<li>Establish and define your steady state and metrics - understand the behavior and performance under stable conditions and define the metrics that will be used to evaluate the system’s behavior. Then decide on acceptable outcomes before injecting chaos.</li>
+<li>Establish and define your steady state and metrics - understand the behavior and performance under stable conditions and define the metrics that will be used to evaluate the system’s behavior.  Then decide on acceptable outcomes before injecting chaos.</li>
 <li>Analyze the statuses and metrics of all components during the chaos test runs.</li>
-<li>Improve the areas that are not resilient and performant by comparing the key metrics and Service Level Objectives (SLOs) to the stable conditions before the chaos. For example: evaluating the API server latency or application uptime to see if the key performance indicators and service level       indicators are still within acceptable limits.</li>
+<li>Improve the areas that are not resilient and performant by comparing the key metrics and Service Level Objectives (SLOs) to the stable conditions before the chaos.
+For example: evaluating the API server latency or application uptime to see if the key performance indicators and service level indicators are still within acceptable limits.</li>
 </ul>
 </li>
 </ul>
-<h3 id="kraken-scenario-passfail-criteria-and-report">Kraken scenario pass/fail criteria and report<a class="td-heading-self-link" href="#kraken-scenario-passfail-criteria-and-report" aria-label="Heading self-link"></a></h3>
-<p>It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:</p>
-<ul>
-<li>Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.</li>
-<li>Leveraging <a href="/docs/cerberus/">Cerberus</a> to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found <a href="/docs/cerberus/">here</a> or can be installed from Kraken using the <a href="/docs/installation/">instructions</a>. Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. Cerberus can monitor <a href="/docs/cerberus/config/">application routes</a> during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers, or users environment as well. It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress etc. It can be enabled by setting <code>check_applicaton_routes: True</code> in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">Kraken config</a> provided application routes are being monitored in the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml">cerberus config</a>.</li>
-<li>Leveraging built-in alert collection feature to fail the runs in case of critical alerts.</li>
-</ul>
-<h3 id="signaling">Signaling<a class="td-heading-self-link" href="#signaling" aria-label="Heading self-link"></a></h3>
-<p>In CI runs or any external job it is useful to stop Kraken once a certain test or state gets reached. We created a way to signal to kraken to pause the chaos or stop it completely using a signal posted to a port of your choice.</p>
-<p>For example if we have a test run loading the cluster running and kraken separately running; we want to be able to know when to start/stop the kraken run based on when the test run completes or gets to a certain loaded state.</p>
-<p>More detailed information on enabling and leveraging this feature can be found <a href="/docs/signal/">here</a>.</p>
-<h3 id="performance-monitoring">Performance monitoring<a class="td-heading-self-link" href="#performance-monitoring" aria-label="Heading self-link"></a></h3>
-<p>Monitoring the Kubernetes/OpenShift cluster to observe the impact of Kraken chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it can be found <a href="docs/performance_dashboards.md">here</a>.</p>
-<h3 id="slos-validation-during-and-post-chaos">SLOs validation during and post chaos<a class="td-heading-self-link" href="#slos-validation-during-and-post-chaos" aria-label="Heading self-link"></a></h3>
-<ul>
-<li>In addition to checking the recovery and health of the cluster and components under test, Kraken takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics.</li>
-<li>Kraken also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail&rsquo;s.</li>
-</ul>
-<p>Information on enabling and leveraging this feature can be found <a href="docs/SLOs_validation.md">here</a></p>
-<h3 id="ocm--acm-integration">OCM / ACM integration<a class="td-heading-self-link" href="#ocm--acm-integration" aria-label="Heading self-link"></a></h3>
-<p>Kraken supports injecting faults into <a href="https://open-cluster-management.io/">Open Cluster Management (OCM)</a> and <a href="https://www.krkn.com/en/technologies/management/advanced-cluster-management">Red Hat Advanced Cluster Management for Kubernetes (ACM)</a> managed clusters through <a href="docs/managedcluster_scenarios.md">ManagedCluster Scenarios</a>.</p>
-
-</div>
-
-
-
-    
-      
-  
-  
-  
-  
-
-  
-  
-
-  
-    
-    
-	
-    
-
-<div class="td-content" style="page-break-before: always">
-    
-	<h1 id="pg-dd3d706a34e25895e6ae4cd97f6de487">4.1 - Best Practices</h1>
-    <div class="lead">Let us take a look at the best practices for an Kubernetes cluster.</div>
-	<!-- 
-
-<div class="pageinfo pageinfo-primary">
-<p>Let us take a look at the best practices for an Kubernetes cluster.</p>
-
-</div>
- -->
-<p>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster. On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:</p>
+<h3 id="best-practices">Best Practices<a class="td-heading-self-link" href="#best-practices" aria-label="Heading self-link"></a></h3>
+<p>Now that we understand the test methodology, let us take a look at the best practices for an Kubernetes cluster.  On that platform there are user applications and cluster workloads that need to be designed for stability and to provide the best user experience possible:</p>
 <ul>
 <li>
 <p>Alerts with appropriate severity should get fired.</p>
 <ul>
 <li>Alerts are key to identify when a component starts degrading, and can help focus the investigation effort on affected system components.</li>
 <li>Alerts should have proper severity, description, notification policy, escalation policy, and SOP in order to reduce MTTR for responding SRE or Ops resources.</li>
-<li>Detailed information on the alerts consistency can be found here.</li>
+<li>Detailed information on the alerts consistency can be found <a href="https://github.com/openshift/enhancements/blob/master/enhancements/monitoring/alerting-consistency.md">here</a>.</li>
 </ul>
 </li>
 <li>
 <p>Minimal performance impact - Network, CPU, Memory, Disk, Throughput etc.</p>
 <ul>
-<li>The system, as well as the applications, should be designed to have minimal performance impact during disruptions to ensure stability and also to avoid hogging resources that other applications can use. We want to look at this in terms of CPU, Memory, Disk, Throughput, Network etc.</li>
+<li>The system, as well as the applications, should be designed to have minimal performance impact during disruptions to ensure stability and also to avoid hogging resources that other applications can use.
+We want to look at this in terms of CPU, Memory, Disk, Throughput, Network etc.</li>
 <li>We want to look at this in terms of CPU, Memory, Disk, Throughput, Network etc.</li>
 </ul>
 </li>
@@ -4924,13 +4872,300 @@ For example:</p>
 </ul>
 </li>
 </ul>
+<h3 id="tooling">Tooling<a class="td-heading-self-link" href="#tooling" aria-label="Heading self-link"></a></h3>
+<p>Now that we looked at the best practices, In this section, we will go through how <a href="https://github.com/redhat-chaos/krkn">Kraken</a> - a chaos testing framework can help test the resilience of Kubernetes and make sure the applications and services are following the best practices.</p>
+<h4 id="cluster-recovery-checks-metrics-evaluation-and-passfail-criteria">Cluster recovery checks, metrics evaluation and pass/fail criteria<a class="td-heading-self-link" href="#cluster-recovery-checks-metrics-evaluation-and-passfail-criteria" aria-label="Heading self-link"></a></h4>
+<ul>
+<li>
+<p>Most of the scenarios have built in checks to verify if the targeted component recovered from the failure after the specified duration of time but there might be cases where other components might have an impact because of a certain failure and it’s extremely important to make sure that the system/application is healthy as a whole post chaos. This is exactly where <a href="(/docs/cerberus)">Cerberus</a> comes to the rescue.
+If the monitoring tool, cerberus is enabled it will consume the signal and continue running chaos or not based on that signal.</p>
+</li>
+<li>
+<p>Apart from checking the recovery and cluster health status, it’s equally important to evaluate the performance metrics like latency, resource usage spikes, throughput, etcd health like disk fsync, leader elections etc. To help with this, Kraken has a way to evaluate promql expressions from the incluster prometheus and set the exit status to 0 or 1 based on the severity set for each of the query. Details on how to use this feature can be found <a href="https://github.com/redhat-chaos/krkn#alerts">here</a>.</p>
+</li>
+<li>
+<p>The overall pass or fail of kraken is based on the recovery of the specific component (within a certain amount of time), the cerberus health signal which tracks the health of the entire cluster and metrics evaluation from incluster prometheus.</p>
+</li>
+</ul>
+<h3 id="scenarios">Scenarios<a class="td-heading-self-link" href="#scenarios" aria-label="Heading self-link"></a></h3>
+<p>Let us take a look at how to run the chaos scenarios on your Kubernetes clusters using Kraken-hub - a lightweight wrapper around Kraken to ease the runs by providing the ability to run them by just running container images using podman with parameters set as environment variables. This eliminates the need to carry around and edit configuration files and makes it easy for any CI framework integration. Here are the scenarios supported:</p>
+<ul>
+<li>
+<p>Pod Scenarios (<a href="/docs/scenarios/pod-scenario/">Documentation</a>)</p>
+<ul>
+<li>Disrupts Kubernetes/Kubernetes and applications deployed as pods:
+<ul>
+<li>Helps understand the availability of the application, the initialization timing and recovery status.</li>
+</ul>
+</li>
+<li><a href="https://asciinema.org/a/452351?speed=3&theme=solarized-dark">Demo</a></li>
+</ul>
+</li>
+<li>
+<p>Container Scenarios (<a href="/docs/scenarios/container-scenario/">Documentation</a>)</p>
+<ul>
+<li>Disrupts Kubernetes/Kubernetes and applications deployed as containers running as part of a pod(s) using a specified kill signal to mimic failures:
+<ul>
+<li>Helps understand the impact and recovery timing when the program/process running in the containers are disrupted - hangs, paused, killed etc., using various kill signals, i.e. SIGHUP, SIGTERM, SIGKILL etc.</li>
+</ul>
+</li>
+<li><a href="https://asciinema.org/a/BXqs9JSGDSEKcydTIJ5LpPZBM?speed=3&theme=solarized-dark">Demo</a></li>
+</ul>
+</li>
+<li>
+<p>Node Scenarios (<a href="/docs/scenarios/node-scenarios/">Documentation</a>)</p>
+<ul>
+<li>Disrupts nodes as part of the cluster infrastructure by talking to the cloud API. AWS, Azure, GCP, OpenStack and Baremetal are the supported platforms as of now. Possible disruptions include:
+<ul>
+<li>Terminate nodes</li>
+<li>Fork bomb inside the node</li>
+<li>Stop the node</li>
+<li>Crash the kubelet running on the node</li>
+<li>etc.</li>
+</ul>
+</li>
+<li><a href="https://asciinema.org/a/ANZY7HhPdWTNaWt4xMFanF6Q5">Demo</a></li>
+</ul>
+</li>
+<li>
+<p>Zone Outages (<a href="/docs/scenarios/zone-outage-scenarios/">Documentation</a>)</p>
+<ul>
+<li>Creates outage of availability zone(s) in a targeted region in the public cloud where the Kubernetes cluster is running by tweaking the network acl of the zone to simulate the failure, and that in turn will stop both ingress and egress traffic from all nodes in a particular zone for the specified duration and reverts it back to the previous state.
+<ul>
+<li>Helps understand the impact on both Kubernetes/Kubernetes control plane as well as applications and services running on the worker nodes in that zone.</li>
+<li>Currently, only set up for AWS cloud platform: 1 VPC and multiples subnets within the VPC can be specified.</li>
+<li><a href="https://asciinema.org/a/452672?speed=3&theme=solarized-dark">Demo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Application Outages (<a href="/docs/scenarios/application-outage/">Documentation</a>)</p>
+<ul>
+<li>Scenario to block the traffic ( Ingress/Egress ) of an application matching the labels for the specified duration of time to understand the behavior of the service/other services which depend on it during the downtime.
+<ul>
+<li>Helps understand how the dependent services react to the unavailability.</li>
+<li><a href="https://asciinema.org/a/452403?speed=3&theme=solarized-dark">Demo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Power Outages (<a href="/docs/scenarios/power-outage-scenarios/">Documentation</a>)</p>
+<ul>
+<li>This scenario imitates a power outage by shutting down of the entire cluster for a specified duration of time, then restarts all the nodes after the specified time and checks the health of the cluster.
+<ul>
+<li>There are various use cases in the customer environments. For example, when some of the clusters are shutdown in cases where the applications are not needed to run in a particular time/season in order to save costs.</li>
+<li>The nodes are stopped in parallel to mimic a power outage i.e., pulling off the plug</li>
+</ul>
+</li>
+<li><a href="https://asciinema.org/a/r0zLbh70XK7gnc4s5v0ZzSXGo">Demo</a></li>
+</ul>
+</li>
+<li>
+<p>Resource Hog (<a href="/docs/scenarios/arcaflow-scenarios/">Documenattion</a>)</p>
+<ul>
+<li>Hogs CPU, Memory and IO on the targeted nodes
+<ul>
+<li>Helps understand if the application/system components have reserved resources to not get disrupted because of rogue applications, or get performance throttled.
+<ul>
+<li>CPU Hog (<a href="/docs/scenarios/arcaflow-scenarios/">Documentation</a>, <a href="https://asciinema.org/a/452762">Demo</a>)</li>
+<li>Memory Hog (<a href="/docs/scenarios/arcaflow-scenarios/">Documentation</a>, <a href="https://asciinema.org/a/452742?speed=3&theme=solarized-dark">Demo</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Time Skewing (<a href="/docs/scenarios/time-scenarios/">Documentation</a>)</p>
+<ul>
+<li>Manipulate the system time and/or date of specific pods/nodes.
+<ul>
+<li>Verify scheduling of objects so they continue to work.</li>
+<li>Verify time gets reset properly.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Namespace Failures (<a href="https://github.com/redhat-chaos/krkn-hub/blob/main/docs/namespace-scenarios.md">Documentation</a>)</p>
+<ul>
+<li>Delete namespaces for the specified duration.
+<ul>
+<li>Helps understand the impact on other components and tests/improves recovery time of the components in the targeted namespace.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Persistent Volume Fill (<a href="/docs/scenarios/pvc-scenario/">Documentation</a>)</p>
+<ul>
+<li>Fills up the persistent volumes, up to a given percentage, used by the pod for the specified duration.
+<ul>
+<li>Helps understand how an application deals when it is no longer able to write data to the disk. For example, kafka’s behavior when it is not able to commit data to the disk.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Network Chaos (<a href="/docs/scenarios/network-chaos-scenario/">Documentation</a>)</p>
+<ul>
+<li>Scenarios supported includes:
+<ul>
+<li>Network latency</li>
+<li>Packet loss</li>
+<li>Interface flapping</li>
+<li>DNS errors</li>
+<li>Packet corruption</li>
+<li>Bandwidth limitation</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="test-environment-recommendations---how-and-where-to-run-chaos-tests">Test Environment Recommendations - how and where to run chaos tests<a class="td-heading-self-link" href="#test-environment-recommendations---how-and-where-to-run-chaos-tests" aria-label="Heading self-link"></a></h3>
+<p>Let us take a look at few recommendations on how and where to run the chaos tests:</p>
+<ul>
+<li>
+<p>Run the chaos tests continuously in your test pipelines:</p>
+<ul>
+<li>Software, systems, and infrastructure does change – and the condition/health of each can change pretty rapidly. A good place to run tests is in your CI/CD pipeline running on a regular cadence.</li>
+</ul>
+</li>
+<li>
+<p>Run the chaos tests manually to learn from the system:</p>
+<ul>
+<li>When running a Chaos scenario or Fault tests, it is more important to understand how the system responds and reacts, rather than mark the execution as pass or fail.</li>
+<li>It is important to define the scope of the test before the execution to avoid some issues from masking others.</li>
+</ul>
+</li>
+<li>
+<p>Run the chaos tests in production environments or mimic the load in staging environments:</p>
+<ul>
+<li>As scary as a thought about testing in production is, production is the environment that users are in and traffic spikes/load are real. To fully test the robustness/resilience of a production system, running Chaos Engineering experiments in a production environment will provide needed insights. A couple of things to keep in mind:
+<ul>
+<li>Minimize blast radius and have a backup plan in place to make sure the users and customers do not undergo downtime.</li>
+<li>Mimic the load in a staging environment in case Service Level Agreements  are too tight to cover any downtime.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Enable Observability:</p>
+<ul>
+<li>Chaos Engineering Without Observability &hellip; Is Just Chaos.</li>
+<li>Make sure to have logging and monitoring installed on the cluster to help with understanding the behaviour as to why it is happening. In case of running the tests in the CI where it is not humanly possible to monitor the cluster all the time, it is recommended to leverage Cerberus to capture the state during the runs and metrics collection in Kraken to store metrics long term even after the cluster is gone.</li>
+<li>Kraken ships with dashboards that will help understand API, Etcd and Kubernetes cluster level stats and performance metrics.</li>
+<li>Pay attention to Prometheus alerts. Check if they are firing as expected.</li>
+</ul>
+</li>
+<li>
+<p>Run multiple chaos tests at once to mimic the production outages:</p>
+<ul>
+<li>For example, hogging both IO and Network at the same time instead of running them separately to observe the impact.</li>
+<li>You might have existing test cases, be it related to Performance, Scalability or QE. Run the chaos in the background during the test runs to observe the impact. Signaling feature in Kraken can help with coordinating the chaos runs i.e., start, stop, pause the scenarios based on the state of the other test jobs.</li>
+</ul>
+</li>
+</ul>
+<h4 id="chaos-testing-in-practice">Chaos testing in Practice<a class="td-heading-self-link" href="#chaos-testing-in-practice" aria-label="Heading self-link"></a></h4>
+<h5 id="openshift-organization">OpenShift organization<a class="td-heading-self-link" href="#openshift-organization" aria-label="Heading self-link"></a></h5>
+<p>Within the OpenShift organization we use kraken to perform chaos testing throughout a release before the code is available to customers.</p>
+<pre><code>1. We execute kraken during our regression test suite.
 
+    i. We cover each of the chaos scenarios across different clouds.
+
+        a. Our testing is predominantly done on AWS, Azure and GCP.
+
+2. We run the chaos scenarios during a long running reliability test.
+
+    i. During this test we perform different types of tasks by different users on the cluster.
+
+    ii. We have added the execution of kraken to perform at certain times throughout the long running test and monitor the health of the cluster.
+
+    iii. This test can be seen here: https://github.com/openshift/svt/tree/master/reliability-v2
+
+3. We are starting to add in test cases that perform chaos testing during an upgrade (not many iterations of this have been completed).
+</code></pre>
+<h5 id="startx-lab">startx-lab<a class="td-heading-self-link" href="#startx-lab" aria-label="Heading self-link"></a></h5>
+<p><strong>NOTE</strong>: Requests for enhancements and any issues need to be filed at the mentioned links given that they are not natively supported in Kraken.</p>
+<p>The following content covers the implementation details around how Startx is leveraging Kraken:</p>
+<ul>
+<li>Using kraken as part of a tekton pipeline</li>
+</ul>
+<p>You can find on <a href="https://artifacthub.io/packages/search?kind=7&ts_query_web=kraken">artifacthub.io</a> the
+<a href="https://artifacthub.io/packages/tekton-task/startx-tekton-catalog/kraken-scenario">kraken-scenario</a> <code>tekton-task</code>
+which can be used to start a kraken chaos scenarios as part of a chaos pipeline.</p>
+<p>To use this task, you must have :</p>
+<ul>
+<li>Openshift pipeline enabled (or tekton CRD loaded for Kubernetes clusters)</li>
+<li>1 Secret named <code>kraken-aws-creds</code> for scenarios using aws</li>
+<li>1 ConfigMap named <code>kraken-kubeconfig</code> with credentials to the targeted cluster</li>
+<li>1 ConfigMap named <code>kraken-config-example</code> with kraken configuration file (config.yaml)</li>
+<li>1 ConfigMap named <code>kraken-common-example</code> with all kraken related files</li>
+<li>The <code>pipeline</code> SA with be autorized to run with priviveged SCC</li>
+</ul>
+<p>You can create theses resources using the following sequence :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>oc project default
+</span></span><span style="display:flex;"><span>oc adm policy add-scc-to-user privileged -z pipeline
+</span></span><span style="display:flex;"><span>oc apply -f https://github.com/startxfr/tekton-catalog/raw/stable/task/kraken-scenario/0.1/samples/common.yaml
+</span></span></code></pre></div><p>Then you must change content of <code>kraken-aws-creds</code> secret, <code>kraken-kubeconfig</code> and <code>kraken-config-example</code> configMap
+to reflect your cluster configuration. Refer to the <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">kraken configuration</a>
+and <a href="https://github.com/startxfr/tekton-catalog/blob/stable/task/kraken-scenario/0.1/samples/">configuration examples</a>
+for details on how to configure theses resources.</p>
+<ul>
+<li>Start as a single taskrun</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>oc apply -f https://github.com/startxfr/tekton-catalog/raw/stable/task/kraken-scenario/0.1/samples/taskrun.yaml
+</span></span></code></pre></div><ul>
+<li>Start as a pipelinerun</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#000">oc apply -f https://github.com/startxfr/tekton-catalog/raw/stable/task/kraken-scenario/0.1/samples/pipelinerun.yaml</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></span></span></code></pre></div><ul>
+<li>Deploying kraken using a helm-chart</li>
+</ul>
+<p>You can find on <a href="https://artifacthub.io/packages/search?kind=0&ts_query_web=kraken">artifacthub.io</a> the
+<a href="https://artifacthub.io/packages/helm/startx/chaos-kraken">chaos-kraken</a> <code>helm-chart</code>
+which can be used to deploy a kraken chaos scenarios.</p>
+<p>Default configuration create the following resources :</p>
+<ul>
+<li>1 project named <strong>chaos-kraken</strong></li>
+<li>1 scc with privileged context for kraken deployment</li>
+<li>1 configmap with kraken 21 generic scenarios, various scripts and configuration</li>
+<li>1 configmap with kubeconfig of the targeted cluster</li>
+<li>1 job named kraken-test-xxx</li>
+<li>1 service to the kraken pods</li>
+<li>1 route to the kraken service</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># Install the startx helm repository</span>
+</span></span><span style="display:flex;"><span>helm repo add startx https://startxfr.github.io/helm-repository/packages/
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># Install the kraken project</span>
+</span></span><span style="display:flex;"><span>helm install --set project.enabled<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">true</span> chaos-kraken-project  startx/chaos-kraken
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># Deploy the kraken instance</span>
+</span></span><span style="display:flex;"><span>helm install <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.enabled<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">true</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.aws.credentials.region<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;eu-west-3&#34;</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.aws.credentials.key_id<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;AKIAXXXXXXXXXXXXXXXX&#34;</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.aws.credentials.secret<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.kubeconfig.token.server<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;https://api.mycluster:6443&#34;</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>--set kraken.kubeconfig.token.token<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;sha256~XXXXXXXXXX_PUT_YOUR_TOKEN_HERE_XXXXXXXXXXXX&#34;</span> <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>-n chaos-kraken <span style="color:#4e9a06">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4e9a06"></span>chaos-kraken-instance startx/chaos-kraken
+</span></span></code></pre></div>
 </div>
 
 
 
     
-	
+      
+  
+  
+  
+  
+
+  
+  
+
   
 
     
@@ -5954,7 +6189,39 @@ before creating the PR by following:</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-d39a8a737bc5c13f36e41aa92a0c7602">8 - </h1>
+	<h1 id="pg-cacc86c0981c574189511ed7af3b1c64">8 - Krkn Roadmap</h1>
+    
+	<p>Following are a list of enhancements that we are planning to work on adding support in Krkn. Of course any help/contributions are greatly appreciated.</p>
+<ul>
+<li><input disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/424">Ability to run multiple chaos scenarios in parallel under load to mimic real world outages</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/423">Centralized storage for chaos experiments artifacts</a></li>
+<li><input disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/394">Support for causing DNS outages</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/tree/main/utils/chaos-recommender">Chaos recommender</a> to suggest scenarios having probability of impacting the service under test using profiling results</li>
+<li><input disabled="" type="checkbox"> Chaos AI integration to improve test coverage while reducing fault space to save costs and execution time</li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/393">Support for pod level network traffic shaping</a></li>
+<li><input disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/124">Ability to visualize the metrics that are being captured by Kraken and stored in Elasticsearch</a></li>
+<li><input checked="" disabled="" type="checkbox"> Support for running all the scenarios of Kraken on Kubernetes distribution - see <a href="https://github.com/krkn-chaos/krkn/issues/185">https://github.com/krkn-chaos/krkn/issues/185</a>, <a href="https://github.com/redhat-chaos/krkn/issues/186">https://github.com/redhat-chaos/krkn/issues/186</a></li>
+<li><input checked="" disabled="" type="checkbox"> Continue to improve <a href="https://krkn-chaos.github.io/krkn">Chaos Testing Guide</a> in terms of adding best practices, test environment recommendations and scenarios to make sure the OpenShift platform, as well the applications running on top it, are resilient and performant under chaotic conditions.</li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/495">Switch documentation references to Kubernetes</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krkn/issues/497">OCP and Kubernetes functionalities segregation</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/krkn-chaos/krknctl">Krknctl - client for running Krkn scenarios with ease</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d39a8a737bc5c13f36e41aa92a0c7602">9 - </h1>
     
 	<h3 id="config">Config<a class="td-heading-self-link" href="#config" aria-label="Heading self-link"></a></h3>
 <p>Set the scenarios to inject and the tunings like duration to wait between each scenario in the config file located at <a href="https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml">config/config.yaml</a>.</p>
@@ -6022,7 +6289,7 @@ The prometheus url/route and bearer token are automatically obtained in case of 
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-a39c9f7aa728d5fa3b973bc6ba49228a">9 - </h1>
+	<h1 id="pg-a39c9f7aa728d5fa3b973bc6ba49228a">10 - </h1>
     
 	<h2 id="getting-started-running-chaos-scenarios">Getting Started Running Chaos Scenarios<a class="td-heading-self-link" href="#getting-started-running-chaos-scenarios" aria-label="Heading self-link"></a></h2>
 <h4 id="adding-new-scenarios">Adding New Scenarios<a class="td-heading-self-link" href="#adding-new-scenarios" aria-label="Heading self-link"></a></h4>
@@ -6074,7 +6341,7 @@ You can either copy an existing yaml file and make it your own, or fill in one o
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-8b98cd9a1c9e3bb7243f12e47e925f13">10 - </h1>
+	<h1 id="pg-8b98cd9a1c9e3bb7243f12e47e925f13">11 - </h1>
     
 	<h3 id="signaling-to-kraken">Signaling to Kraken<a class="td-heading-self-link" href="#signaling-to-kraken" aria-label="Heading self-link"></a></h3>
 <p>This functionality allows a user to be able to pause or stop the kraken run at any time no matter the number of iterations or daemon_mode set in the config.</p>

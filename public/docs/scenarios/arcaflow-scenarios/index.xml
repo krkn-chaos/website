@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Arcaflow Scenarios on Krkn</title>
-    <link>//localhost:60576/docs/scenarios/arcaflow-scenarios/</link>
+    <link>//localhost:62401/docs/scenarios/arcaflow-scenarios/</link>
     <description>Recent content in Arcaflow Scenarios on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Mon, 16 Sep 2024 09:27:31 -0400</lastBuildDate>
-    <atom:link href="//localhost:60576/docs/scenarios/arcaflow-scenarios/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62401/docs/scenarios/arcaflow-scenarios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Arcaflow Scenarios using Krkn</title>
-      <link>//localhost:60576/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</link>
+      <link>//localhost:62401/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</guid>
+      <guid>//localhost:62401/docs/scenarios/arcaflow-scenarios/arcaflow-scenarios-krkn/</guid>
       <description>Usage To enable arcaflow scenarios edit the kraken config file, go to the section kraken -&amp;gt; chaos_scenarios of the yaml structure and add a new element to the list named arcaflow_scenarios then add the desired scenario pointing to the input.yaml file.&#xA;kraken: ... chaos_scenarios: - arcaflow_scenarios: - scenarios/arcaflow/cpu-hog/input.yaml input.yaml The implemented scenarios can be found in scenarios/arcaflow/&amp;lt;scenario_name&amp;gt; folder. The entrypoint of each scenario is the input.yaml file. In this file there are all the options to set up the scenario accordingly to the desired target</description>
     </item>
   </channel>

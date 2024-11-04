@@ -2,44 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>krkn-chaos on Krkn</title>
-    <link>//localhost:60576/docs/</link>
+    <link>//localhost:62401/docs/</link>
     <description>Recent content in krkn-chaos on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:60576/docs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62401/docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>krkn</title>
-      <link>//localhost:60576/docs/overview/</link>
+      <link>//localhost:62401/docs/overview/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/overview/</guid>
+      <guid>//localhost:62401/docs/overview/</guid>
       <description>krkn is a chaos and resiliency testing tool for Kubernetes. Kraken injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.&#xA;Why do I want it? There are a couple of false assumptions that users might have when operating and running their applications in distributed systems:&#xA;The network is reliable There is zero latency Bandwidth is infinite The network is secure Topology never changes The network is homogeneous Consistent resource usage with no spikes All shared resources are available from all places Various assumptions led to a number of outages in production environments in the past.</description>
     </item>
     <item>
       <title>Chaos Recommendation Tool</title>
-      <link>//localhost:60576/docs/chaos-recommender/</link>
+      <link>//localhost:62401/docs/chaos-recommender/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/chaos-recommender/</guid>
+      <guid>//localhost:62401/docs/chaos-recommender/</guid>
       <description>This tool, designed for Redhat Kraken, operates through the command line and offers recommendations for chaos testing. It suggests probable chaos test cases that can disrupt application services by analyzing their behavior and assessing their susceptibility to specific fault types.&#xA;This tool profiles an application and gathers telemetry data such as CPU, Memory, and Network usage, analyzing it to suggest probable chaos scenarios. For optimal results, it is recommended to activate the utility while the application is under load.</description>
     </item>
     <item>
-      <title></title>
-      <link>//localhost:60576/docs/config/</link>
+      <title>Krkn Roadmap</title>
+      <link>//localhost:62401/docs/chaos-recommender-copy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/config/</guid>
+      <guid>//localhost:62401/docs/chaos-recommender-copy/</guid>
+      <description>Following are a list of enhancements that we are planning to work on adding support in Krkn. Of course any help/contributions are greatly appreciated.&#xA;Ability to run multiple chaos scenarios in parallel under load to mimic real world outages Centralized storage for chaos experiments artifacts Support for causing DNS outages Chaos recommender to suggest scenarios having probability of impacting the service under test using profiling results Chaos AI integration to improve test coverage while reducing fault space to save costs and execution time Support for pod level network traffic shaping Ability to visualize the metrics that are being captured by Kraken and stored in Elasticsearch Support for running all the scenarios of Kraken on Kubernetes distribution - see https://github.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:62401/docs/config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:62401/docs/config/</guid>
       <description>Config Set the scenarios to inject and the tunings like duration to wait between each scenario in the config file located at config/config.yaml.&#xA;NOTE: config can be used if leveraging the automated way to install the infrastructure pieces.&#xA;Config components:&#xA;Kraken Cerberus Performance Monitoring Tunings Kraken This section defines scenarios and specific data to the chaos run&#xA;Distribution Either openshift or kubernetes depending on the type of cluster you want to run chaos on.</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:60576/docs/getting-started/</link>
+      <link>//localhost:62401/docs/getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/getting-started/</guid>
+      <guid>//localhost:62401/docs/getting-started/</guid>
       <description>Getting Started Running Chaos Scenarios Adding New Scenarios Adding a new scenario is as simple as adding a new config file under scenarios directory and defining it in the main kraken config. You can either copy an existing yaml file and make it your own, or fill in one of the templates below to suit your needs.&#xA;Templates Pod Scenario Yaml Template For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:</description>
     </item>
     <item>
       <title></title>
-      <link>//localhost:60576/docs/signal/</link>
+      <link>//localhost:62401/docs/signal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/docs/signal/</guid>
+      <guid>//localhost:62401/docs/signal/</guid>
       <description>Signaling to Kraken This functionality allows a user to be able to pause or stop the kraken run at any time no matter the number of iterations or daemon_mode set in the config.&#xA;If publish_kraken_status is set to True in the config, kraken will start up a connection to a url at a certain port to decide if it should continue running.&#xA;By default, it will get posted to http://0.0.0.0:8081/</description>
     </item>
   </channel>

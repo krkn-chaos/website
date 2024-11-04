@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on Krkn</title>
-    <link>//localhost:60576/blog/articles/</link>
+    <link>//localhost:62401/blog/articles/</link>
     <description>Recent content in Blogs on Krkn</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:60576/blog/articles/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62401/blog/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Articles</title>
-      <link>//localhost:60576/blog/2021/10/01/articles/</link>
+      <link>//localhost:62401/blog/2021/10/01/articles/</link>
       <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
-      <guid>//localhost:60576/blog/2021/10/01/articles/</guid>
+      <guid>//localhost:62401/blog/2021/10/01/articles/</guid>
       <description>Presentations and Blogs Blog post on introduction to Kraken: https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes Discussion and demo on how Kraken can be leveraged to ensure OpenShift is reliable, performant and scalable: https://www.youtube.com/watch?v=s1PvupI5sD0&amp;ab_channel=OpenShift Blog post emphasizing the importance of making Chaos part of Performance and Scale runs to mimic the production environments: https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests Blog post on findings from Chaos test runs: https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories Discussion with CNCF TAG App Delivery on Krkn workflow, features and addition to CNCF sandbox: Github, Tracker, recording Blog post on supercharging chaos testing using AI integration in Krkn: https://www.</description>
     </item>
   </channel>

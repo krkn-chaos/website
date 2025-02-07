@@ -42,7 +42,7 @@ Cerberus exposes the cluster health and failures through a go/no-go signal, repo
 When the cerberus is configured to run in the daemon mode, it will continuosly monitor the components specified, runs a light weight http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.
 
 #### Report
-The report is generated in the run directory and it contains the information about each check/monitored component status per iteration with timestamps. It also displays information about the components in case of failure. Refer [report](docs/example_report.md) for example.
+The report is generated in the run directory and it contains the information about each check/monitored component status per iteration with timestamps. It also displays information about the components in case of failure. Refer [report](docs/cerberus/example_report.md) for example.
 
 You can use the "-o <file_path_name>" option to change the location of the created report
 

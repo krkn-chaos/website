@@ -11,7 +11,7 @@ The following are the components of Kubernetes for which a basic chaos scenario 
 ```yaml
 kraken:
   chaos_scenarios:
-    - plugin_scenarios:
+    - pod_disruption_scenarios:
       - path/to/scenario.yaml
 ```
 

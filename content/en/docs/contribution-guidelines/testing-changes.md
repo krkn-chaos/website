@@ -35,6 +35,8 @@ Scenario Types:
 * node-io-hog
 * node-memory-hog
 * application-outages
+* syn-flood
+* service-hijacking
 
 ## Adding a New Scenario
 1. Create folder with scenario name

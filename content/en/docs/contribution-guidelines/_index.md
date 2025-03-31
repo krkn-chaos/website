@@ -9,15 +9,20 @@ weight: 10
 ## Contributing to Krkn
 
 If you would like to contribute to Krkn, but are not sure exactly what to work on, you can find a number of open issues that are awaiting contributions in
-[issues.](https://github.com/krkn-chaos/krkn/issues)
+[issues.](https://github.com/krkn-chaos/krkn/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 
-## Adding New Scenarios/Testing Changes
+## Adding New Scenarios
 
 ### New Scenarios 
 
+We are always looking for new scenarios to make krkn better and more usable for our chaos community. If you have any ideas, please first open an issue to explain the new scenario you are wanting to add. We will review and respond with ideas of how to get started. 
 
 
+### New Configuration to Scenarios 
 
+I
+
+### Good PR Checklist 
 Here's a quick checklist for a good PR, more details below:
 - One feature/change per PR
 - One commit per PR [squash your commits](contribute.md#squash-commits)

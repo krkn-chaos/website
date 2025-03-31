@@ -45,8 +45,9 @@ Scenario Types:
 1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 
 
-2. Create cluster using [kind-config.yml](https://github.com/krkn-chaos/krkn-lib/blob/main/kind-config.yml)
+2. Create cluster using [kind-config.yml](https://github.com/krkn-chaos/krkn-lib/blob/main/kind-config.yml) under *krkn-lib* base folder
 ```
+
 kind create cluster --wait 300s --config=kind-config.yml
 ```
 

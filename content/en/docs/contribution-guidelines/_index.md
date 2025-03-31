@@ -20,7 +20,7 @@ We are always looking for new scenarios to make krkn better and more usable for 
 
 ### New Configuration to Scenarios 
 
-I
+If you are currently using a scenario but want more 
 
 ### Good PR Checklist 
 Here's a quick checklist for a good PR, more details below:

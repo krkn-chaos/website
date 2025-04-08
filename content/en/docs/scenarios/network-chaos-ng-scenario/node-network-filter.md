@@ -28,7 +28,7 @@ Creates iptables rules on one or more nodes to block incoming and outgoing traff
     - 2049
 ```
 
-for the common module settings please refer to the [documentation](docs/network-chaos-ng-scenario/network-chaos-ng-scenario-api/#BaseNetworkChaosConfig-base-module-configuration).
+for the common module settings please refer to the [documentation](docs/scenarios/network-chaos-ng-scenario/network-chaos-ng-scenario-api/#basenetworkchaosconfig-base-module-configuration).
 
 - `ingress`: filters the incoming traffic on one or more ports. If set one or more network interfaces must be specified
 - `egress` : filters the outgoing traffic on one or more ports.

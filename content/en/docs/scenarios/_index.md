@@ -23,5 +23,6 @@ weight: 3
 | [Power Outages](docs/scenarios/power-outage-scenarios/_index.md) | Shuts down the cluster for the specified duration and turns it back on to check the cluster health |
 | [PVC disk fill](docs/scenarios/pvc-scenario/_index.md) | Fills up a given PersistenVolumeClaim by creating a temp file on the PVC from a pod associated with it |
 | [Network Chaos](docs/scenarios/network-chaos-scenario/_index.md) | Introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using tc and Netem |
+| [Network Chaos NG](docs/scenarios/network-chaos-ng-scenario/_index.md) | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios |
 | [Pod Network Chaos](docs/scenarios/pod-network-scenario/_index.md) | Introduces network chaos at pod level                        | 
 | [Service Hijacking](docs/scenarios/service-hijacking-scenario/_index.md) | Hijacks a service http traffic to simulate custom HTTP responses |

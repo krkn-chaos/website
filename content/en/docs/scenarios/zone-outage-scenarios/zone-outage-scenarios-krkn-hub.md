@@ -37,11 +37,11 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 
 Parameter               | Description                                                           | Default
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
-CLOUD_TYPE              | Cloud platform on top of which cluster is running, [supported cloud platforms](docs/scenarios/cloud_setup.md)                     | aws |
+CLOUD_TYPE              | Cloud platform on top of which cluster is running, [supported cloud platforms](docs/scenarios/cloud_setup.md)                     | aws or gcp |
 DURATION                | Duration in seconds after which the zone will be back online          | 600                                  |
-VPC_ID                  | cluster virtual private network to target ( REQUIRED )                             | ""                                   |
-SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED ). Format: [subenet1, subnet2]                    | ""                                   |
-
+VPC_ID                  | cluster virtual private network to target ( REQUIRED for AWS )                             | ""                                   |
+SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | ""                                   |
+ZONE                  | zone you want to target ( REQUIRED for GCP )                             | ""                                   |
 
 The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
 
@@ -54,23 +54,9 @@ $ export AWS_DEFAULT_REGION=<>
 
 Google Cloud Platform
 ```bash
-TBD
+export GOOGLE_APPLICATION_CREDENTIALS="<serviceaccount.json>"
 ```
 
-Azure
-```bash
-TBD
-```
-
-OpenStack
-
-```bash
-TBD
-```
-
-Baremetal
-```bash
-TBD
 ```
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:

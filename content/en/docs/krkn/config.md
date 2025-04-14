@@ -168,7 +168,7 @@ We have enabled the ability to store telemetry, metrics and alerts into ElasticS
 **events_backup**: True or False, this will capture events that occured during the chaos run. Will be saved to {archive_path}/events.json
 
 # Health Checks                                              
-Utilizing health check endpoints to observe application behavior during chaos injection
+Utilizing health check endpoints to observe application behavior during chaos injection, see more details about how this works and different ways to configure [here](health-checks.md)
 
 **interval**: Interval in seconds to perform health checks, default value is 2 seconds
 

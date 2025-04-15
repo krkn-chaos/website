@@ -62,3 +62,7 @@ If you want to kill 2 pods instead of 1 in any of the pre-existing scenarios, yo
 
 #### Example of Quick Nodes Scenario Edit:
 If your cluster is build on GCP instead of AWS, just change the cloud type in the [node_scenarios_example.yml](https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/aws_node_scenarios.yml) file.
+
+
+### RBAC
+ Based on the type of chaos test being executed, certain scenarios may require elevated privileges. The specific [RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) needed for each Krkn scenario are outlined in detail at the following link: [Krkn RBAC](../krkn/rbac.md)

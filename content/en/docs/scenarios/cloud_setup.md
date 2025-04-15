@@ -25,6 +25,21 @@ A google service account is required to give proper authentication to GCP for no
 
 After creating the service account you will need to enable the account using the following: ```export GOOGLE_APPLICATION_CREDENTIALS="<serviceaccount.json>"```
 
+In krkn-hub, you'll need to both set the environemnt variable and also copy the file to the local container
+
+`-e GOOGLE_APPLICATION_CREDENTIALS=<container_creds_file>`
+
+
+Nees to match above file path 
+`-v <local_gcp_creds_file>:<container_creds_file>:Z`
+
+Example: 
+```bash
+podman run -e GOOGLE_APPLICATION_CREDENTIALS=/home/krkn/GCP_app.json -e DURATION=10 --net=host  -v <kubeconfig>:/home/krkn/.kube/config:Z -v <local_gcp_creds_file>:/home/krkn/GCP_app.json:Z -d quay.io/krkn-chaos/krkn-hub:...
+```
+
+
+
 ## Openstack
 
 **NOTE**: For clusters with Openstack Cloud, ensure to create and source the [OPENSTACK RC file](https://docs.openstack.org/newton/user-guide/common/cli-set-environment-variables-using-openstack-rc.html) to set the OPENSTACK environment variables from the server where Kraken runs.

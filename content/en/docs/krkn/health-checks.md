@@ -1,3 +1,9 @@
+---
+title: Health Checks
+description: Health Checks to analyze down times of applications
+weight: 2
+---
+
 ### Health Checks
 
 Health checks provide real-time visibility into the impact of chaos scenarios on application availability and performance. Health check configuration supports application endpoints accessible via http / https along with authentication mechanism such as bearer token and authentication credentials.

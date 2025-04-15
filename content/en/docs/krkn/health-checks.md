@@ -25,14 +25,17 @@ health_checks:
       bearer_token: "hfjauljl..."                   # Bearer token for authentication if any
       auth:                                         
       exit_on_failure: True                         # If value is True exits when health check failed for application, values can be True/False
+      verify_url: True                              # SSL Verification of URL, default to true
     - url: "https://another-service.com/status"
       bearer_token:
       auth: ("admin","secretpassword")              # Provide authentication credentials (username , password) in tuple format if any, ex:("admin","secretpassword")
       exit_on_failure: False
+      verify_url: False  
     - url: http://general-service.com
       bearer_token:
       auth:
       exit_on_failure:  
+      verify_url: False  
 ```
 #### Sample health check telemetry
 ```

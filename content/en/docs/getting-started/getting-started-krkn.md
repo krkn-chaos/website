@@ -9,7 +9,6 @@ tags: [docs]
 
 ## Getting Started Running Chaos Scenarios
 
-
 ### Config
 Instructions on how to setup the config and the options supported can be found at [Config](docs/config.md).
 

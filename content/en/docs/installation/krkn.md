@@ -10,35 +10,59 @@ weight: 1
 
 ## Installation
 
-#### Git 
-###### Clone the repository
+### Clone the Repository
+To clone and use the latest krkn version follow the directions below. If you're wanting to contribute back to krkn in anyway in the future we recommend [forking the repository](#fork-and-clone-the-repository) first before cloning. 
+
+See the latest release version [here](https://github.com/krkn-chaos/krkn/releases)
 ```bash
 $ git clone https://github.com/krkn-chaos/krkn.git --branch <release version>
 $ cd krkn 
 ```
-###### Install the dependencies
+
+### Fork and Clone the Repository
+Fork the repository 
+```bash
+$ git clone https://github.com/<github_user_id>/krkn.git
+$ cd krkn 
+```
+
+Set your cloned local to track the upstream repository:
+```bash
+cd krkn
+git remote add upstream https://github.com/krkn-chaos/krkn
+```
+
+Disable pushing to upstream master:
 
 ```bash
-$ python3.9 -m venv chaos
+git remote set-url --push upstream no_push
+git remote -v
+```
+
+
+### Install the dependencies
+To be sure that krkn's dependencies don't interfere with other python dependencies you may have locally, we recommend creating a virtual enviornment before installing the dependencies. 
+```bash
+$ python -m venv chaos
 $ source chaos/bin/activate
-$ pip3.9 install -r requirements.txt
+```
+
+```bash
+$ pip install -r requirements.txt
 ```
 {{% alert title="Note" %}} Make sure python3-devel and latest pip versions are installed on the system. The dependencies install has been tested with pip >= 21.1.3 versions.{{% /alert %}}
 Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?
 
-## Getting Started with Krkn
-If you are wanting to try to edit your config file and scenarios 
+### Getting Started with Krkn
+If you are wanting to try to edit your configuration files and scenarios see [getting started](../getting-started/getting-started-krkn.md) doc 
 
 
-
-
-
-## Running Krkn
+### Running Krkn
 
 ```bash
-$ python3.9 run_kraken.py --config <config_file_location>
+$ python run_kraken.py --config <config_file_location>
 ```
 
-## Run containerized version
+### Run containerized version
 
 [Krkn-hub](/docs/installation/krkn-hub.md) is a wrapper that allows running Krkn chaos scenarios via podman or docker runtime with scenario parameters/configuration defined as environment variables.

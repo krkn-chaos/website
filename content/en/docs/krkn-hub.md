@@ -1,6 +1,6 @@
 ---
 title: What is krkn-hub?
-description: 
+description: Background on what is the krkn-hub github repository
 weight: 2
 ---
 

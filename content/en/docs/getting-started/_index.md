@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 # date: 2017-01-05
-description: 
+description: Getting started with Krkn-chaos 
 weight : 3
 categories: [Best Practices, Placeholders]
 tags: [docs]
@@ -29,5 +29,5 @@ See these [helpful hints](getting-started-krkn.md) on easy edits to the scenario
 ## Krkn-hub
 Set up krkn-hub based on these [directions](../installation/krkn-hub.md)
 
-Test your changes using setup and how to run instructions [here](../contribution-guidelines/testing-changes.md#editing-a-new-scenario-to-krkn-hub)
+Test your changes using setup and how to run instructions [here](getting-started-krkn-hub.md)
 

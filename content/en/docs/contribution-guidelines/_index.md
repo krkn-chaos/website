@@ -44,6 +44,6 @@ Here's a quick checklist for a good PR, more details below:
 ## Helpful Documents
 Refer to the docs below to be able to test your own images with any changes and be able to contribute them to the repository
 - [Getting Started](/docs/contribution-guidelines/getting-started.md)
-- [Contribute - Git Pointers](/docs/contribution-guidelines/contribute.md)
+- [Contribute - Git Pointers](/docs/contribution-guidelines/git-pointers.md)
 - [Testing Your Krkn-hub Changes](/docs/contribution-guidelines/testing-changes.md)
 

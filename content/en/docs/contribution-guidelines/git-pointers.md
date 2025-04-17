@@ -1,5 +1,5 @@
 ---
-title: Contributions
+title: Git Help For Contributions
 # date: 2017-01-05
 description:
 weight: 3

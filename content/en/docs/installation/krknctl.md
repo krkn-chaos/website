@@ -40,7 +40,6 @@ To build the only system package required is libbtrfs:
 ## Installation Build commands: 
 `go build -tags containers_image_openpgp -ldflags="-w -s" -o bin/ ./...`
 
->[!NOTE]
-> To build for different operating systems/architectures refer to `GOOS` `GOARCH` [golang variables](https://pkg.go.dev/internal/platform)
-
-<br/>
+{{% alert title="Note" %}}
+To build for different operating systems/architectures refer to `GOOS` `GOARCH` [golang variables](https://pkg.go.dev/internal/platform)
+{{% /alert %}}

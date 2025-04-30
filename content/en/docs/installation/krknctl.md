@@ -211,7 +211,7 @@ format: krknctl-<scenario-name>-<scenario-id>-<timestamp>.log.
 
 
 #### Supported graph configurations:
-![execution_plans.jpg](media/execution_plans.jpg)
+![Execution Plans](images/execution-plans.jpg)
 ##### Serial execution:
 All the nodes depend on each other building a chain, the execution will start from the last item of the chain.
 

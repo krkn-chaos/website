@@ -4,23 +4,22 @@ weight: 1
 ---
 
 ## Requirements:
-### Running:
-#### Linux:
-##### Dictionaries:
+### Linux:
+#### Dictionaries:
 To generate the random words we use the american dictionary, it is often available but if that's not the case:
 - **Fedora/RHEL**: `sudo dnf install words`
 - **Ubuntu/Debian**: `sudo apt-get install wamerican`
 
-### Building from sources:
-#### Linux:
+## Building from sources:
+### Linux:
 To build the only system package required is libbtrfs:
 
 - **Fedora/RHEL**: `sudo dnf install btrfs-progs-devel`
 - **Ubuntu/Debian**: `sudo apt-get install libbtrfs-dev`
-#### MacOS:
+### MacOS:
 - **gpgme**: `brew install gpgme` 
 
-## Installation Build commands: 
+## Build command: 
 `go build -tags containers_image_openpgp -ldflags="-w -s" -o bin/ ./...`
 
 {{% alert title="Note" %}}
@@ -73,5 +72,3 @@ If both Podman and Docker are installed be sure that the docker compatibility is
 #### Linux:
 Check that the user has been added to the `docker` group and can correctly connect to the Docker unix socket  
 running the comman `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
-
-<br/>

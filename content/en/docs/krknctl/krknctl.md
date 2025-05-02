@@ -170,3 +170,28 @@ the tool will exit with the same status as that container.
 {{% alert title="Tip" %}}
 This function can be integrated into CI/CD pipelines to halt execution if the chaos run encounters any failure.
 {{% /alert %}}
+
+### Running krknctl on a disconnected environment with a private registry
+
+If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.
+
+#### Private registry global flags
+
+| Flag | Environment Variable | Description |
+| -------------  | ------------ | ----------- |
+|--private-registry |  KRKNCTL_PRIVATE_REGISTRY |  private registry URI (eg. quay.io, without any protocol schema prefix) |
+|--private-registry-insecure | KRKNCTL_PRIVATE_REGISTRY_INSECURE | uses plain HTTP instead of TLS |
+|--private-registry-password | KRKNCTL_PRIVATE_REGISTRY_PASSWORD |  private registry password for basic authentication |
+|--private-registry-scenarios | KRKNCTL_PRIVATE_REGISTRY_SCENARIOS |  private registry krkn scenarios image repository |
+|--private-registry-skip-tls | KRKNCTL_PRIVATE_REGISTRY_SKIP_TLS | skips tls verification on private registry |
+|--private-registry-token |  KRKNCTL_PRIVATE_REGISTRY_TOKEN |      private registry identity token for token based authentication|
+|-private-registry-username |  KRKNCTL_PRIVATE_REGISTRY_USERNAME |   private registry username for basic authentication |
+
+
+{{% alert title="Note" %}}
+Not all options are available on every platform due to limitations in the container runtime platform SDK:
+#### Podman
+Token authentication is not supported
+#### Docker 
+Skip TLS verfication cannot be done by CLI, docker daemon needs to be configured on that purpose please follow the [documentation](https://www.baeldung.com/ops/pull-docker-image-insecure-registry)
+{{% /alert %}}

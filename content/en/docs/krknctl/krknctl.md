@@ -190,8 +190,41 @@ If you're using krknctl in a disconnected environment, you can mirror the desire
 
 {{% alert title="Note" %}}
 Not all options are available on every platform due to limitations in the container runtime platform SDK:
-#### Podman
+##### Podman
 Token authentication is not supported
-#### Docker 
+##### Docker 
 Skip TLS verfication cannot be done by CLI, docker daemon needs to be configured on that purpose please follow the [documentation](https://www.baeldung.com/ops/pull-docker-image-insecure-registry)
+{{% /alert %}}
+
+
+#### Example: Running krknctl on quay.io private registry (Docker only)
+
+- mirror some krkn-hub scenarios on a private registry on quay.io
+
+- obtain the quay.io token with cURL:
+
+```
+curl -s -X GET \
+  --user 'user:password' \
+  "https://quay.io/v2/auth?service=quay.io&scope=repository:rh_ee_tsebasti/krkn-private:pull,push&scope=repository:rh_ee_tsebasti/krkn-hub-private:pull,push" \
+  -k | jq -r '.token'
+```
+
+- run krknctl with the private registry flags:
+
+```
+krknctl \ 
+--private-registry quay.io \
+--private-registry-scenarios <your registry path on quay eg. my-quay-username/krkn-hub > \
+--private-registry-token <your token obtained in the previous step> \
+list available
+```
+
+- your images should be listed on the console
+
+{{% alert title="Note" %}}
+To make krknctl commands more concise, it's more convenient to export the corresponding environment variables instead of prepending flags to every command. The relevant variables are:
+- KRKNCTL_PRIVATE_REGISTRY
+- KRKNCTL_PRIVATE_REGISTRY_SCENARIOS
+- KRKNCTL_PRIVATE_REGISTRY_TOKEN
 {{% /alert %}}

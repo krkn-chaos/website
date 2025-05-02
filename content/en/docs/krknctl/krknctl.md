@@ -197,7 +197,12 @@ Skip TLS verfication cannot be done by CLI, docker daemon needs to be configured
 {{% /alert %}}
 
 
-#### Example: Running krknctl on quay.io private registry (Docker only)
+#### Example: Running krknctl on quay.io private registry
+{{% alert title="Note" %}}
+This example will run only on Docker since the token authentication is not yet implemented on the podman SDK
+{{% /alert %}}
+
+I will use for that example an invented private registry on quay.io: `my-quay-user/krkn-hub`
 
 - mirror some krkn-hub scenarios on a private registry on quay.io
 
@@ -206,7 +211,7 @@ Skip TLS verfication cannot be done by CLI, docker daemon needs to be configured
 ```
 curl -s -X GET \
   --user 'user:password' \
-  "https://quay.io/v2/auth?service=quay.io&scope=repository:rh_ee_tsebasti/krkn-private:pull,push&scope=repository:rh_ee_tsebasti/krkn-hub-private:pull,push" \
+  "https://quay.io/v2/auth?service=quay.io&scope=repository:my-quay-user/krkn-hub:pull,push" \
   -k | jq -r '.token'
 ```
 
@@ -215,7 +220,7 @@ curl -s -X GET \
 ```
 krknctl \ 
 --private-registry quay.io \
---private-registry-scenarios <your registry path on quay eg. my-quay-username/krkn-hub > \
+--private-registry-scenarios my-quay-user/krkn-hub \
 --private-registry-token <your token obtained in the previous step> \
 list available
 ```

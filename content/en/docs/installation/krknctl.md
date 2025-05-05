@@ -1,6 +1,6 @@
 ---
 title: krknctl
-description: how install, build and configure the CLI
+description: how to install, build and configure the CLI
 weight: 2
 ---
 

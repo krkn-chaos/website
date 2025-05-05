@@ -1,10 +1,14 @@
 ---
 title: krknctl
-description: how to build and configure the CLI
+description: how install, build and configure the CLI
 weight: 2
 ---
 
-## Requirements:
+
+## Binary distribution (Recommended):
+The krknctl binary is available for download from [GitHub releases](https://github.com/krkn-chaos/krknctl/releases/latest) for supported operating systems and architectures. Extract the tarball and add the binary to your `$PATH`.
+
+## Build from sources :
 ### Linux:
 #### Dictionaries:
 To generate the random words we use the american dictionary, it is often available but if that's not the case:
@@ -27,7 +31,7 @@ To build the only system package required is libbtrfs:
 To build for different operating systems/architectures refer to `GOOS` `GOARCH` [golang variables](https://pkg.go.dev/internal/platform)
 {{% /alert %}}
 
-## Autocompletion:
+## Configure Autocompletion:
 The first step to have the best experience with the tool is to install the autocompletion in the shell so that the tool
 will be able to suggest to the user the available command and the description simply hitting `tab` twice.
 

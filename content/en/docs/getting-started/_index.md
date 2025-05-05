@@ -24,7 +24,7 @@ See how to install krkn-lib [here](../installation/krkn-lib.md)
 ## Krkn
 Get krkn set up with the help of these [directions](../installation/krkn.md)
 
-See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenariàos
+See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenarios
 
 ## krknctl
 See how to run krkn through the dedicated CLI [`krknctl`](../krknctl/_index.md)

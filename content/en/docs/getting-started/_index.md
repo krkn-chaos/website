@@ -15,6 +15,7 @@ Welcome to Krkn-Chaos organization! Below is a flow chart of all the krkn relate
 How to:
 * [Get started with Krkn-lib](#krkn-lib)
 * [Get started with Krkn](#krkn)
+* [Get started with krknctl](#krknctl)
 * [Get started with Krkn-hub](#krkn-hub)
 
 ## Krkn-lib
@@ -23,8 +24,14 @@ See how to install krkn-lib [here](../installation/krkn-lib.md)
 ## Krkn
 Get krkn set up with the help of these [directions](../installation/krkn.md)
 
-See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenarios
+See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenariàos
 
+## krknctl
+See how to run krkn through the dedicated CLI [`krknctl`](../krknctl/_index.md)
+
+{{% alert title="Note" %}}
+krknctl is the recommended and the easiest/safest way to run krkn scenarios
+{{% /alert %}}
 
 ## Krkn-hub
 Set up krkn-hub based on these [directions](../installation/krkn-hub.md)

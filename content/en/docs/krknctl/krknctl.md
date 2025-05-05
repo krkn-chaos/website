@@ -80,7 +80,7 @@ In addition to running individual scenarios, the tool can also orchestrate
 multiple scenarios in serial, parallel, or mixed execution by utilizing a 
 scenario dependency graph resolution algorithm.
 
-- #### `scaffold <scenario names>`:
+- #### `scaffold <scenario names> [flags]`:
 
 Scaffolds a basic execution plan structure in json format for all the scenario names provided.
 The default structure is a serial execution with a root node and each node depends on the 
@@ -99,6 +99,12 @@ when defined, or a description of the content expected for the field.
 {{% alert title="Note" %}}
 Any graph configuration is supported except cycles (self dependencies or transitive)
 {{% /alert %}}
+
+##### Supported flags:
+| Flag              | Description                                                  |
+|-------------------|--------------------------------------------------------------|
+| --global-env      | if set this flag will add global environment variables to each scenario in the graph|
+
 
 - #### `run <json execution plan path> [flags]`:
 
@@ -119,6 +125,7 @@ format: krknctl-<scenario-name>-<scenario-id>-<timestamp>.log.
 | --kubeconfig      | kubeconfig path (if empty will default to ~/.kube/config)    |
 | --alerts-profile  | will mount in the container a custom alert profile <br/>(check krkn [documentation](https://github.com/krkn-chaos/krkn) for further infos)|
 | --metrics-profile | will mount in the container scenario a custom metrics <br/>profile (check krkn [documentation](https://github.com/krkn-chaos/krkn) for further infos)|
+| --exit-on-error   | if set this flag will the workflow will be interrupted and the tool will exit with a status greater than 0 |
 
 
 #### Supported graph configurations:
@@ -139,6 +146,42 @@ code to support what is essentially a specific case of graph execution.
 Instead, we developed a scenario called `dummy-scenario`. This scenario performs no actual actions but simply pauses 
 for a set duration. It serves as an ideal root node, allowing all dependent nodes to execute in parallel without adding 
 unnecessary complexity to the codebase.
+
+
+### `random <subcommand>`
+Random orchestration can be used to test parallel scenario generating random graphs from a set of preconfigured scenarios.
+Differently from the graph command, the scenarios in the json plan don't have dependencies between them since the dependencies
+are generated at runtime.
+This is might be also helpful to run multiple chaos scenarios at large scale.
+
+
+- #### `scaffold <scenario names> [flags]`
+
+Will create the structure for a random plan execution, so without any dependency between the scenarios. Once properly configured this can
+be used as a `seed` to generate large test plans for large scale tests.
+This subcommand supports base scaffolding mode by allowing users to specify desired scenario names or generate a plan file of any size using pre-configured scenarios as a template (or seed). This mode is extensively covered in the [scale testing](scale-testing.md) section.
+
+
+
+##### Supported flags:
+| Flag              | Description                                                  |
+|-------------------|--------------------------------------------------------------|
+| --global-env      | if set this flag will add global environment variables to each scenario in the graph |
+| --number-of-scenarios | the number of scenarios that will be created from the template file |
+| --seed-file | template file with already configured scenarios used to generate the random test plan |
+
+- #### `run <json execution plan path> [flags]`
+
+##### Supported flags:
+| Flag              | Description                                                  |
+|-------------------|--------------------------------------------------------------|
+| --alerts-profile  | custom alerts profile file path |
+| --exit-on-error   | if set this flag will the workflow will be interrupted and the tool will exit with a status greater than 0 |
+| --graph-dump      | specifies the name of the file where the randomly generated dependency graph will be persisted |
+| --kubeconfig      | kubeconfig path (if not set will default to ~/.kube/config) |
+| --max-parallel    | maximum number of parallel scenarios |
+| --metrics-profile | custom metrics profile file path |
+| --number-of-scenarios | allows you to specify the number of elements to select from the execution plan |
 
 
 ### `attach <scenario ID>`:

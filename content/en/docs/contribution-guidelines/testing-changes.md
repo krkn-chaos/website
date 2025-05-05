@@ -154,7 +154,7 @@ Once all you're happy with your changes, follow the [contribution](#docs/git-poi
 # Adding a New Scenario to Krknctl
 
 ## Add KrknCtl Input Json
-This file adds every enviornment variable that is set up for krkn-hub to be defined as a flag to the krknctl cli command 
+This file adds every enviornment variable that is set up for krkn-hub to be defined as a flag to the krknctl cli comman. There are  
 
 Example: 
 ```json
@@ -176,4 +176,4 @@ See [build your own changes](#build-your-changes) on how to build and push chang
 ## Run Krknctl with Personal Image
 Once you have your images in quay, you are all set to configure krknctl to look for these new images. You'll edit the quay_org (your quay username), quay_scenario_registry (krkn-hub), quay_base_image_registry variables [here](https://github.com/krkn-chaos/krknctl/blob/main/pkg/config/config.json#L4-L6)
 
-With these updates to your config, you'll re-build your personal [krknctl binary](../installation/krknctl.md#binary-distribution-recommended) and you'l be all set to start testing your new scenario and config options 
+With these updates to your config, you'll re-build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'l be all set to start testing your new scenario and config options 

@@ -1,6 +1,6 @@
 ---
 title: Chaos testing at large scale
-weight: 2
+weight: 30
 ---
 
 The random subcommand is valuable for generating chaos tests on a large scale with ease and speed. The random scaffold command, when used with the `--seed-file` and `--number-of-scenarios` flags, allows you to expand a pre-existing random or graph plan as a template (or seed). The tool randomly distributes scenarios from the `seed-file` to meet the specified `number-of-scenarios`. The resulting output is compatible **exclusively** with the random run command, which generates a random graph from it.

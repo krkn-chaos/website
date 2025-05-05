@@ -1,5 +1,5 @@
 ---
-title: Chaos testing at large scale
+title: Randomized chaos testing
 weight: 30
 ---
 

@@ -113,6 +113,10 @@ This will produce a file containing 100 compiled replicating the three scenarios
 ```
 
 
-- **Step 2** Run the randomly generated chaos test using the command `krknctl random run big-random-graph.json --max-parallel 50 --graph-dump big-graph.json`. This instructs krknctl to orchestrate the scenarios in the specified file within a graph, allowing up to 50 scenarios to run in parallel per step, while ensuring all scenarios listed in the JSON input file are executed. The `max-parallel` value must be adjusted based on machine resources. The generated random graph will be saved to a file named `big-graph.json`.
+- **Step 2** Run the randomly generated chaos test using the command `krknctl random run big-random-graph.json --max-parallel 50 --graph-dump big-graph.json`. This instructs krknctl to orchestrate the scenarios in the specified file within a graph, allowing up to 50 scenarios to run in parallel per step, while ensuring all scenarios listed in the JSON input file are executed.The generated random graph will be saved to a file named `big-graph.json`.
+
+{{% alert title="Warning" %}}
+The `max-parallel` value should be tuned according to machine resources, as it determines the number of **parallel krkn instances** executed simultaneously on the local machine via containers on podman or docker
+{{% /alert %}}
 
 - **Step 3** if you found the previous chaos run disruptive and you want to re-execute it periodically you can store the `big-graph.json`somewhere and replay it with the command `krknctl graph run big-graph.json`

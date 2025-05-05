@@ -1,6 +1,6 @@
 ---
 title: Installation and configuration
-weight: 1
+weight: 2
 ---
 
 ## Requirements:

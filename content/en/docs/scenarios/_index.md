@@ -15,9 +15,9 @@ weight: 4
 | [Node failures](docs/scenarios/node-scenarios/_index.md) | node_scenarios | Injects node failure through OpenShift/Kubernetes, cloud API's  |
 | [Zone outages](docs/scenarios/zone-outage-scenarios/_index.md) | zone_outages_scenarios | Creates zone outage to observe the impact on the cluster, applications |
 | [Time skew](docs/scenarios/time-scenarios/_index.md) | time_scenarios | Skews the time and date                            |               
-| [Node cpu hog](docs/scenarios/cpu-hog-scenario/_index.md) | hog_scenarios | Hogs CPU on the targeted nodes |
-| [Node memory hog](docs/scenarios/memory-hog-scenario/_index.md) | hog_scenarios | Hogs memory on the targeted nodes   |                       
-| [Node IO hog](docs/scenarios/io-hog-scenario/_index.md) | hog_scenarios| Hogs io on the targeted nodes              |                       
+| [Node cpu hog](docs/scenarios/hog-scenarios/cpu-hog-scenario/_index.md) | hog_scenarios | Hogs CPU on the targeted nodes |
+| [Node memory hog](docs/scenarios/hog-scenarios/memory-hog-scenario/_index.md) | hog_scenarios | Hogs memory on the targeted nodes   |                       
+| [Node IO hog](docs/scenarios/hog-scenarios/io-hog-scenario/_index.md) | hog_scenarios| Hogs io on the targeted nodes              |                       
 | [Service Disruption](docs/scenarios/service-disruption-scenarios/_index.md) | service_disruption_scenarios | Deleting all objects within a namespace          |                 
 | [Application outages](docs/scenarios/application-outage/_index.md) | application_outages_scenarios | Isolates application Ingress/Egress traffic to observe the impact on dependent applications and recovery/initialization timing  |
 | [Power Outages](docs/scenarios/power-outage-scenarios/_index.md) | cluster_shut_down_scenarios | Shuts down the cluster for the specified duration and turns it back on to check the cluster health |

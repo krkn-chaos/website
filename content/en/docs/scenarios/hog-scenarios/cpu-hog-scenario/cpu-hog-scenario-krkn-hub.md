@@ -53,9 +53,10 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | NODE_CPU_CORE        | Number of cores (workers) of node CPU to be consumed    | 2                                    |
 | NODE_CPU_PERCENTAGE  | Percentage of total cpu to be consumed                  | 50                                   |
 | NAMESPACE            | Namespace where the scenario container will be deployed | default |
-| NODE_SELECTOR        | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector.                                     | "" |                             |
-| NUMBER_OF_NODES      | restricts the number of selected nodes by the selector                                     | "" |                             |
-| IMAGE                | the container image of the stress workload|quay.io/krkn-chaos/krkn-hog||
+| NODE_SELECTOR        | Defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector.                                     | "" |                             |
+| TAINTS               | List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | [] |
+| NUMBER_OF_NODES      | Restricts the number of selected nodes by the selector                                     | "" |                             |
+| IMAGE                | The container image of the stress workload|quay.io/krkn-chaos/krkn-hog||
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:

@@ -53,6 +53,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | NUMBER_OF_WORKERS             | Total number of workers (stress-ng threads)   | 1    |
 | NAMESPACE                     | Namespace where the scenario container will be deployed | default |
 | NODE_SELECTOR                 | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector.                                     | "" |                             |
+| TAINTS               | List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | [] |
 | NUMBER_OF_NODES               | restricts the number of selected nodes by the selector                                     | "" |                             |
 | IMAGE                         | the container image of the stress workload|quay.io/krkn-chaos/krkn-hog||                          
 

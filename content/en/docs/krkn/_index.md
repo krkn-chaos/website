@@ -6,8 +6,15 @@ weight: 1
 
 **krkn** is a chaos and resiliency testing tool for Kubernetes. Kraken injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.
 
-## Why do I want it?
 
+## Use Case and Target Personas
+Krkn is designed for the following user roles:
+- Site Reliability Engineers aiming to enhance the resilience and reliability of the Kubernetes platform and the applications it hosts. They also seek to establish a testing pipeline that ensures managed services adhere to best practices, minimizing the risk of prolonged outages.
+- Developers and Engineers focused on improving the performance and robustness of their application stack when operating under failure scenarios.
+- Kubernetes Administrators responsible for ensuring that onboarded services comply with established best practices to prevent extended downtime.
+
+
+### Why do I want it?
 There are a couple of false assumptions that users might have when operating and running their applications in distributed systems: 
 - **The network is reliable** 
 - **There is zero latency** 
@@ -25,6 +32,7 @@ How can we best avoid this from happening? This is where **Chaos testing** can a
 ### Workflow
 ![Kraken workflow](images/kraken-workflow.png)
 
+
 ### How to Get Started
 Instructions on how to setup, configure and run Kraken can be found at [Installation](../installation.md).
 
@@ -41,6 +49,7 @@ For cases where you want to run Kraken with minimal configuration changes, refer
 
 ### Config
 Instructions on how to setup the config and the options supported can be found at [Config](config.md).
+
 
 ### Kraken scenario pass/fail criteria and report
 It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:

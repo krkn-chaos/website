@@ -151,3 +151,29 @@ See krkn-hub files for each scenario
 
 Once all you're happy with your changes, follow the [contribution](#docs/git-pointers.md) guide on how to create your own branch and squash your commits
  
+# Adding a New Scenario to Krknctl
+
+## Add KrknCtl Input Json
+This file adds every enviornment variable that is set up for krkn-hub to be defined as a flag to the krknctl cli comman. There are  
+
+Example: 
+```json
+{
+    "name": "<name>",
+    "short_description":"<short-description>",
+    "description":"<longer-description>",
+    "variable":"<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type":"<type>",  // options: string, number, file, file64
+    "default":"", // any default value
+    "required":"<true_or_false>" // true or false if required to set when running
+}
+```
+
+## Push to personal Quay
+See [build your own changes](#build-your-changes) on how to build and push changes to your own quay repository for testing
+
+
+## Run Krknctl with Personal Image
+Once you have your images in quay, you are all set to configure krknctl to look for these new images. You'll edit the quay_org (your quay username), quay_scenario_registry (krkn-hub), quay_base_image_registry variables [here](https://github.com/krkn-chaos/krknctl/blob/main/pkg/config/config.json#L4-L6)
+
+With these updates to your config, you'll re-build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'l be all set to start testing your new scenario and config options 

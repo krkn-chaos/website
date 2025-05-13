@@ -42,7 +42,7 @@ Nees to match above file path
 
 Example: 
 ```bash
-podman run -e GOOGLE_APPLICATION_CREDENTIALS=/home/krkn/GCP_app.json -e DURATION=10 --net=host  -v <kubeconfig>:/home/krkn/.kube/config:Z -v <local_gcp_creds_file>:/home/krkn/GCP_app.json:Z -d quay.io/krkn-chaos/krkn-hub:...
+podman run -e GOOGLE_APPLICATION_CREDENTIALS=/home/krkn/GCP_app.json -e DURATION=10 --net=host  -v <kubeconfig>:/home/krkn/.kube/config:Z -v <local_gcp_creds_file>:/home/krkn/GCP_app.json:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:...
 ```
 
 

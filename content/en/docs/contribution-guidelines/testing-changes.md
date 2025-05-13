@@ -89,7 +89,7 @@ To get latest podman-compose features we need, use this installation command
 
 ```txt
 ex.) 
-image: quay.io/krkn-chaos/krkn-hub:chaos-recommender 
+image: containers.krkn-chaos.dev/krkn-chaos/krkn-hub:chaos-recommender 
 
 change to >
 

@@ -16,7 +16,7 @@ Let's start from the following chaos test graph called `graph.json`:
 ```json
 {
   "application-outages-1-1": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",
@@ -28,7 +28,7 @@ Let's start from the following chaos test graph called `graph.json`:
     },
   },
   "application-outages-1-2": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",
@@ -42,7 +42,7 @@ Let's start from the following chaos test graph called `graph.json`:
   },
   "root-scenario-1": {
     "_comment": "I'm the root Node!",
-    "image": "quay.io/krkn-chaos/krkn-hub:dummy-scenario",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:dummy-scenario",
     "name": "dummy-scenario",
     "env": {
       "END": "10",
@@ -61,7 +61,7 @@ This will produce a file containing 100 compiled replicating the three scenarios
 ```json
 {
   "application-outages-1-1--6oJCqST": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",
@@ -73,7 +73,7 @@ This will produce a file containing 100 compiled replicating the three scenarios
     }
   },
   "application-outages-1-1--JToAFrk": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",
@@ -85,7 +85,7 @@ This will produce a file containing 100 compiled replicating the three scenarios
     }
   },
   "application-outages-1-1--ofb4iMD": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",
@@ -97,7 +97,7 @@ This will produce a file containing 100 compiled replicating the three scenarios
     }
   },
   "application-outages-1-1--tLPY-MZ": {
-    "image": "quay.io/krkn-chaos/krkn-hub:application-outages",
+    "image": "containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages",
     "name": "application-outages",
     "env": {
       "BLOCK_TRAFFIC_TYPE": "[Ingress, Egress]",

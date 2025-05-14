@@ -6,10 +6,10 @@ weight: 2
 
 ## SLOs validation
 
-Pass/fail based on metrics captured from the cluster is important in addition to checking the health status and recovery. Kraken supports:
+Krkn has a few different options that give a Pass/fail based on metrics captured from the cluster is important in addition to checking the health status and recovery. Kraken supports:
 
 ###  Checking for critical alerts post chaos 
-If enabled, the check runs at the end of each scenario ( post chaos ) and Kraken exits in case critical alerts are firing to allow user to debug. You can enable it in the config:
+If enabled, the check runs at the end of each scenario ( post chaos ) and Kraken exits in case `critical` alerts are firing to allow user to debug. You can enable it in the config:
 
 ```
 performance_monitoring:
@@ -51,4 +51,20 @@ info: Prints an info message with the alarm description to stdout. By default al
 warning: Prints a warning message with the alarm description to stdout.
 error: Prints a error message with the alarm description to stdout and sets Krkn rc = 1
 critical: Prints a fatal message with the alarm description to stdout and exits execution inmediatly with rc != 0
+```
+
+#### Metrics Profile
+A couple of [metric profiles](https://github.com/redhat-chaos/krkn/tree/main/config), [metrics.yaml](https://github.com/redhat-chaos/krkn/blob/main/config/metrics.yaml), and [metrics-aggregated.yaml](https://github.com/redhat-chaos/krkn/blob/main/config/metrics-aggregated.yaml) are shipped by default and can be tweaked to add more metrics to capture during the run. The following are the API server metrics for example:
+
+```
+metrics:
+# API server
+  - query: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{apiserver="kube-apiserver", verb!~"WATCH", subresource!="log"}[2m])) by (verb,resource,subresource,instance,le)) > 0
+    metricName: API99thLatency
+
+  - query: sum(irate(apiserver_request_total{apiserver="kube-apiserver",verb!="WATCH",subresource!="log"}[2m])) by (verb,instance,resource,code) > 0
+    metricName: APIRequestRate
+
+  - query: sum(apiserver_current_inflight_requests{}) by (request_kind) > 0
+    metricName: APIInflightRequests
 ```

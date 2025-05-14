@@ -18,18 +18,18 @@ Config components:
 * [Telemetry](#telemetry)
 * [Health Checks](#health-checks)
 
-# Kraken 
+## Kraken 
 This section defines scenarios and specific data to the chaos run 
 
-## Distribution
+### Distribution
 The distribution is now automatically set based on some verification points. Depending on which distribution, either **openshift** or **kubernetes** other parameters will be automatically set. 
 The prometheus url/route and bearer token are automatically obtained in case of OpenShift, please be sure to set it when the distribution is Kubernetes.
 
 
-## Exit on failure
+### Exit on failure
 **exit_on_failure**:  Exit when a post action check or cerberus run fails
 
-## Publish kraken status
+### Publish kraken status
 Refer to [signal.md](signal.md) for more details
 
 **publish_kraken_status**: Can be accessed at http://0.0.0.0:8081 (or what signal_address and port you set in signal address section)
@@ -41,11 +41,11 @@ Refer to [signal.md](signal.md) for more details
 **port**: port to listen/post the signal state to
 
 
-## Chaos Scenarios 
+### Chaos Scenarios 
 
 **chaos_scenarios**: List of different types of chaos scenarios you want to run with paths to their specific yaml file configurations.
 
-Currently the scenarios are run one after another (in sequence) and will exit if one of the scenarios fail, without moving onto the next one
+Currently the scenarios are run one after another (in sequence) and will exit if one of the scenarios fail, without moving onto the next one. You can find more details on each scenario under the [Scenario](../scenarios/) folder.  
 
 Chaos scenario types: 
 - pod_disruption_scenarios
@@ -66,7 +66,7 @@ Chaos scenario types:
 
 
 ## Cerberus 
-Parameters to set for enabling of cerberus checks at the end of each executed scenario. The given url will pinged after the scenario and post action check have been completed for each scenario and iteration.
+Parameters to set for enabling of cerberus checks at the end of each executed scenario. The given url will pinged after the scenario and post action check have been completed for each scenario and iteration. Read more about what cerberus is [here](../cerberus/_index.md)
 
 **cerberus_enabled**: Enable it when cerberus is previously installed
 
@@ -90,11 +90,11 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 
 **enable_metrics**: True or False, capture metrics defined by the metrics profile
 
-**alert_profile**: Path or URL to alert profile with the prometheus queries, see more details around [alerts](alerts.md) on its documentation page
+**alert_profile**: Path or URL to alert profile with the prometheus queries, see a sample of an [alerts file](https://github.com/tsebastiani/krkn/blob/main/config/alerts.yaml) of some preconfigured alerts we have set up and more documentation around it [here](SLOs_validation.md#alert-profile)
 
-**metrics_profile**: Path or URL to metrics profile with the prometheus queries to capture certain metrics on, see more details around [metrics](metrics.md) on its documentation page
+**metrics_profile**: Path or URL to metrics profile with the prometheus queries to capture certain metrics on, see more details around [metrics](SLOs_validation.md#metrics-profile) on its documentation page
 
-**check_critical_alerts**: True or False; When enabled will check prometheus for critical alerts firing post chaos
+**check_critical_alerts**: True or False; When enabled will check prometheus for critical alerts firing post chaos. Read more about this functionality in [SLOs validation](SLOs_validation.md#checking-for-critical-alerts-post-chaos)
 
 
 ## Elastic

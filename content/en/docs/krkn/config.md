@@ -34,7 +34,7 @@ Refer to [signal.md](signal.md) for more details
 
 **publish_kraken_status**: Can be accessed at http://0.0.0.0:8081 (or what signal_address and port you set in signal address section)
 
-**signal_state**: State you want kraken to start at; will wait for the RUN signal to start running a chaos iteration. When set to PAUSE before running the scenarios
+**signal_state**: State you want krkn to start at; will wait for the RUN signal to start running a chaos iteration. When set to PAUSE before running the scenarios
 
 **signal_address**: Address to listen/post the signal state to
 
@@ -122,7 +122,7 @@ We have enabled the ability to store telemetry, metrics and alerts into ElasticS
 
 **iterations**: Number of times to execute the scenarios
 
-**daemon_mode**: True or False; If true, iterations are set to infinity which means that the kraken will cause chaos forever and number of iterations is ignored
+**daemon_mode**: True or False; If true, iterations are set to infinity which means that the krkn will cause chaos forever and number of iterations is ignored
 
 ## Telemetry
 More details on the data captured in the telmetry and how to set up your own telemetry data storage can be found [here](telemetry.md)

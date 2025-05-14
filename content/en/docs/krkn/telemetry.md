@@ -6,7 +6,7 @@ weight: 2
 
 ### Telemetry Details
 
-We wanted to gather some more insights regarding our Krkn runs that could have been post processed (eg. by a ML model) to have a better understanding about the behavior of the clusters hit by kraken, so we decided to include this as an opt-in feature that, based on the platform (Kubernetes/OCP), is able to gather different type of data and metadata in the time frame of each chaos run. 
+We wanted to gather some more insights regarding our Krkn runs that could have been post processed (eg. by a ML model) to have a better understanding about the behavior of the clusters hit by krkn, so we decided to include this as an opt-in feature that, based on the platform (Kubernetes/OCP), is able to gather different type of data and metadata in the time frame of each chaos run. 
 The telemetry service is currently able to gather several scenario and cluster metadata:
 A json named telemetry.json containing:
 - Chaos run metadata:

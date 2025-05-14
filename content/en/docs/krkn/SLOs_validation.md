@@ -6,10 +6,10 @@ weight: 2
 
 ## SLOs validation
 
-Krkn has a few different options that give a Pass/fail based on metrics captured from the cluster is important in addition to checking the health status and recovery. Kraken supports:
+Krkn has a few different options that give a Pass/fail based on metrics captured from the cluster is important in addition to checking the health status and recovery. Krkn supports:
 
 ###  Checking for critical alerts post chaos 
-If enabled, the check runs at the end of each scenario ( post chaos ) and Kraken exits in case `critical` alerts are firing to allow user to debug. You can enable it in the config:
+If enabled, the check runs at the end of each scenario ( post chaos ) and Krkn exits in case `critical` alerts are firing to allow user to debug. You can enable it in the config:
 
 ```
 performance_monitoring:

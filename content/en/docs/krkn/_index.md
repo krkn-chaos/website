@@ -4,7 +4,7 @@ description: Chaos and Resiliency Testing Tool for Kubernetes
 weight: 1
 ---
 
-**krkn** is a chaos and resiliency testing tool for Kubernetes. Kraken injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.
+**krkn** is a chaos and resiliency testing tool for Kubernetes. Krkn injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.
 
 
 ### Use Case and Target Personas
@@ -30,51 +30,51 @@ Various assumptions led to a number of outages in production environments in the
 How can we best avoid this from happening? This is where **Chaos testing** can add value
 
 ### Workflow
-![Kraken workflow](images/kraken-workflow.png)
+![Krkn workflow](images/kraken-workflow.png)
 
 
 ### How to Get Started
-Instructions on how to setup, configure and run Kraken can be found at [Installation](../installation.md).
+Instructions on how to setup, configure and run Krkn can be found at [Installation](../installation.md).
 
 You may consider utilizing the chaos recommendation tool prior to initiating the chaos runs to profile the application service(s) under test. This tool discovers a list of Krkn scenarios with a high probability of causing failures or disruptions to your application service(s). The tool can be accessed at [Chaos-Recommender](../chaos-recommender.md).
 
 See the [getting started doc](../getting-started/_index.md.md) on support on how to get started with your own custom scenario or editing current scenarios for your specific usage.
 
-After installation, refer back to the below sections for supported scenarios and how to tweak the kraken config to load them on your cluster.
+After installation, refer back to the below sections for supported scenarios and how to tweak the Krkn config to load them on your cluster.
 
 
-#### Running Kraken with minimal configuration tweaks
-For cases where you want to run Kraken with minimal configuration changes, refer to [krkn-hub](https://github.com/krkn-chaos/krkn-hub). One use case is CI integration where you do not want to carry around different configuration files for the scenarios.
+#### Running Krkn with minimal configuration tweaks
+For cases where you want to run Krkn with minimal configuration changes, refer to [krkn-hub](https://github.com/krkn-chaos/krkn-hub). One use case is CI integration where you do not want to carry around different configuration files for the scenarios.
 
 
 ### Config
 Instructions on how to setup the config and the options supported can be found at [Config](config.md).
 
 
-### Kraken scenario pass/fail criteria and report
-It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:
+### Krkn scenario pass/fail criteria and report
+It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Krkn does this by:
 - Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. 
-- Leveraging [Cerberus](../cerberus/_index.md) to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Kraken using the [instructions](../installation/_index.md). 
+- Leveraging [Cerberus](../cerberus/_index.md) to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Krkn. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Krkn using the [instructions](../installation/_index.md). 
 - Leveraging built-in alert collection feature to fail the runs in case of critical alerts.
 - Fail test if certain metrics aren't met at the end of the run
 
 ## Krkn Features
 
 ### Signaling
-In CI runs or any external job it is useful to stop Kraken once a certain test or state gets reached. We created a way to signal to kraken to pause the chaos or stop it completely using a signal posted to a port of your choice.
+In CI runs or any external job it is useful to stop Krkn once a certain test or state gets reached. We created a way to signal to Krkn to pause the chaos or stop it completely using a signal posted to a port of your choice.
 
-For example if we have a test run loading the cluster running and kraken separately running; we want to be able to know when to start/stop the kraken run based on when the test run completes or gets to a certain loaded state.
+For example if we have a test run loading the cluster running and Krkn separately running; we want to be able to know when to start/stop the Krkn run based on when the test run completes or gets to a certain loaded state.
 
 More detailed information on enabling and leveraging this feature can be found [here](signal.md).
 
 
 ### Performance monitoring
-Monitoring the Kubernetes/OpenShift cluster to observe the impact of Kraken chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it witihn the config can be found [here](config.md#performance-monitoring).
+Monitoring the Kubernetes/OpenShift cluster to observe the impact of Krkn chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it witihn the config can be found [here](config.md#performance-monitoring).
 
 
 ### SLOs validation during and post chaos
-- In addition to checking the recovery and health of the cluster and components under test, Kraken takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics. 
-- Kraken also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail's. 
+- In addition to checking the recovery and health of the cluster and components under test, Krkn takes in a profile with the Prometheus expressions to validate and alerts, exits with a non-zero return code depending on the severity set. This feature can be used to determine pass/fail or alert on abnormalities observed in the cluster based on the metrics. 
+- Krkn also provides ability to check if any critical alerts are firing in the cluster post chaos and pass/fail's. 
 
 Information on enabling and leveraging this feature can be found [here](SLOs_validation.md)
 
@@ -89,7 +89,7 @@ We gather some basic details of the clsuter configuration and scenarios ran as p
 
 ### OCM / ACM integration
 
-Kraken supports injecting faults into [Open Cluster Management (OCM)](https://open-cluster-management.io/) and [Red Hat Advanced Cluster Management for Kubernetes (ACM)](https://www.krkn.com/en/technologies/management/advanced-cluster-management) managed clusters through [ManagedCluster Scenarios](..//managedcluster_scenarios.md).
+Krkn supports injecting faults into [Open Cluster Management (OCM)](https://open-cluster-management.io/) and [Red Hat Advanced Cluster Management for Kubernetes (ACM)](https://www.krkn.com/en/technologies/management/advanced-cluster-management) managed clusters through [ManagedCluster Scenarios](..//managedcluster_scenarios.md).
 
 ## Where should I go next?
 

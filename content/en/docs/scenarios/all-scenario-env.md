@@ -1,5 +1,5 @@
 ---
-title: All Scenarios Variables
+title: Krkn-Hub All Scenarios Variables
 description: >
 date: 2017-01-05
 weight: 1

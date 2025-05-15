@@ -147,6 +147,86 @@ OR
 See krkn-hub files for each scenario 
 
 
+# Adding a New Scenario to Krknctl
+
+## Add KrknCtl Input Json
+This file adds every enviornment variable that is set up for krkn-hub to be defined as a flag to the krknctl cli commanfd. There are 
+
+Enum Type Required Key/Values 
+```json
+{
+    "name": "<name>",
+    "short_description":"<short-description>",
+    "description":"<longer-description>",
+    "variable":"<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type": "enum",
+    "allowed_values": "<value>,<value>",
+    "separator": ",",
+    "default":"", // any default value
+    "required":"<true_or_false>" // true or false if required to set when running
+}
+```
+String Type Required Key/Values 
+```json
+{
+    "name": "<name>",
+    "short_description":"<short-description>",
+    "description":"<longer-description>",
+    "variable":"<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type": "string",
+    "default": "", // any default value
+    "required":"<true_or_false>" // true or false if required to set when running
+}
+```
+Number Type Required Key/Values 
+```json
+{
+    "name": "<name>",
+    "short_description": "<short-description>",
+    "description": "<longer-description>",
+    "variable": "<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type": "number",  // options: string, number, file, file64
+    "default": "", // any default value
+    "required": "<true_or_false>" // true or false if required to set when running
+}
+```
+File Type Required Key/Values 
+```json
+{
+    "name": "<name>",
+    "short_description":"<short-description>",
+    "description":"<longer-description>",
+    "variable":"<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type":"file",  
+    "mount_path": "/home/krkn/<file_loc>", // file location to mount to, using /home/krkn as the base has correct read/write locations
+    "required":"<true_or_false>" // true or false if required to set when running
+}
+```
+
+File Base 64 Type Required Key/Values 
+```json
+{
+    "name": "<name>",
+    "short_description":"<short-description>",
+    "description":"<longer-description>",
+    "variable":"<variable_name>", //this needs to match enviornment variable in krkn-hub
+    "type":"file_base64",  
+    "required":"<true_or_false>" // true or false if required to set when running
+}
+```
+
+## Push to personal Quay
+See [build your own changes](#build-your-changes) on how to build and push changes to your own quay repository for testing
+
+
+## Run Krknctl with Personal Image
+Once you have your images in quay, you are all set to configure krknctl to look for these new images. You'll edit the quay_org (your quay username), quay_scenario_registry (krkn-hub), quay_base_image_registry variables [here](https://github.com/krkn-chaos/krknctl/blob/main/pkg/config/config.json#L4-L6)
+
+With these updates to your config, you'll re-build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'l be all set to start testing your new scenario and config options. 
+
+If any krknctl code changes are required, you'll have to make changes and rebuild the the krknctl binary. 
+
+
 ## Follow Contribution Guide
 
 Once all you're happy with your changes, follow the [contribution](#docs/git-pointers.md) guide on how to create your own branch and squash your commits

@@ -27,8 +27,7 @@ weight: 4
 | [Pod Network Chaos](docs/scenarios/pod-network-scenario/_index.md) | pod_network_scenarios | Introduces network chaos at pod level                        | 
 | [Service Hijacking](docs/scenarios/service-hijacking-scenario/_index.md) | service_hijacking_scenarios | Hijacks a service http traffic to simulate custom HTTP responses |
 | [Syn Flood](docs/scenarios/syn-flood-scenario/_index.md) | syn_flood_scenarios | Generates a substantial amount of TCP traffic directed at one or more Kubernetes services |
-
-
+| [KubeVirt VM Outage](docs/scenarios/kubevirt-vm-outage-scenario/_index.md) | kubevirt_vm_outage | Simulates VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery mechanisms |
 
 ## How to Use Plugin Names
 Use the plugin type in the second column above when creating your chaos_scenarios section in the config/config.yaml file

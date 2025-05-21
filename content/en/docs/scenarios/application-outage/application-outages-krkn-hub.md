@@ -1,68 +1,92 @@
 ---
-title: Application outage Scenario using Krkn-hub
-description: >
-date: 2017-01-05
-weight: 4
+title: Application Outage Scenarios with Krkn-hub
+description: Using Application Outage scenarios with Krkn-hub containers
+date: 2017-01-04
 ---
-This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer [docs](/docs/scenarios/application-outage/_index.md) for more details.
 
-#### Run
+## Using Application Outage Scenarios with Krkn-hub
 
-If enabling [Cerberus](/docs/cerberus/) to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
+Krkn-hub offers a containerized version of the Application Outage scenario that can be easily run with environment variables to configure the scenario parameters.
+
+### Configuration
+
+The Application Outage scenario in Krkn-hub can be configured using the following environment variables:
+
+| Environment Variable | Description | Default |
+|---------------------|-------------|---------|
+| NAMESPACE | Namespace where the NetworkPolicy will be applied | (Required) |
+| POD_SELECTOR | Pod selector labels in JSON format (e.g., `{"app":"nginx"}`) | (Required) |
+| BLOCK_TRAFFIC_TYPE | Traffic types to block, can include "Ingress", "Egress", or both | [Ingress, Egress] |
+| DURATION | Duration in seconds to keep traffic blocked | 60 |
+| WAIT_DURATION | Wait time between iterations in seconds | 60 |
+| ITERATIONS | Number of times to execute the scenario | 1 |
+| DAEMON_MODE | If set to True, scenario runs indefinitely | False |
+
+### Running with Docker
 
 ```bash
-$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages
-$ podman logs -f <container_name or container_id> # Streams Kraken logs
-$ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+docker run --name=app-outage --net=host \
+  -v ~/.kube/config:/root/.kube/config:Z \
+  -e NAMESPACE="default" \
+  -e POD_SELECTOR="{app: nginx}" \
+  -e BLOCK_TRAFFIC_TYPE="[Ingress]" \
+  -e DURATION="120" \
+  -e WAIT_DURATION="60" \
+  -e ITERATIONS="1" \
+  -d quay.io/krkn-chaos/krkn-hub:application-outages
 ```
 
-{{% alert title="Note" %}} --env-host: This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines. 
-Without the --env-host option you'll have to set each enviornment variable on the podman command line like  `-e <VARIABLE>=<value>`
-{{% /alert %}}
-
+### Running with Podman
 
 ```bash
-$ docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages
-OR 
-$ docker run -e <VARIABLE>=<value> --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages
-
-$ docker logs -f <container_name or container_id> # Streams Kraken logs
-$ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+podman run --name=app-outage --net=host \
+  -v ~/.kube/config:/root/.kube/config:Z \
+  -e NAMESPACE="default" \
+  -e POD_SELECTOR="{app: nginx}" \
+  -e BLOCK_TRAFFIC_TYPE="[Ingress]" \
+  -e DURATION="120" \
+  -e WAIT_DURATION="60" \
+  -e ITERATIONS="1" \
+  -d quay.io/krkn-chaos/krkn-hub:application-outages
 ```
 
+### Viewing Logs
 
-{{% alert title="Tip" %}} Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
-```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
-#### Supported parameters
+To view the logs of a running container:
 
-The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
-
-Example if --env-host is used:
-```
-export <parameter_name>=<value>
-```
-OR on the command line like example: 
-
-```
--e <VARIABLE>=<value> 
-```
-
-See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
-
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-DURATION                | Duration in seconds after which the routes will be accessible         | 600                                  |
-NAMESPACE               | Namespace to target - all application routes will go inaccessible if pod selector is empty ( Required )|  No default |
-POD_SELECTOR            | Pods to target. For example "{app: foo}"                                | No default                           |
-BLOCK_TRAFFIC_TYPE      | It can be Ingress or Egress or Ingress, Egress ( needs to be a list ) | [Ingress, Egress]                    |
-
-{{% alert title="Note" %}} Defining the `NAMESPACE` parameter is required for running this scenario while the pod_selector is optional. In case of using pod selector to target a particular application, make sure to define it using the following format with a space between key and value: "{key: value}". {{% /alert %}}
-
-{{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
- For example:
 ```bash
-$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:application-outages
+# For Docker
+docker logs -f app-outage
+
+# For Podman
+podman logs -f app-outage
 ```
 
-#### Demo
-You can find a link to a demo of the scenario [here](https://asciinema.org/a/452403?speed=3&theme=solarized-dark)
+### Requirements
+
+- A working Kubernetes/OpenShift cluster
+- kubectl/oc CLI tools configured
+- NetworkPolicy support in your cluster
+- Access to create and delete NetworkPolicies in the target namespace
+
+### Monitoring and Validation
+
+During the scenario run, you can:
+
+1. Verify the NetworkPolicy creation:
+   ```bash
+   kubectl get networkpolicy -n <namespace>
+   ```
+
+2. Test connectivity is blocked:
+   ```bash
+   kubectl run -i --rm test-pod --image=busybox --restart=Never -n <namespace> -- wget -T 5 -O- <service-name>
+   ```
+
+3. Monitor application logs and metrics to observe impact.
+
+After the duration expires, verify the NetworkPolicy is removed and traffic is restored.
+
+# For Podman
+podman logs -f app-outage
+```

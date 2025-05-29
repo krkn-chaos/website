@@ -1,3 +1,11 @@
+---
+title: Build Your First Plugin
+description: Practical guide to building your first Krkn chaos plugin
+weight: 4
+categories: [New scenarios, Tutorials]
+tags: [docs, tutorial]
+---
+
 # Build Your First Chaos Plugin with Krkn
 
 ## Overview

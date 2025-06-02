@@ -31,6 +31,24 @@ $ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 
 {{% alert title="Tip" %}} Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
 ```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
+
+
+#### Node Targeting Examples
+
+Target specific nodes using the `NODE_NAME` environment variable:
+
+```bash
+# Target a specific worker node
+export NODE_NAME="worker-1"
+docker run $(./get_docker_params.sh) --net=host -v ~/.kube/config:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-cpu-hog
+
+# Target multiple nodes (comma-separated)
+docker run -e NODE_NAME="worker-1,worker-2" --net=host -v ~/.kube/config:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-cpu-hog
+
+# Use with other parameters
+docker run -e NODE_NAME="worker-1" -e TOTAL_CHAOS_DURATION="120" -e NODE_CPU_PERCENTAGE="80" --net=host -v ~/.kube/config:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-cpu-hog
+```
+
 #### Supported parameters
 
 The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:

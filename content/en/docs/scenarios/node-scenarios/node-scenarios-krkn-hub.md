@@ -95,11 +95,7 @@ $ export IBMC_APIKEY=<ibmcloud_api_key>
 ```
 
 Baremetal
-```bash
-$ export BMC_USER=<bmc/IPMI user>
-$ export BMC_PASSWORD=<bmc/IPMI password>
-$ export BMC_ADDR=<bmc address>
-```
+Check [Bare Metal Documentation](node-scenarios-bm-krkn-hub.md)
 
 Google Cloud Platform
 ```bash

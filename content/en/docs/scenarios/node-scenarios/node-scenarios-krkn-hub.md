@@ -7,7 +7,7 @@ weight: 4
 This scenario disrupts the node(s) matching the label on a Kubernetes/OpenShift cluster. Actions/disruptions supported are listed [here](/docs/scenarios/node-scenarios/_index.md)
 
 #### Run
-If enabling [Cerberus](/docs/cerberus/) to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
+If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
 
 ```bash
 $ podman run --name=<container_name> --net=host --env-host=true -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:node-scenarios
@@ -55,7 +55,12 @@ RUNS                    | Iterations to perform action on a single node         
 CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, bm           | aws |
 TIMEOUT                 | Duration to wait for completion of node scenario injection             | 180                                |
 DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | 120                                |
+<<<<<<< HEAD
 KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | True                               |
+=======
+KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | False                               |
+PARALLEL     | Run action on label or node name in parallel or sequential, set to true for parallel | False |
+>>>>>>> 9d89bb5 (Expose parallel parameter for node scenarios)
 BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" | 
 BMC_PASSWORD             | Only needed for Baremetal ( bm ) - IPMI/bmc password | "" |
 BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" |

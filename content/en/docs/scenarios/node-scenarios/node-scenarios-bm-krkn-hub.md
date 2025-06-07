@@ -10,8 +10,7 @@ This scenario disrupts the node(s) matching the label on a bare metal Kubernetes
 
 #### Run
 Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. 
-You must set up the scenario in a local file following the [scenario syntax](https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/baremetal_node_scenarios.yaml), 
-and then pass this file's base64-encoded content to the container via the SCENARIO_BASE64 variable.
+You must set up the scenario in a local file following the [scenario syntax](https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/baremetal_node_scenarios.yml), and then pass this file's base64-encoded content to the container via the SCENARIO_BASE64 variable.
 
 If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer [docs](https://krkn-chaos.dev/docs/cerberus/installation/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
 
@@ -41,13 +40,7 @@ $ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 ```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:<scenario>```
 
 #### Supported parameters
-
-The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
-
-ex.) 
-`export <parameter_name>=<value>`
-
-See list of variables that apply to all scenarios [here](../../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
+See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
 #### Demo
 See a demo of this scenario:

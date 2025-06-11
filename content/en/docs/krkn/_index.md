@@ -18,11 +18,17 @@ Krkn is designed for the following user roles:
 ![Krkn workflow](images/kraken-workflow.png)
 
 ### Kraken scenario pass/fail criteria and report
-It is important to make sure to check if the targeted component recovered from the chaos injection and also if the Kubernetes cluster is healthy as failures in one component can have an adverse impact on other components. Kraken does this by:
+It is important to check if the targeted component recovered from the chaos injection and if the Kubernetes cluster is healthy, since failures in one component can have an adverse impact on other components. Kraken does this by:
 - Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.
-- Leveraging [Cerberus](../cerberus/_index.md) to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Kraken using the [instructions](../installation/_index.md). Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. Cerberus can monitor [application routes](../cerberus/config.md) during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers, or users environment as well. It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress etc. It can be enabled by setting `check_applicaton_routes: True` in the [Kraken config](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml) provided application routes are being monitored in the [cerberus config](https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml).
+- Leveraging [Cerberus](../cerberus/_index.md) to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. 
+    - It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Kraken using the [instructions](../installation/_index.md). 
+    - Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. 
+    - Cerberus can monitor [application routes](../cerberus/config.md) during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers or users environment. 
+        - It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress, etc. 
+        - It can be enabled by setting `check_application_routes: True` in the [Kraken config](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml) provided application routes are being monitored in the [cerberus config](https://github.com/redhat-chaos/krkn/blob/main/config/cerberus.yaml).
 - Leveraging built-in alert collection feature to fail the runs in case of critical alerts.
-- Fail test if certain metrics aren't met at the end of the run
+    - See also: [SLOs validation](https://github.com/krkn-chaos/website/blob/main/content/en/docs/krkn/SLOs_validation.md) for more details on metrics and alerts 
+Fail test if certain metrics aren't met at the end of the run
 
 ## Krkn Features
 

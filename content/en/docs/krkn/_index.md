@@ -35,13 +35,13 @@ Fail test if certain metrics aren't met at the end of the run
 ### Signaling
 In CI runs or any external job it is useful to stop Krkn once a certain test or state gets reached. We created a way to signal to Krkn to pause the chaos or stop it completely using a signal posted to a port of your choice.
 
-For example if we have a test run loading the cluster running and Krkn separately running; we want to be able to know when to start/stop the Krkn run based on when the test run completes or gets to a certain loaded state.
+For example, if we have a test run loading the cluster running and Krkn separately running, we want to be able to know when to start/stop the Krkn run based on when the test run completes or when it gets to a certain loaded state
 
 More detailed information on enabling and leveraging this feature can be found [here](signal.md).
 
 
 ### Performance monitoring
-Monitoring the Kubernetes/OpenShift cluster to observe the impact of Krkn chaos scenarios on various components is key to find out the bottlenecks as it is important to make sure the cluster is healthy in terms if both recovery as well as performance during/after the failure has been injected. Instructions on enabling it witihn the config can be found [here](config.md#performance-monitoring).
+Monitoring the Kubernetes/OpenShift cluster to observe the impact of Krkn chaos scenarios on various components is key to find out the bottlenecks. It is important to make sure the cluster is healthy in terms of both recovery and performance during and after the failure has been injected. Instructions on enabling it within the config can be found [here](config.md#performance-monitoring).
 
 
 ### SLOs validation during and post chaos

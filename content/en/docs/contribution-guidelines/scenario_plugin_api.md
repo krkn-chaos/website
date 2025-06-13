@@ -6,7 +6,9 @@ categories: [New scenarios, Placeholders]
 tags: [docs]
 ---
 
-# Scenario Plugin API:
+# Scenario Plugin API
+
+> **Looking for a hands-on guide?** Check out the [Build Your First Plugin](./build-your-first-plugin.md) tutorial for step-by-step instructions.
 
 This API enables seamless integration of Scenario Plugins for Krkn. Plugins are automatically 
 detected and loaded by the plugin loader, provided they extend the `AbstractPluginScenario` 

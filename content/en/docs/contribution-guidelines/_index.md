@@ -29,8 +29,9 @@ Please read [this file](https://krkn-chaos.dev/docs/getting-started/#adding-new-
 #### Scenario Plugin Development
 
 If you're gearing up to develop new scenarios, take a moment to review our
-[Scenario Plugin API Documentation](/docs/contribution-guidelines/scenario_plugin_api.md).
-It’s the perfect starting point to tap into your chaotic creativity!
+[Scenario Plugin API Documentation](/docs/contribution-guidelines/scenario_plugin_api.md) and
+[Build Your First Chaos Plugin](/docs/contribution-guidelines/build-your-first-plugin.md) guide.
+These resources are the perfect starting point to tap into your chaotic creativity!
 
 ### New Configuration to Scenarios 
 

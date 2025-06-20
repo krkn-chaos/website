@@ -39,7 +39,7 @@ kubectl get pods -n <namespace> -w # watch for new pods
 
 ## How to know if it is highly available 
 - ***Multiple Replicas Exist:*** Confirmed by checking `kubectl get deploy -n <namespace>` and seeing atleast 1 replica.
-- ***Pods Distributed Across Nodes/availability zones:*** Using `topologySpreadConstraints` or observing pod distribution in `kubectl get pods -o wide`. See [Health Checks](health-checks.md) for real time visibility into the impact of chaos scenarios on application availability and performance
+- ***Pods Distributed Across Nodes/availability zones:*** Using `topologySpreadConstraints` or observing pod distribution in `kubectl get pods -o wide`. See [Health Checks](../../krkn/health-checks.md) for real time visibility into the impact of chaos scenarios on application availability and performance
 - ***Service Uptime Remains Unaffected:*** During chaos test, verify app availability (synthetic probes, Prometheus alerts, etc).
 - ***Recovery Is Automatic:*** No manual intervention needed to restore service.
 - ***Krkn Telemetry Indicators:*** End of run data includes recovery times, pod reschedule latency, and service downtime which are vital metrics for assessing HA.

@@ -21,8 +21,8 @@ Modern applications demand high availability, low downtime, and resilient infras
 - **Recovery Timing:** Typically less than 10 seconds for stateless apps (seen in Krkn telemetry output).
 - **HA Indicator:** Pod is automatically rescheduled and becomes Ready without manual intervention.
  ```bash
-Kubectl delete pod <pod-name> 
-Kubectl get pods # watch for new pods
+kubectl delete pod <pod-name> -n <namespace>
+kubectl get pods -n <namespace> -w # watch for new pods
 ```
 
 2. Deleting multiple pods simultaneously
@@ -38,8 +38,8 @@ Kubectl get pods # watch for new pods
 - **HA Indicator:** Rolling disruption does not take down the whole application.
 
 ## How to know if it is highly available 
-- ***Multiple Replicas Exist:*** Confirmed by checking `kubectl get deploy` and seeing atleast 1 replica.
-- ***Pods Distributed Across Nodes/availability zones:*** Using `topologySpreadConstraints` or observing pod distribution in `kubectl get pods -o wide`.
+- ***Multiple Replicas Exist:*** Confirmed by checking `kubectl get deploy -n <namespace>` and seeing atleast 1 replica.
+- ***Pods Distributed Across Nodes/availability zones:*** Using `topologySpreadConstraints` or observing pod distribution in `kubectl get pods -o wide`. See [Health Checks](health-checks.md) for real time visibility into the impact of chaos scenarios on application availability and performance
 - ***Service Uptime Remains Unaffected:*** During chaos test, verify app availability (synthetic probes, Prometheus alerts, etc).
 - ***Recovery Is Automatic:*** No manual intervention needed to restore service.
 - ***Krkn Telemetry Indicators:*** End of run data includes recovery times, pod reschedule latency, and service downtime which are vital metrics for assessing HA.

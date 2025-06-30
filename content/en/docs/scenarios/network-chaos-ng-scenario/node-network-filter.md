@@ -21,8 +21,10 @@ Creates iptables rules on one or more nodes to block incoming and outgoing traff
   # scenario specific settings
   ingress: false
   egress: true
-  target: node
+  target: node-name
   interfaces: []
+  protocols:
+   - tcp
   ports:
     - 2049
 ```
@@ -31,9 +33,10 @@ for the common module settings please refer to the [documentation](docs/scenario
 
 - `ingress`: filters the incoming traffic on one or more ports. If set one or more network interfaces must be specified
 - `egress` : filters the outgoing traffic on one or more ports.
-- `target`: sets the type of resource to be targeted, values can be `node` or `pod`
+- `target`: the node name (if label_selector not set)
 - `interfaces`: a list of network interfaces where the incoming traffic will be filtered
 - `ports`: the list of ports that will be filtered
+- `protocols`: the ip protocols to filter (tcp and udp)
 
 
 ## Examples
@@ -52,6 +55,8 @@ for the common module settings please refer to the [documentation](docs/scenario
   egress: true
   target: ''
   interfaces: []
+  protocols:
+    - tcp
   ports:
     - 2049
 ```
@@ -74,6 +79,8 @@ This configuration will disrupt all the PVCs provided by the AWS EFS service to 
   egress: true
   target: ''
   interfaces: []
+  protocols:
+   - tcp
   ports:
     - 2379
     - 2380

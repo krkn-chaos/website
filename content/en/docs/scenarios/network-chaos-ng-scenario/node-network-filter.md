@@ -50,7 +50,7 @@ for the common module settings please refer to the [documentation](docs/scenario
   # scenario specific settings
   ingress: false
   egress: true
-  target: node
+  target: ''
   interfaces: []
   ports:
     - 2049
@@ -72,7 +72,7 @@ This configuration will disrupt all the PVCs provided by the AWS EFS service to 
   # scenario specific settings
   ingress: false
   egress: true
-  target: node
+  target: ''
   interfaces: []
   ports:
     - 2379

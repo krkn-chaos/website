@@ -19,6 +19,11 @@ relative to the Krkn root folder. Each plugin must reside in its own directory a
 of one or more Python files. The entry point for each plugin is a Python class that extends the 
 [AbstractPluginScenario](https://github.com/krkn-chaos/krkn/blob/main/krkn/scenario_plugins/abstract_scenario_plugin.py) abstract class and implements its required methods.
 
+## `__init__` file
+For the plugin to be properly found by the plugin api, there needs to be a init file in the base folder 
+
+For example: [__init__.py](https://github.com/krkn-chaos/krkn/blob/main/krkn/tests/__init__.py)
+
 ## `AbstractPluginScenario` abstract class:
 
 This [abstract class](https://github.com/krkn-chaos/krkn/blob/main/krkn/scenario_plugins/abstract_scenario_plugin.py) defines the contract between the plugin and krkn.

@@ -17,15 +17,32 @@ Krkn is designed for the following user roles:
 ### Workflow
 ![Krkn workflow](images/kraken-workflow.png)
 
-### Kraken scenario pass/fail criteria and report
-It is important to check if the targeted component recovered from the chaos injection and if the Kubernetes cluster is healthy, since failures in one component can have an adverse impact on other components. Kraken does this by:
+### How to Get Started
+Instructions on how to setup, configure and run Krkn can be found at [Installation](../installation.md).
+
+You may consider utilizing the chaos recommendation tool prior to initiating the chaos runs to profile the application service(s) under test. This tool discovers a list of Krkn scenarios with a high probability of causing failures or disruptions to your application service(s). The tool can be accessed at [Chaos-Recommender](../chaos-recommender.md).
+
+See the [getting started doc](../getting-started/_index.md.md) on support on how to get started with your own custom scenario or editing current scenarios for your specific usage.
+
+After installation, refer back to the below sections for supported scenarios and how to tweak the Krkn config to load them on your cluster.
+
+
+#### Running Krkn with minimal configuration tweaks
+For cases where you want to run Krkn with minimal configuration changes, refer to [krkn-hub](https://github.com/krkn-chaos/krkn-hub). One use case is CI integration where you do not want to carry around different configuration files for the scenarios.
+
+
+### Config
+Instructions on how to setup the config and the options supported can be found at [Config](config.md).
+
+### Krkn scenario pass/fail criteria and report
+It is important to check if the targeted component recovered from the chaos injection and if the Kubernetes cluster is healthy, since failures in one component can have an adverse impact on other components. Krkn does this by:
 - Having built in checks for pod and node based scenarios to ensure the expected number of replicas and nodes are up. It also supports running custom scripts with the checks.
 - Leveraging [Cerberus](../cerberus/_index.md) to monitor the cluster under test and consuming the aggregated go/no-go signal to determine pass/fail post chaos. 
-    - It is highly recommended to turn on the Cerberus health check feature available in Kraken. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Kraken using the [instructions](../installation/_index.md). 
-    - Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Kraken config file. 
+    - It is highly recommended to turn on the Cerberus health check feature available in Krkn. Instructions on installing and setting up Cerberus can be found [here](../cerberus/_index.md) or can be installed from Krkn using the [instructions](../installation/_index.md). 
+    - Once Cerberus is up and running, set cerberus_enabled to True and cerberus_url to the url where Cerberus publishes go/no-go signal in the Krkn config file. 
     - Cerberus can monitor [application routes](../cerberus/config.md) during the chaos and fails the run if it encounters downtime as it is a potential downtime in a customers or users environment. 
         - It is especially important during the control plane chaos scenarios including the API server, Etcd, Ingress, etc. 
-        - It can be enabled by setting `check_application_routes: True` in the [Kraken config](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml) provided application routes are being monitored in the [cerberus config](https://github.com/krkn-chaos/krkn/blob/main/config/cerberus.yaml).
+        - It can be enabled by setting `check_application_routes: True` in the [Krkn config](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml) provided application routes are being monitored in the [cerberus config](https://github.com/krkn-chaos/krkn/blob/main/config/cerberus.yaml).
 - Leveraging built-in alert collection feature to fail the runs in case of critical alerts.
     - See also: [SLOs validation](SLOs_validation.md) for more details on metrics and alerts 
 Fail test if certain metrics aren't met at the end of the run

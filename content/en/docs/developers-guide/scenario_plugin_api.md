@@ -1,7 +1,7 @@
 ---
 title: Adding scenarios via plugin api
 description:
-weight: 3
+weight: 1
 categories: [New scenarios, Placeholders]
 tags: [docs]
 ---
@@ -143,6 +143,5 @@ providing details about the issue:
 The [ExampleScenarioPlugin](https://github.com/krkn-chaos/krkn/blob/main/krkn/tests/test_classes/example_scenario_plugin.py) class included in the tests folder can be used as a scaffolding for new plugins and it is considered
 part of the documentation.
 
-For any questions or further guidance, feel free to reach out to us on the 
-[Kubernetes workspace](https://kubernetes.slack.com/) in the `#krkn` channel. 
-We’re happy to assist. Now, __release the Krkn!__
+
+## Adding CI tests 

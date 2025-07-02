@@ -1,5 +1,5 @@
 ---
-title: Getting Started with krknctl
+title: Running a Chaos Scenario with Krknctl
 # date: 2017-01-05
 description: 
 weight : 2

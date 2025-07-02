@@ -1,7 +1,6 @@
 ---
 title: Application outage Scenario using Krkn-hub
 description: >
-date: 2017-01-05
 weight: 4
 ---
 This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer [docs](/docs/scenarios/application-outage/_index.md) for more details.

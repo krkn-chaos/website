@@ -1,6 +1,7 @@
 ---
-title: Getting Started
+title: Getting Started with Running Scenarios
 # date: 2017-01-05
+type: "docs/scenarios"
 description: Getting started with Krkn-chaos 
 weight : 3
 categories: [Best Practices, Placeholders]
@@ -8,16 +9,11 @@ tags: [docs]
 ---
 
 
-
-
 How to:
-* [Get started with Krkn-lib](#krkn-lib)
-* [Get started with Krkn](#krkn)
+* [Run a Scenario with Krkn](#krkn)
 * [Get started with krknctl](#krknctl)
 * [Get started with Krkn-hub](#krkn-hub)
 
-## Krkn-lib
-See how to install krkn-lib [here](../installation/krkn-lib.md)
 
 ## Krkn
 Get krkn set up with the help of these [directions](../installation/krkn.md)

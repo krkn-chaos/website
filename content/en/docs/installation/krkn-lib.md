@@ -29,4 +29,4 @@ You can find a list of available functions and modules [here](https://krkn-chaos
 
 
 ## Testing your changes
-To see how you can configure and test your changes see [testing changes](../contribution-guidelines/testing-changes.md#testing-changes-in-krkn-lib)
+To see how you can configure and test your changes see [testing changes](../developers-guide/testing-changes.md#testing-changes-in-krkn-lib)

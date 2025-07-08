@@ -28,6 +28,7 @@ node_scenarios:
     duration: <duration>       # duration to stop the node before running the start action
     cloud_type: <cloud>        # cloud type on which Kubernetes/OpenShift runs  
     parallel: <true_or_false>  # Run action on label or node name in parallel or sequential, defaults to sequential
+    kube_check: <true_or_false> # Run the kubernetes api calls to see if the node gets to a certain state during the node scenario
 ```
 
 ## AWS

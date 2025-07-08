@@ -17,11 +17,11 @@ abstract class, implement the required methods, and adhere to the specified [nam
 The plugin loader automatically loads plugins found in the `krkn/scenario_plugins` directory, 
 relative to the Krkn root folder. Each plugin must reside in its own directory and can consist 
 of one or more Python files. The entry point for each plugin is a Python class that extends the 
-[AbstractPluginScenario](../krkn/scenario_plugins/abstract_scenario_plugin.py) abstract class and implements its required methods.
+[AbstractPluginScenario](https://github.com/krkn-chaos/krkn/blob/main/krkn/scenario_plugins/abstract_scenario_plugin.py) abstract class and implements its required methods.
 
 ## `AbstractPluginScenario` abstract class:
 
-This [abstract class](../krkn/scenario_plugins/abstract_scenario_plugin.py) defines the contract between the plugin and krkn.
+This [abstract class](https://github.com/krkn-chaos/krkn/blob/main/krkn/scenario_plugins/abstract_scenario_plugin.py) defines the contract between the plugin and krkn.
 It consists of two methods:
 - `run(...)`
 - `get_scenario_type()`
@@ -135,7 +135,7 @@ providing details about the issue:
 > e.g `ShutDownScenarioPlugin` class can be found in the `krkn/scenario_plugin/shut_down` folder.
 
 ## ExampleScenarioPlugin
-The [ExampleScenarioPlugin](../krkn/tests/test_classes/example_scenario_plugin.py) class included in the tests folder can be used as a scaffolding for new plugins and it is considered
+The [ExampleScenarioPlugin](https://github.com/krkn-chaos/krkn/blob/main/krkn/tests/test_classes/example_scenario_plugin.py) class included in the tests folder can be used as a scaffolding for new plugins and it is considered
 part of the documentation.
 
 For any questions or further guidance, feel free to reach out to us on the 

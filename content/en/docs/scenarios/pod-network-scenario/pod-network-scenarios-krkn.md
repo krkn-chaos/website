@@ -9,11 +9,12 @@ weight: 2
 - id: pod_network_outage
   config:
     namespace: openshift-console   # Required - Namespace of the pod to which filter need to be applied
-    direction:                     # Optioinal - List of directions to apply filters
+    direction:                     # Optional - List of directions to apply filters
         - ingress                  # Blocks ingress traffic, Default both egress and ingress
     ingress_ports:                 # Optional - List of ports to block traffic on
         - 8443                     # Blocks 8443, Default [], i.e. all ports.
     label_selector: 'component=ui' # Blocks access to openshift console
+    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
 ```
 ### Pod Network shaping
 Scenario to introduce network latency, packet loss, and bandwidth restriction in the Pod's network interface. The purpose of this scenario is to observe faults caused by random variations in the network.
@@ -24,6 +25,7 @@ Scenario to introduce network latency, packet loss, and bandwidth restriction in
   config:
     namespace: openshift-console   # Required - Namespace of the pod to which filter need to be applied.
     label_selector: 'component=ui' # Applies traffic shaping to access openshift console.
+    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
     network_params:
         latency: 500ms             # Add 500ms latency to egress traffic from the pod.
 ```
@@ -33,6 +35,7 @@ Scenario to introduce network latency, packet loss, and bandwidth restriction in
   config:
     namespace: openshift-console   # Required - Namespace of the pod to which filter need to be applied.
     label_selector: 'component=ui' # Applies traffic shaping to access openshift console.
+    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
     network_params:
         latency: 500ms             # Add 500ms latency to egress traffic from the pod.
 ```

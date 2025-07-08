@@ -7,9 +7,7 @@ categories: [Best Practices, Placeholders]
 tags: [docs]
 ---
 
-Welcome to Krkn-Chaos organization! Below is a flow chart of all the krkn related repositories in the github organization. They all build on eachother with krkn-lib being the lowest level of kubernetes based functions to full running scenarios and demos and documentations
 
-![krkn repo flowchart](images/krkn-repo-flowchart.png)
 
 
 How to:

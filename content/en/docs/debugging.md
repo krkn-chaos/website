@@ -47,3 +47,17 @@ users:
   user:
     client-certificate-data: ***
 ```
+
+## Podman vs Docker container runtime
+
+### Krknctl Error
+```bash
+...
+failed to determine container runtime enviroment please install podman or docker and retry
+```
+
+
+### Fix
+```bash
+ln -s $(podman machine inspect --format '{{ .ConnectionInfo.PodmanSocket.Path }}') ~/.local/share/containers/podman/machine/podman.sock
+```

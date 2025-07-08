@@ -26,6 +26,7 @@ zone_outage:                                         # Scenario to create an out
   cloud_type: gcp                                    # cloud type on which Kubernetes/OpenShift runs. aws is only platform supported currently for this scenario.
   duration: 600                                      # duration in seconds after which the zone will be back online
   zone: <zone>                                       # Zone of nodes to stop and then restart after the duration ends
+  kube_check: True                                   # Run kubernetes api calls to see if the node gets to a certain state during the scenario
 ```
 
 {{% alert title="Note" %}}Multiple zones will experience downtime in case of targeting multiple subnets which might have an impact on the cluster health especially if the zones have control plane components deployed.{{% /alert %}}

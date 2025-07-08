@@ -56,5 +56,5 @@ $ podman run --name=<container_name> --net=host --env-host=true -v <path-to-cust
 ```
 
 #### Demo
-You can find a link to a demo of the scenario [here](https://asciinema.org/a/zMBAdzHE40oPXkFVIz0exEoOX)
-
+See a demo of this scenario:
+<script src="https://asciinema.org/a/zMBAdzHE40oPXkFVIz0exEoOX.js" id="asciicast-zMBAdzHE40oPXkFVIz0exEoOX" async="true"  style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;"></script>

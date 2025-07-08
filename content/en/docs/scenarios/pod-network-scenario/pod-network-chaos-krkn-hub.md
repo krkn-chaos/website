@@ -51,6 +51,7 @@ Parameter               | Description                                           
 NAMESPACE               | Required - Namespace of the pod to which filter need to be applied    | ""                                     |
 LABEL_SELECTOR          | Label of the pod(s) to target                                         | ""                                   | 
 POD_NAME                | When label_selector is not specified, pod matching the name will be selected for the chaos scenario | "" |
+EXCLUDE_LABEL           | Pods matching this label will be excluded from the chaos even if they match other criteria | "" |
 INSTANCE_COUNT          | Number of pods to perform action/select that match the label selector | 1 |
 TRAFFIC_TYPE            | List of directions to apply filters - egress/ingress ( needs to be a list ) | [ingress, egress] |
 INGRESS_PORTS           | Ingress ports to block ( needs to be a list ) | [] i.e all ports |

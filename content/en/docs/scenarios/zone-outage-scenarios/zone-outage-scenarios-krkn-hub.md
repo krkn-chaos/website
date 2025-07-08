@@ -53,7 +53,7 @@ DURATION                | Duration in seconds after which the zone will be back 
 VPC_ID                  | cluster virtual private network to target ( REQUIRED for AWS )                             | ""                                   |
 SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | ""                                   |
 ZONE                  | zone you want to target ( REQUIRED for GCP )                             | ""                                   |
-
+KUBE_CHECK	 | Connect to the kubernetes api to see if the node gets to a certain state during the scenario | 	True
 The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
 
 Amazon Web Services

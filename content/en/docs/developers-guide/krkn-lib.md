@@ -8,6 +8,8 @@ tags: [test, sample, docs]
 weight: 1
 ---
 
+Krkn-lib is our base kubernetes function library. This library holds all of the kubernetes functions from listing pods to running debug on a node. Any new kubernetes connectivity should be added here and well tested
+
 ## Installation
 
 ### Git 

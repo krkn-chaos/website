@@ -64,6 +64,8 @@ that will be executed.
 - `scenario_telemetry`
   - the `ScenarioTelemetry` object of the scenario that is currently executed
  
+{{% alert title="Note" %}} Helper functions for interactions in Krkn are part of [krkn-lib](https://github.com/krkn-chaos/krkn-lib). Please feel free to reuse and expand them as you see fit when adding a new scenario or expanding the capabilities of the current supported scenarios. {{% /alert %}}
+
 ### Return value:
 Returns 0 if the scenario succeeds and 1 if it fails.
 > [!WARNING]
@@ -144,4 +146,10 @@ The [ExampleScenarioPlugin](https://github.com/krkn-chaos/krkn/blob/main/krkn/te
 part of the documentation.
 
 
-## Adding CI tests 
+## Adding CI tests
+Depending on the complexity of the new scneario, it would be much appreciated if a CI test of the scenario would be added to our github action that gets run on each PR.  
+To add a test: 
+
+- Add a test script in the [CI tests](https://github.com/krkn-chaos/krkn/tree/main/CI/tests) folder 
+- Add scenario file that can run on a 1 node kind cluster
+- Add it to the list of tests to be run as part of the functional CI https://github.com/krkn-chaos/krkn/blob/9337052e7bf5c14ab38928792ea02cdf93da157c/.github/workflows/tests.yml#L79-L91

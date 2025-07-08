@@ -13,8 +13,9 @@ This document describes how to develop and add to Krkn. Before you start, it is 
 
 Be sure to properly [install](../installation/_index.md) Krkn. Then you can start to develop krkn. The following documents will help you get started:
 
-1. [Add a New Chaos Scenario using Plugin API](./scenario_plugin_api.md): Adding a new scenario into krkn
-2. [Test your changes](./testing-changes.md) 
+1. [Add k8s functionality to krkn-lib](./krkn-lib.md)
+2. [Add a New Chaos Scenario using Plugin API](./scenario_plugin_api.md): Adding a new scenario into krkn
+3. [Test your changes](./testing-changes.md) 
 
 
 `NOTE: All base kubernetes functionality should be added into krkn-lib and called from krkn`

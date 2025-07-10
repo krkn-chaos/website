@@ -23,7 +23,7 @@ weight: 4
 | [Power Outages](docs/scenarios/power-outage-scenarios/_index.md) | cluster_shut_down_scenarios | Shuts down the cluster for the specified duration and turns it back on to check the cluster health |
 | [PVC disk fill](docs/scenarios/pvc-scenario/_index.md) | pvc_scenarios | Fills up a given PersistenVolumeClaim by creating a temp file on the PVC from a pod associated with it |
 | [Network Chaos](docs/scenarios/network-chaos-scenario/_index.md) | network_chaos_scenarios | Introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using tc and Netem |
-| [Network Chaos NG](docs/scenarios/network-chaos-ng-scenario/_index.md) | network_chaos_ng_scenarios | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios |
+| [Network Chaos NG](docs/scenarios/network-chaos-ng-scenario/_index.md) | network_chaos_ng_scenarios | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios. Check the scenario [use cases](docs/scenarios/network-chaos-ng-scenario/use-cases.md)!. |
 | [Pod Network Chaos](docs/scenarios/pod-network-scenario/_index.md) | pod_network_scenarios | Introduces network chaos at pod level                        | 
 | [Service Hijacking](docs/scenarios/service-hijacking-scenario/_index.md) | service_hijacking_scenarios | Hijacks a service http traffic to simulate custom HTTP responses |
 | [Syn Flood](docs/scenarios/syn-flood-scenario/_index.md) | syn_flood_scenarios | Generates a substantial amount of TCP traffic directed at one or more Kubernetes services |

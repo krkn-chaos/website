@@ -16,8 +16,7 @@ In addition to the common [hog scenario options](../_index.md#common-options), y
 | `io-target-pod-folder` |string| the folder where the volume will be mounted in the pod                                                                                                                                                       |
 | `io-target-pod-volume`| dictionary | the pod volume definition that will be stressed by the scenario.                                                                                                                                             |
 
-> [!CAUTION]
-> Modifying the structure of `io-target-pod-volume` might alter how the hog operates, potentially rendering it ineffective.
+{{< notice type="warning" >}}Modifying the structure of `io-target-pod-volume` might alter how the hog operates, potentially rendering it ineffective.{{< /notice >}}
 
 
 ### Usage

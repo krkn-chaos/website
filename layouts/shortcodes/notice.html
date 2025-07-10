@@ -1,0 +1,36 @@
+{{/* layouts/shortcodes/notice.html */}}
+
+{{ $type := .Get "type" | default "info" }}
+{{ $iconClass := "" }}
+{{ $textColorClass := "" }}
+{{ $titleText := $type | upper }}
+
+{{ if eq $type "info" }}
+    {{ $iconClass = "fas fa-circle-info" }}
+    {{ $textColorClass = "text-info" }}
+    {{ $titleText = "INFO" }}
+{{ else if eq $type "note" }}
+    {{ $iconClass = "fas fa-circle-info" }}
+    {{ $textColorClass = "text-info" }}
+    {{ $titleText = "NOTE" }}
+{{ else if eq $type "warning" }}
+    {{ $iconClass = "fas fa-triangle-exclamation" }}
+    {{ $textColorClass = "text-warning" }}
+    {{ $titleText = "WARNING" }}
+{{ else if eq $type "danger" }}
+    {{ $iconClass = "fas fa-circle-exclamation" }}
+    {{ $textColorClass = "text-danger" }}
+    {{ $titleText = "DANGER" }}
+{{ else if eq $type "success" }}
+    {{ $iconClass = "fas fa-circle-check" }}
+    {{ $textColorClass = "text-success" }}
+    {{ $titleText = "SUCCESS" }}
+{{ end }}
+
+<div class="alert alert-{{ $type }}" role="alert"> <div class="alert-header">
+        <i class="{{ $iconClass }} {{ $textColorClass }}"></i> <span class="alert-title">{{ $titleText }}</span>
+    </div>
+    <div class="alert-content">
+        {{ .Inner | markdownify }}
+    </div>
+</div>

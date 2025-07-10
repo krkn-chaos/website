@@ -1,6 +1,7 @@
 ---
 title: Node Network Filter
 description: >
+weight : 3
 date: 2017-01-05
 ---
 
@@ -40,50 +41,6 @@ for the common module settings please refer to the [documentation](docs/scenario
 
 
 ## Examples
-### AWS EFS (Elastic File System) disruption
 
-```yaml
-- id: node_network_filter
-  wait_duration: 300
-  test_duration: 100
-  label_selector: "node-role.kubernetes.io/worker="
-  instance_count: 0
-  execution: parallel
-  namespace: 'default'
-  # scenario specific settings
-  ingress: false
-  egress: true
-  target: ''
-  interfaces: []
-  protocols:
-    - tcp
-  ports:
-    - 2049
-```
+Please refer to the [use cases section](use-cases.md) for some real usage scenarios.
 
-This configuration will disrupt all the PVCs provided by the AWS EFS service to an OCP/K8S cluster. The service is essentially an elastic NFS service so blocking the outgoing traffic on the port `2049` in the worker nodes will cause all the pods mounting the PVC to be unable to read and write in the mounted folder.
-
-
-## Etcd Split Brain
-
-```yaml
-- id: node_network_filter
-  wait_duration: 300
-  test_duration: 100
-  label_selector: "node-role.kubernetes.io/master="
-  instance_count: 1
-  execution: parallel
-  namespace: 'default'
-  # scenario specific settings
-  ingress: false
-  egress: true
-  target: ''
-  interfaces: []
-  protocols:
-   - tcp
-  ports:
-    - 2379
-    - 2380
-```
-
-This configuration will cause the disruption of the etcd traffic in one of the master nodes, this configuration will cause one of the three master node  to be isolated by the other nodes causing the election of two etcd leader nodes, one is the isolated node, the other will be elected between one of the two remaining nodes.

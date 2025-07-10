@@ -1,6 +1,7 @@
 ---
 title: Pod Network Filter
 description: >
+weight : 4
 date: 2017-01-05
 ---
 
@@ -38,28 +39,6 @@ for the common module settings please refer to the [documentation](docs/scenario
 - `ports`: the list of ports that will be filtered
 - `protocols`: the ip protocols to filter (tcp and udp)
 
-
 ## Examples
-### DNS disruption
 
-```yaml
-- id: pod_network_filter
-  wait_duration: 300
-  test_duration: 100
-  label_selector: ""
-  instance_count: 0
-  execution: parallel
-  namespace: 'default'
-  # scenario specific settings
-  ingress: false
-  egress: true
-  target: "pod-name"
-  interfaces: []
-  protocols:
-    - tcp
-    - udp
-  ports:
-    - 53
-```
-
-This configuration will prevent the pod to solve any hostname (internal services and external hostnames) contacting the Kubernetes DNS.
+Please refer to the [use cases section](use-cases.md) for some real usage scenarios.

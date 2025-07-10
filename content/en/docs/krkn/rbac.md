@@ -11,7 +11,7 @@ Krkn supports two types of RBAC configurations:
 1. **Non-Privileged RBAC**: Provides namespace-scoped permissions for scenarios that only require access to resources within a specific namespace.
 2. **Privileged RBAC**: Provides cluster-wide permissions for scenarios that require access to cluster-level resources like nodes.
 
-> **_NOTE:_** The examples below use placeholders such as `target-namespace` and `krkn-namespace` which should be replaced with your actual namespaces. The service account name `krkn-sa` is also a placeholder that you can customize.
+{{< notice type="info" >}} The examples below use placeholders such as `target-namespace` and `krkn-namespace` which should be replaced with your actual namespaces. The service account name `krkn-sa` is also a placeholder that you can customize. {{< /notice >}}
 
 ## RBAC YAML Files
 

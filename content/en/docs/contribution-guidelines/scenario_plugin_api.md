@@ -66,8 +66,7 @@ that will be executed.
  
 ### Return value:
 Returns 0 if the scenario succeeds and 1 if it fails.
-> [!WARNING]
-> All the exception must be handled __inside__ the run method and not propagated.
+{{< notice type="warning" >}} All the exception must be handled __inside__ the run method and not propagated. {{< /notice >}}
 
 ### `get_scenario_types()`:
 
@@ -76,12 +75,10 @@ Returns 0 if the scenario succeeds and 1 if it fails.
 Indicates the scenario types specified in the `config.yaml`. For the plugin to be properly
 loaded, recognized and executed, it must be implemented and must return one or more
 strings matching `scenario_type` strings set in the config.
-> [!WARNING]
-> Multiple strings can map to a *single*  `ScenarioPlugin` but the same string cannot map
-> to different plugins, an exception will be thrown for scenario_type redefinition.
 
-> [!Note]  
-> The `scenario_type` strings must be unique across all plugins; otherwise, an exception will be thrown.
+{{< notice type="danger" >}}Multiple strings can map to a *single*  `ScenarioPlugin` but the same string cannot map to different plugins, an exception will be thrown for scenario_type redefinition. {{< /notice >}}
+
+{{< notice type="info" >}}The `scenario_type` strings must be unique across all plugins; otherwise, an exception will be thrown. {{< /notice >}}
 
 ## Naming conventions:
 A key requirement for developing a plugin that will be properly loaded 
@@ -132,12 +129,7 @@ providing details about the issue:
 2024-09-18 14:48:41,735 [ERROR] ⚠️ scenario plugin class name must start with a capital letter, end with `ScenarioPlugin`, and cannot be just `ScenarioPlugin`.
 ```
 
->[!NOTE]
->If you're trying to understand how the scenario types in the config.yaml are mapped to 
-> their corresponding plugins, this log will guide you! 
-> Each scenario plugin class mentioned can be found in the `krkn/scenario_plugin` folder
-> simply convert the camel case notation and remove the ScenarioPlugin suffix from the class name
-> e.g `ShutDownScenarioPlugin` class can be found in the `krkn/scenario_plugin/shut_down` folder.
+{{< notice type="info" >}}If you're trying to understand how the scenario types in the config.yaml are mapped to their corresponding plugins, this log will guide you! Each scenario plugin class mentioned can be found in the `krkn/scenario_plugin` folder simply convert the camel case notation and remove the ScenarioPlugin suffix from the class name e.g `ShutDownScenarioPlugin` class can be found in the `krkn/scenario_plugin/shut_down` folder.{{< /notice >}}
 
 ## ExampleScenarioPlugin
 The [ExampleScenarioPlugin](https://github.com/krkn-chaos/krkn/blob/main/krkn/tests/test_classes/example_scenario_plugin.py) class included in the tests folder can be used as a scaffolding for new plugins and it is considered

@@ -61,7 +61,7 @@ that will be executed.
  
 ### Return value:
 Returns 0 if the scenario succeeds and 1 if it fails.
-> [!WARNING]
+> **WARNING**<br/>
 > All the exception must be handled __inside__ the run method and not propagated.
 
 ### `get_scenario_types()`:
@@ -71,11 +71,11 @@ Returns 0 if the scenario succeeds and 1 if it fails.
 Indicates the scenario types specified in the `config.yaml`. For the plugin to be properly
 loaded, recognized and executed, it must be implemented and must return one or more
 strings matching `scenario_type` strings set in the config.
-> [!WARNING]
+> **WARNING**<br/>
 > Multiple strings can map to a *single*  `ScenarioPlugin` but the same string cannot map
 > to different plugins, an exception will be thrown for scenario_type redefinition.
 
-> [!Note]  
+> **NOTE**<br/>
 > The `scenario_type` strings must be unique across all plugins; otherwise, an exception will be thrown.
 
 ## Naming conventions:
@@ -127,7 +127,7 @@ providing details about the issue:
 2024-09-18 14:48:41,735 [ERROR] ⚠️ scenario plugin class name must start with a capital letter, end with `ScenarioPlugin`, and cannot be just `ScenarioPlugin`.
 ```
 
->[!NOTE]
+>**NOTE**<br/>
 >If you're trying to understand how the scenario types in the config.yaml are mapped to 
 > their corresponding plugins, this log will guide you! 
 > Each scenario plugin class mentioned can be found in the `krkn/scenario_plugin` folder

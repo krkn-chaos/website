@@ -21,8 +21,7 @@ Before using this scenario, ensure the following:
 
 1. KubeVirt or OpenShift CNV is installed in your cluster
 2. The target VMI exists and is running in the specified namespace
-3. You have the kubevirt Python client installed (included in krkn requirements.txt)
-4. Your cluster credentials have sufficient permissions to delete and create VMIs
+3. Your cluster credentials have sufficient permissions to delete and create VMIs
 
 ## Parameters
 
@@ -32,7 +31,7 @@ The scenario supports the following parameters:
 |-----------|-------------|----------|---------|
 | vm_name | The name of the VMI to delete | Yes | N/A |
 | namespace | The namespace where the VMI is located | No | "default" |
-| duration | How long to wait (in seconds) before attempting recovery | No | 60 |
+| timeout | How long to wait (in seconds) before attempting recovery for VMI to start running again | No | 60 |
 
 ## Expected Behavior
 
@@ -40,8 +39,8 @@ When executed, the scenario will:
 
 1. Validate that KubeVirt is installed and the target VMI exists
 2. Save the initial state of the VMI
-3. Delete the VMI using the KubeVirt API
-4. Wait for the specified duration
+3. Delete the VMI
+4. Wait for the VMI to become running or hit the timeout
 5. Attempt to recover the VMI:
    - If the VMI is managed by a VirtualMachine resource with runStrategy: Always, it will automatically recover
    - If automatic recovery doesn't occur, the plugin will manually recreate the VMI using the saved state
@@ -49,38 +48,16 @@ When executed, the scenario will:
 
 {{% alert title="Note" %}}If the VM is managed by a VirtualMachine resource with `runStrategy: Always`, KubeVirt will automatically try to recreate the VMI after deletion. In this case, the scenario will wait for this automatic recovery to complete.{{% /alert %}}
 
-## Sample Configuration
+## Advanced Use Cases
 
-Here's an example configuration for using the `kubevirt_vm_outage` scenario:
+### Testing High Availability VM Configurations
 
-```yaml
-scenarios:
-  - name: "kubevirt outage test"
-    scenario: kubevirt_vm_outage
-    parameters:
-      vm_name: my-vm
-      namespace: kubevirt
-      duration: 60
-```
+This scenario is particularly useful for testing high availability configurations, such as:
 
-For multiple VMs in different namespaces:
+- Clustered applications running across multiple VMs
+- VMs with automatic restart policies
+- Applications with cross-VM resilience mechanisms
 
-```yaml
-scenarios:
-  - name: "kubevirt outage test - app VM"
-    scenario: kubevirt_vm_outage
-    parameters:
-      vm_name: app-vm
-      namespace: application
-      duration: 120
-  
-  - name: "kubevirt outage test - database VM"
-    scenario: kubevirt_vm_outage
-    parameters:
-      vm_name: db-vm
-      namespace: database
-      duration: 180
-```
 
 ## Recovery Strategies
 

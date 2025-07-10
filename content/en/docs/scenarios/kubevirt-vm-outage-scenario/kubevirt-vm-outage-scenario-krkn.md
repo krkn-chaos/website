@@ -28,7 +28,7 @@ scenarios:
     parameters:
       vm_name: <my-application-vm>
       namespace: <vm-workloads>
-      duration: 60
+      timeout: 60
 ```
 
 ## Detailed Parameters
@@ -37,7 +37,7 @@ scenarios:
 |-----------|-------------|----------|---------|----------------|
 | vm_name | The name of the VMI to delete | Yes | N/A | "database-vm", "web-server-vm" |
 | namespace | The namespace where the VMI is located | No | "default" | "openshift-cnv", "vm-workloads" |
-| duration | How long to wait (in seconds) before attempting recovery | No | 60 | 30, 120, 300 |
+| timeout | How long to wait (in seconds) for VMI to become running before attempting recovery | No | 60 | 30, 120, 300 |
 
 ## Execution Flow
 
@@ -47,44 +47,56 @@ When executed, the scenario follows this process:
 2. **VMI Validation**: Checks if the target VMI exists and is in Running state
 3. **State Preservation**: Saves the initial state of the VMI
 4. **Chaos Injection**: Deletes the VMI using the KubeVirt API
-5. **Wait Period**: Waits for the specified duration
+5. **Wait for Running**: Waits for VMI to become running again, up to the timeout specified
 6. **Recovery Monitoring**: Checks if the VMI is automatically restored
 7. **Manual Recovery**: If automatic recovery doesn't occur, manually recreates the VMI
 8. **Validation**: Confirms the VMI is running correctly
 
-## Integration with KubeVirt API
 
-The scenario utilizes the KubeVirt Python client to interact with the KubeVirt API. Key API operations include:
+## Sample Configuration
 
-- Reading VMI objects: `kubevirt_api.read_namespaced_virtual_machine_instance()`
-- Deleting VMI objects: `kubevirt_api.delete_namespaced_virtual_machine_instance()`
-- Creating VMI objects: `kubevirt_api.create_namespaced_virtual_machine_instance()`
-
-## Advanced Use Cases
-
-### Testing High Availability VM Configurations
-
-This scenario is particularly useful for testing high availability configurations, such as:
-
-- Clustered applications running across multiple VMs
-- VMs with automatic restart policies
-- Applications with cross-VM resilience mechanisms
-
-### Combining with Other Scenarios
-
-For more comprehensive testing, you can combine this scenario with other Kraken scenarios:
+Here's an example configuration for using the `kubevirt_vm_outage` scenario:
 
 ```yaml
 scenarios:
-  - name: "node outage with vm recovery test"
-    scenario: node_stop_start_scenario
-    parameters:
-      # Node scenario parameters
-  
-  - name: "vm outage during node recovery"
+  - name: "kubevirt outage test"
     scenario: kubevirt_vm_outage
     parameters:
-      vm_name: <critical-vm>
-      namespace: <production>
+      vm_name: my-vm
+      namespace: kubevirt
+      duration: 60
+```
+
+For multiple VMs in different namespaces:
+
+```yaml
+scenarios:
+  - name: "kubevirt outage test - app VM"
+    scenario: kubevirt_vm_outage
+    parameters:
+      vm_name: app-vm
+      namespace: application
       duration: 120
+  
+  - name: "kubevirt outage test - database VM"
+    scenario: kubevirt_vm_outage
+    parameters:
+      vm_name: db-vm
+      namespace: database
+      duration: 180
+```
+
+### Combining with Other Scenarios
+
+For more comprehensive testing, you can combine this scenario with other Kraken scenarios in the list of chaos_scenarios in the config file:
+
+```yaml
+kraken:
+    kubeconfig_path: ~/.kube/config                     # Path to kubeconfig
+    ...
+    chaos_scenarios:
+        - hog_scenarios:
+            - scenarios/kube/cpu-hog.yml
+        -  kubevirt_vm_outage:
+               - scenarios/kubevirt/kubevirt-vm-outage.yaml
 ```

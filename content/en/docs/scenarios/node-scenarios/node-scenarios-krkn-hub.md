@@ -56,12 +56,8 @@ RUNS                    | Iterations to perform action on a single node         
 CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, bm           | aws |
 TIMEOUT                 | Duration to wait for completion of node scenario injection             | 180                                |
 DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | 120                                |
-<<<<<<< HEAD
-KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | True                               |
-=======
 KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | False                               |
 PARALLEL     | Run action on label or node name in parallel or sequential, set to true for parallel | False |
->>>>>>> 9d89bb5 (Expose parallel parameter for node scenarios)
 BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" | 
 BMC_PASSWORD             | Only needed for Baremetal ( bm ) - IPMI/bmc password | "" |
 BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" |
@@ -69,7 +65,7 @@ BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc username 
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:
 ```bash
-$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:container-scenarios 
+$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:node-scenarios 
 ```
 
 The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:

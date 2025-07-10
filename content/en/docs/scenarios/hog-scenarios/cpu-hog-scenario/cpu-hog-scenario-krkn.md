@@ -30,3 +30,19 @@ kraken:
         - hog_scenarios:
             - scenarios/kube/cpu-hog.yml
 ```
+
+#### Node Targeting Examples
+
+Use the `node-name` parameter to target specific nodes:
+
+```yaml
+hog-type: cpu
+duration: 60
+cpu-load-percentage: 80
+node-name: "worker-1"
+
+# Target multiple nodes
+node-name:
+  - "worker-1"
+  - "worker-2"
+```

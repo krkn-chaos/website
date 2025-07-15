@@ -9,6 +9,20 @@ weight: 2
 The krknctl binary is available for download from [GitHub releases](https://github.com/krkn-chaos/krknctl/releases/latest) for supported operating systems and architectures. Extract the tarball and add the binary to your `$PATH`.
 
 ## Build from sources :
+
+### Fork and Clone the Repository
+Fork the repository 
+```bash
+$ git clone https://github.com/<github_user_id>/krknctl.git
+$ cd krknctl
+```
+
+Set your cloned local to track the upstream repository:
+```bash
+git remote add upstream https://github.com/krkn-chaos/krknctl
+```
+
+
 ### Linux:
 #### Dictionaries:
 To generate the random words we use the american dictionary, it is often available but if that's not the case:

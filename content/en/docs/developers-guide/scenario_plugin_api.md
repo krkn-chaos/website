@@ -1,7 +1,7 @@
 ---
 title: Adding scenarios via plugin api
 description:
-weight: 3
+weight: 1
 categories: [New scenarios, Placeholders]
 tags: [docs]
 ---
@@ -64,6 +64,8 @@ that will be executed.
 - `scenario_telemetry`
   - the `ScenarioTelemetry` object of the scenario that is currently executed
  
+{{% alert title="Note" %}} Helper functions for interactions in Krkn are part of [krkn-lib](https://github.com/krkn-chaos/krkn-lib). Please feel free to reuse and expand them as you see fit when adding a new scenario or expanding the capabilities of the current supported scenarios. {{% /alert %}}
+
 ### Return value:
 Returns 0 if the scenario succeeds and 1 if it fails.
 > [!WARNING]
@@ -143,6 +145,11 @@ providing details about the issue:
 The [ExampleScenarioPlugin](https://github.com/krkn-chaos/krkn/blob/main/krkn/tests/test_classes/example_scenario_plugin.py) class included in the tests folder can be used as a scaffolding for new plugins and it is considered
 part of the documentation.
 
-For any questions or further guidance, feel free to reach out to us on the 
-[Kubernetes workspace](https://kubernetes.slack.com/) in the `#krkn` channel. 
-We’re happy to assist. Now, __release the Krkn!__
+
+## Adding CI tests
+Depending on the complexity of the new scneario, it would be much appreciated if a CI test of the scenario would be added to our github action that gets run on each PR.  
+To add a test: 
+
+- Add a test script in the [CI tests](https://github.com/krkn-chaos/krkn/tree/main/CI/tests) folder 
+- Add scenario file that can run on a 1 node kind cluster
+- Add it to the list of tests to be run as part of the functional CI https://github.com/krkn-chaos/krkn/blob/9337052e7bf5c14ab38928792ea02cdf93da157c/.github/workflows/tests.yml#L79-L91

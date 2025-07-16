@@ -5,9 +5,6 @@ weight : 3
 date: 2017-01-05
 ---
 
-## Overview
-
-Creates iptables rules on one or more nodes to block incoming and outgoing traffic on a port in the node network interface. Can be used to block network based services connected to the node or to block inter-node communication.
 
 ## Configuration 
 

@@ -5,11 +5,7 @@ weight : 3
 date: 2017-01-05
 ---
 
-## Overview
-
-Creates iptables rules on one or more nodes to block incoming and outgoing traffic on a port in the node network interface. Can be used to block network based services connected to the node or to block inter-node communication.
-
-## Configuration 
+### Configuration 
 
 ```yaml
 - id: node_network_filter
@@ -39,8 +35,21 @@ for the common module settings please refer to the [documentation](docs/scenario
 - `ports`: the list of ports that will be filtered
 - `protocols`: the ip protocols to filter (tcp and udp)
 
+### Usage
 
-## Examples
+To enable hog scenarios edit the kraken config file, go to the section `kraken -> chaos_scenarios` of the yaml structure
+and add a new element to the list named `network_chaos_ng_scenarios` then add the desired scenario
+pointing to the `hog.yaml` file.
+```yaml
+kraken:
+    ...
+    chaos_scenarios:
+        - network_chaos_ng_scenarios:
+            - scenarios/kube/node-network-filter.yml
+```
 
-Please refer to the [use cases section](use-cases.md) for some real usage scenarios.
+
+### Examples
+
+Please refer to the [use cases section](docs/getting-started/use-cases.md) for some real usage scenarios.
 

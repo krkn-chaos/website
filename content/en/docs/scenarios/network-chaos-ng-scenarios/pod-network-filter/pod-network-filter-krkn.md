@@ -5,11 +5,8 @@ weight : 4
 date: 2017-01-05
 ---
 
-## Overview
 
-Creates iptables rules on one or more pods to block incoming and outgoing traffic on a port in the pod network interface. Can be used to block network based services connected to the pod or to block inter-pod communication.
-
-## Configuration 
+### Configuration 
 
 ```yaml
 - id: pod_network_filter
@@ -30,7 +27,7 @@ Creates iptables rules on one or more pods to block incoming and outgoing traffi
     - 80
 ```
 
-for the common module settings please refer to the [documentation](docs/scenarios/network-chaos-ng-scenarios/network-chaos-ng-scenarios-api/#basenetworkchaosconfig-base-module-configuration).
+for the common module settings please refer to the [documentation](../network-chaos-ng-scenario-api.md#basenetworkchaosconfig-base-module-configuration).
 
 - `ingress`: filters the incoming traffic on one or more ports. If set one or more network interfaces must be specified
 - `egress` : filters the outgoing traffic on one or more ports.
@@ -39,6 +36,19 @@ for the common module settings please refer to the [documentation](docs/scenario
 - `ports`: the list of ports that will be filtered
 - `protocols`: the ip protocols to filter (tcp and udp)
 
-## Examples
+### Usage
 
-Please refer to the [use cases section](use-cases.md) for some real usage scenarios.
+To enable hog scenarios edit the kraken config file, go to the section `kraken -> chaos_scenarios` of the yaml structure
+and add a new element to the list named `network_chaos_ng_scenarios` then add the desired scenario
+pointing to the `hog.yaml` file.
+```yaml
+kraken:
+    ...
+    chaos_scenarios:
+        - network_chaos_ng_scenarios:
+            - scenarios/kube/pod-network-filter.yml
+```
+
+### Examples
+
+Please refer to the [use cases section](docs/getting-started/use-cases.md) for some real usage scenarios.

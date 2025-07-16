@@ -39,4 +39,6 @@ table th:nth-of-type(3) {
 | [Syn Flood](docs/scenarios/syn-flood-scenario/_index.md) | syn_flood_scenarios | Generates a substantial amount of TCP traffic directed at one or more Kubernetes services |
 | [Time skew](docs/scenarios/time-scenarios/_index.md) | time_scenarios | Skews the time and date                            |     
 | [Zone outages](docs/scenarios/zone-outage-scenarios/_index.md) | zone_outages_scenarios | Creates zone outage to observe the impact on the cluster, applications |
-   
+
+
+{{< notice type="info" >}}Explore our [use cases](docs/getting-started/use-cases.md) page to see if any align with your needs {{< /notice >}}

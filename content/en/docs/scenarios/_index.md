@@ -25,7 +25,7 @@ table th:nth-of-type(3) {
 | [Container failures](docs/scenarios/container-scenario/_index.md) | container_scenarios | Injects container failures based on the provided kill signal | 
 | [KubeVirt VM Outage](docs/scenarios/kubevirt-vm-outage-scenario/_index.md) | kubevirt_vm_outage | Simulates VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery mechanisms |
 | [Network Chaos](docs/scenarios/network-chaos-scenario/_index.md) | network_chaos_scenarios | Introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using tc and Netem |
-| [Network Chaos NG](docs/scenarios/network-chaos-ng-scenario/_index.md) | network_chaos_ng_scenarios | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios |
+| [Network Chaos NG](docs/scenarios/network-chaos-ng-scenarios/_index.md) | network_chaos_ng_scenarios | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios |
 | [Node CPU Hog](docs/scenarios/hog-scenarios/cpu-hog-scenario/_index.md) | hog_scenarios | Hogs CPU on the targeted nodes |
 | [Node IO Hog](docs/scenarios/hog-scenarios/io-hog-scenario/_index.md) | hog_scenarios| Hogs io on the targeted nodes              |    
 | [Node Memory Hog](docs/scenarios/hog-scenarios/memory-hog-scenario/_index.md) | hog_scenarios | Hogs memory on the targeted nodes   |                       

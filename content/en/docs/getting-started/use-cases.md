@@ -7,7 +7,7 @@ categories: [Best Practices, Placeholders]
 tags: [docs]
 ---
 
-# [Network Chaos NG](docs/scenarios/network-chaos-ng-scenario/_index.md)
+# [Network Chaos NG](docs/scenarios/network-chaos-ng-scenarios/_index.md)
 
 {{< notice type="info" >}}To utilize the Node Network Filter and Pod Network Filter scenarios you'll need to run privileged pods on your cluster {{< /notice >}}
 

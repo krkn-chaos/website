@@ -27,3 +27,4 @@ Is the base class that contains the common parameters shared by all the Network 
 - `instance_count` if greater than 0 picks `instance_count` elements from the targets selected by the filters randomly
 - `execution` if more than one target are selected by the selector the scenario can target the resources both in `serial` or `parallel`.
 - `namespace` the namespace were the scenario workloads will be deployed
+- `taints` : List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]

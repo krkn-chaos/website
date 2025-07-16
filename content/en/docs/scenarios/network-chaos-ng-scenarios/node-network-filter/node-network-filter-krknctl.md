@@ -4,43 +4,31 @@ description: >
 weight : 3
 date: 2017-01-05
 ---
+No problem! Here's the data you provided, formatted as a Markdown table.
 
-## Overview
+---
 
-Creates iptables rules on one or more nodes to block incoming and outgoing traffic on a port in the node network interface. Can be used to block network based services connected to the node or to block inter-node communication.
-
-## Configuration 
-
-```yaml
-- id: node_network_filter
-  wait_duration: 300
-  test_duration: 100
-  label_selector: "kubernetes.io/hostname=ip-10-0-39-182.us-east-2.compute.internal"
-  instance_count: 1
-  execution: parallel
-  namespace: 'default'
-  # scenario specific settings
-  ingress: false
-  egress: true
-  target: node-name
-  interfaces: []
-  protocols:
-   - tcp
-  ports:
-    - 2049
+```bash
+krknctl run node-network-filter (optional: --<parameter>:<value> )
 ```
 
-for the common module settings please refer to the [documentation](docs/scenarios/network-chaos-ng-scenarios/network-chaos-ng-scenarios-api/#basenetworkchaosconfig-base-module-configuration).
 
-- `ingress`: filters the incoming traffic on one or more ports. If set one or more network interfaces must be specified
-- `egress` : filters the outgoing traffic on one or more ports.
-- `target`: the node name (if label_selector not set)
-- `interfaces`: a list of network interfaces where the incoming traffic will be filtered
-- `ports`: the list of ports that will be filtered
-- `protocols`: the ip protocols to filter (tcp and udp)
+Can also set any global variable listed [here](../../all-scenario-env-krknctl.md)
 
+### Pod Network Filter Parameters
 
-## Examples
-
-Please refer to the [use cases section](use-cases.md) for some real usage scenarios.
-
+| Argument          | Type    | Description                                                                 | Required | Default Value                       |
+| :---------------- | :------ | :-------------------------------------------------------------------------- | :------- | :---------------------------------- |
+| `--chaos-duration`| number  | Chaos Duration                                                              | false    | 60                                  |
+| `--pod-selector`  | string  | Pod Selector                                                                | false    |                                     |
+| `--pod-name`      | string  | Pod Name                                                                    | false    |                                     |
+| `--namespace`     | string  | Namespace                                                                   | false    | default                             |
+| `--instance-count`| number  | Number of instances to target                                               | false    | 1                                   |
+| `--execution`     | enum    | Execution mode                                                              | false    |                                     |
+| `--ingress`       | boolean | Filter incoming traffic                                                     | true     |                                     |
+| `--egress`        | boolean | Filter outgoing traffic                                                     | true     |                                     |
+| `--interfaces`    | string  | Network interfaces to filter outgoing traffic (if more than one separated by comma) | false    |                                     |
+| `--ports`         | string  | Network ports to filter traffic (if more than one separated by comma)       | true     |                                     |
+| `--image`         | string  | The network chaos injection workload container image                        | false    | quay.io/krkn-chaos/krkn-network-chaos:latest |
+| `--protocols`     | string  | The network protocols that will be filtered                                 | false    | tcp                                 |
+| `--taints`| String | List of taints for which tolerations need to created | false ||

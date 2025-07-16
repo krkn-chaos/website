@@ -24,6 +24,7 @@ date: 2017-01-05
    - tcp
   ports:
     - 2049
+  taints: []
 ```
 
 for the common module settings please refer to the [documentation](docs/scenarios/network-chaos-ng-scenarios/network-chaos-ng-scenarios-api/#basenetworkchaosconfig-base-module-configuration).
@@ -34,6 +35,7 @@ for the common module settings please refer to the [documentation](docs/scenario
 - `interfaces`: a list of network interfaces where the incoming traffic will be filtered
 - `ports`: the list of ports that will be filtered
 - `protocols`: the ip protocols to filter (tcp and udp)
+- `taints` : List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]
 
 ### Usage
 

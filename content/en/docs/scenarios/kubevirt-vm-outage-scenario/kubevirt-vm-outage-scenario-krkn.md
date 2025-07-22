@@ -2,7 +2,7 @@
 title: KubeVirt VM Outage Scenario - Kraken
 description: Detailed implementation of the KubeVirt VM Outage Scenario in Kraken
 date: 2025-05-17
-weight: 1
+weight: 2
 ---
 
 # KubeVirt VM Outage Scenario in Kraken

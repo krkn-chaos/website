@@ -17,6 +17,7 @@ Config components:
 * [Tunings](#tunings)
 * [Telemetry](#telemetry)
 * [Health Checks](#health-checks)
+* [Virt Checks](#virt-checks)
 
 ## Kraken 
 This section defines scenarios and specific data to the chaos run 
@@ -180,6 +181,19 @@ Utilizing health check endpoints to observe application behavior during chaos in
    
    **exit_on_failure**: If value is True exits when health check failed for application, values can be True/False
 
+## Virt Checks                                              
+Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](virt-checks.md)
+
+**interval**: Interval in seconds to perform virt checks, default value is 2 seconds
+
+**namespace**: VMI Namespace, needs to be set or checks won't be run
+
+**name**: Provided VMI regex name to match on; optional, if left blank will find all names in namespace
+
+**only_failures**: Boolean of whether to show all VMI's failures and successful ssh connection (False), or only failure status' (True)
+
+**disconnected**: Boolean of how to try to connect to the VMIs; if True will use the ip_address to try ssh from within a node, if false will use the name and uses virtctl to try to connect; Default is False
+
 
 ## Sample Config file
 
@@ -300,4 +314,9 @@ health_checks:                                              # Utilizing health c
           bearer_token:                                     # Bearer token for authentication if any
           auth:                                             # Provide authentication credentials (username , password) in tuple format if any, ex:("admin","secretpassword")
           exit_on_failure:                                  # If value is True exits when health check failed for application, values can be True/False
+kubevirt_checks:                                            # Utilizing virt check endpoints to observe ssh ability to VMI's during chaos injection.
+    interval: 2                                             # Interval in seconds to perform virt checks, default value is 2 seconds
+    namespace:                                              # Namespace where to find VMI's
+    name:                                                   # Regex Name style of VMI's to watch; optional, if left blank will find all names in namespace
+    only_failures: False                                    # Boolean of whether to show all VMI's failures and successful ssh connection (False), or only failure status' (True) 
 ```

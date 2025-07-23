@@ -19,6 +19,7 @@ The following node chaos scenarios are supported:
 9. **node_crash_scenario**: Scenario to crash the node instance. _Can be used with generic cloud type or when you don't have access to cloud provider_
 10. **stop_start_helper_node_scenario**: Scenario to stop and start the helper node and check service status. _Need access to cloud provider_
 10. **node_block_scenario**: Scenario to block inbound and outbound traffic from other nodes to a specific node for a set duration (only for Azure). _Need access to cloud provider_
+11. **node_disk_detach_attach_scenario**: Scenario to detach and reattach disks (only for baremetals).
 
 ## Clouds
 Supported cloud supported: 

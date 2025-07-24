@@ -18,7 +18,7 @@ How to:
 NOTE: krkn-hub and krknctl only allow you to run 1 scenario type and scenario file at a time (you can run multiple iterations of the same files). While krkn allows you to run multiple different types of scenarios and scenario files 
 
 ## Krkn
-Get krkn set up with the help of these [directions](../installation/krkn.md)
+Get krkn set up with the help of these [directions](../installation/krkn.md) if you haven't already
 
 See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenarios
 

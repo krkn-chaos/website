@@ -31,3 +31,7 @@ You can take advantage of the [get_docker_params.sh](https://github.com/krkn-cha
 For example: `docker run $(./get_docker_params.sh) --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/redhat-chaos/krkn-hub:power-outages`
 
 {{% alert title="Tip" %}}Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands: `kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>` {{% /alert %}}
+
+
+### What's next?
+Please refer to the [getting started guide](/docs/getting-started/_index.md), pick the [scenarios](/docs/scenarios/_index.md) of interest and follow the instructions to run them via Krkn, Krkn-hub or Krknctl. Running via Krkn-hub or Krknctl are recommended for ease of use and better user experience.

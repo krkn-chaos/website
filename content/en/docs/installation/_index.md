@@ -4,7 +4,7 @@ title: Installation
 description: Details on how to install krkn and krkn-hub
 categories: [Installation]
 tags: [install, docs]
-weight: 3
+weight: 2
 ---
 
 <!-- {{% pageinfo %}}

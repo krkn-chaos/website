@@ -91,3 +91,7 @@ If both Podman and Docker are installed be sure that the docker compatibility is
 #### Linux:
 Check that the user has been added to the `docker` group and can correctly connect to the Docker unix socket  
 running the comman `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
+
+
+### What's next?
+Please refer to the [getting started guide](/docs/getting-started/_index.md), pick the [scenarios](/docs/scenarios/_index.md) of interest and follow the instructions to run them via Krkn, Krkn-hub or Krknctl. Running via Krkn-hub or Krknctl are recommended for ease of use and better user experience.

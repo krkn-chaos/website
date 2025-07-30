@@ -1,7 +1,7 @@
 ---
 title: What is krknctl?
 description: Krkn CLI tool
-weight: 2
+weight: 1
 ---
 
 `Krknctl` is a tool designed to run and orchestrate [krkn](krkn.md) chaos scenarios utilizing 

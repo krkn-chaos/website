@@ -75,11 +75,7 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 **check_applicaton_routes**:  When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run
 
 
-## Performance Monitoring 
-**deploy_dashboards**:  Install a mutable grafana and load the performance dashboards. Enable this only when running on OpenShift
-
-**repo**: Github repo of dashboards that you want to load. A great starter of some performance related dashbaords can be found [here](https://github.com/cloud-bulldozer/performance-dashboards.git)
-
+## Performance Monitoring
 **prometheus_url**:  The prometheus url/route is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes.
 
 **prometheus_bearer_token**: The bearer token is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes. This is needed to authenticate with prometheus.

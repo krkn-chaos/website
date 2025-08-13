@@ -49,6 +49,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 Parameter               | Description                                                           | Default
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 NAMESPACE               | Required - Namespace of the pod to which filter need to be applied    | ""                                     |
+IMAGE               | Image used to disrupt network on a pod   | "quay.io/krkn-chaos/krkn:tools"                                     |
 LABEL_SELECTOR          | Label of the pod(s) to target                                         | ""                                   | 
 POD_NAME                | When label_selector is not specified, pod matching the name will be selected for the chaos scenario | "" |
 EXCLUDE_LABEL           | Pods matching this label will be excluded from the chaos even if they match other criteria | "" |
@@ -58,6 +59,9 @@ INGRESS_PORTS           | Ingress ports to block ( needs to be a list ) | [] i.e
 EGRESS_PORTS            | Egress ports to block ( needs to be a list ) | [] i.e all ports |
 WAIT_DURATION           | Ensure that it is at least about twice of test_duration | 300 |
 TEST_DURATION           | Duration of the test run | 120 |
+
+{{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
+
 
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}

@@ -51,6 +51,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 Parameter               | Description                                                           | Default
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 DURATION                | Duration in seconds - during with network chaos will be applied.         | 300                                  |
+IMAGE | Image used to disrupt network on a pod  |  quay.io/krkn-chaos/krkn:tools | 
 NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | ""                                   |
 LABEL_SELECTOR          | When NODE_NAME is not specified, a node with matching label_selector is selected for running.          | node-role.kubernetes.io/master       |
 INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                   |
@@ -64,6 +65,7 @@ EGRESS          | Dictonary of values to set  network latency(latency: 50ms), pa
 Parameter               | Description                                                           | Default
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 DURATION                | Duration in seconds - during with network chaos will be applied.         | 300                                  |
+IMAGE | Image used to disrupt network on a pod  |  quay.io/krkn-chaos/krkn:tools | 
 TARGET_NODE_AND_INTERFACE               |  # Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: {ip-10-0-216-2.us-west-2.compute.internal: [ens5]}      | ""                                   |
 LABEL_SELECTOR          | When NODE_NAME is not specified, a node with matching label_selector is selected for running.          | node-role.kubernetes.io/master       |
 INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                   |
@@ -71,9 +73,15 @@ EXECUTION          |  Used to specify whether you want to apply filters on inter
 NETWORK_PARAMS     | latency, loss and bandwidth are the three supported network parameters to alter for the chaos test. For example: {latency: 50ms, loss: '0.02'} | "" |
 WAIT_DURATION           | Ensure that it is at least about twice of test_duration               | 300                                   |
 
+{{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
+
+
+
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:
 ```bash
 $ podman run --name=<container_name> --net=host --env-host=true -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:network-chaos
 ```
+
+

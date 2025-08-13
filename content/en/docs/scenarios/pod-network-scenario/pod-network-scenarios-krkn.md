@@ -15,7 +15,10 @@ weight: 1
         - 8443                     # Blocks 8443, Default [], i.e. all ports.
     label_selector: 'component=ui' # Blocks access to openshift console
     exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
+    image: quay.io/krkn-chaos/krkn:tools
 ```
+
+
 ### Pod Network shaping
 Scenario to introduce network latency, packet loss, and bandwidth restriction in the Pod's network interface. The purpose of this scenario is to observe faults caused by random variations in the network.
 
@@ -28,6 +31,7 @@ Scenario to introduce network latency, packet loss, and bandwidth restriction in
     exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
     network_params:
         latency: 500ms             # Add 500ms latency to egress traffic from the pod.
+    image: quay.io/krkn-chaos/krkn:tools
 ```
 ##### Sample scenario config for ingress traffic shaping (using plugin)
 ```yaml
@@ -38,6 +42,7 @@ Scenario to introduce network latency, packet loss, and bandwidth restriction in
     exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
     network_params:
         latency: 500ms             # Add 500ms latency to egress traffic from the pod.
+    image: quay.io/krkn-chaos/krkn:tools
 ```
 
 ##### Steps

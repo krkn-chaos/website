@@ -16,6 +16,7 @@ Scenario specific parameters:
 | Parameter      | Description    | Type      |  Default | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ |
 ~-~-traffic-type | Selects the network chaos scenario type can be ingress or egress | enum |   ingress|egress
+~-~-image | Image used to disrupt network on a pod  | string |  quay.io/krkn-chaos/krkn:tools | 
 ~-~-duration| Duration in seconds - during with network chaos will be applied. | number| 300 | 
 ~-~-label-selector| When NODE_NAME is not specified, a node with matching label_selector is selected for running. | string| node-role.kubernetes.io/master |
 ~-~-execution parallel|serial: Execute each of the egress option as a single scenario(parallel) or as separate scenario(serial). | enum| parallel| ~-~-instance-count| Targeted instance count matching the label selector. | number| 1| 

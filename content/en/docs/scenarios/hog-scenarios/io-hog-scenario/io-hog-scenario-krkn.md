@@ -31,3 +31,24 @@ kraken:
         - hog_scenarios:
             - scenarios/kube/io-hog.yml
 ```
+
+#### Node Targeting Examples
+
+Use the `node-name` parameter to target specific nodes:
+
+```yaml
+hog-type: io
+duration: 180
+io-write-bytes: "50m"
+node-name: "worker-1"
+io-target-pod-volume:
+  hostPath:
+    path: "/tmp"
+  name: "node-volume"
+
+# Using environment variable for CI/CD (set NODE_NAME=worker-1 before running)
+hog-type: io
+duration: 180
+io-write-bytes: "50m"
+# node-name will be populated from NODE_NAME environment variable
+```

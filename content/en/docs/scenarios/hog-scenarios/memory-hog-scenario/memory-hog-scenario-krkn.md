@@ -27,3 +27,17 @@ kraken:
         - hog_scenarios:
             - scenarios/kube/memory-hog.yml
 ```
+
+#### Node Targeting Examples
+
+Use the `node-name` parameter to target specific nodes:
+
+```yaml
+hog-type: memory
+duration: 60
+memory-vm-bytes: "80%"
+node-name: "worker-1"
+
+# Target multiple nodes with comma-separated format
+node-name: "worker-1,worker-2"
+```

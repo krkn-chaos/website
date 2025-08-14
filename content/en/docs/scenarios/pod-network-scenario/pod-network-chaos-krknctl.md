@@ -16,6 +16,7 @@ Scenario specific parameters:
 | Parameter      | Description    | Type      |  Default | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
 ~-~-namespace | Namespace of the pod to which filter need to be applied  | string |
+~-~-image | Image used to disrupt network on a pod  | string |  quay.io/krkn-chaos/krkn:tools | 
 ~-~-label-selector | When pod_name is not specified, pod matching the label will be selected for the chaos scenario  | string |
 ~-~-pod-name | When label_selector is not specified, pod matching the name will be selected for the chaos scenario  | string | 
 ~-~-instance-count | Targeted instance count matching the label selector  | number |  1 |

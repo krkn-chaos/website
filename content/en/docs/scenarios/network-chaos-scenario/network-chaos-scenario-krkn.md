@@ -18,6 +18,7 @@ network_chaos:                                    # Scenario to create an outage
     latency: 500ms
     loss: 50%                                    # percentage
     bandwidth: 10mbit
+  image: quay.io/krkn-chaos/krkn:tools
 ```
 
 ##### Sample scenario config for ingress traffic shaping (using a plugin)
@@ -39,6 +40,7 @@ network_chaos:                                    # Scenario to create an outage
         bandwidth: 10mbit
     wait_duration: 120
     test_duration: 60
+    image: quay.io/krkn-chaos/krkn:tools
 ```
 
 Note: For ingress traffic shaping, ensure that your node doesn't have any [IFB](https://wiki.linuxfoundation.org/networking/ifb) interfaces already present. The scenario relies on creating IFBs to do the shaping, and they are deleted at the end of the scenario.

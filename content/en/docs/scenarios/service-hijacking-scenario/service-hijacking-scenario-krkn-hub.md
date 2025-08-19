@@ -33,12 +33,12 @@ Without the --env-host option you'll have to set each enviornment variable on th
 ```bash
 $ export SCENARIO_BASE64="$(base64 -w0 <scenario_file>)"
 $ docker run $(./get_docker_params.sh) --name=<container_name> \
-                                       --net=host \
+                                       --net=host --pull=always \
                                        -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
                                        -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:service-hijacking
 OR 
 $ docker run --name=<container_name> -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
-                                     --net=host \
+                                     --net=host --pull=always \
                                      -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
                                      -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:service-hijacking
 
@@ -47,7 +47,7 @@ $ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 ```
 
 {{% alert title="Tip" %}} ecause the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
-```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
+```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
 #### Supported parameters
 
 The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
@@ -65,7 +65,7 @@ See list of variables that apply to all scenarios [here](all_scenarios_env.md) t
 ```bash
 $ podman run -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
              --name=<container_name> \
-             --net=host \
+             --net=host --pull=always \
              --env-host=true \
              -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml \
              -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts \

@@ -15,7 +15,7 @@ You must set up the scenario in a local file following the [scenario syntax](htt
 If enabling Cerberus to monitor the cluster and pass/fail the scenario post chaos, refer [docs](https://krkn-chaos.dev/docs/cerberus/installation/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
 
 ```bash
-$ podman run --name=<container_name> --net=host \
+$ podman run --name=<container_name> --net=host --pull=always \
     -env-host=true \
     -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
     -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
@@ -24,20 +24,20 @@ $ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 ```
 
 ```bash
-$ docker run $(./get_docker_params.sh) --name=<container_name> --net=host \
+$ docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always \
     -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
     -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
 OR 
 $ docker run \
      -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
-     --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
+     --net=host --pull=always -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
 
 $ docker logs -f <container_name or container_id> # Streams Kraken logs
 $ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 
 **TIP**: Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
-```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:<scenario>```
+```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:<scenario>```
 
 #### Supported parameters
 See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables

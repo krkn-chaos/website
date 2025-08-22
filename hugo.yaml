@@ -192,6 +192,10 @@ params:
       #   icon: fa fa-envelope
       #   desc: Discuss development issues around the project
 
+  # https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#diagrams-with-mermaid
+  mermaid:
+    version: 11.6.0
+
 module:
   # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
   # workspace: docsy.work

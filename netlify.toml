@@ -9,10 +9,14 @@ functions = "netlify/functions"
 [build.environment]
 GO_VERSION = "1.22.2"
 NODE_VERSION = "18"
+SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 
 [context.production]
 command = "npm install && npm run build:production"
 functions = "netlify/functions"
+
+[context.production.environment]
+SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 
 # Function-specific settings
 [functions]

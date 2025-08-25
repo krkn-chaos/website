@@ -28,6 +28,7 @@ resources/
 .env
 .env.local
 api/.env
+
 # Logs
 *.log
 hugo.log

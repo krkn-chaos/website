@@ -15,7 +15,7 @@ module.exports = {
         provider: process.env.LLM_PROVIDER || 'gemini', // 'openai', 'anthropic', or 'gemini'
         apiKey: process.env.LLM_API_KEY, // REQUIRED: Set in .env file
         model: process.env.LLM_MODEL || 'gemini-2.5-flash', // supported models: gemini-1.5-flash, gemini-1.5-pro, gemini-2.5-flash
-        maxTokens: parseInt(process.env.LLM_MAX_TOKENS) || 2000,
+        maxTokens: parseInt(process.env.LLM_MAX_TOKENS) || 4000,
         temperature: parseFloat(process.env.LLM_TEMPERATURE) || 0.7
     },
     

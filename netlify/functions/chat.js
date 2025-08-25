@@ -61,7 +61,7 @@ const initializeServices = async () => {
             llmProvider: process.env.LLM_PROVIDER || 'gemini',
             apiKey: process.env.LLM_API_KEY,
             model: process.env.LLM_MODEL || 'gemini-2.5-flash',
-            maxTokens: parseInt(process.env.LLM_MAX_TOKENS) || 1000,
+            maxTokens: parseInt(process.env.LLM_MAX_TOKENS) || 4000,
             temperature: parseFloat(process.env.LLM_TEMPERATURE) || 0.7
         });
     }

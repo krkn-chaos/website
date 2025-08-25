@@ -37,27 +37,33 @@ const transports = [
     // Console transport
     new winston.transports.Console({
         format: format
-    }),
-    
-    // File transport for errors
-    new winston.transports.File({
-        filename: 'logs/error.log',
-        level: 'error',
-        format: winston.format.combine(
-            winston.format.timestamp(),
-            winston.format.json()
-        )
-    }),
-    
-    // File transport for all logs
-    new winston.transports.File({
-        filename: 'logs/combined.log',
-        format: winston.format.combine(
-            winston.format.timestamp(),
-            winston.format.json()
-        )
     })
 ];
+
+// Only add file transports if not in serverless environment
+const isServerless = process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+if (!isServerless) {
+    transports.push(
+        // File transport for errors
+        new winston.transports.File({
+            filename: 'logs/error.log',
+            level: 'error',
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json()
+            )
+        }),
+        
+        // File transport for all logs
+        new winston.transports.File({
+            filename: 'logs/combined.log',
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json()
+            )
+        })
+    );
+}
 
 // Create the logger
 const logger = winston.createLogger({
@@ -73,13 +79,15 @@ if (process.env.NODE_ENV === 'production') {
     logger.remove(winston.transports.Console);
 }
 
-// Create logs directory if it doesn't exist
-const fs = require('fs');
-const path = require('path');
+// Create logs directory if it doesn't exist (only for non-serverless environments)
+if (!isServerless) {
+    const fs = require('fs');
+    const path = require('path');
 
-const logsDir = path.join(__dirname, '../logs');
-if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir, { recursive: true });
+    const logsDir = path.join(__dirname, '../logs');
+    if (!fs.existsSync(logsDir)) {
+        fs.mkdirSync(logsDir, { recursive: true });
+    }
 }
 
 module.exports = logger;

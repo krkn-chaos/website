@@ -1,25 +1,56 @@
 {
   "name": "krkn-website",
   "version": "1.0.0",
-  "description": "Krkn chaos engineering documentation website",
+  "description": "Krkn chaos engineering documentation website with AI chatbot",
+  "repository": "github:krkn-chaos/website",
+  "homepage": "https://krkn-chaos.dev",
+  "author": "Krkn Team",
+  "license": "Apache-2.0",
+  "scripts": {
+    "_build": "npm run _hugo-dev --",
+    "_check:links": "echo IMPLEMENTATION PENDING for check-links; echo",
+    "_hugo": "hugo --cleanDestinationDir",
+    "_hugo-dev": "npm run _hugo -- -e dev -DFE",
+    "_local": "npx cross-env HUGO_MODULE_WORKSPACE=docsy.work",
+    "_serve": "npm run _hugo-dev -- --minify serve --renderToMemory",
+    "build:preview": "npm run _hugo-dev -- --minify --baseURL \"${DEPLOY_PRIME_URL:-/}\"",
+    "build:production": "npm run _hugo -- --minify",
+    "build": "npm run _build -- ",
+    "check:links:all": "HTMLTEST_ARGS= npm run _check:links",
+    "check:links": "npm run _check:links",
+    "clean": "rm -Rf public/* resources",
+    "local": "npm run _local -- npm run",
+    "precheck:links:all": "npm run build",
+    "precheck:links": "npm run build",
+    "postbuild:preview": "npm run _check:links",
+    "postbuild:production": "npm run _check:links",
+    "serve": "npm run _serve",
+    "test": "npm run check:links",
+    "dev": "hugo server --buildDrafts --buildFuture"
+  },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5",
-    "dotenv": "^16.3.1",
     "axios": "^1.6.2",
-    "marked": "^10.0.0",
     "cheerio": "^1.0.0-rc.12",
-    "natural": "^6.10.0",
-    "fuse.js": "^7.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
     "express-validator": "^7.0.1",
+    "fuse.js": "^7.0.0",
+    "helmet": "^7.1.0",
+    "marked": "^10.0.0",
+    "natural": "^6.10.0",
     "winston": "^3.11.0"
   },
-  "scripts": {
-    "build": "hugo --gc --minify",
-    "build:preview": "hugo --gc --minify --buildDrafts --buildFuture",
-    "build:production": "hugo --gc --minify",
-    "dev": "hugo server --buildDrafts --buildFuture"
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
+    "hugo-extended": "0.133.0",
+    "postcss-cli": "^11.0.0"
+  },
+  "private": true,
+  "prettier": {
+    "proseWrap": "always",
+    "singleQuote": true
   }
 }

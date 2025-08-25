@@ -1,7 +1,27 @@
-.idea
-.DS
-*.pyc
-venv
+# Node.js dependencies
+api/node_modules/
+api/npm-debug.log*
+api/.npm
+
+# Hugo build files  
+public/
+resources/
+
+# Environment files
+.env
+.env.local
+api/.env
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
 .DS_Store
-**/.DS_Store
-public/**
+Thumbs.db
+
+# Logs
+*.log
+hugo.log
+api/logs/
+api/server.log

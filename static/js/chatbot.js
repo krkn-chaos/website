@@ -5,7 +5,7 @@ class KrknChatbot {
         // Use relative URL for production deployment, falls back to localhost for development
         this.apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:3001/api/chat' 
-            : '/api/chat';
+            : '/.netlify/functions/chat';
         this.createChatbot();
     }
 

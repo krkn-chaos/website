@@ -1,3 +1,14 @@
+// Polyfill for Web APIs in Node.js environment
+if (typeof globalThis.File === 'undefined') {
+    globalThis.File = class File {
+        constructor(bits, name, options = {}) {
+            this.name = name;
+            this.type = options.type || '';
+            this.lastModified = options.lastModified || Date.now();
+        }
+    };
+}
+
 const ChatService = require('../../api/services/ChatService');
 const DocumentationIndex = require('../../api/services/DocumentationIndex');
 

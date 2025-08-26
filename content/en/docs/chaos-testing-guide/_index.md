@@ -3,7 +3,7 @@ title: Chaos Testing Guide
 description: Chaos testing guide with strategies and methodologies
 categories: 
 tags: 
-weight: 4
+weight: 0
 ---
 
 ### Table of Contents

@@ -1,7 +1,7 @@
 ---
-title: Running Chaos AI tests
-description: 
-weight : 2
+title: Getting Started
+description: How to deploy sample microservice and run Chaos AI test
+weight : 1
 categories: [Best Practices, Placeholders]
 tags: [docs]
 ---

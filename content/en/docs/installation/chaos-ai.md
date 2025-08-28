@@ -1,8 +1,8 @@
 ---
-title: chaos-ai
-description: how to install chaos ai
+title: Chaos AI
+description: How to install Chaos AI
 tags: [docs]
-weight: 2
+weight: 4
 ---
 
 

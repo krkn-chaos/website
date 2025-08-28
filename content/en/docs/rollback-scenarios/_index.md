@@ -57,12 +57,17 @@ Krkn provides `list-rollback` and `execute-rollback` commands for managing rollb
         └── 1755523261039221000-0ddd9f07-bcd8-47bc-bf89-f9c4f2503ead
         ```
 - `execute-rollback`: Execute rollback version files and cleanup if successful
-    - `-r RUN_UUID, --run_uuid=RUN_UUID` Flag: **Required**. Specify the Run UUID to filter the execution of rollback version files.
+    - By default, **all version files** located in the `rollback_versions_directory` (`/tmp/kraken-rollback/`) will be executed.
+    - The version files will be renamed with `.executed` suffix for further inspection.
+    - `-r RUN_UUID, --run_uuid=RUN_UUID` Flag: **Optional**. Specify the Run UUID to filter the execution of rollback version files.
     - `-s SCENARIO_TYPE, --scenario_type=SCENARIO_TYPE` Flag: **Optional**. Specify the Scenario Type to filter the execution of rollback version files.
     - **Note**: The Krkn program will leverage `importlib` to dynamically import the rollback callable function and information needed for execution, and **execute them in the Krkn program context** instead of using subprocesses or external executables.
     - Example Usage:
         ```bash
-        # Should at least filter by Run UUID
+        # Without filtering
+        python run_kraken.py execute-rollback --config config/config.yaml
+
+        # With filtering by Run UUID
         python run_kraken.py execute-rollback --config config/config.yaml -r <run_uuid>
 
         # With additional filtering by Scenario Type
@@ -112,15 +117,16 @@ flowchart TD
     Loop -- Chaos Scenario --> RollbackSetup[Set rollback_callable and flush version file to disk before making any change]
     RollbackSetup --> ClusterChange[Make change to cluster]
     ClusterChange --> ErrorCheck{Unexpected error during the run?}
-    ErrorCheck -- Yes --> ExecuteRollback[Execute the version file]
+    ErrorCheck -- Yes --> ExecuteRollback[Execute the version file, then rename it by adding the .executed suffix.]
+    ExecuteRollback --> RunComplete[Run Complete]
     ErrorCheck -- No --> Cleanup[Cleanup version file]
-    ExecuteRollback --> Cleanup
-    Cleanup --> Loop
+    Cleanup --> RunComplete
+    RunComplete --> Loop
 ```
 
 
 1. **Set rollback callable**: Krkn will flush the corresponding `rollback_callable` function including variable state into Python version file before making any change to the cluster. There might be multiple version files created for a single chaos scenario, since there can be multiple steps changing the cluster state.
-2. **Execute version file**: If an unexpected error occurs, Krkn will execute the flushed version file to restore the cluster to its previous state.
+2. **Execute version file**: If an unexpected error occurs, Krkn will execute the flushed version file to restore the cluster to its previous state, then rename it by adding the `.executed` suffix for further inspection.
 3. **Cleanup**: If the rollback is successful, Krkn will cleanup all version files created during the chaos scenario. If not, the version files will remain on disk for further inspection and debugging.
 
 ### Version Files Directory Structure

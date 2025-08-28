@@ -1,12 +1,27 @@
-# Hugo build configuration for Netlify
+# Hugo build configuration for Netlify with Chatbot Functions
 # (https://gohugo.io/hosting-and-deployment/hosting-on-netlify/#configure-hugo-version-in-netlify)
 
 [build]
-command = "npm run build:preview"
+command = "npm install && npm run build:preview"
 publish = "public"
+functions = "netlify/functions"
 
 [build.environment]
 GO_VERSION = "1.22.2"
+NODE_VERSION = "20"
+SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 
 [context.production]
-command = "npm run build:production"
+command = "npm install && npm run build:production"
+functions = "netlify/functions"
+
+[context.production.environment]
+SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
+
+# Function-specific settings
+[functions]
+directory = "netlify/functions"
+node_bundler = "esbuild"
+
+# Environment variables - set these in Netlify dashboard:
+# LLM_API_KEY, LLM_PROVIDER, LLM_MODEL, DAILY_CHAT_LIMIT

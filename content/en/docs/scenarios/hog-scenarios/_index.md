@@ -27,7 +27,6 @@ These scenarios involve deploying one or more workloads in the cluster. Based on
 |`taints`| list (Optional) default [] | list of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]|
 | `number-of-nodes` | number (Optional) | restricts the number of selected nodes by the selector|
 
-
 ### Available Scenarios
 #### Hog scenarios:
 - [CPU Hog](/docs/scenarios/hog-scenarios/cpu-hog-scenario/_index.md)

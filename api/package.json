@@ -1,0 +1,37 @@
+{
+  "name": "krkn-chatbot-api",
+  "version": "1.0.0",
+  "description": "Backend API for Krkn documentation chatbot",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build-index": "node scripts/build-documentation-index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "marked": "^10.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "natural": "^6.10.0",
+    "fuse.js": "^7.0.0",
+    "express-validator": "^7.0.1",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "chatbot",
+    "krkn",
+    "chaos-engineering",
+    "documentation",
+    "llm"
+  ],
+  "author": "Krkn Team",
+  "license": "Apache-2.0"
+}

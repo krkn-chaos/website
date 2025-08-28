@@ -9,6 +9,7 @@ weight: 4.5
 ### Table of Contents
 
 - [Concept](#concept)
+- [Supported Rollback Scenarios](#supported-rollback-scenarios)
 - [Rollback Command](#rollback-command)
 - [Configuration of Rollback](#configuration-of-rollback)
 - [Details of Rollback Scenario](#details-of-rollback-scenario)
@@ -25,6 +26,18 @@ With this approach, Krkn ensures:
 - Version files clearly document the changes made during chaos scenarios in a human-readable format.
 - Specific changes can be easily identified and restored during rollback.
 - A concise and transparent history of all modifications made throughout chaos testing.
+
+
+## Supported Rollback Scenarios
+
+Krkn supports rollback for the following scenarios.
+
+- [Application outages](../scenarios/application-outage/_index.md)
+- [KubeVirt VM Outage](../scenarios/kubevirt-vm-outage-scenario/_index.md)
+- [Hog Scenarios](../scenarios/hog-scenarios/_index.md)
+    - [Node CPU Hog](../scenarios/hog-scenarios/cpu-hog-scenario/_index.md)
+    - [Node IO Hog](../scenarios/hog-scenarios/io-hog-scenario/_index.md)
+    - [Node Memory Hog](../scenarios/hog-scenarios/memory-hog-scenario/_index.md)
 
 ## Rollback Command
 

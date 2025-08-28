@@ -7,6 +7,19 @@ weight: 3
 
 This scenario enables the simulation of VM-level disruptions in clusters where KubeVirt or OpenShift Containerized Network Virtualization (CNV) is installed. It allows users to delete a Virtual Machine Instance (VMI) to simulate a VM crash and test recovery capabilities.
 
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Prerequisites](#prerequisites)
+- [Parameters](#parameters)
+- [Expected Behavior](#expected-behavior)
+- [Advanced Use Cases](#advanced-use-cases)
+- [Recovery Strategies](#recovery-strategies)
+- [Rollback Scenario Support](#rollback-scenario-support)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+
+
 ## Purpose
 
 The `kubevirt_vm_outage` scenario deletes a specific KubeVirt Virtual Machine Instance (VMI) to simulate a VM crash or outage. This helps users:
@@ -67,6 +80,10 @@ The plugin implements two recovery strategies:
 1. **Automated Recovery**: If the VM is managed by a VirtualMachine resource with `runStrategy: Always`, the plugin will wait for KubeVirt's controller to automatically recreate the VMI.
 
 2. **Manual Recovery**: If automatic recovery doesn't occur within the timeout period, the plugin will attempt to manually recreate the VMI using the saved state from before the deletion.
+
+## Rollback Scenario Support
+
+Krkn supports rollback for KubeVirt VM Outage Scenario. For more details, please refer to the [Rollback Scenarios](../../rollback-scenarios/_index.md) documentation.
 
 ## Limitations
 

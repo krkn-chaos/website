@@ -6,6 +6,12 @@ date: 2017-01-04
 weight: 3
 ---
 
+- [Hog Scenarios background](#hog-scenarios-background)
+- [Config Options](#config-options)
+- [Available Scenarios](#available-scenarios)
+- [Rollback Scenario Support](#rollback-scenario-support)
+
+
 # Hog Scenarios background
 
 Hog Scenarios are designed to push the limits of memory, CPU, or I/O on one or more nodes in your cluster. They also serve to evaluate whether your cluster can withstand rogue pods that excessively consume resources without any limits.
@@ -33,3 +39,7 @@ These scenarios involve deploying one or more workloads in the cluster. Based on
 - [Memory Hog](/docs/scenarios/hog-scenarios/memory-hog-scenario/_index.md)
 - [I/O Hog](/docs/scenarios/hog-scenarios/io-hog-scenario/_index.md)
 
+
+### Rollback Scenario Support
+
+Krkn supports rollback for all available Hog scenarios. For more details, please refer to the [Rollback Scenarios](../../rollback-scenarios/_index.md) documentation.

@@ -7,6 +7,8 @@ weight: 1
 The web service's source code is available [here](https://github.com/krkn-chaos/krkn-service-hijacking). 
 It employs a time-based test plan from the scenario configuration file, which specifies the behavior of resources during the chaos scenario as follows:
 
+
+### Sample Scenario
 ```yaml
 service_target_port: http-web-svc # The port of the service to be hijacked (can be named or numeric, based on the workload and service configuration).
 service_name: nginx-service # The name of the service that will be hijacked.

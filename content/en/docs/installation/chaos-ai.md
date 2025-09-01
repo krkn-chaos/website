@@ -74,4 +74,4 @@ $ uv run chaos_ai --help
 
 ### Getting Started with Chaos AI
 
-To configure Chaos AI testing scenarios, check out [getting started](../getting-started/getting-started-chaos-ai.md) doc.
+To configure Chaos AI testing scenarios, check out [getting started](../chaos_ai/getting-started-chaos-ai.md) doc.

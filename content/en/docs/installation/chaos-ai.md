@@ -11,6 +11,7 @@ weight: 4
 ### Prerequisites
 
 - Python 3.9+
+- Podman or Docker Container Runtime
 - [krknctl](/docs/installation/krknctl.md)
 - `uv` package manager (recommended) or `pip`
 

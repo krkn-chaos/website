@@ -9,6 +9,41 @@ The **fitness function** is a crucial element in the Chaos AI algorithm. It eval
 - The fitness function can be defined as an SLO or as cluster metrics using a Prometheus query.
 - Fitness scores are calculated for the time range during which the Chaos scenario is executed.
 
+## Example
+
+Let's look at a simple fitness function that calculates the total number of restarts in a namespace:
+
+```yaml
+fitness_function: 
+  query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
+  type: point
+```
+
+This fitness function calculates the number of restarts that occurred during the test in the specified namespace. The resulting value is referred to as the **Fitness Function Score**. These scores are computed for each scenario in every generation and can be found in the scenario YAML configuration within the results. Below is an example of a scenario YAML configuration:
+
+```yaml
+generation_id: 0
+scenario_id: 1
+scenario:
+  name: node-memory-hog(60, 89, 8, kubernetes.io/hostname=node1,
+    [], 1, quay.io/krkn-chaos/krkn-hog)
+cmd: 'krknctl run node-memory-hog --telemetry-prometheus-backup False --wait-duration
+  0 --kubeconfig ./tmp/kubeconfig.yaml --chaos-duration "60" --memory-consumption
+  "89%" --memory-workers "8" --node-selector "kubernetes.io/hostname=node1"
+  --taints "[]" --number-of-nodes "1" --image "quay.io/krkn-chaos/krkn-hog" '
+log: ./results/logs/scenario_1.log
+returncode: 0
+start_time: '2025-09-01T16:55:12.607656'
+end_time: '2025-09-01T16:58:35.204787'
+fitness_result:
+  scores: []
+  fitness_score: 2
+job_id: 1
+health_check_results: {}
+```
+
+In the above result, the fitness score of `2` indicates that two restarts were observed in the namespace while running the `node-memory-hog` scenario. The algorithm uses this score as feedback to prioritize this scenario for further testing.
+
 
 ## Types of Fitness Function
 
@@ -68,4 +103,16 @@ fitness_function:
     query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
     type: point
 ```
+
+## Health Check
+
+Results from application health checks are also incorporated into the fitness score. You can learn more about health checks and how to configure them in more detail [here](./health_check.md).
+
+## How to Define a Good Fitness Function
+
+- **Scoring**: The higher the fitness score, the more priority will be given to that scenario for generating new sets of scenarios. This also means that scenarios with higher fitness scores are more likely to have an impact on the cluster and should be further investigated.
+
+- **Normalization**: Chaos AI currently does not apply any normalization, except when a fitness function is assigned with weights. While this does not significantly impact the algorithm, from a user interpretation standpoint, it is beneficial to use normalized SLO queries in PromQL. For example, instead of using the maximum CPU for a pod as a fitness function, it may be more convenient to use the CPU percentage of a pod.
+
+- **Use-Case Driven**: The fitness function query should be defined based on your use case. If you want to optimize your cluster for maximum uptime, a good fitness function could be to capture restart counts or the number of unavailable pods. Similarly, if you are interested in optimizing your cluster to ensure no downtime due to resource constraints, a good fitness function would be to measure the maximum CPU or memory percentage.
 

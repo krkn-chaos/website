@@ -6,12 +6,25 @@ const Fuse = require('fuse.js');
 const natural = require('natural');
 const logger = require('../utils/logger');
 
+// Only import chokidar in non-serverless environments
+let chokidar;
+const isServerless = process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+if (!isServerless) {
+    try {
+        chokidar = require('chokidar');
+    } catch (error) {
+        logger.warn('chokidar not available - file watching disabled');
+    }
+}
+
 class DocumentationIndex {
     constructor(options = {}) {
         this.contentPath = options.contentPath || path.join(__dirname, '../../content/en/docs');
         this.indexData = [];
         this.fuseIndex = null;
         this.topics = new Map();
+        this.watcher = null;
+        this.rebuildTimeout = null;
         
         // Configure marked for parsing markdown
         marked.setOptions({
@@ -203,11 +216,7 @@ class DocumentationIndex {
         const relativePath = path.relative(path.join(__dirname, '../../content/en'), filePath);
         let url = '/' + relativePath.replace(/\\/g, '/').replace(/\.md$/, '/').replace(/_index\/$/, '');
         
-        // Clean up the URL
         url = url.replace(/\/+/g, '/');
-        if (url !== '/' && url.endsWith('/')) {
-            url = url.slice(0, -1);
-        }
         
         return url || '/';
     }
@@ -288,14 +297,12 @@ class DocumentationIndex {
         });
         
         if (matchingSentences.length > 0) {
-            // For queries with technical terms, use shorter excerpts
-            const hasTechnicalTerms = queryWords.some(word => 
-                ['etcd', 'kubernetes', 'production', 'deployment', 'troubleshoot'].includes(word)
-            );
+            // Use the most relevant matching sentence as excerpt
             const result = matchingSentences.slice(0, 1).join('. ').trim();
-            return result.substring(0, 80) + (result.length > 80 ? '...' : '');
+            return result.substring(0, 200) + (result.length > 200 ? '...' : '');
         } else {
-            return content.substring(0, 80) + (content.length > 80 ? '...' : '');
+            // Fallback to beginning of content
+            return content.substring(0, 200) + (content.length > 200 ? '...' : '');
         }
     }
 
@@ -311,6 +318,90 @@ class DocumentationIndex {
 
     generateTopicDescription(topic) {
         return `Documentation related to ${topic}`;
+    }
+
+    // Enable file watching for automatic index rebuilding
+    startFileWatching() {
+        if (!chokidar || isServerless) {
+            logger.info('File watching not available in serverless environment');
+            return;
+        }
+
+        if (this.watcher) {
+            logger.warn('File watcher already running');
+            return;
+        }
+
+        try {
+            this.watcher = chokidar.watch(this.contentPath, {
+                ignored: /(^|[\/\\])\../, // ignore dotfiles
+                persistent: true,
+                ignoreInitial: true, // don't trigger on initial scan
+                depth: 10 // watch subdirectories
+            });
+
+            this.watcher
+                .on('add', (path) => {
+                    logger.info(`Documentation file added: ${path}`);
+                    this.scheduleRebuild();
+                })
+                .on('change', (path) => {
+                    logger.info(`Documentation file changed: ${path}`);
+                    this.scheduleRebuild();
+                })
+                .on('unlink', (path) => {
+                    logger.info(`Documentation file removed: ${path}`);
+                    this.scheduleRebuild();
+                })
+                .on('error', (error) => {
+                    logger.error('File watcher error:', error);
+                });
+
+            logger.info(`Started file watching for documentation changes: ${this.contentPath}`);
+        } catch (error) {
+            logger.error('Failed to start file watcher:', error);
+        }
+    }
+
+    // Stop file watching
+    stopFileWatching() {
+        if (this.watcher) {
+            this.watcher.close();
+            this.watcher = null;
+            logger.info('Stopped file watching');
+        }
+    }
+
+    // Debounced rebuild to avoid too frequent rebuilds
+    scheduleRebuild() {
+        if (this.rebuildTimeout) {
+            clearTimeout(this.rebuildTimeout);
+        }
+
+        this.rebuildTimeout = setTimeout(async () => {
+            try {
+                logger.info('Rebuilding documentation index due to file changes...');
+                await this.buildIndex();
+                this.createFuseIndex();
+                logger.info(`Documentation index rebuilt with ${this.indexData.length} documents`);
+            } catch (error) {
+                logger.error('Failed to rebuild documentation index:', error);
+            }
+        }, 2000); // Wait 2 seconds after last change
+    }
+
+    // Manual rebuild method for API endpoint
+    async rebuildIndex() {
+        try {
+            logger.info('Manual documentation index rebuild triggered');
+            await this.buildIndex();
+            this.createFuseIndex();
+            logger.info(`Documentation index rebuilt with ${this.indexData.length} documents`);
+            return { success: true, documentCount: this.indexData.length };
+        } catch (error) {
+            logger.error('Failed to rebuild documentation index:', error);
+            throw error;
+        }
     }
 
     getStats() {

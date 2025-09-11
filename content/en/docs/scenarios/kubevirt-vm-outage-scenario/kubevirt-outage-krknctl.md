@@ -1,8 +1,8 @@
 ---
 title: Kubevirt Outage Scenarios using Krknctl
-description: 
+description: Detailed implementation of Kubevirt VM outage with Krknctl
 date: 2017-01-04
-weight: 3
+weight: 4
 ---
 
 ```bash

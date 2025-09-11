@@ -8,22 +8,22 @@ weight: 2
 
 Krkn supports two types of RBAC configurations:
 
-1. **Non-Privileged RBAC**: Provides namespace-scoped permissions for scenarios that only require access to resources within a specific namespace.
+1. **Ns-Privileged RBAC**: Provides namespace-scoped permissions for scenarios that only require access to resources within a specific namespace.
 2. **Privileged RBAC**: Provides cluster-wide permissions for scenarios that require access to cluster-level resources like nodes.
 
 {{< notice type="info" >}} The examples below use placeholders such as `target-namespace` and `krkn-namespace` which should be replaced with your actual namespaces. The service account name `krkn-sa` is also a placeholder that you can customize. {{< /notice >}}
 
 ## RBAC YAML Files
 
-### Non-Privileged Role
+### Ns-Privileged Role
 
-The non-privileged role provides permissions limited to namespace-scoped resources:
+The ns-privileged role provides permissions limited to namespace-scoped resources:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: krkn-non-privileged-role
+  name: krkn-ns-privileged-role
   namespace: <target-namespace>
 rules:
 - apiGroups: [""]
@@ -37,13 +37,13 @@ rules:
   verbs: ["get", "list", "watch", "create", "delete"]
 ```
 
-### Non-Privileged RoleBinding
+### Ns-Privileged RoleBinding
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: krkn-non-privileged-rolebinding
+  name: krkn-ns-privileged-rolebinding
   namespace: <target-namespace>
 subjects:
 - kind: ServiceAccount
@@ -51,7 +51,7 @@ subjects:
   namespace: <target-namespace>
 roleRef:
   kind: Role
-  name: krkn-non-privileged-role
+  name: krkn-ns-privileged-role
   apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -109,9 +109,9 @@ roleRef:
 
 3. Apply the RBAC configuration:
    ```bash
-   # For non-privileged access
-   kubectl apply -f rbac/non-privileged-role.yaml
-   kubectl apply -f rbac/non-privileged-rolebinding.yaml
+   # For ns-privileged access
+   kubectl apply -f rbac/ns-privileged-role.yaml
+   kubectl apply -f rbac/ns-privileged-rolebinding.yaml
    
    # For privileged access
    kubectl apply -f rbac/privileged-clusterrole.yaml
@@ -132,21 +132,22 @@ The following table lists the available Krkn scenarios and their required RBAC p
 
 | Scenario Type | Plugin Type | Required RBAC | Description |
 |---------------|-------------|--------------|-------------|
-| pod_disruption_scenarios | Namespace | Non-Privileged | Scenarios that disrupt or kill pods |
-| container_scenarios | Namespace | Non-Privileged | Scenarios that affect containers |
-| service_disruption_scenarios | Namespace | Non-Privileged | Scenarios that disrupt services |
-| application_outages_scenarios | Namespace | Non-Privileged | Scenarios that cause application outages |
-| pvc_scenarios | Namespace | Non-Privileged | Scenarios that affect persistent volume claims |
-| pod_network_scenarios | Namespace | Non-Privileged | Scenarios that affect pod network connectivity |
-| service_hijacking_scenarios | Namespace | Non-Privileged | Scenarios that hijack services |
-| node_scenarios | Cluster | Privileged | Scenarios that affect nodes |
-| zone_outages_scenarios | Cluster | Privileged | Scenarios that simulate zone outages |
-| time_scenarios | Cluster | Privileged | Scenarios that manipulate system time |
-| hog_scenarios | Cluster | Privileged | Scenarios that consume resources |
+| application_outages_scenarios | Namespace | Ns-Privileged | Scenarios that cause application outages |
 | cluster_shut_down_scenarios | Cluster | Privileged | Scenarios that shut down the cluster |
+| container_scenarios | Namespace | Ns-Privileged | Scenarios that affect containers |
+| hog_scenarios | Cluster | Privileged | Scenarios that consume resources |
 | network_chaos_scenarios | Cluster | Privileged | Scenarios that cause network chaos |
 | network_chaos_ng_scenarios | Cluster | Privileged | Next-gen network chaos scenarios |
+| node_scenarios | Cluster | Privileged | Scenarios that affect nodes |
+| pod_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt or kill pods |
+| pod_network_scenarios | Namespace | Ns-Privileged | Scenarios that affect pod network connectivity |
+| pvc_scenarios | Namespace | Ns-Privileged | Scenarios that affect persistent volume claims |
+| service_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt services |s
+| service_hijacking_scenarios | Namespace | Privileged | Scenarios that hijack services |
 | syn_flood_scenarios | Cluster | Privileged | SYN flood attack scenarios |
+
+| time_scenarios | Cluster | Privileged | Scenarios that manipulate system time |
+| zone_outages_scenarios | Cluster | Privileged | Scenarios that simulate zone outages |
 
 **_NOTE:_** Grant the privileged SCC to the user running the pod, to execute all the below krkn testscenarios
 ```

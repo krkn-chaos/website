@@ -49,6 +49,13 @@ When executed, the scenario will:
 
 {{% alert title="Note" %}}If the VM is managed by a VirtualMachine resource with `runStrategy: Always`, KubeVirt will automatically try to recreate the VMI after deletion. In this case, the scenario will wait for this automatic recovery to complete.{{% /alert %}}
 
+
+## Validating VMI SSH Connection
+
+While the kubvirt outage is running you can enable kube virt checks to check the ssh connection to a list of VMIs to test if an outage of one VMI effects any others become unready/unconnectable.
+See more details on how to enable these checks in [kubevirt checks](../../krkn/virt-checks.md)
+
+
 ## Advanced Use Cases
 
 ### Testing High Availability VM Configurations

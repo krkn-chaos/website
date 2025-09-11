@@ -69,14 +69,15 @@ Usage: chaos_ai discover [OPTIONS]
 
 Options:
   -k, --kubeconfig TEXT   Path to cluster kubeconfig file.
-  -o, --output TEXT       Path to save config file.
+  -o, --output TEXT       Path to save config file.  [default: ./chaos-
+                          ai.yaml]
   -n, --namespace TEXT    Namespace(s) to discover components in. Supports
-                          Regex and comma separated values.
+                          Regex and comma separated values.  [default: .*]
   -pl, --pod-label TEXT   Pod Label Keys(s) to filter. Supports Regex and
-                          comma separated values.
+                          comma separated values.  [default: .*]
   -nl, --node-label TEXT  Node Label Keys(s) to filter. Supports Regex and
-                          comma separated values.
-  -v, --verbose           Increase verbosity of output.
+                          comma separated values.  [default: .*]
+  -v, --verbose           Increase verbosity of output.  [default: 0]
   --help                  Show this message and exit.
 
 # Discover components in cluster to generate the config
@@ -151,7 +152,7 @@ cluster_components:
 
 ### Running Chaos AI
 
-Once your test configuration are set, you can start the Chaos AI testing by running the following command: 
+Once your test configuration is set, you can start Chaos AI testing using the `run` command. This command initializes a random population sample containing Chaos Experiments based on the Chaos AI configuration, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until the total number of generations defined in the config is met.  
 
 ```bash
 $ uv run chaos_ai run --help
@@ -162,12 +163,12 @@ Usage: chaos_ai run [OPTIONS]
 Options:
   -c, --config TEXT               Path to chaos AI config file.
   -o, --output TEXT               Directory to save results.
-  -f, --format [json|yaml]        Format of the output file.
+  -f, --format [json|yaml]        Format of the output file.  [default: yaml]
   -r, --runner-type [krknctl|krknhub]
                                   Type of chaos engine to use.
   -p, --param TEXT                Additional parameters for config file in
                                   key=value format.
-  -v, --verbose                   Increase verbosity of output.
+  -v, --verbose                   Increase verbosity of output.  [default: 0]
   --help                          Show this message and exit.
 
 
@@ -182,7 +183,7 @@ uv run chaos_ai run -vv -c ./chaos-ai.yaml -o ./tmp/results/ -p HOST=$HOST
 
 ### Understanding the Results
 
-Under the `./tmp/results` you should be able to find the results from testing.
+In the `./tmp/results` directory, you will find the results from testing. The final results contain information about each scenario, their fitness evaluation scores, reports, and graphs, which you can use to further investigate.
 
 ```
 .

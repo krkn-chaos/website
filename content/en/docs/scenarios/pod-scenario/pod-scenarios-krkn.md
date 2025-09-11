@@ -28,10 +28,10 @@ You can then create the scenario file with the following contents:
     # Option 1: Target pods on nodes with specific labels [master/worker nodes]
     node_label_selector: node-role.kubernetes.io/control-plane=      # Target control-plane nodes (works on both k8s and openshift) 
     # Option 2: Target pods of specific nodes (testing mixed node types)
-    # node_names: 
-    #   - ip-10-0-31-8.us-east-2.compute.internal      # Worker node 1
-    #   - ip-10-0-48-188.us-east-2.compute.internal    # Worker node 2  
-    #   - ip-10-0-14-59.us-east-2.compute.internal     # Master node 1
+    node_names: 
+      - ip-10-0-31-8.us-east-2.compute.internal      # Worker node 1
+      - ip-10-0-48-188.us-east-2.compute.internal    # Worker node 2  
+      - ip-10-0-14-59.us-east-2.compute.internal     # Master node 1
 
     
 ```

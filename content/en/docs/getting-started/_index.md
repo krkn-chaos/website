@@ -6,8 +6,8 @@ description: Getting started with Krkn-chaos
 weight : 4
 categories: [Best Practices, Placeholders]
 tags: [docs]
+type: "docs/scenarios"
 ---
-
 
 How to:
 * [Run a Scenario with Krkn](#krkn)
@@ -29,8 +29,7 @@ See each scenario's documentation of how to run [krkn-hub](../scenarios/_index.m
 
 
 ## krknctl
-See how to run krkn through the dedicated CLI [`krknctl`](../krknctl/_index.md)
-
+See how to run krkn through the dedicated CLI [`krknctl`](../krknctl/_index.md) then use the krknctl titles under each scenario under [use-cases](./use-cases.md) to get started running your first krknctl scenario
 {{% alert title="Note" %}}
 krknctl is the recommended and the easiest/safest way to run krkn scenarios
 {{% /alert %}}

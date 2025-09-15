@@ -1,0 +1,6 @@
+# Netlify Functions redirects
+/api/chat /.netlify/functions/chat 200
+/api/health /.netlify/functions/health 200
+/api/admin/rebuild-index /.netlify/functions/rebuild-index 200
+/webhook/rebuild-docs /.netlify/functions/webhook-rebuild 200
+

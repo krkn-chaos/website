@@ -1,4 +1,0 @@
-# Netlify Functions redirects
-/api/chat /.netlify/functions/chat 200
-/api/health /.netlify/functions/health 200
-

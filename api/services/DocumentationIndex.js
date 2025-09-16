@@ -19,7 +19,7 @@ if (!isServerless) {
 
 class DocumentationIndex {
     constructor(options = {}) {
-        this.contentPath = options.contentPath || path.join(__dirname, '../../content/en/docs');
+        this.contentPath = options.contentPath || this.resolveContentPath();
         this.indexData = [];
         this.fuseIndex = null;
         this.topics = new Map();
@@ -49,6 +49,38 @@ class DocumentationIndex {
         };
     }
 
+    resolveContentPath() {
+        // Two main scenarios to handle:
+        const possiblePaths = [
+            // 1. Local development: running from api/services/ directory
+            path.join(__dirname, '../../content/en'),
+            // 2. Serverless/production: working directory is project root
+            path.join(process.cwd(), 'content/en')
+        ];
+
+        // Try each path and use the first one that exists
+        for (const contentPath of possiblePaths) {
+            try {
+                const fs = require('fs');
+                if (fs.existsSync(contentPath)) {
+                    logger.info(`Content path resolved to: ${contentPath}`);
+                    return contentPath;
+                }
+                logger.debug(`Path not found: ${contentPath}`);
+            } catch (error) {
+                logger.debug(`Path ${contentPath} not accessible: ${error.message}`);
+            }
+        }
+
+        // If neither works, log diagnostic info and use serverless path as fallback
+        const fallbackPath = path.join(process.cwd(), 'content/en');
+        logger.error(`Content path resolution failed!`);
+        logger.error(`Working directory: ${process.cwd()}`);
+        logger.error(`__dirname: ${__dirname}`);
+        logger.error(`Using fallback: ${fallbackPath}`);
+        return fallbackPath;
+    }
+
     async initialize() {
         try {
             logger.info('Initializing documentation index...');
@@ -65,23 +97,18 @@ class DocumentationIndex {
         this.indexData = [];
         this.topics.clear();
         
-        await this.processDirectory(this.contentPath);
+        logger.info(`Starting to build index from content path: ${this.contentPath}`);
         
-        // Process additional content directories if they exist
-        const additionalPaths = [
-            path.join(__dirname, '../../content/en/blog'),
-            path.join(__dirname, '../../content/en/community')
-        ];
-        
-        for (const additionalPath of additionalPaths) {
-            try {
-                await fs.access(additionalPath);
-                await this.processDirectory(additionalPath);
-            } catch (error) {
-                // Directory doesn't exist, skip it
-                logger.debug(`Skipping directory: ${additionalPath}`);
-            }
+        // Check if content path exists
+        try {
+            await fs.access(this.contentPath);
+            logger.info(`Content path is accessible: ${this.contentPath}`);
+        } catch (error) {
+            logger.error(`Content path is not accessible: ${this.contentPath}`, error);
+            return; // Exit early if path doesn't exist
         }
+        
+        await this.processDirectory(this.contentPath);
     }
 
     async processDirectory(dirPath) {
@@ -213,7 +240,8 @@ class DocumentationIndex {
 
     generateUrl(filePath) {
         // Convert file path to Hugo URL structure
-        const relativePath = path.relative(path.join(__dirname, '../../content/en'), filePath);
+        // contentPath is now 'content/en', so get relative path from there
+        const relativePath = path.relative(this.contentPath, filePath);
         let url = '/' + relativePath.replace(/\\/g, '/').replace(/\.md$/, '/').replace(/_index\/$/, '');
         
         url = url.replace(/\/+/g, '/');

@@ -2,7 +2,7 @@
 # (https://gohugo.io/hosting-and-deployment/hosting-on-netlify/#configure-hugo-version-in-netlify)
 
 [build]
-command = "npm install && npm run build:preview"
+command = "npm install && npm run build:preview && node scripts/post-build.js"
 publish = "public"
 functions = "netlify/functions"
 
@@ -12,7 +12,7 @@ NODE_VERSION = "20"
 SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 
 [context.production]
-command = "npm install && npm run build:production"
+command = "npm install && npm run build:production && node scripts/post-build.js"
 functions = "netlify/functions"
 
 [context.production.environment]

@@ -138,7 +138,7 @@ Now run the chatbot with proper link formatting.`;
             if (searchLimit > 0) {
                 searchResults = await this.documentationIndex.search(query, {
                     limit: searchLimit,
-                    threshold: 0.3
+                    threshold: 0.6
                 });
             }
             

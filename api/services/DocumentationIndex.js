@@ -41,7 +41,7 @@ class DocumentationIndex {
                 { name: 'tags', weight: 0.2 },
                 { name: 'description', weight: 0.1 }
             ],
-            threshold: 0.4,
+            threshold: 0.6,
             includeScore: true,
             includeMatches: true,
             minMatchCharLength: 3,
@@ -251,7 +251,7 @@ class DocumentationIndex {
         
         const {
             limit = 10,
-            threshold = 0.4,
+            threshold = 0.6,
             topic = null
         } = options;
         

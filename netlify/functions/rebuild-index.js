@@ -43,24 +43,13 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        console.log('🚀 Starting rebuild-index function');
-        console.log('   Event:', JSON.stringify(event.httpMethod));
-        console.log('   Environment checks:');
-        console.log('   - NODE_ENV:', process.env.NODE_ENV);
-        console.log('   - NETLIFY:', process.env.NETLIFY);
-        console.log('   - PWD:', process.env.PWD);
-        
         // Initialize services if needed
-        console.log('📦 Initializing services...');
         await initializeServices();
-        console.log('✅ Services initialized');
 
-        // Rebuild the documentation index
-        console.log('🔄 Starting documentation index rebuild...');
+        // Reload the documentation index
         const result = await documentationIndex.rebuildIndex();
-        console.log('✅ Rebuild completed:', JSON.stringify(result, null, 2));
 
-        const response = {
+        return {
             statusCode: 200,
             headers,
             body: JSON.stringify({
@@ -70,13 +59,9 @@ exports.handler = async (event, context) => {
                 deployment: 'netlify-functions'
             })
         };
-        
-        console.log('📤 Sending response:', JSON.stringify(response, null, 2));
-        return response;
 
     } catch (error) {
-        console.error('❌ Rebuild index error:', error);
-        console.error('Stack trace:', error.stack);
+        console.error('Rebuild index error:', error);
         return {
             statusCode: 500,
             headers,

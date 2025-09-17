@@ -67,15 +67,16 @@ if (!isServerless) {
 
 // Create the logger
 const logger = winston.createLogger({
-    level: process.env.LOG_LEVEL || 'info',
+    level: process.env.LOG_LEVEL || (isServerless ? 'debug' : 'info'), // Use debug level in serverless
     levels,
     format,
     transports,
     exitOnError: false
 });
 
-// If we're in production, don't log to console
-if (process.env.NODE_ENV === 'production') {
+// Keep console logging in serverless environments (Netlify Functions need console output)
+// Only remove console logging in non-serverless production environments
+if (process.env.NODE_ENV === 'production' && !isServerless) {
     logger.remove(winston.transports.Console);
 }
 

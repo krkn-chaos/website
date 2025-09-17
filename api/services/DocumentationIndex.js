@@ -50,6 +50,13 @@ class DocumentationIndex {
     }
 
     resolveContentPath() {
+        // Log environment info for debugging
+        logger.info(`🔍 RESOLVING CONTENT PATH:`);
+        logger.info(`   - Node ENV: ${process.env.NODE_ENV}`);
+        logger.info(`   - NETLIFY: ${process.env.NETLIFY}`);
+        logger.info(`   - Working dir: ${process.cwd()}`);
+        logger.info(`   - __dirname: ${__dirname}`);
+        
         // Two main scenarios to handle:
         const possiblePaths = [
             // 1. Local development: running from api/services/ directory
@@ -58,23 +65,26 @@ class DocumentationIndex {
             path.join(process.cwd(), 'content/en')
         ];
 
+        logger.info(`   - Testing paths: ${possiblePaths.join(', ')}`);
+
         // Try each path and use the first one that exists
         for (const contentPath of possiblePaths) {
             try {
                 const fs = require('fs');
+                logger.info(`   - Testing: ${contentPath}`);
                 if (fs.existsSync(contentPath)) {
-                    logger.info(`Content path resolved to: ${contentPath}`);
+                    logger.info(`✅ Content path resolved to: ${contentPath}`);
                     return contentPath;
                 }
-                logger.debug(`Path not found: ${contentPath}`);
+                logger.warn(`❌ Path not found: ${contentPath}`);
             } catch (error) {
-                logger.debug(`Path ${contentPath} not accessible: ${error.message}`);
+                logger.error(`❌ Path ${contentPath} not accessible: ${error.message}`);
             }
         }
 
         // If neither works, log diagnostic info and use serverless path as fallback
         const fallbackPath = path.join(process.cwd(), 'content/en');
-        logger.error(`Content path resolution failed!`);
+        logger.error(`🚨 CONTENT PATH RESOLUTION FAILED!`);
         logger.error(`Working directory: ${process.cwd()}`);
         logger.error(`__dirname: ${__dirname}`);
         logger.error(`Using fallback: ${fallbackPath}`);
@@ -83,12 +93,18 @@ class DocumentationIndex {
 
     async initialize() {
         try {
-            logger.info('Initializing documentation index...');
+            logger.info('🚀 Initializing documentation index...');
+            logger.info(`   Environment: ${process.env.NODE_ENV || 'unknown'}`);
+            logger.info(`   Serverless: ${process.env.NETLIFY ? 'YES (Netlify)' : 'NO'}`);
+            
             await this.buildIndex();
             this.createFuseIndex();
-            logger.info(`Documentation index built with ${this.indexData.length} documents`);
+            
+            logger.info(`✅ Documentation index built with ${this.indexData.length} documents`);
+            logger.info(`📂 Topics discovered: ${Array.from(this.topics.keys()).join(', ')}`);
         } catch (error) {
-            logger.error('Failed to initialize documentation index:', error);
+            logger.error('❌ Failed to initialize documentation index:', error);
+            logger.error('Stack trace:', error.stack);
             throw error;
         }
     }
@@ -103,34 +119,53 @@ class DocumentationIndex {
         try {
             await fs.access(this.contentPath);
             logger.info(`Content path is accessible: ${this.contentPath}`);
+            
+            // Debug: List directory contents
+            const entries = await fs.readdir(this.contentPath, { withFileTypes: true });
+            logger.info(`Directory contents (${entries.length} entries):`, entries.map(e => `${e.name}${e.isDirectory() ? '/' : ''}`).join(', '));
         } catch (error) {
             logger.error(`Content path is not accessible: ${this.contentPath}`, error);
             return; // Exit early if path doesn't exist
         }
         
         await this.processDirectory(this.contentPath);
+        
+        // Debug: Log final results
+        logger.info(`Build complete: ${this.indexData.length} documents processed`);
     }
 
     async processDirectory(dirPath) {
         try {
+            logger.debug(`📁 Processing directory: ${dirPath}`);
             const entries = await fs.readdir(dirPath, { withFileTypes: true });
+            logger.debug(`   Found ${entries.length} entries`);
+            
+            let markdownCount = 0;
+            let dirCount = 0;
             
             for (const entry of entries) {
                 const fullPath = path.join(dirPath, entry.name);
                 
                 if (entry.isDirectory()) {
+                    dirCount++;
+                    logger.debug(`   📁 Subdirectory: ${entry.name}`);
                     await this.processDirectory(fullPath);
                 } else if (entry.isFile() && entry.name.endsWith('.md')) {
+                    markdownCount++;
+                    logger.debug(`   📄 Markdown file: ${entry.name}`);
                     await this.processMarkdownFile(fullPath);
                 }
             }
+            
+            logger.debug(`📊 Directory ${dirPath}: ${markdownCount} markdown files, ${dirCount} subdirectories`);
         } catch (error) {
-            logger.error(`Error processing directory ${dirPath}:`, error);
+            logger.error(`❌ Error processing directory ${dirPath}:`, error);
         }
     }
 
     async processMarkdownFile(filePath) {
         try {
+            logger.debug(`Processing markdown file: ${filePath}`);
             const content = await fs.readFile(filePath, 'utf-8');
             const parsed = this.parseMarkdown(content);
             
@@ -163,10 +198,12 @@ class DocumentationIndex {
                     this.topics.get(topic).push(document);
                 }
                 
-                logger.debug(`Indexed: ${document.title} (${document.wordCount} words)`);
+                logger.info(`✅ Indexed: ${document.title} (${document.wordCount} words) - ${document.url}`);
+            } else {
+                logger.warn(`⚠️  Failed to parse or no title found: ${filePath}`);
             }
         } catch (error) {
-            logger.error(`Error processing file ${filePath}:`, error);
+            logger.error(`❌ Error processing file ${filePath}:`, error);
         }
     }
 
@@ -420,14 +457,36 @@ class DocumentationIndex {
 
     // Manual rebuild method for API endpoint
     async rebuildIndex() {
+        const startTime = Date.now();
         try {
-            logger.info('Manual documentation index rebuild triggered');
+            logger.info('🔄 Manual documentation index rebuild triggered');
+            logger.info(`   Start time: ${new Date().toISOString()}`);
+            logger.info(`   Memory usage: ${JSON.stringify(process.memoryUsage())}`);
+            
             await this.buildIndex();
+            logger.info('📝 Build index completed, creating Fuse index...');
+            
             this.createFuseIndex();
-            logger.info(`Documentation index rebuilt with ${this.indexData.length} documents`);
-            return { success: true, documentCount: this.indexData.length };
+            
+            const duration = Date.now() - startTime;
+            logger.info(`✅ Documentation index rebuilt with ${this.indexData.length} documents in ${duration}ms`);
+            
+            const result = { 
+                success: true, 
+                documentCount: this.indexData.length,
+                version: 'v2.1-clean-fix',
+                contentPath: this.contentPath,
+                duration: duration,
+                topics: Array.from(this.topics.keys()),
+                timestamp: new Date().toISOString()
+            };
+            
+            logger.info(`📤 Returning result: ${JSON.stringify(result, null, 2)}`);
+            return result;
         } catch (error) {
-            logger.error('Failed to rebuild documentation index:', error);
+            const duration = Date.now() - startTime;
+            logger.error(`❌ Failed to rebuild documentation index after ${duration}ms:`, error);
+            logger.error('Stack trace:', error.stack);
             throw error;
         }
     }

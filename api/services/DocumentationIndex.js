@@ -29,8 +29,23 @@ class DocumentationIndex {
 
     async loadPrebuiltIndex() {
         try {
-            const indexPath = path.join(process.cwd(), 'search-index.json');
-            const indexData = await fs.readFile(indexPath, 'utf-8');
+            // Fetch from deployed static files (they don't get bundled with functions)
+            const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'https://krkn-chaos.dev';
+            const indexUrl = `${siteUrl}/search-index.json`;
+            
+            const indexData = await new Promise((resolve, reject) => {
+                const https = require('https');
+                https.get(indexUrl, (res) => {
+                    if (res.statusCode !== 200) {
+                        reject(new Error(`HTTP ${res.statusCode}: ${res.statusMessage}`));
+                        return;
+                    }
+                    let data = '';
+                    res.on('data', chunk => data += chunk);
+                    res.on('end', () => resolve(data));
+                }).on('error', reject);
+            });
+            
             const parsedData = JSON.parse(indexData);
             
             // Load the documents into our index

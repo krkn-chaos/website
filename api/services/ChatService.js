@@ -169,7 +169,7 @@ Now run the chatbot with proper link formatting.`;
                           queryLower.includes('what about') ||
                           queryLower.includes('details') ||
                           queryLower.includes('explain') ||
-                          (queryLower.length < 20 && conversationHistory.length > 0);
+                          (queryLower.length < 10 && conversationHistory.length > 2);
         
         if (isFollowUp && conversationHistory.length > 0) {
             // Get the last user question and assistant response for context

@@ -142,8 +142,8 @@ Now run the chatbot with proper link formatting.`;
                 });
             }
             
-            // Use minimal content length for absolute safety
-            const contentLength = 50;
+            // Use sufficient content for LLM to understand context
+            const contentLength = 200;
             
             return searchResults.map(result => ({
                 title: result.title,

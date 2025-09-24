@@ -13,6 +13,7 @@ How to:
 * [Run a Scenario with Krkn](#krkn)
 * [Run a Scenario with Krkn-hub](#krkn-hub)
 * [Run a Scenario with krknctl](#krknctl)
+* [Run a Scenario with Krkn dashboard](#krkn-dashboard)
 
 
 NOTE: krkn-hub and krknctl only allow you to run 1 scenario type and scenario file at a time (you can run multiple iterations of the same files). While krkn allows you to run multiple different types of scenarios and scenario files 
@@ -38,3 +39,8 @@ krknctl is the recommended and the easiest/safest way to run krkn scenarios
 [Explore](../krknctl/usage.md) the features and how execute chaos scenarios directly from your terminal.
 
 See each scenario's documentation of how to run [krknctl](../scenarios/_index.md)
+
+## Krkn-dashboard
+Install and configure the krkn-dashboard based on these [directions](../krkn-dashboard/_index.md)
+
+See each scenario's documentation of how to run [krkn dashboard](../scenarios/_index.md)

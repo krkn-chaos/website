@@ -16,6 +16,7 @@ The following ways are supported to run Krkn:
 - Standalone python program through Git - See specific documentation for [krkn](krkn.md)
 - Containerized version using either Podman or Docker as the runtime via [Krkn-hub](krkn-hub.md)
 - Kubernetes or OpenShift deployment ( unsupported )
+- Web-based interface using a browser to run and visualize experiments via [krkn dashboard](../krkn-dashboard/_index.md)
 
 {{% alert title="Note" %}} It is recommended to run Kraken external to the cluster ( Standalone or Containerized ) hitting the Kubernetes/OpenShift API as running it internal to the cluster might be disruptive to itself and also might not report back the results if the chaos leads to cluster's API server instability.{{% /alert %}}
 

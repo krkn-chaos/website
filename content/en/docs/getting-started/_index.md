@@ -44,6 +44,6 @@ krknctl is the recommended and the easiest/safest way to run krkn scenarios
 See each scenario's documentation of how to run [krknctl](../scenarios/_index.md)
 
 ## Krkn-dashboard
-Install and configure the krkn-dashboard based on these [directions](../krkn-dashboard/_index.md)
+Install and configure the krkn-dashboard based on these [directions](../installation/krkn-dashboard.md)
 
 See each scenario's documentation of how to run [krkn dashboard](../scenarios/_index.md)

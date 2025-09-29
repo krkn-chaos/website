@@ -41,8 +41,8 @@ Contains functions that manage store via actions
 Helper functions for the dashboard
 
 ## Run
-- [Standlone](docs/installation.md)
-- [Containerized version](containers/build_own_image-README.md)
+- [Standlone](https://github.com/krkn-chaos/krkn-dashboard/tree/main/docs/installation.md)
+- [Containerized version](https://github.com/krkn-chaos/krkn-dashboard/tree/main/containers/build_own_image-README.md)
 
 ## Storage
  

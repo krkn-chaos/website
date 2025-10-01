@@ -21,6 +21,8 @@ Scenario specific parameters:
 ~-~-disruption-count | Number of pods to disrupt | number | 1 | 
 ~-~-kill-timeout | Timeout to wait for the target pod(s) to be removed in seconds | number | 180 |
 ~-~-expected-recovery-time | Fails if the pod disrupted do not recover within the timeout set | number | 120 | 
+~-~-node-label-selector | Label of the node(s) to target | string | "" | 
+~-~-node-names | Name of the node(s) to target. Example: ["worker-node-1","worker-node-2","master-node-1"] | string | [] |
 
 To see all available scenario options 
 ```bash

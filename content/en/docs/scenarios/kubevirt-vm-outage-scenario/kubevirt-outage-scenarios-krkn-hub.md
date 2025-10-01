@@ -1,8 +1,8 @@
 ---
 title: KubeVirt Outage Scenarios using Krkn-Hub
-description: >
+description: Detailed implementation of Kubevirt VM outage using Krkn-hub 
 date: 2017-01-05
-weight: 2
+weight: 3
 ---
 This scenario deletes a VMI matching the namespace and name on a Kubernetes/OpenShift cluster. 
 

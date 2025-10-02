@@ -1,5 +1,5 @@
 ---
-title: Zone Outage Scenarios using Krkn
+title: EFS Disruption Scenarios using Krkn
 description: 
 date: 2017-01-04
 weight: 1

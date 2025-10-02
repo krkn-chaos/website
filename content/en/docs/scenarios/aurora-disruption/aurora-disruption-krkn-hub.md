@@ -1,5 +1,5 @@
 ---
-title: Zone Outage Scenarios using Krkn-Hub
+title: Aurora Disruption Scenarios using Krkn-Hub
 description: >
 date: 2017-01-05
 weight: 2

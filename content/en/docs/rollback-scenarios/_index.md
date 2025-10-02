@@ -3,7 +3,10 @@ title: Chaos Scenario Rollback
 description: Robust File-based Rollback Mechanism to Restore Cluster State Automatically By Krkn
 categories: 
 tags: 
-weight: 4.5
+weight: 4
+mermaid: true
+config:
+  theme: base
 ---
 
 ### Table of Contents
@@ -61,7 +64,7 @@ Krkn provides `list-rollback` and `execute-rollback` commands for managing rollb
         python run_kraken.py list-rollback --config config/config.yaml -r <run_uuid> -s <scenario_type>
         ```
     - Example Output:
-        ```
+        ```bash
         /tmp/kraken-rollback/
         ├── 1755488223093251000-168dce4c-fdb4-4e8c-aa5b-7f919777801b
         │   └── network_chaos_scenarios_1755488221668750000_fphcbojh.py
@@ -87,7 +90,7 @@ Krkn provides `list-rollback` and `execute-rollback` commands for managing rollb
         python run_kraken.py execute-rollback --config config/config.yaml -r <run_uuid> -s <scenario_type>
         ```
     - Example Output:
-        ```
+        ```bash
         2025-08-22 15:54:06,137 [INFO] Executing rollback version files
         2025-08-22 15:54:06,137 [WARNING] scenario_type is not specified, executing all scenarios in rollback directory
         2025-08-22 15:54:06,137 [INFO] Executing rollback for run_uuid=d3f0859b-91f7-490a-afb9-878478b1574a, scenario_type=*
@@ -124,19 +127,18 @@ kraken:
 The lifecycle of a rollback operation is scoped to **each chaos scenario**.
 
 ```mermaid
-flowchart TD
-    Start[Krkn Program Start] --> Loop{For each Chaos Scenario}
-    Loop  --> End[All Scenarios Complete]
-    Loop -- Chaos Scenario --> RollbackSetup[Set rollback_callable and flush version file to disk before making any change]
-    RollbackSetup --> ClusterChange[Make change to cluster]
-    ClusterChange --> ErrorCheck{Unexpected error during the run?}
-    ErrorCheck -- Yes --> ExecuteRollback[Execute the version file, then rename it by adding the .executed suffix.]
-    ExecuteRollback --> RunComplete[Run Complete]
-    ErrorCheck -- No --> Cleanup[Cleanup version file]
-    Cleanup --> RunComplete
-    RunComplete --> Loop
+    flowchart TD
+        Start[Krkn Program Start] --> Loop{For each Chaos Scenario}
+        Loop  --> End[All Scenarios Complete]
+        Loop -- Chaos Scenario --> RollbackSetup[Set rollback_callable and flush version file to disk before making any change]
+        RollbackSetup --> ClusterChange[Make change to cluster]
+        ClusterChange --> ErrorCheck{Unexpected error during the run?}
+        ErrorCheck -- Yes --> ExecuteRollback[Execute the version file, then rename it by adding the .executed suffix.]
+        ExecuteRollback --> RunComplete[Run Complete]
+        ErrorCheck -- No --> Cleanup[Cleanup version file]
+        Cleanup --> RunComplete
+        RunComplete --> Loop
 ```
-
 
 1. **Set rollback callable**: Krkn will flush the corresponding `rollback_callable` function including variable state into Python version file before making any change to the cluster. There might be multiple version files created for a single chaos scenario, since there can be multiple steps changing the cluster state.
 2. **Execute version file**: If an unexpected error occurs, Krkn will execute the flushed version file to restore the cluster to its previous state, then rename it by adding the `.executed` suffix for further inspection.
@@ -151,7 +153,7 @@ The version files directory structure will be organized by
 
 Here is an example of the directory structure:
 
-```
+```bash
 /tmp/kraken-rollback
 ├── 1755488223093251000-168dce4c-fdb4-4e8c-aa5b-7f919777801b
 │   └── network_chaos_scenarios_1755488221668750000_fphcbojh.py

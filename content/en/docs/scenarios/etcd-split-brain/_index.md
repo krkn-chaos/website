@@ -1,5 +1,5 @@
 ---
-title: Zone Outage Scenarios
+title: ETCD Split Brain Scenarios
 description: 
 date: 2017-01-04
 weight: 3

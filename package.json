@@ -40,6 +40,7 @@
     "express-validator": "^7.0.1",
     "fuse.js": "^7.0.0",
     "helmet": "^7.1.0",
+    "mermaid": "^11.6.0",
     "marked": "^10.0.0",
     "natural": "^6.10.0",
     "winston": "^3.11.0"

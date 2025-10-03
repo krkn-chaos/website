@@ -1,0 +1,134 @@
+{{- if .Page.Store.Get "hasMermaid" -}}
+<!-- Mermaid.js for rendering flowcharts and diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+    // Initialize Mermaid with configuration
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: '{{ .Site.Params.mermaid.theme | default "default" }}',
+        themeVariables: {
+            primaryColor: '{{ .Site.Params.mermaid.primaryColor | default "#ff6b6b" }}',
+            primaryTextColor: '{{ .Site.Params.mermaid.primaryTextColor | default "#000000" }}',
+            primaryBorderColor: '{{ .Site.Params.mermaid.primaryBorderColor | default "#ff6b6b" }}',
+            lineColor: '{{ .Site.Params.mermaid.lineColor | default "#333333" }}',
+            secondaryColor: '{{ .Site.Params.mermaid.secondaryColor | default "#dfdfdf" }}',
+            tertiaryColor: '{{ .Site.Params.mermaid.tertiaryColor | default "#ffffff" }}'
+        },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        },
+        sequence: {
+            diagramMarginX: 50,
+            diagramMarginY: 10,
+            actorMargin: 50,
+            width: 150,
+            height: 65,
+            boxMargin: 10,
+            boxTextMargin: 5,
+            noteMargin: 10,
+            messageMargin: 35,
+            messageAlign: 'center',
+            mirrorActors: true,
+            bottomMarginAdj: 1,
+            useMaxWidth: true,
+            rightAngles: false,
+            showSequenceNumbers: false
+        },
+        gantt: {
+            titleTopMargin: 25,
+            barHeight: 20,
+            fontSizeFactor: 1,
+            fontSize: 11,
+            gridLineStartPadding: 350,
+            bottomPadding: 50,
+            bottomMarginAdj: 1
+        }
+    });
+
+    // Function to render Mermaid diagrams
+    function renderMermaidDiagrams() {
+        const mermaidElements = document.querySelectorAll('.mermaid');
+        mermaidElements.forEach((element, index) => {
+            const graphDefinition = element.textContent;
+            const graphId = 'mermaid-' + index;
+
+            try {
+                mermaid.render(graphId, graphDefinition, (svgCode) => {
+                    element.innerHTML = svgCode;
+                });
+            } catch (error) {
+                console.error('Error rendering Mermaid diagram:', error);
+                element.innerHTML = '<p class="text-danger">Error rendering diagram</p>';
+            }
+        });
+    }
+
+    // Render diagrams when DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderMermaidDiagrams);
+    } else {
+        renderMermaidDiagrams();
+    }
+
+    // Re-render on page changes (for SPA-like behavior)
+    window.addEventListener('load', renderMermaidDiagrams);
+</script>
+
+<style>
+    /* Custom styles for Mermaid diagrams */
+    .mermaid {
+        text-align: center;
+        margin: 1rem 0;
+        background: transparent;
+    }
+
+    .mermaid svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .mermaid {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .mermaid svg {
+            min-width: 300px;
+        }
+    }
+
+    /* Dark theme support */
+    @media (prefers-color-scheme: dark) {
+        .mermaid {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        .mermaid svg {
+            background: transparent;
+        }
+    }
+
+    /* Custom theme support */
+        {
+            {
+            - if .Site.Params.mermaid.customCSS -
+        }
+    }
+
+        {
+            {
+            .Site.Params.mermaid.customCSS | safeCSS
+        }
+    }
+
+        {
+            {
+            - end -
+        }
+    }
+</style>
+{{- end -}}

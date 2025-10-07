@@ -27,6 +27,7 @@ You can then create the scenario file with the following contents:
     #Not needed by default, but can be used if you want to target pods on specific nodes
     # Option 1: Target pods on nodes with specific labels [master/worker nodes]
     node_label_selector: node-role.kubernetes.io/control-plane=      # Target control-plane nodes (works on both k8s and openshift) 
+    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
     # Option 2: Target pods of specific nodes (testing mixed node types)
     node_names: 
       - ip-10-0-31-8.us-east-2.compute.internal      # Worker node 1

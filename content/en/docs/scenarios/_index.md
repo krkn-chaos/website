@@ -3,7 +3,7 @@ type: "docs/scenarios"
 title: Scenarios
 description: Krkn scenario list
 date: 2017-01-04
-weight: 5
+weight: 6
 ---
 
 ## Supported chaos scenarios

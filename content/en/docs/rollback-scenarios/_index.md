@@ -3,7 +3,7 @@ title: Chaos Scenario Rollback
 description: Robust File-based Rollback Mechanism to Restore Cluster State Automatically By Krkn
 categories: 
 tags: 
-weight: 4
+weight: 5
 mermaid: true
 config:
   theme: base

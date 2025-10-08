@@ -3,7 +3,7 @@ title: Getting Started with Running Scenarios
 # date: 2017-01-05
 type: "docs/scenarios"
 description: Getting started with Krkn-chaos 
-weight : 4
+weight : 5
 categories: [Best Practices, Placeholders]
 tags: [docs]
 ---

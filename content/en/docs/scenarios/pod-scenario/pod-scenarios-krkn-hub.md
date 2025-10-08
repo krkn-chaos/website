@@ -50,6 +50,7 @@ Parameter               | Description                                           
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 NAMESPACE               | Targeted namespace in the cluster ( supports regex )                                     | openshift-.*                         |
 POD_LABEL               | Label of the pod(s) to target                                         | ""                                   | 
+EXCLUDE_LABEL           | Pods matching this label will be excluded from the chaos even if they match other criteria | "" |
 NAME_PATTERN            | Regex pattern to match the pods in NAMESPACE  when POD_LABEL is not specified | .* |
 DISRUPTION_COUNT        | Number of pods to disrupt                                             | 1                                    |
 KILL_TIMEOUT            | Timeout to wait for the target pod(s) to be removed in seconds        | 180                                  |

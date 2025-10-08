@@ -138,12 +138,12 @@ Now run the chatbot with proper link formatting.`;
             if (searchLimit > 0) {
                 searchResults = await this.documentationIndex.search(query, {
                     limit: searchLimit,
-                    threshold: 0.3
+                    threshold: 0.6
                 });
             }
             
-            // Use minimal content length for absolute safety
-            const contentLength = 50;
+            // Use sufficient content for LLM to understand context
+            const contentLength = 200;
             
             return searchResults.map(result => ({
                 title: result.title,
@@ -169,7 +169,7 @@ Now run the chatbot with proper link formatting.`;
                           queryLower.includes('what about') ||
                           queryLower.includes('details') ||
                           queryLower.includes('explain') ||
-                          (queryLower.length < 20 && conversationHistory.length > 0);
+                          (queryLower.length < 10 && conversationHistory.length > 2);
         
         if (isFollowUp && conversationHistory.length > 0) {
             // Get the last user question and assistant response for context

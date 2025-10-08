@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
         // Initialize services if needed
         await initializeServices();
 
-        // Rebuild the documentation index
+        // Reload the documentation index
         const result = await documentationIndex.rebuildIndex();
 
         return {

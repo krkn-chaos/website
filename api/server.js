@@ -61,9 +61,6 @@ async function initializeServices() {
         documentationIndex = new DocumentationIndex();
         await documentationIndex.initialize();
         
-        // Start file watching for automatic reindexing
-        documentationIndex.startFileWatching();
-        
         // Initialize chat service with documentation context
         chatService = new ChatService({
             documentationIndex,
@@ -422,10 +419,6 @@ process.on('SIGINT', async () => {
         await chatService.cleanup();
     }
     
-    // Stop file watching
-    if (documentationIndex) {
-        documentationIndex.stopFileWatching();
-    }
     
     process.exit(0);
 });
@@ -437,10 +430,6 @@ process.on('SIGTERM', async () => {
         await chatService.cleanup();
     }
     
-    // Stop file watching
-    if (documentationIndex) {
-        documentationIndex.stopFileWatching();
-    }
     
     process.exit(0);
 });

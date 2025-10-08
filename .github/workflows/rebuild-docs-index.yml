@@ -1,5 +1,9 @@
 name: Rebuild Documentation Index
 
+permissions:
+  contents: write
+  statuses: write
+
 # Trigger when documentation content changes
 on:
   push:

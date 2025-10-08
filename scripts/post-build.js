@@ -53,6 +53,9 @@ async function rebuildDocumentationIndex() {
                     const result = JSON.parse(data);
                     console.log('✅ Documentation index rebuilt successfully!');
                     console.log(`📊 Indexed ${result.documentCount} documents`);
+                    
+                    // Debug: Show full API response
+                    console.log('🔍 Full API Response:', JSON.stringify(result, null, 2));
                     resolve(result);
                 } else {
                     console.error('❌ Failed to rebuild index:', res.statusCode, data);

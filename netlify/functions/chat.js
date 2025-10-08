@@ -49,10 +49,8 @@ function incrementUsage() {
 
 const initializeServices = async () => {
     if (!documentationIndex) {
-        documentationIndex = new DocumentationIndex({
-            contentPath: './content/en/docs'
-        });
-        await documentationIndex.buildIndex();
+        documentationIndex = new DocumentationIndex();
+        await documentationIndex.initialize();
     }
     
     if (!chatService) {

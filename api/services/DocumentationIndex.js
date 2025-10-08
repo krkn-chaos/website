@@ -1,37 +1,14 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { marked } = require('marked');
-const cheerio = require('cheerio');
 const Fuse = require('fuse.js');
-const natural = require('natural');
 const logger = require('../utils/logger');
 
-// Only import chokidar in non-serverless environments
-let chokidar;
-const isServerless = process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
-if (!isServerless) {
-    try {
-        chokidar = require('chokidar');
-    } catch (error) {
-        logger.warn('chokidar not available - file watching disabled');
-    }
-}
 
 class DocumentationIndex {
     constructor(options = {}) {
-        this.contentPath = options.contentPath || path.join(__dirname, '../../content/en/docs');
         this.indexData = [];
         this.fuseIndex = null;
         this.topics = new Map();
-        this.watcher = null;
-        this.rebuildTimeout = null;
-        
-        // Configure marked for parsing markdown
-        marked.setOptions({
-            gfm: true,
-            breaks: false,
-            smartLists: true
-        });
         
         // Configure Fuse.js options for fuzzy search
         this.fuseOptions = {
@@ -41,7 +18,7 @@ class DocumentationIndex {
                 { name: 'tags', weight: 0.2 },
                 { name: 'description', weight: 0.1 }
             ],
-            threshold: 0.4,
+            threshold: 0.6,
             includeScore: true,
             includeMatches: true,
             minMatchCharLength: 3,
@@ -49,192 +26,63 @@ class DocumentationIndex {
         };
     }
 
+
+    async loadPrebuiltIndex() {
+        try {
+            // Fetch from deployed static files (they don't get bundled with functions)
+            const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'https://krkn-chaos.dev';
+            const indexUrl = `${siteUrl}/search-index.json`;
+            
+            const indexData = await new Promise((resolve, reject) => {
+                const https = require('https');
+                https.get(indexUrl, (res) => {
+                    if (res.statusCode !== 200) {
+                        reject(new Error(`HTTP ${res.statusCode}: ${res.statusMessage}`));
+                        return;
+                    }
+                    let data = '';
+                    res.on('data', chunk => data += chunk);
+                    res.on('end', () => resolve(data));
+                }).on('error', reject);
+            });
+            
+            const parsedData = JSON.parse(indexData);
+            
+            // Load the documents into our index
+            this.indexData = parsedData.documents;
+            
+            // Rebuild topics map
+            this.topics.clear();
+            for (const doc of this.indexData) {
+                if (doc.topic) {
+                    if (!this.topics.has(doc.topic)) {
+                        this.topics.set(doc.topic, []);
+                    }
+                    this.topics.get(doc.topic).push(doc);
+                }
+            }
+            
+            this.createFuseIndex();
+            return true;
+        } catch (error) {
+            logger.error(`Failed to load pre-built index: ${error.message}`);
+            return false;
+        }
+    }
+
     async initialize() {
         try {
-            logger.info('Initializing documentation index...');
-            await this.buildIndex();
-            this.createFuseIndex();
-            logger.info(`Documentation index built with ${this.indexData.length} documents`);
+            const loaded = await this.loadPrebuiltIndex();
+            if (!loaded) {
+                throw new Error('Pre-built search index not found');
+            }
+            logger.info(`Loaded ${this.indexData.length} documents`);
         } catch (error) {
             logger.error('Failed to initialize documentation index:', error);
             throw error;
         }
     }
 
-    async buildIndex() {
-        this.indexData = [];
-        this.topics.clear();
-        
-        await this.processDirectory(this.contentPath);
-        
-        // Process additional content directories if they exist
-        const additionalPaths = [
-            path.join(__dirname, '../../content/en/blog'),
-            path.join(__dirname, '../../content/en/community')
-        ];
-        
-        for (const additionalPath of additionalPaths) {
-            try {
-                await fs.access(additionalPath);
-                await this.processDirectory(additionalPath);
-            } catch (error) {
-                // Directory doesn't exist, skip it
-                logger.debug(`Skipping directory: ${additionalPath}`);
-            }
-        }
-    }
-
-    async processDirectory(dirPath) {
-        try {
-            const entries = await fs.readdir(dirPath, { withFileTypes: true });
-            
-            for (const entry of entries) {
-                const fullPath = path.join(dirPath, entry.name);
-                
-                if (entry.isDirectory()) {
-                    await this.processDirectory(fullPath);
-                } else if (entry.isFile() && entry.name.endsWith('.md')) {
-                    await this.processMarkdownFile(fullPath);
-                }
-            }
-        } catch (error) {
-            logger.error(`Error processing directory ${dirPath}:`, error);
-        }
-    }
-
-    async processMarkdownFile(filePath) {
-        try {
-            const content = await fs.readFile(filePath, 'utf-8');
-            const parsed = this.parseMarkdown(content);
-            
-            if (parsed && parsed.title) {
-                // Generate URL from file path
-                const url = this.generateUrl(filePath);
-                
-                // Extract topic from path
-                const topic = this.extractTopic(filePath);
-                
-                const document = {
-                    id: filePath,
-                    title: parsed.title,
-                    description: parsed.description || '',
-                    content: parsed.content,
-                    tags: parsed.tags || [],
-                    topic: topic,
-                    url: url,
-                    lastModified: (await fs.stat(filePath)).mtime,
-                    wordCount: this.countWords(parsed.content)
-                };
-                
-                this.indexData.push(document);
-                
-                // Add to topics map
-                if (topic) {
-                    if (!this.topics.has(topic)) {
-                        this.topics.set(topic, []);
-                    }
-                    this.topics.get(topic).push(document);
-                }
-                
-                logger.debug(`Indexed: ${document.title} (${document.wordCount} words)`);
-            }
-        } catch (error) {
-            logger.error(`Error processing file ${filePath}:`, error);
-        }
-    }
-
-    parseMarkdown(content) {
-        try {
-            // Extract frontmatter
-            const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-            let frontmatter = {};
-            let markdownContent = content;
-            
-            if (frontmatterMatch) {
-                markdownContent = content.substring(frontmatterMatch[0].length);
-                try {
-                    // Simple YAML parsing for common frontmatter fields
-                    const yamlLines = frontmatterMatch[1].split('\n');
-                    for (const line of yamlLines) {
-                        const colonIndex = line.indexOf(':');
-                        if (colonIndex > 0) {
-                            const key = line.substring(0, colonIndex).trim();
-                            const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
-                            frontmatter[key] = value;
-                        }
-                    }
-                } catch (yamlError) {
-                    logger.warn('Failed to parse frontmatter YAML:', yamlError);
-                }
-            }
-            
-            // Convert markdown to HTML
-            const html = marked(markdownContent);
-            
-            // Extract text content using cheerio
-            const $ = cheerio.load(html);
-            const textContent = $.text().replace(/\s+/g, ' ').trim();
-            
-            // Extract title (from frontmatter or first heading)
-            let title = frontmatter.title;
-            if (!title) {
-                const firstHeading = $('h1, h2').first().text().trim();
-                title = firstHeading || 'Untitled';
-            }
-            
-            // Extract description
-            let description = frontmatter.description;
-            if (!description) {
-                // Use first paragraph as description
-                const firstParagraph = $('p').first().text().trim();
-                description = firstParagraph.substring(0, 200) + (firstParagraph.length > 200 ? '...' : '');
-            }
-            
-            // Extract tags
-            let tags = [];
-            if (frontmatter.tags) {
-                tags = frontmatter.tags.split(',').map(tag => tag.trim());
-            }
-            
-            return {
-                title,
-                description,
-                content: textContent,
-                tags,
-                linkTitle: frontmatter.linkTitle || title,
-                weight: parseInt(frontmatter.weight) || 0
-            };
-            
-        } catch (error) {
-            logger.error('Error parsing markdown:', error);
-            return null;
-        }
-    }
-
-    generateUrl(filePath) {
-        // Convert file path to Hugo URL structure
-        const relativePath = path.relative(path.join(__dirname, '../../content/en'), filePath);
-        let url = '/' + relativePath.replace(/\\/g, '/').replace(/\.md$/, '/').replace(/_index\/$/, '');
-        
-        url = url.replace(/\/+/g, '/');
-        
-        return url || '/';
-    }
-
-    extractTopic(filePath) {
-        const relativePath = path.relative(this.contentPath, filePath);
-        const pathParts = relativePath.split(path.sep);
-        
-        if (pathParts.length > 0) {
-            return pathParts[0];
-        }
-        
-        return 'general';
-    }
-
-    countWords(text) {
-        return text.split(/\s+/).filter(word => word.length > 0).length;
-    }
 
     createFuseIndex() {
         if (this.indexData.length > 0) {
@@ -251,7 +99,7 @@ class DocumentationIndex {
         
         const {
             limit = 10,
-            threshold = 0.4,
+            threshold = 0.6,
             topic = null
         } = options;
         
@@ -320,86 +168,22 @@ class DocumentationIndex {
         return `Documentation related to ${topic}`;
     }
 
-    // Enable file watching for automatic index rebuilding
-    startFileWatching() {
-        if (!chokidar || isServerless) {
-            logger.info('File watching not available in serverless environment');
-            return;
-        }
 
-        if (this.watcher) {
-            logger.warn('File watcher already running');
-            return;
-        }
-
-        try {
-            this.watcher = chokidar.watch(this.contentPath, {
-                ignored: /(^|[\/\\])\../, // ignore dotfiles
-                persistent: true,
-                ignoreInitial: true, // don't trigger on initial scan
-                depth: 10 // watch subdirectories
-            });
-
-            this.watcher
-                .on('add', (path) => {
-                    logger.info(`Documentation file added: ${path}`);
-                    this.scheduleRebuild();
-                })
-                .on('change', (path) => {
-                    logger.info(`Documentation file changed: ${path}`);
-                    this.scheduleRebuild();
-                })
-                .on('unlink', (path) => {
-                    logger.info(`Documentation file removed: ${path}`);
-                    this.scheduleRebuild();
-                })
-                .on('error', (error) => {
-                    logger.error('File watcher error:', error);
-                });
-
-            logger.info(`Started file watching for documentation changes: ${this.contentPath}`);
-        } catch (error) {
-            logger.error('Failed to start file watcher:', error);
-        }
-    }
-
-    // Stop file watching
-    stopFileWatching() {
-        if (this.watcher) {
-            this.watcher.close();
-            this.watcher = null;
-            logger.info('Stopped file watching');
-        }
-    }
-
-    // Debounced rebuild to avoid too frequent rebuilds
-    scheduleRebuild() {
-        if (this.rebuildTimeout) {
-            clearTimeout(this.rebuildTimeout);
-        }
-
-        this.rebuildTimeout = setTimeout(async () => {
-            try {
-                logger.info('Rebuilding documentation index due to file changes...');
-                await this.buildIndex();
-                this.createFuseIndex();
-                logger.info(`Documentation index rebuilt with ${this.indexData.length} documents`);
-            } catch (error) {
-                logger.error('Failed to rebuild documentation index:', error);
-            }
-        }, 2000); // Wait 2 seconds after last change
-    }
-
-    // Manual rebuild method for API endpoint
     async rebuildIndex() {
         try {
-            logger.info('Manual documentation index rebuild triggered');
-            await this.buildIndex();
-            this.createFuseIndex();
-            logger.info(`Documentation index rebuilt with ${this.indexData.length} documents`);
-            return { success: true, documentCount: this.indexData.length };
+            const loaded = await this.loadPrebuiltIndex();
+            if (!loaded) {
+                throw new Error('Pre-built search index not found');
+            }
+            
+            return { 
+                success: true, 
+                documentCount: this.indexData.length,
+                version: 'build-time-index',
+                timestamp: new Date().toISOString()
+            };
         } catch (error) {
-            logger.error('Failed to rebuild documentation index:', error);
+            logger.error('Failed to reload documentation index:', error);
             throw error;
         }
     }

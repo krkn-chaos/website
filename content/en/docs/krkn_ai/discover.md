@@ -1,18 +1,18 @@
 ---
 title: Cluster Discovery
-description: Automatically discover cluster components for Chaos AI testing.
+description: Automatically discover cluster components for Krkn-AI testing.
 weight: 2
 ---
 
-Chaos AI uses a genetic algorithm to generate Chaos scenarios. These scenarios require information about the components available in the cluster, which is obtained from the `cluster_components` YAML field of the Chaos AI configuration.
+Krkn-AI uses a genetic algorithm to generate Chaos scenarios. These scenarios require information about the components available in the cluster, which is obtained from the `cluster_components` YAML field of the Krkn-AI configuration.
 
 ### CLI Usage
 
 ```bash
-$ uv run chaos_ai discover --help
-Usage: chaos_ai discover [OPTIONS]
+$ uv run krkn_ai discover --help
+Usage: krkn_ai discover [OPTIONS]
 
-  Discover components for Chaos AI tests
+  Discover components for Krkn-AI tests
 
 Options:
   -k, --kubeconfig TEXT   Path to cluster kubeconfig file.
@@ -29,13 +29,13 @@ Options:
 
 ### Example
 
-The example below filters cluster components from namespaces that match the patterns `robot-.*` and `etcd`. In addition to namespaces, we also provide filters for pod labels and node labels. This allows us to narrow down the necessary components to consider when running a Chaos AI test.
+The example below filters cluster components from namespaces that match the patterns `robot-.*` and `etcd`. In addition to namespaces, we also provide filters for pod labels and node labels. This allows us to narrow down the necessary components to consider when running a Krkn-AI test.
 
 ```bash
-$ uv run chaos_ai discover -k ./path/to/kubeconfig.yaml -n "robot-.*,etcd" -pl "service,env" -nl "disktype" -o ./chaos-ai.yaml
+$ uv run krkn_ai discover -k ./path/to/kubeconfig.yaml -n "robot-.*,etcd" -pl "service,env" -nl "disktype" -o ./krkn-ai.yaml
 ```
 
-The above command generates a config file that contains the basic setup to help you get started. You can customize the parameters as described in the [configs](./config/) documentation. If you want to exclude any cluster components—such as a pod, node, or namespace—from being considered for Chaos AI testing, simply remove them from the `cluster_components` YAML field.
+The above command generates a config file that contains the basic setup to help you get started. You can customize the parameters as described in the [configs](./config/) documentation. If you want to exclude any cluster components—such as a pod, node, or namespace—from being considered for Krkn-AI testing, simply remove them from the `cluster_components` YAML field.
 
 ```yaml
 # Path to your kubeconfig file
@@ -67,7 +67,7 @@ scenario:
   node-memory-hog:
     enable: false
 
-# Cluster components to consider for Chaos AI testing
+# Cluster components to consider for Krkn-AI testing
 cluster_components:
   namespaces:
   - name: robot-shop

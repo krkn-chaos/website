@@ -4,9 +4,9 @@ description: Configuring Evolutionary Algorithm
 weight: 1
 ---
 
-Chaos AI uses an online learning approach by leveraging an evolutionary algorithm, where an agent runs tests on the actual cluster and gathers feedback by measuring various KPIs for your cluster and application. The algorithm begins by creating random population samples that contain Chaos scenarios. These scenarios are executed on the cluster, feedback is collected, and then the best samples (parents) are selected to undergo crossover and mutation operations to generate the next set of samples (offspring). The algorithm relies on heuristics to guide the exploration and exploitation of scenarios.
+Krkn-AI uses an online learning approach by leveraging an evolutionary algorithm, where an agent runs tests on the actual cluster and gathers feedback by measuring various KPIs for your cluster and application. The algorithm begins by creating random population samples that contain Chaos scenarios. These scenarios are executed on the cluster, feedback is collected, and then the best samples (parents) are selected to undergo crossover and mutation operations to generate the next set of samples (offspring). The algorithm relies on heuristics to guide the exploration and exploitation of scenarios.
 
-![Genetic Algorithm](images/chaos-ai-genetic-algorithm.jpg)
+![Genetic Algorithm](images/krkn-ai-genetic-algorithm.jpg)
 
 ### Terminologies
 
@@ -21,14 +21,14 @@ Chaos AI uses an online learning approach by leveraging an evolutionary algorith
 
 ### Configurations
 
-The algorithm relies on specific configurations to guide its execution. These settings can be adjusted in the Chaos AI config file, which you generate using the [discover](../discover.md) command.
+The algorithm relies on specific configurations to guide its execution. These settings can be adjusted in the Krkn-AI config file, which you generate using the [discover](../discover.md) command.
 
 #### `generations`
 
 Total number of generation loop to run (Default: 20)
 
 - The value for this field should be **at least 1**.
-- Setting this to a higher value increases Chaos AI testing coverage.
+- Setting this to a higher value increases Krkn-AI testing coverage.
 - Each scenario tested in the current generation retains some properties from the previous generation.
 
 #### `population_size`

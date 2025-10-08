@@ -4,7 +4,7 @@ description: Configuring Fitness Function
 weight: 2
 ---
 
-The **fitness function** is a crucial element in the Chaos AI algorithm. It evaluates each Chaos experiment and generates a score. These scores are then used during the selection phase of the algorithm to identify the best candidate solutions in each generation.
+The **fitness function** is a crucial element in the Krkn-AI algorithm. It evaluates each Chaos experiment and generates a score. These scores are then used during the selection phase of the algorithm to identify the best candidate solutions in each generation.
 
 - The fitness function can be defined as an SLO or as cluster metrics using a Prometheus query.
 - Fitness scores are calculated for the time range during which the Chaos scenario is executed.
@@ -47,7 +47,7 @@ In the above result, the fitness score of `2` indicates that two restarts were o
 
 ## Types of Fitness Function
 
-There are two types of fitness functions available in Chaos AI: **point** and **range**.
+There are two types of fitness functions available in Krkn-AI: **point** and **range**.
 
 ### Point-Based Fitness Function
 
@@ -77,7 +77,7 @@ fitness_function:
 
 ## Defining Multiple Fitness Functions
 
-Chaos AI allows you to define multiple fitness function items in the YAML configuration, enabling you to track how individual fitness values vary for different scenarios in the final outcome.
+Krkn-AI allows you to define multiple fitness function items in the YAML configuration, enabling you to track how individual fitness values vary for different scenarios in the final outcome.
 
 You can assign a `weight` to each fitness function to specify how its value impacts the final score used during Genetic Algorithm selection. Each weight should be between 0 and 1. By default, if no weight is specified, it will be considered as 1.
 
@@ -93,7 +93,7 @@ fitness_function:
 
 ## Krkn Failures
 
-Chaos AI uses [krknctl](../../krknctl/) under the hood to trigger Chaos testing experiments on the cluster. As part of the CLI, it captures various feedback and returns a non-zero status code when a failure occurs. By default, feedback from these failures is included in the Chaos AI Fitness Score calculation.
+Krkn-AI uses [krknctl](../../krknctl/) under the hood to trigger Chaos testing experiments on the cluster. As part of the CLI, it captures various feedback and returns a non-zero status code when a failure occurs. By default, feedback from these failures is included in the Krkn-AI Fitness Score calculation.
 
 You can disable this by setting the `include_krkn_failure` to `false`.
 
@@ -112,7 +112,7 @@ Results from application health checks are also incorporated into the fitness sc
 
 - **Scoring**: The higher the fitness score, the more priority will be given to that scenario for generating new sets of scenarios. This also means that scenarios with higher fitness scores are more likely to have an impact on the cluster and should be further investigated.
 
-- **Normalization**: Chaos AI currently does not apply any normalization, except when a fitness function is assigned with weights. While this does not significantly impact the algorithm, from a user interpretation standpoint, it is beneficial to use normalized SLO queries in PromQL. For example, instead of using the maximum CPU for a pod as a fitness function, it may be more convenient to use the CPU percentage of a pod.
+- **Normalization**: Krkn-AI currently does not apply any normalization, except when a fitness function is assigned with weights. While this does not significantly impact the algorithm, from a user interpretation standpoint, it is beneficial to use normalized SLO queries in PromQL. For example, instead of using the maximum CPU for a pod as a fitness function, it may be more convenient to use the CPU percentage of a pod.
 
 - **Use-Case Driven**: The fitness function query should be defined based on your use case. If you want to optimize your cluster for maximum uptime, a good fitness function could be to capture restart counts or the number of unavailable pods. Similarly, if you are interested in optimizing your cluster to ensure no downtime due to resource constraints, a good fitness function would be to measure the maximum CPU or memory percentage.
 

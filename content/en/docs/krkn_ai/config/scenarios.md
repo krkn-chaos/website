@@ -1,14 +1,14 @@
 ---
 title: Scenarios
-description: Available Chaos AI Scenarios
+description: Available Kkrn-AI Scenarios
 weight: 4
 ---
 
-The following Krkn scenarios are currently supported by Chaos AI.
+The following Krkn scenarios are currently supported by Kkrn-AI.
 
-> At least one scenario must be enabled for the Chaos AI experiment to run.
+> At least one scenario must be enabled for the Kkrn-AI experiment to run.
 
-| **Scenario**        	| **Chaos AI Config (YAML)**                      	|
+| **Scenario**        	| **Kkrn-AI Config (YAML)**                      	|
 |---------------------	|------------------------------------------	|
 | [Pod Scenario](../../scenarios/pod-scenario/)        	| *scenario.pod-scenarios*       	|
 | [Application Outages](../../scenarios/application-outage/) 	| *scenario.application-outages* 	|
@@ -18,7 +18,7 @@ The following Krkn scenarios are currently supported by Chaos AI.
 | [Time Scenario](../../scenarios/time-scenarios/)       	| *scenario.time-scenarios*      	|
 
 
-By default, scenarios are not enabled. Depending on your use case, you can enable or disable these scenarios in the `chaos-ai.yaml` config file by setting the `enable` field to `true` or `false`.
+By default, scenarios are not enabled. Depending on your use case, you can enable or disable these scenarios in the `krkn-ai.yaml` config file by setting the `enable` field to `true` or `false`.
 
 ```yaml
 scenario:

@@ -1,19 +1,19 @@
 ---
 title: Getting Started
-description: How to deploy sample microservice and run Chaos AI test
+description: How to deploy sample microservice and run Krkn-AI test
 weight : 1
 categories: [Best Practices, Placeholders]
 tags: [docs]
 ---
 
-## Getting Started with Chaos AI
+## Getting Started with Krkn-AI
 
-This documentation details how to deploy a sample microservice application on Kubernetes Cluster and run Chaos AI test.
+This documentation details how to deploy a sample microservice application on Kubernetes Cluster and run Krkn-AI test.
 
 ### Prerequisites
 
-- Follow this [guide](../installation/chaos-ai.md) to install Chaos-AI CLI. 
-- Chaos AI uses Thanos Querier to fetch SLO metrics by PromQL. You can easily install it by setting up [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) in your cluster.
+- Follow this [guide](../installation/krkn-ai.md) to install Krkn-AI CLI. 
+- Krkn-AI uses Thanos Querier to fetch SLO metrics by PromQL. You can easily install it by setting up [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) in your cluster.
 
 
 ### Deploy Sample Microservice
@@ -21,8 +21,8 @@ This documentation details how to deploy a sample microservice application on Ku
 For demonstration purpose, we will deploy a sample microservice called [robot-shop](https://github.com/instana/robot-shop) on the cluster:
 
 ```bash
-# Change to Chaos AI project directory
-cd chaos-ai/
+# Change to Krkn-AI project directory
+cd krkn-ai/
 
 # Namespace where to deploy the microservice application
 export DEMO_NAMESPACE=robot-shop
@@ -59,18 +59,17 @@ export HOST="http://$(kubectl get service rs -o json | jq -r '.status.loadBalanc
 
 ### 📝 Generate Configuration
 
-Chaos AI uses YAML configuration files to define experiments. You can generate a sample config file dynamically by running Chaos AI discover command.
+Krkn-AI uses YAML configuration files to define experiments. You can generate a sample config file dynamically by running Krkn-AI discover command.
 
 ```bash
-$ uv run chaos_ai discover --help
-Usage: chaos_ai discover [OPTIONS]
+$ uv run krkn_ai discover --help
+Usage: krkn_ai discover [OPTIONS]
 
-  Discover components for Chaos AI tests
+  Discover components for Krkn-AI tests
 
 Options:
   -k, --kubeconfig TEXT   Path to cluster kubeconfig file.
-  -o, --output TEXT       Path to save config file.  [default: ./chaos-
-                          ai.yaml]
+  -o, --output TEXT       Path to save config file.  [default: ./krkn-ai.yaml]
   -n, --namespace TEXT    Namespace(s) to discover components in. Supports
                           Regex and comma separated values.  [default: .*]
   -pl, --pod-label TEXT   Pod Label Keys(s) to filter. Supports Regex and
@@ -81,7 +80,7 @@ Options:
   --help                  Show this message and exit.
 
 # Discover components in cluster to generate the config
-$ uv run chaos_ai discover -k ./path/to/kubeconfig.yaml -n "robot-shop" -pl "service" -o ./chaos-ai.yaml
+$ uv run krkn_ai discover -k ./path/to/kubeconfig.yaml -n "robot-shop" -pl "service" -o ./krkn-ai.yaml
 ```
 
 Discover command generates a `yaml` file as an output that contains the initial boilerplate for testing. You can modify this file to include custom SLO definitions, cluster components and configure algorithm settings as per your testing use-case.   
@@ -126,7 +125,7 @@ scenario:
   node-memory-hog:
     enable: false
 
-# Cluster components to consider for Chaos AI testing
+# Cluster components to consider for Krkn-AI testing
 cluster_components:
   namespaces:
   - name: robot-shop
@@ -150,26 +149,24 @@ cluster_components:
     name: node-2
 ```
 
-### Running Chaos AI
+### Running Krkn-AI
 
-Once your test configuration is set, you can start Chaos AI testing using the `run` command. This command initializes a random population sample containing Chaos Experiments based on the Chaos AI configuration, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until the total number of generations defined in the config is met.  
+Once your test configuration is set, you can start Krkn-AI testing using the `run` command. This command initializes a random population sample containing Chaos Experiments based on the Krkn-AI configuration, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until the total number of generations defined in the config is met.  
 
 ```bash
-$ uv run chaos_ai run --help
-Usage: chaos_ai run [OPTIONS]
+$ uv run krkn_ai run --help
+Usage: krkn_ai run [OPTIONS]
 
-  Run Chaos AI tests
+  Run Krkn-AI tests
 
 Options:
-  -c, --config TEXT               Path to chaos AI config file.
-  -o, --output TEXT               Directory to save results.
-  -f, --format [json|yaml]        Format of the output file.  [default: yaml]
-  -r, --runner-type [krknctl|krknhub]
-                                  Type of chaos engine to use.
-  -p, --param TEXT                Additional parameters for config file in
-                                  key=value format.
-  -v, --verbose                   Increase verbosity of output.  [default: 0]
-  --help                          Show this message and exit.
+  -c, --config TEXT                     Path to Krkn-AI config file.
+  -o, --output TEXT                     Directory to save results.
+  -f, --format [json|yaml]              Format of the output file.  [default: yaml]
+  -r, --runner-type [krknctl|krknhub]   Type of chaos engine to use.
+  -p, --param TEXT                      Additional parameters for config file in key=value format.
+  -v, --verbose                         Increase verbosity of output.  [default: 0]
+  --help                                Show this message and exit.
 
 
 # Configure Prometheus
@@ -177,8 +174,8 @@ Options:
 export PROMETHEUS_URL='https://Thanos-Querier-url'
 export PROMETHEUS_TOKEN='enter-access-token'
 
-# Start Chaos AI test
-uv run chaos_ai run -vv -c ./chaos-ai.yaml -o ./tmp/results/ -p HOST=$HOST
+# Start Krkn-AI test
+uv run krkn_ai run -vv -c ./krkn-ai.yaml -o ./tmp/results/ -p HOST=$HOST
 ```
 
 ### Understanding the Results
@@ -207,7 +204,7 @@ In the `./tmp/results` directory, you will find the results from testing. The fi
     │   ├── scenario_1.log
     │   ├── scenario_2.log
     │   └── ...
-    └── config.yaml
+    └── krkn-ai.yaml
 ```
 
 **Reports Directory**:

@@ -15,6 +15,7 @@ Krkn-AI leverages evolutionary algorithms to generate experiments based on Krkn 
 3. Start Krkn-AI testing:
     - The evolutionary algorithm will use the cluster components specified in the config file as possible inputs required to run the Chaos scenarios.
     - User-defined SLOs and application health check feedback are taken into account to guide the algorithm.
+4. Analyze results, evaluate the impact of different Chaos scenarios on application liveness and their fitness scores.
 
 
 ## Getting Started

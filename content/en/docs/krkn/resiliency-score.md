@@ -1,16 +1,8 @@
 ---
-title: "Krkn"
-linkTitle: "Krkn"
-weight: 1
+title: "Resiliency Scoring"
+description: "Resiliency Scoring"
+weight: 2
 ---
-
-{{% pageinfo %}}
-This is a placeholder for the krkn docs.
-{{% /pageinfo %}}
-
-## Resiliency Scoring
-
-The Krkn Resiliency Score is a powerful feature that quantifies your system's ability to withstand chaos, moving beyond a simple pass/fail to a nuanced, data-driven score.
 
 ### Introduction
 

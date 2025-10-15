@@ -75,6 +75,8 @@ Health checks provide real-time visibility into the impact of chaos scenarios on
 ### Telemetry
 We gather some basic details of the cluster configuration and scenarios ran as part of a `telemetry` set of data that is printed off at the end of each krkn run. You can also opt in to the telemetry being stored in AWS S3 bucket or elasticsearch for long term storage. Find more details and configuration specifics [here](telemetry.md)
 
+### Resiliency Scoring
+We have a powerful feature to quantify your system's stability during chaos experiments. The **Resiliency Score** is a percentage (0-100%) calculated from a weighted evaluation of SLOs firing in Prometheus. This moves beyond a simple pass/fail, giving you a clear, data-driven metric to track your resilience over time. Find a detailed explanation of the scoring algorithm and configuration options [here](resiliency-score.md).
 
 ### OCM / ACM integration
 

@@ -81,9 +81,3 @@ The feature is orchestrated by a central `Resiliency` class that manages the ent
 3.  **Result Mapping**: If a query returns a result, it means the failure condition was met, and the SLO is marked as `failed`. If the query returns nothing, the SLO is marked as `passed`.
 4.  **Scoring**: The class then applies the weighted scoring algorithm to the pass/fail results to calculate the final score.
 5.  **Reporting**: Finally, the class generates a complete report dictionary, which is merged into the main telemetry object before it's written to disk.
-
-### How to Use in krknctl (Custom Profiles)
-
-For more focused testing, you can provide a custom resiliency profile to `krknctl`. This allows you to select a specific subset of SLOs, override the default weights, and add active health checks.
-
-For detailed instructions on creating a `resiliency_profile.yaml` and the exact CLI flags to use, please refer to the **[Krknctl Resiliency Scoring Documentation](/docs/krknctl/resiliency-scoring)**.

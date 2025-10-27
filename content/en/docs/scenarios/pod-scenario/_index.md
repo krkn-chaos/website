@@ -44,3 +44,47 @@ kubectl get pods -n <namespace> -w # watch for new pods
 - ***Service Uptime Remains Unaffected:*** During chaos test, verify app availability (synthetic probes, Prometheus alerts, etc).
 - ***Recovery Is Automatic:*** No manual intervention needed to restore service.
 - ***Krkn Telemetry Indicators:*** End of run data includes recovery times, pod reschedule latency, and service downtime which are vital metrics for assessing HA.
+
+## Excluding Pods from Disruption
+
+Employ `exclude_label` to designate the safe pods in a group, while the rest of the pods in a namespace are subjected to chaos. Some frequent use cases are:
+- Turn off the backend pods but make sure the database replicas that are highly available remain untouched.
+- Inject the fault in the application layer, do not stop the infrastructure/monitoring pods.
+- Run a rolling disruption experiment with the control-plane or system-critical components that are not affected.
+
+**Format:**
+
+```yaml
+exclude_label: "key=value"
+```
+
+**Mechanism:**
+1. Pods are selected based on `namespace_pattern` + `label_selector` or `name_pattern`.
+2. Before deletion, the pods that match `exclude_label` are removed from the list.
+3. Rest of the pods are subjected to chaos.
+
+### Example: Have the Leader Protected While Different etcd Replicas Are Killed
+
+```yaml
+- id: kill_pods
+    config:
+        namespace_pattern: ^openshift-etcd$
+        label_selector: k8s-app=etcd
+        exclude_label: role=etcd-leader
+        krkn_pod_recovery_time: 120
+        kill: 1
+```
+
+### Example: Disrupt Backend, Skip Monitoring
+
+```yaml
+- id: kill_pods
+    config:
+        namespace_pattern: ^production$
+        label_selector: app=backend
+        exclude_label: component=monitoring
+        krkn_pod_recovery_time: 120
+        kill: 2
+```
+
+See [Krkn config examples](./pod-scenarios-krkn.md) and [Krknctl parameters](./pod-scenarios-krknctl.md) for full details.

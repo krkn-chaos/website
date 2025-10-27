@@ -6,6 +6,10 @@ date: 2017-01-04
 weight: 6
 ---
 
+{{% alert title="Tip" %}}
+Many pod scenarios now support the `exclude_label` parameter to protect critical pods while testing others. See individual scenario pages ([Pod Failures](pod-scenario/_index.md), [Pod Network Chaos](pod-network-scenario/_index.md)) for details.
+{{% /alert %}}
+
 ## Supported chaos scenarios
 <style>
 table th:first-of-type {

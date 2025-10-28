@@ -70,6 +70,12 @@ outputs:
   section: [HTML, print, RSS]
 
 params:
+  mermaid:
+    theme: "default"  # or "dark", "forest", "neutral"
+    primaryColor: "#ff6b6b"
+    primaryTextColor: "#000000"
+    customCSS: |
+      .mermaid { border: 1px solid #ccc; }
   taxonomy:
     # set taxonomyCloud = [] to hide taxonomy clouds
     taxonomyCloud: [tags, categories]

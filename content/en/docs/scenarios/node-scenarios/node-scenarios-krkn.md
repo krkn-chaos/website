@@ -123,6 +123,14 @@ The cloud type in the scenario yaml file needs to be `ibm`
 {{% /alert %}}
 
 
+## IBMCloud Power
+How to set up IBMCloud Power to run node scenarios is defined [here](../cloud_setup.md#ibmcloud-power)
+
+See a sample of ibm cloud node scenarios [example config file](https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/ibmcloud_node_scenarios.yml)
+
+The cloud type in the scenario yaml file needs to be `ibmpower` or `ibmcloudpower`
+
+
 ## General
 {{% alert title="Note" %}} The `node_crash_scenario` and `stop_kubelet_scenario` scenarios are supported independent of the cloud platform.{{% /alert %}}
 

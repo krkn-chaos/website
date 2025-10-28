@@ -22,6 +22,7 @@ node_scenarios:
     - <action>                 # Can specify multiple actions here
     node_name: <node_name>     # node on which scenario has to be injected; can set multiple names separated by comma
     label_selector: <label>    # when node_name is not specified, a node with matching label_selector is selected for node chaos scenario injection; can specify multiple by a comma separated list
+    exclude_label: <label>     # if label_selector is set, will exclude nodes marked by this label from the chaos scenario
     instance_count: <instance_number> # Number of nodes to perform action/select that match the label selector
     runs: <run_int>            # number of times to inject each scenario under actions (will perform on same node each time)
     timeout: <timeout>         # duration to wait for completion of node scenario injection

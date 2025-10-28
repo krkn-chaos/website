@@ -50,6 +50,7 @@ Parameter               | Description                                           
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 ACTION                  | Action can be one of the [following](https://github.com/krkn-chaos/krkn/blob/master/docs/node_scenarios.md) | node_stop_start_scenario |
 LABEL_SELECTOR          | Node label to target                                                  | node-role.kubernetes.io/worker       |
+EXCLUDE_LABEL           | Nodes labeled with this value will be excluded from the chaos         |                                      |
 NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | ""                                   |
 INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                    |
 RUNS                    | Iterations to perform action on a single node                         | 1                                    |

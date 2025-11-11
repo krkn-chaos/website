@@ -1,6 +1,6 @@
 ---
 title: "Resiliency Scoring"
-description: "Resiliency Scoring"
+description: "Resiliency Scoring Calculation Algorithm and Configuration"
 weight: 2
 ---
 
@@ -42,42 +42,83 @@ The score is calculated as a percentage of the total possible points achieved.
 * **Points Lost:** `(1 * 3) + (4 * 1) = 7`.
 * **Final Score:** `((30 - 7) / 30) * 100 = 76.6%`.
 
-### How to Use in Krkn (Default Mode)
+### Execution Modes
 
-Resiliency scoring is enabled by default and requires no extra configuration. After any chaos run, Krkn will automatically evaluate the comprehensive set of SLOs defined in the main `config/alerts.yaml` file.
+Krkn supports three execution modes:
 
-The results will be embedded in the `kraken.report` file within the `resiliency_report` block.
 
-**Example Telemetry Output:**
+#### Mode 1: Default
+
+*Uses `config/alerts.yaml` on disk.*
+
+1. Runs the chaos scenario.
+2. Loads SLO definitions from `config/alerts.yaml`.
+3. Calculates the score and embeds the full report in `kraken.report → resiliency_report`.
+
+**Example telemetry snippet:**
 ```json
 {
-    "telemetry": {
-        "run_uuid": "717c8135-2aa0-47c9-afdf-3a6fe855c535",
-        "job_status": false,
-        "resiliency_report": {
-            "score": 95,
-            "breakdown": {
-                "total_points": 45,
-                "points_lost": 2,
-                "passed": 27,
-                "failed": 2
-            },
-            "slo_results": {
-                "etcd cluster database is running full.": true,
-                "etcd cluster members are down.": false,
-                "Critical prometheus alert. {{$labels.alertname}}": false
-            }
-        }
+  "telemetry": {
+    "run_uuid": "717c8135-2aa0-47c9-afdf-3a6fe855c535",
+    "job_status": false,
+    "resiliency_report": {
+      "score": 95,
+      "breakdown": { "total_points": 45, "points_lost": 2, "passed": 27, "failed": 2 },
     }
+  }
 }
 ```
 
+#### Mode 2: Custom profile override
+
+*Activated when `KRKN_ALERTS_YAML_CONTENT` is provided.*
+
+1. Overrides the local `config/alerts.yaml` with the YAML passed via the environment variable.
+2. Runs exactly like the default mode but uses the supplied profile.
+3. Writes the report to `kraken.report` (same as default). Nothing is printed to stdout.
+
+#### Mode 3: Controller (`krknctl` integration)
+
+Activated when **both** environment variables are set:
+
+* `KRKN_RUN_MODE=controller` – tells Krkn to print its resiliency report to stdout.
+* `KRKN_ALERTS_YAML_CONTENT` – carries the SLO profile (identical to Mode 2).
+
+1. Krkn runs inside a container launched by **krknctl**.
+2. After scoring, it prints a *single-line* JSON report prefixed with `KRKN_RESILIENCY_REPORT_JSON:`. krknctl captures this line and aggregates the score across scenarios.
+
+**Example stdout snippet (trimmed):**
+```bash
+2025-11-10 10:30:05 [INFO] Resiliency check complete. Score: 76.6%
+KRKN_RESILIENCY_REPORT_JSON:{"name":"node-cpu-hog","score":76.6,"weight":1.0}
+```
+
+
 ### Architecture and Implementation
 
-The feature is orchestrated by a central `Resiliency` class that manages the entire lifecycle.
+![Krkn resiliency architecture](images/krkn-resiliency-flow.png)
 
-1.  **Initialization**: After a chaos run, the main Krkn runner initializes the `Resiliency` object, which loads all SLO definitions from `config/alerts.yaml`.
-2.  **Evaluation**: The `Resiliency` object iterates through every loaded SLO. For each one, it executes the Prometheus `expr` (query) over the time window of the chaos scenario.
-3.  **Result Mapping**: If a query returns a result, it means the failure condition was met, and the SLO is marked as `failed`. If the query returns nothing, the SLO is marked as `passed`.
-4.  **Scoring**: The class then applies the weighted scoring algorithm to the pass/fail results to calculate the final score.
-5.  **Reporting**: Finally, the class generates a complete report dictionary, which is merged into the main telemetry object before it's written to disk.
+A single `Resiliency` class manages the entire lifecycle:
+
+1. **Initialization**  
+   • Detect `KRKN_RUN_MODE`.  
+   • If `controller`, construct the object from `KRKN_ALERTS_YAML_CONTENT`; otherwise load `config/alerts.yaml`.
+
+2. **Evaluation**  
+   Iterate through each SLO and run its Prometheus `expr` over the chaos time window.
+
+3. **Result Mapping**  
+   A non-empty query result marks the SLO as **failed**; an empty result marks it as **passed**.
+
+4. **Scoring**  
+   Apply the weighted algorithm (critical = 3, warning = 1) to derive the percentage score.
+
+5. **Reporting**  
+   • Standalone: merge the report into telemetry and write to `kraken.report`.  
+   • Controller: serialize the report to JSON and print with the `KRKN_RESILIENCY_REPORT_JSON:` prefix.
+
+#### Multi-scenario runs
+
+No additional weighting is applied—every SLO contributes once per run. If a critical SLO fires during any scenario, its full weight (3) is deducted from the total.
+
+Need independent containers, parallel execution, or per-scenario weighting? Use [**krknctl**](../krknctl/resiliency-score.md).

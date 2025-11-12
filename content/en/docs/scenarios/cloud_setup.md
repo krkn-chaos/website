@@ -116,3 +116,28 @@ Set the following environment variables
 1. ```export IBMC_URL=https://<region>.iaas.cloud.ibm.com/v1```
 
 2. ```export IBMC_APIKEY=<ibmcloud_api_key>```
+
+
+## IBMCloud Power
+If no api key is set up with proper VPC resource permissions, use the following to create: 
+* [Access group](https://cloud.ibm.com/docs/account?topic=account-groups&interface=ui#create_ag)
+* [Service ID with the following access:](https://cloud.ibm.com/docs/account?topic=account-serviceids&interface=ui#create_serviceid)
+  * With policy **Power Virtual Server Workspace**
+  * Resources = All
+  * Roles: 
+    * Editor
+    * Administrator 
+    * Operator  
+    * Viewer
+    * Manager
+    * Serivce Configuration Reader
+    * Key Manager
+* [API Key](https://cloud.ibm.com/docs/account?topic=account-manapikey&interface=ui)
+
+Set the following environment variables
+
+1. ```export IBMC_POWER_URL= "https://<region>.power-iaas.cloud.ibm.com"```
+
+2. ```export IBMC_APIKEY=<ibmcloud_api_key>```
+
+3. ```export IBMC_POWER_CRN=<workspace_crn>```

@@ -4,6 +4,8 @@ description:
 date: 2017-01-04
 weight: 3
 ---
+
+<krkn-hub-scenario id="node-scenarios">
 This scenario disrupts the node(s) matching the label or node name(s) on a Kubernetes/OpenShift cluster. These scenarios are performed in two different ways, either by the clusters cloud cli or by common/generic commands that can be performed on any cluster. 
 
 
@@ -46,6 +48,8 @@ Supported cloud supported:
 - Alibaba
 - IbmCloud
 {{% /alert %}}
+
+</krkn-hub-scenario>
 
 
 

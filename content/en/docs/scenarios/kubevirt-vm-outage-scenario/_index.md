@@ -5,6 +5,8 @@ date: 2017-01-04
 weight: 3
 ---
 
+<krkn-hub-scenario id="kubevirt-outage">
+
 This scenario enables the simulation of VM-level disruptions in clusters where KubeVirt or OpenShift Containerized Network Virtualization (CNV) is installed. It allows users to delete a Virtual Machine Instance (VMI) to simulate a VM crash and test recovery capabilities.
 
 ## Table of Contents
@@ -107,3 +109,5 @@ If the scenario fails, check the following:
 2. Verify that the target VMI exists and is running
 3. Check that your credentials have sufficient permissions to delete and create VMIs
 4. Examine the logs for specific error messages
+
+</krkn-hub-scenario>

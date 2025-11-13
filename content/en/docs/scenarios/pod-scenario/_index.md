@@ -14,7 +14,7 @@ Modern applications demand high availability, low downtime, and resilient infras
 **Krkn Telemetry:** Krkn collects metrics during chaos experiments, such as recovery timing. These indicators help assess how resilient the application is under test conditions.
 
 ## Use cases and importance of pod scenarios
-
+<krkn-hub-scenario id="pod-scenarios">
 1. Deleting a single pod
 - **Use Case:** Simulates unplanned deletion of a single pod
 - **Why It's Important:** Validates whether the ReplicaSet or Deployment automatically creates a replacement.
@@ -37,6 +37,8 @@ kubectl get pods -n <namespace> -w # watch for new pods
 - **Why It's Important:** Ensures graceful termination and restart elsewhere without user impact.
 - **Customer Impact:** Should be zero if readiness/liveness probes and PDBs are correctly configured.
 - **HA Indicator:** Rolling disruption does not take down the whole application.
+
+</krkn-hub-scenario>
 
 ## How to know if it is highly available 
 - ***Multiple Replicas Exist:*** Confirmed by checking `kubectl get deploy -n <namespace>` and seeing atleast 1 replica.

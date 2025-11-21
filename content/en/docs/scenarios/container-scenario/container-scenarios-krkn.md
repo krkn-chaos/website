@@ -16,6 +16,7 @@ scenarios:
   container_name: "<specific container name>"  # This is optional, can take out and will kill all containers in all pods found under namespace and label
   pod_names:  # This is optional, can take out and will select all pods with given namespace and label
   - <pod_name>
+  exclude_label: "<label to exclude pods from chaos>" # Optional: pods matching this label will be excluded from disruption
   count: <number of containers to disrupt, default=1>
   action: <kill signal to run. For example 1 ( hang up ) or 9. Default is set to 1>
   expected_recovery_time: <number of seconds to wait for container to be running again> (defaults to 120seconds)

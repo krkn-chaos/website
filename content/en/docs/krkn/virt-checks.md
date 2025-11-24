@@ -46,6 +46,7 @@ kubevirt_checks:                                      # Utilizing virt check end
     disconnected: False                               # Boolean of how to try to connect to the VMIs; if True will use the ip_address to try ssh from within a node, if false will use the name and uses virtctl to try to connect  
     ssh_node: ""                                      # If set, will be a backup way to ssh to a node. Will want to set to a node that isn't targeted in chaos
     node_names: ""                                    # List of node names to further filter down the VM's, will only watch VMs with matching name in the given namespace that are running on node. Can put multiple by separating by a comma
+    exit_on_failure:                                        # If value is True and VMI's are failing post chaos returns failure, values can be True/False
 ```
 
 ##### Disconnected Environment

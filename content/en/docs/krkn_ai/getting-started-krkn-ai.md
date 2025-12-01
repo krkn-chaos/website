@@ -69,18 +69,25 @@ Usage: krkn_ai discover [OPTIONS]
 
 Options:
   -k, --kubeconfig TEXT   Path to cluster kubeconfig file.
-  -o, --output TEXT       Path to save config file.  [default: ./krkn-ai.yaml]
+  -o, --output TEXT       Path to save config file.
   -n, --namespace TEXT    Namespace(s) to discover components in. Supports
-                          Regex and comma separated values.  [default: .*]
+                          Regex and comma separated values.
   -pl, --pod-label TEXT   Pod Label Keys(s) to filter. Supports Regex and
-                          comma separated values.  [default: .*]
+                          comma separated values.
   -nl, --node-label TEXT  Node Label Keys(s) to filter. Supports Regex and
-                          comma separated values.  [default: .*]
-  -v, --verbose           Increase verbosity of output.  [default: 0]
+                          comma separated values.
+  -v, --verbose           Increase verbosity of output.
+  --skip-pod-name TEXT    Pod name to skip. Supports comma separated values
+                          with regex.
   --help                  Show this message and exit.
 
 # Discover components in cluster to generate the config
-$ uv run krkn_ai discover -k ./path/to/kubeconfig.yaml -n "robot-shop" -pl "service" -o ./krkn-ai.yaml
+$ uv run krkn_ai discover -k ./tmp/kubeconfig.yaml \
+  -n "robot-shop" \
+  -pl "service" \
+  -nl "kubernetes.io/hostname" \
+  -o ./tmp/krkn-ai.yaml \
+  --skip-pod-name "nginx-proxy.*"
 ```
 
 Discover command generates a `yaml` file as an output that contains the initial boilerplate for testing. You can modify this file to include custom SLO definitions, cluster components and configure algorithm settings as per your testing use-case.   
@@ -94,23 +101,23 @@ generations: 5
 population_size: 10
 composition_rate: 0.3
 population_injection_rate: 0.1
+scenario_mutation_rate: 0.6
+
+# Duration to wait before running next scenario (seconds)
+wait_duration: 30
+
+# Specify how result filenames are formatted
+output:
+  result_name_fmt: "scenario_%s.yaml"
+  graph_name_fmt: "scenario_%s.png"
+  log_name_fmt: "scenario_%s.log"
 
 # Fitness function configuration for defining SLO
 # In the below example, we use Total Restarts in "robot-shop" namespace as the SLO
 fitness_function: 
   query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
   type: point
-  # Whether to include non-zero exit code status in the fitness function scoring
   include_krkn_failure: true
-
-# Health endpoints for synthetic monitoring of applications
-health_checks:
-  stop_watcher_on_failure: false
-  applications:
-  - name: cart
-    url: "$HOST/cart/add/1/Watson/1"
-  - name: catalogue
-    url: "$HOST/catalogue/categories"
 
 # Chaos scenarios to consider during testing
 scenario:
@@ -134,19 +141,55 @@ cluster_components:
       - name: cart
       labels:
         service: cart
+        env: dev
       name: cart-7cd6c77dbf-j4gsv
     - containers:
       - name: catalogue
       labels:
         service: catalogue
+        env: dev
       name: catalogue-94df6b9b-pjgsr
+
+    services:
+    - labels:
+        app.kubernetes.io/managed-by: Helm
+      name: cart
+      ports:
+      - port: 8080
+        protocol: TCP
+        target_port: 8080
+    - labels:
+        app.kubernetes.io/managed-by: Helm
+        service: catalogue
+      name: catalogue
+      ports:
+      - port: 8080
+        protocol: TCP
+        target_port: 8080
+
+  - name: etcd
+    pods:
+    - containers:
+      - name: etcd
+        labels:
+          service: etcd
+        name: etcd-0
+    - containers:
+      - name: etcd
+        labels:
+          service: etcd
+        name: etcd-1
   nodes:
   - labels:
       kubernetes.io/hostname: node-1
+      disktype: SSD
     name: node-1
+    taints: []
   - labels:
       kubernetes.io/hostname: node-2
+      disktype: HDD
     name: node-2
+    taints: []
 ```
 
 ### Running Krkn-AI

@@ -24,6 +24,8 @@ Options:
   -nl, --node-label TEXT  Node Label Keys(s) to filter. Supports Regex and
                           comma separated values.
   -v, --verbose           Increase verbosity of output.
+  --skip-pod-name TEXT    Pod name to skip. Supports comma separated values
+                          with regex.
   --help                  Show this message and exit.
 ```
 
@@ -46,6 +48,16 @@ generations: 5
 population_size: 10
 composition_rate: 0.3
 population_injection_rate: 0.1
+scenario_mutation_rate: 0.6
+
+# Duration to wait before running next scenario (seconds)
+wait_duration: 30
+
+# Specify how result filenames are formatted
+output:
+  result_name_fmt: "scenario_%s.yaml"
+  graph_name_fmt: "scenario_%s.png"
+  log_name_fmt: "scenario_%s.log"
 
 # Fitness function configuration for defining SLO
 # In the below example, we use Total Restarts in "robot-shop" namespace as the SLO
@@ -84,6 +96,24 @@ cluster_components:
         service: catalogue
         env: dev
       name: catalogue-94df6b9b-pjgsr
+
+    services:
+    - labels:
+        app.kubernetes.io/managed-by: Helm
+      name: cart
+      ports:
+      - port: 8080
+        protocol: TCP
+        target_port: 8080
+    - labels:
+        app.kubernetes.io/managed-by: Helm
+        service: catalogue
+      name: catalogue
+      ports:
+      - port: 8080
+        protocol: TCP
+        target_port: 8080
+
   - name: etcd
     pods:
     - containers:
@@ -101,9 +131,11 @@ cluster_components:
       kubernetes.io/hostname: node-1
       disktype: SSD
     name: node-1
+    taints: []
   - labels:
       kubernetes.io/hostname: node-2
       disktype: HDD
     name: node-2
+    taints: []
 ```
 

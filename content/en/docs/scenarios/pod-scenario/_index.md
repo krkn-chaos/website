@@ -5,15 +5,13 @@ date: 2017-01-04
 weight: 3
 ---
 
-Krkn recently replaced PowerfulSeal with its own internal pod scenarios using a plugin system. This scenario disrupts the pods matching the label in the specified namespace on a Kubernetes/OpenShift cluster.
+This scenario disrupts the pods matching the label, excluded label or pod name in the specified namespace on a Kubernetes/OpenShift cluster.
 
 ## Why pod scenarios are important: 
 
 Modern applications demand high availability, low downtime, and resilient infrastructure. Kubernetes provides building blocks like Deployments, ReplicaSets, and Services to support fault tolerance, but understanding how these interact during disruptions is critical for ensuring reliability. Pod disruption scenarios test this reliability under various conditions, validating that the application and infrastructure respond as expected.
 
-**Krkn Telemetry:** Krkn collects metrics during chaos experiments, such as recovery timing. These indicators help assess how resilient the application is under test conditions.
-
-## Use cases and importance of pod scenarios
+## Use cases of pod scenarios
 <krkn-hub-scenario id="pod-scenarios">
 1. Deleting a single pod
 - **Use Case:** Simulates unplanned deletion of a single pod
@@ -87,6 +85,35 @@ exclude_label: "key=value"
         exclude_label: component=monitoring
         krkn_pod_recovery_time: 120
         kill: 2
+```
+
+
+## Recovery Time Metrics in Krkn Telemetry
+
+Krkn tracks three key recovery time metrics for each affected pod:
+
+1. **pod_rescheduling_time** - The time (in seconds) that the Kubernetes cluster took to reschedule the pod after it was killed. This measures the cluster's scheduling efficiency and includes the time from pod deletion until the replacement pod is scheduled on a node.
+
+2. **pod_readiness_time** - The time (in seconds) the pod took to become ready after being scheduled. This measures application startup time, including container image pulls, initialization, and readiness probe success.
+
+3. **total_recovery_time** - The total amount of time (in seconds) from pod deletion until the replacement pod became fully ready and available to serve traffic. This is the sum of rescheduling time and readiness time.
+
+These metrics appear in the telemetry output under `PodsStatus.recovered` for successfully recovered pods. Pods that fail to recover within the timeout period appear under `PodsStatus.unrecovered` without timing data.
+
+**Example telemetry output:**
+```json
+{
+  "recovered": [
+    {
+      "pod_name": "backend-7d8f9c-xyz",
+      "namespace": "production",
+      "pod_rescheduling_time": 2.3,
+      "pod_readiness_time": 5.7,
+      "total_recovery_time": 8.0
+    }
+  ],
+  "unrecovered": []
+}
 ```
 
 See [Krkn config examples](./pod-scenarios-krkn.md) and [Krknctl parameters](./pod-scenarios-krknctl.md) for full details.

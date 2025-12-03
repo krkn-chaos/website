@@ -59,28 +59,9 @@ export HOST="http://$(kubectl get service rs -o json | jq -r '.status.loadBalanc
 
 ### 📝 Generate Configuration
 
-Krkn-AI uses YAML configuration files to define experiments. You can generate a sample config file dynamically by running Krkn-AI discover command.
+Krkn-AI uses YAML configuration files to define experiments. You can generate a sample config file dynamically by running Krkn-AI [discover](./discover.md) command.
 
 ```bash
-$ uv run krkn_ai discover --help
-Usage: krkn_ai discover [OPTIONS]
-
-  Discover components for Krkn-AI tests
-
-Options:
-  -k, --kubeconfig TEXT   Path to cluster kubeconfig file.
-  -o, --output TEXT       Path to save config file.
-  -n, --namespace TEXT    Namespace(s) to discover components in. Supports
-                          Regex and comma separated values.
-  -pl, --pod-label TEXT   Pod Label Keys(s) to filter. Supports Regex and
-                          comma separated values.
-  -nl, --node-label TEXT  Node Label Keys(s) to filter. Supports Regex and
-                          comma separated values.
-  -v, --verbose           Increase verbosity of output.
-  --skip-pod-name TEXT    Pod name to skip. Supports comma separated values
-                          with regex.
-  --help                  Show this message and exit.
-
 # Discover components in cluster to generate the config
 $ uv run krkn_ai discover -k ./tmp/kubeconfig.yaml \
   -n "robot-shop" \
@@ -90,128 +71,13 @@ $ uv run krkn_ai discover -k ./tmp/kubeconfig.yaml \
   --skip-pod-name "nginx-proxy.*"
 ```
 
-Discover command generates a `yaml` file as an output that contains the initial boilerplate for testing. You can modify this file to include custom SLO definitions, cluster components and configure algorithm settings as per your testing use-case.   
-
-```yaml
-# Path to your kubeconfig file
-kubeconfig_file_path: "./path/to/kubeconfig.yaml"
-
-# Genetic algorithm parameters
-generations: 5
-population_size: 10
-composition_rate: 0.3
-population_injection_rate: 0.1
-scenario_mutation_rate: 0.6
-
-# Duration to wait before running next scenario (seconds)
-wait_duration: 30
-
-# Specify how result filenames are formatted
-output:
-  result_name_fmt: "scenario_%s.yaml"
-  graph_name_fmt: "scenario_%s.png"
-  log_name_fmt: "scenario_%s.log"
-
-# Fitness function configuration for defining SLO
-# In the below example, we use Total Restarts in "robot-shop" namespace as the SLO
-fitness_function: 
-  query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
-  type: point
-  include_krkn_failure: true
-
-# Chaos scenarios to consider during testing
-scenario:
-  pod-scenarios:
-    enable: true
-  application-outages:
-    enable: true
-  container-scenarios:
-    enable: false
-  node-cpu-hog:
-    enable: false
-  node-memory-hog:
-    enable: false
-
-# Cluster components to consider for Krkn-AI testing
-cluster_components:
-  namespaces:
-  - name: robot-shop
-    pods:
-    - containers:
-      - name: cart
-      labels:
-        service: cart
-        env: dev
-      name: cart-7cd6c77dbf-j4gsv
-    - containers:
-      - name: catalogue
-      labels:
-        service: catalogue
-        env: dev
-      name: catalogue-94df6b9b-pjgsr
-
-    services:
-    - labels:
-        app.kubernetes.io/managed-by: Helm
-      name: cart
-      ports:
-      - port: 8080
-        protocol: TCP
-        target_port: 8080
-    - labels:
-        app.kubernetes.io/managed-by: Helm
-        service: catalogue
-      name: catalogue
-      ports:
-      - port: 8080
-        protocol: TCP
-        target_port: 8080
-
-  - name: etcd
-    pods:
-    - containers:
-      - name: etcd
-        labels:
-          service: etcd
-        name: etcd-0
-    - containers:
-      - name: etcd
-        labels:
-          service: etcd
-        name: etcd-1
-  nodes:
-  - labels:
-      kubernetes.io/hostname: node-1
-      disktype: SSD
-    name: node-1
-    taints: []
-  - labels:
-      kubernetes.io/hostname: node-2
-      disktype: HDD
-    name: node-2
-    taints: []
-```
+Discover command generates a `yaml` file as an output that contains the initial boilerplate for testing. You can modify this file to include custom SLO definitions, cluster components and configure algorithm settings as per your testing use-case.
 
 ### Running Krkn-AI
 
-Once your test configuration is set, you can start Krkn-AI testing using the `run` command. This command initializes a random population sample containing Chaos Experiments based on the Krkn-AI configuration, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until the total number of generations defined in the config is met.  
+Once your test configuration is set, you can start Krkn-AI testing using the [run](./run.md) command. This command initializes a random population sample containing Chaos Experiments based on the Krkn-AI configuration, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until the total number of generations defined in the config is met.  
 
 ```bash
-$ uv run krkn_ai run --help
-Usage: krkn_ai run [OPTIONS]
-
-  Run Krkn-AI tests
-
-Options:
-  -c, --config TEXT                     Path to Krkn-AI config file.
-  -o, --output TEXT                     Directory to save results.
-  -f, --format [json|yaml]              Format of the output file.  [default: yaml]
-  -r, --runner-type [krknctl|krknhub]   Type of chaos engine to use.
-  -p, --param TEXT                      Additional parameters for config file in key=value format.
-  -v, --verbose                         Increase verbosity of output.  [default: 0]
-  --help                                Show this message and exit.
-
-
 # Configure Prometheus
 # (Optional) In OpenShift cluster, the framework will automatically look for thanos querier in openshift-monitoring namespace. 
 export PROMETHEUS_URL='https://Thanos-Querier-url'

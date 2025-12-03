@@ -34,7 +34,11 @@ Options:
 The example below filters cluster components from namespaces that match the patterns `robot-.*` and `etcd`. In addition to namespaces, we also provide filters for pod labels and node labels. This allows us to narrow down the necessary components to consider when running a Krkn-AI test.
 
 ```bash
-$ uv run krkn_ai discover -k ./path/to/kubeconfig.yaml -n "robot-.*,etcd" -pl "service,env" -nl "disktype" -o ./krkn-ai.yaml
+uv run krkn_ai discover -k ./tmp/kubeconfig.yaml \
+  -n "robot-.*,etcd" \
+  -pl "service,env" \
+  -nl "disktype" \
+  -o ./krkn-ai.yaml
 ```
 
 The above command generates a config file that contains the basic setup to help you get started. You can customize the parameters as described in the [configs](./config/) documentation. If you want to exclude any cluster components—such as a pod, node, or namespace—from being considered for Krkn-AI testing, simply remove them from the `cluster_components` YAML field.

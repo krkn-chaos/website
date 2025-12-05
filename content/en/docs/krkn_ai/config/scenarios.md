@@ -20,6 +20,7 @@ The following Krkn scenarios are currently supported by Kkrn-AI.
 | [Time Scenario](../../scenarios/time-scenarios/)       	| *scenario.time-scenarios*      	|
 | [Network Scenarios](../../scenarios/network-chaos-scenario/)       	| *scenario.network-scenarios*      	|
 | [DNS Outage](../../scenarios/dns-outage/)       	| *scenario.dns-outage*      	|
+| [PVC Scenario](../../scenarios/pvc-scenario/)       	| *scenario.pvc-scenarios*      	|
 
 
 By default, scenarios are not enabled. Depending on your use case, you can enable or disable these scenarios in the `krkn-ai.yaml` config file by setting the `enable` field to `true` or `false`.
@@ -55,4 +56,7 @@ scenario:
 
   dns-outage:
     enable: true
+
+  pvc-scenarios:
+    enable: false
 ```

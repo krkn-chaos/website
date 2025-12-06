@@ -4,7 +4,7 @@ title: Installation
 description: Details on how to install krkn and krkn-hub
 categories: [Installation]
 tags: [install, docs]
-weight: 3
+weight: 4
 ---
 
 <!-- {{% pageinfo %}}
@@ -12,7 +12,7 @@ This is a placeholder page that shows you how to use this template site.
 {{% /pageinfo %}} -->
 
 The following ways are supported to run Krkn:
-- Krkn CLI (recommended) - [krknctl](../krknctl/installation.md)
+- **Krkn CLI (recommended)** - [krknctl](krknctl.md) - Streamlined CLI with auto-completion and input validation
 - Standalone python program through Git - See specific documentation for [krkn](krkn.md)
 - Containerized version using either Podman or Docker as the runtime via [Krkn-hub](krkn-hub.md)
 - Kubernetes or OpenShift deployment ( unsupported )

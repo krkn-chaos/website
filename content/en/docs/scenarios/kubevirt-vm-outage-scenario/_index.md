@@ -5,7 +5,22 @@ date: 2017-01-04
 weight: 3
 ---
 
+<krkn-hub-scenario id="kubevirt-outage">
+
 This scenario enables the simulation of VM-level disruptions in clusters where KubeVirt or OpenShift Containerized Network Virtualization (CNV) is installed. It allows users to delete a Virtual Machine Instance (VMI) to simulate a VM crash and test recovery capabilities.
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Prerequisites](#prerequisites)
+- [Parameters](#parameters)
+- [Expected Behavior](#expected-behavior)
+- [Advanced Use Cases](#advanced-use-cases)
+- [Recovery Strategies](#recovery-strategies)
+- [Rollback Scenario Support](#rollback-scenario-support)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+
 
 ## Purpose
 
@@ -33,6 +48,7 @@ The scenario supports the following parameters:
 | vm_name | The name of the VMI to delete | Yes | N/A |
 | namespace | The namespace where the VMI is located | No | "default" |
 | timeout | How long to wait (in seconds) before attempting recovery for VMI to start running again | No | 60 |
+| kill_count | How many VMI's to kill serially | No | 1 | 
 
 ## Expected Behavior
 
@@ -75,6 +91,10 @@ The plugin implements two recovery strategies:
 
 2. **Manual Recovery**: If automatic recovery doesn't occur within the timeout period, the plugin will attempt to manually recreate the VMI using the saved state from before the deletion.
 
+## Rollback Scenario Support
+
+Krkn supports rollback for KubeVirt VM Outage Scenario. For more details, please refer to the [Rollback Scenarios](../../rollback-scenarios/_index.md) documentation.
+
 ## Limitations
 
 - The scenario currently supports deleting a single VMI at a time
@@ -89,3 +109,5 @@ If the scenario fails, check the following:
 2. Verify that the target VMI exists and is running
 3. Check that your credentials have sufficient permissions to delete and create VMIs
 4. Examine the logs for specific error messages
+
+</krkn-hub-scenario>

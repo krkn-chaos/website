@@ -319,6 +319,78 @@ app.get('/api/topics', async (req, res) => {
     }
 });
 
+// Manual documentation index rebuild endpoint
+app.post('/api/admin/rebuild-index', async (req, res) => {
+    try {
+        if (!documentationIndex) {
+            return res.status(503).json({
+                error: 'Documentation service not available'
+            });
+        }
+
+        const result = await documentationIndex.rebuildIndex();
+        
+        res.json({
+            message: 'Documentation index rebuilt successfully',
+            ...result,
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error) {
+        logger.error('Index rebuild endpoint error:', error);
+        res.status(500).json({
+            error: 'Failed to rebuild documentation index',
+            message: error.message
+        });
+    }
+});
+
+// Webhook endpoint for external systems (local development)
+app.all('/webhook/rebuild-docs', async (req, res) => {
+    try {
+        const startTime = Date.now();
+        
+        if (!documentationIndex) {
+            return res.status(503).json({
+                error: 'Documentation service not available'
+            });
+        }
+
+        logger.info('Webhook triggered - rebuilding documentation index...');
+        const result = await documentationIndex.rebuildIndex();
+        const duration = Date.now() - startTime;
+
+        const logData = {
+            trigger: 'webhook',
+            method: req.method,
+            userAgent: req.get('User-Agent') || 'unknown',
+            sourceIP: req.ip,
+            duration: `${duration}ms`,
+            documentCount: result.documentCount
+        };
+
+        logger.info('Webhook rebuild completed:', logData);
+
+        res.json({
+            message: 'Documentation index rebuilt successfully via webhook',
+            ...result,
+            webhook: {
+                trigger: req.method,
+                duration: logData.duration
+            },
+            timestamp: new Date().toISOString(),
+            deployment: 'local-server'
+        });
+
+    } catch (error) {
+        logger.error('Webhook rebuild error:', error);
+        res.status(500).json({
+            error: 'Failed to rebuild documentation index via webhook',
+            message: error.message
+        });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     logger.error('Unhandled error:', err);
@@ -347,6 +419,7 @@ process.on('SIGINT', async () => {
         await chatService.cleanup();
     }
     
+    
     process.exit(0);
 });
 
@@ -356,6 +429,7 @@ process.on('SIGTERM', async () => {
     if (chatService && typeof chatService.cleanup === 'function') {
         await chatService.cleanup();
     }
+    
     
     process.exit(0);
 });

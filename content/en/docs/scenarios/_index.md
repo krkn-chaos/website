@@ -3,8 +3,12 @@ type: "docs/scenarios"
 title: Scenarios
 description: Krkn scenario list
 date: 2017-01-04
-weight: 5
+weight: 6
 ---
+
+{{% alert title="Tip" %}}
+Many pod scenarios now support the `exclude_label` parameter to protect critical pods while testing others. See individual scenario pages ([Pod Failures](pod-scenario/_index.md), [Pod Network Chaos](pod-network-scenario/_index.md)) for details.
+{{% /alert %}}
 
 ## Supported chaos scenarios
 <style>
@@ -21,8 +25,12 @@ table th:nth-of-type(3) {
 </style>
 | **Scenario**   | **Plugin Type**   |  **Description** |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------ |
-| [Application outages](docs/scenarios/application-outage/_index.md) | application_outages_scenarios | Isolates application Ingress/Egress traffic to observe the impact on dependent applications and recovery/initialization timing  |              
+| [Application outages](docs/scenarios/application-outage/_index.md) | application_outages_scenarios | Isolates application Ingress/Egress traffic to observe the impact on dependent applications and recovery/initialization timing  |    
+| [Aurora Disruption](docs/scenarios/aurora-disruption/_index.md) | network_chaos_ng_scenarios | Blocks a pod's outgoing MySQL and PostgreSQL traffic, effectively preventing it from connecting to any AWS Aurora SQL engine |            
 | [Container failures](docs/scenarios/container-scenario/_index.md) | container_scenarios | Injects container failures based on the provided kill signal | 
+| [DNS outages](docs/scenarios/dns-outage/_index.md) | network_chaos_ng_scenarios | Blocks all outgoing DNS traffic from a specific pod, effectively preventing it from resolving any hostnames or service names. |    
+| [EFS Disruption](docs/scenarios/efs-disruption/_index.md) | network_chaos_ng_scenarios | Creates an outgoing firewall rule blocking connections to AWS EFS, leading to a temporary failure of any EFS volumes mounted on those affected nodes.|    
+| [ETCD Split Brain](docs/scenarios/etcd-split-brain/_index.md) | network_chaos_ng_scenarios | Isolates an etcd node by blocking its network traffic, forcing an etcd leader re-election. This is particularly useful for testing the etcd cluster’s resilience under such a challenging state.|    
 | [KubeVirt VM Outage](docs/scenarios/kubevirt-vm-outage-scenario/_index.md) | kubevirt_vm_outage | Simulates VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery mechanisms |
 | [Network Chaos](docs/scenarios/network-chaos-scenario/_index.md) | network_chaos_scenarios | Introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using tc and Netem |
 | [Network Chaos NG](docs/scenarios/network-chaos-ng-scenarios/_index.md) | network_chaos_ng_scenarios | Introduces Node network filtering scenario and a new infrastructure to refactor and port the Network Chaos scenarios |
@@ -39,6 +47,3 @@ table th:nth-of-type(3) {
 | [Syn Flood](docs/scenarios/syn-flood-scenario/_index.md) | syn_flood_scenarios | Generates a substantial amount of TCP traffic directed at one or more Kubernetes services |
 | [Time skew](docs/scenarios/time-scenarios/_index.md) | time_scenarios | Skews the time and date                            |     
 | [Zone outages](docs/scenarios/zone-outage-scenarios/_index.md) | zone_outages_scenarios | Creates zone outage to observe the impact on the cluster, applications |
-
-
-{{< notice type="info" >}}Explore our [use cases](docs/getting-started/use-cases.md) page to see if any align with your needs {{< /notice >}}

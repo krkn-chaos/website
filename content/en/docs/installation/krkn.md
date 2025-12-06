@@ -67,7 +67,7 @@ $ python run_kraken.py --config <config_file_location>
 
 [Krkn-hub](/docs/installation/krkn-hub.md) is a wrapper that allows running Krkn chaos scenarios via podman or docker runtime with scenario parameters/configuration defined as environment variables.
 
-[krknctl][/docs/installation/krknctl.md) is a cli that allows running Krkn chaos scenarios via podman or docker runtime with scenarios parameters/configuration passed as command line options or a json graph for complex workflows.
+[krknctl](/docs/installation/krknctl.md) is a CLI that allows running Krkn chaos scenarios via podman or docker runtime with scenarios parameters/configuration passed as command line options or a json graph for complex workflows.
 
 
 ### What's next?

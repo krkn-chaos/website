@@ -1,24 +1,14 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { marked } = require('marked');
-const cheerio = require('cheerio');
 const Fuse = require('fuse.js');
-const natural = require('natural');
 const logger = require('../utils/logger');
+
 
 class DocumentationIndex {
     constructor(options = {}) {
-        this.contentPath = options.contentPath || path.join(__dirname, '../../content/en/docs');
         this.indexData = [];
         this.fuseIndex = null;
         this.topics = new Map();
-        
-        // Configure marked for parsing markdown
-        marked.setOptions({
-            gfm: true,
-            breaks: false,
-            smartLists: true
-        });
         
         // Configure Fuse.js options for fuzzy search
         this.fuseOptions = {
@@ -28,7 +18,7 @@ class DocumentationIndex {
                 { name: 'tags', weight: 0.2 },
                 { name: 'description', weight: 0.1 }
             ],
-            threshold: 0.4,
+            threshold: 0.6,
             includeScore: true,
             includeMatches: true,
             minMatchCharLength: 3,
@@ -36,196 +26,63 @@ class DocumentationIndex {
         };
     }
 
+
+    async loadPrebuiltIndex() {
+        try {
+            // Fetch from deployed static files (they don't get bundled with functions)
+            const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'https://krkn-chaos.dev';
+            const indexUrl = `${siteUrl}/search-index.json`;
+            
+            const indexData = await new Promise((resolve, reject) => {
+                const https = require('https');
+                https.get(indexUrl, (res) => {
+                    if (res.statusCode !== 200) {
+                        reject(new Error(`HTTP ${res.statusCode}: ${res.statusMessage}`));
+                        return;
+                    }
+                    let data = '';
+                    res.on('data', chunk => data += chunk);
+                    res.on('end', () => resolve(data));
+                }).on('error', reject);
+            });
+            
+            const parsedData = JSON.parse(indexData);
+            
+            // Load the documents into our index
+            this.indexData = parsedData.documents;
+            
+            // Rebuild topics map
+            this.topics.clear();
+            for (const doc of this.indexData) {
+                if (doc.topic) {
+                    if (!this.topics.has(doc.topic)) {
+                        this.topics.set(doc.topic, []);
+                    }
+                    this.topics.get(doc.topic).push(doc);
+                }
+            }
+            
+            this.createFuseIndex();
+            return true;
+        } catch (error) {
+            logger.error(`Failed to load pre-built index: ${error.message}`);
+            return false;
+        }
+    }
+
     async initialize() {
         try {
-            logger.info('Initializing documentation index...');
-            await this.buildIndex();
-            this.createFuseIndex();
-            logger.info(`Documentation index built with ${this.indexData.length} documents`);
+            const loaded = await this.loadPrebuiltIndex();
+            if (!loaded) {
+                throw new Error('Pre-built search index not found');
+            }
+            logger.info(`Loaded ${this.indexData.length} documents`);
         } catch (error) {
             logger.error('Failed to initialize documentation index:', error);
             throw error;
         }
     }
 
-    async buildIndex() {
-        this.indexData = [];
-        this.topics.clear();
-        
-        await this.processDirectory(this.contentPath);
-        
-        // Process additional content directories if they exist
-        const additionalPaths = [
-            path.join(__dirname, '../../content/en/blog'),
-            path.join(__dirname, '../../content/en/community')
-        ];
-        
-        for (const additionalPath of additionalPaths) {
-            try {
-                await fs.access(additionalPath);
-                await this.processDirectory(additionalPath);
-            } catch (error) {
-                // Directory doesn't exist, skip it
-                logger.debug(`Skipping directory: ${additionalPath}`);
-            }
-        }
-    }
-
-    async processDirectory(dirPath) {
-        try {
-            const entries = await fs.readdir(dirPath, { withFileTypes: true });
-            
-            for (const entry of entries) {
-                const fullPath = path.join(dirPath, entry.name);
-                
-                if (entry.isDirectory()) {
-                    await this.processDirectory(fullPath);
-                } else if (entry.isFile() && entry.name.endsWith('.md')) {
-                    await this.processMarkdownFile(fullPath);
-                }
-            }
-        } catch (error) {
-            logger.error(`Error processing directory ${dirPath}:`, error);
-        }
-    }
-
-    async processMarkdownFile(filePath) {
-        try {
-            const content = await fs.readFile(filePath, 'utf-8');
-            const parsed = this.parseMarkdown(content);
-            
-            if (parsed && parsed.title) {
-                // Generate URL from file path
-                const url = this.generateUrl(filePath);
-                
-                // Extract topic from path
-                const topic = this.extractTopic(filePath);
-                
-                const document = {
-                    id: filePath,
-                    title: parsed.title,
-                    description: parsed.description || '',
-                    content: parsed.content,
-                    tags: parsed.tags || [],
-                    topic: topic,
-                    url: url,
-                    lastModified: (await fs.stat(filePath)).mtime,
-                    wordCount: this.countWords(parsed.content)
-                };
-                
-                this.indexData.push(document);
-                
-                // Add to topics map
-                if (topic) {
-                    if (!this.topics.has(topic)) {
-                        this.topics.set(topic, []);
-                    }
-                    this.topics.get(topic).push(document);
-                }
-                
-                logger.debug(`Indexed: ${document.title} (${document.wordCount} words)`);
-            }
-        } catch (error) {
-            logger.error(`Error processing file ${filePath}:`, error);
-        }
-    }
-
-    parseMarkdown(content) {
-        try {
-            // Extract frontmatter
-            const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-            let frontmatter = {};
-            let markdownContent = content;
-            
-            if (frontmatterMatch) {
-                markdownContent = content.substring(frontmatterMatch[0].length);
-                try {
-                    // Simple YAML parsing for common frontmatter fields
-                    const yamlLines = frontmatterMatch[1].split('\n');
-                    for (const line of yamlLines) {
-                        const colonIndex = line.indexOf(':');
-                        if (colonIndex > 0) {
-                            const key = line.substring(0, colonIndex).trim();
-                            const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
-                            frontmatter[key] = value;
-                        }
-                    }
-                } catch (yamlError) {
-                    logger.warn('Failed to parse frontmatter YAML:', yamlError);
-                }
-            }
-            
-            // Convert markdown to HTML
-            const html = marked(markdownContent);
-            
-            // Extract text content using cheerio
-            const $ = cheerio.load(html);
-            const textContent = $.text().replace(/\s+/g, ' ').trim();
-            
-            // Extract title (from frontmatter or first heading)
-            let title = frontmatter.title;
-            if (!title) {
-                const firstHeading = $('h1, h2').first().text().trim();
-                title = firstHeading || 'Untitled';
-            }
-            
-            // Extract description
-            let description = frontmatter.description;
-            if (!description) {
-                // Use first paragraph as description
-                const firstParagraph = $('p').first().text().trim();
-                description = firstParagraph.substring(0, 200) + (firstParagraph.length > 200 ? '...' : '');
-            }
-            
-            // Extract tags
-            let tags = [];
-            if (frontmatter.tags) {
-                tags = frontmatter.tags.split(',').map(tag => tag.trim());
-            }
-            
-            return {
-                title,
-                description,
-                content: textContent,
-                tags,
-                linkTitle: frontmatter.linkTitle || title,
-                weight: parseInt(frontmatter.weight) || 0
-            };
-            
-        } catch (error) {
-            logger.error('Error parsing markdown:', error);
-            return null;
-        }
-    }
-
-    generateUrl(filePath) {
-        // Convert file path to Hugo URL structure
-        const relativePath = path.relative(path.join(__dirname, '../../content/en'), filePath);
-        let url = '/' + relativePath.replace(/\\/g, '/').replace(/\.md$/, '/').replace(/_index\/$/, '');
-        
-        // Clean up the URL
-        url = url.replace(/\/+/g, '/');
-        if (url !== '/' && url.endsWith('/')) {
-            url = url.slice(0, -1);
-        }
-        
-        return url || '/';
-    }
-
-    extractTopic(filePath) {
-        const relativePath = path.relative(this.contentPath, filePath);
-        const pathParts = relativePath.split(path.sep);
-        
-        if (pathParts.length > 0) {
-            return pathParts[0];
-        }
-        
-        return 'general';
-    }
-
-    countWords(text) {
-        return text.split(/\s+/).filter(word => word.length > 0).length;
-    }
 
     createFuseIndex() {
         if (this.indexData.length > 0) {
@@ -242,7 +99,7 @@ class DocumentationIndex {
         
         const {
             limit = 10,
-            threshold = 0.4,
+            threshold = 0.6,
             topic = null
         } = options;
         
@@ -288,14 +145,12 @@ class DocumentationIndex {
         });
         
         if (matchingSentences.length > 0) {
-            // For queries with technical terms, use shorter excerpts
-            const hasTechnicalTerms = queryWords.some(word => 
-                ['etcd', 'kubernetes', 'production', 'deployment', 'troubleshoot'].includes(word)
-            );
+            // Use the most relevant matching sentence as excerpt
             const result = matchingSentences.slice(0, 1).join('. ').trim();
-            return result.substring(0, 80) + (result.length > 80 ? '...' : '');
+            return result.substring(0, 200) + (result.length > 200 ? '...' : '');
         } else {
-            return content.substring(0, 80) + (content.length > 80 ? '...' : '');
+            // Fallback to beginning of content
+            return content.substring(0, 200) + (content.length > 200 ? '...' : '');
         }
     }
 
@@ -311,6 +166,26 @@ class DocumentationIndex {
 
     generateTopicDescription(topic) {
         return `Documentation related to ${topic}`;
+    }
+
+
+    async rebuildIndex() {
+        try {
+            const loaded = await this.loadPrebuiltIndex();
+            if (!loaded) {
+                throw new Error('Pre-built search index not found');
+            }
+            
+            return { 
+                success: true, 
+                documentCount: this.indexData.length,
+                version: 'build-time-index',
+                timestamp: new Date().toISOString()
+            };
+        } catch (error) {
+            logger.error('Failed to reload documentation index:', error);
+            throw error;
+        }
     }
 
     getStats() {

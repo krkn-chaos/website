@@ -6,6 +6,12 @@ date: 2017-01-04
 weight: 3
 ---
 
+- [Hog Scenarios background](#hog-scenarios-background)
+- [Config Options](#config-options)
+- [Available Scenarios](#available-scenarios)
+- [Rollback Scenario Support](#rollback-scenario-support)
+
+
 # Hog Scenarios background
 
 Hog Scenarios are designed to push the limits of memory, CPU, or I/O on one or more nodes in your cluster. They also serve to evaluate whether your cluster can withstand rogue pods that excessively consume resources without any limits.
@@ -21,7 +27,7 @@ These scenarios involve deploying one or more workloads in the cluster. Based on
 | `duration` | number  | the duration of the stress test in seconds       |
 | `workers` | number (Optional)  | the number of threads instantiated by stress-ng, if left empty the number of workers will match the number of available cores in the node.   |
 | `hog-type` | string (Enum)  | can be cpu, memory or io.    |
-| `image` | string  | the container image of the stress workload    |
+| `image` | string  | the container image of the stress workload  (quay.io/krkn-chaos/krkn-hog)  |
 | `namespace` | string   | the namespace where the stress workload will be deployed   |
 | `node-selector` | string (Optional) | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector. |
 |`taints`| list (Optional) default [] | list of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]|
@@ -33,3 +39,7 @@ These scenarios involve deploying one or more workloads in the cluster. Based on
 - [Memory Hog](/docs/scenarios/hog-scenarios/memory-hog-scenario/_index.md)
 - [I/O Hog](/docs/scenarios/hog-scenarios/io-hog-scenario/_index.md)
 
+
+### Rollback Scenario Support
+
+Krkn supports rollback for all available Hog scenarios. For more details, please refer to the [Rollback Scenarios](../../rollback-scenarios/_index.md) documentation.

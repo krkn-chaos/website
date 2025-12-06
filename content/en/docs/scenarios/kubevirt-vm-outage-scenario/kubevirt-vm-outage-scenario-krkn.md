@@ -30,6 +30,7 @@ scenarios:
       vm_name: <my-application-vm>
       namespace: <vm-workloads>
       timeout: 60
+      kill_count: 3
 ```
 
 ## Detailed Parameters
@@ -39,6 +40,7 @@ scenarios:
 | vm_name | The name of the VMI to delete | Yes | N/A | "database-vm", "web-server-vm" |
 | namespace | The namespace where the VMI is located | No | "default" | "openshift-cnv", "vm-workloads" |
 | timeout | How long to wait (in seconds) for VMI to become running before attempting recovery | No | 60 | 30, 120, 300 |
+| kill_count | How many VMI's to kill serially | No | 1 | 3 |
 
 ## Execution Flow
 
@@ -66,6 +68,7 @@ scenarios:
       vm_name: my-vm
       namespace: kubevirt
       duration: 60
+      kill_count: 3
 ```
 
 For multiple VMs in different namespaces:
@@ -78,6 +81,7 @@ scenarios:
       vm_name: app-vm
       namespace: application
       duration: 120
+      kill_count: 1
   
   - name: "kubevirt outage test - database VM"
     scenario: kubevirt_vm_outage
@@ -85,6 +89,7 @@ scenarios:
       vm_name: db-vm
       namespace: database
       duration: 180
+      kill_count: 2
 ```
 
 ### Combining with Other Scenarios

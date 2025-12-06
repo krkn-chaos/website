@@ -2,8 +2,10 @@
 title: Syn Flood Scenarios
 description: 
 date: 2017-01-04
+weight: 3
 ---
 
+<krkn-hub-scenario id="syn-flood">
 ### Syn Flood Scenarios
 
 This scenario generates a substantial amount of TCP traffic directed at one or more Kubernetes services within 
@@ -17,3 +19,5 @@ the attacker pods on a user-defined subset of nodes to make the test more realis
 
 
 The attacker container source code is available [here](https://github.com/krkn-chaos/krkn-syn-flood).
+
+</krkn-hub-scenario>

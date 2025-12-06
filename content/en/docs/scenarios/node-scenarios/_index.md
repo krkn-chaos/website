@@ -4,6 +4,8 @@ description:
 date: 2017-01-04
 weight: 3
 ---
+
+<krkn-hub-scenario id="node-scenarios">
 This scenario disrupts the node(s) matching the label or node name(s) on a Kubernetes/OpenShift cluster. These scenarios are performed in two different ways, either by the clusters cloud cli or by common/generic commands that can be performed on any cluster. 
 
 
@@ -33,6 +35,7 @@ Supported cloud supported:
 - [Alibaba](node-scenarios-krkn.md#alibaba)
 - [Docker](node-scenarios-krkn.md#docker)
 - [IBMCloud](node-scenarios-krkn.md#ibmcloud)
+- [IBMCloud Power](node-scenarios-krkn.md#ibmcloud-power)
 
 {{% alert title="Note" %}}If the node does not recover from the node_crash_scenario injection, reboot the node to get it back to Ready state. {{% /alert %}}
 
@@ -45,7 +48,10 @@ Supported cloud supported:
 - VMware
 - Alibaba
 - IbmCloud
+- IbmCloudPower
 {{% /alert %}}
+
+</krkn-hub-scenario>
 
 
 

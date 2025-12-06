@@ -35,73 +35,21 @@ Your role is to:
 - Provide 1-2 relevant documentation links
 - Only elaborate when explicitly asked for details
 
-Key components of the Krkn ecosystem:
-- **Krkn**: The core chaos engineering tool (CNCF sandbox project)
-- **Krkn-hub**: Containerized wrapper for easy scenario execution
-- **Krknctl**: Recommended command-line tool for orchestrating chaos scenarios
-- **Krkn-lib**: Low-level Kubernetes functions library
-- **Cerberus**: Monitoring and health-checking companion tool
+**Your expertise**: Help users with Krkn chaos engineering - installation, scenarios, troubleshooting, and best practices.
 
-Available chaos scenarios include:
-- **Pod Scenarios**: Delete/disrupt pods, test application resilience
-- **Node Scenarios**: Reboot, stop, terminate, or crash nodes
-- **Container Scenarios**: Kill containers with specific signals
-- **Network Chaos**: Inject latency, packet loss, bandwidth restrictions
-- **Application Outages**: Isolate ingress/egress traffic
-- **Resource Hog**: CPU, Memory, and IO stress scenarios
-- **Zone Outages**: Multi-availability zone failure simulation
-- **Service Disruption**: Disrupt Kubernetes services
-- **Service Hijacking**: Hijack service endpoints
-- **Time Scenarios**: Clock skew and time manipulation
-- **PVC Scenarios**: Persistent volume claim disruptions
-- **Power Outages**: Simulate power failures
-- **KubeVirt VM Outage**: Virtual machine disruptions
+**Key principles**:
+- Use the provided documentation context to answer questions accurately  
+- **CRITICAL: ONLY use links that appear in the CONTEXT section below**
+- **NEVER create or invent links that are not explicitly provided in the context**
+- Use the exact page titles and URLs from the context
+- Be concise but helpful
+- If no relevant context is provided, direct users to: [Getting Started](/docs/getting-started/) or [Complete Documentation](/docs/)
 
-Your role:
-- Help users understand installation, configuration, and usage
-- Explain chaos engineering concepts and available scenarios
-- Provide specific step-by-step instructions when needed
-- Direct users to relevant documentation with clickable links
-
-IMPORTANT: When referencing documentation, always provide clickable links using this format:
-- Getting Started: [Getting Started](/docs/getting-started/)
-- Installation: [Installation](/docs/installation/)
-- Krkn Documentation: [Krkn](/docs/krkn/)
-- Krknctl Documentation: [Krknctl](/docs/krknctl/)
-- Krkn-hub Documentation: [Krkn-hub](/docs/krkn-hub/)
-- Cerberus Documentation: [Cerberus](/docs/cerberus/)
-- All Scenarios: [Scenarios](/docs/scenarios/)
-- Pod Scenarios: [Pod Scenarios](/docs/scenarios/pod-scenario/)
-- Node Scenarios: [Node Scenarios](/docs/scenarios/node-scenarios/)
-- Network Chaos: [Network Chaos](/docs/scenarios/network-chaos-scenario/)
-- CPU Hog Scenarios: [CPU Hog](/docs/scenarios/hog-scenarios/cpu-hog-scenario/)
-- Memory Hog Scenarios: [Memory Hog](/docs/scenarios/hog-scenarios/memory-hog-scenario/)
-- IO Hog Scenarios: [IO Hog](/docs/scenarios/hog-scenarios/io-hog-scenario/)
-- Application Outages: [Application Outages](/docs/scenarios/application-outage/)
-- Service Disruption: [Service Disruption](/docs/scenarios/service-disruption-scenarios/)
-- Time Scenarios: [Time Scenarios](/docs/scenarios/time-scenarios/)
-- Zone Outages: [Zone Outages](/docs/scenarios/zone-outage-scenarios/)
-- Container Scenarios: [Container Scenarios](/docs/scenarios/container-scenario/)
-- PVC Scenarios: [PVC Scenarios](/docs/scenarios/pvc-scenario/)
-- Power Outage: [Power Outage](/docs/scenarios/power-outage-scenarios/)
-- Network Chaos NG: [Network Chaos NG](/docs/scenarios/network-chaos-ng-scenarios/)
-- Pod Network Scenarios: [Pod Network](/docs/scenarios/pod-network-scenario/)
-- Service Hijacking: [Service Hijacking](/docs/scenarios/service-hijacking-scenario/)
-- Syn Flood: [Syn Flood](/docs/scenarios/syn-flood-scenario/)
-- KubeVirt VM Outage: [KubeVirt VM Outage](/docs/scenarios/kubevirt-vm-outage-scenario/)
-- Developer Guide: [Developer Guide](/docs/developers-guide/)
-- Contribution Guidelines: [Contribution Guidelines](/docs/contribution-guidelines/)
-CRITICAL: Always format links using markdown syntax: [Link Text](/path/to/page/) - NEVER use plain URLs like "/docs/something".
-
-
-Examples of proper link formatting:
-- [Getting Started](/docs/getting-started/)
-- [Installation](/docs/installation/)
-- [CPU Hog Scenario](/docs/scenarios/hog-scenarios/cpu-hog-scenario/)
-- [Node Scenarios](/docs/scenarios/node-scenarios/)
-- [All Scenarios](/docs/scenarios/)
-
-Always be helpful, accurate, and concise. If you're not sure about something, direct users to the official documentation.
+**Common starting points**:
+- New users: [Getting Started](/docs/getting-started/)
+- Install tools: [Installation](/docs/installation/)
+- Browse scenarios: [All Scenarios](/docs/scenarios/)
+- Full documentation: [Complete Documentation](/docs/)
 Now run the chatbot with proper link formatting.`;
     }
 
@@ -183,27 +131,19 @@ Now run the chatbot with proper link formatting.`;
                                    queryLower.includes('number') || 
                                    queryLower.includes('count');
             
-            const isEtcdQuery = queryLower.includes('etcd');
-            const isTechnicalQuery = queryLower.includes('kubernetes') || 
-                                    queryLower.includes('production') || 
-                                    queryLower.includes('deployment') ||
-                                    queryLower.includes('architecture') ||
-                                    queryLower.includes('workflow') ||
-                                    queryLower.includes('troubleshoot');
-            
-            // Use ultra-minimal limits for etcd queries to prevent MAX_TOKENS
-            const searchLimit = isEtcdQuery ? 0 : 1;  // No context for etcd queries
+            // Standard search limit for all queries
+            const searchLimit = 5;
             
             let searchResults = [];
             if (searchLimit > 0) {
                 searchResults = await this.documentationIndex.search(query, {
                     limit: searchLimit,
-                    threshold: 0.3
+                    threshold: 0.6
                 });
             }
             
-            // Use minimal content length for absolute safety
-            const contentLength = 50;
+            // Use sufficient content for LLM to understand context
+            const contentLength = 200;
             
             return searchResults.map(result => ({
                 title: result.title,
@@ -229,7 +169,7 @@ Now run the chatbot with proper link formatting.`;
                           queryLower.includes('what about') ||
                           queryLower.includes('details') ||
                           queryLower.includes('explain') ||
-                          (queryLower.length < 20 && conversationHistory.length > 0);
+                          (queryLower.length < 10 && conversationHistory.length > 2);
         
         if (isFollowUp && conversationHistory.length > 0) {
             // Get the last user question and assistant response for context
@@ -246,52 +186,8 @@ Now run the chatbot with proper link formatting.`;
     }
 
     buildPrompt(userMessage, relevantDocs, conversationHistory = []) {
-        // Use ultra-short prompts for etcd queries to prevent MAX_TOKENS
-        const queryLower = userMessage.toLowerCase();
-        
-        // Check if this is an etcd-related query (including follow-ups)
-        const isEtcdQuery = queryLower.includes('etcd') || 
-                           (conversationHistory.length > 0 && 
-                            conversationHistory.some(msg => msg.content && msg.content.toLowerCase().includes('etcd')));
-        
-        const isTechnicalQuery = queryLower.includes('kubernetes') || 
-                               queryLower.includes('production') || 
-                               queryLower.includes('deployment') ||
-                               queryLower.includes('architecture') ||
-                               queryLower.includes('workflow') ||
-                               queryLower.includes('troubleshoot');
         
         let systemPrompt = this.systemPrompt;
-        if (isEtcdQuery) {
-            systemPrompt = `You are a Krkn chaos engineering assistant. To target etcd components on your cluster, here are the most effective approaches:
-
-**Direct etcd Node Impact:**
-- [Node Scenarios](/docs/scenarios/node-scenarios/) - Stop, reboot, or terminate nodes running etcd pods/containers
-- [CPU Hog](/docs/scenarios/hog-scenarios/cpu-hog-scenario/) - Create CPU pressure on etcd nodes to test performance degradation
-- [Memory Hog](/docs/scenarios/hog-scenarios/memory-hog-scenario/) - Exhaust memory on etcd nodes to simulate resource constraints
-
-**etcd Pod/Container Targeting:**
-- [Pod Scenarios](/docs/scenarios/pod-scenario/) - Delete etcd pods directly (if running as pods)
-- [Container Scenarios](/docs/scenarios/container-scenario/) - Kill etcd containers with specific signals
-
-**Network-Based etcd Disruption:**
-- [Network Chaos](/docs/scenarios/network-chaos-scenario/) - Inject latency/packet loss between etcd nodes
-- [Service Disruption](/docs/scenarios/service-disruption-scenarios/) - Disrupt etcd service endpoints
-
-**Advanced etcd Testing:**
-- [Zone Outages](/docs/scenarios/zone-outage-scenarios/) - Test etcd cluster resilience across availability zones
-
-Use markdown links: [Text](/path). Be specific about targeting etcd.`;
-        } else if (isTechnicalQuery) {
-            systemPrompt = `You are a helpful assistant for Krkn chaos engineering documentation. Keep responses very brief and concise. 
-
-CRITICAL: Always format links using markdown syntax: [Link Text](/path/to/page/) - NEVER use plain URLs.
-
-Examples:
-- [CPU Hog Scenario](/docs/scenarios/hog-scenarios/cpu-hog-scenario/)
-- [Node Scenarios](/docs/scenarios/node-scenarios/)
-- [Installation](/docs/installation/)`;
-        }
         
         let context = '';
         if (relevantDocs.length > 0) {

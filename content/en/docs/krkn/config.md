@@ -194,6 +194,8 @@ Utilizing kube virt checks observe VMI's ssh connection behavior during chaos in
 
 **disconnected**: Boolean of how to try to connect to the VMIs; if True will use the ip_address to try ssh from within a node, if false will use the name and uses virtctl to try to connect; Default is False
 
+**ssh_node**: If set, will be a backup way to ssh to a node. Will want to set to a node that isn't targeted in chaos
+**node_names**: List of node names to further filter down the VM's, will only watch VMs with matching name in the given namespace that are running on node. Can put multiple by separating by a comma
 
 ## Sample Config file
 
@@ -319,4 +321,6 @@ kubevirt_checks:                                            # Utilizing virt che
     namespace:                                              # Namespace where to find VMI's
     name:                                                   # Regex Name style of VMI's to watch; optional, if left blank will find all names in namespace
     only_failures: False                                    # Boolean of whether to show all VMI's failures and successful ssh connection (False), or only failure status' (True) 
+    ssh_node: ""                                      # If set, will be a backup way to ssh to a node. Will want to set to a node that isn't targeted in chaos
+    node_names: ""                                    # List of node names to further filter down the VM's, will only watch VMs with matching name in the given namespace that are running on node. Can put multiple by separating by a comma
 ```

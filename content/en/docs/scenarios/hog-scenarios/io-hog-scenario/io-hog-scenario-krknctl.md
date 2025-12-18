@@ -21,6 +21,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 ~-~-node-mount-path|the path in the node that will be mounted in the pod and where the io hog will be executed. NOTE: be sure that kubelet has the rights to write in that node path | string | /root | 
 ~-~-namespace|Namespace where the scenario container will be deployed | string | default | 
 ~-~-node-selector|Node selector where the scenario containers will be scheduled in the format "<selector>=<value>". NOTE:  Will be instantiated a container per each node selected with the same scenario options. If left empty a random node will be selected | string | 
+~-~-taints | List of taints for which tolerations need to created. For example ["node-role.kubernetes.io/master:NoSchedule"]" | string | [] |
 ~-~-number-of-nodes|restricts the number of selected nodes by the selector | number |
 ~-~-image|The hog container image. Can be changed if the hog image is mirrored on a private repository | string | quay.io/krkn-chaos/krkn-hog | 
 

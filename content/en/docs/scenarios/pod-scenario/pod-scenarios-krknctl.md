@@ -17,7 +17,7 @@ Scenario specific parameters:
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
 ~-~-namespace | Targeted namespace in the cluster ( supports regex ) | string | openshift-* | 
 ~-~-pod-label | Label of the pod(s) to target ex. "app=test" | string | 
-~-~-exclude-label | Pods matching this label will be excluded from the chaos even if they match other criteria | "" |
+~-~-exclude-label | Pods matching this label will be excluded from the chaos even if they match other criteria | string | "" |
 ~-~-name-pattern | Regex pattern to match the pods in NAMESPACE when POD_LABEL is not specified | string | .* | 
 ~-~-disruption-count | Number of pods to disrupt | number | 1 | 
 ~-~-kill-timeout | Timeout to wait for the target pod(s) to be removed in seconds | number | 180 |

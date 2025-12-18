@@ -65,8 +65,11 @@ example:
 | ~-~-kubevirt-check-interval | How often to check the kube virt check Vms ssh status | number | | 2| 
 | ~-~-kubevirt-namespace | KubeVirt namespace to check the health of| string |  | 
 | ~-~-kubevirt-name| KubeVirt regex names to watch | string |  | 
-| ~-~-kubevirt-only-failures | KubeVirt checks only report if failure occurs | string |  |  | false |
-| ~-~-kubevirt-disconnected| KubeVirt checks in disconnected mode, bypassing the clusters Api | string |  | false |
+| ~-~-kubevirt-only-failures | KubeVirt checks only report if failure occurs | enum | True/False |  | false |
+| ~-~-kubevirt-disconnected| KubeVirt checks in disconnected mode, bypassing the clusters Api | enum | True/False | false |
+| ~-~-kubevirt-ssh-node | KubeVirt back up node to ssh into when checking vmi ip address status | string | | false |
+| ~-~-kubevirt-exit-on-failure| KubeVirt fails run if vms still have false status | enum | True/False | false |
+| ~-~-kubevirt-node-node | Only track VMs in KubeVirt on given node name" | string | | false |
 | ~-~-krkn-debug | Enables debug mode for Krkn  | enum | True/False | False| 
 
 {{% alert title="Note" %}} For setting the TELEMETRY_ARCHIVE_SIZE,the higher the number of archive files will be produced and uploaded (and processed by backup_thread simultaneously| .For unstable/slow connection is better to keep this value low increasing the number of backup_threads, in this way, on upload failure, the retry will happen only on the failed chunk without affecting the whole upload.{{% /alert %}}

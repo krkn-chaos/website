@@ -42,7 +42,10 @@ KUBE_VIRT_CHECK_INTERVAL | Interval at which to test kubevirt connections | 2 |
 KUBE_VIRT_NAMESPACE | Namespace to find VMIs in and watch | _blank_ | 
 KUBE_VIRT_NAME | Regex style name to match VMIs to watch | _blank_ | 
 KUBE_VIRT_FAILURES | If value is True exits will only report when ssh connections fail to vmi, values can be True/False |  _blank_ | 
-KUBE_VIRT_DISCONNECTED | Use disconnected check by passing cluster API, can be True/False | False 
+KUBE_VIRT_DISCONNECTED | Use disconnected check by passing cluster API, can be True/False | False |
+KUBE_VIRT_NODE_NAME |  If set, will filter vms further to only track ones that are on specified node name |_blank_ | 
+KUBE_VIRT_EXIT_ON_FAIL | Fails run if VMs still have false status at end of run, can be True/False | False |
+KUBE_VIRT_SSH_NODE |  If set, will be a backup way to ssh to a node. Will want to set to a node that isn't targeted in chaos |_blank_ | 
 CHECK_CRITICAL_ALERTS | When enabled will check prometheus for critical alerts firing post chaos | False |
 TELEMETRY_ENABLED | Enable/disables the telemetry collection feature | False |
 TELEMETRY_API_URL | telemetry service endpoint | https://ulnmf9xv7j.execute-api.us-west-2.amazonaws.com/production |

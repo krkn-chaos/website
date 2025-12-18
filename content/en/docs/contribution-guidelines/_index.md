@@ -43,6 +43,7 @@ If you are working on a contribution in any capacity and would like to get a new
 ## Office Hours
 If you have any questions that you think could be better discussed on a meeting we have monthly office hours [zoom link](https://zoom-lfx.platform.linuxfoundation.org/meetings/krkn?view=month). Please add items to agenda before so we can best prepare to help you.
 
+
 ## Good PR Checklist 
 Here's a quick checklist for a good PR, more details below:
 - One feature/change per PR
@@ -59,3 +60,6 @@ Refer to the docs below to be able to test your own images with any changes and 
 - [Contribute - Git Pointers](/docs/contribution-guidelines/git-pointers.md)
 - [Testing Your Krkn-hub Changes](/docs/contribution-guidelines/testing-changes.md)
 
+## Questions?
+
+Reach out to us on slack if you ever have any questions or want to know how to get started. You can join the kubernetes Slack [here](https://communityinviter.com/apps/kubernetes/community) and can join our [Krkn channel](https://kubernetes.slack.com/archives/C05SFMHRWK1)

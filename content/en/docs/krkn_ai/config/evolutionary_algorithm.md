@@ -16,6 +16,7 @@ Krkn-AI uses an online learning approach by leveraging an evolutionary algorithm
 - **Selection**: The process of choosing individuals from the population (based on fitness) to serve as parents for producing the next generation.
 - **Crossover**: The operation of combining two Chaos experiments to produce a new scenario, encouraging the exploration of new solutions.
 - **Mutation**: A random alteration of parts of a Chaos experiment.
+- **Scenario Mutation**: The scenario itself is changed to a different one, introducing greater diversity in scenario execution while retaining the existing run properties.
 - **Composition**: The process of combining existing Chaos experiments into a grouped scenario to represent a single new scenario.
 - **Population Injection**: The introduction of new individuals into the population to escape stagnation.
 
@@ -54,6 +55,13 @@ How often mutation should occur for each scenario parameter (Default: 0.7 and Ra
 - This helps to control the diversification among the candidates. A higher value increases the likelihood that a mutation operation will be applied.
 - Setting this to `1.0` ensures persistent mutation during the selection process.
 
+#### `scenario_mutation_rate`
+
+How often a mutation should result in a change to the scenario (Default: 0.6; Range: [0.0, 1.0])
+
+- A higher rate increases diversity between scenarios in each generation.
+- A lower rate gives priority to retaining the existing scenario across generations.
+
 #### `composition_rate`
 
 How often a crossover would lead to composition (Default: 0.0 and Range: [0.0, 1.0])
@@ -73,3 +81,8 @@ What's the size of random samples that gets added to new population (Default: 2)
 
 - A higher injection size means that more diversified samples get added during the evolutionary algorithm loop.
 - This is beneficial if you want to start with a smaller population test set and then increase the population size as you progress through the test.
+
+
+#### `wait_duration`
+
+Time to wait after scenario execution. Sets Krkn's `--wait-duration` parameter. (Default: 120 seconds)

@@ -41,6 +41,9 @@ Krkn supports rollback for the following scenarios.
     - [Node CPU Hog](../scenarios/hog-scenarios/cpu-hog-scenario/_index.md)
     - [Node IO Hog](../scenarios/hog-scenarios/io-hog-scenario/_index.md)
     - [Node Memory Hog](../scenarios/hog-scenarios/memory-hog-scenario/_index.md)
+- [PVC Scenarios](../scenarios/pvc-scenario/_index.md)
+- [Service Hijacking](../scenarios/service-hijacking-scenario/_index.md)
+- [Syn Flood ](../scenarios/syn-flood-scenario/_index.md)
 
 ## Rollback Command
 

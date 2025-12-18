@@ -93,7 +93,7 @@ fitness_function:
 
 ## Krkn Failures
 
-Krkn-AI uses [krknctl](../../krknctl/) under the hood to trigger Chaos testing experiments on the cluster. As part of the CLI, it captures various feedback and returns a non-zero status code when a failure occurs. By default, feedback from these failures is included in the Krkn-AI Fitness Score calculation.
+Krkn-AI uses [krknctl](../../krknctl/) under the hood to trigger Chaos testing experiments on the cluster. As part of the CLI, it captures various feedback and returns a non-zero status code (exit status 2) when a failure occurs. By default, feedback from these failures is included in the Krkn-AI Fitness Score calculation.
 
 You can disable this by setting the `include_krkn_failure` to `false`.
 
@@ -103,6 +103,8 @@ fitness_function:
     query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
     type: point
 ```
+
+> **Note:** If a Krkn scenario exits with a non-zero status code other than 2, Krkn-AI assigns a fitness score of **-1** and stops the calculation of health scores. This typically indicates a misconfiguration or another issue with the scenario. For more details, please refer to the Krkn logs for the scenario.
 
 ## Health Check
 

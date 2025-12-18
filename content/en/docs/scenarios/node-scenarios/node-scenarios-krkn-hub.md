@@ -50,10 +50,11 @@ Parameter               | Description                                           
 ----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
 ACTION                  | Action can be one of the [following](https://github.com/krkn-chaos/krkn/blob/master/docs/node_scenarios.md) | node_stop_start_scenario |
 LABEL_SELECTOR          | Node label to target                                                  | node-role.kubernetes.io/worker       |
+EXCLUDE_LABEL           | Nodes labeled with this value will be excluded from the chaos         |                                      |
 NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | ""                                   |
 INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                    |
 RUNS                    | Iterations to perform action on a single node                         | 1                                    |
-CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, bm           | aws |
+CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, ibmcloudpower, bm           | aws |
 TIMEOUT                 | Duration to wait for completion of node scenario injection             | 180                                |
 DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | 120                                |
 KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | False                               |

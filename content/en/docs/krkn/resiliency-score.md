@@ -100,23 +100,6 @@ KRKN_RESILIENCY_REPORT_JSON:{"name":"node-cpu-hog","score":76.6,"weight":1.0}
 
 A single `Resiliency` class manages the entire lifecycle.
 
-<!-- 1. **Initialization**  
-   • Detect `RESILIENCY_ENABLED_MODE`.  
-   • If `controller`, construct the object from `KRKN_ALERTS_YAML_CONTENT`; otherwise load `config/alerts.yaml`.
-
-2. **Evaluation**  
-   Iterate through each SLO and run its Prometheus `expr` over the chaos time window.
-
-3. **Result Mapping**  
-   A non-empty query result marks the SLO as **failed**; an empty result marks it as **passed**. If Prometheus returns no data for a specific SLO query, that SLO is **excluded** from the scoring calculation.
-
-4. **Scoring**  
-   Apply the weighted algorithm (critical = 3, warning = 1) to derive the percentage score.
-
-5. **Reporting**  
-   • Standalone: merge the report into telemetry and write to `kraken.report`.  
-   • Controller: serialize the report to JSON and print with the `KRKN_RESILIENCY_REPORT_JSON:` prefix. -->
-
 <!-- #### Multi-scenario runs
 
 No additional weighting is applied—every SLO contributes once per run. If a critical SLO fires during any scenario, its full weight (3) is deducted from the total.

@@ -1,7 +1,7 @@
 ---
 title: Run Krkn-AI
 description: Execute automated resilience and chaos testing using the Krkn-AI run command.
-weight: 2
+weight: 3
 ---
 
 The `run` command executes automated resilience and chaos testing using Krkn-AI. It initializes a random population samples containing Chaos Experiments based on your Krkn-AI configuration file, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until stopping criteria is met.

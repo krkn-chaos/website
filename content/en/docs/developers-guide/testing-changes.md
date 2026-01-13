@@ -109,7 +109,116 @@ Be sure that if you are adding any new functions or functionality you are adding
 
 ## Testing Changes in Krkn
 
-### Configuring test Cluster
+### Unit Tests
+
+Krkn unit tests are located in the `tests/` directory and use Python's `unittest` framework with comprehensive mocking. **IMPORTANT**: These tests do NOT require any external infrastructure, cloud credentials, or Kubernetes cluster - all dependencies are mocked.
+
+#### Prerequisites
+
+Install krkn dependencies in a virtual environment:
+
+```bash
+# Create and activate virtual environment
+python3.9 -m venv chaos
+source chaos/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
+```
+
+#### Running Unit Tests
+
+**Run all unit tests:**
+```bash
+python -m unittest discover -s tests -v
+```
+
+**Run all unit tests with coverage:**
+```bash
+python -m coverage run -a -m unittest discover -s tests -v
+python -m coverage report
+```
+
+**Run specific test file:**
+```bash
+python -m unittest tests.test_kubevirt_vm_outage -v
+```
+
+**Run specific test class:**
+```bash
+python -m unittest tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin -v
+```
+
+**Run specific test method:**
+```bash
+python -m unittest tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin.test_successful_injection_and_recovery -v
+```
+
+#### Viewing Coverage Results
+
+After running tests with coverage, generate an HTML report:
+
+```bash
+# Generate HTML coverage report
+python -m coverage html
+
+# View the report
+open htmlcov/index.html  # macOS
+xdg-open htmlcov/index.html  # Linux
+```
+
+Or view a text summary:
+
+```bash
+python -m coverage report
+```
+
+Example output:
+```
+Name                                                          Stmts   Miss  Cover
+---------------------------------------------------------------------------------
+krkn/scenario_plugins/kubevirt_vm_outage/...                   215     12    94%
+krkn/scenario_plugins/node_actions/ibmcloud_node_scenarios.py  185      8    96%
+---------------------------------------------------------------------------------
+TOTAL                                                          2847    156    95%
+```
+
+#### Test Output
+
+Unit test output shows:
+- Test names and descriptions
+- Pass/fail status for each test
+- Execution time
+- Any assertion failures or errors
+
+Example output:
+```
+test_successful_injection_and_recovery (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+Test successful deletion and recovery of a VMI using detailed mocking ... ok
+test_injection_failure (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+Test failure during VMI deletion ... ok
+test_validation_failure (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+Test validation failure when KubeVirt is not installed ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 1.234s
+
+OK
+```
+
+#### Adding Unit Tests
+
+When adding new functionality, always add corresponding unit tests. See the [Adding Tests to Krkn](./add-tests-krkn.md#unit-tests) guide for detailed instructions.
+
+Key requirements:
+- Use comprehensive mocking (no external dependencies)
+- Add "IMPORTANT" note in docstring about no credentials needed
+- Test success paths, failure paths, edge cases, and exceptions
+- Organize tests into logical sections
+- Aim for >80% code coverage
+
+### Functional Tests (if able to run scenario on kind cluster)
+#### Configuring test Cluster
 After creating a kind cluster with the steps above, create these test pods on your cluster
 ```bash
 kubectl apply -f CI/templates/outage_pod.yaml
@@ -123,14 +232,14 @@ kubectl apply -f CI/templates/service_hijacking.yaml
 kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=proxy" --timeout=300s
 ```
 
-### Install Requirements
+#### Install Requirements
 ```bash
 $ python3.9 -m venv chaos
 $ source chaos/bin/activate
 $ pip install -r requirements.txt
 ```
 
-### Run Tests
+#### Run Tests
 1. Add prometheus configuration variables to the test config file
 ```bash 
 yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
@@ -161,9 +270,8 @@ echo "test_io_hog" >> ./CI/tests/functional_tests
 Results can be seen in `./CI/results.markdown`
 
 
-### Adding Tests 
-Be sure that if you are adding any new scenario you are adding tests for it based on a 1 node kind cluster. 
-
+#### Adding Tests 
+Be sure that if you are adding any new scenario you are adding tests for it based on a 5 (3 master, 2 worker) node kind cluster. See more details on how to add functional tests [here](./add-tests-krkn.md#functional-tests)
 The tests live [here](https://github.com/krkn-chaos/krkn/tree/main/CI)
 
 ## Testing Changes for Krkn-hub

@@ -12,38 +12,38 @@ tags: [docs]
 
 {{% alert title="Recommended Approach" color="success" %}}
 **krknctl is the recommended and easiest way to run krkn scenarios.** It provides command auto-completion, input validation, and abstracts the complexities of the container environment so you can focus on chaos engineering.
+How to:
+* [Run a Scenario with Krkn](#krkn)
+* [Run a Scenario with Krkn-hub](#krkn-hub)
+* [Run a Scenario with krknctl](#krknctl)
+* [Run a Scenario with Krkn dashboard](#krkn-dashboard)
+
+
+NOTE: krkn-hub and krknctl only allow you to run 1 scenario type and scenario file at a time (you can run multiple iterations of the same files). While krkn allows you to run multiple different types of scenarios and scenario files 
+
+## Krkn
+Get krkn set up with the help of these [directions](../installation/krkn.md) if you haven't already
+
+See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenarios
+
+## Krkn-hub
+Set up krkn-hub based on these [directions](../installation/krkn-hub.md)
+
+See each scenario's documentation of how to run [krkn-hub](../scenarios/_index.md)
+
+
+## krknctl
+See how to run krkn through the dedicated CLI [`krknctl`](../krknctl/_index.md)
+
+{{% alert title="Note" %}}
+krknctl is the recommended and the easiest/safest way to run krkn scenarios
 {{% /alert %}}
 
 ### Why krknctl?
 
-krknctl is a dedicated CLI tool that streamlines running chaos scenarios by providing:
-- **Command auto-completion** - Quick access to all available commands
-- **Input validation** - Catch errors before they happen
-- **Scenario descriptions** - Built-in documentation and instructions
-- **Simple workflow** - No need to manage config files or containers
+See each scenario's documentation of how to run [krknctl](../scenarios/_index.md)
 
-### Get Started in 3 Steps:
+## Krkn-dashboard
+Install and configure the krkn-dashboard based on these [directions](../installation/krkn-dashboard.md)
 
-1. **Install krknctl** - Follow the [installation guide](../installation/krknctl.md)
-2. **Explore features** - Learn about [krknctl usage](../krknctl/usage.md) and how to execute chaos scenarios
-3. **Run scenarios** - Check out each [scenario's documentation](../scenarios/_index.md) for krknctl examples
-
----
-
-## Alternative Methods
-
-The following alternative methods are available for advanced use cases:
-
-### Krkn-hub
-Containerized version ideal for CI/CD systems. Set up krkn-hub based on these [directions](../installation/krkn-hub.md).
-
-See each scenario's documentation for [krkn-hub examples](../scenarios/_index.md).
-
-**Note:** krkn-hub only allows you to run 1 scenario type and scenario file at a time.
-
-### Krkn
-Standalone Python program for running multiple scenarios in a single run. Get krkn set up with the help of these [directions](../installation/krkn.md).
-
-See these [helpful hints](getting-started-krkn.md) on easy edits to the scenarios and config file to start running your own chaos scenarios.
-
-**Note:** Krkn allows you to run multiple different types of scenarios and scenario files in one execution, unlike krkn-hub and krknctl.
+See each scenario's documentation of how to run [krkn dashboard](../scenarios/_index.md)

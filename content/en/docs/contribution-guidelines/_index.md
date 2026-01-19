@@ -17,6 +17,8 @@ We're excited to have you consider contributing to our chaos! Contributions are 
 If you would like to contribute to Krkn, but are not sure exactly what to work on, you can find a number of open issues that are awaiting contributions in
 [issues.](https://github.com/krkn-chaos/krkn/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 
+Please start by discussing potential solutions and your proposed approach for the issue you plan to work on. We encourage you to gather feedback from maintainers and contributors and to have the issue assigned to you before opening a pull request with a solution.
+
 ## Adding New Scenarios and Configurations
 
 ### New Scenarios 

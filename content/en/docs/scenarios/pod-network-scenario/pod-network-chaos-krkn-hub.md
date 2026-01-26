@@ -57,8 +57,8 @@ INSTANCE_COUNT          | Number of pods to perform action/select that match the
 TRAFFIC_TYPE            | List of directions to apply filters - egress/ingress ( needs to be a list ) | [ingress, egress] |
 INGRESS_PORTS           | Ingress ports to block ( needs to be a list ) | [] i.e all ports |
 EGRESS_PORTS            | Egress ports to block ( needs to be a list ) | [] i.e all ports |
-WAIT_DURATION           | Ensure that it is at least about twice of test_duration | 300 |
-TEST_DURATION           | Duration of the test run | 120 |
+WAIT_DURATION           | The duration (in seconds) that the network chaos (traffic shaping, packet loss, etc.) persists on the target pods. This is the actual time window where the network disruption is active. It must be longer than TEST_DURATION to ensure the fault is active for the entire test. | 300 |
+TEST_DURATION           | Duration of the test run (e.g. workload or verification) | 120 |
 
 {{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
 

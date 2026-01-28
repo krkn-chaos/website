@@ -31,7 +31,8 @@ cd krkn-visualize
 
 **NOTE**: The dashboards leverage Prometheus for scraping the metrics off of the cluster and supports OpenShift automatically, but the user would need to install Prometheus on a kuberentes cluster before dashboards are deployed. Once Prometheus is setup on the cluster it'll leverage route objects to expose the grafana dashboards externally
 
-If you don't have elasticsearch or prometheus installed on your cluster, you can use helm to help you deploy these services. See [these helpful commands](developers-guide/testing-changes.md#install-elasticsearch-and-prometheus) on how to install them
+If you don't have elasticsearch or prometheus installed on your cluster, you can use helm to help you deploy these services. See [these helpful commands](/docs/developers-guide/testing-changes/#install-elasticsearch-and-prometheus) on how to install them
+
 
 
 ## Krkn Dashboards 

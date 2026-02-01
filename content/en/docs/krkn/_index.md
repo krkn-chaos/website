@@ -73,7 +73,7 @@ Health checks provide real-time visibility into the impact of chaos scenarios on
 
 
 ### Telemetry
-We gather some basic details of the clsuter configuration and scenarios ran as part of a `telemetry` set of data that is printed off at the end of each krkn run. You can also opt in to the telemetry being stored in AWS S3 bucket or elasticsearch for long term storage. Find more details and configuration specifics [here](telemetry.md)
+We gather some basic details of the cluster configuration and scenarios ran as part of a `telemetry` set of data that is printed off at the end of each krkn run. You can also opt in to the telemetry being stored in AWS S3 bucket or elasticsearch for long term storage. Find more details and configuration specifics [here](telemetry.md)
 
 
 ### OCM / ACM integration

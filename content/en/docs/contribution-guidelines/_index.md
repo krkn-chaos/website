@@ -49,8 +49,8 @@ If you have any questions that you think could be better discussed on a meeting 
 ## Good PR Checklist 
 Here's a quick checklist for a good PR, more details below:
 - One feature/change per PR
-- One commit per PR [squash your commits](contribute.md#squash-commits)
-- PR rebased on main ([git rebase](contribute.md#rebase-with-upstream), not git pull)
+- One commit per PR [squash your commits](git-pointers.md#squash-commits)
+- PR rebased on main ([git rebase](git-pointers.md#rebase-with-upstream), not git pull)
 - Good descriptive commit message, with link to issue
 - No changes to code not directly related to your PR
 - Includes functional/integration test (more applicable to krkn-lib)
@@ -58,9 +58,9 @@ Here's a quick checklist for a good PR, more details below:
 
 ## Helpful Documents
 Refer to the docs below to be able to test your own images with any changes and be able to contribute them to the repository
-- [Getting Started](/docs/contribution-guidelines/getting-started.md)
+- [Getting Started](/docs/getting-started/getting-started-krkn.md)
 - [Contribute - Git Pointers](/docs/contribution-guidelines/git-pointers.md)
-- [Testing Your Krkn-hub Changes](/docs/contribution-guidelines/testing-changes.md)
+- [Testing Your Krkn-hub Changes](/docs/developers-guide/testing-changes.md)
 
 ## Questions?
 

@@ -11,7 +11,7 @@ The user has the option to enable/disable the slack integration ( disabled by de
 - A watcher can be assigned for each day of the week. The watcher of the day is tagged while reporting failures in the slack channel instead of everyone. (NOTE: Defining the watcher id's is optional and when the watcher slack id's are not defined, the slack_team_alias tag is used if it is set else no tag is used while reporting failures in the slack channel.)
 
 #### Go or no-go signal
-When the cerberus is configured to run in the daemon mode, it will continuosly monitor the components specified, runs a simple http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.
+When the cerberus is configured to run in the daemon mode, it will continuously monitor the components specified, runs a simple http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.
 
 #### Failures in a time window
 1. The failures in the past 1 hour can be retrieved in the json format by visiting http://0.0.0.0:8080/history.

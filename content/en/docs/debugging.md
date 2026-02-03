@@ -53,7 +53,7 @@ users:
 ### Krknctl Error
 ```bash
 ...
-failed to determine container runtime enviroment please install podman or docker and retry
+failed to determine container runtime environment please install podman or docker and retry
 ```
 
 

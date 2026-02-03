@@ -37,14 +37,14 @@ We decided to create Krkn to help face some challenges we saw:
 
 Krkn is here to solve these problems.
 
- Below is a flow chart of all the krkn related repositories in the github organization. They all build on eachother with krkn-lib being the lowest level of kubernetes based functions to full running scenarios and demos and documentations
+ Below is a flow chart of all the krkn related repositories in the github organization. They all build on each other with krkn-lib being the lowest level of kubernetes based functions to full running scenarios and demos and documentations
 
 <img src="https://raw.githubusercontent.com/krkn-chaos/website/refs/heads/main/assets/images/krkn-repo-flowchart.png"  style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9; " class="contain" >
 
 * First off, [**krkn-lib**](https://github.com/krkn-chaos/krkn-lib). Our lowest level repository containing all of the basic kubernetes python functions that make Krkn run. This also includes models of our telemetry data we output at the end of our runs and lots of functional tests. Unless you are contributing to Krkn, you won't need to explicitly clone this repository. 
 
 * Krkn: Our brain repository that takes in a yaml file of configuration and scenario files and causes chaos on a cluster.
-  We sugguest using this way of running to try out new scenarios or if you want to run a combination of scenarios in one run. **A CNCF sandbox project.** [Github](https://github.com/krkn-chaos/) 
+  We suggest using this way of running to try out new scenarios or if you want to run a combination of scenarios in one run. **A CNCF sandbox project.** [Github](https://github.com/krkn-chaos/) 
 
 * Krkn-hub: This is our containerized wrapper around krkn that easily allows us to run with the respective environment variables without having to maintain and tweak files! This is great for CI systems. But note, with this way of running it only allows you to run one scenario at a time
 

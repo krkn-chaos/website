@@ -41,7 +41,7 @@ $ python3 start_cerberus.py --config <config_file_location>
 ## Python Package
 Cerberus is also available as a python package to ease the installation and setup.
 
-To install the lastest release:
+To install the latest release:
 
 ```bash
 $ pip3 install cerberus-client
@@ -59,7 +59,7 @@ $ cerberus_client -c <config_file_location>`
 
 ## Containerized version
 
-Assuming docker ( 17.05 or greater with multi-build support ) is intalled on the host, run:
+Assuming docker ( 17.05 or greater with multi-build support ) is installed on the host, run:
 ```bash
 $ docker pull quay.io/redhat-chaos/cerberus
 # Setup the [config](https://github.com/redhat-chaos/cerberus/tree/master/config) according to your requirements. Information on the available options can be found at [usage](usage.md).

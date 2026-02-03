@@ -36,11 +36,11 @@ It’s the perfect starting point to tap into your chaotic creativity!
 
 ### New Configuration to Scenarios 
 
-If you are currently using a scenario but want more configuration options, please open a [github issue](https://github.com/krkn-chaos/krkn/issues) describing your use case and what fields and functionality you would like to see added. We will review the sugguestion and give pointers on how to add the functionality. If you feel inclined, you can start working on the feature and we'll help if you get stuck along the way. 
+If you are currently using a scenario but want more configuration options, please open a [github issue](https://github.com/krkn-chaos/krkn/issues) describing your use case and what fields and functionality you would like to see added. We will review the suggestion and give pointers on how to add the functionality. If you feel inclined, you can start working on the feature and we'll help if you get stuck along the way. 
 
 
-## Work in Progress PR's 
-If you are working on a contribution in any capacity and would like to get a new set of eyes on your work, go ahead and open a PR with '[WIP]' at the start of the tite in your PR and tag the [maintainers](https://github.com/krkn-chaos/krkn/blob/main/MAINTAINERS.md) for review. We will review your changes and give you sugguestions to keep you moving! 
+## Work in Progress PR's
+If you are working on a contribution in any capacity and would like to get a new set of eyes on your work, go ahead and open a PR with '[WIP]' at the start of the title in your PR and tag the [maintainers](https://github.com/krkn-chaos/krkn/blob/main/MAINTAINERS.md) for review. We will review your changes and give you suggestions to keep you moving! 
 
 ## Office Hours
 If you have any questions that you think could be better discussed on a meeting we have monthly office hours [zoom link](https://zoom-lfx.platform.linuxfoundation.org/meetings/krkn?view=month). Please add items to agenda before so we can best prepare to help you.

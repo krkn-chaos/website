@@ -6,7 +6,7 @@ weight: 3
 ---
 
 ```bash
-2020-03-26 22:05:06,393 [INFO] Starting ceberus
+2020-03-26 22:05:06,393 [INFO] Starting cerberus
 2020-03-26 22:05:06,401 [INFO] Initializing client to talk to the Kubernetes cluster
 2020-03-26 22:05:06,434 [INFO] Fetching cluster info
 2020-03-26 22:05:06,739 [INFO] Publishing cerberus status at http://0.0.0.0:8080
@@ -42,7 +42,7 @@ weight: 3
 2020-03-26 22:05:32,118 [INFO] HTTP requests served: 1
 2020-03-26 22:05:32,118 [INFO] Sleeping for the specified duration: 5
 +--------------------------------------------------Failed Components--------------------------------------------------+
-2020-03-26 22:05:37,123 [INFO] Failed openshfit sdn components: ['sdn-xmqhd']
+2020-03-26 22:05:37,123 [INFO] Failed openshift sdn components: ['sdn-xmqhd']
 
 2020-05-23 23:26:43,041 [INFO] ------------------------- Iteration Stats ---------------------------------------------
 2020-05-23 23:26:43,041 [INFO] Time taken to run watch_nodes in iteration 1: 0.0996248722076416 seconds

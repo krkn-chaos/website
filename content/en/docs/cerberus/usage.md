@@ -53,7 +53,7 @@ cerberus:
         Sunday:
     slack_team_alias:                                    # The slack team alias to be tagged while reporting failures in the slack channel when no watcher is assigned
 
-    custom_checks:                                       # Relative paths of files conataining additional user defined checks
+    custom_checks:                                       # Relative paths of files containing additional user defined checks
         -   custom_checks/custom_check_sample.py
         -   custom_check.py
 

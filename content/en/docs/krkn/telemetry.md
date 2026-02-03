@@ -21,7 +21,7 @@ A json named telemetry.json containing:
   - Network plugins
   - Cluster version
 - A partial/full backup of the prometheus binary logs (currently available on OCP only)
-- Any firing crtiical alerts on the cluster
+- Any firing critical alerts on the cluster
 
 ### Deploy your own telemetry AWS service 
 The *krkn-telemetry* project aims to provide a basic, but fully working example on how to deploy your own Krkn telemetry collection API. We currently do not support the telemetry collection as a service for community users and we discourage to handover your infrastructure telemetry metadata to third parties since may contain confidential infos.

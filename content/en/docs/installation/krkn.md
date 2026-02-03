@@ -41,7 +41,7 @@ git remote -v
 
 
 ### Install the dependencies
-To be sure that krkn's dependencies don't interfere with other python dependencies you may have locally, we recommend creating a virtual enviornment before installing the dependencies. We have only tested up to python 3.9
+To be sure that krkn's dependencies don't interfere with other python dependencies you may have locally, we recommend creating a virtual environment before installing the dependencies. We have only tested up to python 3.9
 ```bash
 $ python3.9 -m venv chaos
 $ source chaos/bin/activate

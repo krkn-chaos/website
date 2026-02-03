@@ -31,7 +31,7 @@ $ git push
 ```
 
 ## Squash Commits
-If there are mutliple commits, please rebase/squash multiple commits
+If there are multiple commits, please rebase/squash multiple commits
 before creating the PR by following:
 
 ```bash

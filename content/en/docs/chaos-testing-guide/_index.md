@@ -7,7 +7,7 @@ weight: 0
 ---
 
 ### Table of Contents
-* [Test Stratagies and Methodology](#test-strategies-and-methodology)
+* [Test Strategies and Methodology](#test-strategies-and-methodology)
 * [Best Practices](#best-practices)
 * [Tooling](#tooling)
   * [Cluster recovery checks, metrics evaluation and pass/fail criteria](#cluster-recovery-checks-metrics-evaluation-and-passfail-criteria)
@@ -130,7 +130,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
     - The nodes are stopped in parallel to mimic a power outage i.e., pulling off the plug
   - [Demo](https://asciinema.org/a/r0zLbh70XK7gnc4s5v0ZzSXGo)
 
-- Resource Hog ([Documenattion](../scenarios/arcaflow-scenarios))
+- Resource Hog ([Documentation](../scenarios/arcaflow-scenarios))
   - Hogs CPU, Memory and IO on the targeted nodes
     - Helps understand if the application/system components have reserved resources to not get disrupted because of rogue applications, or get performance throttled.
       - CPU Hog ([Documentation](../scenarios/arcaflow-scenarios), [Demo](https://asciinema.org/a/452762))
@@ -238,7 +238,7 @@ To use this task, you must have :
   - 1 ConfigMap named `kraken-kubeconfig` with credentials to the targeted cluster
   - 1 ConfigMap named `kraken-config-example` with kraken configuration file (config.yaml)
   - 1 ConfigMap named `kraken-common-example` with all kraken related files
-  - The `pipeline` SA with be autorized to run with priviveged SCC
+  - The `pipeline` SA with be authorized to run with privileged SCC
 
 You can create theses resources using the following sequence :
 

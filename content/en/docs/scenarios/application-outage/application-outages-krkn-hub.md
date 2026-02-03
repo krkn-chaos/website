@@ -16,7 +16,7 @@ $ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 ```
 
 {{% alert title="Note" %}} --env-host: This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines. 
-Without the --env-host option you'll have to set each enviornment variable on the podman command line like  `-e <VARIABLE>=<value>`
+Without the --env-host option you'll have to set each environment variable on the podman command line like  `-e <VARIABLE>=<value>`
 {{% /alert %}}
 
 

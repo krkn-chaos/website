@@ -1,6 +1,6 @@
 ---
 title: Chaos Recommendation Tool
-description: Krkn scenario recommendor tool 
+description: Krkn scenario recommender tool
 weight: 10
 ---
 This tool, designed for Kraken, operates through the command line and offers recommendations for chaos testing. It suggests probable chaos test cases that can disrupt application services by analyzing their behavior and assessing their susceptibility to specific fault types.

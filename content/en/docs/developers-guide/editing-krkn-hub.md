@@ -11,7 +11,7 @@ tags: [docs]
 ## Adding/Editing a New Scenario to Krkn-hub
 1. Create folder with scenario name under [krkn-hub](https://github.com/krkn-chaos/krkn-hub/tree/main)
 
-2. Create generic scenario template with enviornment variables
+2. Create generic scenario template with environment variables
 
     a. See [scenario.yaml](https://github.com/krkn-chaos/krkn-hub/blob/main/application-outages/app_outages.yaml.template) for example
     

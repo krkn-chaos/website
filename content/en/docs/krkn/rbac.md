@@ -142,7 +142,7 @@ The following table lists the available Krkn scenarios and their required RBAC p
 | pod_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt or kill pods |
 | pod_network_scenarios | Namespace | Ns-Privileged | Scenarios that affect pod network connectivity |
 | pvc_scenarios | Namespace | Ns-Privileged | Scenarios that affect persistent volume claims |
-| service_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt services |s
+| service_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt services |
 | service_hijacking_scenarios | Namespace | Privileged | Scenarios that hijack services |
 | syn_flood_scenarios | Cluster | Privileged | SYN flood attack scenarios |
 

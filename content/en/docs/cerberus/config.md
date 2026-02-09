@@ -15,7 +15,7 @@ Cerberus Config Components Explained
 * [Watch Namespaces](#watch-namespaces)
 * [Watch Terminating Namespaces](#watch-terminating-namespaces)
 * [Publish Status](#publish-status)
-* [Inpsect Components](#inspect-components)
+* [Inspect Components](#inspect-components)
 * [Custom Checks](#custom-checks)
 
 ### Config
@@ -67,7 +67,7 @@ cerberus:
     slack_team_alias:                                    # The slack team alias to be tagged while reporting failures in the slack channel when no watcher is assigned
 
     custom_checks:
-        -   custom_checks/custom_check_sample.py       # Relative paths of files conataining additional user defined checks
+        -   custom_checks/custom_check_sample.py       # Relative paths of files containing additional user defined checks
 
 tunings:
     timeout: 20                                          # Number of seconds before requests fail
@@ -122,7 +122,7 @@ Or you can use `^.*$` to watch all namespaces in your cluster
 
 
 #### Watch Terminating Namespaces
-When `watch_terminating_namespaces` is set to True, this will monitor the status of all the namespaces defind under watch namespaces and report a failure if any are terminating.
+When `watch_terminating_namespaces` is set to True, this will monitor the status of all the namespaces defined under watch namespaces and report a failure if any are terminating.
 If set to False will not query or report the status of the terminating namespaces
 
 #### Publish Status

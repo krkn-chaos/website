@@ -30,8 +30,8 @@ Cluster Operators                    | Watches all Cluster Operators            
 Masters Schedulability               | Watches and warns if masters nodes are marked as schedulable                                                     | :heavy_check_mark:        |
 Routes                               | Watches specified routes                                                                                         | :heavy_check_mark:        |
 CSRs                                 | Warns if any CSRs are not approved                                                                               | :heavy_check_mark:        |
-Critical Alerts                      | Warns the user on observing abnormal behavior which might effect the health of the cluster                       | :heavy_check_mark:        |
-Bring your own checks                | Users can bring their own checks and Ceberus runs and includes them in the reporting as wells as go/no-go signal | :heavy_check_mark:        |
+Critical Alerts                      | Warns the user on observing abnormal behavior which might affect the health of the cluster                       | :heavy_check_mark:        |
+Bring your own checks                | Users can bring their own checks and Cerberus runs and includes them in the reporting as well as go/no-go signal | :heavy_check_mark:        |
 
 An explanation of all the components that Cerberus can monitor are explained [here](config.md)
 
@@ -39,7 +39,7 @@ An explanation of all the components that Cerberus can monitor are explained [he
 Cerberus exposes the cluster health and failures through a go/no-go signal, report and metrics API.
 
 #### Go or no-go signal
-When the cerberus is configured to run in the daemon mode, it will continuosly monitor the components specified, runs a light weight http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.
+When the cerberus is configured to run in the daemon mode, it will continuously monitor the components specified, runs a light weight http server at http://0.0.0.0:8080 and publishes the signal i.e True or False depending on the components status. The tools can consume the signal and act accordingly.
 
 #### Report
 The report is generated in the run directory and it contains the information about each check/monitored component status per iteration with timestamps. It also displays information about the components in case of failure. Refer [report](/example_report.md) for example.

@@ -49,10 +49,18 @@ In addition to the [common hog scenario options](../_index.md#common-options), I
 - `io-write-bytes: "50%"` - Write data equal to 50% of available free space
 - `io-write-bytes: "10g"` - Write 10 gigabytes of data
 
-## Usage
+## How to Run IO Hog Scenarios
 
-Select your deployment method to get started:
+Choose your preferred method to run IO hog scenarios:
 
-- [IO Hog using Krkn](io-hog-scenario-krkn.md) - Configuration for direct Krkn usage
-- [IO Hog using Krknctl](io-hog-scenario-krknctl.md) - Configuration for Krknctl CLI
-- [IO Hog using Krkn-Hub](io-hog-scenario-krkn-hub.md) - Configuration for Krkn-Hub
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}

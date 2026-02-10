@@ -48,7 +48,7 @@ The scenario supports the following parameters:
 | vm_name | The name of the VMI to delete | Yes | N/A |
 | namespace | The namespace where the VMI is located | No | "default" |
 | timeout | How long to wait (in seconds) before attempting recovery for VMI to start running again | No | 60 |
-| kill_count | How many VMI's to kill serially | No | 1 | 
+| kill_count | How many VMI's to kill serially | No | 1 |
 
 ## Expected Behavior
 
@@ -111,3 +111,19 @@ If the scenario fails, check the following:
 4. Examine the logs for specific error messages
 
 </krkn-hub-scenario>
+
+## How to Run KubeVirt VM Outage Scenarios
+
+Choose your preferred method to run KubeVirt VM outage scenarios:
+
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}

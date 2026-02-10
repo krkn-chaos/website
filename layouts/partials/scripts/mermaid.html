@@ -1,0 +1,12 @@
+{{ if .Site.Params.mermaid.enable | default true -}}
+{{ $mermaidVersion := .Site.Params.mermaid.version | default "11.6.0" -}}
+{{ $mermaidJS := printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaidVersion -}}
+<script src="{{ $mermaidJS }}"></script>
+<script>
+  mermaid.initialize(
+    {
+      theme: '{{ .Site.Params.mermaid.theme | default "default" }}'
+    }
+  );
+</script>
+{{ end -}}

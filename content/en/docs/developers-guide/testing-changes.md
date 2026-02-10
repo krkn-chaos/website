@@ -119,7 +119,7 @@ Install krkn dependencies in a virtual environment:
 
 ```bash
 # Create and activate virtual environment
-python3.9 -m venv chaos
+python3.11 -m venv chaos
 source chaos/bin/activate
 
 # Install requirements
@@ -234,7 +234,7 @@ kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=proxy" --timeo
 
 #### Install Requirements
 ```bash
-$ python3.9 -m venv chaos
+$ python3.11 -m venv chaos
 $ source chaos/bin/activate
 $ pip install -r requirements.txt
 ```

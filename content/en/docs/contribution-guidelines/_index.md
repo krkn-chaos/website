@@ -1,9 +1,8 @@
 ---
 title: Contribution Guidelines
 type: "docs/scenarios"
-description: 
-weight: 6
 description: How to contribute and get started
+weight: 6
 ---
 
 # How to contribute

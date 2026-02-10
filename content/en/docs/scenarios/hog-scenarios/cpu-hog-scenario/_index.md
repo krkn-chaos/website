@@ -38,10 +38,21 @@ In addition to the [common hog scenario options](../_index.md#common-options), C
 | `cpu-load-percentage` | number | The percentage of CPU that will be consumed by the hog |
 | `cpu-method` | string | The CPU load strategy adopted by stress-ng (see stress-ng documentation for available options) |
 
-## Usage
+## How to Run CPU Hog Scenarios
 
-Select your deployment method to get started:
+Choose your preferred method to run CPU hog scenarios:
 
-- [CPU Hog using Krkn](cpu-hog-scenario-krkn.md) - Configuration for direct Krkn usage
-- [CPU Hog using Krknctl](cpu-hog-scenario-krknctl.md) - Configuration for Krknctl CLI
-- [CPU Hog using Krkn-Hub](cpu-hog-scenario-krkn-hub.md) - Configuration for Krkn-Hub
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}
+
+## Demo
+You can find a link to a demo of the scenario [here](https://asciinema.org/a/452762)

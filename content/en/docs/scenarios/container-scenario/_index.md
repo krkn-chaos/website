@@ -1,6 +1,6 @@
 ---
 title: Container Scenarios
-description: 
+description:
 date: 2017-01-04
 weight: 3
 ---
@@ -38,3 +38,23 @@ These metrics appear in the telemetry output under `PodsStatus.recovered` for su
   "unrecovered": []
 }
 ```
+
+## How to Run Container Scenarios
+
+Choose your preferred method to run container scenarios:
+
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}
+
+## Demo
+See a demo of this scenario:
+<script src="https://asciinema.org/a/452375.js" id="asciicast-452375" async="true" style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;"></script>

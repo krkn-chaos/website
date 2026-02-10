@@ -1,0 +1,132 @@
+/**
+ * Horizontal scrolling for tab content
+ * Prevents wide content from breaking the layout
+ */
+
+/* Enable horizontal scrolling for tab panes */
+.tab-pane {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* Ensure code blocks scroll horizontally */
+.tab-pane pre {
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre;
+    background-color: #ffffff !important;
+    /* White background */
+    border-left: 4px solid #4299e1;
+    /* Blue accent border */
+    border-radius: 6px;
+    padding: 1rem !important;
+}
+
+/* Style code text within tab code blocks */
+.tab-pane pre code {
+    color: #2d3748 !important;
+    /* Dark text color for contrast */
+    background-color: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* Remove any span backgrounds within code blocks */
+.tab-pane pre code span {
+    background-color: transparent !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove backgrounds from all syntax highlighting elements */
+.tab-pane pre .highlight,
+.tab-pane pre .chroma {
+    background-color: transparent !important;
+}
+
+/* Ensure all divs and spans in code blocks have no background */
+.tab-pane pre div,
+.tab-pane pre span,
+.tab-pane pre code>* {
+    background-color: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Style inline code within tabs */
+.tab-pane code:not(pre code) {
+    background-color: #edf2f7 !important;
+    /* Light gray for inline code */
+    color: #d53f8c !important;
+    /* Pink/magenta for inline code text */
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.875em;
+}
+
+/* Ensure tables scroll horizontally if needed */
+.tab-pane table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #cbd5e0;
+}
+
+/* Table header styling */
+.tab-pane table thead th {
+    background-color: #4299e1;
+    color: white;
+    padding: 0.75rem;
+    border: 1px solid #3182ce;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Table cell styling */
+.tab-pane table td {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    color: #1a202c;
+}
+
+/* Alternating row colors */
+.tab-pane table tbody tr:nth-child(odd) {
+    background-color: #f7fafc;
+}
+
+.tab-pane table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover effect on rows */
+.tab-pane table tbody tr:hover {
+    background-color: #edf2f7;
+}
+
+/* Style the scrollbar for better UX (webkit browsers) */
+.tab-pane::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tab-pane::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.tab-pane::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.tab-pane::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Make sure tab content body also scrolls */
+.tab-body {
+    overflow-x: auto;
+}

@@ -13,6 +13,7 @@ Modern applications demand high availability, low downtime, and resilient infras
 
 ## Use cases of pod scenarios
 <krkn-hub-scenario id="pod-scenarios">
+
 1. Deleting a single pod
 - **Use Case:** Simulates unplanned deletion of a single pod
 - **Why It's Important:** Validates whether the ReplicaSet or Deployment automatically creates a replacement.
@@ -87,6 +88,82 @@ exclude_label: "key=value"
         kill: 2
 ```
 
+## Targeting Pods on Specific Nodes
+
+By default, pod scenarios target all pods matching the namespace and label selectors regardless of which node they run on. However, you can narrow down the scope to only affect pods running on specific nodes using two options:
+
+### Option 1: Using Node Label Selector
+
+Target pods running on nodes with specific labels (e.g., control-plane nodes, worker nodes, nodes in a specific zone).
+
+**Format:**
+
+```yaml
+node_label_selector: "key=value"
+```
+
+**Use Cases:**
+- Test resilience of control-plane workloads by disrupting pods only on master/control-plane nodes
+- Simulate zone-specific failures by targeting nodes in a particular availability zone
+- Test worker node failures without affecting control-plane components
+
+**Example: Target Pods on Control-Plane Nodes**
+
+```yaml
+- id: kill_pods
+  config:
+    namespace_pattern: ^kube-system$
+    label_selector: k8s-app=kube-scheduler
+    node_label_selector: node-role.kubernetes.io/control-plane=
+    krkn_pod_recovery_time: 120
+```
+
+**Example: Target Pods in a Specific Availability Zone**
+
+```yaml
+- id: kill_pods
+  config:
+    namespace_pattern: ^production$
+    label_selector: app=backend
+    node_label_selector: topology.kubernetes.io/zone=us-east-1a
+    krkn_pod_recovery_time: 120
+```
+
+### Option 2: Using Node Names
+
+Target pods running on explicitly named nodes. This is useful for testing specific node scenarios or mixed node type environments.
+
+**Format:**
+
+```yaml
+node_names:
+  - node-name-1
+  - node-name-2
+```
+
+**Use Cases:**
+- Test failures on specific nodes (e.g., nodes with known hardware issues)
+- Simulate scenarios involving mixed node types (e.g., GPU nodes, high-memory nodes)
+- Validate pod distribution and failover between specific nodes
+
+**Example: Target Pods on Specific Nodes**
+
+```yaml
+- id: kill_pods
+  config:
+    namespace_pattern: ^kube-system$
+    label_selector: k8s-app=kube-scheduler
+    node_names:
+      - ip-10-0-31-8.us-east-2.compute.internal
+      - ip-10-0-48-188.us-east-2.compute.internal
+    krkn_pod_recovery_time: 120
+```
+
+**Mechanism:**
+1. Pods are selected based on `namespace_pattern` + `label_selector` or `name_pattern`
+2. The selection is further filtered to only include pods running on the specified nodes
+3. If `exclude_label` is also specified, it's applied after node filtering
+4. The remaining pods are subjected to chaos
 
 ## Recovery Time Metrics in Krkn Telemetry
 
@@ -116,4 +193,22 @@ These metrics appear in the telemetry output under `PodsStatus.recovered` for su
 }
 ```
 
-See [Krkn config examples](./pod-scenarios-krkn.md) and [Krknctl parameters](./pod-scenarios-krknctl.md) for full details.
+## How to Run Pod Scenarios
+
+Choose your preferred method to run pod scenarios:
+
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}
+
+#### Demo
+See a demo of this scenario:
+<script src="https://asciinema.org/a/452351.js" id="asciicast-452351"  style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;" async="true"></script>

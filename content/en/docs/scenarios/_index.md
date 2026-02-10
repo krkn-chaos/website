@@ -26,7 +26,8 @@ table th:nth-of-type(3) {
 | **Scenario**   | **Plugin Type**   |  **Description** |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------ |
 | [Application outages](docs/scenarios/application-outage/_index.md) | application_outages_scenarios | Isolates application Ingress/Egress traffic to observe the impact on dependent applications and recovery/initialization timing  |    
-| [Aurora Disruption](docs/scenarios/aurora-disruption/_index.md) | network_chaos_ng_scenarios | Blocks a pod's outgoing MySQL and PostgreSQL traffic, effectively preventing it from connecting to any AWS Aurora SQL engine |            
+| [Aurora Disruption](docs/scenarios/aurora-disruption/_index.md) | network_chaos_ng_scenarios | Blocks a pod's outgoing MySQL and PostgreSQL traffic, effectively preventing it from connecting to any AWS Aurora SQL engine |
+| [AWS S3 Replication](docs/scenarios/aws-s3-replication/_index.md) | aws_s3_replication_scenarios | Temporarily pauses S3 bucket replication to test application resilience when replication is unavailable or experiencing lag |            
 | [Container failures](docs/scenarios/container-scenario/_index.md) | container_scenarios | Injects container failures based on the provided kill signal | 
 | [DNS outages](docs/scenarios/dns-outage/_index.md) | network_chaos_ng_scenarios | Blocks all outgoing DNS traffic from a specific pod, effectively preventing it from resolving any hostnames or service names. |    
 | [EFS Disruption](docs/scenarios/efs-disruption/_index.md) | network_chaos_ng_scenarios | Creates an outgoing firewall rule blocking connections to AWS EFS, leading to a temporary failure of any EFS volumes mounted on those affected nodes.|    

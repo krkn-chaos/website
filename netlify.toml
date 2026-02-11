@@ -19,6 +19,14 @@ functions = "netlify/functions"
 [context.production.environment]
 SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 
+
+[context.deploy-preview]
+command = "npm install && npm run build:preview && node scripts/post-build.js"
+
+[context.deploy-preview.environment]
+HUGO_VERSION = "0.146.0"
+
+
 # Function-specific settings
 [functions]
 directory = "netlify/functions"

@@ -8,6 +8,7 @@ functions = "netlify/functions"
 
 [build.environment]
 GO_VERSION = "1.22.2"
+HUGO_VERSION = "0.146.0"
 NODE_VERSION = "20"
 SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
 

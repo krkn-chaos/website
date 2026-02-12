@@ -1,0 +1,76 @@
+---
+title: Pod Network Ingress Network Shaping using krkn-hub
+description: >
+date: 2025-08-18
+weight: 2
+---
+This scenario runs network chaos at the pod level on a Kubernetes/OpenShift cluster.
+
+#### Run
+
+If enabling [Cerberus](/docs/cerberus/) to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
+
+```bash
+$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-ingress-shaping
+$ podman logs -f <container_name or container_id> # Streams Kraken logs
+$ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+```
+{{% alert title="Note" %}} --env-host: This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines. 
+Without the --env-host option you'll have to set each enviornment variable on the podman command line like  `-e <VARIABLE>=<value>`
+{{% /alert %}}
+
+
+```bash
+$ docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-ingress-shaping
+OR 
+$ docker run -e <VARIABLE>=<value> --name=<container_name> --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-ingress-shaping
+
+$ docker logs -f <container_name or container_id> # Streams Kraken logs
+$ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+```
+
+{{% alert title="Tip" %}} Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
+```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
+#### Supported parameters
+
+The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
+
+Example if --env-host is used:
+```
+export <parameter_name>=<value>
+```
+OR on the command line like example: 
+
+```
+-e <VARIABLE>=<value> 
+```
+See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
+
+
+| Parameter               | Description                                                           | Default
+----------------------- | -----------------------------------------------------------------     | ------------------------------------ |
+| IMAGE         | The scenario workload container image | quay.io/krkn-chaos/krkn:tools | 
+| TOTAL_CHAOS_DURATION | Duration in seconds - during with network chaos will be applied. | 60 |
+| POD_SELECTOR  | Label of the pod(s) to target | "" |
+| EXECUTION            | sets the execution mode of the scenario on multiple pods, can be parallel or serial                                              | "parallel"                        |
+| NAMESPACE               | Required - Namespace of the pod to which filter need to be applied    | ""                                     |
+| INSTANCE_COUNT          | Number of pods to perform action/select that match the label selector | 1 |
+| POD_NAME                | When label_selector is not specified, pod matching the name will be selected for the chaos scenario | "" |
+| SERVICE_ACCOUNT | The service account that the workload will run with. This is especially useful for privileged workloads, as it can be configured to bypass cluster security restrictions.| "" |
+| TAINTS | A list of comma sepaerated taints that the node might have that will be transformed on workload tolerations | "" |
+| LATENCY | Injects IP packet latency on the pod interface,  value is a string eg. 50ms| "" |
+| LOSS | Injects a percentage of IP packet loss on the pod interface, value is a string eg. 90% | "" |
+| BANDWIDTH | Injects a bandwidth restriction on the pod interface, value is a string eg. 1mbps | "" |
+| NETWORK_SHAPING_EXECUTION | sets the execution mode for the three network disruptions available can be serial or parallel | parallel |
+
+
+
+{{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
+
+
+
+{{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
+ For example:
+```bash
+$ podman run --name=<container_name> --net=host --env-host=true -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-ingress-shaping
+```

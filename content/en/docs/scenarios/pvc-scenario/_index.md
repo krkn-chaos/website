@@ -13,13 +13,13 @@ Scenario to fill up a given PersistenVolumeClaim by creating a temp file on the 
 Choose your preferred method to run PVC scenarios:
 
 {{< tabpane text=true >}}
-  {{< tab header="**Krkn**" >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
 {{< readfile file="_tab-krkn.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krkn-hub**" >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
 {{< readfile file="_tab-krkn-hub.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krknctl**" >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
 {{< readfile file="_tab-krknctl.md" >}}
   {{< /tab >}}
 {{< /tabpane >}}

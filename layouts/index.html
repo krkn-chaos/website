@@ -1,0 +1,789 @@
+{{/*
+  Custom Krkn homepage layout.
+  Extends Docsy baseof; defines only the "main" block.
+  All styling comes from SCSS partials (_custom_hero, _custom_sections, etc.)
+  Design: Apple-inspired dark theme, cinematic, generous whitespace.
+*/}}
+{{ define "main" }}
+<style>
+  /* Homepage-specific overrides (not in SCSS because they're page-specific) */
+  .krkn-home .section-surface .section-title,
+  .krkn-home .section-dark .section-title { text-align: center; }
+  .krkn-home .section-surface .section-subtitle,
+  .krkn-home .section-dark .section-subtitle { text-align: center; }
+  .krkn-home .about-grid .section-title { text-align: left !important; }
+  .krkn-home .about-grid .section-subtitle { text-align: left !important; margin: 0 0 1.5rem; max-width: none; }
+
+  /* About grid layout */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Code block terminal mockup — always dark bg with light text */
+  .code-block { background: #0D1117 !important; border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.08) !important; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+  .code-block__header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: #161B22 !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
+  .code-block__dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-block__dot--red { background: #ef4444; }
+  .code-block__dot--yellow { background: #eab308; }
+  .code-block__dot--green { background: #22c55e; }
+  .code-block__title { margin-left: 0.5rem; font-size: 0.8rem; color: #8B949E; }
+  .code-block pre { margin: 0; padding: 1.25rem 1.5rem; overflow-x: auto; background: transparent !important; border: none !important; box-shadow: none !important; }
+  .code-block code { font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace; font-size: 0.9rem; color: #E6EDF3 !important; background: transparent !important; -webkit-text-fill-color: #E6EDF3 !important; }
+  .code-block code .check { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
+
+  /* CTA code block */
+  .cta-code { max-width: 600px; margin: 2rem auto 0; }
+  .cta-code .code-block__header { display: none; }
+
+  /* Steps grid */
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; position: relative; }
+  @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 550px) { .steps-grid { grid-template-columns: 1fr; } }
+  .step-card { position: relative; background: var(--krkn-surface); border: 1px solid var(--krkn-border-subtle); border-radius: 1rem; padding: 2rem 1.5rem 1.75rem; text-align: left; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .step-card:hover { border-color: var(--krkn-primary); box-shadow: 0 0 0 1px rgba(236,28,36,0.1), 0 8px 24px var(--krkn-shadow); }
+  .step-card__badge { display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; background: var(--krkn-primary); color: #fff; font-weight: 700; font-size: 1.125rem; border-radius: 0.625rem; margin-bottom: 1.25rem; font-family: 'Satoshi', sans-serif; }
+  .step-card__icon { display: block; width: 28px; height: 28px; color: var(--krkn-text-muted); margin-bottom: 1rem; }
+  .step-card h3 { font-family: 'Satoshi', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--krkn-text); margin: 0 0 0.5rem; }
+  .step-card p { font-size: 0.9rem; color: var(--krkn-text-muted); line-height: 1.55; margin: 0 0 1rem; }
+  .step-card__code { background: #0D1117; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.5rem; padding: 0.625rem 0.875rem; font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace; font-size: 0.75rem; color: #E6EDF3; line-height: 1.5; overflow-x: auto; white-space: pre; }
+  .step-card__code .c-prompt { color: #7EE787; }
+  .step-card__code .c-flag { color: #79C0FF; }
+  .step-card__code .c-ok { color: #3FB950; }
+
+  /* Krkn AI showcase */
+  .krkn-ai-section { overflow: hidden; }
+  .krkn-ai-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+  @media (max-width: 900px) { .krkn-ai-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .krkn-ai-content { text-align: left; }
+  .krkn-ai-label { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'SF Mono', SFMono-Regular, monospace; font-size: 0.8125rem; font-weight: 600; color: var(--krkn-primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .krkn-ai-label svg { width: 16px; height: 16px; }
+  .krkn-ai-heading { font-family: 'Satoshi', sans-serif; font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; color: var(--krkn-text); line-height: 1.15; margin: 0 0 1rem; }
+  .krkn-ai-heading em { font-style: normal; background: linear-gradient(135deg, var(--krkn-primary) 0%, #FF4444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .krkn-ai-desc { font-size: 1.0625rem; color: var(--krkn-text-muted); line-height: 1.7; margin: 0 0 1.75rem; max-width: 500px; }
+  .krkn-ai-features { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.875rem; }
+  .krkn-ai-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; color: var(--krkn-text-muted); line-height: 1.5; }
+  .krkn-ai-features li svg { width: 20px; height: 20px; color: var(--krkn-primary); flex-shrink: 0; margin-top: 2px; }
+  .krkn-ai-visual { position: relative; }
+  .krkn-ai-terminal { background: #0D1117; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.2); }
+  .krkn-ai-terminal__bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: #161B22; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .krkn-ai-terminal__dot { width: 10px; height: 10px; border-radius: 50%; }
+  .krkn-ai-terminal__dot--r { background: #ef4444; }
+  .krkn-ai-terminal__dot--y { background: #eab308; }
+  .krkn-ai-terminal__dot--g { background: #22c55e; }
+  .krkn-ai-terminal__title { margin-left: 0.5rem; font-size: 0.75rem; color: #8B949E; font-family: 'SF Mono', monospace; }
+  .krkn-ai-terminal__body { padding: 1.25rem 1.5rem; font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace; font-size: 0.8rem; line-height: 1.65; color: #E6EDF3; overflow-x: auto; white-space: pre; }
+  .krkn-ai-terminal__body .t-prompt { color: #7EE787; }
+  .krkn-ai-terminal__body .t-flag { color: #79C0FF; }
+  .krkn-ai-terminal__body .t-ok { color: #3FB950; }
+  .krkn-ai-terminal__body .t-warn { color: #D29922; }
+  .krkn-ai-terminal__body .t-muted { color: #8B949E; }
+  .krkn-ai-terminal__body .t-red { color: #FF7B72; }
+  .krkn-ai-terminal__body .t-val { color: #A5D6FF; }
+  .krkn-ai-glow { position: absolute; top: 50%; left: 50%; width: 300px; height: 300px; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(236,28,36,0.08) 0%, transparent 70%); pointer-events: none; z-index: -1; }
+  .step-card__code .c-muted { color: #8B949E; }
+  /* Connector arrow between cards (desktop only) */
+  .step-card::after { content: ''; position: absolute; top: 2.25rem; right: -1.25rem; width: 0.5rem; height: 0.5rem; border-top: 2px solid var(--krkn-border-prominent); border-right: 2px solid var(--krkn-border-prominent); transform: rotate(45deg); }
+  .step-card:last-child::after { display: none; }
+  @media (max-width: 900px) { .step-card:nth-child(2)::after { display: none; } }
+  @media (max-width: 550px) { .step-card::after { display: none; } }
+
+  /* ── Scenario Categories ── */
+  .scenario-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .scenario-category {
+    background: var(--krkn-surface);
+    border: 1px solid var(--krkn-border-subtle);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .scenario-category:hover {
+    border-color: var(--krkn-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px var(--krkn-shadow);
+  }
+  .scenario-category__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--krkn-border-subtle);
+  }
+  .scenario-category__header svg {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--krkn-primary);
+    stroke: currentColor;
+  }
+  .scenario-category__header h3 {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--krkn-text);
+    margin: 0;
+  }
+  .scenario-category__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .scenario-category__list li {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .scenario-category__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--krkn-primary);
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .scenario-category__list li:hover::before {
+    opacity: 1;
+  }
+  .scenario-category__list a {
+    font-family: 'General Sans', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--krkn-text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.6;
+  }
+  .scenario-category__list a:hover {
+    color: var(--krkn-primary);
+  }
+  .scenario-category__clouds {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--krkn-border-subtle);
+    font-family: 'General Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--krkn-text-muted);
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+  @media (max-width: 600px) {
+    .scenario-categories { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="krkn-home">
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge reveal" data-delay="0">
+        <img src="/img/cncf-white.svg" alt="CNCF" class="hero-badge__cncf-icon hero-badge__cncf-icon--dark" />
+        <img src="/img/cncf-color.png" alt="CNCF" class="hero-badge__cncf-icon hero-badge__cncf-icon--light" />
+        <span>CNCF Sandbox Project</span>
+      </div>
+      {{/* Decorative glow rings — visible only on wide screens */}}
+      <div class="hero-glow-ring hero-glow-ring--sm"></div>
+      <div class="hero-glow-ring hero-glow-ring--md"></div>
+      <div class="hero-glow-ring hero-glow-ring--lg"></div>
+
+      {{/* Extended orbit trail dots — visible only on wide screens */}}
+      <span class="hero-trail-dot" style="left: -100px; top: 180px;"></span>
+      <span class="hero-trail-dot" style="left: -220px; top: 260px;"></span>
+      <span class="hero-trail-dot" style="right: -100px; top: 200px;"></span>
+      <span class="hero-trail-dot" style="right: -210px; top: 300px;"></span>
+      <span class="hero-trail-dot" style="left: -160px; top: 370px;"></span>
+      <span class="hero-trail-dot" style="right: -150px; top: 130px;"></span>
+
+      <div class="hero-cluster" id="hero-cluster">
+        {{/* Orbiting K8s objects -- peaceful until hover */}}
+        <div class="hero-cluster__ring" id="hero-cluster-ring">
+          <div class="hero-cluster__node" data-idx="0" title="Pod">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          <div class="hero-cluster__node" data-idx="1" title="Node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="18" r="1"/></svg>
+          </div>
+          <div class="hero-cluster__node" data-idx="2" title="Network">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="hero-cluster__node" data-idx="3" title="Pod">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          <div class="hero-cluster__node" data-idx="4" title="Storage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="hero-cluster__node" data-idx="5" title="Node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="18" r="1"/></svg>
+          </div>
+        </div>
+        {{/* Connection lines between nodes */}}
+        <svg class="hero-cluster__lines" id="hero-cluster-lines" viewBox="0 0 480 480" fill="none"></svg>
+        {{/* The Krkn octopus in the center */}}
+        <img src="/img/2024_krkn_logo__Krkn_Full.svg" alt="Krkn" class="hero-logo" id="hero-logo" />
+        {{/* Chaos debris container */}}
+        <div class="hero-cluster__debris" id="hero-cluster-debris"></div>
+      </div>
+      <h1 class="hero-title">
+        Unleash Chaos.<br>
+        <span class="hero-title--accent">Ensure Resilience.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Krkn is a powerful chaos and resiliency testing tool for Kubernetes. Inject deliberate failures into your clusters to validate they can withstand turbulent conditions.
+      </p>
+      <div class="hero-cta">
+        <a href="/docs/getting-started/" class="btn-primary-krkn">
+          Get Started
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="https://github.com/krkn-chaos" class="btn-outline-krkn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY KRKN SECTION -->
+  <section class="section-surface">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title" style="text-align:left">Why Krkn?</h2>
+          <p class="section-subtitle" style="margin:0 0 1.5rem; text-align:left; max-width:none">
+            Lightweight, runs outside the cluster. Cloud + Kubernetes scenarios. Performance metrics during chaos. Post-scenario alert checks.
+          </p>
+          <a href="/docs/" class="btn-outline-krkn">Learn More</a>
+        </div>
+        <div class="about-visual reveal" data-delay="100">
+          <div class="code-block">
+            <div class="code-block__header">
+              <span class="code-block__dot code-block__dot--red"></span>
+              <span class="code-block__dot code-block__dot--yellow"></span>
+              <span class="code-block__dot code-block__dot--green"></span>
+              <span class="code-block__title">terminal</span>
+            </div>
+            <pre><code>$ krknctl list available
+$ krknctl run pod-scenarios --kubeconfig ~/.kube/config
+<span class="check">✓</span> Scenario completed successfully
+<span class="check">✓</span> All pods recovered within SLA</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="section-dark">
+    <div class="container">
+      <h2 class="section-title reveal" data-delay="0">Built for Resilience</h2>
+      <p class="section-subtitle reveal" data-delay="50">Everything you need to chaos-test your Kubernetes infrastructure with confidence.</p>
+      <div class="feature-grid">
+        <div class="feature-card reveal" data-delay="100">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3>Cerberus Monitoring</h3>
+          <p>Monitors cluster health in real-time, providing go/no-go signals during chaos tests.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="150">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+          <h3>Post-Run Alerts</h3>
+          <p>Automated alert checks after chaos scenarios to verify system resilience.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="200">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+            <path d="M12 17h.01"/>
+            <path d="M12 8v1"/>
+            <path d="M12 12l.5.5"/>
+            <path d="M14 10l1.5-1.5"/>
+          </svg>
+          <h3>Chaos Recommender</h3>
+          <p>Profiles your app's CPU, memory, and network usage to recommend the chaos scenarios most likely to cause failures.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="250">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2" ry="2"/>
+            <polyline points="6 9 10 13 6 17"/>
+            <line x1="14" y1="13" x2="18" y2="13"/>
+          </svg>
+          <h3>krknctl CLI</h3>
+          <p>Simple CLI tool to discover, run, and orchestrate chaos scenarios without complexity.</p>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="feature-card reveal" data-delay="300">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <h3>Krkn AI</h3>
+          <p>Autonomously generates and refines chaos experiments, using SLOs and fitness functions to find high-impact scenarios.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="350">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/>
+            <polyline points="23 20 23 14 17 14"/>
+            <path d="M20.49 9A9 9 0 005.64 5.64L1 10"/>
+            <path d="M3.51 15A9 9 0 0018.36 18.36L23 14"/>
+          </svg>
+          <h3>Safe Rollbacks</h3>
+          <p>Versioned rollback system writes recovery state to disk before changes — automatically restores your cluster if chaos goes wrong.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="400">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          <h3>SLO Validation</h3>
+          <p>Define pass/fail criteria with Prometheus PromQL queries. Validate alert profiles and performance metrics during and after chaos.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="450">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+            <line x1="7" y1="2" x2="7" y2="22"/>
+            <line x1="17" y1="2" x2="17" y2="22"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <line x1="2" y1="7" x2="7" y2="7"/>
+            <line x1="2" y1="17" x2="7" y2="17"/>
+            <line x1="17" y1="7" x2="22" y2="7"/>
+            <line x1="17" y1="17" x2="22" y2="17"/>
+          </svg>
+          <h3>Telemetry & Observability</h3>
+          <p>Collects run metadata, recovery times, and Prometheus backups. Ships data to S3 or Elasticsearch for long-term analysis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section class="section-surface">
+    <div class="container">
+      <h2 class="section-title reveal" data-delay="0">Get Started in Minutes</h2>
+      <p class="section-subtitle reveal" data-delay="50">From install to insights — four steps to production-grade chaos testing.</p>
+      <div class="steps-grid">
+
+        <div class="step-card reveal" data-delay="100">
+          <div class="step-card__badge">1</div>
+          <svg class="step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <h3>Install</h3>
+          <p>Download the krknctl binary from GitHub releases — available for Linux, macOS, and Windows.</p>
+          <div class="step-card__code"><span class="c-muted"># Download from GitHub releases</span>
+<span class="c-prompt">$</span> tar -xzf krknctl_*.tar.gz
+<span class="c-prompt">$</span> mv krknctl /usr/local/bin/
+<span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span></div>
+        </div>
+
+        <div class="step-card reveal" data-delay="175">
+          <div class="step-card__badge">2</div>
+          <svg class="step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <h3>Configure</h3>
+          <p>Point to your kubeconfig and optionally connect Cerberus for live health monitoring.</p>
+          <div class="step-card__code"><span class="c-prompt">$</span> krknctl list available
+<span class="c-muted">pod-scenarios        container-scenarios
+node-scenarios       network-chaos
+zone-outages         time-scenarios ...</span></div>
+        </div>
+
+        <div class="step-card reveal" data-delay="250">
+          <div class="step-card__badge">3</div>
+          <svg class="step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <h3>Run Chaos</h3>
+          <p>Pick a scenario and fire. Rollback state is saved automatically — your cluster is always recoverable.</p>
+          <div class="step-card__code"><span class="c-prompt">$</span> krknctl run pod-scenarios \
+  <span class="c-flag">--kubeconfig</span> ~/.kube/config
+<span class="c-ok">✓</span> <span class="c-muted">Scenario completed in 47s</span>
+<span class="c-ok">✓</span> <span class="c-muted">All 12 pods recovered</span></div>
+        </div>
+
+        <div class="step-card reveal" data-delay="325">
+          <div class="step-card__badge">4</div>
+          <svg class="step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <h3>Analyze</h3>
+          <p>Review SLO pass/fail, Prometheus metrics, and alerts. Ship telemetry to S3 or Elasticsearch.</p>
+          <div class="step-card__code"><span class="c-ok">PASS</span> <span class="c-muted">api_latency_p99 &lt; 500ms</span>
+<span class="c-ok">PASS</span> <span class="c-muted">error_rate &lt; 0.1%</span>
+<span class="c-ok">PASS</span> <span class="c-muted">pod_recovery &lt; 30s</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENARIOS SECTION -->
+  <section class="section-dark">
+    <div class="container">
+      <h2 class="section-title reveal" data-delay="0">20+ Chaos Scenarios</h2>
+      <p class="section-subtitle reveal" data-delay="50">Battle-tested failure injection across every layer of your Kubernetes stack.</p>
+
+      <div class="scenario-categories">
+
+        <!-- Pod & Container -->
+        <div class="scenario-category reveal" data-delay="100">
+          <div class="scenario-category__header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            <h3>Pod & Container</h3>
+          </div>
+          <ul class="scenario-category__list">
+            <li><a href="/docs/scenarios/pod-scenario/">Pod Failures</a></li>
+            <li><a href="/docs/scenarios/container-scenario/">Container Kill</a></li>
+            <li><a href="/docs/scenarios/kubevirt-vm-outage-scenario/">KubeVirt VM Outage</a></li>
+          </ul>
+        </div>
+
+        <!-- Node & Cluster -->
+        <div class="scenario-category reveal" data-delay="150">
+          <div class="scenario-category__header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <h3>Node & Cluster</h3>
+          </div>
+          <ul class="scenario-category__list">
+            <li><a href="/docs/scenarios/node-scenarios/">Node Failures</a></li>
+            <li><a href="/docs/scenarios/power-outage-scenarios/">Power Outages</a></li>
+            <li><a href="/docs/scenarios/zone-outage-scenarios/">Zone Outages</a></li>
+          </ul>
+          <div class="scenario-category__clouds">AWS, Azure, GCP, IBM, Alibaba, OpenStack, VMWare, BareMetal</div>
+        </div>
+
+        <!-- Network -->
+        <div class="scenario-category reveal" data-delay="200">
+          <div class="scenario-category__header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            <h3>Network</h3>
+          </div>
+          <ul class="scenario-category__list">
+            <li><a href="/docs/scenarios/network-chaos-scenario/">Network Chaos</a></li>
+            <li><a href="/docs/scenarios/pod-network-scenario/">Pod Network Chaos</a></li>
+            <li><a href="/docs/scenarios/network-chaos-ng-scenarios/">Network Chaos NG</a></li>
+            <li><a href="/docs/scenarios/dns-outage/">DNS Outages</a></li>
+            <li><a href="/docs/scenarios/etcd-split-brain/">ETCD Split Brain</a></li>
+            <li><a href="/docs/scenarios/aurora-disruption/">Aurora Disruption</a></li>
+            <li><a href="/docs/scenarios/efs-disruption/">EFS Disruption</a></li>
+          </ul>
+        </div>
+
+        <!-- Application & Service -->
+        <div class="scenario-category reveal" data-delay="250">
+          <div class="scenario-category__header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <h3>Application & Service</h3>
+          </div>
+          <ul class="scenario-category__list">
+            <li><a href="/docs/scenarios/application-outage/">Application Outages</a></li>
+            <li><a href="/docs/scenarios/service-disruption-scenarios/">Service Disruption</a></li>
+            <li><a href="/docs/scenarios/service-hijacking-scenario/">Service Hijacking</a></li>
+            <li><a href="/docs/scenarios/syn-flood-scenario/">Syn Flood</a></li>
+          </ul>
+        </div>
+
+        <!-- Resource & Storage -->
+        <div class="scenario-category reveal" data-delay="300">
+          <div class="scenario-category__header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <h3>Resource & Storage</h3>
+          </div>
+          <ul class="scenario-category__list">
+            <li><a href="/docs/scenarios/hog-scenarios/cpu-hog-scenario/">CPU Hog</a></li>
+            <li><a href="/docs/scenarios/hog-scenarios/memory-hog-scenario/">Memory Hog</a></li>
+            <li><a href="/docs/scenarios/hog-scenarios/io-hog-scenario/">IO Hog</a></li>
+            <li><a href="/docs/scenarios/pvc-scenario/">PVC Disk Fill</a></li>
+            <li><a href="/docs/scenarios/time-scenarios/">Time Skew</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem" class="reveal" data-delay="350">
+        <a href="/docs/scenarios/" class="btn-outline-krkn">
+          View All Scenarios
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- KRKN AI SECTION -->
+  <section class="section-surface krkn-ai-section">
+    <div class="container">
+      <div class="krkn-ai-layout">
+
+        <div class="krkn-ai-content reveal" data-delay="0">
+          <div class="krkn-ai-label">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Krkn AI
+          </div>
+          <h2 class="krkn-ai-heading">Krkn AI surfaces the failures <em>you didn't know to look for</em></h2>
+          <p class="krkn-ai-desc">
+            Krkn AI scans your cluster, generates chaos experiments, and runs them — learning from each round what hits hardest. Define your SLOs once. It handles the rest: picking scenarios, combining attacks, and surfacing the failures that matter before production does.
+          </p>
+          <ul class="krkn-ai-features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Scans your cluster automatically</strong> — discovers namespaces, pods, nodes, services without manual config</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Learns what breaks things</strong> — each round gets smarter, combining and tweaking scenarios for maximum impact</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Validates against your SLOs</strong> — pass/fail tied to the Prometheus metrics you already care about</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Runs hands-off</strong> — set it up once, come back to a ranked list of your cluster's weakest points</span>
+            </li>
+          </ul>
+          <div class="hero-cta" style="justify-content:flex-start">
+            <a href="/docs/krkn_ai/" class="btn-primary-krkn">
+              Explore Krkn AI
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="https://github.com/krkn-chaos/krkn-ai" class="btn-outline-krkn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="krkn-ai-visual reveal" data-delay="150">
+          <div class="krkn-ai-glow"></div>
+          <div class="krkn-ai-terminal">
+            <div class="krkn-ai-terminal__bar">
+              <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--r"></span>
+              <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--y"></span>
+              <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--g"></span>
+              <span class="krkn-ai-terminal__title">krkn-ai</span>
+            </div>
+            <div class="krkn-ai-terminal__body"><span class="t-prompt">$</span> uv run krkn_ai discover <span class="t-flag">-k</span> ~/.kube/config <span class="t-flag">-n</span> <span class="t-val">"robot-.*,etcd"</span> <span class="t-flag">-o</span> ./krkn-ai.yaml
+<span class="t-ok">✓</span> <span class="t-muted">Discovered 24 pods, 8 services, 6 nodes</span>
+<span class="t-ok">✓</span> <span class="t-muted">Config saved to krkn-ai.yaml</span>
+
+<span class="t-prompt">$</span> uv run krkn_ai run <span class="t-flag">-c</span> ./krkn-ai.yaml <span class="t-flag">-o</span> ./results/
+
+<span class="t-muted">╭─ Generation 1/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Population: <span class="t-val">10</span> samples
+<span class="t-muted">│</span> Running:    <span class="t-warn">pod-disruption</span> on <span class="t-val">cart-7cd6c</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.82</span>  <span class="t-muted">← restart count ↑</span>
+<span class="t-muted">│</span> Health:     <span class="t-ok">/cart 200</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
+
+<span class="t-muted">╭─ Generation 5/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Evolved via <span class="t-warn">crossover + mutation</span>
+<span class="t-muted">│</span> Running:    <span class="t-warn">node-drain</span> + <span class="t-warn">net-chaos</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.94</span>  <span class="t-muted">← critical path found</span>
+<span class="t-muted">│</span> Health:     <span class="t-red">/cart 503</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
+
+<span class="t-ok">✓</span> <span class="t-muted">Top scenario: node-drain + net-chaos (fitness: 0.94)</span>
+<span class="t-ok">✓</span> <span class="t-muted">Results saved to ./results/</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="section-surface cta-section">
+    <div class="container" style="text-align:center">
+      <h2 class="section-title reveal" data-delay="0">Ready to Break Things?</h2>
+      <p class="section-subtitle reveal" data-delay="50">Start chaos testing your Kubernetes clusters today.</p>
+      <div class="cta-code reveal" data-delay="100">
+        <div class="code-block">
+          <pre><code>$ krknctl run pod-scenarios --kubeconfig ~/.kube/config</code></pre>
+        </div>
+      </div>
+      <div class="hero-cta" style="margin-top:2rem">
+        <a href="/docs/getting-started/" class="btn-primary-krkn">Read the Docs</a>
+        <a href="https://github.com/krkn-chaos/krkn" class="btn-outline-krkn">Star on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+  var cluster  = document.getElementById('hero-cluster');
+  var ring     = document.getElementById('hero-cluster-ring');
+  var linesSvg = document.getElementById('hero-cluster-lines');
+  var debris   = document.getElementById('hero-cluster-debris');
+  if (!cluster || !ring) return;
+
+  var nodes = ring.querySelectorAll('.hero-cluster__node');
+  var NODE_COUNT = nodes.length;
+  var SIZE = 480;             // viewBox and container size
+  var CX = SIZE / 2;
+  var CY = SIZE / 2;
+  var RADIUS = 195;           // orbit radius
+  var angleOffset = 0;
+  var orbitRAF = null;
+  var isHovering = false;
+  var chaosInterval = null;
+
+  // --- Position nodes on a circle, draw network lines ---
+  function positionNodes(chaos) {
+    var linesHTML = '';
+    var coords = [];
+
+    nodes.forEach(function(node, i) {
+      var angle = (i / NODE_COUNT) * Math.PI * 2 + angleOffset;
+      var nx, ny;
+
+      if (chaos) {
+        var scatter = RADIUS + 30 + Math.random() * 50;
+        var jitter = (Math.random() - 0.5) * 0.5;
+        nx = CX + Math.cos(angle + jitter) * scatter;
+        ny = CY + Math.sin(angle + jitter) * scatter;
+      } else {
+        nx = CX + Math.cos(angle) * RADIUS;
+        ny = CY + Math.sin(angle) * RADIUS;
+      }
+
+      coords.push({ x: nx, y: ny });
+      node.style.left = (nx / SIZE * 100) + '%';
+      node.style.top  = (ny / SIZE * 100) + '%';
+    });
+
+    // Draw network topology lines (only in peaceful mode)
+    if (!chaos && linesSvg) {
+      for (var i = 0; i < NODE_COUNT; i++) {
+        var next = (i + 1) % NODE_COUNT;
+        // Perimeter connections
+        linesHTML += '<line x1="' + coords[i].x + '" y1="' + coords[i].y +
+          '" x2="' + coords[next].x + '" y2="' + coords[next].y +
+          '" stroke="var(--krkn-border-prominent)" stroke-width="1" opacity="0.35"/>';
+        // Spokes to center (control plane)
+        linesHTML += '<line x1="' + coords[i].x + '" y1="' + coords[i].y +
+          '" x2="' + CX + '" y2="' + CY +
+          '" stroke="var(--krkn-border-prominent)" stroke-width="0.6" opacity="0.15" stroke-dasharray="5 5"/>';
+      }
+      linesSvg.innerHTML = linesHTML;
+    }
+  }
+
+  // --- Smooth orbiting loop ---
+  function orbit() {
+    if (isHovering) return;
+    angleOffset += 0.002;
+    positionNodes(false);
+    orbitRAF = requestAnimationFrame(orbit);
+  }
+
+  // --- Chaos debris: warnings, errors, crash symbols ---
+  function spawnDebris() {
+    var items = [
+      { text: 'CrashLoopBackOff', cls: 'text' },
+      { text: 'OOMKilled', cls: 'text' },
+      { text: 'NodeNotReady', cls: 'text' },
+      { text: 'pod/api-7f2 Terminated', cls: 'text' },
+      { text: 'SIGKILL', cls: 'text' },
+      { text: '503', cls: 'code' },
+      { text: '⚠', cls: 'icon' },
+      { text: '✕', cls: 'icon' },
+      { text: '⚡', cls: 'icon' },
+    ];
+    var count = 5 + Math.floor(Math.random() * 3);
+
+    for (var i = 0; i < count; i++) {
+      var item = items[Math.floor(Math.random() * items.length)];
+      var el = document.createElement('span');
+      el.className = 'hero-cluster__debris-item hero-cluster__debris-item--' + item.cls;
+      el.textContent = item.text;
+
+      var angle = Math.random() * Math.PI * 2;
+      var dist = 80 + Math.random() * 140;
+      el.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      el.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      el.style.left = (45 + Math.random() * 10) + '%';
+      el.style.top = (45 + Math.random() * 10) + '%';
+      el.style.animationDelay = (Math.random() * 0.3) + 's';
+
+      debris.appendChild(el);
+      (function(e) {
+        setTimeout(function() { if (e.parentNode) e.parentNode.removeChild(e); }, 1800);
+      })(el);
+    }
+  }
+
+  // --- Enter chaos ---
+  function enterChaos() {
+    isHovering = true;
+    if (orbitRAF) { cancelAnimationFrame(orbitRAF); orbitRAF = null; }
+    cluster.classList.add('hero-cluster--chaos');
+    positionNodes(true);
+
+    // Staggered node hits — like the octopus attacking each one
+    nodes.forEach(function(node, i) {
+      setTimeout(function() {
+        node.classList.add('hero-cluster__node--hit');
+      }, i * 120 + Math.random() * 60);
+    });
+
+    spawnDebris();
+    chaosInterval = setInterval(function() {
+      if (isHovering) spawnDebris();
+    }, 1200);
+  }
+
+  // --- Exit chaos — everything heals ---
+  function exitChaos() {
+    isHovering = false;
+    cluster.classList.remove('hero-cluster--chaos');
+    nodes.forEach(function(node) {
+      node.classList.remove('hero-cluster__node--hit');
+    });
+    if (chaosInterval) { clearInterval(chaosInterval); chaosInterval = null; }
+    positionNodes(false);
+    orbit();
+  }
+
+  // Init
+  positionNodes(false);
+  orbit();
+  cluster.addEventListener('mouseenter', enterChaos);
+  cluster.addEventListener('mouseleave', exitChaos);
+})();
+</script>
+{{ end }}

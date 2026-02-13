@@ -34,3 +34,10 @@ api/.env
 hugo.log
 api/logs/
 api/server.log
+
+# Cursor IDE
+.cursor/
+
+# Dev screenshots & scripts
+screenshots/
+scripts/

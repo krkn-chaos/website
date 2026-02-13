@@ -1,0 +1,563 @@
+// =============================================================================
+// Krkn Theme - Hero Section
+// Full viewport hero with gradient text, CTA buttons, logo, and grid background.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Hero layout
+// -----------------------------------------------------------------------------
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  // Radial gradient: blue glow at center over base
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(16, 45, 79, 0.6) 0%,
+      transparent 60%
+    ),
+    var(--krkn-bg);
+
+  // Subtle grid pattern overlay (CSS-only)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--krkn-border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--krkn-border-subtle) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  // Light mode: gentle warm gradient
+  [data-theme="light"] & {
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 50% 40%,
+        rgba(14, 88, 160, 0.06) 0%,
+        transparent 60%
+      ),
+      var(--krkn-bg);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Hero content container
+// -----------------------------------------------------------------------------
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+// =============================================================================
+// Cluster animation — K8s objects orbit the octopus, chaos on hover
+// =============================================================================
+
+// =============================================================================
+// Cluster animation — K8s objects orbit the Krkn octopus
+// Hover = chaos: nodes scatter, connections break, alerts fire
+// =============================================================================
+
+.hero-cluster {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  margin: 0 auto 2rem;
+  cursor: pointer;
+
+  @media (max-width: 600px) {
+    width: 340px;
+    height: 340px;
+  }
+}
+
+// ---- Logo (centered, large, prominent) ----
+.hero-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: auto;
+  z-index: 3;
+  // Use margin-based centering to avoid transform conflicts with float
+  margin-top: -110px;
+  margin-left: -110px;
+  animation: hero-float 6s ease-in-out infinite;
+  transition: filter 0.4s ease;
+
+  @media (max-width: 600px) {
+    width: 160px;
+    margin-top: -80px;
+    margin-left: -80px;
+  }
+}
+
+// Chaos: logo glows red and shakes
+.hero-cluster--chaos .hero-logo {
+  filter: drop-shadow(0 0 20px rgba(236, 28, 36, 0.6))
+          drop-shadow(0 0 50px rgba(236, 28, 36, 0.15));
+  animation: hero-chaos-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1,
+             hero-float 6s ease-in-out 0.5s infinite;
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+@keyframes hero-chaos-shake {
+  0%   { transform: translateY(0) rotate(0deg); }
+  15%  { transform: translate(-8px, 4px) rotate(-4deg); }
+  30%  { transform: translate(6px, -5px) rotate(3deg); }
+  45%  { transform: translate(-4px, 6px) rotate(-2deg); }
+  60%  { transform: translate(5px, -3px) rotate(4deg); }
+  75%  { transform: translate(-6px, 2px) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+// ---- Orbiting K8s nodes ----
+.hero-cluster__ring {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero-cluster__node {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  background: var(--krkn-surface);
+  border: 1.5px solid var(--krkn-border-prominent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--krkn-secondary-light);
+  box-shadow: 0 2px 8px var(--krkn-shadow);
+  transition: left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              top 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.5;
+  }
+
+  // Tiny label below the icon
+  &::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--krkn-text-subtle);
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+
+  @media (max-width: 600px) {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    svg { width: 18px; height: 18px; }
+    &::after { display: none; }
+  }
+}
+
+// Status indicator dot (green = healthy)
+.hero-cluster__node::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--krkn-surface);
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+// ---- Node "hit by chaos" state ----
+.hero-cluster__node--hit {
+  background: rgba(236, 28, 36, 0.12) !important;
+  border-color: var(--krkn-primary) !important;
+  color: var(--krkn-primary) !important;
+  box-shadow: 0 0 16px rgba(236, 28, 36, 0.35) !important;
+  animation: hero-node-glitch 0.35s ease 1;
+
+  // Status dot turns red
+  &::before {
+    background: var(--krkn-primary) !important;
+    animation: hero-status-blink 0.6s ease infinite;
+  }
+
+  // Label turns red
+  &::after {
+    color: var(--krkn-primary);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-node-glitch {
+  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  20%  { transform: translate(calc(-50% + 4px), calc(-50% - 3px)) scale(1.12) rotate(3deg); }
+  40%  { transform: translate(calc(-50% - 3px), calc(-50% + 4px)) scale(0.88) rotate(-2deg); }
+  60%  { transform: translate(calc(-50% + 2px), calc(-50% - 2px)) scale(1.06) rotate(1deg); }
+  80%  { transform: translate(calc(-50% - 1px), calc(-50% + 1px)) scale(0.96) rotate(-1deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+@keyframes hero-status-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+// ---- Connection lines SVG ----
+.hero-cluster__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+// Chaos: network connections break
+.hero-cluster--chaos .hero-cluster__lines {
+  opacity: 0;
+}
+
+// ---- Chaos debris (warning symbols) ----
+.hero-cluster__debris {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.hero-cluster__debris-item {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  animation: hero-debris-fly 1.2s ease-out forwards;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 4px rgba(236, 28, 36, 0.3));
+
+  // Icon debris (emoji)
+  &--icon {
+    font-size: 1.1rem;
+  }
+
+  // Text debris (K8s error messages)
+  &--text {
+    font-family: 'SF Mono', 'Monaco', 'Fira Code', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--krkn-primary);
+    white-space: nowrap;
+    background: rgba(236, 28, 36, 0.08);
+    border: 1px solid rgba(236, 28, 36, 0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+
+  // Status code debris
+  &--code {
+    font-family: 'SF Mono', 'Monaco', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--krkn-primary);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+}
+
+@keyframes hero-debris-fly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--dx)),
+      calc(-50% + var(--dy))
+    ) scale(0.2) rotate(200deg);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Decorative glow rings — concentric rings that extend beyond the cluster
+// Visible only on wide screens (>1024px), purely cosmetic
+// -----------------------------------------------------------------------------
+.hero-glow-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--krkn-secondary-light);
+  pointer-events: none;
+  opacity: 0;
+
+  // Only show on wide screens
+  @media (min-width: 1025px) {
+    opacity: 0.07;
+    animation: hero-glow-pulse 10s ease-in-out infinite;
+  }
+
+  &--sm {
+    width: 600px;
+    height: 600px;
+    animation-delay: 0s;
+  }
+
+  &--md {
+    width: 850px;
+    height: 850px;
+    opacity: 0;
+    @media (min-width: 1025px) {
+      opacity: 0.05;
+    }
+    animation-delay: 3.3s;
+  }
+
+  &--lg {
+    width: 1100px;
+    height: 1100px;
+    opacity: 0;
+    @media (min-width: 1025px) {
+      opacity: 0.035;
+    }
+    animation-delay: 6.6s;
+  }
+}
+
+@keyframes hero-glow-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.02); }
+}
+
+// -----------------------------------------------------------------------------
+// Extended orbit trail dots — tiny dots along implied arcs beyond the cluster
+// Visible only on wide screens (>1024px)
+// -----------------------------------------------------------------------------
+.hero-trail-dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--krkn-secondary-light);
+  pointer-events: none;
+  opacity: 0;
+
+  @media (min-width: 1025px) {
+    opacity: 0.15;
+    animation: hero-trail-drift 22s ease-in-out infinite;
+  }
+
+  // Stagger each dot's timing via nth-child
+  &:nth-child(2) { animation-delay: 4s;  width: 4px; height: 4px; opacity: 0; @media (min-width: 1025px) { opacity: 0.12; } }
+  &:nth-child(3) { animation-delay: 8s;  }
+  &:nth-child(4) { animation-delay: 12s; width: 4px; height: 4px; opacity: 0; @media (min-width: 1025px) { opacity: 0.10; } }
+  &:nth-child(5) { animation-delay: 16s; }
+  &:nth-child(6) { animation-delay: 20s; width: 2px; height: 2px; opacity: 0; @media (min-width: 1025px) { opacity: 0.18; } }
+}
+
+@keyframes hero-trail-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(6px, -4px); }
+  50%      { transform: translate(-3px, 7px); }
+  75%      { transform: translate(5px, 3px); }
+}
+
+// -----------------------------------------------------------------------------
+// Title with gradient
+// -----------------------------------------------------------------------------
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  font-family: 'Satoshi', sans-serif;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: var(--krkn-text);
+  letter-spacing: -0.02em;
+}
+
+// Accent span within hero title -- red gradient for emphasis
+.hero-title--accent {
+  display: block;
+  margin-top: 0.15em;
+  background: linear-gradient(
+    135deg,
+    var(--krkn-primary) 0%,
+    #FF4444 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// -----------------------------------------------------------------------------
+// Subtitle
+// -----------------------------------------------------------------------------
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  color: var(--krkn-text-muted);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+// -----------------------------------------------------------------------------
+// CNCF badge
+// -----------------------------------------------------------------------------
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--krkn-text-muted);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 9999px;
+  margin-bottom: 2rem;
+  background: var(--krkn-surface);
+}
+
+// CNCF logo inside hero badge -- constrain the 1681x267 source image
+.hero-badge__cncf-icon {
+  height: 1.25rem;
+  width: auto;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+// Theme-dependent CNCF logo swap
+// Dark: white logo visible; Light: color logo visible
+.hero-badge__cncf-icon--light { display: none; }
+.hero-badge__cncf-icon--dark  { display: inline-block; }
+
+[data-theme="light"] {
+  .hero-badge__cncf-icon--light { display: inline-block; }
+  .hero-badge__cncf-icon--dark  { display: none; }
+}
+
+// -----------------------------------------------------------------------------
+// Hero dot-grid overlay (CSS-only pattern)
+// -----------------------------------------------------------------------------
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+// -----------------------------------------------------------------------------
+// CTA buttons
+// -----------------------------------------------------------------------------
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+// Primary CTA
+.btn-primary-krkn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff !important;
+  background: var(--krkn-primary);
+  border: none;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    background: var(--krkn-primary-hover);
+    color: #fff !important;
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(236, 28, 36, 0.35);
+  }
+}
+
+// Outline CTA
+.btn-outline-krkn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--krkn-text) !important;
+  background: transparent;
+  border: 1px solid var(--krkn-border-prominent);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    border-color: var(--krkn-primary);
+    color: var(--krkn-text) !important;
+    background: var(--krkn-nav-hover-bg);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  }
+}
+
+// SVG icons inside CTA buttons
+.btn-primary-krkn svg,
+.btn-outline-krkn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}

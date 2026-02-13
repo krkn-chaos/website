@@ -1,0 +1,417 @@
+// =============================================================================
+// Krkn Theme — Blog & Community page styles
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Shared page-level resets (hide Docsy chrome we don't need)
+// -----------------------------------------------------------------------------
+.krkn-blog,
+.krkn-community {
+  background: var(--krkn-bg);
+  min-height: 100vh;
+
+  // Hide Docsy's default sidebar, TOC, breadcrumb, taxonomy cloud on these pages
+  & ~ .td-sidebar,
+  & ~ .td-toc {
+    display: none !important;
+  }
+}
+
+// Hide the taxonomy sidebar + right rail that Docsy injects on blog pages
+.td-blog {
+  .td-sidebar-toc,
+  .td-toc,
+  aside.td-sidebar {
+    display: none !important;
+  }
+
+  // Make the main column full-width
+  .col-12.col-md-9.col-xl-8 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  // Hide the right column (tags, categories)
+  .d-none.d-xl-block.col-xl-2,
+  .td-sidebar {
+    display: none !important;
+  }
+}
+
+// Hide community page sidebar from Docsy
+.td-default .krkn-community {
+  & ~ aside,
+  & ~ .td-sidebar {
+    display: none !important;
+  }
+}
+
+// =============================================================================
+// BLOG PAGE
+// =============================================================================
+
+// Hero
+.krkn-blog__hero {
+  padding: 5rem 0 3rem;
+  text-align: center;
+  background: var(--krkn-bg);
+  border-bottom: 1px solid var(--krkn-border-subtle);
+}
+
+.krkn-blog__title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--krkn-text) !important;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.krkn-blog__subtitle {
+  color: var(--krkn-text-muted);
+  font-size: 1.125rem;
+  max-width: 550px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+// Body
+.krkn-blog__body {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+// Section headings
+.krkn-blog__section {
+  margin-bottom: 3.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.krkn-blog__section-title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--krkn-text) !important;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--krkn-border-subtle);
+}
+
+// Card grid
+.krkn-blog__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Blog card
+.krkn-blog__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-decoration: none !important;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px var(--krkn-shadow);
+    text-decoration: none !important;
+  }
+}
+
+.krkn-blog__card-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--krkn-secondary-light);
+  background: rgba(14, 88, 160, 0.12);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+}
+
+.krkn-blog__card-title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--krkn-text) !important;
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.krkn-blog__card-desc {
+  color: var(--krkn-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+.krkn-blog__card-source {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--krkn-text-subtle);
+  font-weight: 500;
+}
+
+// Featured variant — slightly larger
+.krkn-blog__card--featured {
+  border-color: rgba(14, 88, 160, 0.2);
+
+  .krkn-blog__card-badge {
+    background: rgba(236, 28, 36, 0.12);
+    color: var(--krkn-primary);
+  }
+}
+
+
+// =============================================================================
+// COMMUNITY PAGE
+// =============================================================================
+
+// Hero
+.krkn-community__hero {
+  padding: 5rem 0 3rem;
+  text-align: center;
+  background: var(--krkn-bg);
+  border-bottom: 1px solid var(--krkn-border-subtle);
+}
+
+.krkn-community__title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--krkn-text) !important;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.krkn-community__subtitle {
+  color: var(--krkn-text-muted);
+  font-size: 1.125rem;
+  max-width: 620px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.krkn-community__hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  .btn-primary-krkn,
+  .btn-outline-krkn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+// Body
+.krkn-community__body {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+// Section headings
+.krkn-community__section {
+  margin-bottom: 3.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.krkn-community__section-title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--krkn-text) !important;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--krkn-border-subtle);
+}
+
+// "Get Involved" cards
+.krkn-community__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.krkn-community__card {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--krkn-text) !important;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    color: var(--krkn-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0 0 1rem;
+  }
+
+  a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--krkn-secondary-light);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.krkn-community__card-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
+  background: rgba(14, 88, 160, 0.1);
+  color: var(--krkn-secondary-light);
+  margin-bottom: 1rem;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+// Community resource links
+.krkn-community__links-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.krkn-community__link-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none !important;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    background: var(--krkn-elevated);
+    text-decoration: none !important;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--krkn-text-muted);
+  }
+
+  h4 {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--krkn-text) !important;
+    margin: 0 0 0.15rem;
+  }
+
+  p {
+    color: var(--krkn-text-muted);
+    font-size: 0.8125rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+// Mentorship callout
+.krkn-community__callout {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 2rem 2.5rem;
+  border-left: 3px solid var(--krkn-secondary);
+}
+
+.krkn-community__callout-content {
+  h3 {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--krkn-text) !important;
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    color: var(--krkn-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .krkn-blog__title,
+  .krkn-community__title {
+    font-size: 2rem;
+  }
+
+  .krkn-blog__hero,
+  .krkn-community__hero {
+    padding: 3.5rem 0 2rem;
+  }
+
+  .krkn-community__callout {
+    padding: 1.5rem;
+  }
+}

@@ -1,132 +1,145 @@
 /**
  * Horizontal scrolling for tab content
- * Prevents wide content from breaking the layout
+ * Theme-aware: respects dark/light mode via CSS custom properties
  */
 
-/* Enable horizontal scrolling for tab panes */
+/* ── Tab navigation ── */
+.td-content .nav-tabs {
+    border-bottom: 2px solid var(--krkn-border-subtle);
+    gap: 0.25rem;
+}
+
+.td-content .nav-tabs .nav-link {
+    color: var(--krkn-text-muted) !important;
+    background: transparent !important;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 0.6rem 1.25rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: color 0.2s, background 0.2s;
+}
+
+.td-content .nav-tabs .nav-link:hover {
+    color: var(--krkn-text) !important;
+    background: var(--krkn-elevated) !important;
+}
+
+.td-content .nav-tabs .nav-link.active {
+    color: var(--krkn-text) !important;
+    background: var(--krkn-surface) !important;
+    border-color: var(--krkn-border-subtle) var(--krkn-border-subtle) transparent;
+    border-bottom: 2px solid var(--krkn-primary);
+    margin-bottom: -2px;
+}
+
+/* ── Tab pane scrolling ── */
 .tab-pane {
     overflow-x: auto;
     overflow-y: visible;
 }
 
-/* Ensure code blocks scroll horizontally */
+/* ── Code blocks inside tabs — dark terminal, always ── */
 .tab-pane pre {
     overflow-x: auto;
     max-width: 100%;
     white-space: pre;
-    background-color: #ffffff !important;
-    /* White background */
-    border-left: 4px solid #4299e1;
-    /* Blue accent border */
-    border-radius: 6px;
+    background-color: #0D1117 !important;
+    color: #E6EDF3 !important;
+    border-left: 3px solid var(--krkn-primary);
+    border-radius: 8px;
     padding: 1rem !important;
 }
 
-/* Style code text within tab code blocks */
 .tab-pane pre code {
-    color: #2d3748 !important;
-    /* Dark text color for contrast */
+    color: #E6EDF3 !important;
     background-color: transparent !important;
     padding: 0 !important;
     border: none !important;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove any span backgrounds within code blocks */
-.tab-pane pre code span {
-    background-color: transparent !important;
-    padding: 0 !important;
-    text-shadow: none !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-/* Remove backgrounds from all syntax highlighting elements */
+/* Remove backgrounds from syntax highlighting elements */
+.tab-pane pre code span,
 .tab-pane pre .highlight,
-.tab-pane pre .chroma {
-    background-color: transparent !important;
-}
-
-/* Ensure all divs and spans in code blocks have no background */
+.tab-pane pre .chroma,
 .tab-pane pre div,
-.tab-pane pre span,
-.tab-pane pre code>* {
+.tab-pane pre code > * {
     background-color: transparent !important;
     text-shadow: none !important;
     box-shadow: none !important;
 }
 
-/* Style inline code within tabs */
+/* ── Inline code inside tabs ── */
 .tab-pane code:not(pre code) {
-    background-color: #edf2f7 !important;
-    /* Light gray for inline code */
-    color: #d53f8c !important;
-    /* Pink/magenta for inline code text */
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
+    background-color: var(--krkn-elevated) !important;
+    color: var(--krkn-primary) !important;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
     font-size: 0.875em;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
 }
 
-/* Ensure tables scroll horizontally if needed */
+/* ── Tables inside tabs ── */
 .tab-pane table {
     display: block;
     overflow-x: auto;
     max-width: 100%;
     border-collapse: collapse;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--krkn-border-subtle);
 }
 
-/* Table header styling */
 .tab-pane table thead th {
-    background-color: #4299e1;
-    color: white;
+    background-color: var(--krkn-elevated);
+    color: var(--krkn-text);
     padding: 0.75rem;
-    border: 1px solid #3182ce;
+    border: 1px solid var(--krkn-border-subtle);
     font-weight: 600;
     text-align: left;
 }
 
-/* Table cell styling */
 .tab-pane table td {
     padding: 0.75rem;
-    border: 1px solid #cbd5e0;
-    color: #1a202c;
+    border: 1px solid var(--krkn-border-subtle);
+    color: var(--krkn-text);
 }
 
-/* Alternating row colors */
 .tab-pane table tbody tr:nth-child(odd) {
-    background-color: #f7fafc;
+    background-color: var(--krkn-bg);
 }
 
 .tab-pane table tbody tr:nth-child(even) {
-    background-color: #ffffff;
+    background-color: var(--krkn-surface);
 }
 
-/* Hover effect on rows */
 .tab-pane table tbody tr:hover {
-    background-color: #edf2f7;
+    background-color: var(--krkn-elevated);
 }
 
-/* Style the scrollbar for better UX (webkit browsers) */
+/* ── Scrollbar styling ── */
 .tab-pane::-webkit-scrollbar {
-    height: 8px;
+    height: 6px;
 }
 
 .tab-pane::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--krkn-elevated);
     border-radius: 4px;
 }
 
 .tab-pane::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--krkn-border-prominent);
     border-radius: 4px;
 }
 
 .tab-pane::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--krkn-text-muted);
 }
 
-/* Make sure tab content body also scrolls */
 .tab-body {
     overflow-x: auto;
 }

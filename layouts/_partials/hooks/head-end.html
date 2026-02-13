@@ -1,0 +1,7 @@
+{{/* Apply saved theme before paint to prevent flash of wrong theme */}}
+<script>
+(function() {
+  var theme = localStorage.getItem('krkn-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>

@@ -1,0 +1,712 @@
+// =============================================================================
+// Krkn Theme - Navbar Overrides
+// Apple-inspired: transparent over hero, solid dark on scroll.
+// Custom structure (krkn-navbar__*) overrides Docsy default.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Base navbar (Docsy .td-navbar + krkn custom)
+// -----------------------------------------------------------------------------
+.td-navbar.krkn-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  // Glass tint so links are always readable
+  background: var(--krkn-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+
+  // Denser background when scrolled or on non-home pages
+  &.scrolled,
+  &.krkn-navbar--solid {
+    background: var(--krkn-glass-bg-solid);
+    border-bottom-color: var(--krkn-border-subtle);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Inner flex container
+// Three children: logo | center links | actions
+// Each takes equal flex so center links stay centred on wide screens.
+// -----------------------------------------------------------------------------
+.krkn-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  min-height: 5rem;
+  position: relative;
+}
+
+// -----------------------------------------------------------------------------
+// Logo
+// -----------------------------------------------------------------------------
+.krkn-navbar__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--krkn-text);
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.35s ease;
+
+  &:hover {
+    color: var(--krkn-text);
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 8px rgba(236, 28, 36, 0.45))
+            drop-shadow(0 0 20px rgba(236, 28, 36, 0.15));
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  img {
+    height: 52px;
+    width: auto;
+    display: block;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Center nav links (desktop)
+// Uses margin-auto to push links to the visual centre while staying in flow
+// so they never overlap the logo or action icons.
+// -----------------------------------------------------------------------------
+.krkn-navbar__links {
+  display: none;
+
+  @media (min-width: 992px) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.krkn-navbar__link {
+  color: var(--krkn-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.175rem;
+  padding: 0.6rem 1.35rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  letter-spacing: -0.01em;
+
+  &:hover {
+    color: var(--krkn-text);
+    background-color: var(--krkn-nav-hover-bg);
+  }
+
+  &.krkn-navbar__link--active {
+    color: var(--krkn-primary);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Right actions (search, GitHub, hamburger)
+// -----------------------------------------------------------------------------
+.krkn-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.krkn-navbar__search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--krkn-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  &:hover {
+    color: var(--krkn-text);
+    background-color: var(--krkn-nav-hover-bg);
+    transform: scale(1.1);
+  }
+}
+
+.krkn-navbar__github {
+  text-decoration: none;
+}
+
+// GitHub widget — compact dark chip
+.krkn-navbar__github-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  color: var(--krkn-text-muted);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+
+  svg.krkn-navbar__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--krkn-text);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.krkn-navbar__gh-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.krkn-navbar__gh-version {
+  color: var(--krkn-secondary-light);
+  font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.krkn-navbar__gh-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--krkn-text-muted);
+
+  svg {
+    width: 13px;
+    height: 13px;
+    opacity: 0.55;
+  }
+
+  span:empty + svg,
+  span:empty {
+    display: none;
+  }
+}
+
+// Hide meta on very small screens, show just the GitHub icon
+@media (max-width: 480px) {
+  .krkn-navbar__gh-meta {
+    display: none;
+  }
+
+  .krkn-navbar__github-widget {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+}
+
+// Force search button transparent (overrides Bootstrap btn defaults)
+button.krkn-navbar__search {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  outline: none;
+}
+
+// Theme toggle button
+.krkn-navbar__theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--krkn-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  &:hover {
+    color: var(--krkn-text);
+    background-color: var(--krkn-nav-hover-bg);
+    transform: rotate(25deg) scale(1.15);
+  }
+}
+
+// Sun/moon icon visibility based on active theme
+// Dark mode: show sun (to switch to light)
+// Light mode: show moon (to switch to dark)
+.krkn-navbar__icon--moon { display: none; }
+.krkn-navbar__icon--sun  { display: block; }
+
+[data-theme="light"] {
+  .krkn-navbar__icon--moon { display: block; }
+  .krkn-navbar__icon--sun  { display: none; }
+}
+
+.krkn-navbar__icon {
+  flex-shrink: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Hamburger (mobile) - 3 lines that animate to X
+// -----------------------------------------------------------------------------
+.krkn-navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--krkn-text);
+
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+
+.krkn-navbar__hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.krkn-navbar__hamburger--active .krkn-navbar__hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.krkn-navbar__hamburger--active .krkn-navbar__hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.krkn-navbar__hamburger--active .krkn-navbar__hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+// -----------------------------------------------------------------------------
+// Mobile drawer (slide-in from right)
+// -----------------------------------------------------------------------------
+.krkn-navbar__drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: Min(320px, 85vw);
+  max-width: 320px;
+  z-index: 1040;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0.3s ease, transform 0.3s ease;
+
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+
+.krkn-navbar__drawer--open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.krkn-navbar__drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.krkn-navbar__drawer--open .krkn-navbar__drawer-backdrop {
+  opacity: 1;
+}
+
+.krkn-navbar__drawer-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--krkn-surface);
+  border-left: 1px solid var(--krkn-border-subtle);
+  padding: 4rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -10px 0 40px var(--krkn-shadow);
+}
+
+.krkn-navbar__drawer--open .krkn-navbar__drawer-content {
+  transform: translateX(0);
+}
+
+.krkn-navbar__drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.krkn-navbar__drawer-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--krkn-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: var(--krkn-elevated);
+    color: var(--krkn-text);
+  }
+
+  &.krkn-navbar__drawer-link--active {
+    color: var(--krkn-primary);
+  }
+}
+
+.krkn-navbar__drawer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  color: var(--krkn-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: var(--krkn-elevated);
+    color: var(--krkn-text);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Brand
+// -----------------------------------------------------------------------------
+.td-navbar .navbar-brand {
+  color: var(--krkn-text) !important;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: var(--krkn-text) !important;
+  }
+
+  svg,
+  img {
+    height: 3.25rem;
+    width: auto;
+    max-height: 3.25rem;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Nav links
+// -----------------------------------------------------------------------------
+.td-navbar .nav-link {
+  color: var(--krkn-text-muted) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    color: var(--krkn-text) !important;
+    background-color: var(--krkn-nav-hover-bg);
+  }
+
+  &.active {
+    color: var(--krkn-primary) !important;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Dropdown menu (when navbar has dropdowns)
+// -----------------------------------------------------------------------------
+.td-navbar .dropdown-menu {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px var(--krkn-shadow);
+}
+
+.td-navbar .dropdown-item {
+  color: var(--krkn-text);
+
+  &:hover,
+  &:focus {
+    background: var(--krkn-elevated);
+    color: var(--krkn-text);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Search icon (Docsy search)
+// -----------------------------------------------------------------------------
+.td-navbar .td-search-input,
+.td-navbar .td-navbar-nav-scroll .form-control,
+.td-navbar .td-search-icon {
+  color: var(--krkn-text-muted);
+
+  &::placeholder {
+    color: var(--krkn-text-subtle);
+  }
+}
+
+.td-navbar .td-search-icon:hover {
+  color: var(--krkn-text);
+}
+
+// Algolia/Docsy search dropdown
+.td-navbar .td-search-results {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+}
+
+// -----------------------------------------------------------------------------
+// Dark/light mode toggle (if present)
+// -----------------------------------------------------------------------------
+.td-navbar .td-mode-toggle,
+.td-navbar [data-bs-theme-toggle] {
+  color: var(--krkn-text-muted);
+
+  &:hover {
+    color: var(--krkn-text);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Mobile nav (navbar collapse)
+// -----------------------------------------------------------------------------
+.td-navbar .navbar-toggler {
+  border-color: var(--krkn-border-subtle);
+  padding: 0.5rem 0.75rem;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(236, 28, 36, 0.25);
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28248, 250, 252, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+}
+
+// Collapsed menu background
+.td-navbar .navbar-collapse {
+  @media (max-width: 991.98px) {
+    background: var(--krkn-surface);
+    border: 1px solid var(--krkn-border-subtle);
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 10px 40px var(--krkn-shadow);
+  }
+}
+
+.td-navbar .navbar-nav .nav-item .nav-link {
+  @media (max-width: 991.98px) {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Search overlay  (Cmd/Ctrl+K or magnifying-glass click)
+// ---------------------------------------------------------------------------
+.krkn-search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.krkn-search-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.krkn-search-overlay__panel {
+  position: relative;
+  z-index: 1;
+  width: 95%;
+  max-width: 620px;
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transform: translateY(-12px) scale(0.97);
+  transition: transform 0.2s ease;
+
+  .krkn-search-overlay--open & {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.krkn-search-overlay__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--krkn-border-subtle);
+
+  > svg {
+    flex-shrink: 0;
+    color: var(--krkn-text-muted);
+  }
+
+  // Docsy's .td-search wrapper — make it fill remaining space
+  .td-search {
+    flex: 1;
+    // Reset Docsy's default styling
+    position: relative;
+
+    .td-search__icon {
+      display: none; // we have our own icon
+    }
+  }
+
+  // The actual search input
+  .td-search__input,
+  .td-search input[type="search"] {
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--krkn-text) !important;
+    font-family: 'General Sans', sans-serif;
+    font-size: 1.0625rem;
+    padding: 0.25rem 0;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::placeholder {
+      color: var(--krkn-text-muted);
+      opacity: 0.7;
+    }
+  }
+}
+
+.krkn-search-overlay__close {
+  flex-shrink: 0;
+  background: var(--krkn-elevated);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 8px;
+  padding: 0.35rem;
+  color: var(--krkn-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover {
+    color: var(--krkn-text);
+    background: var(--krkn-nav-hover-bg);
+  }
+}
+
+.krkn-search-overlay__hint {
+  padding: 0.5rem 1.25rem 0.75rem;
+  font-family: 'General Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--krkn-text-muted);
+  opacity: 0.6;
+}
+
+// Override Docsy's popover for search results so it appears inside our panel
+.td-offline-search-results {
+  max-width: 600px !important;
+  width: 95vw !important;
+
+  .popover-body {
+    background: var(--krkn-surface) !important;
+    color: var(--krkn-text) !important;
+    border-radius: 0 0 16px 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    font-family: 'General Sans', sans-serif;
+
+    a {
+      color: var(--krkn-primary) !important;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    small, .text-body-secondary {
+      color: var(--krkn-text-muted) !important;
+    }
+  }
+
+  .popover-arrow {
+    display: none !important;
+  }
+}

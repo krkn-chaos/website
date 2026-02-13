@@ -1,2 +1,41 @@
 <!-- Include Krkn Documentation Chatbot -->
 {{ partial "chatbot.html" . }}
+
+<!-- Tab activation from URL hash -->
+<script>
+(function() {
+  function activateTab() {
+    var hash = window.location.hash;
+    if (!hash) return;
+
+    var tabName = null;
+    if (hash.startsWith('#tab-')) {
+      tabName = hash.substring(5);
+    } else if (hash.match(/^#tabpane-\d+-/)) {
+      var m = hash.match(/^#tabpane-\d+-(.+)$/);
+      if (m) tabName = m[1];
+    }
+
+    if (tabName) {
+      var btn = document.querySelector('button[data-td-tp-persist="**' + tabName + '**"]');
+      if (btn) {
+        btn.click();
+        setTimeout(function() {
+          var nav = btn.closest('.nav-tabs');
+          if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    }
+  }
+
+  // Try activation with retries to handle async tab initialization
+  setTimeout(activateTab, 500);
+  setTimeout(activateTab, 1000);
+  setTimeout(activateTab, 2000);
+
+  // Handle hash changes during navigation
+  window.addEventListener('hashchange', function() {
+    setTimeout(activateTab, 100);
+  });
+})();
+</script>

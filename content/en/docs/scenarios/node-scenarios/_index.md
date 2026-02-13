@@ -114,13 +114,13 @@ Example:
 Choose your preferred method to run node scenarios:
 
 {{< tabpane text=true >}}
-  {{< tab header="**Krkn**" >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
 {{< readfile file="_tab-krkn.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krkn-hub**" >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
 {{< readfile file="_tab-krkn-hub.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krknctl**" >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
 {{< readfile file="_tab-krknctl.md" >}}
   {{< /tab >}}
 {{< /tabpane >}}

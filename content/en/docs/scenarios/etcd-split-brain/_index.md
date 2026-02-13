@@ -14,13 +14,13 @@ This scenario isolates an etcd node by blocking its network traffic. This action
 Choose your preferred method to run ETCD split brain scenarios:
 
 {{< tabpane text=true >}}
-  {{< tab header="**Krkn**" >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
 {{< readfile file="_tab-krkn.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krkn-hub**" >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
 {{< readfile file="_tab-krkn-hub.md" >}}
   {{< /tab >}}
-  {{< tab header="**Krknctl**" >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
 {{< readfile file="_tab-krknctl.md" >}}
   {{< /tab >}}
 {{< /tabpane >}}

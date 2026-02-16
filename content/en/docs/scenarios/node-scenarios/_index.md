@@ -69,7 +69,7 @@ The details printed in telemetry:
 - *terminating_time*: Amount of time the cloud provider took for node to become terminated
 
 Example:
-```
+```bash
 "affected_nodes": [
     {
         "node_name": "cluster-name-**.438115.internal",
@@ -107,6 +107,7 @@ Example:
         "running_time": 12.052034854888916,
         "terminating_time": 0.0
     }
+]
 ```
 
 ## How to Run Node Scenarios

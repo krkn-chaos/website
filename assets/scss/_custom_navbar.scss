@@ -219,8 +219,8 @@
   }
 }
 
-// Hide meta on very small screens, show just the GitHub icon
-@media (max-width: 480px) {
+// Hide stats on smaller screens, keep just icon
+@media (max-width: 768px) {
   .krkn-navbar__gh-meta {
     display: none;
   }
@@ -231,6 +231,13 @@
     padding: 0;
     justify-content: center;
     border-radius: 0.5rem;
+  }
+}
+
+// Hide entire widget on very small screens (drawer has GitHub link)
+@media (max-width: 480px) {
+  .krkn-navbar__github-widget {
+    display: none;
   }
 }
 

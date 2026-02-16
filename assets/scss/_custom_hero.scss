@@ -77,7 +77,9 @@
 
   @media (max-width: 600px) {
     width: 340px;
+    max-width: 90vw;
     height: 340px;
+    max-height: 90vw;
   }
 }
 

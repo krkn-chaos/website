@@ -128,7 +128,24 @@ a {
 // Padding-top for fixed navbar on all pages
 body {
   padding-top: 4rem;
+  overflow-x: hidden;
 }
+
+// Word wrapping for long text (prevents overflow on small screens)
+p, li, dd, dt, td, th, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+// Thin scrollbar globally to avoid chunky double scrollbars
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--krkn-border-prominent) transparent;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--krkn-border-prominent); border-radius: 6px; }
 
 // Homepage hero extends behind the transparent navbar
 .td-home main,

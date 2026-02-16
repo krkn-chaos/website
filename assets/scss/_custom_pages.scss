@@ -415,3 +415,25 @@
     padding: 1.5rem;
   }
 }
+
+@media (max-width: 375px) {
+  .krkn-blog__title,
+  .krkn-community__title {
+    font-size: 1.625rem;
+  }
+
+  .krkn-blog__subtitle,
+  .krkn-community__subtitle {
+    font-size: 0.875rem;
+  }
+
+  .krkn-blog__hero,
+  .krkn-community__hero {
+    padding: 2.5rem 0 1.5rem;
+  }
+
+  .krkn-blog__card-title,
+  .krkn-community__resource-title {
+    font-size: 1rem;
+  }
+}

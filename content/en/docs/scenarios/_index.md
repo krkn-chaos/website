@@ -83,7 +83,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
     display: flex;
     gap: 0.375rem;
     flex-wrap: wrap;
-    margin: 0.5rem 1.5rem 0;
+    margin: 0 1.5rem 1.25rem;
     position: relative;
     z-index: 2;
 }
@@ -112,7 +112,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
     font-size: 0.875rem;
     line-height: 1.6;
     flex-grow: 1;
-    padding: 0.25rem 1.5rem 1.75rem;
+    padding: 0.25rem 1.5rem 0.5rem;
     margin: 0;
 }
 

@@ -15,17 +15,17 @@ Reference docs describe *what* things are, not *how* to use them. For step-by-st
 
 ## Chaos Scenarios
 
-### [Scenarios Catalog](scenarios/)
+### [Scenarios Catalog](../scenarios/)
 
 Complete listing of all chaos scenarios with configuration parameters, examples, and cloud provider compatibility.
 
 **Browse by category:**
-- [Pod & Container Disruptions](scenarios/#pod--container-disruptions)
-- [Node & Cluster Failures](scenarios/#node--cluster-failures)
-- [Network Disruptions](scenarios/#network-disruptions)
-- [Application & Service Disruptions](scenarios/#application--service-disruptions)
-- [Storage & Data Disruptions](scenarios/#storage--data-disruptions)
-- [System & Time Disruptions](scenarios/#system--time-disruptions)
+- [Pod & Container Disruptions](../scenarios/#pod--container-disruptions)
+- [Node & Cluster Failures](../scenarios/#node--cluster-failures)
+- [Network Disruptions](../scenarios/#network-disruptions)
+- [Application & Service Disruptions](../scenarios/#application--service-disruptions)
+- [Storage & Data Disruptions](../scenarios/#storage--data-disruptions)
+- [System & Time Disruptions](../scenarios/#system--time-disruptions)
 
 ## Command-Line Interface
 
@@ -36,18 +36,18 @@ Complete command reference for all Krkn tools:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="cli/krknctl/">krknctl</a></h3>
+<h3><a href="../krknctl/usage/">krknctl</a></h3>
 <p class="scenario-description">CLI tool commands, flags, and options</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="cli/krkn/">krkn</a></h3>
-<p class="scenario-description">Python program arguments and usage</p>
+<h3><a href="../krkn/config/">krkn</a></h3>
+<p class="scenario-description">Python program configuration and usage</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="cli/cerberus/">cerberus</a></h3>
-<p class="scenario-description">Cerberus monitoring tool CLI</p>
+<h3><a href="../cerberus/">cerberus</a></h3>
+<p class="scenario-description">Cerberus monitoring tool documentation</p>
 </div>
 
 </div>
@@ -61,23 +61,23 @@ Complete specification of all configuration formats:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="configuration/krkn-config/">Krkn Config</a></h3>
+<h3><a href="../krkn/config/">Krkn Config</a></h3>
 <p class="scenario-description">Main krkn config.yaml specification</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="configuration/cerberus-config/">Cerberus Config</a></h3>
+<h3><a href="../cerberus/config/">Cerberus Config</a></h3>
 <p class="scenario-description">Cerberus monitoring configuration</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="configuration/scenario-schemas/">Scenario Schemas</a></h3>
-<p class="scenario-description">YAML schemas for all scenario types</p>
+<h3><a href="../scenarios/">Scenario Schemas</a></h3>
+<p class="scenario-description">YAML schemas for all scenario types (see individual scenarios)</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="configuration/environment-variables/">Environment Variables</a></h3>
-<p class="scenario-description">All supported environment variables</p>
+<h3>Environment Variables</h3>
+<p class="scenario-description">Coming soon - see <a href="../krkn/config/">krkn config</a> and scenario docs</p>
 </div>
 
 </div>
@@ -89,23 +89,23 @@ Complete specification of all configuration formats:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="api/prometheus-metrics/">Prometheus Metrics</a></h3>
-<p class="scenario-description">Metrics exposed by Krkn and Cerberus</p>
+<h3>Prometheus Metrics</h3>
+<p class="scenario-description">Coming soon - see <a href="../krkn/SLOs_validation/">SLO validation</a> for Prometheus integration</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="api/telemetry-schema/">Telemetry Schema</a></h3>
+<h3><a href="../krkn/telemetry/">Telemetry Schema</a></h3>
 <p class="scenario-description">JSON schema for telemetry data</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="api/health-check-schema/">Health Check Schema</a></h3>
+<h3><a href="../krkn/health-checks/">Health Check Schema</a></h3>
 <p class="scenario-description">Health check configuration format</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="api/cerberus-api/">Cerberus API</a></h3>
-<p class="scenario-description">HTTP endpoints and response formats</p>
+<h3><a href="../cerberus/">Cerberus API</a></h3>
+<p class="scenario-description">HTTP endpoints and response formats (see Cerberus docs)</p>
 </div>
 
 </div>
@@ -115,12 +115,12 @@ Complete specification of all configuration formats:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="rbac/">RBAC Requirements</a></h3>
+<h3><a href="../krkn/rbac/">RBAC Requirements</a></h3>
 <p class="scenario-description">Kubernetes permissions needed for each scenario</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="security/">Security Model</a></h3>
+<h3><a href="../security/">Security Model</a></h3>
 <p class="scenario-description">Threat model, security considerations, and best practices</p>
 </div>
 
@@ -131,12 +131,12 @@ Complete specification of all configuration formats:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="performance-dashboards/">Performance Dashboards</a></h3>
+<h3><a href="../performance_dashboards/">Performance Dashboards</a></h3>
 <p class="scenario-description">Grafana dashboards for monitoring chaos impact</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="slo-validation/">SLO Validation</a></h3>
+<h3><a href="../krkn/SLOs_validation/">SLO Validation</a></h3>
 <p class="scenario-description">SLO validation configuration and Prometheus expressions</p>
 </div>
 
@@ -147,13 +147,13 @@ Complete specification of all configuration formats:
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="compatibility-matrix/">Compatibility Matrix</a></h3>
-<p class="scenario-description">Kubernetes versions, cloud providers, and feature support</p>
+<h3>Compatibility Matrix</h3>
+<p class="scenario-description">Coming soon - see individual <a href="../scenarios/">scenario pages</a> for cloud compatibility</p>
 </div>
 
 <div class="scenario-card">
-<h3><a href="system-requirements/">System Requirements</a></h3>
-<p class="scenario-description">Hardware, software, and network requirements</p>
+<h3>System Requirements</h3>
+<p class="scenario-description">Coming soon - see <a href="../installation/">installation guides</a> for requirements</p>
 </div>
 
 </div>

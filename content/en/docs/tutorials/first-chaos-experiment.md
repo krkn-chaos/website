@@ -21,7 +21,9 @@ Before starting, ensure you have:
 - [ ] Internet connection to download krknctl
 
 {{% alert title="Need a Test Cluster?" color="info" %}}
-If you don't have a cluster, you can create a local one using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/), [minikube](https://minikube.sigs.k8s.io/docs/start/), or [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+If you don't have a cluster, you can create a local KinD (Kubernetes in Docker) cluster following our guide: [Configure Kind Testing Environment](../../developers-guide/testing-changes/#configure-kind-testing-environment).
+
+Alternatively, you can use [minikube](https://minikube.sigs.k8s.io/docs/start/) or [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 {{% /alert %}}
 
 ## Step 1: Install krknctl
@@ -234,20 +236,24 @@ Congratulations! 🎉 You've completed your first chaos engineering experiment.
 
 Now that you understand the basics, you can:
 
-### Continue Learning
-- 📚 [Setting Up Observability](setting-up-observability/) - Add monitoring to your chaos tests
-- 📚 [Building Custom Scenarios](building-custom-scenario/) - Create your own chaos tests
-- 📚 [CI/CD Integration](ci-cd-integration/) - Automate chaos testing
-
 ### Explore More Scenarios
-- 🎯 [How to Run Network Chaos](../how-to/run-network-chaos/) - Test latency and packet loss
-- 🎯 [How to Run Node Chaos](../how-to/run-node-chaos/) - Test node failures
-- 📖 [Scenarios Catalog](../reference/scenarios/) - Browse all 20+ scenarios
+- 📖 [Network Chaos](../../scenarios/network-chaos-scenario/) - Test latency, packet loss, and bandwidth
+- 📖 [Node Failures](../../scenarios/node-scenarios/) - Test node failures across cloud providers
+- 📖 [All Scenarios Catalog](../../scenarios/) - Browse all 20+ available scenarios
 
-### Deepen Understanding
-- 💡 [What is Krkn?](../explanation/what-is-krkn/) - Learn about Krkn's architecture
-- 💡 [Chaos Engineering Principles](../explanation/chaos-engineering-principles/) - Understand the methodology
-- 💡 [Why Chaos Testing?](../explanation/why-chaos-testing/) - Learn when and why to use chaos
+### Set Up Monitoring
+- 📖 [Cerberus Monitoring](../../cerberus/) - Add cluster health monitoring to chaos tests
+- 📖 [Performance Dashboards](../../performance_dashboards/) - Monitor chaos impact with Grafana
+
+### Different Installation Methods
+- 📖 [Install krkn](../../installation/krkn/) - Standalone Python for multiple scenarios
+- 📖 [Install krkn-hub](../../installation/krkn-hub/) - Containerized for CI/CD
+- 📖 [Installation Overview](../../installation/) - Compare all installation methods
+
+### Learn More About Krkn
+- 📖 [What is Krkn?](../../krkn/) - Understand Krkn's architecture and features
+- 📖 [Chaos Testing Guide](../../chaos-testing-guide/) - Best practices and methodology
+- 📖 [Developer's Guide](../../developers-guide/) - Contributing to Krkn
 
 ## Get Help
 

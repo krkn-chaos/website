@@ -11,7 +11,8 @@ Test your application's resilience to pod failures by randomly killing pods and 
 ## Prerequisites
 
 - Kubernetes cluster with kubectl access
-- One of: krknctl, krkn, or krkn-hub installed ([installation guide](installation/))
+  - Need a test cluster? See [Configure Kind Testing Environment](../../developers-guide/testing-changes/#configure-kind-testing-environment)
+- One of: krknctl, krkn, or krkn-hub installed ([installation guide](../../installation/))
 - Application deployed with multiple replicas (recommended)
 
 ## Methods
@@ -140,7 +141,7 @@ python3 run_kraken.py --config config/config.yaml
 | `kill_interval` | Wait time between iterations (seconds) | `0` | `30` |
 | `exclude_label` | Exclude pods with this label | - | `critical=true` |
 
-See the [full configuration reference](../reference/scenarios/pod-scenario/) for all options.
+See the [full configuration reference](../../scenarios/pod-scenario/) for all options.
 
 ## Verification
 
@@ -194,7 +195,7 @@ kubectl get pods -l app=myapp -n your-namespace
 
 **Symptom:** `Error: pods "pod-name" is forbidden`
 
-**Solution:** Configure RBAC ([RBAC guide](../reference/rbac/))
+**Solution:** Configure RBAC ([RBAC guide](../../krkn/rbac/))
 
 ### Pods Don't Recover
 
@@ -216,12 +217,12 @@ kubectl get events --sort-by='.lastTimestamp'
 1. **Start small**: Kill 1 pod first, then scale up
 2. **Use label selectors carefully**: Verify targets before running
 3. **Protect critical pods**: Use `exclude_label` for essential services
-4. **Monitor during chaos**: Use [Cerberus](configure-cerberus/) for health monitoring
+4. **Monitor during chaos**: Use [Cerberus](../../cerberus/) for health monitoring
 5. **Test in non-production first**: Validate scenarios in staging
 
 ## Related
 
-- 📖 [Pod Scenario Reference](../reference/scenarios/pod-scenario/) - Complete configuration options
-- 📚 [Your First Chaos Experiment](../tutorials/first-chaos-experiment/) - Tutorial for beginners
-- 💡 [How Pod Scenarios Work](../explanation/how-pod-scenarios-work/) - Understanding the internals
-- 🎯 [Configure Health Checks](configure-health-checks/) - Monitor application during chaos
+- 📖 [Pod Scenario Reference](../../scenarios/pod-scenario/) - Complete configuration options
+- 📚 [Your First Chaos Experiment](../../tutorials/first-chaos-experiment/) - Tutorial for beginners
+- 📖 [Krkn Overview](../../krkn/) - Understanding how krkn works
+- 📖 [Health Checks](../../krkn/health-checks/) - Monitor application during chaos

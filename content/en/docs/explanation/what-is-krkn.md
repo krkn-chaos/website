@@ -365,16 +365,16 @@ See [Krkn vs Alternatives](krkn-vs-alternatives/) for detailed comparison.
 ## Learn More
 
 ### Practical Guides
-- 📚 [Your First Chaos Experiment](../tutorials/first-chaos-experiment/) - Hands-on tutorial
-- 🎯 [How to Run Pod Chaos](../how-to/run-pod-chaos/) - Quick start guide
-- 🎯 [Install Krkn](../how-to/installation/) - Installation methods
+- 📚 [Your First Chaos Experiment](../../tutorials/first-chaos-experiment/) - Hands-on tutorial
+- 🎯 [How to Run Pod Chaos](../../how-to/run-pod-chaos/) - Quick start guide
+- 🎯 [Install Krkn](../../installation/) - Installation methods
 
 ### Deeper Understanding
-- 💡 [Krkn Architecture](architecture/) - Component details and interactions
-- 💡 [Why Run Outside the Cluster?](why-run-outside-cluster/) - Design philosophy
-- 💡 [Chaos Engineering Principles](chaos-engineering-principles/) - Methodology
+- 📖 [Krkn Features](../../krkn/) - All krkn features and configuration
+- 📖 [Chaos Testing Guide](../../chaos-testing-guide/) - Methodology and best practices
+- 📖 [Cerberus Monitoring](../../cerberus/) - Health monitoring deep dive
 
 ### Reference
-- 📖 [Scenarios Catalog](../reference/scenarios/) - All available scenarios
-- 📖 [Configuration Reference](../reference/configuration/krkn-config/) - Config options
-- 📖 [krknctl CLI Reference](../reference/cli/krknctl/) - Command specs
+- 📖 [Scenarios Catalog](../../scenarios/) - All available scenarios
+- 📖 [Configuration Reference](../../krkn/config/) - Config options
+- 📖 [krknctl Usage](../../krknctl/usage/) - CLI usage guide

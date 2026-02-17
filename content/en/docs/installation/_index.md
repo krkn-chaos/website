@@ -11,14 +11,14 @@ weight: 4
 
 Krkn provides multiple ways to run chaos scenarios. Choose the method that best fits your needs:
 
-| Tool                         | What is it?                   | Best For                          | Complexity      |
-|------------------------------|-------------------------------|-----------------------------------|-----------------|
-| **[krknctl](krknctl.md)**    | CLI tool with auto-completion | Quick testing, ease of use        | ⭐ Easy         |
-| **[krkn-hub](krkn-hub.md)**  | Pre-built container images    | CI/CD pipelines, automation       | ⭐⭐ Moderate   |
-| **[krkn](krkn.md)**          | Standalone Python program     | Full control, multiple scenarios  | ⭐⭐⭐ Advanced |
+| Tool                         | What is it?                   | Best For                                               |
+|------------------------------|-------------------------------|--------------------------------------------------------|
+| **[krknctl](krknctl.md)**    | CLI tool with auto-completion | Complex workflow orchestration, querying and running scenarios, ease of use |
+| **[krkn-hub](krkn-hub.md)**  | Pre-built container images    | CI/CD pipelines, automation                            |
+| **[krkn](krkn.md)**          | Standalone Python program     | Full control, development, and customization           |
 
 {{% alert title="Recommendation" color="success" %}}
-**New to Krkn?** Start with **krknctl** - it's the easiest way to get started with chaos testing!
+**krknctl** is the recommended way to run Krkn. It provides the simplest path to chaos testing with powerful capabilities including complex workflow orchestration, built-in scenario discovery, and interactive query support — all without managing configuration files.
 {{% /alert %}}
 
 ---
@@ -27,15 +27,16 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 
 ### krknctl (Recommended)
 
-**What is it?** A dedicated command-line interface (CLI) tool that simplifies running Krkn chaos scenarios.
+**What is it?** A dedicated command-line interface (CLI) tool that simplifies running Krkn chaos scenarios while providing powerful orchestration capabilities.
 
 **Why use it?**
-- Command auto-completion for faster workflows
-- Built-in input validation to catch errors early
-- No need to manage configuration files manually
-- Runs scenarios via container runtime (Podman/Docker)
+- **Complex workflow orchestration** — chain and orchestrate multiple chaos scenarios in sophisticated workflows
+- **Query capabilities** — discover, understand, and explore all supported scenarios directly from the CLI
+- **Ease of use** — command auto-completion, built-in input validation, and interactive prompts remove the guesswork
+- **No configuration files** — no need to manage YAML configs or Python environments manually
+- **Container-native** — runs scenarios via container runtime (Podman/Docker) with zero setup overhead
 
-**Best for:** Users who want a streamlined, user-friendly experience without managing configs.
+**Best for:** All users — from first-time chaos engineers to teams building complex resilience testing workflows.
 
 👉 **[Install krknctl →](krknctl.md)**
 

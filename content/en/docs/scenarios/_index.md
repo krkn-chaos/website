@@ -15,9 +15,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <style>
 .scenario-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
     margin-top: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .scenario-card {
@@ -28,7 +29,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
     transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 200px;
     overflow: hidden;
 }
 
@@ -109,15 +110,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 .scenario-description {
     color: var(--krkn-text-muted);
     font-size: 0.875rem;
-    line-height: 1.55;
+    line-height: 1.6;
     flex-grow: 1;
-    padding: 0 1.5rem 1.5rem;
+    padding: 0.25rem 1.5rem 1.75rem;
     margin: 0;
 }
 
 .category-header {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--krkn-primary);
     color: var(--krkn-text);

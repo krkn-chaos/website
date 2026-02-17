@@ -37,9 +37,8 @@
     var tabButtons = document.querySelectorAll('button[data-td-tp-persist]');
     tabButtons.forEach(function(btn) {
       btn.addEventListener('click', function() {
-        if (updatingFromHash) return; // avoid loop when activating from hash
+        if (updatingFromHash) return;
         var persist = btn.getAttribute('data-td-tp-persist') || '';
-        // Strip the ** wrappers: "**krknctl**" -> "krknctl"
         var name = persist.replace(/^\*\*|\*\*$/g, '');
         if (name) {
           history.replaceState(null, '', '#tab-' + name);
@@ -48,19 +47,18 @@
     });
   }
 
-  // Try activation with retries to handle async tab initialization
+  // Activate tab from hash with retries for async tab init
   setTimeout(activateTab, 500);
   setTimeout(activateTab, 1000);
   setTimeout(activateTab, 2000);
 
-  // Set up hash sync once tabs are ready
+  // Set up hash sync once DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(setupTabHashSync, 300); });
   } else {
     setTimeout(setupTabHashSync, 300);
   }
 
-  // Handle hash changes during navigation
   window.addEventListener('hashchange', function() {
     setTimeout(activateTab, 100);
   });

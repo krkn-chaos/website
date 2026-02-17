@@ -1,0 +1,404 @@
+// =============================================================================
+// Krkn Theme - Section Layouts
+// Feature grids, timeline, scenario cards, CTA, social proof.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Section backgrounds
+// -----------------------------------------------------------------------------
+.section-dark {
+  background: var(--krkn-bg);
+  padding: 6rem 0;
+}
+
+.section-surface {
+  background: var(--krkn-surface);
+  padding: 6rem 0;
+}
+
+.section-elevated {
+  background: var(--krkn-elevated);
+  padding: 6rem 0;
+}
+
+// -----------------------------------------------------------------------------
+// Section headings
+// -----------------------------------------------------------------------------
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Satoshi', sans-serif;
+  color: var(--krkn-text);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: var(--krkn-text-muted);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+// -----------------------------------------------------------------------------
+// Feature grid
+// -----------------------------------------------------------------------------
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.feature-card {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 40px var(--krkn-shadow),
+      0 0 0 1px var(--krkn-border-prominent),
+      0 0 30px var(--krkn-card-hover-glow);
+  }
+}
+
+// Feature card icon -- works both on <svg> directly and on a wrapper <div>
+.feature-card__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.25rem;
+  color: var(--krkn-primary);
+  flex-shrink: 0;
+  display: block;
+  overflow: visible;
+
+  // If the class is on a wrapper, size the child SVG
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+// When SVG element itself carries the class
+svg.feature-card__icon {
+  display: block;
+  overflow: visible;
+  stroke: currentColor;
+}
+
+.feature-card__title,
+.feature-card h3 {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--krkn-text);
+  margin: 0 0 0.75rem;
+}
+
+.feature-card__desc,
+.feature-card p {
+  color: var(--krkn-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Timeline (How it Works) -- vertical layout
+// -----------------------------------------------------------------------------
+// Note: The homepage inline styles define the specific timeline layout.
+// These are fallback styles for the timeline component.
+
+// -----------------------------------------------------------------------------
+// Scenario scroll (horizontal scroll with snap)
+// -----------------------------------------------------------------------------
+.scenario-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--krkn-border-prominent) transparent;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--krkn-border-prominent);
+    border-radius: 3px;
+  }
+}
+
+.scenario-card {
+  flex: 0 0 auto;
+  min-width: 280px;
+  scroll-snap-align: start;
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    transform: translateY(-2px);
+  }
+}
+
+// Scenario card icon -- works both on <svg> directly and on a wrapper
+.scenario-card__icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  color: var(--krkn-secondary-light);
+  flex-shrink: 0;
+  display: block;
+  overflow: visible;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+svg.scenario-card__icon {
+  display: block;
+  overflow: visible;
+  stroke: currentColor;
+}
+
+.scenario-card__title,
+.scenario-card h3 {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--krkn-text);
+  margin: 0 0 0.5rem;
+}
+
+.scenario-card__desc,
+.scenario-card p {
+  font-size: 0.9375rem;
+  color: var(--krkn-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+// Links within scenario cards should inherit card colors
+.scenario-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+// -----------------------------------------------------------------------------
+// CTA section
+// -----------------------------------------------------------------------------
+.cta-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: var(--krkn-bg);
+}
+
+.cta-section__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--krkn-text);
+  margin-bottom: 1rem;
+}
+
+.cta-section__subtitle {
+  color: var(--krkn-text-muted);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+// -----------------------------------------------------------------------------
+// Code block (terminal mockup)
+// Used in the homepage "Why Krkn?" and CTA sections
+// -----------------------------------------------------------------------------
+// These are defined in the homepage inline <style> for page-specificity.
+// This section only provides generic code-block fallbacks for other pages.
+
+// -----------------------------------------------------------------------------
+// Social proof / CNCF bar
+// -----------------------------------------------------------------------------
+.social-proof-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid var(--krkn-border-subtle);
+  border-bottom: 1px solid var(--krkn-border-subtle);
+  background: var(--krkn-surface);
+}
+
+.social-proof-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--krkn-text-muted);
+  font-size: 0.9375rem;
+
+  img {
+    height: 32px;
+    width: auto;
+    opacity: 0.9;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Krkn Footer (Apple-inspired dark theme)
+// -----------------------------------------------------------------------------
+.krkn-footer {
+  background: var(--krkn-bg);
+  border-top: 1px solid var(--krkn-border-subtle);
+  padding: 4rem 0 2rem;
+  margin-top: auto;
+}
+
+.krkn-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.krkn-footer__brand {
+  margin-bottom: 3rem;
+}
+
+.krkn-footer__brand a {
+  display: inline-block;
+}
+
+.krkn-footer__brand img {
+  height: 40px;
+  width: auto;
+  opacity: 0.95;
+  transition: opacity 0.2s ease;
+}
+
+.krkn-footer__brand a:hover img {
+  opacity: 1;
+}
+
+.krkn-footer__tagline {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  color: var(--krkn-text-muted);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.krkn-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 3rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 992px) {
+  .krkn-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .krkn-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.krkn-footer__col h4 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--krkn-text-muted);
+  margin-bottom: 1rem;
+}
+
+.krkn-footer__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.krkn-footer__col li {
+  margin-bottom: 0.5rem;
+}
+
+.krkn-footer__col a {
+  color: var(--krkn-text);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: color 0.2s ease;
+}
+
+.krkn-footer__col a:hover {
+  color: var(--krkn-primary);
+}
+
+.krkn-footer__bottom {
+  padding-top: 2rem;
+  border-top: 1px solid var(--krkn-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.krkn-footer__cncf {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--krkn-text-muted);
+  font-size: 0.875rem;
+}
+
+.krkn-footer__cncf img {
+  height: 24px;
+  width: auto;
+  opacity: 0.9;
+}
+
+// Theme-dependent footer CNCF logo
+.krkn-footer__cncf-light { display: none; }
+.krkn-footer__cncf-dark  { display: inline-block; }
+
+[data-theme="light"] {
+  .krkn-footer__cncf-light { display: inline-block; }
+  .krkn-footer__cncf-dark  { display: none; }
+}
+
+.krkn-footer__copyright {
+  color: var(--krkn-text-muted);
+  font-size: 0.8125rem;
+  margin: 0;
+}

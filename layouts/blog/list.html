@@ -1,0 +1,124 @@
+{{ define "main" }}
+<div class="krkn-blog">
+  <!-- Hero header -->
+  <section class="krkn-blog__hero">
+    <div class="container">
+      <h1 class="krkn-blog__title">Blog & Resources</h1>
+      <p class="krkn-blog__subtitle">Articles, talks, and guides from the Krkn community and beyond.</p>
+    </div>
+  </section>
+
+  <div class="container krkn-blog__body">
+
+    <!-- Featured / pinned section -->
+    <section class="krkn-blog__section">
+      <h2 class="krkn-blog__section-title">Featured</h2>
+      <div class="krkn-blog__grid krkn-blog__grid--featured">
+
+        <a href="https://www.redhat.com/en/blog/krknchaos-joining-cncf-sandbox" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+          <span class="krkn-blog__card-badge">Announcement</span>
+          <h3 class="krkn-blog__card-title">Krkn Joins CNCF Sandbox</h3>
+          <p class="krkn-blog__card-desc">Krkn is now a Cloud Native Computing Foundation Sandbox project, marking a major milestone for the community.</p>
+          <span class="krkn-blog__card-source">Red Hat Blog</span>
+        </a>
+
+        <a href="https://www.redhat.com/en/blog/supercharging-chaos-testing-using-ai" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+          <span class="krkn-blog__card-badge">AI</span>
+          <h3 class="krkn-blog__card-title">Supercharging Chaos Testing with AI</h3>
+          <p class="krkn-blog__card-desc">How AI integration in Krkn helps predict failures, analyze patterns, and recommend chaos scenarios.</p>
+          <span class="krkn-blog__card-source">Red Hat Blog</span>
+        </a>
+
+        <a href="https://developers.redhat.com/articles/2025/08/21/unleash-controlled-chaos-krknctl" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+          <span class="krkn-blog__card-badge">CLI</span>
+          <h3 class="krkn-blog__card-title">Unleashing Controlled Chaos with krknctl</h3>
+          <p class="krkn-blog__card-desc">A deep dive into krknctl — the CLI tool for running and orchestrating chaos scenarios with ease.</p>
+          <span class="krkn-blog__card-source">Red Hat Developers</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Articles -->
+    <section class="krkn-blog__section">
+      <h2 class="krkn-blog__section-title">Articles & Blog Posts</h2>
+      <div class="krkn-blog__grid">
+
+        <a href="https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Introduction</span>
+          <h3 class="krkn-blog__card-title">Introduction to Kraken</h3>
+          <p class="krkn-blog__card-desc">A chaos tool for OpenShift/Kubernetes — the original blog post that introduced Krkn to the community.</p>
+          <span class="krkn-blog__card-source">OpenShift Blog</span>
+        </a>
+
+        <a href="https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Best Practices</span>
+          <h3 class="krkn-blog__card-title">Making Chaos Part of Performance Tests</h3>
+          <p class="krkn-blog__card-desc">Why chaos should be part of performance and scalability runs to mimic production environments.</p>
+          <span class="krkn-blog__card-source">OpenShift Blog</span>
+        </a>
+
+        <a href="https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Case Study</span>
+          <h3 class="krkn-blog__card-title">OpenShift/Kubernetes Chaos Stories</h3>
+          <p class="krkn-blog__card-desc">Real-world findings and lessons learned from chaos test runs in OpenShift and Kubernetes environments.</p>
+          <span class="krkn-blog__card-source">Red Hat Cloud</span>
+        </a>
+
+        <a href="https://developers.redhat.com/articles/2025/08/14/enhancing-system-resilience-krkn-chaos-dashboard" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Dashboard</span>
+          <h3 class="krkn-blog__card-title">Enhancing Resilience with Krkn Chaos Dashboard</h3>
+          <p class="krkn-blog__card-desc">Visualize chaos test results, track trends, and improve system resilience with the Krkn dashboard.</p>
+          <span class="krkn-blog__card-source">Red Hat Developers</span>
+        </a>
+
+        <a href="https://medium.com/@abhinavs1920/krkn-custom-chaos-engineering-plugins-70d73c7e2118" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Tutorial</span>
+          <h3 class="krkn-blog__card-title">Custom Chaos Engineering Plugins</h3>
+          <p class="krkn-blog__card-desc">Step-by-step guide on creating custom chaos scenarios and plugins in Krkn.</p>
+          <span class="krkn-blog__card-source">Medium</span>
+        </a>
+
+        <a href="https://blog.zhu424.dev/open-source-contribution/lfx-mentorship-2025-cncf-krkn" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Community</span>
+          <h3 class="krkn-blog__card-title">LFX Mentorship Experience with Krkn</h3>
+          <p class="krkn-blog__card-desc">A mentee's experience working on the rollback feature during LFX Mentorship Term 2 2025.</p>
+          <span class="krkn-blog__card-source">Community Blog</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Talks & Videos -->
+    <section class="krkn-blog__section">
+      <h2 class="krkn-blog__section-title">Talks & Videos</h2>
+      <div class="krkn-blog__grid">
+
+        <a href="https://www.youtube.com/watch?v=s1PvupI5sD0&ab_channel=OpenShift" target="_blank" rel="noopener" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Video</span>
+          <h3 class="krkn-blog__card-title">Krkn: Reliable, Performant and Scalable OpenShift</h3>
+          <p class="krkn-blog__card-desc">Discussion and demo on how Krkn can be leveraged to ensure OpenShift is reliable, performant and scalable.</p>
+          <span class="krkn-blog__card-source">YouTube &middot; OpenShift</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Guides -->
+    <section class="krkn-blog__section">
+      <h2 class="krkn-blog__section-title">Guides</h2>
+      <div class="krkn-blog__grid">
+
+        <a href="/docs/chaos-testing-guide/" class="krkn-blog__card">
+          <span class="krkn-blog__card-badge">Guide</span>
+          <h3 class="krkn-blog__card-title">Chaos Testing Guide</h3>
+          <p class="krkn-blog__card-desc">Best practices and recommendations for making your OpenShift platform and applications resilient, performant and reliable.</p>
+          <span class="krkn-blog__card-source">Krkn Docs</span>
+        </a>
+
+      </div>
+    </section>
+
+  </div>
+</div>
+{{ end }}

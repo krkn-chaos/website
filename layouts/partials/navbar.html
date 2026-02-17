@@ -1,0 +1,311 @@
+{{/*
+  Krkn Custom Navbar
+  Apple-inspired: clean, minimal, transparent over hero, solid dark on scroll.
+  Overrides Docsy default when placed at layouts/partials/navbar.html.
+*/}}
+<nav id="krkn-navbar" class="td-navbar krkn-navbar{{ if not .IsHome }} krkn-navbar--solid{{ end }}">
+  <div class="krkn-navbar__inner">
+    {{/* Logo - links to homepage (always shown; use params.ui.navbar_logo for conditional) */}}
+    <a href="{{ `/` | relLangURL }}" class="krkn-navbar__logo" aria-label="Krkn Home">
+      <img src="{{ `/img/2024_krkn_logo__Krkn_Full.svg` | relURL }}" alt="Krkn" />
+    </a>
+
+    {{/* Center nav links (desktop only) */}}
+    <div class="krkn-navbar__links">
+      {{ range .Site.Menus.main }}
+        {{ if and (ne (lower .Name) "github") (ne (lower .Name) "github ") }}
+          <a href="{{ .URL }}" class="krkn-navbar__link{{ if or ($.IsMenuCurrent `main` .) ($.HasMenuCurrent `main` .) }} krkn-navbar__link--active{{ end }}"{{ if hasPrefix .URL "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
+      {{/* Fallback if menu is empty - hardcode known links */}}
+      {{ if not .Site.Menus.main }}
+        <a href="{{ `/docs/` | relLangURL }}" class="krkn-navbar__link{{ if eq .Section `docs` }} krkn-navbar__link--active{{ end }}">Docs</a>
+        <a href="{{ `/blog/` | relLangURL }}" class="krkn-navbar__link{{ if eq .Section `blog` }} krkn-navbar__link--active{{ end }}">Blog</a>
+        <a href="{{ `/community/` | relLangURL }}" class="krkn-navbar__link{{ if eq .Section `community` }} krkn-navbar__link--active{{ end }}">Community</a>
+      {{ end }}
+    </div>
+
+    {{/* Right actions: Search + GitHub + Hamburger */}}
+    <div class="krkn-navbar__actions">
+      {{/* Search trigger + inline Docsy/Lunr search */}}
+      {{ if .Site.Params.offlineSearch }}
+        <button type="button" class="krkn-navbar__search" id="krkn-search-trigger" aria-label="Search" aria-expanded="false">
+          <svg class="krkn-navbar__icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        {{/* Search overlay — contains the real Docsy offline search input */}}
+        <div class="krkn-search-overlay" id="krkn-search-overlay" aria-hidden="true">
+          <div class="krkn-search-overlay__backdrop" id="krkn-search-backdrop"></div>
+          <div class="krkn-search-overlay__panel">
+            <div class="krkn-search-overlay__header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              {{ partial "search-input.html" . }}
+              <button type="button" class="krkn-search-overlay__close" id="krkn-search-close" aria-label="Close search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="krkn-search-overlay__hint">Press Enter to search &middot; Esc to close</div>
+          </div>
+        </div>
+      {{ end }}
+
+      {{/* Theme toggle */}}
+      <button type="button" class="krkn-navbar__theme-toggle" id="krkn-theme-toggle" aria-label="Toggle light/dark theme">
+        {{/* Sun icon (shown in dark mode) */}}
+        <svg class="krkn-navbar__icon krkn-navbar__icon--sun" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        {{/* Moon icon (shown in light mode) */}}
+        <svg class="krkn-navbar__icon krkn-navbar__icon--moon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+
+      {{/* GitHub widget — icon + version, stars, forks */}}
+      <a href="https://github.com/krkn-chaos/krkn" class="krkn-navbar__github-widget" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg class="krkn-navbar__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <span class="krkn-navbar__gh-meta">
+          <span class="krkn-navbar__gh-version" id="gh-version"></span>
+          <span class="krkn-navbar__gh-stat" id="gh-stars">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+            <span id="gh-stars-count"></span>
+          </span>
+          <span class="krkn-navbar__gh-stat" id="gh-forks">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3c0-1.657-1.343-3-3-3s-3 1.343-3 3c0 1.323.861 2.443 2.05 2.84-.131 2.078-1.081 3.156-4.05 3.66-1.978.336-3.478 1.098-4.5 2.063V6.84A3.001 3.001 0 0 0 6 0C4.343 0 3 1.343 3 3c0 1.323.861 2.443 2.05 2.84L5 21.16A3.001 3.001 0 0 0 6 27c1.657 0 3-1.343 3-3 0-1.323-.861-2.443-2.05-2.84l.05-4.478c.979 1.503 2.972 2.607 5.55 2.168 4.078-.693 5.393-3.028 5.5-6.01A3.001 3.001 0 0 0 21 3z" transform="scale(0.889)"/></svg>
+            <span id="gh-forks-count"></span>
+          </span>
+        </span>
+      </a>
+
+      {{/* Mobile hamburger */}}
+      <button class="krkn-navbar__hamburger" id="krkn-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="krkn-nav-drawer">
+        <span class="krkn-navbar__hamburger-line"></span>
+        <span class="krkn-navbar__hamburger-line"></span>
+        <span class="krkn-navbar__hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+
+  {{/* Mobile drawer - slides in from right */}}
+  <div class="krkn-navbar__drawer" id="krkn-nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="krkn-navbar__drawer-backdrop" id="krkn-drawer-backdrop" aria-hidden="true"></div>
+    <div class="krkn-navbar__drawer-content">
+      <div class="krkn-navbar__drawer-links">
+        {{ range .Site.Menus.main }}
+          {{ if and (ne (lower .Name) "github") (ne (lower .Name) "github ") }}
+            <a href="{{ .URL }}" class="krkn-navbar__drawer-link{{ if or ($.IsMenuCurrent `main` .) ($.HasMenuCurrent `main` .) }} krkn-navbar__drawer-link--active{{ end }}"{{ if hasPrefix .URL "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Name }}</a>
+          {{ end }}
+        {{ end }}
+        {{ if not .Site.Menus.main }}
+          <a href="{{ `/docs/` | relLangURL }}" class="krkn-navbar__drawer-link{{ if eq .Section `docs` }} krkn-navbar__drawer-link--active{{ end }}">Docs</a>
+          <a href="{{ `/blog/` | relLangURL }}" class="krkn-navbar__drawer-link{{ if eq .Section `blog` }} krkn-navbar__drawer-link--active{{ end }}">Blog</a>
+          <a href="{{ `/community/` | relLangURL }}" class="krkn-navbar__drawer-link{{ if eq .Section `community` }} krkn-navbar__drawer-link--active{{ end }}">Community</a>
+        {{ end }}
+      </div>
+      <a href="https://github.com/krkn-chaos/" class="krkn-navbar__drawer-github" target="_blank" rel="noopener noreferrer">
+        <svg class="krkn-navbar__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+(function() {
+  'use strict';
+
+  var navbar = document.getElementById('krkn-navbar');
+  var hamburger = document.getElementById('krkn-hamburger');
+  var drawer = document.getElementById('krkn-nav-drawer');
+  var backdrop = document.getElementById('krkn-drawer-backdrop');
+  var searchTrigger = document.getElementById('krkn-search-trigger');
+  var searchWrap = document.getElementById('krkn-search-wrap');
+
+  var SCROLL_THRESHOLD = 50;
+  var isHome = navbar && navbar.classList.contains('krkn-navbar--solid') === false;
+
+  // Add .scrolled class when user scrolls past threshold (hero page only)
+  function onScroll() {
+    if (!navbar) return;
+    if (isHome && window.scrollY > SCROLL_THRESHOLD) {
+      navbar.classList.add('scrolled');
+    } else if (isHome && window.scrollY <= SCROLL_THRESHOLD) {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  // Toggle mobile drawer
+  function openDrawer() {
+    if (drawer) drawer.classList.add('krkn-navbar__drawer--open');
+    if (hamburger) {
+      hamburger.classList.add('krkn-navbar__hamburger--active');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    if (drawer) drawer.classList.remove('krkn-navbar__drawer--open');
+    if (hamburger) {
+      hamburger.classList.remove('krkn-navbar__hamburger--active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+    document.body.style.overflow = '';
+  }
+
+  function toggleDrawer() {
+    if (drawer && drawer.classList.contains('krkn-navbar__drawer--open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  }
+
+  if (hamburger) hamburger.addEventListener('click', toggleDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+  // Close drawer on nav link click (mobile)
+  var drawerLinks = drawer && drawer.querySelectorAll('.krkn-navbar__drawer-link');
+  if (drawerLinks) {
+    drawerLinks.forEach(function(link) {
+      link.addEventListener('click', closeDrawer);
+    });
+  }
+
+  // Close drawer or search on escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (searchOverlay && searchOverlay.classList.contains('krkn-search-overlay--open')) {
+        closeSearch();
+      } else if (drawer && drawer.classList.contains('krkn-navbar__drawer--open')) {
+        closeDrawer();
+      }
+    }
+  });
+
+  // Search overlay
+  var searchOverlay = document.getElementById('krkn-search-overlay');
+  var searchBackdrop = document.getElementById('krkn-search-backdrop');
+  var searchClose = document.getElementById('krkn-search-close');
+  var searchInput = searchOverlay ? searchOverlay.querySelector('input[type="search"], .td-search__input, .td-search input') : null;
+
+  function openSearch() {
+    if (!searchOverlay) return;
+    searchOverlay.classList.add('krkn-search-overlay--open');
+    searchOverlay.setAttribute('aria-hidden', 'false');
+    if (searchTrigger) searchTrigger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    // Focus input after CSS transition
+    setTimeout(function() { if (searchInput) searchInput.focus(); }, 120);
+  }
+
+  function closeSearch() {
+    if (!searchOverlay) return;
+    searchOverlay.classList.remove('krkn-search-overlay--open');
+    searchOverlay.setAttribute('aria-hidden', 'true');
+    if (searchTrigger) searchTrigger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    // Clear results popover
+    if (searchInput) {
+      searchInput.value = '';
+      // Trigger change to clear Lunr popover
+      var evt = new Event('change', { bubbles: true });
+      searchInput.dispatchEvent(evt);
+    }
+  }
+
+  if (searchTrigger) searchTrigger.addEventListener('click', openSearch);
+  if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
+  if (searchClose) searchClose.addEventListener('click', closeSearch);
+
+  // Ctrl/Cmd + K shortcut to open search
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      if (searchOverlay && searchOverlay.classList.contains('krkn-search-overlay--open')) {
+        closeSearch();
+      } else {
+        openSearch();
+      }
+    }
+  });
+
+  // Initial state and scroll listener
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---- GitHub stats ----
+  (function fetchGitHubStats() {
+    var repo = 'krkn-chaos/krkn';
+    var cacheKey = 'krkn-gh-stats';
+    var cacheTTL = 3600000; // 1 hour
+
+    function render(data) {
+      var versionEl = document.getElementById('gh-version');
+      var starsEl = document.getElementById('gh-stars-count');
+      var forksEl = document.getElementById('gh-forks-count');
+      if (versionEl && data.version) versionEl.textContent = data.version;
+      if (starsEl && data.stars != null) starsEl.textContent = data.stars >= 1000 ? (data.stars / 1000).toFixed(1) + 'k' : data.stars;
+      if (forksEl && data.forks != null) forksEl.textContent = data.forks >= 1000 ? (data.forks / 1000).toFixed(1) + 'k' : data.forks;
+    }
+
+    // Try cache first
+    try {
+      var cached = JSON.parse(localStorage.getItem(cacheKey));
+      if (cached && Date.now() - cached.ts < cacheTTL) {
+        render(cached.data);
+        return;
+      }
+    } catch(e) {}
+
+    // Fetch repo info (stars, forks) and latest release (version) in parallel
+    var data = {};
+    var done = 0;
+    function check() {
+      done++;
+      if (done >= 2) {
+        render(data);
+        try { localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
+      }
+    }
+
+    fetch('https://api.github.com/repos/' + repo)
+      .then(function(r) { return r.json(); })
+      .then(function(j) { data.stars = j.stargazers_count; data.forks = j.forks_count; })
+      .catch(function() {})
+      .finally(check);
+
+    fetch('https://api.github.com/repos/' + repo + '/releases/latest')
+      .then(function(r) { return r.json(); })
+      .then(function(j) { if (j.tag_name) data.version = j.tag_name; })
+      .catch(function() {})
+      .finally(check);
+  })();
+
+  // ---- Theme toggle ----
+  var themeToggle = document.getElementById('krkn-theme-toggle');
+
+  function getPreferredTheme() {
+    var stored = localStorage.getItem('krkn-theme');
+    if (stored) return stored;
+    // Default to dark
+    return 'dark';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('krkn-theme', theme);
+    // Update toggle aria-label
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label',
+        theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+      );
+    }
+  }
+
+  // Apply stored theme immediately
+  setTheme(getPreferredTheme());
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>

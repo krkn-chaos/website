@@ -86,3 +86,8 @@ What's the size of random samples that gets added to new population (Default: 2)
 #### `wait_duration`
 
 Time to wait after scenario execution. Sets Krkn's `--wait-duration` parameter. (Default: 120 seconds)
+
+#### `stopping_criteria`
+
+Configuration for advanced stopping conditions based on fitness, saturation, or exploration limits. See [Stopping Criteria](stopping_criteria.md) for full details.
+

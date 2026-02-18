@@ -43,10 +43,21 @@ In addition to the [common hog scenario options](../_index.md#common-options), M
 - `memory-vm-bytes: "2g"` - Consume 2 gigabytes of memory
 - `memory-vm-bytes: "512m"` - Consume 512 megabytes of memory
 
-## Usage
+## How to Run Memory Hog Scenarios
 
-Select your deployment method to get started:
+Choose your preferred method to run memory hog scenarios:
 
-- [Memory Hog using Krkn](memory-hog-scenario-krkn.md) - Configuration for direct Krkn usage
-- [Memory Hog using Krknctl](memory-hog-scenario-krknctl.md) - Configuration for Krknctl CLI
-- [Memory Hog using Krkn-Hub](memory-hog-scenario-krkn-hub.md) - Configuration for Krkn-Hub
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}
+
+## Demo
+You can find a link to a demo of the scenario [here](https://asciinema.org/a/452742?speed=3&theme=solarized-dark)

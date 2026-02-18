@@ -1,9 +1,8 @@
 ---
 title: Contribution Guidelines
 type: "docs/scenarios"
-description: 
-weight: 6
 description: How to contribute and get started
+weight: 6
 ---
 
 # How to contribute
@@ -16,6 +15,8 @@ We're excited to have you consider contributing to our chaos! Contributions are 
 
 If you would like to contribute to Krkn, but are not sure exactly what to work on, you can find a number of open issues that are awaiting contributions in
 [issues.](https://github.com/krkn-chaos/krkn/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
+
+Please start by discussing potential solutions and your proposed approach for the issue you plan to work on. We encourage you to gather feedback from maintainers and contributors and to have the issue assigned to you before opening a pull request with a solution.
 
 ## Adding New Scenarios and Configurations
 
@@ -34,11 +35,11 @@ It’s the perfect starting point to tap into your chaotic creativity!
 
 ### New Configuration to Scenarios 
 
-If you are currently using a scenario but want more configuration options, please open a [github issue](https://github.com/krkn-chaos/krkn/issues) describing your use case and what fields and functionality you would like to see added. We will review the sugguestion and give pointers on how to add the functionality. If you feel inclined, you can start working on the feature and we'll help if you get stuck along the way. 
+If you are currently using a scenario but want more configuration options, please open a [github issue](https://github.com/krkn-chaos/krkn/issues) describing your use case and what fields and functionality you would like to see added. We will review the suggestion and give pointers on how to add the functionality. If you feel inclined, you can start working on the feature and we'll help if you get stuck along the way. 
 
 
-## Work in Progress PR's 
-If you are working on a contribution in any capacity and would like to get a new set of eyes on your work, go ahead and open a PR with '[WIP]' at the start of the tite in your PR and tag the [maintainers](https://github.com/krkn-chaos/krkn/blob/main/MAINTAINERS.md) for review. We will review your changes and give you sugguestions to keep you moving! 
+## Work in Progress PR's
+If you are working on a contribution in any capacity and would like to get a new set of eyes on your work, go ahead and open a PR with '[WIP]' at the start of the title in your PR and tag the [maintainers](https://github.com/krkn-chaos/krkn/blob/main/MAINTAINERS.md) for review. We will review your changes and give you suggestions to keep you moving! 
 
 ## Office Hours
 If you have any questions that you think could be better discussed on a meeting we have monthly office hours [zoom link](https://zoom-lfx.platform.linuxfoundation.org/meetings/krkn?view=month). Please add items to agenda before so we can best prepare to help you.
@@ -47,8 +48,8 @@ If you have any questions that you think could be better discussed on a meeting 
 ## Good PR Checklist 
 Here's a quick checklist for a good PR, more details below:
 - One feature/change per PR
-- One commit per PR [squash your commits](contribute.md#squash-commits)
-- PR rebased on main ([git rebase](contribute.md#rebase-with-upstream), not git pull)
+- One commit per PR [squash your commits](git-pointers.md#squash-commits)
+- PR rebased on main ([git rebase](git-pointers.md#rebase-with-upstream), not git pull)
 - Good descriptive commit message, with link to issue
 - No changes to code not directly related to your PR
 - Includes functional/integration test (more applicable to krkn-lib)
@@ -56,9 +57,9 @@ Here's a quick checklist for a good PR, more details below:
 
 ## Helpful Documents
 Refer to the docs below to be able to test your own images with any changes and be able to contribute them to the repository
-- [Getting Started](/docs/contribution-guidelines/getting-started.md)
+- [Getting Started](/docs/getting-started/getting-started-krkn.md)
 - [Contribute - Git Pointers](/docs/contribution-guidelines/git-pointers.md)
-- [Testing Your Krkn-hub Changes](/docs/contribution-guidelines/testing-changes.md)
+- [Testing Your Krkn-hub Changes](/docs/developers-guide/testing-changes.md)
 
 ## Questions?
 

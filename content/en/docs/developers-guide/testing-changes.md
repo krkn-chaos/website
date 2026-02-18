@@ -7,7 +7,7 @@ categories: [Best Practices, Placeholders]
 tags: [docs]
 ---
 
-- [Configure Kind environment](#configure-kind-testing-enviornment)
+- [Configure Kind environment](#configure-kind-testing-environment)
 - [Testing Changes in Krkn-lib](#testing-changes-in-krkn-lib)
 - [Testing Changes in Krkn](#testing-changes-in-krkn)
 - [Testing Changes in Krkn-hub](#testing-changes-for-krkn-hub)
@@ -16,7 +16,7 @@ tags: [docs]
 This page gives details about how you can get a kind cluster configured to be able to run on krkn-lib (the lowest level of krkn-chaos repos) up through krknctl (our easiest way to run and highest level repo)
 
 
-## Configure Kind Testing Enviornment
+## Configure Kind Testing Environment
 1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 
 
@@ -26,7 +26,7 @@ kind create cluster --wait 300s --config=kind-config.yml
 ```
 
 ### Install Elasticsearch and Prometheus
-To be able to run the full test suite of tests you need to have elasticsearch and promethues properly configured on the cluster 
+To be able to run the full test suite of tests you need to have elasticsearch and prometheus properly configured on the cluster 
 
 ```bash
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -59,7 +59,7 @@ prometheus-community/kube-prometheus-stack \
 
 #### ElasticSearch 
 
-Set enviornment variables of elasticsearch variables
+Set environment variables of elasticsearch variables
 ```bash
 export ELASTIC_URL="https://localhost"
 export ELASTIC_PORT="9091"
@@ -91,7 +91,7 @@ oci://registry-1.docker.io/bitnamicharts/elasticsearch \
 To be able to run all the tests in the krkn-lib suite, you'll need to have prometheus and elastic properly configured. See above steps for details
 
 ### Install poetry 
-Using a virtual enviornment install poetry and install krkn-lib requirmenets
+Using a virtual environment install poetry and install krkn-lib requirmenets
 ```bash
 $ pip install poetry
 $ poetry install --no-interaction
@@ -119,7 +119,7 @@ Install krkn dependencies in a virtual environment:
 
 ```bash
 # Create and activate virtual environment
-python3.9 -m venv chaos
+python3.11 -m venv chaos
 source chaos/bin/activate
 
 # Install requirements
@@ -234,7 +234,7 @@ kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=proxy" --timeo
 
 #### Install Requirements
 ```bash
-$ python3.9 -m venv chaos
+$ python3.11 -m venv chaos
 $ source chaos/bin/activate
 $ pip install -r requirements.txt
 ```
@@ -373,7 +373,7 @@ First you will [build your changes](#build-your-changes) of krkn-hub and [push](
 ## Run Krknctl with Personal Image
 Once you have your images in quay, you are all set to configure krknctl to look for these new images. You'll edit the config file of krknctl found [here](https://github.com/krkn-chaos/krknctl/blob/main/pkg/config/config.json#L4-L6) and edit the `quay_org` to be set to your quay username
 
-With these updates to your config, you'll build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'l be all set to start testing your new scenario and config options. 
+With these updates to your config, you'll build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'll be all set to start testing your new scenario and config options. 
 
 If any krknctl code changes are required, you'll have to make changes and rebuild the the krknctl binary each time to test as well 
 

@@ -1,0 +1,242 @@
+// =============================================================================
+// Krkn Theme - Project Styles
+// Main entry: custom CSS rules and @import of all project partials.
+// Loaded after Bootstrap/Docsy in Docsy theme.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Fontshare fonts (Satoshi + General Sans)
+// Use CSS @import url() - NOT @import for SCSS partials
+// -----------------------------------------------------------------------------
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,800&f[]=general-sans@400,500,600,700&display=swap');
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties (design tokens for runtime/JS access)
+// Dark theme = default
+// -----------------------------------------------------------------------------
+:root,
+[data-theme="dark"] {
+  --krkn-bg: #0A0B10;
+  --krkn-surface: #111827;
+  --krkn-elevated: #1A2332;
+  --krkn-primary: #EC1C24;
+  --krkn-primary-hover: #9B1C1F;
+  --krkn-secondary: #0E58A0;
+  --krkn-secondary-light: #3B82F6;
+  --krkn-text: #F8FAFC;
+  --krkn-text-muted: #94A3B8;
+  --krkn-text-subtle: #64748B;
+  --krkn-border-subtle: #1E293B;
+  --krkn-border-prominent: #334155;
+  --krkn-code-bg: #0F172A;
+  --krkn-shadow: rgba(0, 0, 0, 0.3);
+  --krkn-card-hover-glow: rgba(236, 28, 36, 0.15);
+  --krkn-glass-bg: rgba(10, 11, 16, 0.65);
+  --krkn-glass-bg-solid: rgba(10, 11, 16, 0.95);
+  --krkn-nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --krkn-logo-filter: none;
+  --krkn-cncf-logo: url('/img/cncf-white.svg');
+  color-scheme: dark;
+}
+
+// Light theme -- warm stone palette, easy on the eyes
+// Three tiers: bg (lightest) > surface (mid) > elevated (deepest)
+[data-theme="light"] {
+  --krkn-bg: #F4F3EF;            // warm linen
+  --krkn-surface: #E8E7E3;       // warm stone -- noticeably darker
+  --krkn-elevated: #DDDCD8;      // warm pebble
+  --krkn-primary: #DC2626;
+  --krkn-primary-hover: #B91C1C;
+  --krkn-secondary: #0E58A0;
+  --krkn-secondary-light: #2563EB;
+  --krkn-text: #1C1917;           // stone-900
+  --krkn-text-muted: #57534E;     // stone-600
+  --krkn-text-subtle: #78716C;    // stone-500
+  --krkn-border-subtle: #D6D3CE;
+  --krkn-border-prominent: #A8A29E;
+  --krkn-code-bg: #DDDCD8;
+  --krkn-shadow: rgba(0, 0, 0, 0.06);
+  --krkn-card-hover-glow: rgba(220, 38, 38, 0.06);
+  --krkn-glass-bg: rgba(244, 243, 239, 0.85);
+  --krkn-glass-bg-solid: rgba(244, 243, 239, 0.97);
+  --krkn-nav-hover-bg: rgba(0, 0, 0, 0.05);
+  --krkn-logo-filter: none;
+  --krkn-cncf-logo: url('/img/cncf-color.png');
+  color-scheme: light;
+}
+
+// -----------------------------------------------------------------------------
+// Global dark theme base styles
+// -----------------------------------------------------------------------------
+html, body {
+  background: var(--krkn-bg);
+  color: var(--krkn-text);
+}
+
+body {
+  font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Override Docsy's main wrapper to remove any white backgrounds
+.td-main {
+  background: var(--krkn-bg);
+}
+
+.td-main main {
+  background: var(--krkn-bg);
+}
+
+// Override Docsy default page section backgrounds
+.td-default main,
+.td-blog main {
+  background: var(--krkn-bg);
+  color: var(--krkn-text);
+}
+
+// Container max-width for consistency
+.container {
+  max-width: 1200px;
+}
+
+// Links globally
+a {
+  color: var(--krkn-secondary-light);
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--krkn-secondary);
+  }
+}
+
+// Light mode: use darker link color with lighter hover
+[data-theme="light"] a {
+  color: var(--krkn-secondary);
+
+  &:hover {
+    color: var(--krkn-secondary-light);
+  }
+}
+
+// Selection highlight
+::selection {
+  background: rgba(236, 28, 36, 0.3);
+  color: var(--krkn-text);
+}
+
+// Padding-top for fixed navbar on all pages
+body {
+  padding-top: 4rem;
+  overflow-x: hidden;
+}
+
+// Word wrapping for long text (prevents overflow on small screens)
+p, li, dd, dt, td, th, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+// Thin scrollbar globally to avoid chunky double scrollbars
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--krkn-border-prominent) transparent;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--krkn-border-prominent); border-radius: 6px; }
+
+// Homepage hero extends behind the transparent navbar
+.td-home main,
+.krkn-home {
+  margin-top: -4rem;
+}
+
+// Ensure hero section content clears the fixed navbar.
+// Must override Docsy's `.td-default main section { padding: 4rem }`.
+// Using !important to beat the higher-specificity Docsy selector.
+section.hero-section {
+  padding-top: 10rem !important;
+  padding-bottom: 3rem !important;
+}
+
+// Force all Docsy page wrappers to use theme colors
+.td-outer,
+.td-section,
+.td-cover-block,
+.td-box,
+.td-content,
+[class*="td-"] {
+  color: var(--krkn-text);
+}
+
+// Force all headings to use theme color (override Bootstrap's compiled defaults)
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: var(--krkn-text) !important;
+  font-family: 'Satoshi', sans-serif;
+}
+
+// Force body text colors in Docsy containers
+.td-main p,
+.td-main li,
+.td-main td,
+.td-main th,
+.td-main dd,
+.td-main dt {
+  color: var(--krkn-text);
+}
+
+// Bootstrap form controls dark
+.form-control,
+.form-select {
+  background-color: var(--krkn-surface);
+  border-color: var(--krkn-border-subtle);
+  color: var(--krkn-text);
+
+  &:focus {
+    background-color: var(--krkn-elevated);
+    border-color: var(--krkn-secondary);
+    color: var(--krkn-text);
+    box-shadow: 0 0 0 0.2rem rgba(14, 88, 160, 0.25);
+  }
+}
+
+// Bootstrap modals
+.modal-content {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  color: var(--krkn-text);
+}
+
+.modal-header {
+  border-bottom-color: var(--krkn-border-subtle);
+}
+
+.modal-footer {
+  border-top-color: var(--krkn-border-subtle);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .section-dark,
+  .section-surface,
+  .section-elevated {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Import project partials (order matters for cascade)
+// -----------------------------------------------------------------------------
+@import 'custom_animations';
+@import 'custom_navbar';
+@import 'custom_hero';
+@import 'custom_sections';
+@import 'custom_docs';
+@import 'custom_pages';

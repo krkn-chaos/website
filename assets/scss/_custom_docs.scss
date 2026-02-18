@@ -1,0 +1,1286 @@
+// =============================================================================
+// Krkn Theme - Documentation Page Overrides
+// Dark styling for Docsy docs layout: sidebar, content, TOC.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Sidebar
+// -----------------------------------------------------------------------------
+.td-sidebar {
+  background: var(--krkn-bg);
+  border-right: 1px solid var(--krkn-border-subtle);
+
+  @media (min-width: 992px) {
+    position: sticky;
+    top: 4rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--krkn-border-prominent) transparent;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: var(--krkn-border-prominent); border-radius: 4px; }
+  }
+}
+
+.td-sidebar__inner {
+  padding: 1.5rem 0;
+}
+
+.td-sidebar-nav {
+  padding: 0;
+}
+
+.td-sidebar-nav .td-sidebar-link {
+  display: block;
+  padding: 0.5rem 1rem 0.5rem 1.25rem;
+  color: var(--krkn-text-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-left: 2px solid transparent;
+  margin-left: 0;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    color: var(--krkn-text);
+    background: var(--krkn-nav-hover-bg);
+  }
+
+  &.active {
+    color: var(--krkn-primary);
+    border-left-color: var(--krkn-primary);
+    background: var(--krkn-nav-hover-bg);
+  }
+}
+
+.td-sidebar-nav .td-sidebar-link__page {
+  padding-left: 1.5rem;
+}
+
+// Sidebar section headers
+.td-sidebar-nav .td-sidebar-nav__section-title {
+  padding: 0.75rem 1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--krkn-text-subtle);
+}
+
+// Sidebar expand/collapse arrows — ensure they inherit text color, not white
+.td-sidebar-nav label {
+  color: var(--krkn-text-muted) !important;
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    color: var(--krkn-text-muted) !important;
+    border-color: var(--krkn-text-muted) !important;
+  }
+}
+
+// The triangle/caret indicators on collapsible sections
+.td-sidebar-nav .td-sidebar-nav__section-title > label::before {
+  border-left-color: var(--krkn-text-muted) !important;
+  border-top-color: var(--krkn-text-muted) !important;
+}
+
+// Also fix the checkbox-based arrow icons Docsy may use
+.td-sidebar-nav input[type="checkbox"] + label::before,
+.td-sidebar-nav .with-child > label::before {
+  color: var(--krkn-text-muted) !important;
+  border-color: var(--krkn-text-muted) !important;
+}
+
+// Ensure active-path labels are visible
+.td-sidebar-nav .active-path > label {
+  color: var(--krkn-text) !important;
+
+  &::before {
+    border-color: var(--krkn-text) !important;
+    color: var(--krkn-text) !important;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Main content area
+// -----------------------------------------------------------------------------
+.td-content {
+  color: var(--krkn-text) !important;
+  background: var(--krkn-bg) !important;
+  padding: 2rem 0;
+}
+
+.td-content p,
+.td-content li,
+.td-content td,
+.td-content dd,
+.td-content dt {
+  color: var(--krkn-text) !important;
+}
+
+.td-content .td-content__inner {
+  max-width: 900px;
+}
+
+// Headings
+.td-content h1,
+.td-content h2,
+.td-content h3,
+.td-content h4,
+.td-content h5,
+.td-content h6 {
+  color: var(--krkn-text) !important;
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 700;
+  border-bottom: 1px solid var(--krkn-border-subtle);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.td-content h1 { font-size: 2rem; }
+.td-content h2 { font-size: 1.5rem; }
+.td-content h3 { font-size: 1.25rem; }
+.td-content h4 { font-size: 1.125rem; }
+
+// Links
+.td-content a {
+  color: var(--krkn-secondary-light);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--krkn-secondary);
+  }
+}
+
+// Inline code
+.td-content code {
+  background: var(--krkn-elevated);
+  color: var(--krkn-primary);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.9em;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+}
+
+// Code blocks — always dark terminal style in both themes
+.td-content pre,
+.highlight pre,
+.chroma,
+pre.chroma {
+  background: #0D1117 !important;
+  color: #E6EDF3 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Fira Code', monospace !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.td-content pre code,
+.highlight code,
+.chroma code,
+pre code {
+  background: transparent !important;
+  color: #E6EDF3 !important;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Fira Code', monospace !important;
+  font-size: inherit !important;
+  padding: 0;
+  -webkit-text-fill-color: initial;
+}
+
+// Chroma syntax spans — keep their native colors
+.highlight span,
+.chroma span,
+pre.chroma span {
+  -webkit-text-fill-color: initial;
+}
+
+// Override Chroma base — our dark terminal, not Monokai's #272822
+.chroma, .bg {
+  color: #E6EDF3 !important;
+  background-color: #0D1117 !important;
+}
+
+// Code line wrapper
+.chroma .line { display: flex; }
+.chroma .cl { color: #E6EDF3; }
+.chroma .w { color: #E6EDF3; }  // whitespace — inherit base
+
+// Chroma token colors (GitHub Dark style — code blocks are always dark in both themes)
+.chroma .c, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf { color: #8B949E !important; }   // comments
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kr, .chroma .kp, .chroma .kt { color: #FF7B72 !important; } // keywords
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .ss { color: #A5D6FF !important; } // strings
+.chroma .nt { color: #7EE787 !important; }  // tags (YAML keys, HTML tags)
+.chroma .na { color: #79C0FF !important; }  // attributes
+.chroma .nf, .chroma .nb, .chroma .ni, .chroma .ne, .chroma .nd { color: #D2A8FF !important; }  // functions/builtins
+.chroma .mi, .chroma .mf, .chroma .mh, .chroma .mo, .chroma .mb, .chroma .il { color: #79C0FF !important; }  // numbers
+.chroma .o { color: #FF7B72 !important; }    // operators (=, |, etc.) — red to match keywords
+.chroma .p { color: #E6EDF3 !important; }   // punctuation
+.chroma .l, .chroma .ld { color: #A5D6FF !important; }   // literals
+.chroma .nc, .chroma .nn, .chroma .no { color: #FFA657 !important; }   // class names, namespaces, constants
+.chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi { color: #FFA657 !important; }  // variables
+.chroma .n { color: #E6EDF3 !important; }   // plain names
+.chroma .err { color: #F85149 !important; background: transparent !important; }  // errors — no red bg
+.chroma .ge { font-style: italic; }  // generic emphasis
+.chroma .gs { font-weight: bold; }   // generic strong
+.chroma .gh, .chroma .gu { color: #79C0FF !important; font-weight: bold; }  // headings
+.chroma .gd { color: #F85149 !important; }  // diff deleted
+.chroma .gi { color: #7EE787 !important; }  // diff inserted
+.chroma .gl { text-decoration: underline; }
+
+// Line numbers
+.chroma .lnt, .chroma .ln { color: #484F58 !important; user-select: none; }
+.chroma .hl { background-color: rgba(187, 128, 9, 0.15) !important; }  // highlighted line
+
+// Copy button (Docsy code block copy)
+.td-content .highlight .btn-copy,
+.highlight .btn-copy {
+  background: #21262D;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #8B949E;
+
+  &:hover {
+    background: #30363D;
+    color: #E6EDF3;
+  }
+}
+
+// Tooltip — ensure readable in both themes (white text on dark bg)
+.tooltip-inner {
+  color: #fff !important;
+  background-color: #1C1917 !important;
+}
+
+.bs-tooltip-top .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+  border-top-color: #1C1917 !important;
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
+  border-bottom-color: #1C1917 !important;
+}
+
+.bs-tooltip-start .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before {
+  border-left-color: #1C1917 !important;
+}
+
+.bs-tooltip-end .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before {
+  border-right-color: #1C1917 !important;
+}
+
+// -----------------------------------------------------------------------------
+// Tables
+// -----------------------------------------------------------------------------
+.td-content table,
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  color: var(--krkn-text) !important;
+}
+
+.td-content th,
+.td-content td,
+table th,
+table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--krkn-border-subtle) !important;
+  text-align: left;
+  color: var(--krkn-text) !important;
+}
+
+.td-content th,
+.td-content thead th,
+table th,
+table thead th {
+  background: var(--krkn-elevated) !important;
+  color: var(--krkn-text) !important;
+  font-weight: 600;
+  font-family: 'Satoshi', sans-serif;
+}
+
+.td-content td,
+table td {
+  color: var(--krkn-text) !important;
+}
+
+.td-content tbody tr:nth-child(even),
+table tbody tr:nth-child(even) {
+  background: var(--krkn-surface);
+}
+
+.td-content tbody tr:hover,
+table tbody tr:hover {
+  background: var(--krkn-elevated);
+}
+
+// -----------------------------------------------------------------------------
+// Blockquotes
+// -----------------------------------------------------------------------------
+.td-content blockquote {
+  border-left: 4px solid var(--krkn-primary);
+  background: var(--krkn-surface);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--krkn-text-muted);
+  font-style: italic;
+}
+
+// -----------------------------------------------------------------------------
+// Breadcrumb
+// -----------------------------------------------------------------------------
+.td-breadcrumbs {
+  padding: 0.75rem 0;
+}
+
+.td-breadcrumbs .breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.td-breadcrumbs .breadcrumb-item {
+  color: var(--krkn-text-muted);
+  font-size: 0.875rem;
+
+  a {
+    color: var(--krkn-secondary-light);
+  }
+
+  & + .breadcrumb-item::before {
+    color: var(--krkn-text-subtle);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Table of contents (right sidebar)
+// -----------------------------------------------------------------------------
+.td-toc {
+  border-left: 1px solid var(--krkn-border-subtle);
+  padding-left: 1rem;
+
+  @media (min-width: 1200px) {
+    position: sticky;
+    top: 4rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--krkn-border-prominent) transparent;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: var(--krkn-border-prominent); border-radius: 4px; }
+  }
+}
+
+.td-toc .td-toc__inner {
+  padding: 0;
+}
+
+.td-toc nav #TableOfContents ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.td-toc nav #TableOfContents li {
+  margin: 0.25rem 0;
+}
+
+.td-toc nav #TableOfContents a {
+  display: block;
+  padding: 0.25rem 0;
+  color: var(--krkn-text-muted);
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--krkn-text);
+  }
+}
+
+.td-toc nav #TableOfContents .active a {
+  color: var(--krkn-primary);
+}
+
+// TOC nested levels
+.td-toc nav #TableOfContents ul ul {
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+  border-left: 1px solid var(--krkn-border-subtle);
+  margin-left: 0.5rem;
+}
+
+// -----------------------------------------------------------------------------
+// Page meta (last modified, edit link)
+// -----------------------------------------------------------------------------
+.td-content .page-meta {
+  padding: 1rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--krkn-border-subtle);
+  font-size: 0.875rem;
+  color: var(--krkn-text-muted);
+
+  a {
+    color: var(--krkn-secondary-light);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Bootstrap Alerts - Dark theme overrides
+// Docsy uses Bootstrap alerts for {{% alert %}} shortcodes
+// -----------------------------------------------------------------------------
+.td-content .alert,
+.alert {
+  color: var(--krkn-text);
+  border-radius: 0.75rem;
+  border: 1px solid var(--krkn-border-subtle);
+  padding: 1rem 1.25rem;
+
+  a {
+    color: var(--krkn-secondary-light);
+    text-decoration: underline;
+  }
+
+  .alert-heading {
+    color: var(--krkn-text);
+    font-weight: 700;
+  }
+
+  code {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.alert-primary {
+  background: rgba(14, 88, 160, 0.15);
+  border-color: rgba(14, 88, 160, 0.3);
+}
+
+.alert-secondary {
+  background: rgba(100, 116, 139, 0.15);
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+.alert-success {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.alert-danger {
+  background: rgba(236, 28, 36, 0.1);
+  border-color: rgba(236, 28, 36, 0.25);
+}
+
+.alert-warning {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.25);
+}
+
+.alert-info {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+// Docsy-specific note/tip/warning/caution shortcode classes
+.alert.alert-note {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+.alert.alert-tip {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.alert.alert-caution {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.25);
+}
+
+// -----------------------------------------------------------------------------
+// Tags / Taxonomy / Category boxes
+// Override Docsy's default arrow-shaped tags with clean pills
+// -----------------------------------------------------------------------------
+.taxonomy,
+.taxonomy-terms-cloud,
+.td-content .taxonomy-terms-cloud {
+  .taxonomy-title {
+    color: var(--krkn-text);
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .taxonomy-terms {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .taxonomy-terms li {
+    margin: 0;
+  }
+
+  a, .taxonomy-term {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.375rem;
+    background: var(--krkn-surface) !important;
+    color: var(--krkn-text-muted) !important;
+    border: 1px solid var(--krkn-border-subtle) !important;
+    border-radius: 9999px !important;
+    padding: 0.3rem 0.85rem !important;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+    // Reset Docsy arrow shape
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    margin: 0 !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    .taxonomy-label {
+      color: var(--krkn-text) !important;
+      font-weight: 500;
+    }
+
+    .taxonomy-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.375rem;
+      height: 1.375rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      background: var(--krkn-border-subtle) !important;
+      color: var(--krkn-text-muted) !important;
+      border-radius: 9999px;
+      padding: 0 0.3rem;
+    }
+
+    &:hover {
+      background: var(--krkn-elevated) !important;
+      color: var(--krkn-text) !important;
+      border-color: var(--krkn-border-prominent) !important;
+    }
+  }
+}
+
+// Tags/categories shown inline on doc pages
+.td-content .td-tags,
+.td-content .taxonomy-terms-article {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+
+  a {
+    display: inline-flex !important;
+    align-items: center;
+    background: var(--krkn-surface) !important;
+    color: var(--krkn-text-muted) !important;
+    border: 1px solid var(--krkn-border-subtle) !important;
+    border-radius: 9999px !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    &:hover {
+      background: var(--krkn-elevated) !important;
+      color: var(--krkn-text) !important;
+      border-color: var(--krkn-border-prominent) !important;
+    }
+  }
+}
+
+// Override any .badge or .label used by Docsy
+.td-content .badge,
+.badge {
+  background: var(--krkn-surface) !important;
+  color: var(--krkn-text-muted) !important;
+  border: 1px solid var(--krkn-border-subtle) !important;
+  border-radius: 9999px;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+}
+
+// Pagination
+.pagination .page-link {
+  background: var(--krkn-surface);
+  border-color: var(--krkn-border-subtle);
+  color: var(--krkn-text-muted);
+
+  &:hover {
+    background: var(--krkn-elevated);
+    color: var(--krkn-text);
+    border-color: var(--krkn-border-prominent);
+  }
+}
+
+.pagination .active .page-link {
+  background: var(--krkn-primary);
+  border-color: var(--krkn-primary);
+  color: #fff;
+}
+
+// -----------------------------------------------------------------------------
+// Card component overrides (Docsy uses Bootstrap cards)
+// -----------------------------------------------------------------------------
+.td-content .card,
+.card {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  color: var(--krkn-text);
+
+  .card-header {
+    background: var(--krkn-elevated);
+    border-bottom-color: var(--krkn-border-subtle);
+    color: var(--krkn-text);
+  }
+
+  .card-body {
+    color: var(--krkn-text);
+  }
+
+  .card-footer {
+    background: var(--krkn-elevated);
+    border-top-color: var(--krkn-border-subtle);
+    color: var(--krkn-text-muted);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Lists (UL/OL)
+// -----------------------------------------------------------------------------
+.td-content ul,
+.td-content ol {
+  color: var(--krkn-text);
+  padding-left: 1.5rem;
+}
+
+.td-content li {
+  margin-bottom: 0.25rem;
+}
+
+// Horizontal rules
+.td-content hr {
+  border-color: var(--krkn-border-subtle);
+}
+
+// Images in docs
+.td-content img {
+  border-radius: 0.5rem;
+  max-width: 100%;
+}
+
+// Details / Summary (accordions)
+.td-content details {
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 1rem 0;
+
+  summary {
+    color: var(--krkn-text);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0;
+  }
+}
+
+// =============================================================================
+// FONT ENFORCEMENT
+// Ensure Docsy / Bootstrap defaults don't override our fonts on doc pages.
+// =============================================================================
+.td-sidebar,
+.td-content,
+.td-toc,
+.td-breadcrumbs,
+.td-main,
+.td-outer {
+  font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.td-sidebar-nav .td-sidebar-link,
+.td-sidebar-nav a,
+.td-content p,
+.td-content li,
+.td-content td,
+.td-content th,
+.td-content blockquote,
+.td-toc a {
+  font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+// =============================================================================
+// LIGHT THEME - COMPREHENSIVE OVERRIDES FOR DOC PAGES
+// =============================================================================
+[data-theme="light"] {
+
+  // ---------------------------------------------------------------------------
+  // Code blocks: light terminal style in light mode
+  // ---------------------------------------------------------------------------
+  .td-content pre,
+  .highlight pre,
+  .chroma,
+  pre.chroma {
+    background: #F6F8FA !important;
+    color: #24292F !important;
+    border: 1px solid var(--krkn-border-subtle) !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .td-content pre code,
+  .highlight code,
+  .chroma code,
+  pre code {
+    background: transparent !important;
+    color: #24292F !important;
+    -webkit-text-fill-color: initial;
+  }
+
+  .chroma, .bg {
+    color: #24292F !important;
+    background-color: #F6F8FA !important;
+  }
+
+  .chroma .line { display: flex; }
+  .chroma .cl { color: #24292F; }
+  .chroma .w { color: #24292F; }
+
+  // Chroma token colors (GitHub Light style)
+  .chroma .c, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf { color: #6E7781 !important; }
+  .chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kr, .chroma .kp, .chroma .kt { color: #CF222E !important; }
+  .chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .ss { color: #0A3069 !important; }
+  .chroma .nt { color: #116329 !important; }
+  .chroma .na { color: #0550AE !important; }
+  .chroma .nf, .chroma .nb, .chroma .ni, .chroma .ne, .chroma .nd { color: #8250DF !important; }
+  .chroma .mi, .chroma .mf, .chroma .mh, .chroma .mo, .chroma .mb, .chroma .il { color: #0550AE !important; }
+  .chroma .o { color: #CF222E !important; }
+  .chroma .p { color: #24292F !important; }
+  .chroma .l, .chroma .ld { color: #0A3069 !important; }
+  .chroma .nc, .chroma .nn, .chroma .no { color: #953800 !important; }
+  .chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi { color: #953800 !important; }
+  .chroma .n { color: #24292F !important; }
+  .chroma .err { color: #CF222E !important; background: transparent !important; }
+  .chroma .gh, .chroma .gu { color: #0550AE !important; font-weight: bold; }
+  .chroma .gd { color: #82071E !important; }
+  .chroma .gi { color: #116329 !important; }
+  .chroma .lnt, .chroma .ln { color: #8C959F !important; }
+  .chroma .hl { background-color: rgba(234, 179, 8, 0.12) !important; }
+
+  // Copy button
+  .td-content .highlight .btn-copy,
+  .highlight .btn-copy {
+    background: #E8E7E3;
+    border: 1px solid var(--krkn-border-subtle);
+    color: var(--krkn-text-muted);
+
+    &:hover {
+      background: var(--krkn-border-subtle);
+      color: var(--krkn-text);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Sidebar
+  // ---------------------------------------------------------------------------
+  .td-sidebar {
+    background: var(--krkn-surface);
+    border-right-color: var(--krkn-border-subtle);
+  }
+
+  .td-sidebar-nav .td-sidebar-link {
+    color: var(--krkn-text-muted);
+
+    &:hover {
+      color: var(--krkn-text);
+      background: var(--krkn-nav-hover-bg);
+    }
+
+    &.active {
+      color: var(--krkn-primary);
+      background: rgba(220, 38, 38, 0.06);
+    }
+  }
+
+  .td-sidebar-nav .td-sidebar-nav__section-title {
+    color: var(--krkn-text-subtle);
+  }
+
+  // Sidebar arrows/carets must be dark in light mode
+  .td-sidebar-nav label,
+  .td-sidebar-nav label::before,
+  .td-sidebar-nav label::after {
+    color: var(--krkn-text-muted) !important;
+    border-color: var(--krkn-text-muted) !important;
+  }
+
+  .td-sidebar-nav .active-path > label,
+  .td-sidebar-nav .active-path > label::before {
+    color: var(--krkn-text) !important;
+    border-color: var(--krkn-text) !important;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Main content
+  // ---------------------------------------------------------------------------
+  .td-content {
+    background: var(--krkn-bg) !important;
+    color: var(--krkn-text) !important;
+  }
+
+  .td-content h1,
+  .td-content h2,
+  .td-content h3,
+  .td-content h4,
+  .td-content h5,
+  .td-content h6 {
+    color: var(--krkn-text) !important;
+    border-bottom-color: var(--krkn-border-subtle);
+  }
+
+  .td-content p,
+  .td-content li,
+  .td-content td,
+  .td-content dd,
+  .td-content dt {
+    color: var(--krkn-text) !important;
+  }
+
+  // Inline code (stays light-themed, not dark — but crisp)
+  .td-content code:not(pre code) {
+    background: #E8E7E3 !important;
+    color: #B91C1C !important;
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Fira Code', monospace !important;
+    font-size: 0.85em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  // Links
+  .td-content a {
+    color: var(--krkn-secondary);
+
+    &:hover {
+      color: var(--krkn-secondary-light);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tables
+  // ---------------------------------------------------------------------------
+  .td-content th,
+  .td-content thead th,
+  table th,
+  table thead th {
+    background: var(--krkn-elevated) !important;
+    color: var(--krkn-text) !important;
+  }
+
+  .td-content td,
+  table td {
+    color: var(--krkn-text) !important;
+  }
+
+  .td-content tbody tr:nth-child(even),
+  table tbody tr:nth-child(even) {
+    background: var(--krkn-surface);
+  }
+
+  .td-content tbody tr:hover {
+    background: var(--krkn-elevated);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Blockquote
+  // ---------------------------------------------------------------------------
+  .td-content blockquote {
+    background: var(--krkn-surface);
+    color: var(--krkn-text-muted);
+    border-left-color: var(--krkn-primary);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Right-side TOC
+  // ---------------------------------------------------------------------------
+  .td-toc {
+    border-left-color: var(--krkn-border-subtle);
+  }
+
+  .td-toc nav #TableOfContents a {
+    color: var(--krkn-text-muted);
+
+    &:hover {
+      color: var(--krkn-text);
+    }
+  }
+
+  .td-toc nav #TableOfContents .active a {
+    color: var(--krkn-primary);
+  }
+
+  .td-toc nav #TableOfContents ul ul {
+    border-left-color: var(--krkn-border-subtle);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Breadcrumbs
+  // ---------------------------------------------------------------------------
+  .td-breadcrumbs .breadcrumb-item {
+    color: var(--krkn-text-muted);
+
+    a {
+      color: var(--krkn-secondary);
+    }
+
+    & + .breadcrumb-item::before {
+      color: var(--krkn-text-subtle);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Alerts (keep subtle on warm background)
+  // ---------------------------------------------------------------------------
+  .td-content .alert,
+  .alert {
+    color: var(--krkn-text);
+    border-color: var(--krkn-border-subtle);
+
+    code {
+      background: rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .alert-primary {
+    background: rgba(14, 88, 160, 0.08);
+    border-color: rgba(14, 88, 160, 0.2);
+  }
+
+  .alert-secondary {
+    background: rgba(100, 116, 139, 0.08);
+    border-color: rgba(100, 116, 139, 0.2);
+  }
+
+  .alert-success {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.2);
+  }
+
+  .alert-danger {
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.2);
+  }
+
+  .alert-warning {
+    background: rgba(234, 179, 8, 0.08);
+    border-color: rgba(234, 179, 8, 0.2);
+  }
+
+  .alert-info {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .alert.alert-note {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .alert.alert-tip {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.2);
+  }
+
+  .alert.alert-caution {
+    background: rgba(234, 179, 8, 0.08);
+    border-color: rgba(234, 179, 8, 0.2);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Cards, badges, pagination
+  // ---------------------------------------------------------------------------
+  .td-content .card,
+  .card {
+    background: var(--krkn-surface);
+    border-color: var(--krkn-border-subtle);
+    color: var(--krkn-text);
+
+    .card-header {
+      background: var(--krkn-elevated);
+      border-bottom-color: var(--krkn-border-subtle);
+      color: var(--krkn-text);
+    }
+
+    .card-body {
+      color: var(--krkn-text);
+    }
+
+    .card-footer {
+      background: var(--krkn-elevated);
+      border-top-color: var(--krkn-border-subtle);
+      color: var(--krkn-text-muted);
+    }
+  }
+
+  .pagination .page-link {
+    background: var(--krkn-surface);
+    border-color: var(--krkn-border-subtle);
+    color: var(--krkn-text-muted);
+
+    &:hover {
+      background: var(--krkn-elevated);
+      color: var(--krkn-text);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Details / Summary
+  // ---------------------------------------------------------------------------
+  .td-content details {
+    background: var(--krkn-surface);
+    border-color: var(--krkn-border-subtle);
+
+    summary {
+      color: var(--krkn-text);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Taxonomy / Tags (clean pill style)
+  // ---------------------------------------------------------------------------
+  .taxonomy a,
+  .taxonomy-term,
+  .taxonomy-terms-cloud a,
+  .td-content .taxonomy-terms-cloud a {
+    background: var(--krkn-surface) !important;
+    color: var(--krkn-text-muted) !important;
+    border: 1px solid var(--krkn-border-subtle) !important;
+    border-radius: 9999px !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+
+    &::before, &::after { display: none !important; }
+
+    &:hover {
+      background: var(--krkn-elevated) !important;
+      color: var(--krkn-text) !important;
+      border-color: var(--krkn-border-prominent) !important;
+    }
+  }
+
+  .td-content .badge,
+  .badge {
+    background: var(--krkn-surface) !important;
+    color: var(--krkn-text-muted) !important;
+    border: 1px solid var(--krkn-border-subtle) !important;
+    border-radius: 9999px;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Page meta
+  // ---------------------------------------------------------------------------
+  .td-content .page-meta {
+    border-top-color: var(--krkn-border-subtle);
+    color: var(--krkn-text-muted);
+
+    a {
+      color: var(--krkn-secondary);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Horizontal rules, images
+  // ---------------------------------------------------------------------------
+  .td-content hr {
+    border-color: var(--krkn-border-subtle);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Forms in docs
+  // ---------------------------------------------------------------------------
+  .form-control,
+  .form-select {
+    background-color: var(--krkn-surface);
+    border-color: var(--krkn-border-subtle);
+    color: var(--krkn-text);
+
+    &:focus {
+      background-color: var(--krkn-bg);
+      border-color: var(--krkn-secondary);
+      color: var(--krkn-text);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Docsy section headers on doc pages (page actions like "Edit this page")
+  // ---------------------------------------------------------------------------
+  .td-page-meta a,
+  .td-page-meta__edit a {
+    color: var(--krkn-secondary);
+
+    &:hover {
+      color: var(--krkn-secondary-light);
+    }
+  }
+} // end [data-theme="light"]
+
+// =============================================================================
+// Tab navigation — Docsy scenario tabs (Krkn / Krkn-hub / Krknctl)
+// Works in both dark and light modes via --krkn-* variables.
+// =============================================================================
+
+.nav.nav-tabs {
+  border-bottom: 2px solid var(--krkn-border-subtle) !important;
+  gap: 0.25rem;
+}
+
+.nav-tabs .nav-link {
+  color: var(--krkn-text-muted) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-bottom: none !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 0.6rem 1.25rem !important;
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--krkn-text) !important;
+  background: var(--krkn-elevated) !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--krkn-text) !important;
+  background: var(--krkn-surface) !important;
+  border-color: var(--krkn-border-subtle) var(--krkn-border-subtle) transparent !important;
+  border-bottom: 2px solid var(--krkn-primary) !important;
+  margin-bottom: -2px;
+}
+
+// Tab content area — follows theme background
+.tab-content {
+  color: var(--krkn-text) !important;
+  background: var(--krkn-elevated) !important;
+  border: 1px solid var(--krkn-border-subtle) !important;
+  border-top: none !important;
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+// Override Docsy's .tab-body which sets background: var(--td-pre-bg) (a code bg color)
+.tab-body {
+  background: var(--krkn-elevated) !important;
+  color: var(--krkn-text) !important;
+  border-color: var(--krkn-border-subtle) !important;
+}
+
+.tab-pane {
+  color: var(--krkn-text) !important;
+}
+
+// Headings inside tabs
+.tab-pane h1,
+.tab-pane h2,
+.tab-pane h3,
+.tab-pane h4,
+.tab-pane h5,
+.tab-pane h6 {
+  color: var(--krkn-text) !important;
+}
+
+.tab-pane p,
+.tab-pane li,
+.tab-pane td {
+  color: var(--krkn-text) !important;
+}
+
+.tab-pane a {
+  color: var(--krkn-primary) !important;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Note/Tip/Warning admonitions inside tabs
+.tab-pane .alert {
+  color: var(--krkn-text) !important;
+  background: var(--krkn-surface) !important;
+  border-color: var(--krkn-border-subtle) !important;
+}
+
+.tab-pane .alert h4,
+.tab-pane .alert .alert-heading {
+  color: var(--krkn-text) !important;
+}
+
+// Inline code inside tabs
+.tab-pane code:not(pre code) {
+  background: var(--krkn-surface) !important;
+  color: var(--krkn-primary) !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace !important;
+  font-size: 0.875em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+// Tables inside tabs
+.tab-pane table {
+  color: var(--krkn-text) !important;
+
+  th {
+    color: var(--krkn-text) !important;
+    background: var(--krkn-surface) !important;
+    border-color: var(--krkn-border-subtle) !important;
+  }
+
+  td {
+    border-color: var(--krkn-border-subtle) !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--krkn-surface) !important;
+  }
+}

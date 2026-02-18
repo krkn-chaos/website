@@ -1,0 +1,145 @@
+/**
+ * Horizontal scrolling for tab content
+ * Theme-aware: respects dark/light mode via CSS custom properties
+ */
+
+/* ── Tab navigation ── */
+.td-content .nav-tabs {
+    border-bottom: 2px solid var(--krkn-border-subtle);
+    gap: 0.25rem;
+}
+
+.td-content .nav-tabs .nav-link {
+    color: var(--krkn-text-muted) !important;
+    background: transparent !important;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 0.6rem 1.25rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: color 0.2s, background 0.2s;
+}
+
+.td-content .nav-tabs .nav-link:hover {
+    color: var(--krkn-text) !important;
+    background: var(--krkn-elevated) !important;
+}
+
+.td-content .nav-tabs .nav-link.active {
+    color: var(--krkn-text) !important;
+    background: var(--krkn-surface) !important;
+    border-color: var(--krkn-border-subtle) var(--krkn-border-subtle) transparent;
+    border-bottom: 2px solid var(--krkn-primary);
+    margin-bottom: -2px;
+}
+
+/* ── Tab pane scrolling ── */
+.tab-pane {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* ── Code blocks inside tabs — dark terminal, always ── */
+.tab-pane pre {
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre;
+    background-color: #0D1117 !important;
+    color: #E6EDF3 !important;
+    border-left: 3px solid var(--krkn-primary);
+    border-radius: 8px;
+    padding: 1rem !important;
+}
+
+.tab-pane pre code {
+    color: #E6EDF3 !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove backgrounds from syntax highlighting elements */
+.tab-pane pre code span,
+.tab-pane pre .highlight,
+.tab-pane pre .chroma,
+.tab-pane pre div,
+.tab-pane pre code > * {
+    background-color: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Inline code inside tabs ── */
+.tab-pane code:not(pre code) {
+    background-color: var(--krkn-elevated) !important;
+    color: var(--krkn-primary) !important;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+}
+
+/* ── Tables inside tabs ── */
+.tab-pane table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--krkn-border-subtle);
+}
+
+.tab-pane table thead th {
+    background-color: var(--krkn-elevated);
+    color: var(--krkn-text);
+    padding: 0.75rem;
+    border: 1px solid var(--krkn-border-subtle);
+    font-weight: 600;
+    text-align: left;
+}
+
+.tab-pane table td {
+    padding: 0.75rem;
+    border: 1px solid var(--krkn-border-subtle);
+    color: var(--krkn-text);
+}
+
+.tab-pane table tbody tr:nth-child(odd) {
+    background-color: var(--krkn-bg);
+}
+
+.tab-pane table tbody tr:nth-child(even) {
+    background-color: var(--krkn-surface);
+}
+
+.tab-pane table tbody tr:hover {
+    background-color: var(--krkn-elevated);
+}
+
+/* ── Scrollbar styling ── */
+.tab-pane::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tab-pane::-webkit-scrollbar-track {
+    background: var(--krkn-elevated);
+    border-radius: 4px;
+}
+
+.tab-pane::-webkit-scrollbar-thumb {
+    background: var(--krkn-border-prominent);
+    border-radius: 4px;
+}
+
+.tab-pane::-webkit-scrollbar-thumb:hover {
+    background: var(--krkn-text-muted);
+}
+
+.tab-body {
+    overflow-x: auto;
+}

@@ -1,12 +1,12 @@
 ---
 title: Node Scenarios
-description: 
+description:
 date: 2017-01-04
 weight: 3
 ---
 
 <krkn-hub-scenario id="node-scenarios">
-This scenario disrupts the node(s) matching the label or node name(s) on a Kubernetes/OpenShift cluster. These scenarios are performed in two different ways, either by the clusters cloud cli or by common/generic commands that can be performed on any cluster. 
+This scenario disrupts the node(s) matching the label or node name(s) on a Kubernetes/OpenShift cluster. These scenarios are performed in two different ways, either by the clusters cloud cli or by common/generic commands that can be performed on any cluster.
 
 
 ## Actions
@@ -25,7 +25,7 @@ The following node chaos scenarios are supported:
 11. **node_disk_detach_attach_scenario**: Scenario to detach and reattach disks (only for baremetals).
 
 ## Clouds
-Supported cloud supported: 
+Supported cloud supported:
 - [AWS](node-scenarios-krkn.md#aws)
 - [Azure](node-scenarios-krkn.md#azure)
 - [OpenStack](node-scenarios-krkn.md#openstack)
@@ -39,7 +39,7 @@ Supported cloud supported:
 
 {{% alert title="Note" %}}If the node does not recover from the node_crash_scenario injection, reboot the node to get it back to Ready state. {{% /alert %}}
 
-{{% alert title="Note" %}}node_start_scenario, node_stop_scenario, node_stop_start_scenario, node_termination_scenario, node_reboot_scenario and stop_start_kubelet_scenario are supported on 
+{{% alert title="Note" %}}node_start_scenario, node_stop_scenario, node_stop_start_scenario, node_termination_scenario, node_reboot_scenario and stop_start_kubelet_scenario are supported on
 - AWS
 - Azure
 - OpenStack
@@ -55,21 +55,21 @@ Supported cloud supported:
 
 
 
-## Recovery Times 
+## Recovery Times
 
-In each node scenario, the end telemetry details of the run will show the time it took for each node to stop and recover depening on the scenario.  
+In each node scenario, the end telemetry details of the run will show the time it took for each node to stop and recover depening on the scenario.
 
 The details printed in telemetry:
-- *node_name*: Node name 
-- *node_id*: Node id 
+- *node_name*: Node name
+- *node_id*: Node id
 - *not_ready_time*: Amount of time the node took to get to a not ready state after cloud provider has stopped node
 - *ready_time*: Amount of time the node took to get to a ready state after cloud provider has become in started state
 - *stopped_time*: Amount of time the cloud provider took to stop a node
 - *running_time*: Amount of time the cloud provider took to get a node running
 - *terminating_time*: Amount of time the cloud provider took for node to become terminated
 
-Example: 
-```
+Example:
+```bash
 "affected_nodes": [
     {
         "node_name": "cluster-name-**.438115.internal",
@@ -107,5 +107,25 @@ Example:
         "running_time": 12.052034854888916,
         "terminating_time": 0.0
     }
+]
 ```
 
+## How to Run Node Scenarios
+
+Choose your preferred method to run node scenarios:
+
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}
+
+## Demo
+See a demo of this scenario:
+<script src="https://asciinema.org/a/ANZY7HhPdWTNaWt4xMFanF6Q5.js" id="asciicast-ANZY7HhPdWTNaWt4xMFanF6Q5" async="true" style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;"></script>

@@ -27,7 +27,7 @@ kraken:
 ```
 
 
-### Running Multiple Scnearios
+### Running Multiple Scenarios
 To run multiple scenarios, you'll edit the krkn config file and add multiple scenarios into chaos_scenarios. If you want to run multiple scenario files that are the same scenario type you can add multiple items under the scenario_type. If you want to run multiple different scenario types you can add those under chaos_scenarios 
 
 

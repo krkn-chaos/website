@@ -1,0 +1,74 @@
+<!-- Include Krkn Documentation Chatbot -->
+{{ partial "chatbot.html" . }}
+
+<!-- Tab activation from URL hash + hash update on tab click -->
+<script>
+(function() {
+  var updatingFromHash = false;
+
+  function activateTab() {
+    var hash = window.location.hash;
+    if (!hash) return;
+
+    var tabName = null;
+    if (hash.startsWith('#tab-')) {
+      tabName = hash.substring(5);
+    } else if (hash.match(/^#tabpane-\d+-/)) {
+      var m = hash.match(/^#tabpane-\d+-(.+)$/);
+      if (m) tabName = m[1];
+    }
+
+    if (tabName) {
+      var btn = document.querySelector('button[data-td-tp-persist="**' + tabName + '**"]');
+      if (btn) {
+        updatingFromHash = true;
+        btn.click();
+        updatingFromHash = false;
+        setTimeout(function() {
+          var nav = btn.closest('.nav-tabs');
+          if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    }
+  }
+
+  // Update URL hash when a tab is clicked so the URL is shareable
+  function setupTabHashSync() {
+    var tabButtons = document.querySelectorAll('button[data-td-tp-persist]');
+    tabButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (updatingFromHash) return;
+        var persist = btn.getAttribute('data-td-tp-persist') || '';
+        var name = persist.replace(/^\*\*|\*\*$/g, '');
+        if (name) {
+          history.replaceState(null, '', '#tab-' + name);
+        }
+      });
+    });
+  }
+
+  // Activate tab from hash with retries for async tab init
+  setTimeout(activateTab, 500);
+  setTimeout(activateTab, 1000);
+  setTimeout(activateTab, 2000);
+
+  // Set up hash sync once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(setupTabHashSync, 300); });
+  } else {
+    setTimeout(setupTabHashSync, 300);
+  }
+
+  window.addEventListener('hashchange', function() {
+    setTimeout(activateTab, 100);
+  });
+})();
+</script>
+
+<!-- Scroll animations -->
+<script src="{{ "js/scroll-animations.js" | relURL }}" defer></script>
+
+<!-- No-JS fallback: make reveal elements visible -->
+<noscript>
+  <style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+</noscript>

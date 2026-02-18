@@ -164,7 +164,7 @@ More details on the data captured in the telmetry and how to set up your own tel
 ```
 **oc_cli_path**: Optional, if not specified will be search in $PATH, default is `/usr/bin/oc` 
 
-**events_backup**: True or False, this will capture events that occured during the chaos run. Will be saved to {archive_path}/events.json
+**events_backup**: True or False, this will capture events that occurred during the chaos run. Will be saved to {archive_path}/events.json
 
 ## Health Checks                                              
 Utilizing health check endpoints to observe application behavior during chaos injection, see more details about how this works and different ways to configure [here](health-checks.md)

@@ -1,6 +1,6 @@
 ---
 title: Pod Network Scenarios
-description: 
+description:
 date: 2017-01-04
 weight: 3
 ---
@@ -69,3 +69,19 @@ This scenario blocks ingress traffic on port 8443 for pods matching `component=u
 The `exclude_label` parameter is also supported in the pod network shaping scenarios (`pod_egress_shaping` and `pod_ingress_shaping`), allowing for the same selective application of network latency, packet loss, and bandwidth restriction.
 
 </krkn-hub-scenario>
+
+## How to Run Pod Network Scenarios
+
+Choose your preferred method to run pod network scenarios:
+
+{{< tabpane text=true >}}
+  {{< tab header="**Krkn**" lang="krkn" >}}
+{{< readfile file="_tab-krkn.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krkn-hub**" lang="krkn-hub" >}}
+{{< readfile file="_tab-krkn-hub.md" >}}
+  {{< /tab >}}
+  {{< tab header="**Krknctl**" lang="krknctl" >}}
+{{< readfile file="_tab-krknctl.md" >}}
+  {{< /tab >}}
+{{< /tabpane >}}

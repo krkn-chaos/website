@@ -42,7 +42,7 @@ Following command can be used to run the pre-commit:
 If pre-commit is not installed in your system, it can be install with : `pip install pre-commit`
 
 ## Squash Commits
-If there are mutliple commits, please rebase/squash multiple commits
+If there are multiple commits, please rebase/squash multiple commits
 before creating the PR by following:
 
 ```bash

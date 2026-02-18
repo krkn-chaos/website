@@ -1,0 +1,176 @@
+// =============================================================================
+// Krkn Theme - Custom Animations
+// Keyframes and utility classes for scroll-triggered and hover interactions.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Keyframes
+// -----------------------------------------------------------------------------
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Animation utility classes
+// -----------------------------------------------------------------------------
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+// -----------------------------------------------------------------------------
+// Stagger delays (for orchestrated page load reveals)
+// Use with .animate-fade-in-up or similar: e.g. class="animate-fade-in-up stagger-2"
+// -----------------------------------------------------------------------------
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+// -----------------------------------------------------------------------------
+// Reveal class (for Intersection Observer)
+// Starts hidden; JS adds .reveal--visible when element enters viewport
+// -----------------------------------------------------------------------------
+
+// Note: The scroll-animations.js handles the reveal.
+// Elements start hidden; JS adds .reveal--visible.
+// For no-JS, a <noscript> tag makes them visible.
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+
+  &.reveal--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // Variant: slide from left
+  &.reveal--left {
+    transform: translateX(-40px);
+    &.reveal--visible { transform: translateX(0); }
+  }
+
+  // Variant: slide from right
+  &.reveal--right {
+    transform: translateX(40px);
+    &.reveal--visible { transform: translateX(0); }
+  }
+
+  // Variant: scale in
+  &.reveal--scale {
+    transform: scale(0.95);
+    &.reveal--visible { transform: scale(1); }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Reduced motion: respect user preference
+// -----------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in,
+  .reveal {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .stagger-1,
+  .stagger-2,
+  .stagger-3,
+  .stagger-4,
+  .stagger-5,
+  .stagger-6 {
+    animation-delay: 0s !important;
+  }
+
+  .hero-logo {
+    animation: none !important;
+  }
+}

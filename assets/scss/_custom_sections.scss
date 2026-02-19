@@ -141,9 +141,11 @@ svg.feature-card__icon {
   &::-webkit-scrollbar {
     height: 6px;
   }
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
+
   &::-webkit-scrollbar-thumb {
     background: var(--krkn-border-prominent);
     border-radius: 3px;
@@ -220,6 +222,11 @@ svg.scenario-card__icon {
   padding: 6rem 2rem;
   text-align: center;
   background: var(--krkn-bg);
+  overflow-x: hidden;
+
+  @media (max-width: 600px) {
+    padding: 3rem 1.25rem;
+  }
 }
 
 .cta-section__title {
@@ -227,6 +234,10 @@ svg.scenario-card__icon {
   font-weight: 700;
   color: var(--krkn-text);
   margin-bottom: 1rem;
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 }
 
 .cta-section__subtitle {
@@ -389,12 +400,22 @@ svg.scenario-card__icon {
 }
 
 // Theme-dependent footer CNCF logo
-.krkn-footer__cncf-light { display: none; }
-.krkn-footer__cncf-dark  { display: inline-block; }
+.krkn-footer__cncf-light {
+  display: none;
+}
+
+.krkn-footer__cncf-dark {
+  display: inline-block;
+}
 
 [data-theme="light"] {
-  .krkn-footer__cncf-light { display: inline-block; }
-  .krkn-footer__cncf-dark  { display: none; }
+  .krkn-footer__cncf-light {
+    display: inline-block;
+  }
+
+  .krkn-footer__cncf-dark {
+    display: none;
+  }
 }
 
 .krkn-footer__copyright {

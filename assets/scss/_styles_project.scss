@@ -31,8 +31,8 @@
   --krkn-code-bg: #0F172A;
   --krkn-shadow: rgba(0, 0, 0, 0.3);
   --krkn-card-hover-glow: rgba(236, 28, 36, 0.15);
-  --krkn-glass-bg: rgba(10, 11, 16, 0.65);
-  --krkn-glass-bg-solid: rgba(10, 11, 16, 0.95);
+  --krkn-glass-bg: rgba(10, 11, 16, 0.88);
+  --krkn-glass-bg-solid: rgba(10, 11, 16, 0.97);
   --krkn-nav-hover-bg: rgba(255, 255, 255, 0.05);
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-white.svg');
@@ -42,23 +42,23 @@
 // Light theme -- warm stone palette, easy on the eyes
 // Three tiers: bg (lightest) > surface (mid) > elevated (deepest)
 [data-theme="light"] {
-  --krkn-bg: #F4F3EF;            // warm linen
-  --krkn-surface: #E8E7E3;       // warm stone -- noticeably darker
-  --krkn-elevated: #DDDCD8;      // warm pebble
+  --krkn-bg: #F4F3EF; // warm linen
+  --krkn-surface: #E8E7E3; // warm stone -- noticeably darker
+  --krkn-elevated: #DDDCD8; // warm pebble
   --krkn-primary: #DC2626;
   --krkn-primary-hover: #B91C1C;
   --krkn-secondary: #0E58A0;
   --krkn-secondary-light: #2563EB;
-  --krkn-text: #1C1917;           // stone-900
-  --krkn-text-muted: #57534E;     // stone-600
-  --krkn-text-subtle: #78716C;    // stone-500
+  --krkn-text: #1C1917; // stone-900
+  --krkn-text-muted: #57534E; // stone-600
+  --krkn-text-subtle: #78716C; // stone-500
   --krkn-border-subtle: #D6D3CE;
   --krkn-border-prominent: #A8A29E;
   --krkn-code-bg: #DDDCD8;
   --krkn-shadow: rgba(0, 0, 0, 0.06);
   --krkn-card-hover-glow: rgba(220, 38, 38, 0.06);
-  --krkn-glass-bg: rgba(244, 243, 239, 0.85);
-  --krkn-glass-bg-solid: rgba(244, 243, 239, 0.97);
+  --krkn-glass-bg: rgba(244, 243, 239, 0.95);
+  --krkn-glass-bg-solid: rgba(244, 243, 239, 0.99);
   --krkn-nav-hover-bg: rgba(0, 0, 0, 0.05);
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-color.png');
@@ -68,7 +68,8 @@
 // -----------------------------------------------------------------------------
 // Global dark theme base styles
 // -----------------------------------------------------------------------------
-html, body {
+html,
+body {
   background: var(--krkn-bg);
   color: var(--krkn-text);
 }
@@ -132,7 +133,18 @@ body {
 }
 
 // Word wrapping for long text (prevents overflow on small screens)
-p, li, dd, dt, td, th, h1, h2, h3, h4, h5, h6 {
+p,
+li,
+dd,
+dt,
+td,
+th,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -143,9 +155,19 @@ html {
   scrollbar-color: var(--krkn-border-prominent) transparent;
 }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--krkn-border-prominent); border-radius: 6px; }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--krkn-border-prominent);
+  border-radius: 6px;
+}
 
 // Homepage hero extends behind the transparent navbar
 .td-home main,
@@ -157,8 +179,15 @@ html {
 // Must override Docsy's `.td-default main section { padding: 4rem }`.
 // Using !important to beat the higher-specificity Docsy selector.
 section.hero-section {
-  padding-top: 10rem !important;
-  padding-bottom: 3rem !important;
+  padding-top: 8rem !important; // Slightly less top padding on mobile
+  padding-bottom: 2rem !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  @media (min-width: 1024px) {
+    padding-top: 10rem !important;
+    padding-bottom: 3rem !important;
+  }
 }
 
 // Force all Docsy page wrappers to use theme colors
@@ -172,8 +201,18 @@ section.hero-section {
 }
 
 // Force all headings to use theme color (override Bootstrap's compiled defaults)
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   color: var(--krkn-text) !important;
   font-family: 'Satoshi', sans-serif;
 }
@@ -220,6 +259,7 @@ h1, h2, h3, h4, h5, h6,
 
 // Responsive adjustments
 @media (max-width: 768px) {
+
   .section-dark,
   .section-surface,
   .section-elevated {

@@ -1,4 +1,4 @@
-baseURL: /
+baseURL: https://krkn-chaos.dev/
 title: Krkn-Chaos
 
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
@@ -88,8 +88,7 @@ params:
 
   # privacy_policy: https://policies.google.com/privacy
 
-  # First one is picked as the Twitter card image if not set on page.
-  # images: [images/project-illustration.png]
+  images: [img/og-image.png]
 
   # Menu title if your navbar has a versions selector to access old versions of your site.
   # This menu appears only if you have at least one [params.versions] set.

@@ -5,3 +5,43 @@
   document.documentElement.setAttribute('data-theme', theme);
 })();
 </script>
+
+{{/* Organization + WebSite structured data for Google Search */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Krkn",
+      "url": "https://krkn-chaos.dev",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://krkn-chaos.dev/img/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "description": "{{ .Site.Params.description }}",
+      "sameAs": [
+        "https://github.com/krkn-chaos"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Krkn",
+      "url": "https://krkn-chaos.dev",
+      "description": "{{ .Site.Params.description }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Krkn",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://krkn-chaos.dev/img/og-image.png"
+        }
+      }
+    }
+  ]
+}
+</script>
+{{ end }}

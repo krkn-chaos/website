@@ -6,6 +6,17 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
 */}}
 {{ define "main" }}
 <style>
+  .krkn-home {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .krkn-home *,
+  .krkn-home *::before,
+  .krkn-home *::after {
+    box-sizing: border-box;
+  }
+
   /* Homepage-specific overrides (not in SCSS because they're page-specific) */
   .krkn-home .section-surface .section-title,
   .krkn-home .section-dark .section-title {
@@ -27,6 +38,31 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     max-width: none;
   }
 
+  @media (max-width: 768px) {
+
+    .krkn-home .section-dark,
+    .krkn-home .section-surface,
+    .krkn-home .section-elevated {
+      padding: 3rem 0;
+    }
+
+    .krkn-home .section-dark>.container,
+    .krkn-home .section-surface>.container,
+    .krkn-home .section-elevated>.container {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .krkn-home .section-title {
+      font-size: 1.75rem;
+    }
+
+    .krkn-home .section-subtitle {
+      font-size: 0.95rem;
+      padding: 0 0.5rem;
+    }
+  }
+
   /* About grid layout */
   .about-grid {
     display: grid;
@@ -38,6 +74,44 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   @media (max-width: 900px) {
     .about-grid {
       grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    /* Force center alignment for titles/subtitles/buttons on mobile */
+    .krkn-home .about-grid .section-title {
+      text-align: center !important;
+    }
+
+    .krkn-home .about-grid .section-subtitle {
+      text-align: center !important;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 100% !important;
+    }
+
+    .about-grid .btn-outline-krkn,
+    .about-grid .btn-primary-krkn,
+    .about-grid .btn {
+      display: inline-flex;
+      margin: 0 auto;
+    }
+
+    .about-visual {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .about-visual .code-block {
+      max-width: 100%;
+    }
+
+    .about-visual .code-block pre {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .about-visual .code-block code {
+      font-size: 0.78rem;
     }
   }
 
@@ -48,6 +122,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    max-width: 100%;
   }
 
   .code-block__header {
@@ -57,6 +132,52 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     padding: 0.75rem 1rem;
     background: #161B22 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  [data-theme="light"] .code-block,
+  [data-theme="light"] .step-card__code,
+  [data-theme="light"] .krkn-ai-terminal {
+    background: #EAEAEF !important;
+    border: 1px solid #C7C7CC !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  [data-theme="light"] .code-block__header,
+  [data-theme="light"] .krkn-ai-terminal__bar {
+    background: #DFDFE6 !important;
+    border-bottom: 1px solid #C7C7CC !important;
+  }
+
+  [data-theme="light"] .code-block__title,
+  [data-theme="light"] .krkn-ai-terminal__title {
+    color: #55555A !important;
+  }
+
+  [data-theme="light"] .code-block code,
+  [data-theme="light"] .krkn-ai-terminal__body,
+  [data-theme="light"] .step-card__code {
+    color: #1C1C1E !important;
+    -webkit-text-fill-color: #1C1C1E !important;
+  }
+
+  [data-theme="light"] .code-block code .check,
+  [data-theme="light"] .t-ok,
+  [data-theme="light"] .c-ok,
+  [data-theme="light"] .step-card__code .c-ok {
+    color: #15803d !important;
+    -webkit-text-fill-color: #15803d !important;
+  }
+
+  [data-theme="light"] .t-flag,
+  [data-theme="light"] .c-flag,
+  [data-theme="light"] .step-card__code .c-flag {
+    color: #1d4ed8 !important;
+  }
+
+  [data-theme="light"] .c-prompt,
+  [data-theme="light"] .t-prompt,
+  [data-theme="light"] .step-card__code .c-prompt {
+    color: #4b5563 !important;
   }
 
   .code-block__dot {
@@ -129,7 +250,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   @media (max-width: 1200px) {
     .steps-grid {
       max-width: 100%;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
     }
   }
 
@@ -137,13 +258,19 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     .steps-grid {
       grid-template-columns: repeat(2, 1fr);
       max-width: 700px;
+      gap: 1.5rem;
     }
   }
 
   @media (max-width: 550px) {
     .steps-grid {
       grid-template-columns: 1fr;
-      max-width: 400px;
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .step-card {
+      padding: 1.5rem 1.25rem;
     }
   }
 
@@ -211,6 +338,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     line-height: 1.5;
     overflow-x: auto;
     white-space: pre;
+    max-width: 100%;
   }
 
   .step-card__code .c-prompt {
@@ -244,6 +372,24 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
       grid-template-columns: 1fr;
       gap: 2rem;
     }
+
+    .krkn-ai-content {
+      text-align: center;
+    }
+
+    .krkn-ai-desc {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .krkn-ai-features {
+      text-align: left;
+    }
+
+    .krkn-ai-content .hero-cta {
+      justify-content: center !important;
+    }
   }
 
   @media (max-width: 600px) {
@@ -255,9 +401,18 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
       font-size: 0.9375rem;
     }
 
+    .krkn-ai-features li {
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+
+    .krkn-ai-features li strong {
+      display: inline;
+    }
+
     .krkn-ai-terminal__body {
-      font-size: 0.6rem !important;
-      padding: 0.875rem 1rem !important;
+      font-size: 0.55rem !important;
+      padding: 0.75rem 0.75rem !important;
     }
   }
 
@@ -326,9 +481,16 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     line-height: 1.5;
   }
 
+  .krkn-ai-features li span {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   .krkn-ai-features li svg {
     width: 20px;
     height: 20px;
+    min-width: 20px;
     color: var(--krkn-primary);
     flex-shrink: 0;
     margin-top: 2px;
@@ -336,6 +498,8 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
 
   .krkn-ai-visual {
     position: relative;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .krkn-ai-terminal {
@@ -344,6 +508,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     border-radius: 0.75rem;
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
   }
 
   .krkn-ai-terminal__bar {
@@ -388,6 +553,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     color: #E6EDF3;
     overflow-x: auto;
     white-space: pre;
+    max-width: 100%;
   }
 
   .krkn-ai-terminal__body .t-prompt {
@@ -463,7 +629,6 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     }
   }
 
-  /* ── Scenario Categories ── */
   .scenario-categories {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -582,6 +747,22 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   }
 
   @media (max-width: 600px) {
+    .cta-section {
+      padding: 3rem 1.25rem !important;
+    }
+
+    .cta-code {
+      max-width: 100%;
+    }
+
+    .cta-code .code-block pre {
+      padding: 1rem;
+    }
+
+    .cta-code .code-block code {
+      font-size: 0.7rem;
+    }
+
     .scenario-categories {
       grid-template-columns: 1fr;
     }
@@ -609,7 +790,8 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     }
 
     .krkn-ai-terminal__body {
-      font-size: 0.55rem !important;
+      font-size: 0.5rem !important;
+      padding: 0.625rem 0.5rem !important;
     }
 
     .step-card h3 {
@@ -627,7 +809,23 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
 
     .steps-grid {
       max-width: 100%;
-      padding: 0 0.5rem;
+      padding: 0;
+    }
+
+    .cta-code .code-block code {
+      font-size: 0.6rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-cta .btn-primary-krkn,
+    .hero-cta .btn-outline-krkn {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
@@ -895,10 +1093,9 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <h3>Configure</h3>
           <p>Point to your kubeconfig and optionally connect Cerberus for live health monitoring.</p>
           <div class="step-card__code"><span class="c-prompt">$</span> krknctl list available
-            <span class="c-muted">pod-scenarios container-scenarios
-              node-scenarios network-chaos
-              zone-outages time-scenarios ...</span>
-          </div>
+<span class="c-muted">  pod-scenarios  container-scenarios
+  node-scenarios   network-chaos
+  zone-outages     time-scenarios ...</span></div>
         </div>
 
         <div class="step-card reveal" data-delay="250">
@@ -1130,7 +1327,7 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
                 weakest points</span>
             </li>
           </ul>
-          <div class="hero-cta" style="justify-content:flex-start">
+          <div class="hero-cta">
             <a href="/docs/krkn_ai/" class="btn-primary-krkn">
               Explore Krkn AI
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"

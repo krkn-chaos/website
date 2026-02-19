@@ -23,28 +23,14 @@ Start with [Your First Chaos Experiment](first-chaos-experiment/) to learn the b
 <p class="scenario-description">Install krknctl, run your first pod failure scenario, and understand what happened. Perfect for getting started with chaos engineering.</p>
 </div>
 
-<div class="scenario-card">
-<h3>Setting Up Observability</h3>
-<span class="scenario-badge">⏱ 30 minutes | Coming Soon</span>
-<p class="scenario-description">Install Cerberus, configure monitoring, run chaos with observability, and interpret dashboards to understand the impact of chaos.</p>
-<p class="scenario-description" style="margin-top: 0.5rem;"><em>For now, see <a href="../cerberus/">Cerberus documentation</a></em></p>
 </div>
 
-<div class="scenario-card">
-<h3>Building Custom Scenarios</h3>
-<span class="scenario-badge">⏱ 45 minutes | Coming Soon</span>
-<p class="scenario-description">Learn scenario structure, create a custom chaos test, test it safely, and share it with your team.</p>
-<p class="scenario-description" style="margin-top: 0.5rem;"><em>For now, see <a href="../scenarios/">Scenarios documentation</a></em></p>
-</div>
-
-<div class="scenario-card">
-<h3>CI/CD Integration</h3>
-<span class="scenario-badge">⏱ 30 minutes | Coming Soon</span>
-<p class="scenario-description">Set up automated chaos testing in GitHub Actions, fail builds on critical alerts, and integrate chaos into your deployment pipeline.</p>
-<p class="scenario-description" style="margin-top: 0.5rem;"><em>For now, see <a href="../getting-started/">Getting Started</a></em></p>
-</div>
-
-</div>
+{{% alert title="More Tutorials Coming Soon" %}}
+We're working on additional tutorials covering:
+- **Setting Up Observability** - For now, see [Cerberus documentation](../cerberus/)
+- **Building Custom Scenarios** - For now, see [Scenarios documentation](../scenarios/)
+- **CI/CD Integration** - For now, see [Getting Started](../getting-started/)
+{{% /alert %}}
 
 ## What Makes a Tutorial?
 
@@ -61,9 +47,9 @@ Tutorials are **not**:
 - ❌ Technical specifications (see [Reference](../reference/))
 - ❌ Conceptual explanations (see [Explanations](../explanation/))
 
-## After Completing Tutorials
+## Next Steps
 
-Once you've completed the tutorials, you can:
+After completing the tutorial, you can:
 - Browse [How-To Guides](../how-to/) for specific tasks
 - Explore the [Scenarios Catalog](../reference/scenarios/) for all available chaos tests
 - Read [Explanations](../explanation/) to deepen your understanding

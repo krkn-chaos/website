@@ -172,12 +172,35 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   [data-theme="light"] .c-flag,
   [data-theme="light"] .step-card__code .c-flag {
     color: #1d4ed8 !important;
+    -webkit-text-fill-color: #1d4ed8 !important;
   }
 
   [data-theme="light"] .c-prompt,
   [data-theme="light"] .t-prompt,
   [data-theme="light"] .step-card__code .c-prompt {
     color: #4b5563 !important;
+    -webkit-text-fill-color: #4b5563 !important;
+  }
+
+  [data-theme="light"] .t-warn {
+    color: #92400e !important;
+    -webkit-text-fill-color: #92400e !important;
+  }
+
+  [data-theme="light"] .t-muted,
+  [data-theme="light"] .c-muted {
+    color: #6b7280 !important;
+    -webkit-text-fill-color: #6b7280 !important;
+  }
+
+  [data-theme="light"] .t-red {
+    color: #dc2626 !important;
+    -webkit-text-fill-color: #dc2626 !important;
+  }
+
+  [data-theme="light"] .t-val {
+    color: #1e40af !important;
+    -webkit-text-fill-color: #1e40af !important;
   }
 
   .code-block__dot {
@@ -1076,10 +1099,9 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <h3>Install</h3>
           <p>Download the krknctl binary from GitHub releases — available for Linux, macOS, and Windows.</p>
           <div class="step-card__code"><span class="c-muted"># Download from GitHub releases</span>
-            <span class="c-prompt">$</span> tar -xzf krknctl_*.tar.gz
-            <span class="c-prompt">$</span> mv krknctl /usr/local/bin/
-            <span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span>
-          </div>
+<span class="c-prompt">$</span> tar -xzf krknctl_*.tar.gz
+<span class="c-prompt">$</span> mv krknctl /usr/local/bin/
+<span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span></div>
         </div>
 
         <div class="step-card reveal" data-delay="175">
@@ -1107,10 +1129,9 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <h3>Run Chaos</h3>
           <p>Pick a scenario and fire. Rollback state is saved automatically — your cluster is always recoverable.</p>
           <div class="step-card__code"><span class="c-prompt">$</span> krknctl run pod-scenarios \
-            <span class="c-flag">--kubeconfig</span> ~/.kube/config
-            <span class="c-ok">✓</span> <span class="c-muted">Scenario completed in 47s</span>
-            <span class="c-ok">✓</span> <span class="c-muted">All 12 pods recovered</span>
-          </div>
+  <span class="c-flag">--kubeconfig</span> ~/.kube/config
+<span class="c-ok">✓</span> <span class="c-muted">Scenario completed in 47s</span>
+<span class="c-ok">✓</span> <span class="c-muted">All 12 pods recovered</span></div>
         </div>
 
         <div class="step-card reveal" data-delay="325">
@@ -1123,11 +1144,9 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           </svg>
           <h3>Analyze</h3>
           <p>Review SLO pass/fail, Prometheus metrics, and alerts. Ship telemetry to S3 or Elasticsearch.</p>
-          <div class="step-card__code"><span class="c-ok">PASS</span> <span class="c-muted">api_latency_p99 &lt;
-              500ms</span>
-            <span class="c-ok">PASS</span> <span class="c-muted">error_rate &lt; 0.1%</span>
-            <span class="c-ok">PASS</span> <span class="c-muted">pod_recovery &lt; 30s</span>
-          </div>
+          <div class="step-card__code"><span class="c-ok">PASS</span> <span class="c-muted">api_latency_p99 &lt; 500ms</span>
+<span class="c-ok">PASS</span> <span class="c-muted">error_rate &lt; 0.1%</span>
+<span class="c-ok">PASS</span> <span class="c-muted">pod_recovery &lt; 30s</span></div>
         </div>
 
       </div>
@@ -1355,39 +1374,28 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
               <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--g"></span>
               <span class="krkn-ai-terminal__title">krkn-ai</span>
             </div>
-            <div class="krkn-ai-terminal__body"><span class="t-prompt">$</span> uv run krkn_ai discover <span
-                class="t-flag">-k</span> ~/.kube/config <span class="t-flag">-n</span> <span
-                class="t-val">"robot-.*,etcd"</span> <span class="t-flag">-o</span> ./krkn-ai.yaml
-              <span class="t-ok">✓</span> <span class="t-muted">Discovered 24 pods, 8 services, 6 nodes</span>
-              <span class="t-ok">✓</span> <span class="t-muted">Config saved to krkn-ai.yaml</span>
+            <div class="krkn-ai-terminal__body"><span class="t-prompt">$</span> uv run krkn_ai discover <span class="t-flag">-k</span> ~/.kube/config <span class="t-flag">-n</span> <span class="t-val">"robot-.*,etcd"</span> <span class="t-flag">-o</span> ./krkn-ai.yaml
+<span class="t-ok">✓</span> <span class="t-muted">Discovered 24 pods, 8 services, 6 nodes</span>
+<span class="t-ok">✓</span> <span class="t-muted">Config saved to krkn-ai.yaml</span>
 
-              <span class="t-prompt">$</span> uv run krkn_ai run <span class="t-flag">-c</span> ./krkn-ai.yaml <span
-                class="t-flag">-o</span> ./results/
+<span class="t-prompt">$</span> uv run krkn_ai run <span class="t-flag">-c</span> ./krkn-ai.yaml <span class="t-flag">-o</span> ./results/
 
-              <span class="t-muted">╭─ Generation 1/20 ──────────────────────╮</span>
-              <span class="t-muted">│</span> Population: <span class="t-val">10</span> samples
-              <span class="t-muted">│</span> Running: <span class="t-warn">pod-disruption</span> on <span
-                class="t-val">cart-7cd6c</span>
-              <span class="t-muted">│</span> Fitness: <span class="t-red">0.82</span> <span class="t-muted">← restart
-                count ↑</span>
-              <span class="t-muted">│</span> Health: <span class="t-ok">/cart 200</span> <span class="t-red">/catalogue
-                503</span>
-              <span class="t-muted">╰────────────────────────────────────────╯</span>
+<span class="t-muted">╭─ Generation 1/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Population: <span class="t-val">10</span> samples
+<span class="t-muted">│</span> Running:    <span class="t-warn">pod-disruption</span> on <span class="t-val">cart-7cd6c</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.82</span>  <span class="t-muted">← restart count ↑</span>
+<span class="t-muted">│</span> Health:     <span class="t-ok">/cart 200</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
 
-              <span class="t-muted">╭─ Generation 5/20 ──────────────────────╮</span>
-              <span class="t-muted">│</span> Evolved via <span class="t-warn">crossover + mutation</span>
-              <span class="t-muted">│</span> Running: <span class="t-warn">node-drain</span> + <span
-                class="t-warn">net-chaos</span>
-              <span class="t-muted">│</span> Fitness: <span class="t-red">0.94</span> <span class="t-muted">← critical
-                path found</span>
-              <span class="t-muted">│</span> Health: <span class="t-red">/cart 503</span> <span class="t-red">/catalogue
-                503</span>
-              <span class="t-muted">╰────────────────────────────────────────╯</span>
+<span class="t-muted">╭─ Generation 5/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Evolved via <span class="t-warn">crossover + mutation</span>
+<span class="t-muted">│</span> Running:    <span class="t-warn">node-drain</span> + <span class="t-warn">net-chaos</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.94</span>  <span class="t-muted">← critical path found</span>
+<span class="t-muted">│</span> Health:     <span class="t-red">/cart 503</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
 
-              <span class="t-ok">✓</span> <span class="t-muted">Top scenario: node-drain + net-chaos (fitness:
-                0.94)</span>
-              <span class="t-ok">✓</span> <span class="t-muted">Results saved to ./results/</span>
-            </div>
+<span class="t-ok">✓</span> <span class="t-muted">Top scenario: node-drain + net-chaos (fitness: 0.94)</span>
+<span class="t-ok">✓</span> <span class="t-muted">Results saved to ./results/</span></div>
           </div>
         </div>
 

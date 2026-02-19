@@ -21,14 +21,14 @@ To clone and use the latest krkn version follow the directions below. If you're 
 
 ```bash
 $ git clone https://github.com/krkn-chaos/krkn-ai.git
-$ cd krkn-ai 
+$ cd krkn-ai
 ```
 
 ### Fork and Clone the Repository
 Fork the repository 
 ```bash
 $ git clone https://github.com/<github_user_id>/krkn-ai.git
-$ cd krkn-ai 
+$ cd krkn-ai
 ```
 
 Set your cloned local to track the upstream repository:

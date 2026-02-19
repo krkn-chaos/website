@@ -16,14 +16,14 @@ To clone and use the latest krkn version follow the directions below. If you're 
 See the latest release version [here](https://github.com/krkn-chaos/krkn/releases)
 ```bash
 $ git clone https://github.com/krkn-chaos/krkn.git --branch <release version>
-$ cd krkn 
+$ cd krkn
 ```
 
 ### Fork and Clone the Repository
 Fork the repository 
 ```bash
 $ git clone https://github.com/<github_user_id>/krkn.git
-$ cd krkn 
+$ cd krkn
 ```
 
 Set your cloned local to track the upstream repository:

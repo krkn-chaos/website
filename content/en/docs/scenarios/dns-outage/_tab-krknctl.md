@@ -7,4 +7,5 @@ krknctl run pod-network-filter \
  --ingress false \
  --egress true \
  --protocols tcp,udp \
- --ports 53```
+ --ports 53
+```

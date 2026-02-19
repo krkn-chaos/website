@@ -281,7 +281,7 @@ You can use either podman-compose or docker-compose for this step
 
 **NOTE:** Podman might not work on Mac's
 
-``` bash
+```bash
 pip3 install docker-compose
 ```
 
@@ -310,24 +310,24 @@ image: quay.io/<user>/krkn-hub:chaos-recommender
     Builds all images in docker-compose file
     ```bash
     docker-compose build
-    ```
+```
 
     Builds single image defined by service/scenario name 
     ```bash
     docker-compose build <scenario_type>
-    ```
+```
 
     OR 
 
     Builds all images in podman-compose file
     ```bash
     podman-compose build
-    ```
+```
 
     Builds single image defined by service/scenario name 
     ```bash
     podman-compose build <scenario_type>
-    ```
+```
 
 
 ### Push Images to your quay.io

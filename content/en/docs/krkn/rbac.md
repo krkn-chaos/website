@@ -105,7 +105,7 @@ roleRef:
 2. Create a service account for Krkn:
    ```bash
    kubectl create serviceaccount krkn-sa -n <namespace>
-   ```
+```
 
 3. Apply the RBAC configuration:
    ```bash
@@ -116,7 +116,7 @@ roleRef:
    # For privileged access
    kubectl apply -f rbac/privileged-clusterrole.yaml
    kubectl apply -f rbac/privileged-clusterrolebinding.yaml
-   ```
+```
 
 ## OpenShift-specific Configuration
 

@@ -19,8 +19,7 @@ attacker-nodes: # this will set the node affinity to schedule the attacker node.
     - host_2
   kubernetes.io/os:
     - linux
-
- ```
+```
 
 ### How to Use Plugin Name
 Add the plugin name to the list of chaos_scenarios section in the config/config.yaml file

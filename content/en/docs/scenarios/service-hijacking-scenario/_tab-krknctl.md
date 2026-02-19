@@ -9,7 +9,7 @@ Can also set any global variable listed [here](../all-scenario-env-krknctl.md)
 Scenario specific parameters: 
 | Parameter      | Description    | Type      |  Default | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
-~-~-scenario-file-path | The absolute path of the scenario file compiled following the documentation |file_base64 |
+`--scenario-file-path` | The absolute path of the scenario file compiled following the documentation |file_base64 |
 
 
 A sample scenario file can be found [here](service-hijacking-scenarios-krkn.md#sample-scenario), you'll need to customize it based on your wanted response codes for API calls
@@ -18,5 +18,5 @@ A sample scenario file can be found [here](service-hijacking-scenarios-krkn.md#s
 
 To see all available scenario options 
 ```bash
-krknctl run service-hijacking --help 
+krknctl run service-hijacking --help
 ```

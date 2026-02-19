@@ -101,7 +101,6 @@ watch_url_routes:
 - - https://prometheus-k8s-openshift-monitoring.apps.****.devcluster.openshift.com
   - Bearer ****
 - - http://nodejs-mongodb-example-default.apps.****.devcluster.openshift.com
-
 ```
 
 #### Watch Master Schedulable Status

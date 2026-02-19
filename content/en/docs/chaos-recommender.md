@@ -26,7 +26,7 @@ This tool profiles an application and gathers telemetry data such as CPU, Memory
     Edit configuration file:
     $ vi config/recommender_config.yaml 
     $ python3.9 utils/chaos_recommender/chaos_recommender.py -c utils/chaos_recommender/recommender_config.yaml
-    ```
+```
 
 2. Follow the prompts to provide the required information.
 

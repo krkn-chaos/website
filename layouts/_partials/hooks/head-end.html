@@ -6,6 +6,14 @@
 })();
 </script>
 
+{{/* Open Graph meta tags for social sharing (Twitter, LinkedIn, Slack) */}}
+<meta property="og:image" content="{{ "img/social-preview.png" | absURL }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Krkn - Chaos Engineering for Kubernetes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ "img/social-preview.png" | absURL }}">
+
 {{/* Organization + WebSite structured data for Google Search */}}
 {{ if .IsHome }}
 <script type="application/ld+json">
@@ -15,16 +23,19 @@
     {
       "@type": "Organization",
       "name": "Krkn",
+      "alternateName": "Krkn-Chaos",
       "url": "https://krkn-chaos.dev",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://krkn-chaos.dev/img/og-image.png",
-        "width": 1200,
-        "height": 630
+        "url": "https://krkn-chaos.dev/favicons/favicon.svg",
+        "width": 250,
+        "height": 250
       },
+      "image": "https://krkn-chaos.dev/img/social-preview.png",
       "description": "{{ .Site.Params.description }}",
       "sameAs": [
-        "https://github.com/krkn-chaos"
+        "https://github.com/krkn-chaos",
+        "https://kubernetes.slack.com/archives/C05SFMHRWK1"
       ]
     },
     {
@@ -37,7 +48,7 @@
         "name": "Krkn",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://krkn-chaos.dev/img/og-image.png"
+          "url": "https://krkn-chaos.dev/favicons/favicon.svg"
         }
       }
     }

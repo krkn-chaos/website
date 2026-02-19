@@ -56,7 +56,7 @@ kraken:
     chaos_scenarios:
         - pod_network_scenarios:
             - scenarios/<scenario_name>.yaml
-  ```
+```
 ### Run 
 
 ```bash

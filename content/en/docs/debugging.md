@@ -18,8 +18,8 @@ urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.***.io', port=64
 
 ### Fix
 
-The user needs to have tls verification by logging in using 
-``` bash
+The user needs to have tls verification by logging in using
+```bash
 $ oc login [-u=<username>] \
   [-p=<password>] \
   [-s=<server>] \

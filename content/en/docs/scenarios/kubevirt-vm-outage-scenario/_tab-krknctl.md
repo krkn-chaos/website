@@ -9,12 +9,12 @@ Can also set any global variable listed [here](../all-scenario-env-krknctl.md)
 Scenario specific parameters:  (be sure to scroll to right)
 | Parameter      | Description    | Type      |  Default | Possible Values | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | :----------------:  | 
-~-~-namespace | VMI Namespace to target | string | node-role.kubernetes.io/worker | 
-~-~-vm-name | VM name to inject faults in case of targeting a specific node | string | 
-~-~-timeout | Duration to wait for completion of node scenario injection | number | 180| 
-~-~-kill-count | Number of VMI's to kill (will perform serially) | number | 1| 
+`--namespace` | VMI Namespace to target | string | node-role.kubernetes.io/worker | 
+`--vm-name` | VM name to inject faults in case of targeting a specific node | string | 
+`--timeout` | Duration to wait for completion of node scenario injection | number | 180| 
+`--kill-count` | Number of VMI's to kill (will perform serially) | number | 1| 
 
 To see all available scenario options 
 ```bash
-krknctl run kubevirt-outage --help 
+krknctl run kubevirt-outage --help
 ```

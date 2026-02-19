@@ -20,7 +20,8 @@ $ podman run --name=<container_name> --net=host --pull=always \
     -e SCENARIO_BASE64="$(base64 -w0 <scenario_file>)" \
     -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
 $ podman logs -f <container_name or container_id> # Streams Kraken logs
-$ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+$ podman inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 
 ```bash
@@ -33,7 +34,8 @@ $ docker run \
      --net=host --pull=always -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:node-scenarios-bm
 
 $ docker logs -f <container_name or container_id> # Streams Kraken logs
-$ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+$ docker inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 
 **TIP**: Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:

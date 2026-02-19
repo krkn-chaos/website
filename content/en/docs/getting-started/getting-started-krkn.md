@@ -79,7 +79,6 @@ node_scenarios:
     cloud_type: aws -> gcp
     parallel: true
     kube_check: true
-
 ```
 
 ### Templates

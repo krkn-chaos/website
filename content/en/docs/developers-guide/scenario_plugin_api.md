@@ -46,7 +46,6 @@ _(IntelliJ PyCharm)_
         lib_telemetry: KrknTelemetryOpenshift,
         scenario_telemetry: ScenarioTelemetry,
     ) -> int:
-
 ```
 
 This method represents the entry point of the plugin and the first method 

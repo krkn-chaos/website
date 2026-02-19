@@ -63,7 +63,12 @@ Assuming docker ( 17.05 or greater with multi-build support ) is installed on th
 ```bash
 $ docker pull quay.io/redhat-chaos/cerberus
 # Setup the [config](https://github.com/redhat-chaos/cerberus/tree/master/config) according to your requirements. Information on the available options can be found at [usage](usage.md).
-$ docker run --name=cerberus --net=host -v <path_to_kubeconfig>:/root/.kube/config -v <path_to_cerberus_config>:/root/cerberus/config/config.yaml -d quay.io/redhat-chaos/cerberus:latest
+$ docker run \
+  --name=cerberus \
+  --net=host \
+  -v <path_to_kubeconfig>:/root/.kube/config \
+  -v <path_to_cerberus_config>:/root/cerberus/config/config.yaml \
+  -d quay.io/redhat-chaos/cerberus:latest
 $ docker logs -f cerberus
 ```
 
@@ -71,7 +76,12 @@ Similarly, podman can be used to achieve the same:
 ```bash
 $ podman pull quay.io/redhat-chaos/cerberus
 # Setup the [config](https://github.com/redhat-chaos/cerberus/tree/master/config) according to your requirements. Information on the available options can be found at [usage](usage.md).
-$ podman run --name=cerberus --net=host -v <path_to_kubeconfig>:/root/.kube/config:Z -v <path_to_cerberus_config>:/root/cerberus/config/config.yaml:Z -d quay.io/redhat-chaos/cerberus:latest
+$ podman run \
+  --name=cerberus \
+  --net=host \
+  -v <path_to_kubeconfig>:/root/.kube/config:Z \
+  -v <path_to_cerberus_config>:/root/cerberus/config/config.yaml:Z \
+  -d quay.io/redhat-chaos/cerberus:latest
 $ podman logs -f cerberus
 ```
 

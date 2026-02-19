@@ -43,8 +43,6 @@ plan:
           status: 404
           mime_type: "text/plain"
           payload: "not found"
-
-
 ```
 The scenario will focus on the `service_name` within the `service_namespace`, 
 substituting the selector with a randomly generated one, which is added as a label in the mock service manifest.

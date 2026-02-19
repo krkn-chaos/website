@@ -17,7 +17,8 @@ $ podman run  --name=<container_name> \
               -v <path_to_kubeconfig>:/home/krkn/.kube/config:Z containers.krkn-chaos.dev/krkn-chaos/krkn-hub:service-hijacking
               
 $ podman logs -f <container_name or container_id> # Streams Kraken logs
-$ podman inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+$ podman inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 {{% alert title="Note" %}} --env-host: This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines. 
 Without the --env-host option you'll have to set each environment variable on the podman command line like  `-e <VARIABLE>=<value>`
@@ -37,7 +38,8 @@ $ docker run --name=<container_name> -e SCENARIO_BASE64="$(base64 -w0 <scenario_
                                      -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:service-hijacking
 
 $ docker logs -f <container_name or container_id> # Streams Kraken logs
-$ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+$ docker inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 
 {{% alert title="Tip" %}} ecause the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:

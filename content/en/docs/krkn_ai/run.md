@@ -36,4 +36,4 @@ By default, Krkn-AI uses [krknctl](../krknctl/) as engine. You can switch to [kr
 
 ```bash
 $ uv run krkn_ai run -r krknhub -c ./krkn-ai.yaml -o ./tmp/results/
-``` 
+```

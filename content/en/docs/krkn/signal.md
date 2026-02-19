@@ -17,11 +17,11 @@ An example use case for this feature would be coordinating Krkn runs based on th
 ## States
 There are 3 states in the Krkn status:
 
-```PAUSE```: When the Krkn signal is 'PAUSE', this will pause the Krkn test and wait for the wait_duration until the signal returns to RUN.
+`PAUSE`: When the Krkn signal is 'PAUSE', this will pause the Krkn test and wait for the wait_duration until the signal returns to RUN.
 
-```STOP```: When the Krkn signal is 'STOP', end the Krkn run and print out report.
+`STOP`: When the Krkn signal is 'STOP', end the Krkn run and print out report.
 
-```RUN```: When the Krkn signal is 'RUN', continue Krkn run based on iterations.
+`RUN`: When the Krkn signal is 'RUN', continue Krkn run based on iterations.
 
 
 

@@ -26,7 +26,7 @@ kraken:
     chaos_scenarios:
         - container_scenarios:
             - scenarios/<scenario_name>.yaml
-  ```
+```
 ### Run 
 
 ```bash

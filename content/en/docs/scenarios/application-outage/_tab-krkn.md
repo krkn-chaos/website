@@ -19,7 +19,7 @@ kraken:
     chaos_scenarios:
         - application_outages_scenarios:
             - scenarios/<scenario_name>.yaml
-  ```
+```
 ### Run 
 
 ```bash

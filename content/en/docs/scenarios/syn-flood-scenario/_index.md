@@ -6,6 +6,7 @@ weight: 3
 ---
 
 <krkn-hub-scenario id="syn-flood">
+
 ### Syn Flood Scenarios
 
 This scenario generates a substantial amount of TCP traffic directed at one or more Kubernetes services within

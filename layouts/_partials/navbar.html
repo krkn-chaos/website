@@ -43,7 +43,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
-            <div class="krkn-search-overlay__hint">Press Enter to search &middot; Esc to close</div>
+            <div class="krkn-search-overlay__hint">Press Enter to search &middot; Ctrl+F or Ctrl+K &middot; Esc to close</div>
           </div>
         </div>
       {{ end }}
@@ -226,9 +226,9 @@
   if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
   if (searchClose) searchClose.addEventListener('click', closeSearch);
 
-  // Ctrl/Cmd + K shortcut to open search
+  // Ctrl/Cmd + K or Ctrl/Cmd + F shortcut to open search
   document.addEventListener('keydown', function(e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'f')) {
       e.preventDefault();
       if (searchOverlay && searchOverlay.classList.contains('krkn-search-overlay--open')) {
         closeSearch();

@@ -679,6 +679,10 @@ button.krkn-navbar__search {
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+
+  [data-theme="light"] & {
+    background: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .krkn-search-overlay__panel {
@@ -697,6 +701,12 @@ button.krkn-navbar__search {
   .krkn-search-overlay--open & {
     transform: translateY(0) scale(1);
   }
+
+  [data-theme="light"] & {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  }
 }
 
 .krkn-search-overlay__header {
@@ -705,6 +715,10 @@ button.krkn-navbar__search {
   gap: 0.75rem;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--krkn-border-subtle);
+
+  [data-theme="light"] & {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+  }
 
   >svg {
     flex-shrink: 0;
@@ -737,6 +751,10 @@ button.krkn-navbar__search {
     -webkit-appearance: none;
     appearance: none;
 
+    [data-theme="light"] & {
+      background: transparent !important;
+    }
+
     &::placeholder {
       color: var(--krkn-text-muted);
       opacity: 0.7;
@@ -761,6 +779,17 @@ button.krkn-navbar__search {
     color: var(--krkn-text);
     background: var(--krkn-nav-hover-bg);
   }
+
+  [data-theme="light"] & {
+    background: var(--krkn-bg);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: var(--krkn-text-subtle);
+
+    &:hover {
+      background: var(--krkn-elevated);
+      color: var(--krkn-text-muted);
+    }
+  }
 }
 
 .krkn-search-overlay__hint {
@@ -769,6 +798,10 @@ button.krkn-navbar__search {
   font-size: 0.75rem;
   color: var(--krkn-text-muted);
   opacity: 0.6;
+
+  [data-theme="light"] & {
+    color: var(--krkn-text-subtle);
+  }
 }
 
 // Override Docsy's popover for search results so it appears inside our panel

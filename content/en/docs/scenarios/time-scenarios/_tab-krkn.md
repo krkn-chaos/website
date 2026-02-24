@@ -1,3 +1,5 @@
+Example scenario file: [time_scenarios_example.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/time_scenarios_example.yml)
+
 ### Configuration Options:
 
 **action:** skew_time or skew_date.

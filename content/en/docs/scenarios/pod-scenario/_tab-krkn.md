@@ -1,6 +1,10 @@
 #### Example Config
 The following are the components of Kubernetes for which a basic chaos scenario config exists today.
 
+Example scenario files:
+- [pod.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/pod.yml) (Kubernetes)
+- [regex_openshift_pod_kill.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/regex_openshift_pod_kill.yml) (OpenShift)
+
 ```yaml
 kraken:
   chaos_scenarios:

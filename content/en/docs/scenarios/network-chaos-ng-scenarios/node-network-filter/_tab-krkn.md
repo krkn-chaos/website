@@ -1,5 +1,7 @@
 
-### Configuration 
+Example scenario file: [node-network-filter.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/node-network-filter.yml)
+
+### Configuration
 
 ```yaml
 - id: node_network_filter

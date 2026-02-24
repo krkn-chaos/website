@@ -1,4 +1,7 @@
 ##### Sample scenario config
+
+Example scenario file: [app_outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/app_outage.yaml)
+
 ```yaml
 application_outage:                                  # Scenario to create an outage of an application by blocking traffic
   duration: 600                                      # Duration in seconds after which the routes will be accessible

@@ -1,5 +1,7 @@
-To enable this plugin add the pointer to the scenario input file `scenarios/kube/io-hog.yaml` as described in the 
+To enable this plugin add the pointer to the scenario input file `scenarios/kube/io-hog.yaml` as described in the
 [Usage](#usage) section.
+
+Example scenario file: [io-hog.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/io-hog/io-hog.yml)
 
 #### `io-hog` options
 In addition to the common [hog scenario options](../_index.md#common-options), you can specify the below options in your scenario configuration to target specific pod IO

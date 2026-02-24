@@ -1,5 +1,7 @@
-To enable this plugin add the pointer to the scenario input file `scenarios/kube/memory-hog.yml` as described in the 
+To enable this plugin add the pointer to the scenario input file `scenarios/kube/memory-hog.yml` as described in the
 [Usage](#usage) section.
+
+Example scenario file: [memory-hog.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/memory-hog/memory-hog.yml)
 
 #### `memory-hog` options
 In addition to the common [hog scenario options](../_index.md#common-options), you can specify the below options in your scenario configuration to specificy the amount of memory to hog on a certain worker node

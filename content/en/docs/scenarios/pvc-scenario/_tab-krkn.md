@@ -1,3 +1,5 @@
+Example scenario file: [pvc_scenario.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/pvc_scenario.yaml)
+
 ##### Sample scenario config
 ```
 pvc_scenario:

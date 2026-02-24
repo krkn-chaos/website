@@ -1,5 +1,7 @@
 Power Outage/ Cluster shut down scenario can be injected by placing the shut_down config file under cluster_shut_down_scenario option in the kraken config. Refer to [cluster_shut_down_scenario](https://github.com/krkn-chaos/krkn/blob/main/scenarios/openshift/cluster_shut_down_scenario.yml) config file.
 
+Example scenario file: [cluster_shut_down_scenario.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/cluster_shut_down_scenario.yml)
+
 Refer to [cloud setup](/docs/scenarios/cloud_setup.md) to configure your cli properly for the cloud provider of the cluster you want to shut down.
 
 Current accepted cloud types:

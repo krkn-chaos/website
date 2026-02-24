@@ -1,3 +1,5 @@
+Example scenario file: [pod_network_outage.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/pod_network_outage.yml)
+
 ##### Sample scenario config (using a plugin)
 ```yaml
 - id: pod_network_outage

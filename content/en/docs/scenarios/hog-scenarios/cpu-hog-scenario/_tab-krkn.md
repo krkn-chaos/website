@@ -1,6 +1,7 @@
-To enable this plugin add the pointer to the scenario input file `scenarios/kube/cpu-hog.yml` as described in the 
+To enable this plugin add the pointer to the scenario input file `scenarios/kube/cpu-hog.yml` as described in the
 [Usage](#usage) section.
 
+Example scenario file: [cpu-hog.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/cpu-hog/cpu-hog.yml)
 
 #### `cpu-hog` options
 In addition to the common [hog scenario options](../_index.md#common-options), you can specify the below options in your scenario configuration to specificy the amount of CPU to hog on a certain worker node

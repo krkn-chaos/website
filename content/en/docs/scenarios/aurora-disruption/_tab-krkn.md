@@ -1,6 +1,8 @@
 
 This scenario blocks a pod's outgoing MySQL and PostgreSQL traffic, effectively preventing it from connecting to any AWS Aurora SQL engine. It works just as well for standard MySQL and PostgreSQL connections too.
 
+Example scenario file: [aurora_disruption.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/aurora_disruption.yml)
+
 ##### Scenario config
 ```yaml
 - id: pod_network_filter

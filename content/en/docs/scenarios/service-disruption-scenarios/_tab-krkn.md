@@ -1,3 +1,7 @@
+Example scenario files from [scenarios-hub](https://github.com/krkn-chaos/scenarios-hub):
+- [regex_namespace.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/regex_namespace.yaml)
+- [ingress_namespace.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/ingress_namespace.yaml)
+
 ## Configuration Options:
 
 **namespace:** Specific namespace or regex style namespace of what you want to delete. Gets all namespaces if not specified; set to "" if you want to use the label_selector field.

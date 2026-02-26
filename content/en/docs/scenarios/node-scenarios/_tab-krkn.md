@@ -1,5 +1,10 @@
 
-For any of the node scenarios, you'll specify `node_scenarios` as the scenario type. 
+For any of the node scenarios, you'll specify `node_scenarios` as the scenario type.
+
+Example scenario files from [scenarios-hub](https://github.com/krkn-chaos/scenarios-hub):
+- [node_scenarios_example.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/node_scenarios_example.yml)
+- [vmware_node_scenarios.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/vmware_node_scenarios.yml)
+- [ibmcloud_node_scenarios.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/ibmcloud_node_scenarios.yml)
 
 See example config here: 
 ```yaml

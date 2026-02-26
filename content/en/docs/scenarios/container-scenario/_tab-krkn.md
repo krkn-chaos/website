@@ -1,4 +1,8 @@
 
+Example scenario files from [scenarios-hub](https://github.com/krkn-chaos/scenarios-hub):
+- [container_dns.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/container_dns.yml)
+- [container_etcd.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/container_etcd.yml)
+
 ####  Example Config
 The following are the components of Kubernetes for which a basic chaos scenario config exists today.
 

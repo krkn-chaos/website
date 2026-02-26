@@ -1,4 +1,4 @@
-
+Example scenario file: [dns_outage.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/dns_outage.yml)
 
 ##### Sample scenario config
 ```yaml

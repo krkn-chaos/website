@@ -1,3 +1,7 @@
+Example scenario files from [scenarios-hub](https://github.com/krkn-chaos/scenarios-hub):
+- [network_chaos.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/network_chaos.yaml)
+- [network_chaos_ingress.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/network_chaos_ingress.yml)
+
 ##### Sample scenario config for egress traffic shaping
 ```yaml
 network_chaos:                                    # Scenario to create an outage by simulating random variations in the network.

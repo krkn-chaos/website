@@ -1,3 +1,5 @@
+Example scenario file: [syn_flood.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/syn_flood.yaml)
+
 ##### Sample scenario config
 
 ```yaml

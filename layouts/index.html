@@ -259,11 +259,11 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     display: none;
   }
 
-  /* Steps grid — 3/2/1 columns by viewport, fluid width */
+  /* Steps grid — 4/2/1 columns by viewport, smaller tiles on desktop */
   .steps-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 1.5vw, 1.75rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
     width: 100%;
     max-width: none;
     margin: 0 auto;
@@ -274,6 +274,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   @media (max-width: 1099px) {
     .steps-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
     }
   }
 
@@ -294,7 +295,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     background: var(--krkn-surface);
     border: 1px solid var(--krkn-border-subtle);
     border-radius: 1rem;
-    padding: 2rem 1.5rem 1.75rem;
+    padding: 1.5rem 1.25rem 1.5rem;
     text-align: left;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
@@ -625,8 +626,8 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   .step-card::after {
     content: '';
     position: absolute;
-    top: 2.25rem;
-    right: -1.25rem;
+    top: 3.25rem;
+    right: -0.7rem;
     width: 0.5rem;
     height: 0.5rem;
     border-top: 2px solid var(--krkn-border-prominent);
@@ -638,14 +639,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     display: none;
   }
 
-  .step-card:nth-child(3)::after {
-    display: none;
-  }
-
   @media (max-width: 1099px) {
-    .step-card:nth-child(3)::after {
-      display: block;
-    }
     .step-card:nth-child(2)::after {
       display: none;
     }
@@ -1103,9 +1097,9 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           </svg>
           <h3>Install</h3>
           <p>Install krknctl with the official script, then verify your setup.</p>
-          <div class="step-card__code"><span class="c-prompt">$</span> curl -s \
+          <div class="step-card__code"><span class="c-prompt">$</span> curl -fsSL \
   https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
-<span class="c-prompt">$</span> krknctl version
+<span class="c-prompt">$</span> krknctl --version
 <span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span></div>
         </div>
 

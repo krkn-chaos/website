@@ -91,7 +91,7 @@ Will be provided a random id for each scenario and the dependency will be define
 perfectly legit to repeat the same scenario type (with the same or different attributes) varying the
 scenario Id and the dependencies accordingly.
 ```
-./krknctl graph scaffold node-cpu-hog node-memory-hog node-io-hog service-hijacking node-cpu-hog > plan.json
+krknctl graph scaffold node-cpu-hog node-memory-hog node-io-hog service-hijacking node-cpu-hog > plan.json
 ```
 will generate an execution plan (serial) containing all the available options for each of the scenarios mentioned with default values
 when defined, or a description of the content expected for the field.

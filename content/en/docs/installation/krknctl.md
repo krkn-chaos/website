@@ -12,15 +12,16 @@ Use the official install script as the primary installation method:
 Install using the official script
 
 ```bash
-curl -s https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
 ```
+
 
 
 
 Verify installation:
 
 ```bash
-krknctl version
+krknctl --version
 ```
 
 ## Alternative installation methods
@@ -71,7 +72,7 @@ will be able to suggest to the user the available command and the description si
 
 ### Bash (linux):
 ```
-source <(./krknctl completion bash)
+source <(krknctl completion bash)
 ```
 {{% alert title="Tip" %}}
 To install autocompletion permanently add this command to `.bashrc` (setting the krknctl binary path correctly)
@@ -81,7 +82,7 @@ To install autocompletion permanently add this command to `.bashrc` (setting the
 ```
 autoload -Uz compinit
 compinit
-source <(./krknctl completion zsh)
+source <(krknctl completion zsh)
 ```
 {{% alert title="Tip" %}}
 To install autocompletion permanently add this command to `.zshrc` (setting the krknctl binary path correctly)
@@ -110,7 +111,7 @@ If both Podman and Docker are installed be sure that the docker compatibility is
 ### Docker:
 #### Linux:
 Check that the user has been added to the `docker` group and can correctly connect to the Docker unix socket  
-running the comman `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
+running the command `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
 
 
 ### What's next?

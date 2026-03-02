@@ -259,37 +259,28 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     display: none;
   }
 
-  /* Steps grid */
+  /* Steps grid — 3/2/1 columns by viewport, fluid width */
   .steps-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    max-width: 1100px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 1.5vw, 1.75rem);
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
     position: relative;
-    justify-content: center;
+    padding: 0 1.5rem;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1099px) {
     .steps-grid {
-      max-width: 100%;
-      padding: 0 1.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 900px) {
-    .steps-grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 700px;
-      gap: 1.5rem;
-    }
-  }
-
-  @media (max-width: 550px) {
+  @media (max-width: 699px) {
     .steps-grid {
       grid-template-columns: 1fr;
-      max-width: 100%;
-      padding: 0;
+      padding: 0 1rem;
     }
 
     .step-card {
@@ -299,6 +290,7 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
 
   .step-card {
     position: relative;
+    width: 100%;
     background: var(--krkn-surface);
     border: 1px solid var(--krkn-border-subtle);
     border-radius: 1rem;
@@ -344,24 +336,30 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
   }
 
   .step-card p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--krkn-text-muted);
     line-height: 1.55;
     margin: 0 0 1rem;
   }
 
   .step-card__code {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     background: #0D1117;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 0.5rem;
     padding: 0.625rem 0.875rem;
     font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: #E6EDF3;
     line-height: 1.5;
     overflow-x: auto;
+    overflow-y: auto;
     white-space: pre;
-    max-width: 100%;
+    max-height: 6.5rem;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
   }
 
   .step-card__code .c-prompt {
@@ -640,13 +638,20 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
     display: none;
   }
 
-  @media (max-width: 900px) {
+  .step-card:nth-child(3)::after {
+    display: none;
+  }
+
+  @media (max-width: 1099px) {
+    .step-card:nth-child(3)::after {
+      display: block;
+    }
     .step-card:nth-child(2)::after {
       display: none;
     }
   }
 
-  @media (max-width: 550px) {
+  @media (max-width: 699px) {
     .step-card::after {
       display: none;
     }
@@ -1097,10 +1102,10 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
           <h3>Install</h3>
-          <p>Download the krknctl binary from GitHub releases — available for Linux, macOS, and Windows.</p>
-          <div class="step-card__code"><span class="c-muted"># Download from GitHub releases</span>
-<span class="c-prompt">$</span> tar -xzf krknctl_*.tar.gz
-<span class="c-prompt">$</span> mv krknctl /usr/local/bin/
+          <p>Install krknctl with the official script, then verify your setup.</p>
+          <div class="step-card__code"><span class="c-prompt">$</span> curl -s \
+  https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
+<span class="c-prompt">$</span> krknctl version
 <span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span></div>
         </div>
 

@@ -5,13 +5,33 @@ weight: 2
 ---
 
 
-## Binary distribution (Recommended):
+## Install krknctl (Recommended)
+
+Use the official install script as the primary installation method:
+
+Install using the official script
+
+```bash
+curl -s https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
+```
+
+
+
+Verify installation:
+
+```bash
+krknctl version
+```
+
+## Alternative installation methods
+
+### Binary distribution
 The krknctl binary is available for download from [GitHub releases](https://github.com/krkn-chaos/krknctl/releases/latest) for supported operating systems and architectures. Extract the tarball and add the binary to your `$PATH`.
 
-## Build from sources :
+### Build from source
 
-### Fork and Clone the Repository
-Fork the repository 
+#### Fork and clone the repository
+Fork the repository:
 ```bash
 $ git clone https://github.com/<github_user_id>/krknctl.git
 $ cd krknctl
@@ -23,22 +43,22 @@ git remote add upstream https://github.com/krkn-chaos/krknctl
 ```
 
 
-### Linux:
-#### Dictionaries:
+#### Linux
+##### Dictionaries
 To generate the random words we use the american dictionary, it is often available but if that's not the case:
 - **Fedora/RHEL**: `sudo dnf install words`
 - **Ubuntu/Debian**: `sudo apt-get install wamerican`
 
-## Building from sources:
-### Linux:
+#### Build dependencies
+##### Linux
 To build the only system package required is libbtrfs:
 
 - **Fedora/RHEL**: `sudo dnf install btrfs-progs-devel`
 - **Ubuntu/Debian**: `sudo apt-get install libbtrfs-dev`
-### MacOS:
+##### MacOS
 - **gpgme**: `brew install gpgme` 
 
-## Build command: 
+#### Build command
 `go build -tags containers_image_openpgp -ldflags="-w -s" -o bin/ ./...`
 
 {{% alert title="Note" %}}

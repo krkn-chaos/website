@@ -69,7 +69,7 @@ When Elasticsearch is connected and you have configured **Grafana** (base URL an
 | **Reusable configs** | Save and load configurations to recreate a test or standardize runs across your team. |
 | **Analyze run history** | With Elasticsearch, you can search and inspect past runs. With Grafana, you can deep-dive into metrics for a specific run. |
 
-**When to use the dashboard** — Use it when you want a visual, form-driven way to run Krkn chaos (e.g. on a shared machine, for demos, or for teams that prefer a UI). For automation and CI/CD, [krkn-hub](/docs/installation/krkn-hub) or [krknctl](/docs/installation/krknctl.md) in scripts or pipelines is usually better.
+**When to use the dashboard** — Use it when you want a visual, form-driven way to run Krkn chaos (e.g. on a shared machine, for demos, or for teams that prefer a UI). For automation and CI/CD, [krkn-hub](/docs/installation/krkn-hub) or [krknctl](/docs/installation/krknctl) in scripts or pipelines is usually better.
 
 ---
 

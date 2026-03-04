@@ -17,15 +17,15 @@ This tool profiles an application and gathers telemetry data such as CPU, Memory
 
 1. To run
 
-    ```bash
-    $ python3.9 -m venv chaos
-    $ source chaos/bin/activate
-    $ git clone https://github.com/krkn-chaos/krkn.git 
-    $ cd krkn
-    $ pip3 install -r requirements.txt
-    Edit configuration file:
-    $ vi config/recommender_config.yaml 
-    $ python3.9 utils/chaos_recommender/chaos_recommender.py -c utils/chaos_recommender/recommender_config.yaml
+```bash
+$ python3.9 -m venv chaos
+$ source chaos/bin/activate
+$ git clone https://github.com/krkn-chaos/krkn.git 
+$ cd krkn
+$ pip3 install -r requirements.txt
+Edit configuration file:
+$ vi config/recommender_config.yaml 
+$ python3.9 utils/chaos_recommender/chaos_recommender.py -c utils/chaos_recommender/recommender_config.yaml
 ```
 
 2. Follow the prompts to provide the required information.
@@ -54,13 +54,13 @@ You can customize the default values by editing the `recommender_config.yaml` fi
   - `mem_threshold`: Specify the memory threshold to compare with the memory limits set on the pods and identify outliers
 
 *TIP:* to collect prometheus endpoint and token from your OpenShift cluster you can run the following commands:
-        ```
-         prometheus_url=$(kubectl get routes -n openshift-monitoring prometheus-k8s --no-headers | awk '{print $2}')
-         #TO USE YOUR CURRENT SESSION TOKEN
-         token=$(oc whoami -t)
-         #TO CREATE A NEW TOKEN
-         token=$(kubectl create token -n openshift-monitoring prometheus-k8s --duration=6h || oc sa new-token -n openshift-monitoring prometheus-k8s)
-        ```
+```bash
+  prometheus_url=$(kubectl get routes -n openshift-monitoring prometheus-k8s --no-headers | awk '{print $2}')
+  #TO USE YOUR CURRENT SESSION TOKEN
+  token=$(oc whoami -t)
+  #TO CREATE A NEW TOKEN
+  token=$(kubectl create token -n openshift-monitoring prometheus-k8s --duration=6h || oc sa new-token -n openshift-monitoring prometheus-k8s)
+```
 
 You can also provide the input values through command-line arguments launching the recommender with `-o` option:
 

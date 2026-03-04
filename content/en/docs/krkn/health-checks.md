@@ -17,7 +17,7 @@ The system periodically checks the provided URLs based on the defined interval a
 This helps users quickly identify application health issues and take necessary actions.
 
 #### Sample health check config
-```
+```yaml
 health_checks:
   interval: <time_in_seconds>                       # Defines the frequency of health checks, default value is 2 seconds
   config:                                           # List of application endpoints to check
@@ -38,7 +38,7 @@ health_checks:
       verify_url: False  
 ```
 #### Sample health check telemetry
-```
+```json
 "health_checks": [
             {
                 "url": "https://example.com/health",

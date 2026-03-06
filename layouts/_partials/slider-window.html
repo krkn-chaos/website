@@ -1,0 +1,42 @@
+<div class="krkn-benefits-slider" role="region" aria-label="Dashboard benefits">
+  <div class="krkn-benefits-slider__viewable">
+    <button type="button" class="krkn-benefits-slider__arrow krkn-benefits-slider__arrow--prev" id="krkn-benefits-prev" aria-label="Previous benefit">&lsaquo;</button>
+    <div class="krkn-benefits-slider__window">
+      <div class="krkn-benefits-slider__track" id="krkn-benefits-track">
+        <div class="krkn-benefits-card">
+          <h4 class="krkn-benefits-card__title">A graphical UI for visualizing runs</h4>
+          <p class="krkn-benefits-card__desc">Select scenarios, set parameters, and start runs from the browser, no command line required. Ideal for demos and anyone who prefers an interactive interface.</p>
+        </div>
+        <div class="krkn-benefits-card">
+          <h4 class="krkn-benefits-card__title">Real-time visibility</h4>
+          <p class="krkn-benefits-card__desc">See running chaos containers and stream logs as scenarios execute. Spot failures and deficiencies as they happen to locate and fix issues faster.</p>
+        </div>
+        <div class="krkn-benefits-card">
+          <h4 class="krkn-benefits-card__title">Saved configurations</h4>
+          <p class="krkn-benefits-card__desc">Store and reuse scenario parameters in your browser. Recreate a test or standardize runs across your team without re-entering the same values.</p>
+        </div>
+        <div class="krkn-benefits-card">
+          <h4 class="krkn-benefits-card__title">Analyzing past runs</h4>
+          <p class="krkn-benefits-card__desc">Connect to Elasticsearch to query and display past run details. Use Grafana to link to dashboards for a specific run.</p>
+        </div>
+        <div class="krkn-benefits-card">
+          <h4 class="krkn-benefits-card__title">Central space for collaboration</h4>
+          <p class="krkn-benefits-card__desc">One place to view runs, share configurations, and collaborate with your team. See status, logs, and history in a single UI instead of scattered terminals or configs.</p>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="krkn-benefits-slider__arrow krkn-benefits-slider__arrow--next" id="krkn-benefits-next" aria-label="Next benefit">&rsaquo;</button>
+  </div>
+  <div class="krkn-benefits-slider__footer">
+    <span class="krkn-benefits-slider__dots" id="krkn-benefits-dots"></span>
+  </div>
+  <script>
+    (function() {
+      var track = document.getElementById('krkn-benefits-track');
+      if (track) {
+        var n = track.querySelectorAll('.krkn-benefits-card').length;
+        track.closest('.krkn-benefits-slider').style.setProperty('--krkn-benefits-count', n);
+      }
+    })();
+  </script>
+</div>

@@ -208,6 +208,129 @@ svg.scenario-card__icon {
   margin: 0;
 }
 
+// -----------------------------------------------------------------------------
+// Dashboard benefits slider (docs: Krkn Dashboard page)
+// Single-item sliding window: one card visible, large side arrows, counter, dots
+// -----------------------------------------------------------------------------
+.krkn-benefits-slider {
+  margin: 1.5rem 0 2rem;
+}
+
+.krkn-benefits-slider__viewable {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 180px;
+}
+
+.krkn-benefits-slider__window {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  cursor: grab;
+  user-select: none;
+  border-radius: 1rem;
+  border: 1px solid var(--krkn-border-prominent);
+  box-shadow: 0 8px 24px var(--krkn-shadow), 0 0 0 1px rgba(0, 0, 0, 0.05);
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.krkn-benefits-slider__track {
+  display: flex;
+  width: calc(100% * var(--krkn-benefits-count, 5)); /* N cards; one visible at a time */
+  transition: transform 0.35s ease;
+  user-select: none;
+}
+
+.krkn-benefits-slider__arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--krkn-border-prominent);
+  border-radius: 50%;
+  background: var(--krkn-surface);
+  color: var(--krkn-text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: var(--krkn-elevated);
+    border-color: var(--krkn-secondary);
+    color: var(--krkn-secondary-light);
+  }
+}
+
+.krkn-benefits-card {
+  flex: 0 0 calc(100% / var(--krkn-benefits-count, 5)); /* 1 of N visible */
+  width: calc(100% / var(--krkn-benefits-count, 5));
+  min-height: 200px;
+  box-sizing: border-box;
+  background: var(--krkn-elevated);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.75rem;
+  padding: 2rem 2.25rem;
+  margin: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    box-shadow: 0 6px 20px var(--krkn-shadow), 0 0 0 1px var(--krkn-border-prominent);
+  }
+}
+
+.krkn-benefits-card__title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--krkn-text);
+  margin: 0 0 0.75rem;
+  line-height: 1.3;
+}
+
+.krkn-benefits-card__desc {
+  font-size: 1rem;
+  color: var(--krkn-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.krkn-benefits-slider__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.krkn-benefits-slider__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.krkn-benefits-nav__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--krkn-border-subtle);
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+
+  &.active {
+    background: var(--krkn-secondary-light);
+    transform: scale(1.2);
+  }
+}
+
+
 // Links within scenario cards should inherit card colors
 .scenario-card a {
   text-decoration: none;

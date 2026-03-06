@@ -65,6 +65,116 @@
 })();
 </script>
 
+<!-- Sliding window + mouse drag -->
+<script>
+(function() {
+  function initBenefitsSlider() {
+    var trackEl = document.getElementById('krkn-benefits-track');
+    var dotsEl = document.getElementById('krkn-benefits-dots');
+    var windowEl = trackEl && trackEl.closest('.krkn-benefits-slider__window');
+    var prevBtn = document.getElementById('krkn-benefits-prev');
+    var nextBtn = document.getElementById('krkn-benefits-next');
+    if (!trackEl || !dotsEl) return;
+
+    var cards = trackEl.querySelectorAll('.krkn-benefits-card');
+    var count = cards.length;
+    if (count === 0) return;
+
+    var currentIndex = 0;
+    var dragging = false;
+    var startX = 0;
+    var startIndex = 0;
+
+    for (var i = 0; i < count; i++) {
+      var dot = document.createElement('span');
+      dot.className = 'krkn-benefits-nav__dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('data-index', i);
+      dot.setAttribute('aria-label', 'Go to benefit ' + (i + 1));
+      dot.setAttribute('role', 'button');
+      dotsEl.appendChild(dot);
+    }
+    var dots = dotsEl.querySelectorAll('.krkn-benefits-nav__dot');
+
+    function getCardWidthPx() {
+      return trackEl.offsetWidth / count;
+    }
+
+    function goToIndex(index, noTransition) {
+      currentIndex = Math.max(0, Math.min(index, count - 1));
+      if (noTransition) trackEl.style.transition = 'none';
+      else trackEl.style.transition = '';
+      var offsetPx = currentIndex * getCardWidthPx();
+      trackEl.style.transform = 'translateX(-' + offsetPx + 'px)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === currentIndex); });
+    }
+
+    function onPointerDown(e) {
+      if (e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      startIndex = currentIndex;
+      if (windowEl) {
+        windowEl.setPointerCapture(e.pointerId);
+        windowEl.style.cursor = 'grabbing';
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      var cardWidthPx = getCardWidthPx();
+      var deltaX = e.clientX - startX;
+      var offsetSlides = -deltaX / cardWidthPx;
+      var rawIndex = startIndex + offsetSlides;
+      var clampedIndex = Math.max(0, Math.min(rawIndex, count - 1));
+      var offsetPx = clampedIndex * cardWidthPx;
+      trackEl.style.transition = 'none';
+      trackEl.style.transform = 'translateX(-' + offsetPx + 'px)';
+    }
+
+    function onPointerUp(e) {
+      if (!dragging) return;
+      dragging = false;
+      if (windowEl) {
+        windowEl.releasePointerCapture(e.pointerId);
+        windowEl.style.cursor = '';
+      }
+      var cardWidthPx = getCardWidthPx();
+      var deltaX = e.clientX - startX;
+      var offsetSlides = -deltaX / cardWidthPx;
+      var rawIndex = startIndex + offsetSlides;
+      var snapIndex = Math.round(rawIndex);
+      snapIndex = Math.max(0, Math.min(snapIndex, count - 1));
+      goToIndex(snapIndex);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { goToIndex(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goToIndex(currentIndex + 1); });
+
+    if (windowEl) {
+      windowEl.style.cursor = 'grab';
+      windowEl.addEventListener('pointerdown', onPointerDown);
+      windowEl.addEventListener('pointermove', onPointerMove);
+      windowEl.addEventListener('pointerup', onPointerUp);
+      windowEl.addEventListener('pointercancel', onPointerUp);
+    }
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() { goToIndex(i); });
+    });
+
+    goToIndex(0);
+    window.addEventListener('resize', function() { goToIndex(currentIndex, true); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBenefitsSlider);
+  } else {
+    initBenefitsSlider();
+  }
+})();
+</script>
+
 <!-- Scroll animations -->
 <script src="{{ "js/scroll-animations.js" | relURL }}" defer></script>
 

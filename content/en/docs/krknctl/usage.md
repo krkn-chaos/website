@@ -214,6 +214,42 @@ the tool will exit with the same status as that container.
 This function can be integrated into CI/CD pipelines to halt execution if the chaos run encounters any failure.
 {{% /alert %}}
 
+### `visualize [flags]`:
+
+Deploys [krkn-visualize](https://github.com/krkn-chaos/visualize) — a Grafana dashboard — to the
+current Kubernetes cluster. The command clones the visualize repository and runs its `deploy.sh`
+script, wiring up Elasticsearch and an optional Prometheus datasource.
+
+{{% alert title="Note" %}}
+`git` and `bash` must be available in `$PATH` for this command to work.
+{{% /alert %}}
+
+```
+krknctl visualize --es-url http://elasticsearch:9200 --namespace krkn-visualize
+```
+
+To tear down an existing deployment, pass the `--delete` flag:
+
+```
+krknctl visualize --delete
+```
+
+#### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--es-url` | | Elasticsearch URL |
+| `--es-username` | | Elasticsearch username |
+| `--es-password` | | Elasticsearch password |
+| `--prometheus-url` | | Prometheus URL for the datasource (optional) |
+| `--prometheus-bearer-token` | | Prometheus bearer token for authentication (optional) |
+| `--namespace` | `krkn-visualize` | Kubernetes namespace to deploy into |
+| `--grafana-password` | `admin` | Grafana admin password |
+| `--kubectl` | `kubectl` | kubectl binary to use (e.g. `oc` for OpenShift) |
+| `--delete` | `false` | Delete an existing krkn-visualize deployment |
+
+<br/>
+
 ### Running krknctl on a disconnected environment with a private registry
 
 If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.

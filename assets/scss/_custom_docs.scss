@@ -153,7 +153,8 @@
 }
 
 // Sidebar badges (e.g., beta, new, etc.)
-.td-sidebar-nav a[href*="krkn-operator"] {
+// Only show badge on main krkn-operator page, not sub-chapters
+.td-sidebar-nav a[href$="/krkn-operator/"] {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -173,6 +174,8 @@
     color: var(--krkn-primary);
     line-height: 1.2;
     text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0;
     opacity: 0.8;
     transition: opacity 0.2s ease, background 0.2s ease;
   }

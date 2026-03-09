@@ -12,8 +12,8 @@ weight: 2
 
 krkn-operator is built following **cloud-native best practices**:
 - All component interactions happen through **Kubernetes Custom Resource Definitions (CRDs)**
-- Fully declarative configuration and GitOps-ready
-- Native integration with Kubernetes RBAC and security model
+- Fully declarative configuration
+- Native integration with Kubernetes security model
 
 ### Important: Multi-Cluster Design
 
@@ -36,9 +36,9 @@ One of the major advantages of krkn-operator over previous approaches (krknctl, 
 
 ### krkn-operator Approach
 - Target cluster credentials are **configured once by the krkn-operator administrator**
-- Users are granted access at the **operator level** through Kubernetes RBAC
+- Users are granted access through the **KrknUser CRD**, a custom resource that manages user permissions
 - **No cluster credentials are shared** with end users
-- User permissions are managed through native Kubernetes mechanisms
+- User permissions are managed declaratively through KrknUser resources
 - Simplified and secure onboarding/offboarding process
 
 {{% notice info %}}

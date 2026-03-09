@@ -37,9 +37,9 @@ This installs krkn-operator with default settings in the current namespace.
 kubectl get pods -l app.kubernetes.io/name=krkn-operator
 ```
 
-You should see the operator pod running:
+Expected output:
 
-```
+```console
 NAME                              READY   STATUS    RESTARTS   AGE
 krkn-operator-xxxxxxxxx-xxxxx     2/2     Running   0          1m
 ```
@@ -174,8 +174,6 @@ To enable Advanced Cluster Management (ACM) / Open Cluster Management (OCM) inte
 ```yaml
 acm:
   enabled: true
-  config:
-    secretName: acm-cluster-credentials  # Secret containing ACM cluster credentials
   resources:
     requests:
       cpu: 100m
@@ -190,13 +188,12 @@ Install with ACM enabled:
 ```bash
 helm install krkn-operator krkn-operator/krkn-operator \
   --set acm.enabled=true \
-  --set acm.config.secretName=acm-cluster-credentials \
   --namespace krkn-operator-system \
   --create-namespace
 ```
 
 {{% notice info %}}
-**ACM Secret**: The `acm-cluster-credentials` secret must be created beforehand and contain the necessary credentials to access your ACM-managed clusters. See the [ACM Integration](../acm-integration/) guide for details.
+**ACM Integration**: When ACM is enabled, krkn-operator-acm will automatically discover and manage ACM-controlled clusters. See the [ACM Integration](../acm-integration/) guide for more details on configuration.
 {{% /notice %}}
 
 ### Custom Namespace

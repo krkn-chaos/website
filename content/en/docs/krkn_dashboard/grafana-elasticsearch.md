@@ -3,6 +3,9 @@ title: Grafana and Elasticsearch
 linkTitle: Grafana and Elasticsearch
 description: Optional integrations for run history and metrics.
 weight: 11
+_build:
+  list: never
+  render: never
 ---
 
 ## Requirements for Grafana and Elasticsearch

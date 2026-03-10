@@ -7,9 +7,29 @@ weight: 10
 
 ## Using the UI
 
-Once the dashboard is running, open **http://localhost:3000** (or the port shown in the terminal) in your browser. Then:
+Once the dashboard is running, open **http://localhost:3000** (or the port shown in the terminal) in your browser. The dashboard has a side menu with other dashboard views (Overview and Metrics). Each is described below.
 
-1. **Pick a scenario** — Choose the chaos scenario you want to run.
-2. **Set parameters** — Configure the scenario options in the form.
-3. **Provide kubeconfig** — Point to your kubeconfig path on the host or upload a kubeconfig file so the dashboard can target your cluster.
-4. **Start a run** — The dashboard uses the local Podman (or Docker) to start the krkn-hub container and run the scenario. Use the real-time logs in the UI to watch progress and spot any issues.
+---
+
+## Overview
+
+The Overview page is the default landing page. It has two tabs at the top:
+
+### Kraken tab
+
+- **Scenarios card** — A set of scenario tiles (e.g. Pod Scenarios, Node CPU hog, Node IO hog, Node Memory hog). Click a scenario to select it for the next run.
+- **Supported Parameters** — Set your parameters for the selected scenario and either enter a kubeconfig path or upload a kubeconfig file. Use **Start Kraken** to launch the krkn-hub container for that scenario.
+- **Pod Details** — A table of all krkn-hub containers known to the dashboard. Use this to see which chaos runs are active or finished.
+
+### Logs tab
+
+- **Logs viewer** — A dropdown to select a running or past container (from the same list as Pod Details). Once selected, the panel shows that container's live or captured logs so you can watch chaos output without using the terminal.
+
+---
+
+## Metrics
+
+The Metrics page is used for Elasticsearch and Grafana integration:
+
+- **Storage Metrics** (when not connected): Shows a form to connect to Elasticsearch (host, index, optional username/password, optional Grafana base URL and datasource). After submitting, the dashboard queries ES for past run details.
+- **Storage table** (when connected): The page generates graphics to better analyze run history. After a successful connection, a table of past runs from Elasticsearch appears. Rows can be expanded to show more details and, when Grafana is configured, a link to the Grafana dashboard for that run.

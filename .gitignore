@@ -10,6 +10,7 @@ Thumbs.db
 # Python
 *.pyc
 venv/
+.venv/
 
 # Node.js dependencies
 node_modules/

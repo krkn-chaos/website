@@ -21,6 +21,9 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 **krknctl** is the recommended way to run Krkn. It provides the simplest path to chaos testing with powerful capabilities including complex workflow orchestration, built-in scenario discovery, and interactive query support — all without managing configuration files.
 {{% /alert %}}
 
+{{% alert title="Recommendation" color="success" %}}
+Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta features provide early access to new capabilities for experimentation and feedback and may not yet meet the stability, performance, or compatibility guarantees of GA features. Please refer to the [Beta feature policy](https://github.com/krkn-chaos/krkn/blob/main/BETA_FEATURE_POLICY.md) for more details.
+{{% /alert %}}
 ---
 
 ## Installation Methods

@@ -9,10 +9,11 @@ Set the scenarios to inject and the tunings like duration to wait between each s
 
 **NOTE**: [config](https://github.com/redhat-chaos/krkn/blob/main/config/config_performance.yaml) can be used if leveraging the [automated way](https://github.com/redhat-chaos/krkn#setting-up-infrastructure-dependencies) to install the infrastructure pieces.
 
-Config components: 
+Config components:
 * [Kraken](#kraken)
 * [Cerberus](#cerberus)
 * [Performance Monitoring](#performance-monitoring)
+* [Resiliency](#resiliency)
 * [ElasticSearch](#elastic)
 * [Tunings](#tunings)
 * [Telemetry](#telemetry)
@@ -93,6 +94,30 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 
 **check_critical_alerts**: True or False; When enabled will check prometheus for critical alerts firing post chaos. Read more about this functionality in [SLOs validation](SLOs_validation.md#checking-for-critical-alerts-post-chaos)
 
+
+## Resiliency
+
+The resiliency scoring system evaluates your cluster's health during chaos scenarios by checking Service Level Objectives (SLOs) against Prometheus metrics. See [Resiliency Scoring](resiliency-score.md) for detailed information about the scoring algorithm and SLO configuration.
+
+**resiliency_run_mode**: Determines how resiliency scoring operates. Options are:
+  - `standalone` (default): Calculates the resiliency score and embeds it in the telemetry output
+  - `controller`: Prints the resiliency report to stdout for krknctl integration (used when running under krknctl)
+  - `disabled`: Completely disables resiliency scoring
+
+**resiliency_file**: Path to the YAML file containing SLO definitions. If not specified, defaults to the `alert_profile` setting from `performance_monitoring`, or `config/alerts.yaml` if neither is set. The file should contain a list of SLO definitions with Prometheus expressions. See [Resiliency Scoring](resiliency-score.md) for examples of SLO definitions and custom weight configuration.
+
+Example configuration:
+```yaml
+resiliency:
+  resiliency_run_mode: standalone
+  resiliency_file: config/alerts.yaml
+```
+
+The resiliency scoring system supports:
+- Default severity-based weights (critical = 3 points, warning = 1 point)
+- Custom weights for individual SLOs to emphasize business-critical services
+- Per-scenario scoring with weighted aggregation for multi-scenario runs
+- Detailed breakdown reports showing which SLOs passed/failed
 
 ## Elastic
 We have enabled the ability to store telemetry, metrics and alerts into ElasticSearch based on the below keys and values. 

@@ -23,7 +23,7 @@ Before running chaos experiments, you need to add one or more target clusters to
 Log in to the Krkn Operator Console and click on your profile in the top-right corner. Select **Admin Settings** from the dropdown menu.
 
 <p align="center">
-  <img src="/img/admin-menu.png" alt="Admin Settings Menu" style="max-width: 400px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+  <img src="/img/admin-menu.png" alt="Admin Settings Menu" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
 </p>
 
 {{% notice warning %}}
@@ -338,10 +338,281 @@ rules:
 
 ---
 
+## ACM/OCM Integration (Advanced)
+
+For organizations using [Red Hat Advanced Cluster Management (ACM)](https://www.redhat.com/en/technologies/management/advanced-cluster-management) or [Open Cluster Management (OCM)](https://open-cluster-management.io/), the Krkn Operator provides seamless integration that automatically discovers and manages all ACM-controlled clusters as chaos testing targets.
+
+### What is ACM/OCM?
+
+**Advanced Cluster Management (ACM)** and **Open Cluster Management (OCM)** are multi-cluster management platforms that allow you to manage multiple Kubernetes and OpenShift clusters from a single hub cluster. ACM/OCM provides:
+
+- **Centralized cluster lifecycle management** - Deploy, upgrade, and manage multiple clusters
+- **Application deployment across clusters** - Deploy applications to multiple clusters with policies
+- **Governance and compliance** - Apply security and compliance policies across your fleet
+- **Observability** - Monitor metrics, logs, and alerts from all managed clusters
+
+### How ACM Integration Works
+
+When the ACM integration is enabled in the Krkn Operator, the **krkn-operator-acm** component automatically:
+
+1. **Discovers all managed clusters** registered with your ACM/OCM hub
+2. **Imports them as chaos testing targets** into the Krkn Operator console
+3. **Keeps the cluster list synchronized** as new clusters are added or removed from ACM
+4. **Authenticates automatically** using ACM's `ManagedServiceAccount` resources—no manual credential management required
+
+{{% notice success %}}
+**Zero Configuration**: Once ACM integration is enabled, you don't need to manually add clusters, provide kubeconfig files, or manage authentication tokens. The operator handles everything automatically through ACM's native authentication mechanisms.
+{{% /notice %}}
+
+### Benefits of ACM Integration
+
+| Feature | Manual Configuration | ACM Integration |
+|---------|---------------------|-----------------|
+| Cluster Discovery | Manual - add each cluster individually | Automatic - all ACM-managed clusters |
+| Credential Management | Manual - maintain tokens/kubeconfig per cluster | Automatic - uses ManagedServiceAccount |
+| Cluster Updates | Manual - update credentials when they change | Automatic - ACM handles rotation |
+| New Clusters | Manual - must add explicitly | Automatic - discovered immediately |
+| Security | Per-cluster authentication | Centralized ACM RBAC with fine-grained control |
+
+---
+
+### Enabling ACM Integration
+
+#### Step 1: Install with ACM Enabled
+
+To enable ACM integration, install the Krkn Operator with the ACM component enabled via Helm:
+
+```bash
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
+  --set acm.enabled=true \
+  --namespace krkn-operator-system \
+  --create-namespace
+```
+
+Or add it to your `values.yaml`:
+
+```yaml
+acm:
+  enabled: true
+  replicaCount: 1
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  logging:
+    level: info
+    format: json
+```
+
+For complete installation instructions and additional configuration options, see the [Installation Guide](../installation/#enable-acm-integration).
+
+{{% notice info %}}
+**Hub Cluster Requirement**: The Krkn Operator must be installed on the same cluster where ACM/OCM is running (the hub cluster). It will then discover all spoke clusters managed by that ACM instance.
+{{% /notice %}}
+
+#### Step 2: Verify ACM Component
+
+After installation, verify that the ACM component is running:
+
+```bash
+kubectl get pods -n krkn-operator-system -l app.kubernetes.io/component=acm
+
+# Expected output:
+# NAME                                  READY   STATUS    RESTARTS   AGE
+# krkn-operator-acm-xxxxxxxxx-xxxxx     1/1     Running   0          2m
+```
+
+Check the ACM component logs to see cluster discovery in action:
+
+```bash
+kubectl logs -n krkn-operator-system -l app.kubernetes.io/component=acm
+
+# You should see logs like:
+# INFO  Discovered 5 managed clusters from ACM
+# INFO  Synced cluster: production-us-east
+# INFO  Synced cluster: staging-eu-west
+```
+
+---
+
+### Configuring ManagedServiceAccounts (Fine-Grained Security)
+
+One of the most powerful features of ACM integration is the ability to use **ManagedServiceAccounts** for authentication to target clusters. This provides fine-grained, per-cluster security control.
+
+#### What are ManagedServiceAccounts?
+
+[ManagedServiceAccounts](https://open-cluster-management.io/concepts/managedserviceaccount/) are a feature of OCM/ACM that allows the hub cluster to create and manage service accounts on spoke clusters. Instead of using a single highly-privileged service account (like `open-cluster-management-agent-addon-application-manager`), you can create dedicated service accounts with custom RBAC permissions for each cluster.
+
+#### Configuring Per-Cluster Service Accounts
+
+Navigate to **Admin Settings** → **Provider Configuration** → **ACM** to configure which ManagedServiceAccount to use for each cluster:
+
+<p align="center">
+  <img src="/img/provider-configuration-acm.png" alt="ACM Provider Configuration" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+</p>
+
+For each managed cluster, you can:
+
+1. **Select a ManagedServiceAccount**: Choose from existing ManagedServiceAccounts created on that cluster
+2. **Customize permissions per cluster**: Each cluster can use a different service account with different RBAC permissions
+3. **Apply the configuration**: The Krkn Operator will use this service account for all chaos testing operations on that cluster
+
+#### Why Use Custom ManagedServiceAccounts?
+
+By default, ACM uses the `open-cluster-management-agent-addon-application-manager` service account, which has **cluster-admin** privileges on all spoke clusters. While convenient, this violates the **principle of least privilege**.
+
+Using custom ManagedServiceAccounts provides:
+
+**Enhanced Security:**
+- **Least privilege access**: Grant only the permissions needed for chaos testing (e.g., pod deletion, network policy creation) rather than full cluster-admin
+- **Per-cluster customization**: Production clusters can have more restrictive permissions than dev/test clusters
+- **Audit trail**: Each cluster has a dedicated service account, making it easier to track and audit chaos testing activities
+
+**Flexibility:**
+- **Environment-specific policies**: Different permissions for prod, staging, and dev environments
+- **Scenario-specific accounts**: Create different service accounts for different types of chaos scenarios
+- **Compliance**: Meet security and compliance requirements by limiting operator privileges
+
+**Example: Creating a Custom ManagedServiceAccount**
+
+Create a ManagedServiceAccount with limited chaos testing permissions:
+
+```yaml
+apiVersion: authentication.open-cluster-management.io/v1beta1
+kind: ManagedServiceAccount
+metadata:
+  name: krkn-chaos-operator
+  namespace: cluster-prod-us-east  # ManagedCluster namespace
+spec:
+  rotation: {}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: krkn-chaos-limited
+rules:
+# Pod chaos - read and delete only
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "delete"]
+
+# Node chaos - read and cordon/drain only
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch", "update", "patch"]
+
+# Network policies - create and delete
+- apiGroups: ["networking.k8s.io"]
+  resources: ["networkpolicies"]
+  verbs: ["get", "list", "create", "delete"]
+
+# No destructive operations on critical resources
+# (no namespace deletion, no service account manipulation, etc.)
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: krkn-chaos-limited-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: krkn-chaos-limited
+subjects:
+- kind: ServiceAccount
+  name: krkn-chaos-operator
+  namespace: open-cluster-management-agent-addon
+```
+
+Apply this to the ACM hub cluster, and the ManagedServiceAccount will be created on the spoke cluster automatically. You can then select it in the Provider Configuration UI.
+
+{{% notice tip %}}
+**Security Best Practice**: Create different ManagedServiceAccounts for different environments. For example:
+- `krkn-prod` with minimal permissions (only non-destructive scenarios)
+- `krkn-staging` with moderate permissions (most scenarios)
+- `krkn-dev` with full chaos permissions (all scenarios)
+{{% /notice %}}
+
+---
+
+### Automatic Cluster Synchronization
+
+Once ACM integration is enabled and configured, the Krkn Operator automatically:
+
+- **Syncs cluster list every 60 seconds** (configurable)
+- **Adds new clusters** as they're imported into ACM
+- **Removes clusters** that are deleted from ACM
+- **Updates cluster status** based on ACM health checks
+- **Rotates credentials** automatically when ManagedServiceAccount tokens are refreshed
+
+You can view all ACM-discovered clusters in the **Cluster Targets** page. They will be marked with an **ACM** badge to distinguish them from manually configured clusters.
+
+---
+
+### Troubleshooting ACM Integration
+
+#### ACM Component Not Starting
+
+If the ACM component fails to start, check:
+
+```bash
+# Check pod status
+kubectl get pods -n krkn-operator-system -l app.kubernetes.io/component=acm
+
+# View logs
+kubectl logs -n krkn-operator-system -l app.kubernetes.io/component=acm
+
+# Common issues:
+# - ACM/OCM not installed on the hub cluster
+# - Missing RBAC permissions for the operator to read ManagedCluster resources
+# - Network policies blocking communication
+```
+
+#### No Clusters Discovered
+
+If the ACM component is running but no clusters appear:
+
+1. Verify ACM is managing clusters:
+   ```bash
+   kubectl get managedclusters
+   ```
+
+2. Check if clusters are in "Ready" state:
+   ```bash
+   kubectl get managedclusters -o wide
+   ```
+
+3. Review ACM component logs for discovery errors:
+   ```bash
+   kubectl logs -n krkn-operator-system -l app.kubernetes.io/component=acm | grep -i error
+   ```
+
+#### ManagedServiceAccount Not Working
+
+If a cluster shows authentication errors after configuring a ManagedServiceAccount:
+
+1. Verify the ManagedServiceAccount exists and is ready:
+   ```bash
+   kubectl get managedserviceaccount -n <cluster-namespace>
+   ```
+
+2. Check the ManagedServiceAccount has proper RBAC permissions on the spoke cluster
+
+3. Ensure the ManagedServiceAccount token hasn't expired
+
+For more detailed troubleshooting, see the [ACM Integration Troubleshooting Guide](https://github.com/krkn-chaos/krkn-operator/tree/main/docs/acm).
+
+---
+
 ## Next Steps
 
-Now that you've configured your target clusters, you're ready to run chaos scenarios:
+Now that you've configured your target clusters (manually or via ACM), you're ready to run chaos scenarios:
 
 - [Create Your First Scenario](../scenarios/) - Learn how to create and execute chaos experiments
-- [ACM Integration](../acm-integration/) - Automatically manage clusters via Advanced Cluster Management
 - [Scenario Templates](../templates/) - Use pre-built scenario templates for common chaos patterns
+- [Best Practices Guide](../../chaos-testing-guide/) - Learn chaos engineering best practices

@@ -214,6 +214,44 @@ the tool will exit with the same status as that container.
 This function can be integrated into CI/CD pipelines to halt execution if the chaos run encounters any failure.
 {{% /alert %}}
 
+### `visualize [flags]`:
+
+Deploys [krkn-visualize](https://github.com/krkn-chaos/visualize) — a Grafana dashboard — to the
+current Kubernetes cluster. The command pulls and runs the `quay.io/krkn-chaos/krkn-visualize:latest`
+container image via the local container runtime, wiring up Elasticsearch and an optional Prometheus datasource.
+
+{{% alert title="Tip" %}}
+Like the `run` command, the kubeconfig file is automatically flattened and mounted into the container,
+so external certificate references are resolved before the container starts.
+{{% /alert %}}
+
+```
+krknctl visualize --es-url http://elasticsearch:9200 --namespace krkn-visualize
+```
+
+To tear down an existing deployment, pass the `--delete` flag:
+
+```
+krknctl visualize --delete
+```
+
+#### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--es-url` | | Elasticsearch URL |
+| `--es-username` | | Elasticsearch username |
+| `--es-password` | | Elasticsearch password *(masked in output)* |
+| `--prometheus-url` | | Prometheus URL for the datasource (optional) |
+| `--prometheus-bearer-token` | | Prometheus bearer token for authentication *(masked in output, optional)* |
+| `--namespace` | `krkn-visualize` | Kubernetes namespace to deploy into |
+| `--grafana-password` | `admin` | Grafana admin password |
+| `--kubectl` | `kubectl` | kubectl binary to use (e.g. `oc` for OpenShift) |
+| `--kubeconfig` | `~/.kube/config` | kubeconfig path |
+| `--delete` | `false` | Delete an existing krkn-visualize deployment |
+
+<br/>
+
 ### Running krknctl on a disconnected environment with a private registry
 
 If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.

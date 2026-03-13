@@ -23,7 +23,7 @@ Before running chaos experiments, you need to add one or more target clusters to
 Log in to the Krkn Operator Console and click on your profile in the top-right corner. Select **Admin Settings** from the dropdown menu.
 
 <p align="center">
-  <img src="/img/admin-menu.png" alt="Admin Settings Menu" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+  <img src="/images/admin-menu.png" alt="Admin Settings Menu" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
 </p>
 
 {{% notice warning %}}
@@ -43,7 +43,7 @@ In the Admin Settings page, click on the **Cluster Targets** tab in the left sid
 Click the **Add Target** button in the top-right corner of the Cluster Targets page. This will open the "Add New Target" dialog.
 
 <p align="center">
-  <img src="/img/add-new-target.png" alt="Add New Target Dialog" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+  <img src="/images/add-new-target.png" alt="Add New Target Dialog" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
 </p>
 
 ### Step 4: Enter Cluster Information
@@ -454,7 +454,7 @@ One of the most powerful features of ACM integration is the ability to use **Man
 Navigate to **Admin Settings** → **Provider Configuration** → **ACM** to configure which ManagedServiceAccount to use for each cluster:
 
 <p align="center">
-  <img src="/img/provider-configuration-acm.png" alt="ACM Provider Configuration" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+  <img src="/images/provider-configuration-acm.png" alt="ACM Provider Configuration" style="max-width: 700px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
 </p>
 
 For each managed cluster, you can:

@@ -2,6 +2,7 @@
 title: Installation
 description: Install krkn-operator using Helm
 weight: 1
+custom_js: ["/js/krkn-operator-version.js"]
 ---
 
 This guide walks you through installing krkn-operator using Helm, the recommended installation method.
@@ -16,17 +17,16 @@ This guide walks you through installing krkn-operator using Helm, the recommende
 
 Perfect for testing and local development, this minimal installation gets krkn-operator running quickly on kind or minikube.
 
-### 1. Add the Helm Repository
+**Latest Version:** <code id="krkn-operator-version" style="color: var(--krkn-primary);">loading...</code>
+
+
+The version number is automatically updated in the commands below. For other available versions, see the [releases page](https://github.com/krkn-chaos/krkn-operator/releases).
+
+
+### 1. Install krkn-operator
 
 ```bash
-helm repo add krkn-operator https://krkn-chaos.github.io/charts
-helm repo update
-```
-
-### 2. Install krkn-operator
-
-```bash
-helm install krkn-operator krkn-operator/krkn-operator
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator --version <VERSION>
 ```
 
 This installs krkn-operator with default settings in the current namespace.
@@ -111,7 +111,8 @@ monitoring:
 Install with your custom values:
 
 ```bash
-helm install krkn-operator krkn-operator/krkn-operator \
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
   --namespace krkn-operator-system \
   --create-namespace \
   -f values.yaml
@@ -157,7 +158,8 @@ podDisruptionBudget:
 Install on OpenShift:
 
 ```bash
-helm install krkn-operator krkn-operator/krkn-operator \
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
   --namespace krkn-operator-system \
   --create-namespace \
   -f values-openshift.yaml
@@ -186,7 +188,8 @@ acm:
 Install with ACM enabled:
 
 ```bash
-helm install krkn-operator krkn-operator/krkn-operator \
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
   --set acm.enabled=true \
   --namespace krkn-operator-system \
   --create-namespace
@@ -201,7 +204,8 @@ helm install krkn-operator krkn-operator/krkn-operator \
 Install in a custom namespace:
 
 ```bash
-helm install krkn-operator krkn-operator/krkn-operator \
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
   --namespace my-chaos-platform \
   --create-namespace \
   --set namespaceOverride=my-chaos-platform
@@ -213,11 +217,11 @@ If you're using a private registry or mirror:
 
 ```yaml
 operator:
-  image: myregistry.io/krkn-chaos/krkn-operator:v1.0.0
+  image: myregistry.io/krkn-chaos/krkn-operator:<VERSION>
   pullPolicy: IfNotPresent
 
 dataProvider:
-  image: myregistry.io/krkn-chaos/data-provider:v1.0.0
+  image: myregistry.io/krkn-chaos/data-provider:<VERSION>
 
 pullSecrets:
   - name: my-registry-secret
@@ -444,8 +448,8 @@ kubectl logs -n krkn-operator-system -l app.kubernetes.io/name=krkn-operator -c 
 To upgrade to a newer version:
 
 ```bash
-helm repo update
-helm upgrade krkn-operator krkn-operator/krkn-operator \
+helm upgrade krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
   --namespace krkn-operator-system \
   -f values.yaml
 ```

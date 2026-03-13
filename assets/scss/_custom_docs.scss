@@ -152,6 +152,41 @@
   border-left-color: var(--krkn-text) !important;
 }
 
+// Sidebar badges (e.g., beta, new, etc.)
+// Only show badge on main krkn-operator page, not sub-chapters
+.td-sidebar-nav a[href$="/krkn-operator/"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+
+  &::after {
+    content: 'beta';
+    display: inline-block;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.0625rem 0.3125rem;
+    border-radius: 0.1875rem;
+    border: 1px solid var(--krkn-primary);
+    background: transparent;
+    color: var(--krkn-primary);
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, background 0.2s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    background: var(--krkn-primary);
+    color: var(--krkn-bg);
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Main content area
 // -----------------------------------------------------------------------------

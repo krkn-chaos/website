@@ -186,14 +186,19 @@ The live log streaming is particularly useful for:
 
 ### User Permissions and Visibility
 
-{{% notice warning %}}
-**Role-Based Access Control**: Scenario visibility and management capabilities depend on your user role:
+**Role-Based Access Control**: Scenario visibility and management capabilities depend on your user role.
 
-- **Administrator users**: Can view all scenario runs from all users, manage any running scenario, and cancel experiments initiated by any user
-- **Regular users**: Can only view and manage their own scenario runs. Scenarios started by other users are not visible
+**Administrator users** can:
+- View all scenario runs from all users
+- Manage any running scenario
+- Cancel experiments initiated by any user
 
-This ensures that teams can work independently while administrators maintain oversight and control of all chaos engineering activities.
-{{% /notice %}}
+**Regular users** can:
+- View only their own scenario runs
+- Manage only scenarios they initiated
+- Scenarios started by other users are not visible to them
+
+This role-based access control ensures that teams can work independently while administrators maintain oversight and control of all chaos engineering activities.
 
 ---
 

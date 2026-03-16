@@ -75,4 +75,129 @@ To use a private registry, you'll need to:
 
 ---
 
-**Next Steps**: Continue to the [Scenario Configuration](/docs/krkn-operator/usage/scenario-configuration/) guide to learn about selecting and configuring specific chaos scenarios.
+## Step 4: Selecting a Chaos Scenario
+
+After choosing your registry, you'll be presented with a list of available chaos scenarios to run against your target clusters.
+
+![Select Chaos Scenario](/images/krkn-operator/select-scenario.png)
+
+The scenario selection page displays all available chaos scenarios from the chosen registry. Each scenario card shows:
+
+- **Scenario name** and description
+- **Scenario type** (pod, node, network, etc.)
+- **Version information**
+
+Browse through the available scenarios and select the one that matches your chaos engineering objectives. For detailed information about each scenario and what it does, refer to the [Scenarios documentation](/docs/scenarios/).
+
+## Step 5: Configuring Scenario Parameters
+
+Once you've selected a scenario, you'll move to the configuration phase where you can customize the scenario's behavior to match your testing requirements.
+
+### Mandatory Parameters
+
+![Mandatory Scenario Parameters](/images/krkn-operator/scenario-mandatory.png)
+
+Mandatory parameters are scenario-specific settings that control the core behavior of the chaos experiment. While labeled as "mandatory," these parameters are not always required to be set explicitly:
+
+- **Default values**: If you don't provide values, the scenario will run with built-in defaults
+- **Cluster-dependent**: Default values may not produce the desired effect on your specific cluster configuration
+- **Scenario-specific**: Different scenarios have different mandatory parameters based on what they're testing
+
+**Best Practice**: Review and configure mandatory parameters to ensure the scenario behaves as expected in your environment. For example, a pod deletion scenario might default to deleting pods in the `default` namespace, but you may want to target a specific application namespace instead.
+
+### Optional Parameters
+
+![Optional Scenario Parameters](/images/krkn-operator/scenario-optional.png)
+
+Optional parameters provide fine-grained control over the scenario's behavior. These parameters:
+
+- Allow you to customize the chaos experiment beyond the basic configuration
+- Are entirely optional—scenarios run perfectly fine without setting them
+- Enable advanced testing patterns (custom filters, label selectors, timing controls, etc.)
+
+Examples of optional parameters might include:
+- Label selectors to target specific pods
+- Duration and interval settings
+- Percentage of resources to affect
+- Custom filters or exclusion rules
+
+### Global Options
+
+![Global Scenario Options](/images/krkn-operator/scenario-global.png)
+
+Global options control the behavior of the Krkn framework itself, not the specific scenario. These settings enable integration with observability and monitoring tools:
+
+- **Elasticsearch integration**: Send scenario metrics and results to Elasticsearch
+- **Prometheus integration**: Export chaos metrics to Prometheus
+- **Alert collection**: Capture and analyze alerts triggered during the chaos experiment
+- **Custom dashboards**: Configure metrics export for custom monitoring dashboards
+- **Cerberus integration**: Enable health monitoring during chaos runs
+
+{{% notice info %}}
+**Default Value Handling**: Global options are only applied if you modify them from their default values in the form. If you leave a global option at its default setting, it will not be included in the scenario configuration. This prevents unnecessary configuration bloat and ensures only intentional customizations are applied.
+{{% /notice %}}
+
+After configuring all parameters, click **Run Scenario** to launch the chaos experiment.
+
+---
+
+## Monitoring Scenario Runs
+
+Once you launch a scenario, you can monitor its execution in real-time through the Krkn Operator web interface.
+
+### Active Scenarios Dashboard
+
+![Active Scenario Runs](/images/krkn-operator/scenario-running.png)
+
+The home page displays all active scenario runs across all target clusters. Each scenario card shows:
+
+- **Scenario name** and type
+- **Target cluster(s)** where it's running
+- **Current status** (running, completed, failed)
+- **Start time** and duration
+- **User** who initiated the run
+
+From this dashboard, you can:
+- View all running experiments at a glance
+- Click on a scenario to see detailed execution information
+- Stop or cancel running scenarios (if you have permissions)
+
+### Scenario Run Details
+
+![Scenario Run Details with Live Logs](/images/krkn-operator/scenario-running-detail.png)
+
+Clicking on a running scenario opens the detailed view, which provides:
+
+- **Real-time container logs**: Watch the chaos scenario execute with live log streaming
+- **Execution timeline**: See when the scenario started, its current phase, and expected completion
+- **Configuration details**: Review the parameters that were used for this run
+- **Target information**: Verify which cluster(s) the scenario is affecting
+- **Status updates**: Real-time status changes as the scenario progresses through its phases
+
+The live log streaming is particularly useful for:
+- Debugging scenario failures
+- Understanding what the chaos experiment is currently doing
+- Verifying that the chaos is being injected as expected
+- Capturing evidence for post-experiment analysis
+
+### User Permissions and Visibility
+
+{{% notice warning %}}
+**Role-Based Access Control**: Scenario visibility and management capabilities depend on your user role:
+
+- **Administrator users**: Can view all scenario runs from all users, manage any running scenario, and cancel experiments initiated by any user
+- **Regular users**: Can only view and manage their own scenario runs. Scenarios started by other users are not visible
+
+This ensures that teams can work independently while administrators maintain oversight and control of all chaos engineering activities.
+{{% /notice %}}
+
+---
+
+## What's Next?
+
+Now that you understand how to run and monitor chaos scenarios with Krkn Operator, you might want to:
+
+- Explore the [Scenarios documentation](/docs/scenarios/) to understand what each chaos scenario does
+- Review [Best Practices](/docs/chaos-testing-guide/) for effective chaos engineering
+- Learn about [Advanced Configuration](/docs/krkn-operator/configuration/) options for integrating with monitoring tools
+- Set up [Private Registry](/docs/krkn-operator/configuration/#private-registry-configuration) for custom or modified scenarios

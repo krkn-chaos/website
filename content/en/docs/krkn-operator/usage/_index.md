@@ -64,10 +64,9 @@ For organizations with specific requirements, you can configure a private contai
 - Meet compliance or security requirements
 
 {{% notice info %}}
-**Air-Gapped and Disconnected Environments**
-
-Krkn Operator uses the OCI registry itself as the backend for scenario metadata through OCI registry APIs. This means that in a private registry configuration, the operator can function completely in disconnected or air-gapped environments without requiring external connectivity. All scenario definitions, metadata, and images are stored and retrieved from your private registry.
+**Air-Gapped and Disconnected Environments**: Krkn Operator uses the OCI registry itself as the backend for scenario metadata through OCI registry APIs. This means that in a private registry configuration, the operator can function completely in disconnected or air-gapped environments without requiring external connectivity. All scenario definitions, metadata, and images are stored and retrieved from your private registry.
 {{% /notice %}}
+
 
 To use a private registry, you'll need to:
 1. Configure the private registry in the [Configuration](/docs/krkn-operator/configuration/#private-registry-configuration) section

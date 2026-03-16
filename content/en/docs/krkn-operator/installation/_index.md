@@ -72,18 +72,77 @@ Choose the installation method that matches your environment and requirements:
 
 The main differences between production installations are:
 
-- **Kubernetes** uses **Ingress** resources for external web console access (requires an Ingress controller like nginx, traefik, or cloud provider ingress)
+- **Kubernetes** can use either:
+  - **Gateway API** (recommended) - Modern routing standard with powerful features
+  - **Ingress** (legacy) - Traditional method, still widely supported
 - **OpenShift** uses **Routes** for external access (native OpenShift feature, no additional controller needed)
 - **Production** configurations add replica counts, resource limits, pod disruption budgets, and monitoring compared to Quick Start
 
-Both production methods support the same chaos scenarios and core functionality—the choice depends purely on your platform.
+All production methods support the same chaos scenarios and core functionality—the choice depends on your platform and infrastructure preferences.
 
 ### Installation on Kubernetes
+
+Kubernetes clusters can expose the web console using either **Gateway API** (recommended) or **Ingress** (legacy).
+
+#### Option 1: Using Gateway API (Recommended)
+
+Gateway API is the modern successor to Ingress and provides more powerful and flexible routing capabilities.
+
+**Prerequisites:**
+- Gateway API CRDs installed in your cluster ([installation guide](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api))
+- A Gateway resource already deployed (usually managed by cluster admins)
 
 Create a `values.yaml` file:
 
 ```yaml
-# Production values for Kubernetes
+# Production values for Kubernetes with Gateway API
+
+# Enable web console with Gateway API
+console:
+  enabled: true
+  gateway:
+    enabled: true
+    gatewayName: krkn-gateway  # Name of your existing Gateway
+    gatewayNamespace: ""  # Optional: if Gateway is in a different namespace
+    hostname: krkn.example.com
+    path: /
+    pathType: PathPrefix
+
+# Operator configuration
+operator:
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  logging:
+    level: info
+    format: json
+
+# High availability
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+# Monitoring (if using Prometheus)
+monitoring:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+```
+
+**Note:** Gateway API assumes you have a Gateway resource already configured in your cluster. The chart creates only the HTTPRoute that attaches to that Gateway.
+
+#### Option 2: Using Ingress (Legacy)
+
+If your cluster doesn't support Gateway API yet, you can use traditional Ingress:
+
+```yaml
+# Production values for Kubernetes with Ingress
 
 # Enable web console with Ingress
 console:
@@ -358,13 +417,24 @@ console:
     port: 3000
     nodePort: null  # Only for NodePort service type
 
-  # Kubernetes Ingress
+  # Kubernetes Ingress (legacy)
   ingress:
     enabled: false
     className: nginx
     hostname: krkn.example.com
     annotations: {}
     tls: []
+
+  # Gateway API (recommended for Kubernetes)
+  gateway:
+    enabled: false
+    gatewayName: krkn-gateway
+    gatewayNamespace: ""
+    sectionName: ""
+    hostname: krkn.example.com
+    path: /
+    pathType: PathPrefix
+    annotations: {}
 
   # OpenShift Route
   route:

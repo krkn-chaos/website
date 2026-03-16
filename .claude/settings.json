@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/tsebasti/Projects/krkn-operator-ecosystem/krkn-operator/charts/krkn-operator/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/tsebasti/Projects/krkn-operator-ecosystem/krkn-operator/charts/krkn-operator/templates/console"
+    ]
+  }
+}

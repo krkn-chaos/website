@@ -58,7 +58,25 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Production Installation
 
-For production deployments, you'll want to customize the installation with a `values.yaml` file.
+For production deployments, you'll want to customize the installation with a `values.yaml` file to ensure high availability, proper resource limits, monitoring integration, and secure external access.
+
+### When to Use Each Installation Method
+
+Choose the installation method that matches your environment and requirements:
+
+| Method | Use When | Key Features |
+|--------|----------|--------------|
+| **Quick Start** | Testing on kind/minikube, local development, POC | Minimal configuration, port-forward access, no HA |
+| **Production (Kubernetes)** | Running on standard Kubernetes (EKS, GKE, AKS, self-managed) | Ingress for external access, HA setup, resource limits, monitoring |
+| **Production (OpenShift)** | Running on OpenShift/OKD clusters | OpenShift Routes instead of Ingress, enhanced security contexts, HA setup |
+
+The main differences between production installations are:
+
+- **Kubernetes** uses **Ingress** resources for external web console access (requires an Ingress controller like nginx, traefik, or cloud provider ingress)
+- **OpenShift** uses **Routes** for external access (native OpenShift feature, no additional controller needed)
+- **Production** configurations add replica counts, resource limits, pod disruption budgets, and monitoring compared to Quick Start
+
+Both production methods support the same chaos scenarios and core functionality—the choice depends purely on your platform.
 
 ### Installation on Kubernetes
 

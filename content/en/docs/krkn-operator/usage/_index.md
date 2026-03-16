@@ -97,13 +97,17 @@ Once you've selected a scenario, you'll move to the configuration phase where yo
 
 ![Mandatory Scenario Parameters](/images/krkn-operator/scenario-mandatory.png)
 
-Mandatory parameters are scenario-specific settings that control the core behavior of the chaos experiment. While labeled as "mandatory," these parameters are not always required to be set explicitly:
+Mandatory parameters are scenario-specific settings that **must** be configured before running the chaos experiment. When a scenario has mandatory parameters, you cannot proceed without providing values for them.
 
-- **Default values**: If you don't provide values, the scenario will run with built-in defaults
-- **Cluster-dependent**: Default values may not produce the desired effect on your specific cluster configuration
+**Important notes:**
+
+- **Required when present**: If a scenario displays mandatory parameters, you must fill them in—there are no defaults
+- **Not all scenarios have them**: Some scenarios can run without any mandatory configuration
 - **Scenario-specific**: Different scenarios have different mandatory parameters based on what they're testing
 
-**Best Practice**: Review and configure mandatory parameters to ensure the scenario behaves as expected in your environment. For example, a pod deletion scenario might default to deleting pods in the `default` namespace, but you may want to target a specific application namespace instead.
+If a scenario has **no mandatory parameters**, it can technically run with just the built-in defaults. However, running with defaults alone may not produce the desired chaos effect on your cluster, as the scenario won't be tailored to your specific environment and applications.
+
+**Best Practice**: Even when mandatory parameters aren't present, review the optional parameters to ensure the scenario targets the right resources and behaves as expected in your environment. For example, a pod deletion scenario might run with defaults, but you'll want to configure it to target your specific application namespace and workloads.
 
 ### Optional Parameters
 

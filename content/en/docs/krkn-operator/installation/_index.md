@@ -248,7 +248,7 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 
 ### Enable ACM Integration
 
-To enable Advanced Cluster Management (ACM) / Open Cluster Management (OCM) integration:
+To enable [Red Hat Advanced Cluster Management (ACM)](https://www.redhat.com/en/technologies/management/advanced-cluster-management) / [Open Cluster Management (OCM)](https://open-cluster-management.io/) integration:
 
 ```yaml
 acm:
@@ -273,7 +273,7 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 ```
 
 {{% notice info %}}
-**ACM Integration**: When ACM is enabled, krkn-operator-acm will automatically discover and manage ACM-controlled clusters. See the [ACM Integration](../acm-integration/) guide for more details on configuration.
+**ACM Integration**: When [ACM](https://www.redhat.com/en/technologies/management/advanced-cluster-management) is enabled, krkn-operator-acm will automatically discover and manage ACM-controlled clusters. See the [ACM Integration](../configuration/#acmocm-integration-advanced) section in Configuration for more details.
 {{% /notice %}}
 
 ### Custom Namespace
@@ -565,5 +565,5 @@ kubectl delete crds -l app.kubernetes.io/name=krkn-operator
 ## Next Steps
 
 - [Configure Target Clusters](../configuration/) - Set up target clusters for chaos testing
-- [ACM Integration](../acm-integration/) - Enable Advanced Cluster Management integration
-- [Create Your First Scenario](../scenarios/) - Start running chaos experiments
+- [ACM Integration](../configuration/#acmocm-integration-advanced) - Enable Advanced Cluster Management integration
+- [Run Your First Scenario](../usage/) - Start running chaos experiments

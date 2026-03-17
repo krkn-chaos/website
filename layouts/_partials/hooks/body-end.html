@@ -65,6 +65,347 @@
 })();
 </script>
 
+<!-- Sliding window + mouse drag -->
+<script>
+(function() {
+  // --- Benefits slider: sliding window + mouse drag for "Why Krkn" cards ---
+  function initBenefitsSlider() {
+    var trackEl = document.getElementById('krkn-benefits-track');
+    var dotsEl = document.getElementById('krkn-benefits-dots');
+    var windowEl = trackEl && trackEl.closest('.krkn-benefits-slider__window');
+    var prevBtn = document.getElementById('krkn-benefits-prev');
+    var nextBtn = document.getElementById('krkn-benefits-next');
+    if (!trackEl || !dotsEl) return;
+
+    var cards = trackEl.querySelectorAll('.krkn-benefits-card');
+    var count = cards.length;
+    if (count === 0) return;
+
+    var currentIndex = 0;
+    var dragging = false;
+    var startX = 0;
+    var startIndex = 0;
+
+    for (var i = 0; i < count; i++) {
+      var dot = document.createElement('span');
+      dot.className = 'krkn-benefits-nav__dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('data-index', i);
+      dot.setAttribute('aria-label', 'Go to benefit ' + (i + 1));
+      dot.setAttribute('role', 'button');
+      dotsEl.appendChild(dot);
+    }
+    var dots = dotsEl.querySelectorAll('.krkn-benefits-nav__dot');
+
+    // Navigation: compute offset and update track + dots
+    function getCardWidthPx() {
+      return trackEl.offsetWidth / count;
+    }
+
+    function goToIndex(index, noTransition) {
+      currentIndex = Math.max(0, Math.min(index, count - 1));
+      if (noTransition) trackEl.style.transition = 'none';
+      else trackEl.style.transition = '';
+      var offsetPx = currentIndex * getCardWidthPx();
+      trackEl.style.transform = 'translateX(-' + offsetPx + 'px)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === currentIndex); });
+    }
+
+    // Pointer handlers: drag to slide, snap on release
+    function onPointerDown(e) {
+      if (e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      startIndex = currentIndex;
+      if (windowEl) {
+        windowEl.setPointerCapture(e.pointerId);
+        windowEl.style.cursor = 'grabbing';
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      var cardWidthPx = getCardWidthPx();
+      var deltaX = e.clientX - startX;
+      var offsetSlides = -deltaX / cardWidthPx;
+      var rawIndex = startIndex + offsetSlides;
+      var clampedIndex = Math.max(0, Math.min(rawIndex, count - 1));
+      var offsetPx = clampedIndex * cardWidthPx;
+      trackEl.style.transition = 'none';
+      trackEl.style.transform = 'translateX(-' + offsetPx + 'px)';
+    }
+
+    function onPointerUp(e) {
+      if (!dragging) return;
+      dragging = false;
+      if (windowEl) {
+        windowEl.releasePointerCapture(e.pointerId);
+        windowEl.style.cursor = '';
+      }
+      var cardWidthPx = getCardWidthPx();
+      var deltaX = e.clientX - startX;
+      var offsetSlides = -deltaX / cardWidthPx;
+      var rawIndex = startIndex + offsetSlides;
+      var snapIndex = Math.round(rawIndex);
+      snapIndex = Math.max(0, Math.min(snapIndex, count - 1));
+      goToIndex(snapIndex);
+    }
+
+    // Prev/next buttons and dot clicks
+    if (prevBtn) prevBtn.addEventListener('click', function() { goToIndex(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goToIndex(currentIndex + 1); });
+
+    if (windowEl) {
+      windowEl.style.cursor = 'grab';
+      windowEl.addEventListener('pointerdown', onPointerDown);
+      windowEl.addEventListener('pointermove', onPointerMove);
+      windowEl.addEventListener('pointerup', onPointerUp);
+      windowEl.addEventListener('pointercancel', onPointerUp);
+    }
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() { goToIndex(i); });
+    });
+
+    goToIndex(0);
+    window.addEventListener('resize', function() { goToIndex(currentIndex, true); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBenefitsSlider);
+  } else {
+    initBenefitsSlider();
+  }
+})();
+</script>
+
+<!-- Docs Explore grid: responsive cols from container width; square cards; all content visible; edges aligned -->
+<script>
+(function() {
+  // --- Docs Explore grid: responsive layout (cols from width) + rectangle row heights (4+3 mode) ---
+  var GAP_PX = 24;
+  var MIN_CARD_PX = 280;
+
+  // Preserve card order when grid has rows (JS-built) or flat cards (no-JS / initial)
+  function getExploreCardsInOrder(grid) {
+    var rows = grid.querySelectorAll('.docs-explore__row');
+    if (rows.length === 0) return [].slice.call(grid.querySelectorAll('.feature-card'));
+    var out = [];
+    rows.forEach(function(row) {
+      [].slice.call(row.querySelectorAll('.feature-card')).forEach(function(c) { out.push(c); });
+    });
+    return out;
+  }
+
+  var exploreDebounce = null;
+  var lastExploreGridWidth = 0;
+
+  // Rebuild rows from cards, set --explore-cols
+  function buildExploreGrid() {
+    var grid = document.querySelector('.docs-explore__grid');
+    if (!grid) return;
+    var cards = getExploreCardsInOrder(grid);
+    var n = cards.length;
+    if (n === 0) return;
+
+    grid.classList.add('docs-explore__grid--measuring');
+
+    var width = grid.clientWidth > 0 ? grid.clientWidth : grid.offsetWidth;
+    if (width <= 0) {
+      grid.classList.remove('docs-explore__grid--measuring');
+      return;
+    }
+    // Prefer fewer rows: round so e.g. 7 boxes become (4,3) when ~3.5+ columns fit (not only when 4 full columns fit)
+    var colUnits = (width + GAP_PX) / (MIN_CARD_PX + GAP_PX);
+    var maxCols = Math.min(n, Math.max(1, Math.round(colUnits)));
+    // Rows of 3 or 4 (capped by maxCols), max−min ≤ 1, and minimize number of rows
+    var rowCounts = [];
+    if (maxCols <= 2) {
+      var idx = 0;
+      while (idx < n) {
+        var take = Math.min(maxCols, n - idx);
+        rowCounts.push(take);
+        idx += take;
+      }
+    } else if (maxCols >= 4) {
+      // Use as many 4s as possible (n = 4a + 3b) to minimize row count
+      var a = Math.floor(n / 4);
+      while (a >= 0 && (n - 4 * a) % 3 !== 0) a--;
+      if (a >= 0) {
+        for (var i = 0; i < a; i++) rowCounts.push(4);
+        for (var i = 0; i < (n - 4 * a) / 3; i++) rowCounts.push(3);
+      } else {
+        var rem = n;
+        while (rem >= 3) { rowCounts.push(3); rem -= 3; }
+        if (rem > 0) rowCounts.push(rem);
+      }
+    } else {
+      // maxCols === 3: 3s and remainder, then redistribute so max−min ≤ 1
+      var low = 3;
+      var rem = n;
+      if (n % 3 === 0) {
+        while (rem >= low) { rowCounts.push(low); rem -= low; }
+        if (rem > 0) rowCounts.push(rem);
+      } else if (n % 3 === 1) {
+        while (rem >= low) { rowCounts.push(low); rem -= low; }
+        if (rem > 0) rowCounts.push(rem);
+      } else {
+        while (rem >= low) { rowCounts.push(low); rem -= low; }
+        if (rem > 0) rowCounts.push(rem);
+      }
+    }
+    // Enforce at most 1 difference between largest and smallest row (e.g. (3,3,3,1) -> (3,3,2,2))
+    var maxInRow = Math.max.apply(null, rowCounts);
+    var minInRow = Math.min.apply(null, rowCounts);
+    if (maxInRow - minInRow > 1) {
+      var j = rowCounts.lastIndexOf(minInRow);
+      if (j > 0 && rowCounts[j - 1] >= 2) {
+        rowCounts[j - 1] -= 1;
+        rowCounts[j] += 1;
+      }
+    }
+    var rows = [];
+    var idx = 0;
+    for (var r = 0; r < rowCounts.length; r++) {
+      var take = rowCounts[r];
+      var row = document.createElement('div');
+      row.className = 'docs-explore__row' + (take === 1 ? ' docs-explore__row--single' : '');
+      row.style.setProperty('--explore-cols', String(take));
+      for (var i = 0; i < take; i++) row.appendChild(cards[idx + i]);
+      rows.push(row);
+      idx += take;
+    }
+    if (typeof grid.replaceChildren === 'function') {
+      grid.replaceChildren.apply(grid, rows);
+    } else {
+      while (grid.firstChild) grid.removeChild(grid.firstChild);
+      rows.forEach(function(row) { grid.appendChild(row); });
+    }
+
+    lastExploreGridWidth = width;
+    // Use variable-height rows (rectangles) whenever any row has 2+ cards, so text can fit at all widths
+    var rectangleMode = rowCounts.some(function(c) { return c >= 2; });
+    grid.classList.toggle('docs-explore__grid--rectangles', rectangleMode);
+    if (rectangleMode) {
+      requestAnimationFrame(function() { measureAndSetRowHeights(grid, function() {
+        requestAnimationFrame(function() { grid.classList.remove('docs-explore__grid--measuring'); });
+      }); });
+    } else {
+      grid.querySelectorAll('.docs-explore__row').forEach(function(row) {
+        row.style.removeProperty('--explore-row-height');
+        row.style.removeProperty('--explore-card-width');
+      });
+      requestAnimationFrame(function() { grid.classList.remove('docs-explore__grid--measuring'); });
+    }
+  }
+
+  // Rectangle mode: measure max content height per row, set --explore-row-height and card heights
+  function measureAndSetRowHeights(grid, onDone) {
+    var rows = grid.querySelectorAll('.docs-explore__row:not(.docs-explore__row--single)');
+    rows.forEach(function(row) {
+      var rowCards = row.querySelectorAll('.feature-card');
+      var n = rowCards.length;
+      if (n === 0) return;
+      var rowWidth = row.offsetWidth;
+      var cardWidthPx = (rowWidth - (n - 1) * GAP_PX) / n;
+      [].slice.call(rowCards).forEach(function(card) {
+        card.style.height = 'auto';
+        card.style.minHeight = '0';
+        card.style.aspectRatio = 'auto';
+      });
+    });
+    requestAnimationFrame(function() {
+      rows.forEach(function(row, rowIndex) {
+        var rowCards = row.querySelectorAll('.feature-card');
+        var n = rowCards.length;
+        if (n === 0) return;
+        var rowWidth = row.offsetWidth;
+        var cardWidthPx = (rowWidth - (n - 1) * GAP_PX) / n;
+        var maxContentH = 0;
+        var scrollHeights = [];
+        var titles = [];
+        [].slice.call(rowCards).forEach(function(card) {
+          var h = card.scrollHeight;
+          var t = (card.querySelector('.feature-card__title') || card.querySelector('h3') || {}).textContent || '';
+          titles.push(t.trim());
+          scrollHeights.push(h);
+          if (h > maxContentH) maxContentH = h;
+        });
+        // Size row so all text fits with no scrollbars; small buffer for sub-pixel / rounding
+        var rowHeightPx = Math.max(1, Math.ceil(maxContentH) + 4);
+        row.style.setProperty('--explore-row-height', rowHeightPx + 'px');
+        row.style.setProperty('--explore-card-width', cardWidthPx + 'px');
+        [].slice.call(rowCards).forEach(function(card) {
+          card.style.height = rowHeightPx + 'px';
+          card.style.minHeight = rowHeightPx + 'px';
+          card.style.removeProperty('aspectRatio');
+        });
+        // #region agent log
+        fetch('http://127.0.0.1:7905/ingest/58111621-164e-4fc0-80aa-1a565995fece',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'008ba3'},body:JSON.stringify({sessionId:'008ba3',location:'body-end.html:measureAndSetRowHeights',message:'row measure',data:{rowIndex:rowIndex,titles:titles,scrollHeights:scrollHeights,maxContentH:maxContentH,rowHeightPx:rowHeightPx,rowWidth:rowWidth},timestamp:Date.now(),hypothesisId:'H1-H5'})}).catch(function(){});
+        // #endregion
+      });
+      requestAnimationFrame(function() {
+        var buffer = 8;
+        rows.forEach(function(row) {
+          var rowCards = row.querySelectorAll('.feature-card');
+          [].slice.call(rowCards).forEach(function(card) {
+            card.style.height = 'auto';
+            card.style.minHeight = '0';
+          });
+        });
+        requestAnimationFrame(function() {
+          rows.forEach(function(row) {
+            var rowCards = row.querySelectorAll('.feature-card');
+            var maxNeeded = 0;
+            [].slice.call(rowCards).forEach(function(card) {
+              var h = card.scrollHeight;
+              if (h > maxNeeded) maxNeeded = h;
+            });
+            var newHeightPx = Math.max(1, Math.ceil(maxNeeded) + buffer);
+            row.style.setProperty('--explore-row-height', newHeightPx + 'px');
+            [].slice.call(rowCards).forEach(function(card) {
+              card.style.height = newHeightPx + 'px';
+              card.style.minHeight = newHeightPx + 'px';
+            });
+          });
+          if (typeof onDone === 'function') onDone();
+        });
+      });
+    });
+  }
+
+  // Debounced rebuild; only when grid width actually changes (avoids resize loop from height changes)
+  function scheduleExploreBuild() {
+    var grid = document.querySelector('.docs-explore__grid');
+    if (!grid) return;
+    var w = grid.clientWidth;
+    if (w > 0 && Math.abs(w - lastExploreGridWidth) < 2) return;
+    if (exploreDebounce) clearTimeout(exploreDebounce);
+    exploreDebounce = setTimeout(buildExploreGrid, 50);
+  }
+
+  // One-time init: first build, then ResizeObserver + window resize to schedule rebuilds
+  function initDocsExploreGrid() {
+    var grid = document.querySelector('.docs-explore__grid');
+    if (!grid) return;
+    var cards = [].slice.call(grid.children).filter(function(el) { return el.classList && el.classList.contains('feature-card'); });
+    if (cards.length === 0) return;
+    buildExploreGrid();
+    if (typeof ResizeObserver !== 'undefined') {
+      var ro = new ResizeObserver(scheduleExploreBuild);
+      ro.observe(grid);
+    }
+    window.addEventListener('resize', scheduleExploreBuild);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDocsExploreGrid);
+  } else {
+    initDocsExploreGrid();
+  }
+})();
+</script>
+
 <!-- Scroll animations -->
 <script src="{{ "js/scroll-animations.js" | relURL }}" defer></script>
 

@@ -15,6 +15,7 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 |------------------------------|-------------------------------|--------------------------------------------------------|
 | **[krknctl](krknctl.md)**    | CLI tool with auto-completion | Complex workflow orchestration, querying and running scenarios, ease of use |
 | **[krkn-hub](krkn-hub.md)**  | Pre-built container images    | CI/CD pipelines, automation                            |
+| **[krkn Dashboard](krkn-dashboard.md)** | Web UI for running scenarios | Visual runs, demos, teams that prefer a GUI            |
 | **[krkn](krkn.md)**          | Standalone Python program     | Full control, development, and customization           |
 
 {{% alert title="Recommendation" color="success" %}}
@@ -60,6 +61,21 @@ Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta 
 {{% alert title="Note" %}}krkn-hub runs **one scenario type per execution**. For running multiple scenarios in a single run, use the standalone **krkn** installation.{{% /alert %}}
 
 👉 **[Install krkn-hub →](krkn-hub.md)**
+
+---
+
+### Krkn Dashboard
+
+**What is it?** A web application that lets you run Krkn chaos scenarios from your browser, with real-time logs and Elasticsearch/Grafana integration.
+
+**Why use it?**
+- Scenario selection and parameter forms
+- Real-time visibility into running chaos containers
+- Visualized run history and metrics
+
+**Best for:** Demos, shared machines, and teams that prefer a GUI.
+
+👉 **[Install Krkn Dashboard →](krkn-dashboard.md)**
 
 ---
 

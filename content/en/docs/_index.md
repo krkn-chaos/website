@@ -71,29 +71,93 @@ type: "docs/scenarios"
   }
 }
 
-/* Explore - 6 cards */
+/* Explore - dynamic rows: odd count => top row gets extra; square cards, edges aligned */
 .docs-landing .docs-explore {
   background: var(--krkn-bg);
   padding: 4rem 0 5rem;
 }
 
 .docs-landing .docs-explore__grid {
+  margin-top: 2.5rem;
+  width: 100%;
+}
+
+/* Hide during JS rebuild/measure to prevent flicker */
+.docs-landing .docs-explore__grid--measuring {
+  visibility: hidden;
+}
+
+/* After JS runs: block container for row divs */
+.docs-landing .docs-explore__grid:has(.docs-explore__row) {
+  display: block;
+}
+
+/* No-JS fallback: keep 3-col grid until rows are injected */
+.docs-landing .docs-explore__grid:not(:has(.docs-explore__row)) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-top: 2.5rem;
 }
 
-@media (max-width: 992px) {
-  .docs-landing .docs-explore__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.docs-landing .docs-explore__row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 
-@media (max-width: 576px) {
-  .docs-landing .docs-explore__grid {
-    grid-template-columns: 1fr;
-  }
+.docs-landing .docs-explore__row:last-child {
+  margin-bottom: 0;
+}
+
+/* Cards: square when 2+ per row; half-height (or content) when single on row */
+.docs-landing .docs-explore__row .feature-card {
+  flex: 0 0 calc((100% - (var(--explore-cols, 3) - 1) * 1.5rem) / var(--explore-cols, 3));
+  width: calc((100% - (var(--explore-cols, 3) - 1) * 1.5rem) / var(--explore-cols, 3));
+  aspect-ratio: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* Multi-card rows: variable height = content height only (just enough for text) */
+.docs-landing .docs-explore__grid--rectangles .docs-explore__row:not(.docs-explore__row--single) {
+  height: var(--explore-row-height);
+  min-height: var(--explore-row-height);
+  align-items: stretch;
+}
+.docs-landing .docs-explore__grid--rectangles .docs-explore__row:not(.docs-explore__row--single) .feature-card {
+  aspect-ratio: unset;
+  height: var(--explore-row-height) !important;
+  min-height: var(--explore-row-height) !important;
+}
+
+/* Single card on its own row: full width, height = half width or content (whichever is larger) */
+.docs-landing .docs-explore__row--single .feature-card {
+  flex: 0 0 100%;
+  width: 100%;
+  aspect-ratio: 1 / 0.5;
+  min-height: fit-content;
+}
+
+.docs-landing .docs-explore__row .feature-card__icon {
+  flex-shrink: 0;
+}
+
+.docs-landing .docs-explore__row .feature-card__title,
+.docs-landing .docs-explore__row .feature-card h3 {
+  flex-shrink: 0;
+}
+
+.docs-landing .docs-explore__row .feature-card__desc,
+.docs-landing .docs-explore__row .feature-card p {
+  flex: 1;
+  min-height: 0;
+  overflow: visible;
 }
 
 /* Why Krkn */
@@ -221,6 +285,13 @@ type: "docs/scenarios"
           </div>
           <h3 class="feature-card__title">krknctl</h3>
           <p class="feature-card__desc">CLI tool to run and orchestrate chaos scenarios.</p>
+        </a>
+        <a href="/docs/krkn_dashboard/" class="feature-card">
+          <div class="feature-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          </div>
+          <h3 class="feature-card__title">Kraken Dashboard</h3>
+          <p class="feature-card__desc">Web UI to run and observe chaos scenarios.</p>
         </a>
         <a href="/docs/cerberus/" class="feature-card">
           <div class="feature-card__icon">

@@ -197,7 +197,9 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 
 ### Installation on OpenShift
 
-OpenShift uses Routes instead of Ingress. Create an OpenShift-specific `values.yaml`:
+OpenShift uses Routes instead of Ingress. The Helm chart automatically handles OpenShift-specific security requirements (SCC configuration, RBAC permissions).
+
+Create an OpenShift-specific `values.yaml`:
 
 ```yaml
 # Production values for OpenShift
@@ -207,9 +209,11 @@ console:
   enabled: true
   route:
     enabled: true
-    hostname: krkn.apps.cluster.example.com
+    hostname: krkn.apps.cluster.example.com  # Change to your cluster's app domain
     tls:
+      enabled: true
       termination: edge
+      insecureEdgeTerminationPolicy: Redirect
 
 # Operator configuration
 operator:
@@ -221,15 +225,21 @@ operator:
     limits:
       cpu: 500m
       memory: 512Mi
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
+  logging:
+    level: info
+    format: json
 
 # High availability
 podDisruptionBudget:
   enabled: true
   minAvailable: 1
+
+# Monitoring (if Prometheus Operator is installed)
+monitoring:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 30s
 ```
 
 Install on OpenShift:
@@ -242,6 +252,10 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
   -f values-openshift.yaml
 ```
 
+{{% notice info %}}
+**OpenShift Security**: The chart automatically detects OpenShift and configures the required Security Context Constraints (SCC) for scenario runner pods. No manual SCC configuration is needed.
+{{% /notice %}}
+
 ---
 
 ## Advanced Configuration Options
@@ -253,27 +267,50 @@ To enable [Red Hat Advanced Cluster Management (ACM)](https://www.redhat.com/en/
 ```yaml
 acm:
   enabled: true
+  replicaCount: 1
+  config:
+    secretName: "application-manager"  # ACM managed clusters secret (auto-created by ACM)
   resources:
     requests:
       cpu: 100m
       memory: 128Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 500m
+      memory: 512Mi
+  logging:
+    level: info
+    format: json
 ```
 
-Install with ACM enabled:
+**Install with ACM enabled** (Kubernetes):
 
 ```bash
 helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
   --version <VERSION> \
-  --set acm.enabled=true \
   --namespace krkn-operator-system \
-  --create-namespace
+  --create-namespace \
+  --set acm.enabled=true
+```
+
+**Install with ACM enabled** (OpenShift with Route):
+
+```bash
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
+  --namespace krkn-operator-system \
+  --create-namespace \
+  --set acm.enabled=true \
+  --set console.route.enabled=true \
+  --set console.route.hostname=krkn.apps.cluster.example.com
 ```
 
 {{% notice info %}}
-**ACM Integration**: When [ACM](https://www.redhat.com/en/technologies/management/advanced-cluster-management) is enabled, krkn-operator-acm will automatically discover and manage ACM-controlled clusters. See the [ACM Integration](../configuration/#acmocm-integration-advanced) section in Configuration for more details.
+**ACM Integration**: When [ACM](https://www.redhat.com/en/technologies/management/advanced-cluster-management) is enabled, krkn-operator-acm will automatically discover and manage ACM-controlled clusters (ManagedCluster resources). The ACM component requires:
+- ACM/OCM installed on the cluster
+- ManagedCluster resources present
+- The `application-manager` secret (auto-created by ACM)
+
+See the [ACM Integration](../configuration/#acmocm-integration-advanced) section in Configuration for more details.
 {{% /notice %}}
 
 ### Custom Namespace
@@ -309,12 +346,13 @@ pullSecrets:
 Customize JWT token settings for authentication:
 
 ```yaml
-jwtSecret: bXktc2VjdXJlLWp3dC1rZXktYmFzZTY0LWVuY29kZWQ=  # Base64 encoded
-jwtExpiryHours: 72  # 3 days
+auth:
+  jwtSecret: bXktc2VjdXJlLWp3dC1rZXktYmFzZTY0LWVuY29kZWQ=  # Base64 encoded
+  jwtExpiryHours: 72  # 3 days
 ```
 
 {{% notice warning %}}
-**Security**: Always generate a secure, random JWT secret for production. Do not use default or predictable values.
+**Security**: Always generate a secure, random JWT secret for production. Do not use default or predictable values. If not provided, the chart automatically generates a random secret on installation.
 {{% /notice %}}
 
 ---
@@ -360,10 +398,12 @@ operator:
     level: info  # debug, info, warn, error
     format: json  # json or text
 
+  # Security context - auto-detects platform (OpenShift vs Kubernetes)
   securityContext:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
+    # Note: runAsUser and fsGroup omitted - allows OpenShift to auto-assign valid UIDs
 
   nodeSelector: {}
   tolerations: []
@@ -380,19 +420,22 @@ acm:
   replicaCount: 1
 
   config:
-    secretName: ""  # ACM cluster credentials secret
+    secretName: "application-manager"  # ACM managed clusters secret (auto-created by ACM)
 
   service:
-    port: 8081
+    port: 8080
+    grpcPort: 50051
 
   logging:
     level: info
     format: json
 
+  # Security context - auto-detects platform (OpenShift vs Kubernetes)
   securityContext:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
+    # Note: runAsUser and fsGroup omitted - allows OpenShift to auto-assign valid UIDs
 
   resources:
     requests:
@@ -451,6 +494,13 @@ console:
       cpu: 200m
       memory: 256Mi
 
+  # Security context - auto-detects platform (OpenShift vs Kubernetes)
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+    # Note: runAsUser and fsGroup omitted - allows OpenShift to auto-assign valid UIDs
+
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -459,8 +509,9 @@ console:
 pullSecrets: []
 
 # JWT Authentication
-jwtSecret: ""  # Base64 encoded; auto-generated if empty
-jwtExpiryHours: 24
+auth:
+  jwtSecret: ""  # Base64 encoded; auto-generated if empty
+  jwtExpiryHours: 24  # Token expiry in hours
 
 # RBAC
 rbac:

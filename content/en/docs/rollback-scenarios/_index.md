@@ -44,6 +44,7 @@ Krkn supports rollback for the following scenarios.
 - [PVC Scenarios](../scenarios/pvc-scenario/_index.md)
 - [Service Hijacking](../scenarios/service-hijacking-scenario/_index.md)
 - [Syn Flood ](../scenarios/syn-flood-scenario/_index.md)
+- [Zone Outage (GCP)](../scenarios/zone-outage-scenarios/_index.md)
 
 ## Rollback Command
 

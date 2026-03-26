@@ -108,6 +108,9 @@ The following environment variables can be set on the host running the container
 | --kubevirt-exit-on-failure | KubeVirt fails run if VMs still have false status | enum | True/False | false |
 | --kubevirt-node-node | Only track VMs in KubeVirt on given node name | string | - | false |
 | --krkn-debug | Enables debug mode for Krkn | enum | True/False | False |
+| --resiliency-score | Enables resiliency scoring in detailed mode: outputs a full JSON resiliency report to stdout after each scenario. When not set, the score is still calculated but only embedded in the telemetry output (standalone mode). See [Resiliency Scoring](/docs/krkn/resiliency-score/) for details. | enum | True/False | False |
+| --disable-resiliency-score | Disables resiliency score calculation entirely | enum | True/False | False |
+| --resiliency-file | Path to a custom YAML file containing SLO definitions for resiliency scoring. If not specified, defaults to the alerts profile or `config/alerts.yaml` | string | - | config/alerts.yaml |
 
 </div> 
 

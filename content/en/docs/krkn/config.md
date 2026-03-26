@@ -13,7 +13,7 @@ Config components:
 * [Kraken](#kraken)
 * [Cerberus](#cerberus)
 * [Performance Monitoring](#performance-monitoring)
-* [Resiliency](#resiliency)
+* [Resiliency Score](#resiliency-score)
 * [ElasticSearch](#elastic)
 * [Tunings](#tunings)
 * [Telemetry](#telemetry)
@@ -95,13 +95,13 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 **check_critical_alerts**: True or False; When enabled will check prometheus for critical alerts firing post chaos. Read more about this functionality in [SLOs validation](SLOs_validation.md#checking-for-critical-alerts-post-chaos)
 
 
-## Resiliency
+## Resiliency Score
 
-The resiliency scoring system evaluates your cluster's health during chaos scenarios by checking Service Level Objectives (SLOs) against Prometheus metrics. See [Resiliency Scoring](resiliency-score.md) for detailed information about the scoring algorithm and SLO configuration.
+The resiliency scoring system evaluates your cluster's health during chaos scenarios by checking Service Level Objectives (SLOs) against Prometheus metrics. See the [Resiliency Scoring](resiliency-score.md) page for detailed information about the scoring algorithm, SLO configuration, and execution modes.
 
 **resiliency_run_mode**: Determines how resiliency scoring operates. Options are:
   - `standalone` (default): Calculates the resiliency score and embeds it in the telemetry output
-  - `controller`: Prints the resiliency report to stdout for krknctl integration (used when running under krknctl)
+  - `detailed`: Prints the resiliency report to stdout for krknctl integration (used when running under krknctl)
   - `disabled`: Completely disables resiliency scoring
 
 **resiliency_file**: Path to the YAML file containing SLO definitions. If not specified, defaults to the `alert_profile` setting from `performance_monitoring`, or `config/alerts.yaml` if neither is set. The file should contain a list of SLO definitions with Prometheus expressions. See [Resiliency Scoring](resiliency-score.md) for examples of SLO definitions and custom weight configuration.
@@ -289,6 +289,11 @@ performance_monitoring:
     alert_profile: config/alerts.yaml                          # Path or URL to alert profile with the prometheus queries
     metrics_profile: config/metrics-report.yaml
     check_critical_alerts: False                          # When enabled will check prometheus for critical alerts firing post chaos
+
+resiliency:
+    resiliency_run_mode: standalone                       # Options: standalone (default), detailed, disabled
+    resiliency_file: config/alerts.yaml                   # Path to SLO definitions file
+
 elastic:
     enable_elastic: False
     verify_certs: False

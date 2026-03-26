@@ -73,6 +73,8 @@ __Common flags:__
 | --alerts-profile  | will mount in the container a custom alert profile <br/>(check krkn [documentation](https://github.com/krkn-chaos/krkn) for further infos) |
 | --metrics-profile | will mount in the container scenario a custom metrics<br/> profile (check krkn [documentation](https://github.com/krkn-chaos/krkn) for further infos) |
 
+See [all global krknctl variables](/docs/scenarios/all-scenario-env-krknctl/) for the full list of common flags available across all scenarios.
+
 <br/>
 
 ### `graph <subcommand>`:

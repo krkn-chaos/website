@@ -132,7 +132,7 @@ The resiliency scoring system can be configured in your Krkn configuration file 
 
 ```yaml
 resiliency:
-  resiliency_run_mode: standalone  # Options: standalone, controller, disabled
+  resiliency_run_mode: standalone  # Options: standalone, detailed, disabled
   resiliency_file: config/alerts.yaml  # Path to SLO definitions
 ```
 
@@ -140,7 +140,7 @@ resiliency:
 
 * `resiliency_run_mode`: Determines how resiliency scoring operates
   - `standalone` (default): Calculates score and embeds in telemetry output
-  - `controller`: Prints resiliency report to stdout for krknctl integration
+  - `detailed`: Prints resiliency report to stdout for krknctl integration
   - `disabled`: Disables resiliency scoring
 
 * `resiliency_file`: Path to the YAML file containing SLO definitions. If not specified, defaults to the `alert_profile` setting from `performance_monitoring`, or `config/alerts.yaml` if neither is set.
@@ -228,7 +228,7 @@ Krkn supports three execution modes:
 
 #### Mode 2: Controller (`krknctl` integration)
 
-*Activated by setting `resiliency_run_mode: controller` in configuration.*
+*Activated by setting `resiliency_run_mode: detailed` in configuration.*
 
 1. Krkn runs inside a container launched by **krknctl**.
 2. After scoring, it prints a detailed JSON report prefixed with `KRKN_RESILIENCY_REPORT_JSON:`.

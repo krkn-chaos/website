@@ -11,10 +11,13 @@
           versionElement.textContent = data.version;
         }
 
+        // Remove leading 'v' for helm commands (v1.0.0-beta -> 1.0.0-beta)
+        const helmVersion = data.version.replace(/^v/, '');
+
         // Replace <VERSION> placeholder in all code blocks
         document.querySelectorAll('pre code, code').forEach(function(el) {
           if (el.textContent.includes('<VERSION>')) {
-            el.textContent = el.textContent.replace(/<VERSION>/g, data.version);
+            el.textContent = el.textContent.replace(/<VERSION>/g, helmVersion);
           }
         });
       }

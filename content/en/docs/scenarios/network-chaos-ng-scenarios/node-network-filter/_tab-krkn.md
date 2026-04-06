@@ -21,17 +21,19 @@ Example scenario file: [node-network-filter.yml](https://github.com/krkn-chaos/s
   ports:
     - 2049
   taints: []
+  service_account: ""
 ```
 
 for the common module settings please refer to the [documentation](/docs/scenarios/network-chaos-ng-scenarios/network-chaos-ng-scenario-api/#basenetworkchaosconfig-base-module-configuration).
 
-- `ingress`: filters the incoming traffic on one or more ports. If set one or more network interfaces must be specified
-- `egress` : filters the outgoing traffic on one or more ports.
-- `target`: the node name (if label_selector not set)
-- `interfaces`: a list of network interfaces where the incoming traffic will be filtered
-- `ports`: the list of ports that will be filtered
-- `protocols`: the ip protocols to filter (tcp and udp)
-- `taints` : List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]
+- `ingress`: filters incoming traffic on one or more ports
+- `egress`: filters outgoing traffic on one or more ports
+- `target`: the node name (if `label_selector` is not set)
+- `interfaces`: network interfaces used for **outgoing** traffic when `egress` is enabled (same semantics as krknctl and krkn-hub)
+- `ports`: ports that incoming and/or outgoing filtering applies to (depending on `ingress` / `egress`)
+- `protocols`: the IP protocols to filter (`tcp` and `udp`)
+- `taints`: list of taints for which tolerations are created. Example: `["node-role.kubernetes.io/master:NoSchedule"]`
+- `service_account`: optional service account for the scenario workload (empty string uses the default)
 
 ### Usage
 

@@ -44,6 +44,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | PORTS                        | a list of comma separated port numbers (eg 8080 or 8080,8081,8082) to filter for both outgoing and incoming traffic | "" |
 | PROTOCOLS                    | a list of comma separated protocols to filter (tcp, udp or both) |
 | TAINTS               | List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | [] |
+| SERVICE_ACCOUNT             | optional service account for the Node Network Filter workload | "" |
 
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:

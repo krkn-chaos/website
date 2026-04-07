@@ -119,3 +119,11 @@ podman build -t <image-name> -f containers/Dockerfile .
 
 {{% alert title="Tip" %}}Ensure the kubeconfig inside `CHAOS_ASSETS` is readable by the user running the dashboard process in the container. For permission issues: `kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig`, then copy or mount that file as `$CHAOS_ASSETS/kubeconfig`.{{% /alert %}}
 
+---
+
+## Documentation
+
+- [Krkn Dashboard overview and features](/docs/krkn_dashboard/) — what the UI does and how it fits with krkn-hub.
+- [Using the UI](/docs/krkn_dashboard/using-the-ui/) — navigating the dashboard.
+- [Grafana and Elasticsearch](/docs/krkn_dashboard/grafana-elasticsearch/) — integrations for run history and Grafana dashboards.
+

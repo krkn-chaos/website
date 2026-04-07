@@ -36,4 +36,6 @@ The Metrics page is used for Elasticsearch and Grafana integration:
 - **Storage Metrics** (when not connected): Shows a form to connect to Elasticsearch (host, index, optional username/password, optional Grafana base URL and datasource). After submitting, the dashboard queries ES for past run details.
 - **Storage table** (when connected): The page generates graphics to better analyze run history. After a successful connection, a table of past runs from Elasticsearch appears. Rows can be expanded to show more details and, when Grafana is configured, a link to the Grafana dashboard for that run.
 
+See [Grafana and Elasticsearch](grafana-elasticsearch/) for Elasticsearch and Grafana requirements.
+
 ![Metrics page](/img/metreics-page.png)

@@ -71,8 +71,6 @@ FILL_PERCENTAGE         | Targeted percentage to be filled up in the PVC        
 DURATION                | Duration in seconds with the PVC filled up                                      | 60                                   |
 BLOCK_SIZE              | Block size in bytes for the dd command used to fill the PVC                     | 102400                               |
 
-{{% alert title="Note" %}} Set NAMESPACE environment variable to `openshift-.*` to pick and disrupt pods randomly in openshift system namespaces, the DAEMON_MODE can also be enabled to disrupt the pods every x seconds in the background to check the reliability. {{% /alert %}}
-
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:
 ```bash

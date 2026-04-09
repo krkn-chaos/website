@@ -199,6 +199,19 @@ containers along with their respective IDs, helping you select the correct one.
 
 <br/>
 
+### `completion <shell>`:
+Generates shell completion scripts for bash or zsh.
+
+```bash
+# Bash
+krknctl completion bash > /etc/bash_completion.d/krknctl
+
+# Zsh
+krknctl completion zsh > "${fpath[1]}/_krknctl"
+```
+
+<br/>
+
 ### `clean`:
 will remove all the krkn containers from the container runtime, will delete all the kubeconfig files
 and logfiles created by the tool in the current folder.

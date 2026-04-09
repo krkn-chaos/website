@@ -65,6 +65,7 @@ DURATION                | Duration in seconds after which the zone will be back 
 VPC_ID                  | cluster virtual private network to target ( REQUIRED for AWS )                             | ""                                   |
 SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | ""                                   |
 ZONE                  | zone you want to target ( REQUIRED for GCP )                             | ""                                   |
+DEFAULT_ACL_ID          | (Optional) AWS Network ACL ID to reuse instead of creating a new one. If provided, this ACL will not be deleted after the scenario | ""                                   |
 The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
 
 Amazon Web Services

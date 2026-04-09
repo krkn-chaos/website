@@ -4,7 +4,7 @@ Example scenario file: [app_outage.yaml](https://github.com/krkn-chaos/scenarios
 
 ```yaml
 application_outage:                                  # Scenario to create an outage of an application by blocking traffic
-  duration: 600                                      # Duration in seconds after which the routes will be accessible
+  duration: 600                                      # Duration in seconds after which the routes will be accessible. Default if omitted: 60
   namespace: <namespace-with-application>            # Namespace to target - all application routes will go inaccessible if pod selector is empty
   pod_selector: {app: foo}                           # Pods to target
   exclude_label: ""                                  # Optional label selector to exclude pods. Supports dict, string, or list format

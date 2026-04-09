@@ -69,7 +69,7 @@ RUNS                    | Iterations to perform action on a single node         
 CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, ibmcloudpower, bm           | aws |
 TIMEOUT                 | Duration to wait for completion of node scenario injection             | 180                                |
 DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | 120                                |
-KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | False                               |
+KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | True                               |
 PARALLEL     | Run action on label or node name in parallel or sequential, set to true for parallel | False |
 DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors | False |
 BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" | 

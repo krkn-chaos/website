@@ -11,7 +11,7 @@ network_chaos:                                    # Scenario to create an outage
   instance_count: 1                               # Number of nodes in which to execute network chaos.
   interfaces:                                     # List of interface on which to apply the network restriction.
   - "ens5"                                        # Interface name would be the Kernel host network interface name.
-  execution: serial|parallel                      # Execute each of the egress options as a single scenario(parallel) or as separate scenario(serial).
+  execution: serial                               # Default: serial. Options: serial, parallel. Execute each of the egress options as a single scenario(parallel) or as separate scenario(serial).
   egress:
     latency: 500ms
     loss: 50%                                    # percentage

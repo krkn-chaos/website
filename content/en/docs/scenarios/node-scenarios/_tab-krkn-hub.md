@@ -74,7 +74,7 @@ PARALLEL     | Run action on label or node name in parallel or sequential, set t
 DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors | False |
 BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" | 
 BMC_PASSWORD             | Only needed for Baremetal ( bm ) - IPMI/bmc password | "" |
-BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" |
+BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc address | "" |
 
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:

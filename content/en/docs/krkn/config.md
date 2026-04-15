@@ -42,7 +42,6 @@ Refer to [signal.md](signal.md) for more details
 
 **port**: port to listen/post the signal state to
 
-
 ### Chaos Scenarios 
 
 **chaos_scenarios**: List of different types of chaos scenarios you want to run with paths to their specific yaml file configurations.
@@ -50,21 +49,25 @@ Refer to [signal.md](signal.md) for more details
 Currently the scenarios are run one after another (in sequence) and will exit if one of the scenarios fail, without moving onto the next one. You can find more details on each scenario under the [Scenario](../scenarios/) folder.  
 
 Chaos scenario types: 
-- pod_disruption_scenarios
+- application_outages
+- cluster_shut_down_scenarios
 - container_scenarios
 - hog_scenarios
-- node_scenarios
-- time_scenarios
-- cluster_shut_down_scenarios
+- http_load
+- interface_down_network_chaos_filter
 - namespace_scenarios
-- zone_outages
-- application_outages
-- pvc_scenarios
 - network_chaos
+- network_chaos_filter
+- node_scenarios
+- pod_disruption_scenarios
 - pod_network_scenarios
+- pod_network_chaos_filter
+- pvc_scenarios
 - service_disruption_scenarios
 - service_hijacking_scenarios
 - syn_flood_scenarios
+- time_scenarios
+- zone_outages
 
 
 ## Cerberus 

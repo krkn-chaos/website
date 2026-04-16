@@ -21,7 +21,9 @@ Config components:
 * [Virt Checks](#virt-checks)
 
 ## Kraken 
-This section defines scenarios and specific data to the chaos run 
+This section defines scenarios and specific data to the chaos run
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#kraken) · [krkn-hub variables](../scenarios/all-scenario-env.md#kraken)
 
 ### Distribution
 The distribution is now automatically set based on some verification points. Depending on which distribution, either **openshift** or **kubernetes** other parameters will be automatically set. 
@@ -70,6 +72,8 @@ Chaos scenario types:
 ## Cerberus 
 Parameters to set for enabling of cerberus checks at the end of each executed scenario. The given url will pinged after the scenario and post action check have been completed for each scenario and iteration. Read more about what cerberus is [here](../cerberus/_index.md)
 
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#cerberus) · [krkn-hub variables](../scenarios/all-scenario-env.md#cerberus)
+
 **cerberus_enabled**: Enable it when cerberus is previously installed
 
 **cerberus_url**: When cerberus_enabled is set to True, provide the url where cerberus publishes go/no-go signal
@@ -78,6 +82,9 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 
 
 ## Performance Monitoring
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#performance-monitoring) · [krkn-hub variables](../scenarios/all-scenario-env.md#performance-monitoring)
+
 **prometheus_url**:  The prometheus url/route is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes.
 
 **prometheus_bearer_token**: The bearer token is automatically obtained in case of OpenShift, please set it when the distribution is Kubernetes. This is needed to authenticate with prometheus.
@@ -96,6 +103,8 @@ Parameters to set for enabling of cerberus checks at the end of each executed sc
 
 
 ## Resiliency Score
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#resiliency-score) · [krkn-hub variables](../scenarios/all-scenario-env.md#resiliency-score)
 
 The resiliency scoring system evaluates your cluster's health during chaos scenarios by checking Service Level Objectives (SLOs) against Prometheus metrics. See the [Resiliency Scoring](resiliency-score.md) page for detailed information about the scoring algorithm, SLO configuration, and execution modes.
 
@@ -120,7 +129,9 @@ The resiliency scoring system supports:
 - Detailed breakdown reports showing which SLOs passed/failed
 
 ## Elastic
-We have enabled the ability to store telemetry, metrics and alerts into ElasticSearch based on the below keys and values. 
+We have enabled the ability to store telemetry, metrics and alerts into ElasticSearch based on the below keys and values.
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#elastic) · [krkn-hub variables](../scenarios/all-scenario-env.md#elastic)
 
 **enable_elastic**: True or False; If true, the telemetry data will be stored in the telemetry_index defined below. Based on if value of performance_monitoring.enable_alerts and performance_monitoring.enable_metrics are true or false, alerts and metrics will be saved in addition to each of the indexes
 
@@ -140,6 +151,9 @@ We have enabled the ability to store telemetry, metrics and alerts into ElasticS
 
 
 ## Tunings
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#tunings) · [krkn-hub variables](../scenarios/all-scenario-env.md#tunings)
+
 **wait_duration**: Duration to wait between each chaos scenario
 
 **iterations**: Number of times to execute the scenarios
@@ -147,6 +161,9 @@ We have enabled the ability to store telemetry, metrics and alerts into ElasticS
 **daemon_mode**: True or False; If true, iterations are set to infinity which means that the krkn will cause chaos forever and number of iterations is ignored
 
 ## Telemetry
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#telemetry) · [krkn-hub variables](../scenarios/all-scenario-env.md#telemetry)
+
 More details on the data captured in the telmetry and how to set up your own telemetry data storage can be found [here](telemetry.md)
 
 **enabled**: True or False, enable/disables the telemetry collection feature
@@ -191,7 +208,10 @@ More details on the data captured in the telmetry and how to set up your own tel
 
 **events_backup**: True or False, this will capture events that occurred during the chaos run. Will be saved to {archive_path}/events.json
 
-## Health Checks                                              
+## Health Checks
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#health-checks) · [krkn-hub variables](../scenarios/all-scenario-env.md#health-checks)
+
 Utilizing health check endpoints to observe application behavior during chaos injection, see more details about how this works and different ways to configure [here](health-checks.md)
 
 **interval**: Interval in seconds to perform health checks, default value is 2 seconds
@@ -206,7 +226,10 @@ Utilizing health check endpoints to observe application behavior during chaos in
    
    **exit_on_failure**: If value is True exits when health check failed for application, values can be True/False
 
-## Virt Checks                                              
+## Virt Checks
+
+See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#virt-checks) · [krkn-hub variables](../scenarios/all-scenario-env.md#virt-checks)
+
 Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](virt-checks.md)
 
 **interval**: Interval in seconds to perform virt checks, default value is 2 seconds

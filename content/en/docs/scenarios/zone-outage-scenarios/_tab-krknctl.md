@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run zone-outages (optional: --<parameter>:<value> )
+krknctl run zone-outages [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

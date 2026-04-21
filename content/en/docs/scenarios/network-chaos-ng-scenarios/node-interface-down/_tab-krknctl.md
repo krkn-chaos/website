@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run node-interface-down (optional: --<parameter>:<value> )
+krknctl run node-interface-down [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../../all-scenario-env-krknctl.md)

@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run container-scenarios (optional: --<parameter>:<value> )
+krknctl run container-scenarios [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

@@ -58,13 +58,13 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-LABEL_SELECTOR          | Label of the namespace to target. Set this parameter only if NAMESPACE is not set                                       |     ""                     |
-NAMESPACE               | Name of the namespace you want to target. Set this parameter only if LABEL_SELECTOR is not set  | "openshift-etcd"                   |
-SLEEP                   | Number of seconds to wait before polling to see if namespace exists again         | 15                                    |
-DELETE_COUNT            | Number of namespaces to kill in each run, based on matching namespace and label specified | 1 |
-RUNS                    | Number of runs to execute the action           | 1                                    |
+Parameter               | Description                                                           | Type | Default
+----------------------- | -----------------------------------------------------------------     | ---- | ------------------------------------ |
+LABEL_SELECTOR          | Label of the namespace to target. Set this parameter only if NAMESPACE is not set                                       | string |     ""                     |
+NAMESPACE               | Name of the namespace you want to target. Set this parameter only if LABEL_SELECTOR is not set  | string | "openshift-etcd"                   |
+SLEEP                   | Number of seconds to wait before polling to see if namespace exists again         | number | 15                                    |
+DELETE_COUNT            | Number of namespaces to kill in each run, based on matching namespace and label specified | number | 1 |
+RUNS                    | Number of runs to execute the action           | number | 1                                    |
 
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}

@@ -62,14 +62,14 @@ If both `PVC_NAME` and `POD_NAME` are defined, `POD_NAME` value will be overridd
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                                     | Default
------------------------ | -----------------------------------------------------------------               | ------------------------------------ |
-PVC_NAME                | Targeted PersistentVolumeClaim in the cluster (if null, POD_NAME is required)   |                                      |
-POD_NAME                | Targeted pod in the cluster (if null, PVC_NAME is required)                     |                                      |
-NAMESPACE               | Targeted namespace in the cluster (required)                                    |                                      |
-FILL_PERCENTAGE         | Targeted percentage to be filled up in the PVC                                  | 50                                   |
-DURATION                | Duration in seconds with the PVC filled up                                      | 60                                   |
-BLOCK_SIZE              | Block size in bytes for the dd command used to fill the PVC                     | 102400                               |
+Parameter               | Description                                                                     | Type | Default
+----------------------- | -----------------------------------------------------------------               | ---- | ------------------------------------ |
+PVC_NAME                | Targeted PersistentVolumeClaim in the cluster (if null, POD_NAME is required)   | string |                                      |
+POD_NAME                | Targeted pod in the cluster (if null, PVC_NAME is required)                     | string |                                      |
+NAMESPACE               | Targeted namespace in the cluster (required)                                    | string |                                      |
+FILL_PERCENTAGE         | Targeted percentage to be filled up in the PVC                                  | number | 50                                   |
+DURATION                | Duration in seconds with the PVC filled up                                      | number | 60                                   |
+BLOCK_SIZE              | Block size in bytes for the dd command used to fill the PVC                     | number | 102400                               |
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:

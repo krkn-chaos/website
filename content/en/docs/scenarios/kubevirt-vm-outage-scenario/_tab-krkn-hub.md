@@ -57,12 +57,12 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-NAMESPACE          | VMI Namespace to target                                                  | ""      |
-VM_NAME               | VMI name to delete, supports regex   | ""                                   |
-TIMEOUT               | Timeout to wait for VMI to start running again, will fail if timeout is hit  | 120                                   |
-KILL_COUNT               | Number of VMI's to kill (will perform serially)  | 1                                   |
+Parameter               | Description                                                           | Type | Default
+----------------------- | -----------------------------------------------------------------     | ---- | ------------------------------------ |
+NAMESPACE          | VMI Namespace to target                                                  | string | ""      |
+VM_NAME               | VMI name to delete, supports regex   | string | ""                                   |
+TIMEOUT               | Timeout to wait for VMI to start running again, will fail if timeout is hit  | number | 120                                   |
+KILL_COUNT               | Number of VMI's to kill (will perform serially)  | number | 1                                   |
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:
 ```bash

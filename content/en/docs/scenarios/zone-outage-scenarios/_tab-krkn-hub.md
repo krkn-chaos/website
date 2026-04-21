@@ -58,14 +58,14 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-CLOUD_TYPE              | Cloud platform on top of which cluster is running, [supported cloud platforms](/docs/scenarios/cloud_setup.md)                     | aws or gcp |
-DURATION                | Duration in seconds after which the zone will be back online          | 600                                  |
-VPC_ID                  | cluster virtual private network to target ( REQUIRED for AWS )                             | ""                                   |
-SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | ""                                   |
-ZONE                  | zone you want to target ( REQUIRED for GCP )                             | ""                                   |
-DEFAULT_ACL_ID          | (Optional) AWS Network ACL ID to reuse instead of creating a new one. If provided, this ACL will not be deleted after the scenario | ""                                   |
+Parameter               | Description                                                           | Type | Default
+----------------------- | -----------------------------------------------------------------     | ---- | ------------------------------------ |
+CLOUD_TYPE              | Cloud platform on top of which cluster is running, [supported cloud platforms](/docs/scenarios/cloud_setup.md)                     | enum | aws or gcp |
+DURATION                | Duration in seconds after which the zone will be back online          | number | 600                                  |
+VPC_ID                  | cluster virtual private network to target ( REQUIRED for AWS )                             | string | ""                                   |
+SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | string | ""                                   |
+ZONE                  | zone you want to target ( REQUIRED for GCP )                             | string | ""                                   |
+DEFAULT_ACL_ID          | (Optional) AWS Network ACL ID to reuse instead of creating a new one. If provided, this ACL will not be deleted after the scenario | string | ""                                   |
 The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
 
 Amazon Web Services

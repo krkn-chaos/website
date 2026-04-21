@@ -15,6 +15,11 @@ Scenario specific parameters:
 `--exclude-label` | Pods to exclude after using pod-selector to target. For example "{app: foo}"  | string | False | | 
 `--block-traffic-type` | It can be [Ingress] or [Egress] or [Ingress, Egress] | string | False | "[Ingress, Egress]" | 
 
+#### Behavior Notes
+
+- **Empty `--pod-selector`:** When left empty, the NetworkPolicy targets **all pods** in the namespace, causing a namespace-wide outage.
+- **Automatic cleanup:** After `--chaos-duration` expires, krkn automatically deletes the NetworkPolicy it created and traffic resumes. A rollback handler is also registered to ensure cleanup if the scenario fails unexpectedly.
+
 To see all available scenario options 
 ```bash
 krknctl run application-outages --help

@@ -18,6 +18,10 @@ Scenario specific parameters:
 `--expected-recovery-time` | Time to wait before checking if all containers that were affected recover properly | number | 60 | 
 
 
+#### Behavior Notes
+
+- **Recovery monitoring:** After disrupting containers, krkn monitors for recovery up to `--expected-recovery-time` seconds. If any containers remain unrecovered after the timeout, the scenario reports failure.
+
 To see all available scenario options 
 ```bash
 krknctl run container-scenarios --help

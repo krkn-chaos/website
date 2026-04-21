@@ -14,6 +14,10 @@ Scenario specific parameters:  (be sure to scroll to right)
 `--timeout` | Duration to wait for completion of node scenario injection | number | 180| 
 `--kill-count` | Number of VMI's to kill (will perform serially) | number | 1| 
 
+#### Behavior Notes
+
+- **VM recovery:** After krkn deletes the VM, the KubeVirt controller automatically recreates the VMI unless `runStrategy` is set to `Manual`. The `--timeout` parameter controls how long krkn waits for the VM to come back before reporting failure.
+
 To see all available scenario options 
 ```bash
 krknctl run kubevirt-outage --help

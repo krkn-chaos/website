@@ -15,6 +15,10 @@ Scenario specific parameters:
 `--runs` | Number of runs to execute the action |number | 1 |
 
 
+#### Behavior Notes
+
+- **No automatic recovery:** After krkn deletes the services, they are **not** automatically recreated. Services will only come back if managed by a controller (e.g. Helm release, operator, or GitOps pipeline). Verify your recovery mechanism before running this scenario.
+
 To see all available scenario options 
 ```bash
 krknctl run service-disruption-scenarios --help

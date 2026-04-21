@@ -10,8 +10,8 @@ Scenario specific parameters:
 | Parameter      | Description    | Type      |  Default | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
 `--cloud-type` | Cloud platform on top of which cluster is running, supported platforms - aws, azure, gcp, vmware, ibmcloud, bm | enum | aws | 
-`--timeout` | Duration to wait for completion of node scenario injection | number | 180| 
-`--shutdown-duration` | Duration to wait for completion of node scenario injection | number | 1200 | 
+`--timeout` | Time in seconds to wait for each node to be stopped or running after the cluster comes back | number | 180| 
+`--shutdown-duration` | Duration in seconds to shut down the cluster | number | 1200 | 
 `--vsphere-ip` | vSphere IP address | string | 
 `--vsphere-username` | vSphere IP address | string (secret)| 
 `--vsphere-password` | vSphere password | string (secret)| 

@@ -20,4 +20,4 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 | `--ports`         | string  | Network ports to filter traffic (if more than one separated by comma)       | true     |                                     |
 | `--image`         | string  | The network chaos injection workload container image                        | false    | quay.io/krkn-chaos/krkn-network-chaos:latest |
 | `--protocols`     | string  | The network protocols that will be filtered                                 | false    | tcp                                 |
-| `--taints`| String | List of taints for which tolerations need to created | false ||
+| `--taints`| String | List of taints for which tolerations need to be created | false ||

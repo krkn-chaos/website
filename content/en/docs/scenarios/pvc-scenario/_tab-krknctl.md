@@ -16,6 +16,10 @@ Scenario specific parameters:
 `--duration` | Duration to wait for completion of node scenario injection | number | 1200 | 
 
 
+#### Parameter Dependencies
+
+- **`--pvc-name` vs `--pod-name`:** At least one is required. If both are set, `--pvc-name` takes precedence and `--pod-name` is ignored.
+
 To see all available scenario options 
 ```bash
 krknctl run pvc-scenarios --help

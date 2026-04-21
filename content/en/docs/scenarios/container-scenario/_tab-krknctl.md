@@ -12,7 +12,7 @@ Scenario specific parameters:
 `--namespace` | Targeted namespace in the cluster | string | openshift-etcd | 
 `--label-selector` | Label of the container(s) to target | string | k8s-app=etcd | 
 `--exclude-selector` | Pods to exclude from targeting. For example "{app: foo}"  | string | "" | 
-`--disruption-count` | Number of container to disrupt | number | 1 | 
+`--disruption-count` | Number of containers to disrupt | number | 1 | 
 `--container-name` | Name of the container to disrupt | string | etcd | 
 `--action` | kill signal to run. For example 1 ( hang up ) or 9 | string | 1 | 
 `--expected-recovery-time` | Time to wait before checking if all containers that were affected recover properly | number | 60 | 

@@ -54,7 +54,8 @@ chmod 444 ~/kubeconfig && \
 docker run $(./get_docker_params.sh) \
   --name=<container_name> \
   --net=host \
-  -v ~kubeconfig:/home/krkn/.kube/config:Z \
+  --pull=always \
+  -v ~/kubeconfig:/home/krkn/.kube/config:Z \
   -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>
 ```
 {{% /alert %}}

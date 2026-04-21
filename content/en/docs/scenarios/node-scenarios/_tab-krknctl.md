@@ -19,9 +19,9 @@ Scenario specific parameters:  (be sure to scroll to right)
 `--kube-check` | Connecting to the kubernetes api to check the node status, set to False for SNO | enum | true | 
 `--timeout` | Duration to wait for completion of node scenario injection | number | 180| 
 `--duration` | Duration to wait for completion of node scenario injection | number | 120 | 
-`--vsphere-ip` | VSpere IP Address | string | 
-`--vsphere-username` | VSpere IP Address | string (secret)| 
-`--vsphere-password` | VSpere password | string (secret)| 
+`--vsphere-ip` | vSphere IP address | string | 
+`--vsphere-username` | vSphere IP address | string (secret)| 
+`--vsphere-password` | vSphere password | string (secret)| 
 `--aws-access-key-id` | AWS Access Key Id | string (secret)| 
 `--aws-secret-access-key` | AWS Secret Access Key | string (secret)| 
 `--aws-default-region` | AWS default region | string | 
@@ -40,6 +40,12 @@ Scenario specific parameters:  (be sure to scroll to right)
 `--gcp-application-credentials` | GCP application credentials file location | file | 
 
 NOTE: The secret string types will be masked when scenario is ran
+
+#### Parameter Dependencies
+
+- **`--node-name` vs `--label-selector`:** When `--node-name` is set, `--label-selector` is ignored. The scenario targets the named node(s) directly.
+- **`--instance-count`:** Only applies when using `--label-selector`. It limits how many of the matched nodes are targeted.
+- **Cloud credentials:** The `--vsphere-*`, `--aws-*`, `--bmc-*`, `--ibmc-*`, `--azure-*`, and `--gcp-*` parameters are only required for their respective `--cloud-type` value. For example, `--aws-access-key-id` is only needed when `--cloud-type` is `aws`.
 
 To see all available scenario options 
 ```bash

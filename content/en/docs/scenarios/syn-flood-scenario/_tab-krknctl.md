@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run syn-flood (optional: --<parameter>:<value> ) |
+krknctl run syn-flood (optional: --<parameter>:<value> )
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md) 

@@ -18,7 +18,7 @@ Scenario specific parameters:
 `--node-name` | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma | string | 
 `--interfaces` | List of interface on which to apply the network restriction. eg. | [eth0,eth1,eth2] | string| | | 
 `--egress` | Dictonary of values to set network latency(latency: 50ms), packet loss(loss: 0.02), bandwidth restriction(bandwidth: 100mbit) eg. {bandwidth: 100mbit} | string| "{bandwidth: 100mbit}" | 
-`--target-node-interface` | Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: {ip-10-0-216-2.us-west-2.compute.internal: ens5]} | string | 
+`--target-node-interface` | Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: {ip-10-0-216-2.us-west-2.compute.internal: ens5] | string | 
 `--network-params` | latency, loss and bandwidth are the three supported network parameters to alter for the chaos test. For example: {latency: 50ms, loss: 0.02} | string | 
 `--wait-duration` | Ensure that it is at least about twice of test_duration | number| 300| 
 

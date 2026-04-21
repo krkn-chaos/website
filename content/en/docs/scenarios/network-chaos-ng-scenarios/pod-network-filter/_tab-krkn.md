@@ -32,7 +32,7 @@ for the common module settings please refer to the [documentation](../network-ch
 - `interfaces`: a list of network interfaces where the incoming traffic will be filtered
 - `ports`: the list of ports that will be filtered
 - `protocols`: the ip protocols to filter (tcp and udp)
-- `taints` : List of taints for which tolerations need to created. Example: ["node-role.kubernetes.io/master:NoSchedule"]
+- `taints` : List of taints for which tolerations need to be created. Example: ["node-role.kubernetes.io/master:NoSchedule"]
 
 ### Usage
 

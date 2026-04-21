@@ -281,7 +281,7 @@ If you're using krknctl in a disconnected environment, you can mirror the desire
 |--private-registry-scenarios | KRKNCTL_PRIVATE_REGISTRY_SCENARIOS |  private registry krkn scenarios image repository |
 |--private-registry-skip-tls | KRKNCTL_PRIVATE_REGISTRY_SKIP_TLS | skips tls verification on private registry |
 |--private-registry-token |  KRKNCTL_PRIVATE_REGISTRY_TOKEN |      private registry identity token for token based authentication|
-|-private-registry-username |  KRKNCTL_PRIVATE_REGISTRY_USERNAME |   private registry username for basic authentication |
+|--private-registry-username |  KRKNCTL_PRIVATE_REGISTRY_USERNAME |   private registry username for basic authentication |
 
 
 {{% alert title="Note" %}}

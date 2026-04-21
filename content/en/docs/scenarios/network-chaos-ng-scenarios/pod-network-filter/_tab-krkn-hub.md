@@ -32,7 +32,7 @@ ex.)
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-| Parameter            | Description                                                                                                                      | Type | Default                           
+| Parameter            | Description                                                                                                                      | Type | Default                           |
 |----------------------|----------------------------------------------------------------------------------------------------------------------------------|------|-----------------------------------|
 | TOTAL_CHAOS_DURATION | set chaos duration (in sec) as desired                                                                                           | number | 60                                |
 | POD_SELECTOR         | defines the pod selector for choosing target pods. If multiple pods match the selector, all of them will be subjected to stress. | string | "app=selector" |
@@ -40,11 +40,14 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | INSTANCE_COUNT       | restricts the number of selected pods by the selector                                                                            | number | "1"                               |
 | EXECUTION            | sets the execution mode of the scenario on multiple pods, can be parallel or serial                                              | enum | "parallel"                        |
 | INGRESS              | sets the network filter on incoming traffic, can be true or false                                                                | boolean | false                             |
-| EGRESS               | sets the network filter on outgoing traffic, can be true or false                                                                | boolean | true                              |                       
+| EGRESS               | sets the network filter on outgoing traffic, can be true or false                                                                | boolean | true                              |
 | INTERFACES           | a list of comma separated names of network interfaces (eg. eth0 or eth0,eth1,eth2) to filter for outgoing traffic                | string | ""                                |
 | PORTS                | a list of comma separated port numbers (eg 8080 or 8080,8081,8082) to filter for both outgoing and incoming traffic              | string | ""                                |
 | PROTOCOLS            | a list of comma separated network protocols  (tcp, udp or both of them e.g. tcp,udp)                                             | string | "tcp"                             |
+| NAMESPACE            | namespace where the scenario container will be deployed                                                                          | string | default                           |
+| IMAGE                | the network chaos injection workload container image                                                                             | string | quay.io/krkn-chaos/krkn-network-chaos:latest |
 | TAINTS               | List of taints for which tolerations need to be created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | string | [] |
+| SERVICE_ACCOUNT      | optional service account for the Pod Network Filter workload                                                                     | string | "" |
 
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:

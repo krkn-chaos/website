@@ -14,7 +14,7 @@ network_chaos:                                    # Scenario to create an outage
   execution: serial                               # Default: serial. Options: serial, parallel. Execute each of the egress options as a single scenario(parallel) or as separate scenario(serial).
   egress:
     latency: 500ms
-    loss: 50%                                    # percentage
+    loss: 0.02                                   # percentage (e.g. 0.02 = 0.02% packet loss)
     bandwidth: 10mbit
   image: quay.io/krkn-chaos/krkn:tools
 ```
@@ -34,7 +34,7 @@ network_chaos:                                    # Scenario to create an outage
     execution_type: parallel                        # Execute each of the ingress options as a single scenario(parallel) or as separate scenario(serial).
     network_params:
         latency: 500ms
-        loss: '50%'
+        loss: '0.02'
         bandwidth: 10mbit
     wait_duration: 120
     test_duration: 60

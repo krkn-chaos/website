@@ -104,7 +104,7 @@ $ podman run \
   -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml \
   -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts \
   -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
-  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:container-scenarios
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:power-outages
 ```
 
 

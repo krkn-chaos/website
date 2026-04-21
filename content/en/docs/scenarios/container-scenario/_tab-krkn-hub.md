@@ -61,7 +61,7 @@ Parameter               | Description                                           
 NAMESPACE               | Targeted namespace in the cluster                                     | openshift-etcd                       |
 LABEL_SELECTOR          | Label of the container(s) to target                                   | k8s-app=etcd                         | 
 EXCLUDE_LABEL            | Pods to exclude after getting list of pods from LABEL_SELECTOR to target. For example "app=foo"                                | No default                           |
-DISRUPTION_COUNT        | Number of container to disrupt                                        | 1                                    |
+DISRUPTION_COUNT        | Number of containers to disrupt                                        | 1                                    |
 CONTAINER_NAME          | Name of the container to disrupt                                      | etcd                                 |
 ACTION                  | kill signal to run. For example 1 ( hang up ) or 9                    | 1                                    |
 EXPECTED_RECOVERY_TIME  | Time to wait before checking if all containers that were affected recover properly | 60                      |

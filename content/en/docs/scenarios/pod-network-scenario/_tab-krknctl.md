@@ -21,6 +21,11 @@ Scenario specific parameters:
 `--wait-duration` | Ensure that it is at least about twice of test_duration  | number |  300 | 
 `--test-duration` | Duration of the test run  | number |  120 | 
 
+#### Parameter Dependencies
+
+- **`--ingress-ports` / `--egress-ports`:** When left empty, **all** ports are blocked for that traffic direction. Specify port numbers to restrict the filter to only those ports.
+- **`--wait-duration`:** Must be at least 2× `--test-duration` to allow the network to stabilize before verification.
+
 To see all available scenario options 
 ```bash
 krknctl run pod-network-chaos --help

@@ -23,6 +23,12 @@ Scenario specific parameters:
 `--wait-duration` | Ensure that it is at least about twice of test_duration | number| 300| 
 
 
+#### Parameter Dependencies
+
+- **`--node-name`:** Egress only. Ignored when `--traffic-type` is `ingress`.
+- **`--network-params` and `--target-node-interface`:** Ingress only. Ignored when `--traffic-type` is `egress`.
+- **`--wait-duration`:** Must be at least 2× `--duration` to allow the network to stabilize before verification.
+
 To see all available scenario options 
 ```bash
 krknctl run network-chaos --help

@@ -12,9 +12,9 @@ Scenario specific parameters:
 `--cloud-type` | Cloud platform on top of which cluster is running, supported platforms - aws, azure, gcp, vmware, ibmcloud, bm | enum | aws | 
 `--timeout` | Duration to wait for completion of node scenario injection | number | 180| 
 `--shutdown-duration` | Duration to wait for completion of node scenario injection | number | 1200 | 
-`--vsphere-ip` | VSpere IP Address | string | 
-`--vsphere-username` | VSpere IP Address | string (secret)| 
-`--vsphere-password` | VSpere password | string (secret)| 
+`--vsphere-ip` | vSphere IP address | string | 
+`--vsphere-username` | vSphere IP address | string (secret)| 
+`--vsphere-password` | vSphere password | string (secret)| 
 `--aws-access-key-id` | AWS Access Key Id | string (secret)| 
 `--aws-secret-access-key` | AWS Secret Access Key | string (secret)| 
 `--aws-default-region` | AWS default region | string | 

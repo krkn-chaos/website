@@ -3,7 +3,7 @@ title: Krkn Dashboard
 linkTitle: Krkn Dashboard
 description: >
   Web-based UI to run and observe Krkn chaos scenarios, with Elasticsearch and Grafana integration.
-weight: 3
+weight: 11
 ---
 
 Krkn Dashboard is the **visualization and control component** of [krkn-hub](https://github.com/krkn-chaos/krkn-hub). It provides a user-friendly web interface to run chaos experiments, watch runs in real time, and—when configured—inspect historical runs and metrics via Elasticsearch and Grafana. Instead of using the CLI or editing config files, you can trigger and monitor Krkn scenarios from your browser.

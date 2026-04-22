@@ -1,6 +1,6 @@
 ---
 title: What is krkn-ai?
-weight: 3
+weight: 10
 ---
 
 **Krkn-AI** lets you automatically run Chaos scenarios and discover the most effective experiments to evaluate your system's resilience.

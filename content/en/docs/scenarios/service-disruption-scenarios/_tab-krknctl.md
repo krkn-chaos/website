@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run service-disruption-scenarios (optional: --<parameter>:<value> )
+krknctl run service-disruption-scenarios [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run pvc-scenarios (optional: --<parameter>:<value> )
+krknctl run pvc-scenarios [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

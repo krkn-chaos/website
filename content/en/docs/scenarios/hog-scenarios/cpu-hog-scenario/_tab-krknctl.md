@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run node-cpu-hog (optional: --<parameter>:<value> )
+krknctl run node-cpu-hog [--<parameter> <value>]
 ```
 
 

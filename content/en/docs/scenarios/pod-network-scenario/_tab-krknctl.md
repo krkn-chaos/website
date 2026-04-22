@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run pod-network-chaos (optional: --<parameter>:<value> )
+krknctl run pod-network-chaos [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run pod-network-filter (optional: --<parameter>:<value> )
+krknctl run pod-network-filter [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../../all-scenario-env-krknctl.md)

@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run service-hijacking (optional: --<parameter>:<value> )
+krknctl run service-hijacking [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

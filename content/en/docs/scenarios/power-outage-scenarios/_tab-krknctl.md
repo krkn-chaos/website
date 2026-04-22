@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run power-outages (optional: --<parameter>:<value> )
+krknctl run power-outages [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

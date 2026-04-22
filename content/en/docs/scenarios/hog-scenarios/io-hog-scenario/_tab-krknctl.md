@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run node-io-hog (optional: --<parameter>:<value> )
+krknctl run node-io-hog [--<parameter> <value>]
 ```
 
 

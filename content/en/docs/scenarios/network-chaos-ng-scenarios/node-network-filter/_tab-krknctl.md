@@ -1,5 +1,5 @@
 ```bash
-krknctl run node-network-filter (optional: --<parameter>:<value>)
+krknctl run node-network-filter [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../../all-scenario-env-krknctl.md)

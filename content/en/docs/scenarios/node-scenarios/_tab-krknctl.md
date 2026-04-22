@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run node-scenarios (optional: --<parameter>:<value> )
+krknctl run node-scenarios [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

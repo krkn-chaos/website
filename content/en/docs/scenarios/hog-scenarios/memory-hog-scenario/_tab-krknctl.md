@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run node-memory-hog (optional: --<parameter>:<value> )
+krknctl run node-memory-hog [--<parameter> <value>]
 ```
 
 

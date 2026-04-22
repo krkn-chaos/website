@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run application-outages (optional: --<parameter>:<value>)
+krknctl run application-outages [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)

@@ -10,8 +10,8 @@ Scenario specific parameters:  (be sure to scroll to right)
 | Parameter      | Description    | Type      |  Default | Possible Values | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ | :----------------:  | 
 `--namespace` | VMI Namespace to target | string | default | 
-`--vm-name` | Name of the VM to delete | string | 
-`--timeout` | Time that scenario will wait for VM to come back | number | 60| 
+`--vm-name` | Name of the VM to delete | string | | 
+`--timeout` | Time that scenario will wait for VM to come back | number | 60 | 
 `--kill-count` | Number of VMI's to kill (will perform serially) | number | 1| 
 
 #### Behavior Notes

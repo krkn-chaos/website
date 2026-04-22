@@ -17,7 +17,7 @@ scenarios:
   exclude_label: "<label to exclude pods from chaos>" # Optional: pods matching this label will be excluded from disruption
   count: <number of containers to disrupt, default=1>
   action: <kill signal to run. For example 1 ( hang up ) or 9. Default is set to 1>
-  expected_recovery_time: <number of seconds to wait for container to be running again> (defaults to 120seconds)
+  expected_recovery_time: <number of seconds to wait for container to be running again> (defaults to 60seconds)
 ```
 
 

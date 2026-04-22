@@ -18,6 +18,10 @@ Scenario specific parameters:
 `--node-label-selector` | Label of the node(s) to target | string | "" |
 `--node-names` | Name of the node(s) to target. Example: ["worker-node-1","worker-node-2","master-node-1"] | string | [] |
 
+#### Behavior Notes
+
+- **Recovery monitoring:** After disrupting pods, krkn monitors for recovery up to `--expected-recovery-time` seconds. If any pods remain unrecovered after the timeout, the scenario reports failure.
+
 To see all available scenario options
 ```bash
 krknctl run pod-scenarios --help

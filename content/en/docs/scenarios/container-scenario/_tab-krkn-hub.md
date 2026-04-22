@@ -66,7 +66,6 @@ CONTAINER_NAME          | Name of the container to disrupt                      
 ACTION                  | kill signal to run. For example 1 ( hang up ) or 9                    | 1                                    |
 EXPECTED_RECOVERY_TIME  | Time to wait before checking if all containers that were affected recover properly | 60                      |
 
-{{% alert title="Note" %}} Set NAMESPACE environment variable to `openshift-.*` to pick and disrupt pods randomly in openshift system namespaces, the DAEMON_MODE can also be enabled to disrupt the pods every x seconds in the background to check the reliability.{{% /alert %}}
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}
  For example:

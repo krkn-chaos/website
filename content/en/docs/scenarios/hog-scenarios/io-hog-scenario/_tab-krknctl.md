@@ -9,7 +9,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 | Parameter      | Description    | Type      |  Default | 
 | ----------------------- | ----------------------    | ----------------  | ------------------------------------ |
 `--chaos-duration` |Set chaos duration (in sec) as desired | number | 60 | 
-`--oo-block-size` |Size of each write in bytes. Size can be from 1 byte to 4 Megabytes (allowed suffix are b,k,m) | string | 1m | 
+`--io-block-size` |Size of each write in bytes. Size can be from 1 byte to 4 Megabytes (allowed suffix are b,k,m) | string | 1m | 
 `--io-workers` |Number of stressor instances | number | 5 | 
 `--io-write-bytes` |string writes N bytes for each hdd process. The size can be expressed as % of free space on the file system or in units of Bytes, KBytes, MBytes and GBytes using the suffix b, k, m or g | string | 10m | 
 `--node-mount-path` |the path in the node that will be mounted in the pod and where the io hog will be executed. NOTE: be sure that kubelet has the rights to write in that node path | string | /root | 

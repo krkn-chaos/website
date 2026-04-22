@@ -5,16 +5,13 @@ date : 2017-01-05
 weight : 1
 ---
 
-These variables are to be used for the top level configuration template that are shared by all the scenarios in Krknctl
+These variables are to be used for the top level configuration template that are shared by all the scenarios in Krknctl.
 
-See the description and default values below 
+Each section below corresponds to a section in the [Krkn config reference](../krkn/config.md). Pass flags when running a scenario:
 
-#### Supported parameters for all scenarios in KrknCtl
-
-The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
-
-**Usage example:**
-`--<parameter> <value>`
+```bash
+krknctl run <scenario> --<parameter> <value>
+```
 
 <style>
 .wide-params-table table {
@@ -51,67 +48,176 @@ The following environment variables can be set on the host running the container
 }
 </style>
 
+---
+
+## Kraken
+
+General run settings. See [Kraken config](../krkn/config.md#kraken) for full details.
+
 <div class="wide-params-table">
 
 | Parameter | Description | Type | Possible Values | Default |
 |-----------|-------------|------|-----------------|---------|
-| --cerberus-enabled | Enables Cerberus Support | enum | True/False | False |
-| --cerberus-url | Cerberus http url | string | - | http://0.0.0.0:8080 |
-| --distribution | Selects the orchestrator distribution | enum | openshift/kubernetes | openshift |
-| --krkn-kubeconfig | Sets the path where krkn will search for kubeconfig in container | string | - | /home/krkn/.kube/config |
-| --wait-duration | Waits for a certain amount of time after the scenario | number | - | 1 |
-| --iterations | Number of times the same chaos scenario will be executed | number | - | 1 |
-| --daemon-mode | If set the scenario will execute forever | enum | True/False | False |
-| --uuid | Sets krkn run uuid instead of generating it | string | - | - |
-| --capture-metrics | Enables metrics capture | enum | True/False | False |
-| --enable-alerts | Enables cluster alerts check | enum | True/False | False |
-| --alerts-path | Allows to specify a different alert file path | string | - | config/alerts.yaml |
-| --metrics-path | Allows to specify a different metrics file path | string | - | config/metrics-aggregated.yaml |
-| --enable-es | Enables elastic search data collection | enum | True/False | False |
-| --es-server | Elasticsearch instance URL | string | - | http://0.0.0.0 |
-| --es-port | Elasticsearch instance port | number | - | 443 |
-| --es-username | Elasticsearch instance username | string | - | elastic |
-| --es-password | Elasticsearch instance password | string | - | - |
-| --es-verify-certs | Enables elasticsearch TLS certificate verification | enum | True/False | False |
-| --es-metrics-index | Index name for metrics in Elasticsearch | string | - | krkn-metrics |
-| --es-alerts-index | Index name for alerts in Elasticsearch | string | - | krkn-alerts |
-| --es-telemetry-index | Index name for telemetry in Elasticsearch | string | - | krkn-telemetry |
-| --check-critical-alerts | Enables checking for critical alerts | enum | True/False | False |
-| --telemetry-enabled | Enables telemetry support | enum | True/False | False |
-| --telemetry-api-url | API endpoint for telemetry data | string | - | https://ulnmf9xv7j.execute-api.us-west-2.amazonaws.com/production |
-| --telemetry-username | Username for telemetry authentication | string | - | redhat-chaos |
-| --telemetry-password | Password for telemetry authentication | string | - | - |
-| --telemetry-prometheus-backup | Enables Prometheus backup for telemetry | enum | True/False | True |
-| --telemetry-full-prometheus-backup | Enables full Prometheus backup for telemetry | enum | True/False | False |
-| --telemetry-backup-threads | Number of threads for telemetry backup | number | - | 5 |
-| --telemetry-archive-path | Path to save telemetry archive | string | - | /tmp |
-| --telemetry-max-retries | Maximum retries for telemetry operations | number | - | 0 |
-| --telemetry-run-tag | Tag for telemetry run | string | - | chaos |
-| --telemetry-group | Group name for telemetry data | string | - | default |
-| --telemetry-archive-size | Maximum size for telemetry archives | number | - | 1000 |
-| --telemetry-logs-backup | Enables logs backup for telemetry | enum | True/False | False |
-| --telemetry-filter-pattern | Filter pattern for telemetry logs | string | - | ["\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+", "kinit (\\d+/\\d+/\\d+\\s\\d{2}:\\d{2}:\\d{2}", "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z"] |
-| --telemetry-cli-path | Path to telemetry CLI tool (oc) | string | - | - |
-| --telemetry-events-backup | Enables events backup for telemetry | enum | True/False | True |
-| --health-check-interval | How often to check the health check urls (seconds) | number | - | 2 |
-| --health-check-url | URL to check the health of | string | - | - |
-| --health-check-auth | Authentication tuple to authenticate into health check URL | string | - | - |
-| --health-check-bearer-token | Bearer token to authenticate into health check URL | string | - | - |
-| --health-check-exit | Exit on failure when health check URL is not able to connect | string | - | - |
-| --health-check-verify | SSL Verification to authenticate into health check URL | string | - | false |
-| --kubevirt-check-interval | How often to check the KubeVirt VMs SSH status (seconds) | number | - | 2 |
-| --kubevirt-namespace | KubeVirt namespace to check the health of | string | - | - |
-| --kubevirt-name | KubeVirt regex names to watch | string | - | - |
-| --kubevirt-only-failures | KubeVirt checks only report if failure occurs | enum | True/False | false |
-| --kubevirt-disconnected | KubeVirt checks in disconnected mode, bypassing the cluster's API | enum | True/False | false |
-| --kubevirt-ssh-node | KubeVirt backup node to SSH into when checking VMI IP address status | string | - | false |
-| --kubevirt-exit-on-failure | KubeVirt fails run if VMs still have false status | enum | True/False | false |
-| --kubevirt-node-node | Only track VMs in KubeVirt on given node name | string | - | false |
-| --krkn-debug | Enables debug mode for Krkn | enum | True/False | False |
-| --resiliency-score | Enables resiliency scoring in detailed mode: outputs a full JSON resiliency report to stdout after each scenario. When not set, the score is still calculated but only embedded in the telemetry output (standalone mode). See [Resiliency Scoring](/docs/krkn/resiliency-score/) for details. | enum | True/False | False |
-| --disable-resiliency-score | Disables resiliency score calculation entirely | enum | True/False | False |
-| --resiliency-file | Path to a custom YAML file containing SLO definitions for resiliency scoring. If not specified, defaults to the alerts profile or `config/alerts.yaml` | string | - | config/alerts.yaml |
+| `--krkn-kubeconfig` | Sets the path where krkn will search for kubeconfig in container | string | - | /home/krkn/.kube/config |
+| `--uuid` | Sets krkn run uuid instead of generating it | string | - | - |
+| `--krkn-debug` | Enables debug mode for Krkn | enum | True/False | False |
 
-</div> 
+</div>
 
-{{% alert title="Note" %}} For setting the TELEMETRY_ARCHIVE_SIZE,the higher the number of archive files will be produced and uploaded (and processed by backup_thread simultaneously| .For unstable/slow connection is better to keep this value low increasing the number of backup_threads, in this way, on upload failure, the retry will happen only on the failed chunk without affecting the whole upload.{{% /alert %}}
+---
+
+## Cerberus
+
+Cluster health monitoring integration. See [Cerberus config](../krkn/config.md#cerberus) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--cerberus-enabled` | Enables Cerberus Support | enum | True/False | False |
+| `--cerberus-url` | Cerberus http url | string | - | http://0.0.0.0:8080 |
+
+</div>
+
+---
+
+## Performance Monitoring
+
+Prometheus metrics collection and alert evaluation. See [Performance Monitoring config](../krkn/config.md#performance-monitoring) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--capture-metrics` | Enables metrics capture | enum | True/False | False |
+| `--enable-alerts` | Enables cluster alerts check | enum | True/False | False |
+| `--alerts-path` | Allows to specify a different alert file path | string | - | config/alerts.yaml |
+| `--metrics-path` | Allows to specify a different metrics file path | string | - | config/metrics-aggregated.yaml |
+| `--check-critical-alerts` | Enables checking for critical alerts | enum | True/False | False |
+
+</div>
+
+---
+
+## Resiliency Score
+
+Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.md#resiliency-score) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--resiliency-score` | Enables resiliency scoring in detailed mode, outputting a full JSON resiliency report to stdout after each scenario | enum | True/False | False |
+| `--disable-resiliency-score` | Disables resiliency score calculation entirely | enum | True/False | False |
+| `--resiliency-file` | Path to a YAML file containing SLO definitions for resiliency scoring; defaults to the alerts profile or `config/alerts.yaml` | string | - | config/alerts.yaml |
+
+</div>
+
+---
+
+## Elastic
+
+Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/config.md#elastic) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--enable-es` | Enables elastic search data collection | enum | True/False | False |
+| `--es-server` | Elasticsearch instance URL | string | - | http://0.0.0.0 |
+| `--es-port` | Elasticsearch instance port | number | - | 443 |
+| `--es-username` | Elasticsearch instance username | string | - | elastic |
+| `--es-password` | Elasticsearch instance password | string | - | - |
+| `--es-verify-certs` | Enables elasticsearch TLS certificate verification | enum | True/False | False |
+| `--es-metrics-index` | Index name for metrics in Elasticsearch | string | - | krkn-metrics |
+| `--es-alerts-index` | Index name for alerts in Elasticsearch | string | - | krkn-alerts |
+| `--es-telemetry-index` | Index name for telemetry in Elasticsearch | string | - | krkn-telemetry |
+
+</div>
+
+---
+
+## Tunings
+
+Execution timing and iteration controls. See [Tunings config](../krkn/config.md#tunings) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--wait-duration` | Waits for a certain amount of time after the scenario | number | - | 1 |
+| `--iterations` | Number of times the same chaos scenario will be executed | number | - | 1 |
+| `--daemon-mode` | If set the scenario will execute forever | enum | True/False | False |
+
+</div>
+
+---
+
+## Telemetry
+
+Run data collection and upload settings. See [Telemetry config](../krkn/config.md#telemetry) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--telemetry-enabled` | Enables telemetry support | enum | True/False | False |
+| `--telemetry-api-url` | API endpoint for telemetry data | string | - | https://ulnmf9xv7j.execute-api.us-west-2.amazonaws.com/production |
+| `--telemetry-username` | Username for telemetry authentication | string | - | redhat-chaos |
+| `--telemetry-password` | Password for telemetry authentication | string | - | - |
+| `--telemetry-prometheus-backup` | Enables Prometheus backup for telemetry | enum | True/False | True |
+| `--telemetry-full-prometheus-backup` | Enables full Prometheus backup for telemetry | enum | True/False | False |
+| `--telemetry-backup-threads` | Number of threads for telemetry backup | number | - | 5 |
+| `--telemetry-archive-path` | Path to save telemetry archive | string | - | /tmp |
+| `--telemetry-max-retries` | Maximum retries for telemetry operations | number | - | 0 |
+| `--telemetry-run-tag` | Tag for telemetry run | string | - | chaos |
+| `--telemetry-group` | Group name for telemetry data | string | - | default |
+| `--telemetry-archive-size` | Maximum size for telemetry archives in KB | number | - | 1000 |
+| `--telemetry-logs-backup` | Enables logs backup for telemetry | enum | True/False | False |
+| `--telemetry-filter-pattern` | Filter pattern for telemetry logs | string | - | `["\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+", ...]` |
+| `--telemetry-cli-path` | Path to telemetry CLI tool (oc) | string | - | - |
+| `--telemetry-events-backup` | Enables events backup for telemetry | enum | True/False | True |
+
+</div>
+
+{{% alert title="Note" %}} For `--telemetry-archive-size`, the lower the value the higher the number of archive files produced and uploaded (processed by `--telemetry-backup-threads` simultaneously). For unstable or slow connections, keep this value low and increase `--telemetry-backup-threads` so that on upload failure only the failed chunk is retried. {{% /alert %}}
+
+---
+
+## Health Checks
+
+Application endpoint monitoring during chaos. See [Health Checks config](../krkn/config.md#health-checks) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--health-check-url` | URL to check the health of | string | - | - |
+| `--health-check-interval` | How often to check the health check urls (seconds) | number | - | 2 |
+| `--health-check-auth` | Authentication tuple to authenticate into health check URL | string | - | - |
+| `--health-check-bearer-token` | Bearer token to authenticate into health check URL | string | - | - |
+| `--health-check-exit` | Exit on failure when health check URL is not able to connect | string | - | - |
+| `--health-check-verify` | SSL verification for health check URL | string | - | false |
+
+</div>
+
+---
+
+## Virt Checks
+
+KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](../krkn/config.md#virt-checks) for full details.
+
+<div class="wide-params-table">
+
+| Parameter | Description | Type | Possible Values | Default |
+|-----------|-------------|------|-----------------|---------|
+| `--kubevirt-check-interval` | How often to check the KubeVirt VMs SSH status (seconds) | number | - | 2 |
+| `--kubevirt-namespace` | KubeVirt namespace to check the health of | string | - | - |
+| `--kubevirt-name` | KubeVirt regex names to watch | string | - | - |
+| `--kubevirt-only-failures` | KubeVirt checks only report if failure occurs | enum | True/False | false |
+| `--kubevirt-disconnected` | KubeVirt checks in disconnected mode, bypassing the cluster's API | enum | True/False | false |
+| `--kubevirt-ssh-node` | KubeVirt backup node to SSH into when checking VMI IP address status | string | - | false |
+| `--kubevirt-exit-on-failure` | KubeVirt fails run if VMs still have false status | enum | True/False | false |
+| `--kubevirt-node-node` | Only track VMs in KubeVirt on given node name | string | - | false |
+
+</div>

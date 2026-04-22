@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run time-scenarios  (optional: --<parameter>:<value> ) |
+krknctl run time-scenarios  (optional: --<parameter>:<value> )
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md) 

@@ -8,6 +8,10 @@ categories: [Best Practices, Placeholders]
 tags: [docs]
 ---
 
+{{% alert title="Not sure where to start?" color="info" %}}
+Different teams use Krkn differently — from a quick manual smoke test to a scored resilience pipeline. **[Choose your path →](user-journeys.md)** to find the setup that matches your goal.
+{{% /alert %}}
+
 ## Quick Start with krknctl (Recommended)
 
 {{% alert title="Recommended Approach" color="success" %}}

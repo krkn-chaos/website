@@ -241,12 +241,12 @@ type: "docs/scenarios"
       <h2 class="section-title">Quick Start</h2>
       <p class="section-subtitle">Get up and running in minutes</p>
       <div class="docs-quick-start__grid">
-        <a href="/docs/getting-started/" class="feature-card">
+        <a href="/docs/getting-started/user-journeys/" class="feature-card">
           <div class="feature-card__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12 12 0 0 1 22 2c0 2.5-.5 7.5-3 10a12 12 0 0 1-3.05 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
           </div>
           <h3 class="feature-card__title">New to Krkn?</h3>
-          <p class="feature-card__desc">Follow our guided quickstart to run your first chaos scenario.</p>
+          <p class="feature-card__desc">Choose your path — from a quick first run to multi-cluster resilience pipelines.</p>
         </a>
         <a href="/docs/installation/" class="feature-card">
           <div class="feature-card__icon">

@@ -57,4 +57,4 @@ Below is a flow chart of all the Krkn-related repositories in the GitHub organiz
 
 ---
 
-Continue reading more details about each of the repositories in the sidebar. We recommend starting with [**"What is Krkn?"**](/docs/krkn/) to get details around all the features we offer before moving to [Installation](/docs/installation/) and the [Scenarios](/docs/scenarios/) we offer.
+Continue reading more details about each of the repositories in the sidebar. Not sure where to begin? [**Choose your path**](/docs/getting-started/user-journeys/) to find the right setup for your goals — from a quick first run to a full resilience pipeline. When you're ready, we recommend reading [**"What is Krkn?"**](/docs/krkn/) for details on all the features, then moving to [Installation](/docs/installation/) and the [Scenarios](/docs/scenarios/) we offer.

@@ -1,7 +1,7 @@
 ---
 title: Overview
 linkTitle: Overview
-weight: -1
+weight: 1
 description: >
   Why chaos engineering matters, why we built Krkn, and how the repositories fit together.
 ---

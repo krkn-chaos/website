@@ -3,7 +3,7 @@ type: "docs/scenarios"
 title: Scenarios
 description: Krkn scenario list
 date: 2017-01-04
-weight: 6
+weight: 4
 ---
 
 {{% alert title="Tip" %}}

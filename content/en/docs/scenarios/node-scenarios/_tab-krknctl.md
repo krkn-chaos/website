@@ -11,7 +11,7 @@ Scenario specific parameters:  (be sure to scroll to right)
 | ----------------------- | ----------------------    | ------------------  | :------: | ------------------------------------ | :----------------:  | 
 `--action` | action performed on the node, visit https://github.com/krkn-chaos/krkn/blob/main/docs/node_scenarios.md for more infos | enum | Yes |  | node_start_scenario,node_stop_scenario,node_stop_start_scenario,node_termination_scenario,node_reboot_scenario,stop_kubelet_scenario,stop_start_kubelet_scenario,restart_kubelet_scenario,node_crash_scenario,stop_start_helper_node_scenario | 
 `--label-selector` | Node label to target | string | No | node-role.kubernetes.io/worker | 
-`--exclude-label` | excludes nodes marked by this label from chaos || No |
+`--exclude-label` | excludes nodes marked by this label from chaos | string | No |
 `--node-name` | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma | string | No | 
 `--instance-count` | Targeted instance count matching the label selector | number | No | 1 | 
 `--runs` | Iterations to perform action on a single node | number | No | 1 | 

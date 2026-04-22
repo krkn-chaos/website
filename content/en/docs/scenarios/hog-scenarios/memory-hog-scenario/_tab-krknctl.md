@@ -15,7 +15,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 `--node-selector` |Node selector where the scenario containers will be scheduled in the format "<selector>=<value>". NOTE:  Will be instantiated a container per each node selected with the same scenario options. If left empty a random node will be selected | string | No | 
 `--taints` | List of taints for which tolerations need to be created. For example ["node-role.kubernetes.io/master:NoSchedule"]" | string | No | [] |
 `--number-of-nodes` |restricts the number of selected nodes by the selector | number | No |
-`--image` |The hog container image. Can be changed if the hog image is mirrored on a private repository | string | No | quay.memory/krkn-chaos/krkn-hog | 
+`--image` |The hog container image. Can be changed if the hog image is mirrored on a private repository | string | No | quay.io/krkn-chaos/krkn-hog | 
 
 
 

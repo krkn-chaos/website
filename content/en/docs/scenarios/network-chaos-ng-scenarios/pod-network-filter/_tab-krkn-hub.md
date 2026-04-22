@@ -36,8 +36,8 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 |----------------------|----------------------------------------------------------------------------------------------------------------------------------|------|-----------------------------------|
 | TOTAL_CHAOS_DURATION | set chaos duration (in sec) as desired                                                                                           | number | 60                                |
 | POD_SELECTOR         | defines the pod selector for choosing target pods. If multiple pods match the selector, all of them will be subjected to stress. | string | "app=selector" |
-| POD_NAME             | the pod name to target (if POD_SELECTOR not specified)                                                                           | string |
-| INSTANCE_COUNT       | restricts the number of selected pods by the selector                                                                            | number | "1"                               |                             |
+| POD_NAME             | the pod name to target (if POD_SELECTOR not specified)                                                                           | string |                                   |
+| INSTANCE_COUNT       | restricts the number of selected pods by the selector                                                                            | number | "1"                               |
 | EXECUTION            | sets the execution mode of the scenario on multiple pods, can be parallel or serial                                              | enum | "parallel"                        |
 | INGRESS              | sets the network filter on incoming traffic, can be true or false                                                                | boolean | false                             |
 | EGRESS               | sets the network filter on outgoing traffic, can be true or false                                                                | boolean | true                              |                       

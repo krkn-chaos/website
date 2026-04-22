@@ -35,7 +35,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 |-------------------------------| -----------------------------------------------------------------     | ---- | ------------------------------------ |
 | TOTAL_CHAOS_DURATION          | set chaos duration (in sec) as desired                                | number | 60                                  |
 | NODE_SELECTOR                 | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress.| string | "node-role.kubernetes.io/worker=" |
-| NODE_NAME                     | the node name to target (if label selector not selected| string |                        
+| NODE_NAME                     | the node name to target (if label selector not selected) | string |                        |
 | INSTANCE_COUNT               | restricts the number of selected nodes by the selector                                     | number | "1" |
 | EXECUTION                         | sets the execution mode of the scenario on multiple nodes, can be parallel or serial| enum |"parallel"|
 | INGRESS                       | sets the network filter on incoming traffic, can be true or false| boolean | false |

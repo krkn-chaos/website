@@ -69,9 +69,9 @@ RUNS                    | Iterations to perform action on a single node         
 CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, ibmcloudpower, bm           | enum | aws |
 TIMEOUT                 | Duration to wait for completion of node scenario injection             | number | 180                                |
 DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | number | 120                                |
-KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | enum | True                               |
-PARALLEL     | Run action on label or node name in parallel or sequential, set to true for parallel | enum | False |
-DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors | enum | False |
+KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario. Supported values: `true`, `false`   | enum | True                               |
+PARALLEL     | Run action on label or node name in parallel or sequential. Supported values: `true`, `false` | enum | False |
+DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors. Supported values: `true`, `false` | enum | False |
 VERIFY_SESSION           | Verify the SSH session during node scenarios                          | string | false                                |
 SKIP_OPENSHIFT_CHECKS    | Skip OpenShift-specific cluster checks (set to true for vanilla Kubernetes) | string | false                          |
 BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | string | "" | 

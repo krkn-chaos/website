@@ -58,26 +58,26 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-ACTION                  | Action can be one of the [following](/docs/scenarios/node-scenarios/) | node_stop_start_scenario |
-LABEL_SELECTOR          | Node label to target                                                  | node-role.kubernetes.io/worker       |
-EXCLUDE_LABEL           | Nodes labeled with this value will be excluded from the chaos         |                                      |
-NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | ""                                   |
-INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                    |
-RUNS                    | Iterations to perform action on a single node                         | 1                                    |
-CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, ibmcloudpower, bm           | aws |
-TIMEOUT                 | Duration to wait for completion of node scenario injection             | 180                                |
-DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | 120                                |
-KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario   | True                               |
-PARALLEL     | Run action on label or node name in parallel or sequential, set to true for parallel | False |
-DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors | False |
-VERIFY_SESSION           | Verify the SSH session during node scenarios                          | false                                |
-SKIP_OPENSHIFT_CHECKS    | Skip OpenShift-specific cluster checks (set to true for vanilla Kubernetes) | false                          |
-BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | "" | 
-BMC_PASSWORD             | Only needed for Baremetal ( bm ) - IPMI/bmc password | "" |
-BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc address | "" |
-DISKS                    | Comma-separated list of disks for baremetal disk detach/attach scenarios | ""                              |
+Parameter               | Description                                                           | Type | Default
+----------------------- | -----------------------------------------------------------------     | ---- | ------------------------------------ |
+ACTION                  | Action can be one of the [following](/docs/scenarios/node-scenarios/) | enum | node_stop_start_scenario |
+LABEL_SELECTOR          | Node label to target                                                  | string | node-role.kubernetes.io/worker       |
+EXCLUDE_LABEL           | Nodes labeled with this value will be excluded from the chaos         | string |                                      |
+NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | string | ""                                   |
+INSTANCE_COUNT          | Targeted instance count matching the label selector                   | number | 1                                    |
+RUNS                    | Iterations to perform action on a single node                         | number | 1                                    |
+CLOUD_TYPE              | Cloud platform on top of which cluster is running, supported platforms - aws, vmware, ibmcloud, ibmcloudpower, bm           | enum | aws |
+TIMEOUT                 | Duration to wait for completion of node scenario injection             | number | 180                                |
+DURATION                | Duration to stop the node before running the start action - not supported for vmware and ibm cloud type             | number | 120                                |
+KUBE_CHECK       | Connect to the kubernetes api to see if the node gets to a certain state during the node scenario. Supported values: `true`, `false`   | enum | True                               |
+PARALLEL     | Run action on label or node name in parallel or sequential. Supported values: `true`, `false` | enum | False |
+DISABLE_SSL_VERIFICATION     | Disable SSL verification, to avoid certificate errors. Supported values: `true`, `false` | enum | False |
+VERIFY_SESSION           | Verify the SSH session during node scenarios                          | string | false                                |
+SKIP_OPENSHIFT_CHECKS    | Skip OpenShift-specific cluster checks (set to true for vanilla Kubernetes) | string | false                          |
+BMC_USER                 | Only needed for Baremetal ( bm ) - IPMI/bmc username | string | "" | 
+BMC_PASSWORD             | Only needed for Baremetal ( bm ) - IPMI/bmc password | string | "" |
+BMC_ADDR                 | Only needed for Baremetal ( bm ) - IPMI/bmc address | string | "" |
+DISKS                    | Comma-separated list of disks for baremetal disk detach/attach scenarios | string | ""                              |
 
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:

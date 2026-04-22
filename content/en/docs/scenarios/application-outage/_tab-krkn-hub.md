@@ -75,13 +75,13 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-DURATION                | Duration in seconds after which the routes will be accessible         | 600                                  |
-NAMESPACE               | Namespace to target - all application routes will go inaccessible if pod selector is empty ( Required )|  No default |
-POD_SELECTOR            | Pods to target. For example "{app: foo}"                                | No default                           |
-EXCLUDE_LABEL            | Pods to exclude after getting list of pods from POD_SELECTOR to target. For example "{app: foo}" | No default |
-BLOCK_TRAFFIC_TYPE      | It can be Ingress or Egress or Ingress, Egress ( needs to be a list ) | [Ingress]                            |
+Parameter               | Description                                                           | Type | Default
+----------------------- | -----------------------------------------------------------------     | ---- | ------------------------------------ |
+DURATION                | Duration in seconds after which the routes will be accessible         | number | 600                                  |
+NAMESPACE               | Namespace to target - all application routes will go inaccessible if pod selector is empty ( Required )| string |  No default |
+POD_SELECTOR            | Pods to target. For example "{app: foo}"                                | string | No default                           |
+EXCLUDE_LABEL            | Pods to exclude after getting list of pods from POD_SELECTOR to target. For example "{app: foo}" | string | No default |
+BLOCK_TRAFFIC_TYPE      | It can be Ingress or Egress or Ingress, Egress ( needs to be a list ) | string | [Ingress]                            |
 
 {{% alert title="Note" %}} Defining the `NAMESPACE` parameter is required for running this scenario while the pod_selector is optional. In case of using pod selector to target a particular application, make sure to define it using the following format with a space between key and value: "{key: value}". {{% /alert %}}
 

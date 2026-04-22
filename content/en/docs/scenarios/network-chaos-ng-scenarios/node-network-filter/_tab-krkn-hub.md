@@ -31,20 +31,20 @@ ex.)
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-|  Parameter                    | Description                                                           | Default
-|-------------------------------| -----------------------------------------------------------------     | ------------------------------------ |
-| TOTAL_CHAOS_DURATION          | set chaos duration (in sec) as desired                                | 60                                  |
-| NODE_SELECTOR                 | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress.| "node-role.kubernetes.io/worker=" |
-| NODE_NAME                     | the node name to target (if label selector not selected|                        
-| INSTANCE_COUNT               | restricts the number of selected nodes by the selector                                     | "1" |
-| EXECUTION                         | sets the execution mode of the scenario on multiple nodes, can be parallel or serial|"parallel"|
-| INGRESS                       | sets the network filter on incoming traffic, can be true or false| false |
-| EGRESS                       | sets the network filter on outgoing traffic, can be true or false| true |                       
-| INTERFACES                   | a list of comma separated names of network interfaces (eg. eth0 or eth0,eth1,eth2) to filter for outgoing traffic | "" |
-| PORTS                        | a list of comma separated port numbers (eg 8080 or 8080,8081,8082) to filter for both outgoing and incoming traffic | "" |
-| PROTOCOLS                    | a list of comma separated protocols to filter (tcp, udp or both) |
-| TAINTS               | List of taints for which tolerations need to be created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | [] |
-| SERVICE_ACCOUNT             | optional service account for the Node Network Filter workload | "" |
+|  Parameter                    | Description                                                           | Type | Default
+|-------------------------------| -----------------------------------------------------------------     | ---- | ------------------------------------ |
+| TOTAL_CHAOS_DURATION          | set chaos duration (in sec) as desired                                | number | 60                                  |
+| NODE_SELECTOR                 | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress.| string | "node-role.kubernetes.io/worker=" |
+| NODE_NAME                     | the node name to target (if label selector not selected) | string |                        |
+| INSTANCE_COUNT               | restricts the number of selected nodes by the selector                                     | number | "1" |
+| EXECUTION                         | sets the execution mode of the scenario on multiple nodes, can be parallel or serial| enum |"parallel"|
+| INGRESS                       | sets the network filter on incoming traffic, can be true or false| boolean | false |
+| EGRESS                       | sets the network filter on outgoing traffic, can be true or false| boolean | true |                       
+| INTERFACES                   | a list of comma separated names of network interfaces (eg. eth0 or eth0,eth1,eth2) to filter for outgoing traffic | string | "" |
+| PORTS                        | a list of comma separated port numbers (eg 8080 or 8080,8081,8082) to filter for both outgoing and incoming traffic | string | "" |
+| PROTOCOLS                    | a list of comma separated protocols to filter (tcp, udp or both) | string |
+| TAINTS               | List of taints for which tolerations need to be created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | string | [] |
+| SERVICE_ACCOUNT             | optional service account for the Node Network Filter workload | string | "" |
 
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:

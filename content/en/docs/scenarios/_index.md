@@ -352,6 +352,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 </div>
 
+<div class="scenario-card">
+<h3><a href="http-load-scenario/">HTTP Load</a></h3>
+<span class="scenario-badge">http_load_scenarios</span>
+<p class="scenario-description">Generates distributed HTTP load against target endpoints using Vegeta load testing pods deployed inside the cluster</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
 
 </div>
 

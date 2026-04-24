@@ -3,7 +3,7 @@ title: Running a Chaos Scenario with Krkn
 # date: 2017-01-05
 description: 
 weight : 2
-categories: [Best Practices, Placeholders]
+categories: [Best Practices]
 tags: [docs]
 ---
 

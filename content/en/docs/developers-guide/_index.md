@@ -3,7 +3,7 @@ title: Developers Guide
 description: Developers Guide Overview
 type: "docs/scenarios"
 weight: 14
-categories: [New scenarios, Placeholders]
+categories: [New scenarios]
 tags: [docs]
 ---
 This document describes how to develop and add to Krkn. Before you start, it is recommended that you read the following documents first:

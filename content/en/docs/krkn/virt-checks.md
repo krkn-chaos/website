@@ -136,3 +136,8 @@ Notice here that the vm with name windows-vm-1 had a false status (not able to f
       }
 ]
 ```
+
+### See Also
+
+- [HTTP Health Checks](health-checks.md) — monitor HTTP/HTTPS endpoints during chaos
+- [Health Check Plugins](../developers-guide/health-check-plugins.md) — create a custom health check plugin

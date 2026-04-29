@@ -189,7 +189,7 @@
     font-size: var(--krkn-chat-font-lg);
     font-weight: 700;
     font-family: 'Satoshi', sans-serif;
-    color: var(--krkn-chat-text);
+    color: var(--krkn-chat-text) !important;
 }
 
 .krkn-chat-title p {

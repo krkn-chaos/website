@@ -244,14 +244,22 @@ class KrknChatbot {
     }
 
     formatMessage(text) {
-        let formatted = text
+        const escaped = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;');
+        let formatted = escaped
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-        
-        formatted = formatted.split('\n').map(line => line.trim()).filter(line => line).map(line => `<p>${line}</p>`).join('');
-        
+            .replace(/\`(.*?)\`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+                if (url.startsWith('/') || url.startsWith('https://')) {
+                    return '<a href="' + url + '" target="_blank" rel="noopener">' + label + '</a>';
+                }
+                return label;
+            });
+        formatted = formatted.split('\n').map(line => line.trim()).filter(line => line).map(line => '<p>' + line + '</p>').join('');
         return formatted || '<p>No response available</p>';
     }
 

@@ -15,3 +15,5 @@ This scenario introduce a new infrastructure to refactor and port the current im
 - [Node Interface Down](/docs/scenarios/network-chaos-ng-scenarios/node-interface-down/_index.md)
 - [Pod Network Chaos](/docs/scenarios/network-chaos-ng-scenarios/pod-network-chaos/_index.md)
 - [Node Network Chaos](/docs/scenarios/network-chaos-ng-scenarios/node-network-chaos/_index.md)
+- [VMI Network Chaos](/docs/scenarios/network-chaos-ng-scenarios/vmi-network-chaos/_index.md)
+- [VMI Network Filter](/docs/scenarios/network-chaos-ng-scenarios/vmi-network-filter/_index.md)

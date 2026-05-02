@@ -34,6 +34,10 @@
   --krkn-glass-bg: rgba(10, 11, 16, 0.88);
   --krkn-glass-bg-solid: rgba(10, 11, 16, 0.97);
   --krkn-nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --krkn-secondary-alpha: rgba(59, 130, 246, 0.15);  // blue tint for active states (dark)
+  --krkn-secondary-alpha-hover: rgba(59, 130, 246, 0.22); // blue tint hover (dark)
+  --krkn-primary-alpha: rgba(236, 28, 36, 0.12);    // red tint for active states (dark)
+  --krkn-primary-alpha-hover: rgba(236, 28, 36, 0.18); // red tint hover (dark)
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-white.svg');
   color-scheme: dark;
@@ -60,6 +64,10 @@
   --krkn-glass-bg: rgba(244, 243, 239, 0.95);
   --krkn-glass-bg-solid: rgba(244, 243, 239, 0.99);
   --krkn-nav-hover-bg: rgba(0, 0, 0, 0.05);
+  --krkn-secondary-alpha: rgba(37, 99, 235, 0.1);   // blue tint for active states (light)
+  --krkn-secondary-alpha-hover: rgba(37, 99, 235, 0.16); // blue tint hover (light)
+  --krkn-primary-alpha: rgba(220, 38, 38, 0.08);    // red tint for active states (light)
+  --krkn-primary-alpha-hover: rgba(220, 38, 38, 0.14); // red tint hover (light)
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-color.png');
   color-scheme: light;

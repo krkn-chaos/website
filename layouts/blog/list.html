@@ -3,33 +3,76 @@
   <!-- Hero header -->
   <section class="krkn-blog__hero">
     <div class="container">
-      <h1 class="krkn-blog__title">Blog & Resources</h1>
+      <h1 class="krkn-blog__title">Blog &amp; Resources</h1>
       <p class="krkn-blog__subtitle">Articles, talks, and guides from the Krkn community and beyond.</p>
     </div>
   </section>
 
   <div class="container krkn-blog__body">
 
+    <!-- ── Filter bar ──────────────────────────────────────────────────────── -->
+    <div id="blog-filter-bar" class="krkn-filter" role="group" aria-label="Filter blog posts">
+
+      <!-- Row 1: category filters -->
+      <div class="krkn-filter__row">
+        <span class="krkn-filter__label">Category</span>
+        <div class="krkn-filter__pills" role="group" aria-label="Filter by category">
+          <button class="krkn-filter__btn krkn-filter__btn--active" data-group="category" data-filter="all" aria-pressed="true" type="button">All</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="announcement"   aria-pressed="false" type="button">Announcement</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="ai"             aria-pressed="false" type="button">AI</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="cli"            aria-pressed="false" type="button">CLI</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="introduction"   aria-pressed="false" type="button">Introduction</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="best-practices" aria-pressed="false" type="button">Best Practices</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="case-study"     aria-pressed="false" type="button">Case Study</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="dashboard"      aria-pressed="false" type="button">Dashboard</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="tutorial"       aria-pressed="false" type="button">Tutorial</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="community"      aria-pressed="false" type="button">Community</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="video"          aria-pressed="false" type="button">Video</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="guide"          aria-pressed="false" type="button">Guide</button>
+        </div>
+      </div>
+
+      <!-- Row 2: type filters -->
+      <div class="krkn-filter__row">
+        <span class="krkn-filter__label">Type</span>
+        <div class="krkn-filter__pills" role="group" aria-label="Filter by content type">
+          <button class="krkn-filter__btn krkn-filter__btn--active krkn-filter__btn--type" data-group="type" data-filter="all"      aria-pressed="true"  type="button">All</button>
+          <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="featured"  aria-pressed="false" type="button">Featured</button>
+          <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="article"   aria-pressed="false" type="button">Articles</button>
+          <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="talk"      aria-pressed="false" type="button">Talks &amp; Videos</button>
+          <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="guide"     aria-pressed="false" type="button">Guides</button>
+        </div>
+      </div>
+
+    </div>
+    <!-- /filter bar -->
+
     <!-- Featured / pinned section -->
-    <section class="krkn-blog__section">
+    <section class="krkn-blog__section" data-section="featured">
       <h2 class="krkn-blog__section-title">Featured</h2>
       <div class="krkn-blog__grid krkn-blog__grid--featured">
 
-        <a href="https://www.redhat.com/en/blog/krknchaos-joining-cncf-sandbox" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+        <a href="https://www.redhat.com/en/blog/krknchaos-joining-cncf-sandbox" target="_blank" rel="noopener"
+           class="krkn-blog__card krkn-blog__card--featured"
+           data-category="announcement" data-type="featured">
           <span class="krkn-blog__card-badge">Announcement</span>
           <h3 class="krkn-blog__card-title">Krkn Joins CNCF Sandbox</h3>
           <p class="krkn-blog__card-desc">Krkn is now a Cloud Native Computing Foundation Sandbox project, marking a major milestone for the community.</p>
           <span class="krkn-blog__card-source">Red Hat Blog</span>
         </a>
 
-        <a href="https://www.redhat.com/en/blog/supercharging-chaos-testing-using-ai" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+        <a href="https://www.redhat.com/en/blog/supercharging-chaos-testing-using-ai" target="_blank" rel="noopener"
+           class="krkn-blog__card krkn-blog__card--featured"
+           data-category="ai" data-type="featured">
           <span class="krkn-blog__card-badge">AI</span>
           <h3 class="krkn-blog__card-title">Supercharging Chaos Testing with AI</h3>
           <p class="krkn-blog__card-desc">How AI integration in Krkn helps predict failures, analyze patterns, and recommend chaos scenarios.</p>
           <span class="krkn-blog__card-source">Red Hat Blog</span>
         </a>
 
-        <a href="https://developers.redhat.com/articles/2025/08/21/unleash-controlled-chaos-krknctl" target="_blank" rel="noopener" class="krkn-blog__card krkn-blog__card--featured">
+        <a href="https://developers.redhat.com/articles/2025/08/21/unleash-controlled-chaos-krknctl" target="_blank" rel="noopener"
+           class="krkn-blog__card krkn-blog__card--featured"
+           data-category="cli" data-type="featured">
           <span class="krkn-blog__card-badge">CLI</span>
           <h3 class="krkn-blog__card-title">Unleashing Controlled Chaos with krknctl</h3>
           <p class="krkn-blog__card-desc">A deep dive into krknctl — the CLI tool for running and orchestrating chaos scenarios with ease.</p>
@@ -40,46 +83,58 @@
     </section>
 
     <!-- Articles -->
-    <section class="krkn-blog__section">
-      <h2 class="krkn-blog__section-title">Articles & Blog Posts</h2>
+    <section class="krkn-blog__section" data-section="articles">
+      <h2 class="krkn-blog__section-title">Articles &amp; Blog Posts</h2>
       <div class="krkn-blog__grid">
 
-        <a href="https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="introduction" data-type="article">
           <span class="krkn-blog__card-badge">Introduction</span>
           <h3 class="krkn-blog__card-title">Introduction to Kraken</h3>
           <p class="krkn-blog__card-desc">A chaos tool for OpenShift/Kubernetes — the original blog post that introduced Krkn to the community.</p>
           <span class="krkn-blog__card-source">OpenShift Blog</span>
         </a>
 
-        <a href="https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="best-practices" data-type="article">
           <span class="krkn-blog__card-badge">Best Practices</span>
           <h3 class="krkn-blog__card-title">Making Chaos Part of Performance Tests</h3>
           <p class="krkn-blog__card-desc">Why chaos should be part of performance and scalability runs to mimic production environments.</p>
           <span class="krkn-blog__card-source">OpenShift Blog</span>
         </a>
 
-        <a href="https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://cloud.redhat.com/blog/openshift/kubernetes-chaos-stories" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="case-study" data-type="article">
           <span class="krkn-blog__card-badge">Case Study</span>
           <h3 class="krkn-blog__card-title">OpenShift/Kubernetes Chaos Stories</h3>
           <p class="krkn-blog__card-desc">Real-world findings and lessons learned from chaos test runs in OpenShift and Kubernetes environments.</p>
           <span class="krkn-blog__card-source">Red Hat Cloud</span>
         </a>
 
-        <a href="https://developers.redhat.com/articles/2025/08/14/enhancing-system-resilience-krkn-chaos-dashboard" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://developers.redhat.com/articles/2025/08/14/enhancing-system-resilience-krkn-chaos-dashboard" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="dashboard" data-type="article">
           <span class="krkn-blog__card-badge">Dashboard</span>
           <h3 class="krkn-blog__card-title">Enhancing Resilience with Krkn Chaos Dashboard</h3>
           <p class="krkn-blog__card-desc">Visualize chaos test results, track trends, and improve system resilience with the Krkn dashboard.</p>
           <span class="krkn-blog__card-source">Red Hat Developers</span>
         </a>
 
-        <a href="https://medium.com/@abhinavs1920/krkn-custom-chaos-engineering-plugins-70d73c7e2118" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://medium.com/@abhinavs1920/krkn-custom-chaos-engineering-plugins-70d73c7e2118" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="tutorial" data-type="article">
           <span class="krkn-blog__card-badge">Tutorial</span>
           <h3 class="krkn-blog__card-title">Custom Chaos Engineering Plugins</h3>
           <p class="krkn-blog__card-desc">Step-by-step guide on creating custom chaos scenarios and plugins in Krkn.</p>
           <span class="krkn-blog__card-source">Medium</span>
         </a>
 
-        <a href="https://blog.zhu424.dev/open-source-contribution/lfx-mentorship-2025-cncf-krkn" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://blog.zhu424.dev/open-source-contribution/lfx-mentorship-2025-cncf-krkn" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="community" data-type="article">
           <span class="krkn-blog__card-badge">Community</span>
           <h3 class="krkn-blog__card-title">LFX Mentorship Experience with Krkn</h3>
           <p class="krkn-blog__card-desc">A mentee's experience working on the rollback feature during LFX Mentorship Term 2 2025.</p>
@@ -90,11 +145,13 @@
     </section>
 
     <!-- Talks & Videos -->
-    <section class="krkn-blog__section">
-      <h2 class="krkn-blog__section-title">Talks & Videos</h2>
+    <section class="krkn-blog__section" data-section="talks">
+      <h2 class="krkn-blog__section-title">Talks &amp; Videos</h2>
       <div class="krkn-blog__grid">
 
-        <a href="https://www.youtube.com/watch?v=s1PvupI5sD0&ab_channel=OpenShift" target="_blank" rel="noopener" class="krkn-blog__card">
+        <a href="https://www.youtube.com/watch?v=s1PvupI5sD0&ab_channel=OpenShift" target="_blank" rel="noopener"
+           class="krkn-blog__card"
+           data-category="video" data-type="talk">
           <span class="krkn-blog__card-badge">Video</span>
           <h3 class="krkn-blog__card-title">Krkn: Reliable, Performant and Scalable OpenShift</h3>
           <p class="krkn-blog__card-desc">Discussion and demo on how Krkn can be leveraged to ensure OpenShift is reliable, performant and scalable.</p>
@@ -105,11 +162,12 @@
     </section>
 
     <!-- Guides -->
-    <section class="krkn-blog__section">
+    <section class="krkn-blog__section" data-section="guides">
       <h2 class="krkn-blog__section-title">Guides</h2>
       <div class="krkn-blog__grid">
 
-        <a href="/docs/chaos-testing-guide/" class="krkn-blog__card">
+        <a href="/docs/chaos-testing-guide/" class="krkn-blog__card"
+           data-category="guide" data-type="guide">
           <span class="krkn-blog__card-badge">Guide</span>
           <h3 class="krkn-blog__card-title">Chaos Testing Guide</h3>
           <p class="krkn-blog__card-desc">Best practices and recommendations for making your OpenShift platform and applications resilient, performant and reliable.</p>
@@ -119,6 +177,20 @@
       </div>
     </section>
 
+    <!-- Empty state (shown by JS when no cards match) -->
+    <div id="blog-filter-empty" class="krkn-filter__empty" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+      </svg>
+      <p>No posts match the selected filters.</p>
+      <button id="krkn-filter-reset" class="krkn-filter__reset" type="button">
+        Reset filters
+      </button>
+    </div>
+
   </div>
 </div>
+
+<script src="/js/blog-filter.js" defer></script>
 {{ end }}

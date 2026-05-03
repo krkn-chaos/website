@@ -50,7 +50,7 @@
   gap: 1.5rem;
 
   @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
   @media (min-width: 1100px) {
@@ -457,7 +457,7 @@ svg.scenario-card__icon {
 
 @media (max-width: 992px) {
   .krkn-footer__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -553,12 +553,6 @@ svg.scenario-card__icon {
     overflow: hidden;
   }
 
-  .step-card p,
-  .step-card h3 {
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-
   .steps-grid {
     max-width: 100%;
     overflow-x: hidden;
@@ -581,7 +575,7 @@ svg.scenario-card__icon {
   }
 
   .krkn-footer__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 2rem 1.5rem;
   }
 }

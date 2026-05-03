@@ -546,3 +546,42 @@ svg.scenario-card__icon {
   font-size: 0.8125rem;
   margin: 0;
 }
+
+@media (max-width: 480px) {
+  .step-card {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .step-card p,
+  .step-card h3 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .steps-grid {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .section-title {
+    font-size: 1.875rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .krkn-footer__inner {
+    padding: 0 1rem;
+  }
+
+  .krkn-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+  }
+}

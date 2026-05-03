@@ -632,3 +632,38 @@
   height: 1.125rem;
   flex-shrink: 0;
 }
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .btn-primary-krkn,
+  .btn-outline-krkn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8125rem 1.25rem;
+  }
+
+  .hero-cluster {
+    width: Min(300px, 90vw);
+    max-width: 90vw;
+    height: Min(300px, 90vw);
+    max-height: 90vw;
+  }
+}

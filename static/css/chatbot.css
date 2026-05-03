@@ -546,3 +546,10 @@
         border-width: 2px;
     }
 }
+
+@media (max-width: 480px) {
+  .krkn-chat-button .krkn-chat-logo {
+    width: 28px;
+    height: 28px;
+  }
+}

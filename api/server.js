@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
+const { safeCompare } = require('../netlify/functions/utils/adminAuth');
 require('dotenv').config();
 
 // Load configuration
@@ -15,6 +16,7 @@ const logger = require('./utils/logger');
 
 const app = express();
 const PORT = config.port;
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
 
 // Security middleware
 app.use(helmet());
@@ -319,8 +321,15 @@ app.get('/api/topics', async (req, res) => {
     }
 });
 
+const adminAuth = (req, res, next) => {
+    if (!safeCompare(req.headers['x-admin-key'], ADMIN_API_KEY)) {
+        return res.status(401).json({ error: 'Unauthorized' })
+    }
+    next()
+}
+
 // Manual documentation index rebuild endpoint
-app.post('/api/admin/rebuild-index', async (req, res) => {
+app.post('/api/admin/rebuild-index', adminAuth, async (req, res) => {
     try {
         if (!documentationIndex) {
             return res.status(503).json({
@@ -346,7 +355,7 @@ app.post('/api/admin/rebuild-index', async (req, res) => {
 });
 
 // Webhook endpoint for external systems (local development)
-app.all('/webhook/rebuild-docs', async (req, res) => {
+app.all('/webhook/rebuild-docs', adminAuth, async (req, res) => {
     try {
         const startTime = Date.now();
         

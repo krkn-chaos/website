@@ -1654,3 +1654,44 @@ table tbody tr:hover {
     background: var(--krkn-surface) !important;
   }
 }
+@media (max-width: 480px) {
+  .td-content pre,
+  .td-content .highlight pre,
+  .td-content .chroma {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+  }
+
+  .td-content .highlight {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .td-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .td-content h1 { font-size: 1.625rem; }
+  .td-content h2 { font-size: 1.375rem; }
+  .td-content h3 { font-size: 1.125rem; }
+
+  .nav.nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .td-main {
+    padding-bottom: 80px;
+  }
+}

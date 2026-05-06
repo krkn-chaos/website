@@ -837,3 +837,27 @@ button.krkn-navbar__search {
     display: none !important;
   }
 }
+
+@media (max-width: 480px) {
+  .krkn-search-overlay {
+    padding-top: 10vh;
+    padding-left: 16px;
+    padding-right: 16px;
+    align-items: flex-start;
+  }
+
+  .krkn-search-overlay__panel {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .krkn-navbar__inner {
+    padding: 0.875rem 1rem;
+    min-height: 4rem;
+  }
+
+  .krkn-navbar__logo img {
+    height: 44px;
+  }
+}

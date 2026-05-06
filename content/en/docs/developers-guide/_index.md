@@ -15,7 +15,8 @@ Be sure to properly [install](../installation/_index.md) Krkn. Then you can star
 
 1. [Add k8s functionality to krkn-lib](./krkn-lib.md)
 2. [Add a New Chaos Scenario using Plugin API](./scenario_plugin_api.md): Adding a new scenario into krkn
-3. [Test your changes](./testing-changes.md) 
+3. [Add a Health Check Plugin](./health-check-plugins.md): Monitor services during chaos using the health check plugin system
+4. [Test your changes](./testing-changes.md)
 
 
 `NOTE: All base kubernetes functionality should be added into krkn-lib and called from krkn`

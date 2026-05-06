@@ -161,6 +161,7 @@ Whether you're running your first scenario or building a production resilience p
 
 | Journey | I want to... | Experience level | Tools needed |
 |---|---|---|---|
+| [Basic Run](user-journeys/basic-run/) | Run my first scenario and verify the setup | Beginner | krknctl |
 | [Metrics Validation](user-journeys/metrics-validation/) | Automatically pass/fail based on Prometheus metrics | Intermediate | krknctl + Prometheus |
 | [Resilience Score](user-journeys/resilience-score/) | Generate a scored report to validate an environment | Intermediate | krknctl + Prometheus |
 | [Long-Term Storage](user-journeys/long-term-storage/) | Store metrics across runs for regression analysis | Advanced | krknctl + Prometheus + Elasticsearch |

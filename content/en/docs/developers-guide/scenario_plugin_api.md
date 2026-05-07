@@ -32,7 +32,7 @@ It consists of two methods:
 - `get_scenario_type()`
 
 Most IDEs can automatically suggest and implement the abstract methods defined in `AbstractPluginScenario`:
-![pycharm](scenario_plugin_pycharm.gif)
+![pycharm](/images/scenario_plugin_pycharm.png)
 _(IntelliJ PyCharm)_
 
 ### `run(...)`

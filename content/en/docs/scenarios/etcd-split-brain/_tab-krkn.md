@@ -2,7 +2,7 @@
 
 This scenario isolates an etcd node by blocking its network traffic. This action forces an etcd leader re-election. Once the scenario concludes, the cluster should temporarily exhibit a split-brain condition, with two etcd leaders active simultaneously. This is particularly useful for testing the etcd cluster’s resilience under such a challenging state.
 
-Example scenario file: [etcd_split_brain.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/etcd_split_brain.yml)
+Example scenario file: [etcd_split_brain.yml](https://github.com/krkn-chaos/scenarios-hub)
 
 To run
 

@@ -41,7 +41,7 @@ network_chaos:                                    # Scenario to create an outage
     image: quay.io/krkn-chaos/krkn:tools
 ```
 
-Note: For ingress traffic shaping, ensure that your node doesn't have any [IFB](https://wiki.linuxfoundation.org/networking/ifb) interfaces already present. The scenario relies on creating IFBs to do the shaping, and they are deleted at the end of the scenario.
+Note: For ingress traffic shaping, ensure that your node doesn't have any [IFB](https://www.kernel.org/doc/html/latest/networking/ifb.html) interfaces already present. The scenario relies on creating IFBs to do the shaping, and they are deleted at the end of the scenario.
 
 
 ##### Steps

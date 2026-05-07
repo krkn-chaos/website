@@ -1,5 +1,5 @@
 
-Example scenario file: [node-network-filter.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/node-network-filter.yml)
+Example scenario file: [node-network-filter.yml](https://github.com/krkn-chaos/scenarios-hub)
 
 ### Configuration
 

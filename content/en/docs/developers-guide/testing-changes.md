@@ -296,38 +296,45 @@ To get latest podman-compose features we need, use this installation command
 1. Run [build.sh](../build.sh) to create Dockerfile's for each scenario
 2. Edit the docker-compose.yaml file to point to your quay.io repository (optional; required if you want to push or are testing krknctl)
 
-```txt
-ex.) 
-image: containers.krkn-chaos.dev/krkn-chaos/krkn-hub:chaos-recommender 
+   For example, change:
 
-change to >
+   ```text
+   image: containers.krkn-chaos.dev/krkn-chaos/krkn-hub:chaos-recommender
+   ```
 
-image: quay.io/<user>/krkn-hub:chaos-recommender
-```
+   to:
 
-3. Build your image(s) from base krkn-hub directory
-    
-    Builds all images in docker-compose file
-    ```bash
-    docker-compose build
-```
+   ```text
+   image: quay.io/<user>/krkn-hub:chaos-recommender
+   ```
 
-    Builds single image defined by service/scenario name 
-    ```bash
-    docker-compose build <scenario_type>
-```
+3. Build your image(s) from base krkn-hub directory.
 
-    OR 
+   Build all images in the docker-compose file:
 
-    Builds all images in podman-compose file
-    ```bash
-    podman-compose build
-```
+   ```bash
+   docker-compose build
+   ```
 
-    Builds single image defined by service/scenario name 
-    ```bash
-    podman-compose build <scenario_type>
-```
+   Build a single image defined by service/scenario name:
+
+   ```bash
+   docker-compose build <scenario_type>
+   ```
+
+   OR
+
+   Build all images in the podman-compose file:
+
+   ```bash
+   podman-compose build
+   ```
+
+   Build a single image defined by service/scenario name:
+
+   ```bash
+   podman-compose build <scenario_type>
+   ```
 
 
 ### Push Images to your quay.io

@@ -137,18 +137,29 @@ Functional tests in krkn are integration tests that run complete chaos scenarios
 
 ```
 CI/
-├── run.sh                          # Main test runner
-├── run_test.sh                     # Individual test executor
+├── run.sh
+├── run_test.sh
 ├── config/
-│   ├── common_test_config.yaml     # Base configuration template
-│   └── <scenario>_config.yaml      # Generated configs per scenario
+│   ├── common_test_config.yaml
+│   └── <scenario>_config.yaml
 ├── tests/
-│   ├── common.sh                   # Common helper functions
-│   ├── functional_tests            # List of tests to run
-│   └── test_*.sh                   # Individual test scripts
+│   ├── common.sh
+│   ├── functional_tests
+│   └── test_*.sh
 └── out/
-    └── <test_name>.out             # Test output logs
+    └── <test_name>.out
 ```
+
+**File reference:**
+
+- `run.sh` — Main test runner
+- `run_test.sh` — Individual test executor
+- `config/common_test_config.yaml` — Base configuration template
+- `config/<scenario>_config.yaml` — Generated configs per scenario
+- `tests/common.sh` — Common helper functions
+- `tests/functional_tests` — List of tests to run
+- `tests/test_*.sh` — Individual test scripts
+- `out/<test_name>.out` — Test output logs
 
 ## Adding a New Functional Test
 

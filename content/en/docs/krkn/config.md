@@ -202,12 +202,14 @@ More details on the data captured in the telmetry and how to set up your own tel
 **logs_backup**: True
 
 **logs_filter_patterns**: Way to filter out certain times from the logs
+
+```yaml
+    - "(\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+).+"         # Sep 9 11:20:36.123425532
+    - "kinit (\\d+/\\d+/\\d+\\s\\d{2}:\\d{2}:\\d{2})\\s+"          # kinit 2023/09/15 11:20:36 log
+    - "(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z).+"      # 2023-09-15T11:20:36.123425532Z log
 ```
-        - "(\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+).+"         # Sep 9 11:20:36.123425532
-        - "kinit (\\d+/\\d+/\\d+\\s\\d{2}:\\d{2}:\\d{2})\\s+"          # kinit 2023/09/15 11:20:36 log
-        - "(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z).+"      # 2023-09-15T11:20:36.123425532Z log
-```
-**oc_cli_path**: Optional, if not specified will be search in $PATH, default is `/usr/bin/oc` 
+
+**oc_cli_path**: Optional, if not specified will be searched in `$PATH`, default is `/usr/bin/oc`
 
 **events_backup**: True or False, this will capture events that occurred during the chaos run. Will be saved to {archive_path}/events.json
 

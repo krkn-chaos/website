@@ -14,7 +14,7 @@
     "helmet": "^7.1.0",
     "express-rate-limit": "^7.1.5",
     "dotenv": "^16.3.1",
-    "axios": "^1.6.2",
+    "axios": "^1.15.2",
     "marked": "^10.0.0",
     "cheerio": "^1.0.0-rc.12",
     "natural": "^6.10.0",

@@ -331,7 +331,7 @@ cat CI/results.markdown
 
 Example output:
 
-```
+```text
 Test                   | Result | Duration
 -----------------------|--------|---------
 test_pod              | Pass   | 0:2:15

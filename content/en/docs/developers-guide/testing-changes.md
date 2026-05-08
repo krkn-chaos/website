@@ -174,7 +174,7 @@ python -m coverage report
 ```
 
 Example output:
-```
+```text
 Name                                                          Stmts   Miss  Cover
 ---------------------------------------------------------------------------------
 krkn/scenario_plugins/kubevirt_vm_outage/...                   215     12    94%
@@ -192,7 +192,7 @@ Unit test output shows:
 - Any assertion failures or errors
 
 Example output:
-```
+```text
 test_successful_injection_and_recovery (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
 Test successful deletion and recovery of a VMI using detailed mocking ... ok
 test_injection_failure (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)

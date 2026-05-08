@@ -29,7 +29,7 @@ $ oc login [-u=<username>] \
 
 
 Also verify `insecure-skip-tls-verify: true` is in the kubeconfig: 
-```
+```yaml
 clusters:
 - cluster:
     insecure-skip-tls-verify: true

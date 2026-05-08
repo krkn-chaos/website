@@ -51,6 +51,7 @@ jobs:
 
       - name: Post Warning Comment on PR
         if: steps.check_file.outputs.report_exists == 'true'
+        continue-on-error: true
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}

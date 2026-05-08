@@ -280,7 +280,7 @@ For multi-scenario chaos runs, Krkn supports per-scenario resiliency scoring wit
 - The final resiliency score is a weighted average of all scenario scores
 
 **Weighted Average Formula:**
-```
+```text
 Final Score = Σ(scenario_score × scenario_weight) / Σ(scenario_weight)
 ```
 

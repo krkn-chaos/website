@@ -539,6 +539,27 @@ table td {
   border: 1px solid var(--krkn-border-subtle) !important;
   text-align: left;
   color: var(--krkn-text) !important;
+  overflow-wrap: break-word;
+  vertical-align: top;
+}
+
+// Keep short, fixed-vocabulary columns from being squeezed onto two lines.
+// First column (Parameter / Scenario Type) and the last two columns
+// (typically Type / Required / Default / Possible Values) hold short tokens
+// that should stay on one line; the Description column in the middle does
+// the wrapping.
+.td-content table th:first-child,
+.td-content table td:first-child,
+.td-content table th:nth-last-child(-n + 3),
+.td-content table td:nth-last-child(-n + 3) {
+  white-space: nowrap;
+}
+
+// Description (and other long-form middle cells) wraps naturally.
+.td-content table th:nth-child(2),
+.td-content table td:nth-child(2) {
+  white-space: normal;
+  min-width: 18ch;
 }
 
 .td-content th,

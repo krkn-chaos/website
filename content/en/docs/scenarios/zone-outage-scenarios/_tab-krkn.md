@@ -2,7 +2,7 @@ Zone outage can be injected by placing the zone_outage config file under zone_ou
 
 Example scenario files from [scenarios-hub](https://github.com/krkn-chaos/scenarios-hub):
 - [zone_outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/zone_outage.yaml) (AWS)
-- [zone_outage_gcp.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/zone_outage_gcp.yaml) (GCP)
+- [zone_outage_gcp.yaml](https://github.com/krkn-chaos/scenarios-hub) (GCP)
 
 Refer to [cloud setup](/docs/scenarios/cloud_setup.md) to configure your cli properly for the cloud provider of the cluster you want to run zone outages on
 

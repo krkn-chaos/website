@@ -1,6 +1,6 @@
 This scenario creates an outgoing firewall rule on specific nodes in your cluster, chosen by node name or a selector. This rule blocks connections to AWS EFS, leading to a temporary failure of any EFS volumes mounted on those affected nodes.
 
-Example scenario file: [efs_disruption.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/efs_disruption.yml)
+Example scenario file: [efs_disruption.yml](https://github.com/krkn-chaos/scenarios-hub)
 
 ##### Sample scenario config
 ```yaml

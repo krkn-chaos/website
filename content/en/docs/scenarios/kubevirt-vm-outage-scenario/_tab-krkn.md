@@ -3,7 +3,7 @@
 
 The `kubevirt_vm_outage` scenario in Kraken enables users to simulate VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery capabilities.
 
-Example scenario file: [kubevirt-vm-outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubevirt/kubevirt-vm-outage.yaml)
+Example scenario file: [kubevirt-vm-outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/cnv/snapshot_creation_disruption.yaml)
 
 ## Implementation
 

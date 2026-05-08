@@ -605,7 +605,7 @@ If a cluster shows authentication errors after configuring a ManagedServiceAccou
 
 3. Ensure the ManagedServiceAccount token hasn't expired
 
-For more detailed troubleshooting, see the [ACM Integration Troubleshooting Guide](https://github.com/krkn-chaos/krkn-operator/tree/main/docs/acm).
+For more detailed troubleshooting, see the [ACM Integration Troubleshooting Guide](https://github.com/krkn-chaos/krkn-operator-acm).
 
 ---
 

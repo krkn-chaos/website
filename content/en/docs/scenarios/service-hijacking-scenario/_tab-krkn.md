@@ -1,5 +1,5 @@
 
-Example scenario file: [service_hijacking.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/service_hijacking.yaml)
+Example scenario file: [service_hijacking.yaml](https://github.com/krkn-chaos/scenarios-hub)
 
 ### Sample Scenario
 ```yaml

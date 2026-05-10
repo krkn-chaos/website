@@ -4,18 +4,18 @@
    ============================================================================ */
 
 :root {
-    --krkn-chat-bg: #0A0B10;
-    --krkn-chat-surface: #111827;
-    --krkn-chat-elevated: #1A2332;
-    --krkn-chat-primary: #EC1C24;
-    --krkn-chat-primary-dark: #9B1C1F;
-    --krkn-chat-secondary: #0E58A0;
-    --krkn-chat-text: #F8FAFC;
-    --krkn-chat-text-muted: #94A3B8;
-    --krkn-chat-text-subtle: #64748B;
-    --krkn-chat-border: #1E293B;
-    --krkn-chat-border-prominent: #334155;
-    --krkn-chat-shadow: rgba(0, 0, 0, 0.4);
+    --krkn-chat-bg: var(--krkn-bg);
+    --krkn-chat-surface: var(--krkn-surface);
+    --krkn-chat-elevated: var(--krkn-elevated);
+    --krkn-chat-primary: var(--krkn-primary);
+    --krkn-chat-primary-dark: var(--krkn-primary-hover);
+    --krkn-chat-secondary: var(--krkn-secondary);
+    --krkn-chat-text: var(--krkn-text);
+    --krkn-chat-text-muted: var(--krkn-text-muted);
+    --krkn-chat-text-subtle: var(--krkn-text-subtle);
+    --krkn-chat-border: var(--krkn-border-subtle);
+    --krkn-chat-border-prominent: var(--krkn-border-prominent);
+    --krkn-chat-shadow: var(--krkn-shadow);
     --krkn-chat-shadow-hover: rgba(0, 0, 0, 0.5);
     --krkn-chat-radius: 12px;
     --krkn-chat-radius-lg: 16px;
@@ -27,6 +27,30 @@
     --krkn-chat-font-base: 14px;
     --krkn-chat-font-lg: 16px;
     --krkn-chat-z: 9999;
+    --krkn-chat-window-bg: var(--krkn-glass-bg);
+    --krkn-chat-window-border-shadow: var(--krkn-border-subtle);
+    --krkn-chat-header-hover: var(--krkn-glass-bg-solid);
+    --krkn-chat-close-hover: var(--krkn-nav-hover-bg);
+    --krkn-chat-link: var(--krkn-secondary-light);
+    --krkn-chat-input-focus-shadow: var(--krkn-primary-alpha);
+}
+
+[data-theme="light"] {
+    --krkn-chat-bg: var(--krkn-bg);
+    --krkn-chat-surface: var(--krkn-surface);
+    --krkn-chat-elevated: var(--krkn-elevated);
+    --krkn-chat-text: var(--krkn-text);
+    --krkn-chat-text-muted: var(--krkn-text-muted);
+    --krkn-chat-text-subtle: var(--krkn-text-subtle);
+    --krkn-chat-border: var(--krkn-border-subtle);
+    --krkn-chat-border-prominent: var(--krkn-border-prominent);
+    --krkn-chat-shadow: var(--krkn-shadow);
+    --krkn-chat-shadow-hover: rgba(0, 0, 0, 0.12);
+    --krkn-chat-window-bg: var(--krkn-glass-bg);
+    --krkn-chat-window-border-shadow: var(--krkn-border-subtle);
+    --krkn-chat-header-hover: var(--krkn-glass-bg-solid);
+    --krkn-chat-close-hover: var(--krkn-nav-hover-bg);
+    --krkn-chat-link: var(--krkn-secondary-light);
 }
 
 /* ---------------------------------------------------------------------------
@@ -98,12 +122,12 @@
     min-height: 400px;
     max-width: 90vw;
     max-height: 90vh;
-    background: rgba(17, 24, 39, 0.85);
+    background: var(--krkn-chat-window-bg);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--krkn-chat-border);
     border-radius: var(--krkn-chat-radius-lg);
-    box-shadow: 0 16px 64px var(--krkn-chat-shadow), 0 0 0 1px rgba(30, 41, 59, 0.5);
+    box-shadow: 0 16px 64px var(--krkn-chat-shadow), 0 0 0 1px var(--krkn-chat-window-border-shadow);
     display: flex;
     flex-direction: column;
     font-family: 'General Sans', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -165,7 +189,7 @@
 
 .krkn-chat-header:hover,
 .krkn-chat-header:active {
-    background: rgba(10, 11, 16, 0.95);
+    background: var(--krkn-chat-header-hover);
 }
 
 .krkn-chat-title-content {
@@ -212,7 +236,7 @@
 }
 
 .krkn-chat-close:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--krkn-chat-close-hover);
     color: var(--krkn-chat-text);
 }
 
@@ -307,7 +331,7 @@
 }
 
 .krkn-message-content a {
-    color: #3B82F6;
+    color: var(--krkn-chat-link);
     text-decoration: none;
 }
 
@@ -416,7 +440,7 @@
 
 .krkn-chat-input-wrapper input:focus {
     border-color: var(--krkn-chat-primary);
-    box-shadow: 0 0 0 2px rgba(236, 28, 36, 0.15);
+    box-shadow: 0 0 0 2px var(--krkn-chat-input-focus-shadow);
 }
 
 .krkn-chat-input-wrapper input::placeholder {

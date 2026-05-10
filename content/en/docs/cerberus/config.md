@@ -105,7 +105,8 @@ watch_url_routes:
 
 #### Watch Master Schedulable Status
 When this check is enabled, cerberus queries each of the nodes for the given label and verifies the taint effect does not equal "NoSchedule"
-```
+
+```yaml
 watch_master_schedulable:                            # When enabled checks for the schedulable master nodes with given label.
     enabled: True
     label: <label of master nodes>

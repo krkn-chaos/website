@@ -30,21 +30,26 @@ A google service account is required to give proper authentication to GCP for no
 
 **NOTE**: A user with 'resourcemanager.projects.setIamPolicy' permission is required to grant project-level permissions to the service account.
 
-After creating the service account you will need to enable the account using the following: ```export GOOGLE_APPLICATION_CREDENTIALS="<serviceaccount.json>"``` or use `gcloud init`
+After creating the service account, enable it by exporting the credentials path or running `gcloud init`:
 
-In krkn-hub, you'll need to both set the environemnt variable and also copy the file to the local container
-
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS="<serviceaccount.json>"
 ```
+
+In krkn-hub, you'll need to both set the environment variable and also copy the file to the local container:
+
+```bash
 -e GOOGLE_APPLICATION_CREDENTIALS=<container_creds_file>
 ```
 
+The container path needs to match the path mounted via the `-v` flag below:
 
-Nees to match above file path 
-```
+```bash
 -v <local_gcp_creds_file>:<container_creds_file>:Z
 ```
 
-Example: 
+Example:
+
 ```bash
 podman run -e GOOGLE_APPLICATION_CREDENTIALS=/home/krkn/GCP_app.json -e DURATION=10 --net=host  -v <kubeconfig>:/home/krkn/.kube/config:Z -v <local_gcp_creds_file>:/home/krkn/GCP_app.json:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:...
 ```
@@ -61,13 +66,13 @@ podman run -e GOOGLE_APPLICATION_CREDENTIALS=/home/krkn/GCP_app.json -e DURATION
 To properly run the service principal requires “Azure Active Directory Graph/Application.ReadWrite.OwnedBy” api permission granted and “User Access Administrator”.
 
 Before running you will need to set the following:
-1. ```export AZURE_SUBSCRIPTION_ID=<subscription_id>```
 
-2. ```export AZURE_TENANT_ID=<tenant_id>```
-
-3. ```export AZURE_CLIENT_SECRET=<client secret>```
-
-4. ```export AZURE_CLIENT_ID=<client id>```
+```bash
+export AZURE_SUBSCRIPTION_ID=<subscription_id>
+export AZURE_TENANT_ID=<tenant_id>
+export AZURE_CLIENT_SECRET=<client secret>
+export AZURE_CLIENT_ID=<client id>
+```
 
 {{% alert title="Note" %}} 
 This configuration will only work for self managed Azure, not ARO. ARO service puts a deny assignment in place over cluster managed resources, that only allows the ARO service itself to modify the VM resources. This is a capability unique to Azure and the structure of the service to prevent customers from hurting themselves. Refer to the links below for more documentation around this.
@@ -79,11 +84,11 @@ This configuration will only work for self managed Azure, not ARO. ARO service p
 
 See the [Installation guide](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/installation-guide) to install alicloud cli.
 
-1. ```export ALIBABA_ID=<access_key_id>```
-
-2. ```export ALIBABA_SECRET=<access key secret>```
-
-3. ```export ALIBABA_REGION_ID=<region id>```
+```bash
+export ALIBABA_ID=<access_key_id>
+export ALIBABA_SECRET=<access key secret>
+export ALIBABA_REGION_ID=<region id>
+```
 
 Refer to [region and zone page](https://www.alibabacloud.com/help/en/elastic-compute-service/latest/regions-and-zones#concept-2459516) to get the region id for the region you are running on.
 
@@ -91,13 +96,13 @@ Set cloud_type to either alibaba or alicloud in your node scenario yaml file.
 
 ## VMware
 
-Set the following environment variables
+Set the following environment variables:
 
-1. ```export VSPHERE_IP=<vSphere_client_IP_address>```
-
-2. ```export VSPHERE_USERNAME=<vSphere_client_username>```
-
-3. ```export VSPHERE_PASSWORD=<vSphere_client_password>```
+```bash
+export VSPHERE_IP=<vSphere_client_IP_address>
+export VSPHERE_USERNAME=<vSphere_client_username>
+export VSPHERE_PASSWORD=<vSphere_client_password>
+```
 
 These are the credentials that you would normally use to access the vSphere client.
 
@@ -115,11 +120,12 @@ If no api key is set up with proper VPC resource permissions, use the following 
     * Viewer
 * [API Key](https://cloud.ibm.com/docs/account?topic=account-manapikey&interface=ui)
 
-Set the following environment variables
+Set the following environment variables:
 
-1. ```export IBMC_URL=https://<region>.iaas.cloud.ibm.com/v1```
-
-2. ```export IBMC_APIKEY=<ibmcloud_api_key>```
+```bash
+export IBMC_URL=https://<region>.iaas.cloud.ibm.com/v1
+export IBMC_APIKEY=<ibmcloud_api_key>
+```
 
 
 ## IBMCloud Power
@@ -138,10 +144,10 @@ If no api key is set up with proper VPC resource permissions, use the following 
     * Key Manager
 * [API Key](https://cloud.ibm.com/docs/account?topic=account-manapikey&interface=ui)
 
-Set the following environment variables
+Set the following environment variables:
 
-1. ```export IBMC_POWER_URL= "https://<region>.power-iaas.cloud.ibm.com"```
-
-2. ```export IBMC_APIKEY=<ibmcloud_api_key>```
-
-3. ```export IBMC_POWER_CRN=<workspace_crn>```
+```bash
+export IBMC_POWER_URL="https://<region>.power-iaas.cloud.ibm.com"
+export IBMC_APIKEY=<ibmcloud_api_key>
+export IBMC_POWER_CRN=<workspace_crn>
+```

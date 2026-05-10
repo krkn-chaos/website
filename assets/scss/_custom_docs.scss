@@ -525,10 +525,18 @@ pre.chroma span {
 // -----------------------------------------------------------------------------
 .td-content table,
 table {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   margin: 1.5rem 0;
   color: var(--krkn-text) !important;
+}
+
+.td-content td code,
+table td code {
+  white-space: nowrap;
 }
 
 .td-content th,
@@ -538,13 +546,35 @@ table td {
   padding: 0.75rem 1rem;
   border: 1px solid var(--krkn-border-subtle) !important;
   text-align: left;
-  color: var(--krkn-text) !important;
+  overflow-wrap: break-word;
+  vertical-align: top;
+  min-width: 120px; /* Prevents columns from compressing into single letters on mobile */
+}
+
+// Keep short, fixed-vocabulary columns from being squeezed onto two lines.
+// First column (Parameter / Scenario Type) and the last two columns
+// (typically Type / Required / Default / Possible Values) hold short tokens
+// that should stay on one line; the Description column in the middle does
+// the wrapping.
+.td-content table th:first-child,
+.td-content table td:first-child,
+.td-content table th:nth-last-child(-n + 3),
+.td-content table td:nth-last-child(-n + 3) {
+  white-space: nowrap;
+}
+
+// Description (and other long-form middle cells) wraps naturally.
+.td-content table th:nth-child(2),
+.td-content table td:nth-child(2) {
+  white-space: normal;
+  min-width: 18ch;
 }
 
 .td-content th,
 .td-content thead th,
 table th,
 table thead th {
+  white-space: nowrap; /* Keeps headers clean on a single line */
   background: var(--krkn-elevated) !important;
   color: var(--krkn-text) !important;
   font-weight: 600;

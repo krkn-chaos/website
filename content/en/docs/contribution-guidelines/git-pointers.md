@@ -3,7 +3,7 @@ title: Git Help For Contributions
 # date: 2017-01-05
 description:
 weight: 3
-categories: [Best Practices, Placeholders]
+categories: [Best Practices]
 tags: [docs]
 ---
 # How to contribute

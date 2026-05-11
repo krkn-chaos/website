@@ -3,7 +3,7 @@ title: Setting Up Disconnected Enviornment
 # date: 2017-01-05
 description: Getting Your Disconnected Enviornment Set Up
 weight : 2
-categories: [Best Practices, Placeholders]
+categories: [Best Practices]
 tags: [docs]
 ---
 

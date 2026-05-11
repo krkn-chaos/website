@@ -3,7 +3,7 @@ title: Testing your changes
 # date: 2017-01-05
 description: 
 weight : 4
-categories: [Best Practices, Placeholders]
+categories: [Best Practices]
 tags: [docs]
 ---
 

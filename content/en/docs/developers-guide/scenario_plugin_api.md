@@ -2,7 +2,7 @@
 title: Adding scenarios via plugin api
 description:
 weight: 1
-categories: [New scenarios, Placeholders]
+categories: [New scenarios]
 tags: [docs]
 ---
 

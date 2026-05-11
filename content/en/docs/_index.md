@@ -231,7 +231,7 @@ type: "docs/scenarios"
     <div class="docs-hero__bg" aria-hidden="true"></div>
     <div class="docs-hero__inner">
       <h1 class="docs-hero__title">Krkn Documentation</h1>
-      <p class="docs-hero__subtitle">Everything you need to get started with chaos engineering on Kubernetes.</p>
+      <p class="docs-hero__subtitle">Krkn is an open-source chaos engineering tool that injects deliberate failures into Kubernetes clusters so SREs, developers, and platform teams can verify their systems recover automatically. Start here to install, run your first scenario, and build confidence in your cluster's resilience.</p>
     </div>
   </section>
 

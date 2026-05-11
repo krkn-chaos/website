@@ -1,9 +1,9 @@
 ---
 title: Cerberus
 description: "Guardian of kubernetes"
-categories: [Examples, Placeholders]
+categories: [Examples]
 tags: [test, docs]
-weight: 6
+weight: 9
 ---
 # Cerberus
 Guardian of Kubernetes and OpenShift Clusters

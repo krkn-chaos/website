@@ -2,7 +2,7 @@
 title: Adding New Scenario to Krknctl
 description: Adding Scenario to Krknctl
 weight: 3
-categories: [New scenarios, Placeholders]
+categories: [New scenarios]
 tags: [docs]
 ---
 

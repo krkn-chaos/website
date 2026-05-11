@@ -1,7 +1,7 @@
 ---
 title: krkn-visualize
 description: Deployable grafana to help analyze cluster performance during chaos
-weight: 6
+weight: 19
 ---
 
 ## krkn-visualize

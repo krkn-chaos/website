@@ -7,19 +7,19 @@ Can also set any global variable listed [here](../all-scenario-env-krknctl.md)
 
 
 Scenario specific parameters: 
-| Parameter      | Description    | Type      |  Default | 
-| ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
-`--namespace` | Namespace of the pod to which filter need to be applied  | string |
-`--image` | Image used to disrupt network on a pod  | string |  quay.io/krkn-chaos/krkn:tools | 
-`--label-selector` | When pod_name is not specified, pod matching the label will be selected for the chaos scenario  | string |
-`--exclude-label` | Pods matching this label will be excluded from the chaos even if they match other criteria | string | "" |
-`--pod-name` | When label_selector is not specified, pod matching the name will be selected for the chaos scenario  | string | 
-`--instance-count` | Targeted instance count matching the label selector  | number |  1 |
-`--traffic-type` | List of directions to apply filters - egress/ingress ( needs to be a list )  | string | "[ingress,egress]" | 
-`--ingress-ports` | Ingress ports to block ( needs to be a list )  | string |   | 
-`--egress-ports` | Egress ports to block ( needs to be a list )  | string |   | 
-`--wait-duration` | Ensure that it is at least about twice of test_duration  | number |  300 | 
-`--test-duration` | Duration of the test run  | number |  120 | 
+| Parameter      | Description    | Type      | Required |  Default | 
+| ----------------------- | ----------------------    | ----------------  | :------: | ------------------------------------ | 
+`--namespace` | Namespace of the pod to which filter need to be applied  | string | Yes |
+`--image` | Image used to disrupt network on a pod  | string | No |  quay.io/krkn-chaos/krkn:tools | 
+`--label-selector` | When pod_name is not specified, pod matching the label will be selected for the chaos scenario  | string | No |
+`--exclude-label` | Pods matching this label will be excluded from the chaos even if they match other criteria | string | No | "" |
+`--pod-name` | When label_selector is not specified, pod matching the name will be selected for the chaos scenario  | string | No | 
+`--instance-count` | Targeted instance count matching the label selector  | number | No |  1 |
+`--traffic-type` | List of directions to apply filters - egress/ingress ( needs to be a list )  | string | No | "[ingress,egress]" | 
+`--ingress-ports` | Ingress ports to block ( needs to be a list )  | string | No |   | 
+`--egress-ports` | Egress ports to block ( needs to be a list )  | string | No |   | 
+`--wait-duration` | Ensure that it is at least about twice of test_duration  | number | No |  300 | 
+`--test-duration` | Duration of the test run  | number | No |  120 | 
 
 #### Parameter Dependencies
 

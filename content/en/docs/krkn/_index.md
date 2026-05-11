@@ -1,7 +1,7 @@
 ---
 title: What is Krkn?
 description: Chaos and Resiliency Testing Tool for Kubernetes
-weight: 1
+weight: 5
 ---
 
 **krkn** is a chaos and resiliency testing tool for Kubernetes. Krkn injects deliberate failures into Kubernetes clusters to check if it is resilient to turbulent conditions.

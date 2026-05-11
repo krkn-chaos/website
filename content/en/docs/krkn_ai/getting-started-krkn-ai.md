@@ -2,7 +2,7 @@
 title: Getting Started
 description: How to deploy sample microservice and run Krkn-AI test
 weight : 1
-categories: [Best Practices, Placeholders]
+categories: [Best Practices]
 tags: [docs]
 ---
 

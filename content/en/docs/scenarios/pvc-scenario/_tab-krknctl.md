@@ -7,13 +7,13 @@ Can also set any global variable listed [here](../all-scenario-env-krknctl.md)
 
 
 Scenario specific parameters: 
-| Parameter      | Description    | Type      |  Default | 
-| ----------------------- | ----------------------    | ----------------  | ------------------------------------ | 
-`--pvc-name` | Targeted PersistentVolumeClaim in the cluster (if null, POD_NAME is required) | string | 
-`--pod-name` | Targeted pod in the cluster (if null, PVC_NAME is required) | string | 
-`--namespace` | Targeted namespace in the cluster (required) | string | 
-`--fill-percentage` | Targeted percentage to be filled up in the PVC | number |  50 |
-`--duration` | Duration in seconds with the PVC filled up | number | 60 | 
+| Parameter      | Description    | Type      | Required |  Default | 
+| ----------------------- | ----------------------    | ----------------  | :------: | ------------------------------------ | 
+`--pvc-name` | Targeted PersistentVolumeClaim in the cluster (if null, POD_NAME is required) | string | No | 
+`--pod-name` | Targeted pod in the cluster (if null, PVC_NAME is required) | string | No | 
+`--namespace` | Targeted namespace in the cluster (required) | string | Yes | 
+`--fill-percentage` | Targeted percentage to be filled up in the PVC | number | No |  50 |
+`--duration` | Duration in seconds with the PVC filled up | number | No | 60 | 
 
 
 #### Parameter Dependencies

@@ -3,7 +3,7 @@ type: "docs/scenarios"
 title: Scenarios
 description: Krkn scenario list
 date: 2017-01-04
-weight: 6
+weight: 4
 ---
 
 {{% alert title="Tip" %}}
@@ -347,6 +347,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <h3><a href="syn-flood-scenario/">Syn Flood</a></h3>
 <span class="scenario-badge">syn_flood_scenarios</span>
 <p class="scenario-description">Generates substantial TCP traffic directed at Kubernetes services to test DDoS resilience</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+<div class="scenario-card">
+<h3><a href="http-load-scenario/">HTTP Load</a></h3>
+<span class="scenario-badge">http_load_scenarios</span>
+<p class="scenario-description">Generates distributed HTTP load against target endpoints using Vegeta load testing pods deployed inside the cluster</p>
 <div class="cloud-badges">
 <span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
 </div>

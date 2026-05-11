@@ -1,7 +1,7 @@
 ---
 title: Security self-assessment
 description: The Self-assessment is the initial document regarding the security of the project.
-weight: 11
+weight: 18
 ---
 
 # Krkn Security Self-Assessment

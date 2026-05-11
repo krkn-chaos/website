@@ -45,8 +45,6 @@ Each run creates a UUID-named subdirectory under the path passed to `-o`, so mul
 ```
 tmp/results/
 └── <run-uuid>/
-    ├── run.log              # full execution log
-    ├── results.json         # run summary
     ├── krkn-ai.yaml         # config snapshot (useful for re-running)
     ├── reports/
     │   ├── health_check_report.csv  # app health across scenarios
@@ -57,9 +55,9 @@ tmp/results/
     │   ├── generation_0/    # scenario files for gen 0
     │   ├── generation_1/    # scenario files for gen 1
     │   └── ...
-    └── logs/                # per-scenario logs
+    └── log/                 # per-scenario logs
 ```
 
 {{% alert title="Note" %}}
-Use `-f json` to get JSON output instead of YAML for the scenario files and `results` file.
+Use `-f json` to get JSON output instead of YAML for the scenario files in `yaml/`.
 {{% /alert %}}

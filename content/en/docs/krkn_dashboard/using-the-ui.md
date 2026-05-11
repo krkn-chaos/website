@@ -7,35 +7,43 @@ weight: 10
 
 ## Using the UI
 
-Once the dashboard is running, open **http://localhost:3000** (or the port shown in the terminal) in your browser. The dashboard has a side menu with other dashboard views (Overview and Metrics). Each is described below.
+Once the dashboard is running, open **http://localhost:3000** (or the port shown in the terminal) in your browser. The side menu has three views: **Run Kraken**, **Past Runs**, and **Elastic Runs**. Each is described below.
 
 ---
 
-## Overview
+## Run Kraken
 
-The Overview page is the default landing page. It has two tabs at the top:
+**Run Kraken** is the default landing page. Everything for starting a new chaos job is on this single page:
 
-### Kraken tab
+- **Scenarios** — Scenario tiles (**Pod Scenarios**, **Node CPU hog**, **Node IO hog**, **Node Memory hog**). Click a tile to select that scenario for the next run.
+- **Supported Parameters** — Fields for the selected scenario, kubeconfig file upload, and **Start Kraken** to launch the krkn-hub container. If you arrived here by **Replay**, an inline notice shows the source run.
+- **Running Kraken containers** — A table of krkn-hub containers that are currently running on the host.
 
-- **Scenarios card** — A set of scenario tiles (e.g. Pod Scenarios, Node CPU hog, Node IO hog, Node Memory hog). Click a scenario to select it for the next run.
-- **Supported Parameters** — Set your parameters for the selected scenario and either enter a kubeconfig path or upload a kubeconfig file. Use **Start Kraken** to launch the krkn-hub container for that scenario.
-- **Pod Details** — A table of all krkn-hub containers known to the dashboard. Use this to see which chaos runs are active or finished.
-
-### Logs tab
-
-- **Logs viewer** — A dropdown to select a running or past container (from the same list as Pod Details). Once selected, the panel shows that container's live or captured logs so you can watch chaos output without using the terminal.
-
-![Overview page](/img/overview-page.png)
+![Run Kraken page](/img/run-kraken-dashboard-page.png)
 
 ---
 
-## Metrics
+## Past Runs
 
-The Metrics page is used for Elasticsearch and Grafana integration:
+**Past Runs** lists jobs recorded by the dashboard.
 
-- **Storage Metrics** (when not connected): Shows a form to connect to Elasticsearch (host, index, optional username/password, optional Grafana base URL and datasource). After submitting, the dashboard queries ES for past run details.
-- **Storage table** (when connected): The page generates graphics to better analyze run history. After a successful connection, a table of past runs from Elasticsearch appears. Rows can be expanded to show more details and, when Grafana is configured, a link to the Grafana dashboard for that run.
+- **Filters** — Narrow by name, run type (all, original only, replay only), image substring, and start/end dates; use **Apply filters** and **Refresh** as needed.
+- **Summary cards** — Examine the job count, passes, failures, and pass rate.
+- **Runs table** — Sort by name or finished time. Expand or collapse rows that have replays to see nested replay entries. Select a row to open **Run details** and **Logs**. The **Replay** button pre-fills **Run Kraken** with the stored scenario parameters that were saved for that run.
 
-See [Grafana and Elasticsearch](grafana-elasticsearch/) for Elasticsearch and Grafana requirements.
+![Past Runs page](/img/past-runs-dashboard-page.png)
 
-![Metrics page](/img/metreics-page.png)
+---
+
+## Elastic Runs
+
+**Elastic Runs** is for Elasticsearch and Grafana, separate from **Past Runs**:
+
+- **Not connected** — A form titled **Connect to Elastic Search** asks for the ES instance URL, index name, optional username and password, and optional Grafana Base URL. Submit with **Connect to the instance**.
+- **Connected** — The header shows the host (and index); use **Disconnect** to return to the connect form. Two tabs appear:
+  - **Summary and Runs** — Summary metric cards when aggregations are available, charts (summary or comparison layout depending on filters), and a **Runs** table of documents from Elasticsearch. Expand a row to see its configuration and graphs. If a Grafana base URL was set, a link will appear to open a Grafana dashboard with a breakdown of that scenario's data.
+  - **Alert Analysis** — A table of alerts when alert data is present.
+
+Grafana opens pre-built dashboards for individual chaos runs; those links are produced through [krkn visualize](https://github.com/krkn-chaos/visualize). Your grafana link may look something like "http://krkn-visualize-krkn-visualize . . . openshift.com/".
+
+![Elastic Runs page](/img/es-runs-dashboard-page.png)

@@ -11,14 +11,15 @@
   min-height: 100vh;
 
   // Hide Docsy's default sidebar, TOC, breadcrumb, taxonomy cloud on these pages
-  & ~ .td-sidebar,
-  & ~ .td-toc {
+  &~.td-sidebar,
+  &~.td-toc {
     display: none !important;
   }
 }
 
 // Hide the taxonomy sidebar + right rail that Docsy injects on blog pages
 .td-blog {
+
   .td-sidebar-toc,
   .td-toc,
   aside.td-sidebar {
@@ -40,8 +41,9 @@
 
 // Hide community page sidebar from Docsy
 .td-default .krkn-community {
-  & ~ aside,
-  & ~ .td-sidebar {
+
+  &~aside,
+  &~.td-sidebar {
     display: none !important;
   }
 }
@@ -183,10 +185,184 @@
   }
 }
 
+// Hidden cards (set by JS filter)
+.krkn-blog__card--hidden {
+  display: none !important;
+}
 
-// =============================================================================
+// Hidden sections (set by JS when all cards hidden)
+.krkn-blog__section--hidden {
+  display: none !important;
+}
+
+
+// BLOG FILTER BAR
+
+.krkn-filter {
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--krkn-surface);
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0; // rows manage their own spacing via padding + divider
+}
+
+.krkn-filter__row {
+  display: grid;
+  // Fixed label column + pills take remaining space
+  grid-template-columns: 5.5rem 1fr;
+  align-items: start; // label stays top-aligned when pills wrap
+  gap: 0 1rem;
+  padding: 0.875rem 0;
+
+  // Divider between Category row and Type row
+  & + .krkn-filter__row {
+    border-top: 1px solid var(--krkn-border-subtle);
+  }
+}
+
+.krkn-filter__label {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--krkn-text-subtle);
+  white-space: nowrap;
+  padding-top: 0.35rem; // nudge down to optically align with pill centre
+  line-height: 1;
+}
+
+.krkn-filter__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Base pill button
+.krkn-filter__btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--krkn-border-subtle);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--krkn-text-muted);
+  font-family: 'General Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.35rem 0.9rem;
+  white-space: nowrap;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    color: var(--krkn-text);
+    background: var(--krkn-elevated);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--krkn-secondary-light);
+    outline-offset: 2px;
+  }
+}
+
+// Active — Category row: blue accent
+.krkn-filter__btn--active {
+  background: var(--krkn-secondary-alpha);
+  border-color: var(--krkn-secondary-light);
+  color: var(--krkn-secondary-light);
+  font-weight: 600;
+
+  &:hover {
+    background: var(--krkn-secondary-alpha-hover);
+  }
+}
+
+// Active — Type row: red accent (distinguishes from category)
+.krkn-filter__btn--type.krkn-filter__btn--active {
+  background: var(--krkn-primary-alpha);
+  border-color: var(--krkn-primary);
+  color: var(--krkn-primary);
+
+  &:hover {
+    background: var(--krkn-primary-alpha-hover);
+  }
+}
+
+// Responsive: collapse grid to single column on small screens
+@media (max-width: 600px) {
+  .krkn-filter {
+    padding: 0.875rem 1.125rem;
+  }
+
+  .krkn-filter__row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .krkn-filter__label {
+    padding-top: 0;
+  }
+}
+
+// Empty state
+.krkn-filter__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 1rem;
+  color: var(--krkn-text-muted);
+  text-align: center;
+
+  svg {
+    opacity: 0.4;
+    color: var(--krkn-text-subtle);
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.krkn-filter__reset {
+  appearance: none;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--krkn-border-prominent);
+  border-radius: 9999px;
+  color: var(--krkn-text-muted);
+  font-family: 'General Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 1.25rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: var(--krkn-elevated);
+    border-color: var(--krkn-border-prominent);
+    color: var(--krkn-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--krkn-secondary-light);
+    outline-offset: 2px;
+  }
+}
+
 // COMMUNITY PAGE
-// =============================================================================
 
 // Hero
 .krkn-community__hero {
@@ -401,6 +577,7 @@
 
 // Responsive
 @media (max-width: 768px) {
+
   .krkn-blog__title,
   .krkn-community__title {
     font-size: 2rem;
@@ -417,6 +594,7 @@
 }
 
 @media (max-width: 375px) {
+
   .krkn-blog__title,
   .krkn-community__title {
     font-size: 1.625rem;

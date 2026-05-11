@@ -92,7 +92,8 @@ Will be provided a random id for each scenario and the dependency will be define
 `depends_on` attribute. The scenario id is not strictly dependent on the scenario type so it's 
 perfectly legit to repeat the same scenario type (with the same or different attributes) varying the
 scenario Id and the dependencies accordingly.
-```
+
+```bash
 krknctl graph scaffold node-cpu-hog node-memory-hog node-io-hog service-hijacking node-cpu-hog > plan.json
 ```
 will generate an execution plan (serial) containing all the available options for each of the scenarios mentioned with default values
@@ -240,13 +241,13 @@ Like the `run` command, the kubeconfig file is automatically flattened and mount
 so external certificate references are resolved before the container starts.
 {{% /alert %}}
 
-```
+```bash
 krknctl visualize --grafana-password secret --es-url http://elasticsearch:9200 --namespace krkn-visualize
 ```
 
 To tear down an existing deployment, pass the `--delete` flag (no password required):
 
-```
+```bash
 krknctl visualize --delete
 ```
 
@@ -304,7 +305,7 @@ I will use for that example an invented private registry on quay.io: `my-quay-us
 
 - obtain the quay.io token with cURL:
 
-```
+```bash
 curl -s -X GET \
   --user 'user:password' \
   "https://quay.io/v2/auth?service=quay.io&scope=repository:my-quay-user/krkn-hub:pull,push" \
@@ -313,8 +314,8 @@ curl -s -X GET \
 
 - run krknctl with the private registry flags:
 
-```
-krknctl \ 
+```bash
+krknctl \
 --private-registry quay.io \
 --private-registry-scenarios my-quay-user/krkn-hub \
 --private-registry-token <your token obtained in the previous step> \

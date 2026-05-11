@@ -145,7 +145,6 @@ The following table lists the available Krkn scenarios and their required RBAC p
 | service_disruption_scenarios | Namespace | Ns-Privileged | Scenarios that disrupt services |
 | service_hijacking_scenarios | Namespace | Privileged | Scenarios that hijack services |
 | syn_flood_scenarios | Cluster | Privileged | SYN flood attack scenarios |
-
 | time_scenarios | Cluster | Privileged | Scenarios that manipulate system time |
 | zone_outages_scenarios | Cluster | Privileged | Scenarios that simulate zone outages |
 

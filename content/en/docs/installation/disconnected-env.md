@@ -1,13 +1,13 @@
 ---
-title: Setting Up Disconnected Enviornment
+title: Setting Up Disconnected Environment
 # date: 2017-01-05
-description: Getting Your Disconnected Enviornment Set Up
+description: Getting Your Disconnected Environment Set Up
 weight : 2
 categories: [Best Practices]
 tags: [docs]
 ---
 
-## Getting Started Running Chaos Scenarios in a Disconnected Enviornment 
+## Getting Started Running Chaos Scenarios in a Disconnected Environment 
 
 ### Mirror following images on the bastion host
 - **quay.io/krkn-chaos/krkn-hub:node-scenarios-bm** - Master/worker node disruptions on baremetal

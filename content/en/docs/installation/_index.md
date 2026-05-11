@@ -25,6 +25,7 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 {{% alert title="Recommendation" color="success" %}}
 Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta features provide early access to new capabilities for experimentation and feedback and may not yet meet the stability, performance, or compatibility guarantees of GA features. Please refer to the [Beta feature policy](https://github.com/krkn-chaos/krkn/blob/main/BETA_FEATURE_POLICY.md) for more details.
 {{% /alert %}}
+
 ---
 
 ## Installation Methods

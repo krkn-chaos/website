@@ -135,7 +135,7 @@ Functional tests in krkn are integration tests that run complete chaos scenarios
 
 ## Understanding the Functional Test Structure
 
-```
+```text
 CI/
 ├── run.sh                          # Main test runner
 ├── run_test.sh                     # Individual test executor
@@ -331,7 +331,7 @@ cat CI/results.markdown
 
 Example output:
 
-```
+```text
 Test                   | Result | Duration
 -----------------------|--------|---------
 test_pod              | Pass   | 0:2:15

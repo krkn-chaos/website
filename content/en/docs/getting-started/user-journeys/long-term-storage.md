@@ -52,7 +52,7 @@ This journey enables regression analysis — for example, detecting that API ser
      --grafana-password <grafana-admin-password>
    ```
 
-   This deploys [krkn-visualize](../../performance_dashboards.md) to your cluster and wires it to both Elasticsearch and Prometheus. To tear it down later:
+   This deploys [krkn-visualize](../../krkn-visualize.md) to your cluster and wires it to both Elasticsearch and Prometheus. To tear it down later:
 
    ```bash
    krknctl visualize --delete
@@ -61,7 +61,7 @@ This journey enables regression analysis — for example, detecting that API ser
 ## Reference docs
 
 - [krknctl usage](../../krknctl/_index.md) — full flag reference for `run` and `visualize`
-- [Performance Dashboards](../../performance_dashboards.md) — krkn-visualize dashboards and manual deploy script
+- [Performance Dashboards](../../krkn-visualize.md) — krkn-visualize dashboards and manual deploy script
 - [Telemetry](../../krkn/telemetry.md) — understanding the data Krkn captures and stores per run
 - [Installing Elasticsearch on a kind cluster](../../developers-guide/testing-changes.md#elasticsearch) — Helm-based setup for local testing
 

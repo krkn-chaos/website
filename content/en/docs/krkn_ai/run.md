@@ -40,26 +40,26 @@ $ uv run krkn_ai run -r krknhub -c ./krkn-ai.yaml -o ./tmp/results/
 
 ### Output Structure
 
-Each run creates a uniquely named subdirectory (UUID) inside the directory specified by `-o`. This ensures results from multiple runs never overwrite each other.
+Each run creates a UUID-named subdirectory under the path passed to `-o`, so multiple runs don't overwrite each other.
 
 ```
 tmp/results/
 └── <run-uuid>/
-    ├── run.log                  # Main execution log for the entire run
-    ├── results.json             # Full results summary in JSON format
-    ├── krkn-ai.yaml             # Snapshot of the config used — useful for reproducing the run
+    ├── run.log              # full execution log
+    ├── results.json         # run summary
+    ├── krkn-ai.yaml         # config snapshot (useful for re-running)
     ├── reports/
-    │   ├── health_check_report.csv   # Application health data collected across all scenarios
-    │   ├── all.csv                   # Aggregated metrics for every scenario that was executed
-    │   ├── best_scenarios.yaml       # Top-performing chaos scenarios identified by the algorithm
-    │   └── graphs/                   # PNG visualizations of fitness scores per generation
+    │   ├── health_check_report.csv  # app health across scenarios
+    │   ├── all.csv                  # metrics for every scenario
+    │   ├── best_scenarios.yaml      # top scenarios found by the algorithm
+    │   └── graphs/                  # per-scenario PNG plots
     ├── yaml/
-    │   ├── generation_0/        # Scenario YAML files for generation 0
-    │   ├── generation_1/        # Scenario YAML files for generation 1
+    │   ├── generation_0/    # scenario files for gen 0
+    │   ├── generation_1/    # scenario files for gen 1
     │   └── ...
-    └── logs/                    # Per-scenario execution logs
+    └── logs/                # per-scenario logs
 ```
 
 {{% alert title="Note" %}}
-The output format for `results.json` and scenario YAML files can be switched using the `-f` flag. Use `-f json` to output all scenario files as JSON instead of YAML.
+Use `-f json` to get JSON output instead of YAML for the scenario files and `results` file.
 {{% /alert %}}

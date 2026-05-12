@@ -1,0 +1,386 @@
+[
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "added contributing.md file to the repository",
+        "number": 1284,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1284",
+        "user": "antedotee",
+        "merged_at": "2026-05-11T18:00:40Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "added community meeting in readme",
+        "number": 1282,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1282",
+        "user": "antedotee",
+        "merged_at": "2026-05-11T12:41:05Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "fix: fail node actions when actions list is empty",
+        "number": 1273,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1273",
+        "user": "1PoPTRoN",
+        "merged_at": "2026-05-08T13:06:06Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "[Snyk] Security upgrade gitpython from 3.1.47 to 3.1.49",
+        "number": 1276,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1276",
+        "user": "chaitanyaenr",
+        "merged_at": "2026-05-07T19:31:07Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "Telemetry off",
+        "number": 1274,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1274",
+        "user": "paigerube14",
+        "merged_at": "2026-05-07T19:18:52Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "Skip cluster metadata collection when telemetry is disabled",
+        "number": 1261,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1261",
+        "user": "kdelee",
+        "merged_at": "2026-05-07T16:39:06Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "adding CLOMonitor badge to readme",
+        "number": 1270,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1270",
+        "user": "antedotee",
+        "merged_at": "2026-05-06T14:45:05Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "fix: handle Alibaba request error logging",
+        "number": 1262,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1262",
+        "user": "Semih702",
+        "merged_at": "2026-05-04T13:10:22Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "  fix(rollback): resolve signal handler race condition by clearing context after execution",
+        "number": 1245,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1245",
+        "user": "NETIZEN-11",
+        "merged_at": "2026-04-30T12:14:56Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "docs: align Python requirement with 3.11",
+        "number": 1258,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1258",
+        "user": "Semih702",
+        "merged_at": "2026-04-29T12:29:23Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "fix: replace yaml.full_load with yaml.safe_load to prevent RCE",
+        "number": 1242,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1242",
+        "user": "NETIZEN-11",
+        "merged_at": "2026-04-22T13:50:56Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "fix(needs-rebase): retry mergeable check on push to catch stale conflicting PRs",
+        "number": 1240,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1240",
+        "user": "paigerube14",
+        "merged_at": "2026-04-21T18:09:46Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "Rebase fix",
+        "number": 1239,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1239",
+        "user": "paigerube14",
+        "merged_at": "2026-04-21T18:03:43Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "fixing rebase warning",
+        "number": 1238,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1238",
+        "user": "paigerube14",
+        "merged_at": "2026-04-21T17:49:43Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn",
+        "title": "feat(ci): add needs-rebase bot workflow",
+        "number": 1232,
+        "url": "https://github.com/krkn-chaos/krkn/pull/1232",
+        "user": "paigerube14",
+        "merged_at": "2026-04-21T17:45:45Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "disabled arm64",
+        "number": 328,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/328",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-11T10:55:19Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "build: add multi-platform amd64/arm64 image builds",
+        "number": 326,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/326",
+        "user": "paigerube14",
+        "merged_at": "2026-05-07T19:22:03Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "build: split docker builds into per-scenario matrix jobs",
+        "number": 325,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/325",
+        "user": "paigerube14",
+        "merged_at": "2026-05-07T12:48:03Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "container metadata for rollback enabled scenarios",
+        "number": 324,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/324",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-07T08:55:14Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "Added rollback scenario for krkn-operator and krknctl implementation",
+        "number": 323,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/323",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-07T08:34:52Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "Adding needs rebase workflow",
+        "number": 322,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/322",
+        "user": "paigerube14",
+        "merged_at": "2026-04-27T19:09:02Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "Adding alerts path",
+        "number": 319,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/319",
+        "user": "paigerube14",
+        "merged_at": "2026-04-22T14:01:30Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "Resiliency score",
+        "number": 318,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/318",
+        "user": "paigerube14",
+        "merged_at": "2026-04-15T14:19:25Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-hub",
+        "title": "Adding http_load scenario",
+        "number": 310,
+        "url": "https://github.com/krkn-chaos/krkn-hub/pull/310",
+        "user": "shahsahil264",
+        "merged_at": "2026-04-14T15:51:50Z"
+    },
+    {
+        "repo": "krkn-chaos/krknctl",
+        "title": "adds two new details to the scenarioDetails structure ",
+        "number": 141,
+        "url": "https://github.com/krkn-chaos/krknctl/pull/141",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-11T08:36:24Z"
+    },
+    {
+        "repo": "krkn-chaos/krknctl",
+        "title": "fix: race condition in Attach function for both Docker and Podman orchestrators",
+        "number": 140,
+        "url": "https://github.com/krkn-chaos/krknctl/pull/140",
+        "user": "abhinavs1920",
+        "merged_at": "2026-05-07T10:27:45Z"
+    },
+    {
+        "repo": "krkn-chaos/krknctl",
+        "title": "Fix nil pointer dereference in `pullImage` for public registries",
+        "number": 133,
+        "url": "https://github.com/krkn-chaos/krknctl/pull/133",
+        "user": "ddjain",
+        "merged_at": "2026-05-06T18:50:17Z"
+    },
+    {
+        "repo": "krkn-chaos/krknctl",
+        "title": "Implements auto oauth fallback mechanism on private registry basic auth",
+        "number": 139,
+        "url": "https://github.com/krkn-chaos/krknctl/pull/139",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-06T08:42:14Z"
+    },
+    {
+        "repo": "krkn-chaos/krknctl",
+        "title": "Fix nil pointer dereference in scaffold --global-env",
+        "number": 136,
+        "url": "https://github.com/krkn-chaos/krknctl/pull/136",
+        "user": "ddjain",
+        "merged_at": "2026-04-21T09:15:01Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-operator",
+        "title": "feat(ci): auto-generate release notes from conventional commits",
+        "number": 13,
+        "url": "https://github.com/krkn-chaos/krkn-operator/pull/13",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-06T13:56:58Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-operator",
+        "title": "Private Registry management",
+        "number": 12,
+        "url": "https://github.com/krkn-chaos/krkn-operator/pull/12",
+        "user": "tsebastiani",
+        "merged_at": "2026-05-06T11:50:14Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-operator",
+        "title": "Cluster terminal feature",
+        "number": 11,
+        "url": "https://github.com/krkn-chaos/krkn-operator/pull/11",
+        "user": "tsebastiani",
+        "merged_at": "2026-04-27T09:21:25Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-operator",
+        "title": "fix(api): enable API server on all replicas to prevent 502 errors",
+        "number": 10,
+        "url": "https://github.com/krkn-chaos/krkn-operator/pull/10",
+        "user": "tsebastiani",
+        "merged_at": "2026-04-21T10:34:56Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix: generate run UUID per genetic algorithm instance",
+        "number": 239,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/239",
+        "user": "GodHad",
+        "merged_at": "2026-05-12T12:00:20Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix: replace stdlib random.sample with seeded rng in node_selector",
+        "number": 236,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/236",
+        "user": "rakshaak29",
+        "merged_at": "2026-05-12T11:51:27Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(dashboard): prevent SIGPIPE crash by redirecting output to log file",
+        "number": 242,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/242",
+        "user": "rakshaak29",
+        "merged_at": "2026-05-12T11:51:27Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": " fix(cluster_manager): eliminate O(N\u00b2) API calls in node metrics discovery",
+        "number": 244,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/244",
+        "user": "rakshaak29",
+        "merged_at": "2026-05-12T11:51:27Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": " fix(cluster_manager): parallelize oc debug node interface discovery",
+        "number": 252,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/252",
+        "user": "rakshaak29",
+        "merged_at": "2026-05-12T11:51:25Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "feat: auth token support for health check URLs",
+        "number": 189,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/189",
+        "user": "Ayush-Patel-56",
+        "merged_at": "2026-05-07T12:55:09Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(chaos_engines): use NamedTemporaryFile for graph JSON creation",
+        "number": 208,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/208",
+        "user": "mrinalchaturvedi27",
+        "merged_at": "2026-05-06T14:36:57Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "docs: update output directory structure in README to match actual generated files",
+        "number": 204,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/204",
+        "user": "ParthMozarkar",
+        "merged_at": "2026-05-06T15:13:53Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(templates): use context manager and explicit encoding when reading template",
+        "number": 196,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/196",
+        "user": "khushthecoder",
+        "merged_at": "2026-05-06T14:56:38Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(rng): correct off-by-one in randint \u2014 make upper bound inclusive",
+        "number": 199,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/199",
+        "user": "rakshaak29",
+        "merged_at": "2026-05-06T14:42:02Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix: parameter parsing crash when value contains '=' character",
+        "number": 217,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/217",
+        "user": "Aditya-ad48",
+        "merged_at": "2026-05-06T14:04:24Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(scenario): Parameter naming, image reference and dns-outage composite-scenario bug",
+        "number": 186,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/186",
+        "user": "rh-rahulshetty",
+        "merged_at": "2026-04-27T13:06:46Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix(setuptools): Update setuptools to look for  krkn_ai package + container fix",
+        "number": 185,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/185",
+        "user": "rh-rahulshetty",
+        "merged_at": "2026-04-27T08:54:55Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix: Handle missing kubeconfig during discovery and prometheus token",
+        "number": 184,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/184",
+        "user": "rh-rahulshetty",
+        "merged_at": "2026-04-27T07:58:08Z"
+    },
+    {
+        "repo": "krkn-chaos/krkn-ai",
+        "title": "fix: handle empty Prometheus values in fitness calculation",
+        "number": 182,
+        "url": "https://github.com/krkn-chaos/krkn-ai/pull/182",
+        "user": "1PoPTRoN",
+        "merged_at": "2026-04-22T14:46:47Z"
+    }
+]

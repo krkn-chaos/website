@@ -1,0 +1,59 @@
+# Doc Sync Bot - Automated documentation sync from krkn-ai changes
+#
+# This workflow lives in the website repo and polls krkn-ai for merged PRs
+# that touch documentation-impacting files. It uses an LLM (Claude) to
+# generate updated documentation and opens a draft PR for review.
+#
+# In production, this could alternatively be triggered via repository_dispatch
+# from a workflow in krkn-ai that fires on merge to main. The polling approach
+# is used here to keep the PoC self-contained in one repo.
+#
+# Required secrets:
+#   - ANTHROPIC_API_KEY: API key for Claude (doc generation)
+#   - GITHUB_TOKEN: automatically provided, needs contents:write + pull-requests:write
+
+name: Doc Sync Bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_pr:
+        description: 'krkn-ai PR number to sync docs for (leave empty for auto-detect)'
+        required: false
+        type: string
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours, check for new merged PRs
+
+jobs:
+  doc-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/doc_sync/requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name "doc-sync-bot"
+          git config user.email "doc-sync-bot@krkn-chaos.dev"
+
+      - name: Run doc sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          UPSTREAM_PR: ${{ inputs.upstream_pr || '' }}
+        run: python .github/scripts/doc_sync/doc_sync.py

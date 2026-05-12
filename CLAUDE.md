@@ -23,7 +23,7 @@ The [krkn-chaos.dev](https://krkn-chaos.dev) website is the documentation and ma
 website/
 ├── content/en/                  # All English content (Markdown + HTML)
 │   ├── docs/                    # Documentation section
-│   │   ├── scenarios/           # 20+ chaos scenario pages (each with tab content)
+│   │   ├── scenarios/           # 25+ chaos scenario pages (each with tab content)
 │   │   ├── krkn/                # Core Krkn docs
 │   │   ├── krknctl/             # CLI tool docs
 │   │   ├── krkn_ai/             # Krkn AI docs (config/, getting-started, etc.)
@@ -293,13 +293,13 @@ Find the `<!-- SCENARIOS SECTION -->` block. Add a list item to the correct cate
 
 The homepage categories are: Pod & Container, Node & Cluster, Network, Application & Service, Resource & Storage.
 
-Also update the heading count if it changes (currently "20+ Chaos Scenarios").
+Also update the heading count if it changes (currently "25+ Chaos Scenarios").
 
 ### Step 4: Update scenario counts (if applicable)
 
 If the total number of scenarios crosses a new threshold, update these counts:
 
-- **Homepage title:** `layouts/index.html` — search for "20+ Chaos Scenarios"
+- **Homepage title:** `layouts/index.html` — search for "25+ Chaos Scenarios"
 - **Docs landing page:** `content/en/docs/_index.md` — search for "15+ chaos scenarios"
 
 ### Step 5: Sidebar navigation

@@ -116,12 +116,23 @@ class CommentHandler:
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7
             )
-            return response.choices[0].message.content.strip()
+            content = response.choices[0].message.content
         elif self.gemini_key and genai:
             response = self.gemini_model.generate_content(prompt)
-            return response.text.strip()
+            content = response.text
         else:
             raise ValueError("No LLM client configured.")
+
+        # Clean up output (some LLMs wrap in markdown code blocks)
+        content = content.strip()
+        if content.startswith("```markdown"):
+            content = content[len("```markdown"):].strip()
+        if content.startswith("```"):
+            content = content[len("```"):].strip()
+        if content.endswith("```"):
+            content = content[:-len("```")].strip()
+            
+        return content
 
     def _reply(self, pr, message: str):
         """Posts a comment to the PR."""

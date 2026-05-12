@@ -38,6 +38,7 @@
         <div class="krkn-filter__pills" role="group" aria-label="Filter by content type">
           <button class="krkn-filter__btn krkn-filter__btn--active krkn-filter__btn--type" data-group="type" data-filter="all"      aria-pressed="true"  type="button">All</button>
           <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="featured"  aria-pressed="false" type="button">Featured</button>
+          <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="whats-new" aria-pressed="false" type="button">What's New</button>
           <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="article"   aria-pressed="false" type="button">Articles</button>
           <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="talk"      aria-pressed="false" type="button">Talks &amp; Videos</button>
           <button class="krkn-filter__btn krkn-filter__btn--type"                          data-group="type" data-filter="guide"     aria-pressed="false" type="button">Guides</button>
@@ -46,6 +47,37 @@
 
     </div>
     <!-- /filter bar -->
+
+    <section class="krkn-blog__section" data-section="whats-new">
+      <h2 class="krkn-blog__section-title">What's New this Month</h2>
+      <div class="krkn-blog__grid krkn-blog__grid--featured">
+        {{ $wn_posts := where .Site.RegularPages "Section" "blog" }}
+        {{ $latest_wn := "" }}
+        {{ range $wn_posts.ByDate.Reverse }}
+          {{ if and (not $latest_wn) (in .File.Path "whats-new") }}
+            {{ $latest_wn = . }}
+          {{ end }}
+        {{ end }}
+
+        {{ with $latest_wn }}
+          <a href="{{ .Permalink }}" class="krkn-blog__card krkn-blog__card--featured"
+             data-category="community" data-type="whats-new">
+            <span class="krkn-blog__card-badge">Monthly Digest</span>
+            <h3 class="krkn-blog__card-title">{{ .Title }}</h3>
+            <p class="krkn-blog__card-desc">{{ .Description | truncate 150 }}</p>
+            <span class="krkn-blog__card-source">Krkn-Chaos Team</span>
+          </a>
+        {{ else }}
+          <!-- Placeholder if no post exists yet -->
+          <div class="krkn-blog__card krkn-blog__card--featured" data-type="whats-new">
+            <span class="krkn-blog__card-badge">Coming Soon</span>
+            <h3 class="krkn-blog__card-title">June 2026 Digest</h3>
+            <p class="krkn-blog__card-desc">Stay tuned for next month's updates from the krkn-chaos ecosystem.</p>
+            <span class="krkn-blog__card-source">Krkn-Chaos</span>
+          </div>
+        {{ end }}
+      </div>
+    </section>
 
     <!-- Featured / pinned section -->
     <section class="krkn-blog__section" data-section="featured">

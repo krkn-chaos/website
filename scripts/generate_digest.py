@@ -70,6 +70,16 @@ class DigestGenerator:
             logger.info(f"Generation attempt {attempt + 1}/{retry_count}")
             try:
                 content = self._call_llm(prompt)
+                
+                # Clean up output (some LLMs wrap in markdown code blocks)
+                content = content.strip()
+                if content.startswith("```markdown"):
+                    content = content[len("```markdown"):].strip()
+                if content.startswith("```"):
+                    content = content[len("```"):].strip()
+                if content.endswith("```"):
+                    content = content[:-len("```")].strip()
+
                 if self._validate_hugo_frontmatter(content):
                     logger.info("Content generated and validated successfully.")
                     return content

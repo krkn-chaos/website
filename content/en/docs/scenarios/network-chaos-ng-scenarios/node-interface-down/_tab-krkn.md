@@ -10,7 +10,7 @@ Example scenario file: [node_interface_down.yaml](https://github.com/krkn-chaos/
   test_duration: 60
   label_selector: "node-role.kubernetes.io/worker="
   instance_count: 1
-  execution: serial
+  execution: parallel
   namespace: default
   # scenario specific settings
   target: ""

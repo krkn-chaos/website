@@ -42,7 +42,7 @@ $ uv run krkn_ai run -r krknhub -c ./krkn-ai.yaml -o ./tmp/results/
 
 Each run creates a UUID-named subdirectory under the path passed to `-o`, so multiple runs don't overwrite each other.
 
-```
+```text
 tmp/results/
 └── <run-uuid>/
     ├── krkn-ai.yaml         # config snapshot (useful for re-running)
@@ -57,7 +57,3 @@ tmp/results/
     │   └── ...
     └── log/                 # per-scenario logs
 ```
-
-{{% alert title="Note" %}}
-Use `-f json` to get JSON output instead of YAML for the scenario files in `yaml/`.
-{{% /alert %}}

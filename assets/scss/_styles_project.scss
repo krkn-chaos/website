@@ -40,6 +40,38 @@
   --krkn-primary-alpha-hover: rgba(236, 28, 36, 0.18); // red tint hover (dark)
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-white.svg');
+  // Terminal / code block tokens
+  --krkn-terminal-bg: #0D1117;
+  --krkn-terminal-header-bg: #161B22;
+  --krkn-terminal-border: rgba(255, 255, 255, 0.08);
+  --krkn-terminal-border-header: rgba(255, 255, 255, 0.06);
+  --krkn-terminal-text: #E6EDF3;
+  --krkn-terminal-meta: #8B949E;
+  // Syntax highlight tokens (shared dark/light via override below)
+  --krkn-syntax-green: #22c55e;
+  --krkn-syntax-green-bright: #7EE787;
+  --krkn-syntax-green-dim: #3FB950;
+  --krkn-syntax-blue: #79C0FF;
+  --krkn-syntax-blue-light: #A5D6FF;
+  --krkn-syntax-yellow: #eab308;
+  --krkn-syntax-yellow-dim: #D29922;
+  --krkn-syntax-red-dot: #ef4444;
+  --krkn-syntax-red-text: #FF7B72;
+  // Gradient accent
+  --krkn-primary-light: #FF4444;
+  // Light-theme terminal overrides (defined in [data-theme="light"] block below)
+  --krkn-terminal-bg-light: #EAEAEF;
+  --krkn-terminal-header-bg-light: #DFDFE6;
+  --krkn-terminal-border-light: #C7C7CC;
+  --krkn-terminal-meta-light: #55555A;
+  // Light-theme syntax overrides
+  --krkn-syntax-green-light: #15803d;
+  --krkn-syntax-blue-light-theme: #1d4ed8;
+  --krkn-syntax-prompt-light: #4b5563;
+  --krkn-syntax-warn-light: #92400e;
+  --krkn-syntax-muted-light: #6b7280;
+  --krkn-syntax-red-light: #dc2626;
+  --krkn-syntax-val-light: #1e40af;
   color-scheme: dark;
 }
 
@@ -70,6 +102,24 @@
   --krkn-primary-alpha-hover: rgba(220, 38, 38, 0.14); // red tint hover (light)
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-color.png');
+  // Terminal / code block light overrides
+  --krkn-terminal-bg: #EAEAEF;
+  --krkn-terminal-header-bg: #DFDFE6;
+  --krkn-terminal-border: #C7C7CC;
+  --krkn-terminal-border-header: #C7C7CC;
+  --krkn-terminal-text: #1C1C1E;
+  --krkn-terminal-meta: #55555A;
+  // Syntax highlight light overrides
+  --krkn-syntax-green: #15803d;
+  --krkn-syntax-green-bright: #15803d;
+  --krkn-syntax-green-dim: #15803d;
+  --krkn-syntax-blue: #1d4ed8;
+  --krkn-syntax-blue-light: #1e40af;
+  --krkn-syntax-yellow-dim: #92400e;
+  --krkn-syntax-red-text: #dc2626;
+  --krkn-syntax-red-dot: #ef4444;
+  --krkn-syntax-prompt-override: #4b5563;
+  --krkn-syntax-muted-override: #6b7280;
   color-scheme: light;
 }
 

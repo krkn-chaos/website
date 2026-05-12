@@ -1,0 +1,111 @@
+<!-- KRKN AI SECTION -->
+<section class="section-surface krkn-ai-section">
+  <div class="container">
+    <div class="krkn-ai-layout">
+
+      <div class="krkn-ai-content reveal" data-delay="0">
+        <div class="krkn-ai-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+          Krkn AI
+        </div>
+        <h2 class="krkn-ai-heading">Krkn AI surfaces the failures <em>you didn't know to look for</em></h2>
+        <p class="krkn-ai-desc">
+          Krkn AI scans your cluster, generates chaos experiments, and runs them — learning from each round what hits
+          hardest. Define your SLOs once. It handles the rest: picking scenarios, combining attacks, and surfacing the
+          failures that matter before production does.
+        </p>
+        <ul class="krkn-ai-features">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>Scans your cluster automatically</strong> — discovers namespaces, pods, nodes, services
+              without manual config</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>Learns what breaks things</strong> — each round gets smarter, combining and tweaking
+              scenarios for maximum impact</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>Validates against your SLOs</strong> — pass/fail tied to the Prometheus metrics you already
+              care about</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>Runs hands-off</strong> — set it up once, come back to a ranked list of your cluster's
+              weakest points</span>
+          </li>
+        </ul>
+        <div class="hero-cta">
+          <a href="/docs/krkn_ai/" class="btn-primary-krkn">
+            Explore Krkn AI
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+          <a href="https://github.com/krkn-chaos/krkn-ai" class="btn-outline-krkn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="krkn-ai-visual reveal" data-delay="150">
+        <div class="krkn-ai-glow"></div>
+        <div class="krkn-ai-terminal">
+          <div class="krkn-ai-terminal__bar">
+            <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--r"></span>
+            <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--y"></span>
+            <span class="krkn-ai-terminal__dot krkn-ai-terminal__dot--g"></span>
+            <span class="krkn-ai-terminal__title">krkn-ai</span>
+          </div>
+          <div class="krkn-ai-terminal__body"><span class="t-prompt">$</span> uv run krkn_ai discover <span class="t-flag">-k</span> ~/.kube/config <span class="t-flag">-n</span> <span class="t-val">"robot-.*,etcd"</span> <span class="t-flag">-o</span> ./krkn-ai.yaml
+<span class="t-ok">✓</span> <span class="t-muted">Discovered 24 pods, 8 services, 6 nodes</span>
+<span class="t-ok">✓</span> <span class="t-muted">Config saved to krkn-ai.yaml</span>
+
+<span class="t-prompt">$</span> uv run krkn_ai run <span class="t-flag">-c</span> ./krkn-ai.yaml <span class="t-flag">-o</span> ./results/
+
+<span class="t-muted">╭─ Generation 1/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Population: <span class="t-val">10</span> samples
+<span class="t-muted">│</span> Running:    <span class="t-warn">pod-disruption</span> on <span class="t-val">cart-7cd6c</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.82</span>  <span class="t-muted">← restart count ↑</span>
+<span class="t-muted">│</span> Health:     <span class="t-ok">/cart 200</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
+
+<span class="t-muted">╭─ Generation 5/20 ──────────────────────╮</span>
+<span class="t-muted">│</span> Evolved via <span class="t-warn">crossover + mutation</span>
+<span class="t-muted">│</span> Running:    <span class="t-warn">node-drain</span> + <span class="t-warn">net-chaos</span>
+<span class="t-muted">│</span> Fitness:    <span class="t-red">0.94</span>  <span class="t-muted">← critical path found</span>
+<span class="t-muted">│</span> Health:     <span class="t-red">/cart 503</span>  <span class="t-red">/catalogue 503</span>
+<span class="t-muted">╰────────────────────────────────────────╯</span>
+
+<span class="t-ok">✓</span> <span class="t-muted">Top scenario: node-drain + net-chaos (fitness: 0.94)</span>
+<span class="t-ok">✓</span> <span class="t-muted">Results saved to ./results/</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

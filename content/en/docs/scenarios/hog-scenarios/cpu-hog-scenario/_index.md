@@ -55,4 +55,5 @@ Choose your preferred method to run CPU hog scenarios:
 {{< /tabpane >}}
 
 ## Demo
-You can find a link to a demo of the scenario [here](https://asciinema.org/a/452762)
+See a demo of this scenario:
+<script src="https://asciinema.org/a/452762.js" id="asciicast-452762" async="true" style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;"></script>

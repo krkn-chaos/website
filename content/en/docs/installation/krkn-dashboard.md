@@ -1,15 +1,15 @@
 ---
 title: Krkn Dashboard
-description: How to install and run the Krkn Dashboard (local or containerized).
+description: How to install and run the Krkn Dashboard (local, containerized, or via krknctl).
 tags: [docs, dashboard]
 weight: 5
 ---
 
-The Krkn Dashboard is a web UI for running and observing Krkn chaos scenarios. You can run it **locally** (Node.js on your machine) or **containerized** (Podman/Docker).
+The Krkn Dashboard is a web UI for running and observing Krkn chaos scenarios. You can run it **locally** (Node.js on your machine), **containerized** (Podman/Docker), or via **krknctl**. 
 
 ---
 
-## Prerequisites (both methods)
+## Prerequisites (all methods)
 
 - **Kubernetes cluster** — You need a cluster and a kubeconfig so that the dashboard can target it for chaos runs. If you don't have one, see [Kubernetes](https://kubernetes.io/docs/setup/), [minikube](https://minikube.sigs.k8s.io/docs/start/), [K3s](https://rancher.com/docs/k3s/latest/en/quick-start/), or [OpenShift](https://docs.openshift.com/container-platform/latest/welcome/index.html).
 - **Podman or Docker** — The dashboard starts chaos runs by launching krkn-hub containers; the host must have Podman (or Docker) installed and available.
@@ -20,110 +20,82 @@ The Krkn Dashboard is a web UI for running and observing Krkn chaos scenarios. Y
 
 Run the dashboard on your machine with Node.js.
 
-### Prerequisites for local run
+1. **Install Node.js** — Install from [nodejs.org](https://nodejs.org)
 
-- **Node.js** — Install from [nodejs.org](https://nodejs.org).
-
-### Clone and run locally
-
-1. Clone the Krkn Dashboard repository:
+2. **Clone the repository.**
 
    ```bash
    git clone https://github.com/krkn-chaos/krkn-dashboard.git
    cd krkn-dashboard
    ```
 
-2. Install dependencies:
+3. **Install dependencies.**
 
    ```bash
    npm install
    ```
 
-3. Start the application:
+4. **Start the application.**
 
    ```bash
    npm run dev
    ```
 
-The application runs at **http://localhost:3000** (or the port shown in the terminal).
-
 ---
 
 ## Container installation
 
-Build and run the dashboard in a container. The container uses Podman (or Docker) on the host to start krkn-hub chaos containers.
+Run the dashboard in a container on your host. The container uses Podman on the host to start krkn-hub chaos containers.
 
-### Get the source (choose one method)
-
-Check available releases at [krkn-dashboard releases](https://github.com/krkn-chaos/krkn-dashboard/releases).
-
-**Method 1: Clone a specific release (recommended)**
-
-```bash
-# Replace <RELEASE_TAG> with your desired version (e.g., v1.0.0)
-git clone --branch <RELEASE_TAG> --single-branch https://github.com/krkn-chaos/krkn-dashboard.git
-cd krkn-dashboard
-```
-
-**Method 2: Download release tarball**
-
-```bash
-wget https://github.com/krkn-chaos/krkn-dashboard/archive/refs/tags/<RELEASE_TAG>.tar.gz
-# Extract and cd into the directory
-```
-
-**Method 3: Clone latest release**
-
-```bash
-LATEST_TAG=$(curl -s https://api.github.com/repos/krkn-chaos/krkn-dashboard/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-git clone --branch $LATEST_TAG --single-branch https://github.com/krkn-chaos/krkn-dashboard.git
-cd krkn-dashboard
-echo "Cloned release: $LATEST_TAG"
-```
-
-### Build the image
-
-Replace `<image-name>` with the image name and tag you want (e.g. `krkn-dashboard:latest`).
-
-```bash
-cd krkn-dashboard
-podman build -t <image-name> -f containers/Dockerfile .
-```
-
-(Use `docker build` instead of `podman build` if you use Docker.)
-
-### Run the container
-
-1. Prepare a directory for assets (e.g. kubeconfig) in the git folder:
+1. **Clone the repository.**
 
    ```bash
-   export CHAOS_ASSETS=$(pwd)/src/assets
+   git clone https://github.com/krkn-chaos/krkn-dashboard.git
+   cd krkn-dashboard
    ```
 
-   Copy your kubeconfig into `$CHAOS_ASSETS` as `kubeconfig` (so the dashboard inside the container can target your cluster).
-
-2. Run the container (as root or with permissions for the Podman socket). Replace `<container-name>` with the name you want for the container, and `<image-name>` with the image you built in the previous step.
+   **NOTE:** You can optionally point the script at your local kubeconfig by exporting **`KUBECONFIG_PATH`** before you run it:
 
    ```bash
-   podman run --env CHAOS_ASSETS \
-     -v $CHAOS_ASSETS:/usr/src/chaos-dashboard/src/assets:z \
-     -v "$(pwd)/database:/data:z" \
-     -v /run/podman/podman.sock:/run/podman/podman.sock \
-     -p 3000:3000 -p 8000:8000 \
-     --net=host -d --name <container-name> <image-name>
+   export KUBECONFIG_PATH=<path/to/kubeconfig>
    ```
 
-   For Docker, use `-v /var/run/docker.sock:/var/run/docker.sock` instead of the Podman socket path, and ensure the container can reach the Docker daemon.
+   If you do not set `KUBECONFIG_PATH`, the script uses **`<path/to/dashboard>/src/assets/kubeconfig`** by default. If using the default, you can copy your kubeconfig to that location.
+   
+   *In all cases, you can skip this configuration and upload a different kubeconfig from the dashboard UI.*
 
-3. Open **http://localhost:3000** in your browser to use the dashboard and trigger Krkn scenarios.
+2. **Start the container.** From the `krkn-dashboard` repository root, run:
 
-{{% alert title="Tip" %}}Ensure the kubeconfig inside `CHAOS_ASSETS` is readable by the user running the dashboard process in the container. For permission issues: `kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig`, then copy or mount that file as `$CHAOS_ASSETS/kubeconfig`.{{% /alert %}}
+   ```bash
+   bash containers/podman-run.sh
+   ```
+
+---
+
+## Run with krknctl
+
+You can start the Krkn Dashboard using **krknctl** instead of cloning the repository or building a container image.
+
+1. **Install krknctl** — Follow the steps in [install krknctl](/docs/installation/krknctl/).
+
+2. **Launch the dashboard** — The **`--kubeconfig`** flag **is required**. Pass the path to the kubeconfig for the cluster you want to target:
+
+   ```bash
+   krknctl dashboard --kubeconfig <path/to/kubeconfig>
+   ```
+
+   Replace `<path/to/kubeconfig>` with the path to your kubeconfig file. Optional flags can be viewed with `krknctl dashboard --help` or `krknctl dashboard -h`.
+
+---
+
+## Open the dashboard 
+
+When the dashboard is running, open **http://localhost:3000** in your browser. Use the dashboard to trigger Krkn scenarios.
 
 ---
 
 ## Documentation
 
-- [Krkn Dashboard overview and features](/docs/krkn_dashboard/) — what the UI does and how it fits with krkn-hub.
+- [Krkn Dashboard overview and features](/docs/krkn_dashboard/) — what is krkn dashboard and how it fits with krkn-hub.
 - [Using the UI](/docs/krkn_dashboard/using-the-ui/) — navigating the dashboard.
-- [Grafana and Elasticsearch](/docs/krkn_dashboard/grafana-elasticsearch/) — integrations for run history and Grafana dashboards.
 

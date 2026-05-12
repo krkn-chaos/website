@@ -38,10 +38,11 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | NODE_SELECTOR                 | Label selector to choose target nodes. If not specified, a schedulable node will be chosen at random | "node-role.kubernetes.io/worker=" |
 | NODE_NAME                     | The node name to target (used when label selector is not set)        |                                      |
 | INSTANCE_COUNT                | Restricts the number of nodes selected by the label selector         | 1                                    |
-| EXECUTION                     | Execution mode for multiple nodes: `serial` or `parallel`            | serial                               |
+| EXECUTION                     | Execution mode for multiple nodes: `serial` or `parallel`            | parallel                               |
 | INTERFACES                    | Comma-separated list of interface names to bring down (e.g. `eth0` or `eth0,bond0`). Leave empty to auto-detect the default interface | "" |
 | NAMESPACE                     | Namespace where the chaos workload pod will be deployed              | default                              |
 | TAINTS                        | List of taints for which tolerations need to be created. Example: `["node-role.kubernetes.io/master:NoSchedule"]` | [] |
+| SERVICE_ACCOUNT               | Optional service account for the chaos workload pod                  | "" |
 
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:

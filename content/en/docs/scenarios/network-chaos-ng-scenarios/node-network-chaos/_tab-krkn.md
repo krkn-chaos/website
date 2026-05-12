@@ -15,7 +15,7 @@
   interfaces: []
   ingress: true
   egress: true
-  latency: 0s        # supported units: us (microseconds), ms, s
+  latency: ""         # empty string to skip; or e.g. 100ms (units: us, ms, s)
   loss: 10           # percentage (no % symbol)
   bandwidth: 1gbit   # supported units: bit, kbit, mbit, gbit, tbit
   force: false

@@ -21,8 +21,13 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
+    // Security: restrict CORS to known origins — never use wildcard in production
+    const ALLOWED_ORIGINS = ['https://krkn-chaos.dev', 'https://krkn-chaos.netlify.app'];
+    const requestOrigin = (event.headers && event.headers.origin) || '';
+    const corsOrigin = ALLOWED_ORIGINS.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGINS[0];
+
     const headers = {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': corsOrigin,
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Content-Type': 'application/json'

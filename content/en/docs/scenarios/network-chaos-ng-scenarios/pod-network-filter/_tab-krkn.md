@@ -1,6 +1,6 @@
 
 
-Example scenario file: [pod-network-filter.yml](https://github.com/krkn-chaos/scenarios-hub/blob/main/kubernetes/pod-network-filter.yml)
+Example scenario file: [pod-network-filter.yml](https://github.com/krkn-chaos/scenarios-hub)
 
 ### Configuration
 

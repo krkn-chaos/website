@@ -19,12 +19,17 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 | **[krkn](krkn.md)**          | Standalone Python program     | Full control, development, and customization           |
 
 {{% alert title="Recommendation" color="success" %}}
+
 **krknctl** is the recommended way to run Krkn. It provides the simplest path to chaos testing with powerful capabilities including complex workflow orchestration, built-in scenario discovery, and interactive query support — all without managing configuration files.
+
 {{% /alert %}}
 
 {{% alert title="Recommendation" color="success" %}}
+
 Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta features provide early access to new capabilities for experimentation and feedback and may not yet meet the stability, performance, or compatibility guarantees of GA features. Please refer to the [Beta feature policy](https://github.com/krkn-chaos/krkn/blob/main/BETA_FEATURE_POLICY.md) for more details.
+
 {{% /alert %}}
+
 ---
 
 ## Installation Methods
@@ -58,7 +63,11 @@ Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta 
 
 **Best for:** CI/CD pipelines, automated testing, and users who prefer containers over local Python setups.
 
-{{% alert title="Note" %}}krkn-hub runs **one scenario type per execution**. For running multiple scenarios in a single run, use the standalone **krkn** installation.{{% /alert %}}
+{{% alert title="Note" %}}
+
+krkn-hub runs **one scenario type per execution**. For running multiple scenarios in a single run, use the standalone **krkn** installation.
+
+{{% /alert %}}
 
 👉 **[Install krkn-hub →](krkn-hub.md)**
 
@@ -91,7 +100,11 @@ Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta 
 
 **Best for:** Advanced users, developers contributing to Krkn, and scenarios requiring fine-grained control.
 
-{{% alert title="Note" %}}Requires Python 3.9 environment and manual dependency management.{{% /alert %}}
+{{% alert title="Note" %}}
+
+Requires Python 3.9 environment and manual dependency management.
+
+{{% /alert %}}
 
 👉 **[Install krkn →](krkn.md)**
 
@@ -100,9 +113,13 @@ Look for features marked with [BETA] (e.g., [BETA] Krkn Resilience Score). Beta 
 ## Important Considerations
 
 {{% alert title="Run External to Cluster" color="warning" %}}
+
 It is recommended to run Krkn **external to the cluster** (Standalone or Containerized) hitting the Kubernetes/OpenShift API. Running it inside the cluster might be disruptive to itself and may not report results if the chaos leads to API server instability.
+
 {{% /alert %}}
 
 {{% alert title="Power Architecture (ppc64le)" %}}
+
 To run Krkn on Power (ppc64le) architecture, build and run a containerized version by following the instructions [here](https://github.com/krkn-chaos/krkn/blob/main/containers/build_own_image-README.md).
+
 {{% /alert %}}

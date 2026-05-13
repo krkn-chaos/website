@@ -2,7 +2,7 @@
 title: Krkn Dashboard
 linkTitle: Krkn Dashboard
 description: >
-  Web-based UI to run and observe Krkn chaos scenarios, with Elasticsearch and Grafana integration.
+  Web-based UI to run Krkn chaos scenarios, review past runs and replay on the host, and optionally connect to Elasticsearch and Grafana.
 weight: 11
 ---
 
@@ -22,35 +22,38 @@ Krkn Dashboard is a web application that sits on top of [krkn-hub](/docs/install
 
 ### Run chaos scenarios from the UI
 
-You can run the same chaos scenarios that [krkn-hub](/docs/installation/krkn-hub) supports, but by choosing a scenario and filling in the form in the dashboard:
+You can run chaos scenarios from the **Run Kraken** page by choosing a scenario tile and filling in the form:
 
 1. **Choose a scenario** — e.g. pod-scenarios, container-scenarios, node-cpu-hog, node-io-hog, node-memory-hog, pvc-scenarios, node-scenarios, time-scenarios.
-2. **Set parameters** — Namespace, label selectors, disruption count, timeouts, and other scenario-specific options (the UI fields map to the environment variables used by krkn-hub).
-3. **Provide cluster access** — If running locally, either enter the path to your kubeconfig or upload a kubeconfig file. When running from a container, the dashboard uses a kubeconfig mounted at a fixed path.
-4. **Start the run** — The dashboard starts the corresponding krkn-hub container (via Podman/Docker). You can then:
-   - See the container in the list of running chaos runs.
-   - Stream logs in real time in the UI.
-   - Download logs or inspect run status until the container exits.
+2. **Set parameters** — Namespace, selectors, disruption counts, durations, and other scenario-specific options (the fields map to the environment variables used by krkn-hub).
+3. **Provide cluster access** — Upload a kubeconfig file for the run
+4. **Start the run** — The dashboard starts the corresponding krkn-hub container (via Podman/Docker). The **Running Kraken containers** table lists containers that are still running. When a run finishes, you can open **Past Runs** to see stored logs, outcomes, and replay options.
 
-### Save and load configurations
+### Save and Replay Runs
 
-You can save the current scenario and parameters and load them later. This avoids re-entering the same values and helps you recreate a specific test or share settings. Storage is in the browser (local storage/cookies).
+The **Past Runs** page lists chaos jobs that have completed on the machine where the dashboard server runs. Selecting a run shows metadata and captured logs.
 
-### View past runs
+You can save the current scenario and parameters and load them later. From **Past Runs**, you can open a finished job and use the Replay button to send the same scenario settings back to **Run Kraken**, adjust them if needed, and run the experiment again.
 
-If you use Elasticsearch to store Krkn run data, you can connect the dashboard to your Elasticsearch instance. After connecting, you can:
+This history does not require Elasticsearch.
 
-- Query run details by date range and filters.
-- See historical chaos runs and their metadata in the dashboard.
+### Elasticsearch runs
 
-This is optional. The dashboard works without Elasticsearch for running and monitoring live scenarios.
+If you use Elasticsearch to store Krkn run data, open **Elastic Runs** and connect to your instance. After connecting, you can:
+* Query run details by date range and filters
+* View summary charts and graphs
+* See historical chaos runs and their metadata in the dashboard
+* Montitor alerts on the **Alert Analysis** tab 
+
+You can disconnect and reconnect to a different cluster or index when needed.
+Elasticsearch configuration is optional. The dashboard will still work without Elasticsearch for running jobs and using **Past Runs** on the host.
 
 ### Link to Grafana dashboards
 
-When Elasticsearch is connected and you have configured Grafana, the dashboard can generate links to Grafana dashboards for a given run (e.g. by run UUID and other variables). That lets you jump from a run in the dashboard to the corresponding metrics and visualizations in Grafana. Grafana configuration is optional.
+When Elasticsearch is connected and you supply an optional **Grafana base URL** at connect time, the dashboard can link each run to its corresponding metrics and visualizations in Grafana. Grafana configuration is optional.
 
 ---
 
 ## Getting Started
 
-Follow the [installation steps](/docs/installation/krkn-dashboard/) (local or containerized) to run the dashboard.
+Follow the [installation steps](/docs/installation/krkn-dashboard/) to run the dashboard.

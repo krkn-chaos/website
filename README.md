@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./static/img/readme-banner.svg" alt="Krkn - Chaos Engineering for Kubernetes" width="100%"/>
+  <img src="./static/img/logo.png" alt="Krkn - Chaos Engineering for Kubernetes" width="40%"/>
 </p>
 
 <p align="center">

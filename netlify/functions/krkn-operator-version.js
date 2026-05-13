@@ -1,10 +1,19 @@
 const axios = require('axios');
 
 exports.handler = async function(event) {
-  // Security: restrict CORS to known origins — never use wildcard in production
   const ALLOWED_ORIGINS = ['https://krkn-chaos.dev', 'https://krkn-chaos.netlify.app'];
-  const requestOrigin = (event.headers && event.headers.origin) || '';
-  const corsOrigin = ALLOWED_ORIGINS.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGINS[0];
+  const origin = event?.headers?.origin || event?.headers?.Origin || '';
+
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return {
+      statusCode: 403,
+      body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
+    };
+  }
+
+  const corsHeaders = origin && ALLOWED_ORIGINS.includes(origin)
+    ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' }
+    : {};
 
   try {
     // Try to get redirect without following it
@@ -22,9 +31,9 @@ exports.handler = async function(event) {
         return {
           statusCode: 200,
           headers: {
+            ...corsHeaders,
             'Content-Type': 'application/json',
             'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
-            'Access-Control-Allow-Origin': corsOrigin
           },
           body: JSON.stringify({ version: match[1] })
         };
@@ -34,8 +43,8 @@ exports.handler = async function(event) {
     return {
       statusCode: 404,
       headers: {
+        ...corsHeaders,
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': corsOrigin
       },
       body: JSON.stringify({ error: 'Version not found' })
     };
@@ -43,8 +52,8 @@ exports.handler = async function(event) {
     return {
       statusCode: 500,
       headers: {
+        ...corsHeaders,
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': corsOrigin
       },
       body: JSON.stringify({ error: error.message })
     };

@@ -66,14 +66,22 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
-    // Security: restrict CORS to known origins — never use wildcard in production
     const ALLOWED_ORIGINS = ['https://krkn-chaos.dev', 'https://krkn-chaos.netlify.app'];
-    const requestOrigin = (event.headers && event.headers.origin) || '';
-    const corsOrigin = ALLOWED_ORIGINS.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGINS[0];
+    const origin = event?.headers?.origin || event?.headers?.Origin || '';
 
-    // Handle CORS
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+        return {
+            statusCode: 403,
+            body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
+        };
+    }
+
+    const corsHeaders = origin && ALLOWED_ORIGINS.includes(origin)
+        ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' }
+        : {};
+
     const headers = {
-        'Access-Control-Allow-Origin': corsOrigin,
+        ...corsHeaders,
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
@@ -81,6 +89,9 @@ exports.handler = async (event, context) => {
 
     // Handle preflight OPTIONS request
     if (event.httpMethod === 'OPTIONS') {
+        if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+            return { statusCode: 403, body: '' };
+        }
         return {
             statusCode: 200,
             headers,

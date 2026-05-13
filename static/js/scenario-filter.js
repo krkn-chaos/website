@@ -6,17 +6,17 @@
   'use strict';
 
   function init() {
-    var filterRoot = document.getElementById('scenario-filter');
+    var filterRoot = document.getElementById('krkn-scenario-filter');
     if (!filterRoot) return;
 
     var categoryButtons = Array.prototype.slice.call(
-      filterRoot.querySelectorAll('.scenario-filter__btn[data-filter]')
+      filterRoot.querySelectorAll('.krkn-scenario-filter__btn[data-filter]')
     );
-    var searchInput = document.getElementById('scenario-filter-search');
-    var resetBtn = document.getElementById('scenario-filter-reset');
-    var emptyState = document.getElementById('scenario-filter-empty');
+    var searchInput = document.getElementById('krkn-scenario-filter-search');
+    var resetBtn = document.getElementById('krkn-scenario-filter-reset');
+    var emptyState = document.getElementById('krkn-scenario-filter-empty');
     var categorySections = Array.prototype.slice.call(
-      document.querySelectorAll('.scenario-category')
+      document.querySelectorAll('.krkn-scenario-category')
     );
 
     if (categoryButtons.length === 0 || categorySections.length === 0) return;
@@ -37,7 +37,7 @@
     function setActiveButton(nextCategory) {
       categoryButtons.forEach(function (btn) {
         var isActive = btn.getAttribute('data-filter') === nextCategory;
-        btn.classList.toggle('scenario-filter__btn--active', isActive);
+        btn.classList.toggle('krkn-scenario-filter__btn--active', isActive);
         btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
     }
@@ -53,9 +53,9 @@
         );
 
         if (!matchesCategory) {
-          section.classList.add('scenario-category--hidden');
+          section.classList.add('krkn-scenario-category--hidden');
           cards.forEach(function (card) {
-            card.classList.add('scenario-card--hidden');
+            card.classList.add('krkn-scenario-card--hidden');
           });
           return;
         }
@@ -63,14 +63,14 @@
         var sectionVisible = false;
         cards.forEach(function (card) {
           var matchesSearch = cardMatchesSearch(card, searchQuery);
-          card.classList.toggle('scenario-card--hidden', !matchesSearch);
+          card.classList.toggle('krkn-scenario-card--hidden', !matchesSearch);
           if (matchesSearch) {
             sectionVisible = true;
             visibleCount += 1;
           }
         });
 
-        section.classList.toggle('scenario-category--hidden', !sectionVisible);
+        section.classList.toggle('krkn-scenario-category--hidden', !sectionVisible);
       });
 
       if (emptyState) {

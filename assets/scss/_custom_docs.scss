@@ -1703,7 +1703,7 @@ table tbody tr:hover {
 // -----------------------------------------------------------------------------
 // Scenario filter (docs/scenarios)
 // -----------------------------------------------------------------------------
-.scenario-filter {
+.krkn-scenario-filter {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -1714,18 +1714,18 @@ table tbody tr:hover {
   background: var(--krkn-surface);
 }
 
-.scenario-filter__row {
+.krkn-scenario-filter__row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
 }
 
-.scenario-filter__row--search {
+.krkn-scenario-filter__row--search {
   gap: 0.5rem;
 }
 
-.scenario-filter__label {
+.krkn-scenario-filter__label {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1734,13 +1734,13 @@ table tbody tr:hover {
   min-width: 90px;
 }
 
-.scenario-filter__pills {
+.krkn-scenario-filter__pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.scenario-filter__btn {
+.krkn-scenario-filter__btn {
   appearance: none;
   border: 1px solid var(--krkn-border-subtle);
   background: var(--krkn-elevated);
@@ -1753,18 +1753,18 @@ table tbody tr:hover {
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.scenario-filter__btn:hover {
+.krkn-scenario-filter__btn:hover {
   background: var(--krkn-nav-hover-bg);
   color: var(--krkn-text);
 }
 
-.scenario-filter__btn--active {
+.krkn-scenario-filter__btn--active {
   background: var(--krkn-secondary-alpha);
   border-color: var(--krkn-secondary);
   color: var(--krkn-text);
 }
 
-.scenario-filter__search {
+.krkn-scenario-filter__search {
   flex: 1 1 240px;
   min-width: 200px;
   padding: 0.45rem 0.75rem;
@@ -1775,17 +1775,17 @@ table tbody tr:hover {
   font-size: 0.9rem;
 }
 
-.scenario-filter__search::placeholder {
+.krkn-scenario-filter__search::placeholder {
   color: var(--krkn-text-subtle);
 }
 
-.scenario-filter__search:focus {
+.krkn-scenario-filter__search:focus {
   outline: none;
   border-color: var(--krkn-secondary);
   box-shadow: 0 0 0 2px var(--krkn-secondary-alpha);
 }
 
-.scenario-filter__reset {
+.krkn-scenario-filter__reset {
   border: 1px solid var(--krkn-border-subtle);
   background: transparent;
   color: var(--krkn-text-muted);
@@ -1797,13 +1797,13 @@ table tbody tr:hover {
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-.scenario-filter__reset:hover {
+.krkn-scenario-filter__reset:hover {
   color: var(--krkn-text);
   border-color: var(--krkn-border-prominent);
   background: var(--krkn-elevated);
 }
 
-.scenario-filter__empty {
+.krkn-scenario-filter__empty {
   margin-top: 0.5rem;
   padding: 0.75rem 1rem;
   border: 1px dashed var(--krkn-border-subtle);
@@ -1812,17 +1812,17 @@ table tbody tr:hover {
   font-size: 0.9rem;
 }
 
-.scenario-card--hidden,
-.scenario-category--hidden {
+.krkn-scenario-card--hidden,
+.krkn-scenario-category--hidden {
   display: none !important;
 }
 
 @media (max-width: 640px) {
-  .scenario-filter__label {
+  .krkn-scenario-filter__label {
     min-width: auto;
   }
 
-  .scenario-filter {
+  .krkn-scenario-filter {
     padding: 0.9rem 1rem;
   }
 }

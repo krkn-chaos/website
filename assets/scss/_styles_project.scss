@@ -223,7 +223,6 @@ h6,
 .h6 {
   color: var(--krkn-text) !important;
   font-family: 'Satoshi', sans-serif;
-  scroll-margin-top: 6.5rem;
 }
 
 // Force body text colors in Docsy containers
@@ -289,3 +288,4 @@ h6,
 @import 'custom_sections';
 @import 'custom_docs';
 @import 'custom_pages';
+@import 'custom_404';

@@ -32,4 +32,5 @@ Choose your preferred method to run zone outage scenarios:
 {{< /tabpane >}}
 
 ## Demo
-You can find a link to a demo of the scenario [here](https://asciinema.org/a/452672?speed=3&theme=solarized-dark)
+See a demo of this scenario:
+<script src="https://asciinema.org/a/452672.js" id="asciicast-452672" async="true" data-speed="3" data-theme="solarized-dark" style="max-width:900px; max-height:400px; width:100%; aspect-ratio:20/9;"></script>

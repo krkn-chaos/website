@@ -81,7 +81,7 @@ See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl
 
 **cerberus_url**: When cerberus_enabled is set to True, provide the url where cerberus publishes go/no-go signal
 
-**check_applicaton_routes**:  When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run
+**check_application_routes**:  When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run
 
 
 ## Performance Monitoring
@@ -304,7 +304,7 @@ kraken:
 cerberus:
     cerberus_enabled: False                                # Enable it when cerberus is previously installed
     cerberus_url:                                          # When cerberus_enabled is set to True, provide the url where cerberus publishes go/no-go signal
-    check_applicaton_routes: False                         # When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run
+    check_application_routes: False                         # When enabled will look for application unavailability using the routes specified in the cerberus config and fails the run
 
 performance_monitoring:
     deploy_dashboards: False                              # Install a mutable grafana and load the performance dashboards. Enable this only when running on OpenShift

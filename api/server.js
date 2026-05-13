@@ -321,6 +321,11 @@ app.get('/api/topics', async (req, res) => {
 
 // Manual documentation index rebuild endpoint
 app.post('/api/admin/rebuild-index', async (req, res) => {
+    // Security: require x-admin-key header to match ADMIN_API_KEY env var
+    const ADMIN_KEY = process.env.ADMIN_API_KEY;
+    if (!ADMIN_KEY || req.headers['x-admin-key'] !== ADMIN_KEY) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
     try {
         if (!documentationIndex) {
             return res.status(503).json({

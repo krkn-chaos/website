@@ -42,6 +42,16 @@ exports.handler = async (event, context) => {
         };
     }
 
+    // Security: require x-admin-key header to match ADMIN_API_KEY env var
+    const ADMIN_KEY = process.env.ADMIN_API_KEY;
+    if (!ADMIN_KEY || event.headers['x-admin-key'] !== ADMIN_KEY) {
+        return {
+            statusCode: 401,
+            headers,
+            body: JSON.stringify({ error: 'Unauthorized' })
+        };
+    }
+
     try {
         // Initialize services if needed
         await initializeServices();

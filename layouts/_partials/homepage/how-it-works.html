@@ -1,0 +1,72 @@
+<!-- HOW IT WORKS SECTION -->
+<section class="section-surface">
+  <div class="container">
+    <h2 class="section-title reveal" data-delay="0">Get Started in Minutes</h2>
+    <p class="section-subtitle reveal" data-delay="50">From install to insights — four steps to production-grade chaos
+      testing.</p>
+    <div class="krkn-steps-grid">
+
+      <div class="krkn-step-card reveal" data-delay="100">
+        <div class="krkn-step-card__badge">1</div>
+        <svg class="krkn-step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <h3>Install</h3>
+        <p>Install krknctl with the official script, then verify your setup.</p>
+        <div class="krkn-step-card__code"><span class="c-prompt">$</span> curl -fsSL \
+  https://raw.githubusercontent.com/krkn-chaos/krknctl/refs/heads/main/install.sh | bash
+<span class="c-prompt">$</span> krknctl --version
+<span class="c-ok">✓</span> <span class="c-muted">krknctl ready</span></div>
+      </div>
+
+      <div class="krkn-step-card reveal" data-delay="175">
+        <div class="krkn-step-card__badge">2</div>
+        <svg class="krkn-step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+        </svg>
+        <h3>Configure</h3>
+        <p>Point to your kubeconfig and optionally connect Cerberus for live health monitoring.</p>
+        <div class="krkn-step-card__code"><span class="c-prompt">$</span> krknctl list available
+<span class="c-muted">  pod-scenarios  container-scenarios
+  node-scenarios   network-chaos
+  zone-outages     time-scenarios ...</span></div>
+      </div>
+
+      <div class="krkn-step-card reveal" data-delay="250">
+        <div class="krkn-step-card__badge">3</div>
+        <svg class="krkn-step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+        <h3>Run Chaos</h3>
+        <p>Pick a scenario and fire. Rollback state is saved automatically — your cluster is always recoverable.</p>
+        <div class="krkn-step-card__code"><span class="c-prompt">$</span> krknctl run pod-scenarios \
+  <span class="c-flag">--kubeconfig</span> ~/.kube/config
+<span class="c-ok">✓</span> <span class="c-muted">Scenario completed in 47s</span>
+<span class="c-ok">✓</span> <span class="c-muted">All 12 pods recovered</span></div>
+      </div>
+
+      <div class="krkn-step-card reveal" data-delay="325">
+        <div class="krkn-step-card__badge">4</div>
+        <svg class="krkn-step-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+        <h3>Analyze</h3>
+        <p>Review SLO pass/fail, Prometheus metrics, and alerts. Ship telemetry to S3 or Elasticsearch.</p>
+        <div class="krkn-step-card__code"><span class="c-ok">PASS</span> <span class="c-muted">api_latency_p99 &lt; 500ms</span>
+<span class="c-ok">PASS</span> <span class="c-muted">error_rate &lt; 0.1%</span>
+<span class="c-ok">PASS</span> <span class="c-muted">pod_recovery &lt; 30s</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>

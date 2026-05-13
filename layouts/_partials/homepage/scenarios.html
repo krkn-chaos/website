@@ -1,0 +1,138 @@
+<!-- SCENARIOS SECTION -->
+<section class="section-dark">
+  <div class="container">
+    <h2 class="section-title reveal" data-delay="0">25+ Chaos Scenarios</h2>
+    <p class="section-subtitle reveal" data-delay="50">Battle-tested failure injection across every layer of your
+      Kubernetes stack.</p>
+
+    <div class="krkn-scenario-categories">
+
+      <!-- Pod & Container -->
+      <div class="krkn-scenario-category reveal" data-delay="100">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+            <line x1="12" y1="22.08" x2="12" y2="12" />
+          </svg>
+          <h3>Pod & Container</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/pod-scenario/">Pod Failures</a></li>
+          <li><a href="/docs/scenarios/container-scenario/">Container Kill</a></li>
+          <li><a href="/docs/scenarios/kubevirt-vm-outage-scenario/">KubeVirt VM Outage</a></li>
+        </ul>
+      </div>
+
+      <!-- Node & Cluster -->
+      <div class="krkn-scenario-category reveal" data-delay="150">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="8" rx="2" />
+            <rect x="2" y="14" width="20" height="8" rx="2" />
+            <line x1="6" y1="6" x2="6.01" y2="6" />
+            <line x1="6" y1="18" x2="6.01" y2="18" />
+          </svg>
+          <h3>Node & Cluster</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/node-scenarios/">Node Failures</a></li>
+          <li><a href="/docs/scenarios/power-outage-scenarios/">Power Outages</a></li>
+          <li><a href="/docs/scenarios/zone-outage-scenarios/">Zone Outages</a></li>
+        </ul>
+        <div class="krkn-scenario-category__clouds">AWS, Azure, GCP, IBM, Alibaba, OpenStack, VMWare, BareMetal</div>
+      </div>
+
+      <!-- Network -->
+      <div class="krkn-scenario-category reveal" data-delay="200">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg>
+          <h3>Network</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/network-chaos-scenario/">Network Chaos</a></li>
+          <li><a href="/docs/scenarios/pod-network-scenario/">Pod Network Chaos</a></li>
+          <li><a href="/docs/scenarios/network-chaos-ng-scenarios/">Network Chaos NG</a></li>
+          <li><a href="/docs/scenarios/dns-outage/">DNS Outages</a></li>
+          <li><a href="/docs/scenarios/etcd-split-brain/">ETCD Split Brain</a></li>
+          <li><a href="/docs/scenarios/aurora-disruption/">Aurora Disruption</a></li>
+          <li><a href="/docs/scenarios/efs-disruption/">EFS Disruption</a></li>
+        </ul>
+      </div>
+
+      <!-- Application & Service -->
+      <div class="krkn-scenario-category reveal" data-delay="250">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <line x1="3" y1="9" x2="21" y2="9" />
+            <line x1="9" y1="21" x2="9" y2="9" />
+          </svg>
+          <h3>Application & Service</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/application-outage/">Application Outages</a></li>
+          <li><a href="/docs/scenarios/service-disruption-scenarios/">Service Disruption</a></li>
+          <li><a href="/docs/scenarios/service-hijacking-scenario/">Service Hijacking</a></li>
+          <li><a href="/docs/scenarios/syn-flood-scenario/">Syn Flood</a></li>
+          <li><a href="/docs/scenarios/http-load-scenario/">HTTP Load</a></li>
+        </ul>
+      </div>
+
+      <!-- Resource & Storage -->
+      <div class="krkn-scenario-category reveal" data-delay="300">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          </svg>
+          <h3>Resource & Storage</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/hog-scenarios/cpu-hog-scenario/">CPU Hog</a></li>
+          <li><a href="/docs/scenarios/hog-scenarios/memory-hog-scenario/">Memory Hog</a></li>
+          <li><a href="/docs/scenarios/hog-scenarios/io-hog-scenario/">IO Hog</a></li>
+          <li><a href="/docs/scenarios/pvc-scenario/">PVC Disk Fill</a></li>
+        </ul>
+      </div>
+
+      <!-- System & Time -->
+      <div class="krkn-scenario-category reveal" data-delay="350">
+        <div class="krkn-scenario-category__header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <h3>System & Time</h3>
+        </div>
+        <ul class="krkn-scenario-category__list">
+          <li><a href="/docs/scenarios/time-scenarios/">Time Skew</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem" class="reveal" data-delay="350">
+      <a href="/docs/scenarios/" class="btn-outline-krkn">
+        View All Scenarios
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

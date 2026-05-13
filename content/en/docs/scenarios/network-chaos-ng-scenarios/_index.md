@@ -12,4 +12,6 @@ This scenario introduce a new infrastructure to refactor and port the current im
 #### Network Chaos NG scenarios:
 - [Pod Network Filter](/docs/scenarios/network-chaos-ng-scenarios/pod-network-filter/_index.md)
 - [Node Network Filter](/docs/scenarios/network-chaos-ng-scenarios/node-network-filter/_index.md)
+- [Pod Network Chaos](/docs/scenarios/network-chaos-ng-scenarios/pod-network-chaos/_index.md)
+- [Node Network Chaos](/docs/scenarios/network-chaos-ng-scenarios/node-network-chaos/_index.md)
 - [Node Interface Down](/docs/scenarios/network-chaos-ng-scenarios/node-interface-down/_index.md)

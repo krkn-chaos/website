@@ -1,0 +1,140 @@
+// =============================================================================
+// Krkn Theme - Custom 404 Page
+// Custom error page with navigation links.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// 404 Page
+// -----------------------------------------------------------------------------
+
+.krkn-404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.krkn-404__container {
+  max-width: 480px;
+  width: fit-content;
+}
+
+.krkn-404__logo {
+  width: 64px;
+  margin-bottom: 2.25rem;
+}
+
+.krkn-404__code {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--krkn-primary),
+    var(--krkn-primary-hover)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.krkn-404__title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--krkn-text);
+  margin: 0 0 0.75rem;
+}
+
+.krkn-404__desc {
+  font-size: 1rem;
+  color: var(--krkn-text-muted);
+  line-height: 1.6;
+  margin: 0 0 2.5rem;
+  overflow-wrap: break-word;
+}
+
+.krkn-404__report-link {
+  color: var(--krkn-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: var(--krkn-primary-hover);
+  }
+}
+
+// nav shortcuts
+.krkn-404__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.krkn-404__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid var(--krkn-border-subtle);
+  background: var(--krkn-surface);
+  color: var(--krkn-text-muted);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 150ms ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    border-color: var(--krkn-border-prominent);
+    color: var(--krkn-text);
+    background: var(--krkn-elevated);
+    transform: translateY(-1px);
+  }
+}
+
+.krkn-404__link--primary {
+  background: var(--krkn-primary);
+  border-color: var(--krkn-primary);
+  color: var(--krkn-text);
+
+  &:hover {
+    background: var(--krkn-primary-hover);
+    border-color: var(--krkn-primary-hover);
+    color: var(--krkn-text);
+  }
+}
+
+// mobile
+@media (max-width: 480px) {
+  .krkn-404__code {
+    font-size: 4.5rem;
+  }
+
+  .krkn-404__title {
+    font-size: 1.25rem;
+  }
+
+  .krkn-404__links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .krkn-404__link {
+    justify-content: center;
+  }
+}

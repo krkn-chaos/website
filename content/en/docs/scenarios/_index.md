@@ -379,6 +379,21 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 
 </div>
 
+### Cluster Utilities
+
+<div class="scenario-grid">
+
+<div class="scenario-card">
+<h3><a href="rollback/">Rollback</a></h3>
+<span class="scenario-badge">rollback</span>
+<p class="scenario-description">Rolls back the side effects of a previous krkn chaos run using its run UUID</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+</div>
+
 ### System & Time Disruptions
 
 <div class="scenario-grid">

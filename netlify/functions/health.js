@@ -1,19 +1,16 @@
 // Health check endpoint for Netlify Functions
 
-exports.handler = async (event, context) => {
-    const ALLOWED_ORIGINS = ['https://krkn-chaos.dev', 'https://krkn-chaos.netlify.app'];
-    const origin = event?.headers?.origin || event?.headers?.Origin || '';
+const { isOriginAllowed, getCorsHeaders } = require('./_cors');
 
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+exports.handler = async (event, context) => {
+    const corsHeaders = getCorsHeaders(event);
+
+    if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
         return {
             statusCode: 403,
             body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
         };
     }
-
-    const corsHeaders = origin && ALLOWED_ORIGINS.includes(origin)
-        ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' }
-        : {};
 
     // Handle CORS
     const headers = {
@@ -25,7 +22,7 @@ exports.handler = async (event, context) => {
 
     // Handle preflight OPTIONS request
     if (event.httpMethod === 'OPTIONS') {
-        if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+        if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
             return { statusCode: 403, body: '' };
         }
         return {

@@ -10,6 +10,7 @@ if (typeof globalThis.File === 'undefined') {
 }
 
 const crypto = require('crypto');
+const { isOriginAllowed, getCorsHeaders } = require('./_cors');
 const DocumentationIndex = require('../../api/services/DocumentationIndex');
 
 let documentationIndex;
@@ -24,16 +25,16 @@ const initializeServices = async () => {
 // Verify webhook signature for security
 function verifyWebhookSignature(payload, signature, secret) {
     if (!secret || !signature) return true; // Allow unsigned webhooks if no secret configured
-    
+
     const expectedSignature = crypto
         .createHmac('sha256', secret)
         .update(payload)
         .digest('hex');
-    
-    const providedSignature = signature.startsWith('sha256=') 
-        ? signature.slice(7) 
+
+    const providedSignature = signature.startsWith('sha256=')
+        ? signature.slice(7)
         : signature;
-    
+
     return crypto.timingSafeEqual(
         Buffer.from(expectedSignature, 'hex'),
         Buffer.from(providedSignature, 'hex')
@@ -41,19 +42,14 @@ function verifyWebhookSignature(payload, signature, secret) {
 }
 
 exports.handler = async (event, context) => {
-    const ALLOWED_ORIGINS = ['https://krkn-chaos.dev', 'https://krkn-chaos.netlify.app'];
-    const origin = event?.headers?.origin || event?.headers?.Origin || '';
+    const corsHeaders = getCorsHeaders(event);
 
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
         return {
             statusCode: 403,
             body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
         };
     }
-
-    const corsHeaders = origin && ALLOWED_ORIGINS.includes(origin)
-        ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' }
-        : {};
 
     const headers = {
         ...corsHeaders,
@@ -64,7 +60,7 @@ exports.handler = async (event, context) => {
 
     // Handle CORS preflight
     if (event.httpMethod === 'OPTIONS') {
-        if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+        if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
             return { statusCode: 403, body: '' };
         }
         return { statusCode: 200, headers, body: '' };

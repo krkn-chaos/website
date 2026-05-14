@@ -58,6 +58,10 @@ podman run --rm \
 
 Executes Krkn-AI tests based on a configuration file.
 
+{{% alert title="Note" %}}
+The container image only supports the `krknhub` runner type. The `krknctl` runner is not supported due to limitations around mounting the Podman socket inside a container.
+{{% /alert %}}
+
 **Usage:**
 
 ```bash
@@ -85,8 +89,6 @@ podman run --rm \
 
 
 ## Podman Considerations
-
-Container version only supports krknhub runner type at the moment due to limitations around mounting podman socket.
 
 ### Run without `--privileged` flag
 

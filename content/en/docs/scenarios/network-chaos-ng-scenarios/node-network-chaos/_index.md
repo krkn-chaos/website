@@ -2,6 +2,7 @@
 title: Node Network Chaos
 description: "Injects network degradation (latency, packet loss, bandwidth) into a target node's network interfaces using Linux tc rules."
 date: 2017-01-04
+weight: 2
 ---
 Injects network degradation (latency, packet loss, bandwidth restriction) into a target node's network interfaces using Linux `tc` (traffic control) rules. Unlike node-network-filter which blocks specific ports via iptables, this module shapes traffic at the interface level. Includes safety checks for existing `tc` rules on the node.
 

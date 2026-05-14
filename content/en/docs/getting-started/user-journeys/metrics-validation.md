@@ -12,7 +12,7 @@ This journey is well suited to CI/CD pipelines where you cannot watch the cluste
 
 ## What you need
 
-- Everything from [Basic Run](../basic-run/)
+- Everything from the [Getting Started guide](../../) (install krknctl, create a test workload, and run a first scenario)
 - A Prometheus instance accessible from where Krkn runs (auto-detected on OpenShift; set via scenario flags on Kubernetes) — need to set one up? See [installing Prometheus on a kind cluster](../../developers-guide/testing-changes.md#prometheus)
 - krknctl installed
 

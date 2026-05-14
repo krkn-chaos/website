@@ -111,7 +111,7 @@ If both Podman and Docker are installed be sure that the docker compatibility is
 ### Docker:
 #### Linux:
 Check that the user has been added to the `docker` group and can correctly connect to the Docker unix socket  
-running the command `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
+running the command `docker ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
 
 
 ### What's next?

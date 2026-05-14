@@ -75,6 +75,7 @@ class KrknChatbot {
 
         chatButton.addEventListener('click', () => this.toggleChat());
         chatButton.addEventListener('keydown', (e) => {
+            if (e.repeat) return;
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 this.toggleChat();
@@ -352,9 +353,24 @@ class KrknChatbot {
             typingIndicator.remove();
         }
     }
+
+    destroy() {
+        if (this._onDocumentKeydown) {
+            document.removeEventListener('keydown', this._onDocumentKeydown);
+            this._onDocumentKeydown = null;
+        }
+        const button = document.getElementById('krkn-chat-button');
+        const win = document.getElementById('krkn-chat-window');
+        if (button) button.remove();
+        if (win) win.remove();
+        this.isOpen = false;
+    }
 }
 
 // Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.krknChatbot && typeof window.krknChatbot.destroy === 'function') {
+        window.krknChatbot.destroy();
+    }
     window.krknChatbot = new KrknChatbot();
 });

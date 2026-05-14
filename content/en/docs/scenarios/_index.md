@@ -124,12 +124,34 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
     color: var(--krkn-text);
 }
 
-.category-header:first-of-type {
+.scenario-category:first-of-type .category-header {
     margin-top: 2rem;
 }
 </style>
 
-### Pod & Container Disruptions
+<div class="krkn-scenario-filter" id="krkn-scenario-filter">
+<div class="krkn-scenario-filter__row">
+<span class="krkn-scenario-filter__label">Category</span>
+<div class="krkn-scenario-filter__pills" role="group" aria-label="Filter by category">
+<button class="krkn-scenario-filter__btn krkn-scenario-filter__btn--active" data-filter="all" type="button" aria-pressed="true">All</button>
+<button class="krkn-scenario-filter__btn" data-filter="pod-container" type="button" aria-pressed="false">Pod &amp; Container</button>
+<button class="krkn-scenario-filter__btn" data-filter="node-cluster" type="button" aria-pressed="false">Node &amp; Cluster</button>
+<button class="krkn-scenario-filter__btn" data-filter="network" type="button" aria-pressed="false">Network</button>
+<button class="krkn-scenario-filter__btn" data-filter="application-service" type="button" aria-pressed="false">Application &amp; Service</button>
+<button class="krkn-scenario-filter__btn" data-filter="storage-data" type="button" aria-pressed="false">Storage &amp; Data</button>
+<button class="krkn-scenario-filter__btn" data-filter="system-time" type="button" aria-pressed="false">System &amp; Time</button>
+</div>
+</div>
+<div class="krkn-scenario-filter__row krkn-scenario-filter__row--search">
+<label class="krkn-scenario-filter__label" for="krkn-scenario-filter-search">Search</label>
+<input class="krkn-scenario-filter__search" id="krkn-scenario-filter-search" type="search" placeholder="Search scenarios..." autocomplete="off" />
+<button class="krkn-scenario-filter__reset" id="krkn-scenario-filter-reset" type="button">Reset</button>
+</div>
+<div class="krkn-scenario-filter__empty" id="krkn-scenario-filter-empty" hidden>No scenarios match your filters.</div>
+</div>
+
+<section class="krkn-scenario-category" data-category="pod-container">
+<h3 class="category-header">Pod &amp; Container Disruptions</h3>
 
 <div class="scenario-grid">
 
@@ -161,8 +183,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
+</section>
 
-### Node & Cluster Failures
+<section class="krkn-scenario-category" data-category="node-cluster">
+<h3 class="category-header">Node &amp; Cluster Failures</h3>
 
 <div class="scenario-grid">
 
@@ -241,8 +265,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 
 
 </div>
+</section>
 
-### Network Disruptions
+<section class="krkn-scenario-category" data-category="network">
+<h3 class="category-header">Network Disruptions</h3>
 
 <div class="scenario-grid">
 
@@ -310,9 +336,11 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
+</section>
 
 
-### Application & Service Disruptions
+<section class="krkn-scenario-category" data-category="application-service">
+<h3 class="category-header">Application &amp; Service Disruptions</h3>
 
 <div class="scenario-grid">
 
@@ -363,8 +391,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 
 
 </div>
+</section>
 
-### Storage & Data Disruptions
+<section class="krkn-scenario-category" data-category="storage-data">
+<h3 class="category-header">Storage &amp; Data Disruptions</h3>
 
 <div class="scenario-grid">
 
@@ -378,8 +408,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
+</section>
 
-### System & Time Disruptions
+<section class="krkn-scenario-category" data-category="system-time">
+<h3 class="category-header">System &amp; Time Disruptions</h3>
 
 <div class="scenario-grid">
 
@@ -393,3 +425,6 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
+</section>
+
+<script src="/js/scenario-filter.js" defer></script>

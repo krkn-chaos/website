@@ -205,7 +205,7 @@ class KrknChatbot {
                 e.preventDefault();
                 last.focus();
             }
-        } else if (active === last) {
+        } else if (!dialog.contains(active) || active === last) {
             e.preventDefault();
             first.focus();
         }

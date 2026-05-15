@@ -84,7 +84,7 @@ node_scenarios:
 ### Templates
 #### Pod Scenario Yaml Template
 For example, for adding a pod level scenario for a new application, refer to the sample scenario below to know what fields are necessary and what to add in each location:
-```bash
+```yaml
 # yaml-language-server: $schema=../plugin.schema.json
 - id: kill-pods
   config:
@@ -96,7 +96,7 @@ For example, for adding a pod level scenario for a new application, refer to the
 
 #### Node Scenario Yaml Template
 
-```bash
+```yaml
 node_scenarios:
   - actions:  # Node chaos scenarios to be injected.
     - <chaos scenario>
@@ -110,7 +110,7 @@ node_scenarios:
 
 
 #### Time Chaos Scenario Template
-```bash
+```yaml
 time_scenarios:
   - action: 'skew_time' or 'skew_date'
     object_type: 'pod' or 'node'

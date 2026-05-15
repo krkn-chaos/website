@@ -7,7 +7,7 @@ weight: 2
 ### Kube Virt Checks
 
 Virt checks provide real-time visibility into the impact of chaos scenarios on VMI ssh connectivity and performance.
-Virt checks are configured in the ```config.yaml``` [here](config.md#virt-checks)
+Virt checks are configured in the ```config.yaml``` [here](config.md#kubevirt-checks)
 
 The system periodically checks the VMI's in the provided namespace based on the defined interval and records the results in Telemetry. The checks will run continuously from the very beginning of krkn until all scenarios are done and wait durations are complete. The telemetry data includes:
 

@@ -49,6 +49,7 @@ Equivalent CLI / hub mappings: [krknctl flags](../scenarios/all-scenario-env-krk
 
 ---
 
+<a id="kraken"></a>
 ## Krkn core (`kraken`) {#krkn-core-kraken}
 
 **What it is.** The primary block: kubeconfig, ordered chaos plan, optional HTTP control API for RUN/PAUSE/STOP, optional automated rollback hooks, and a flag that flows into Cerberus handling.
@@ -129,6 +130,7 @@ In the tables below, **Default** is the value Krkn applies when the key is **omi
 
 ---
 
+<a id="cerberus"></a>
 ## Cerberus integration (`cerberus`) {#cerberus-integration-cerberus}
 
 **What it is.** After **each scenario file**, Krkn can query a Cerberus endpoint that publishes a **go/no-go** byte string (`True` / `False`). Optionally it can scrape route downtime history for user-facing routes.
@@ -199,6 +201,7 @@ Some sample YAML (for example `deploy_dashboards`, `repo` in `config_performance
 
 ---
 
+<a id="resiliency-score"></a>
 ## Resiliency scoring (`resiliency`) {#resiliency-scoring}
 
 **What it is.** Optional scoring layer that evaluates Service Level Objectives (SLOs) backed by Prometheus data and embeds summaries into telemetry output.
@@ -238,6 +241,7 @@ Deep dive: [Resiliency scoring](resiliency-score.md).
 
 ---
 
+<a id="elastic"></a>
 ## Elasticsearch (`elastic`) {#elasticsearch}
 
 **What it is.** Optional indexing of chaos telemetry plus alert/metric payloads into Elasticsearch indices.
@@ -385,6 +389,7 @@ Each entry in `config`:
 
 ---
 
+<a id="virt-checks"></a>
 ## KubeVirt checks (`kubevirt_checks`) {#kubevirt-checks}
 
 **What it is.** Monitors **SSH-style reachability** to KubeVirt VMIs during chaos — complementary to Kubernetes API checks.

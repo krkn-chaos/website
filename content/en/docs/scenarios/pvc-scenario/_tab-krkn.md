@@ -1,7 +1,7 @@
 Example scenario file: [pvc_scenario.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/openshift/pvc_scenario.yaml)
 
 ##### Sample scenario config
-```
+```bash
 pvc_scenario:
   pvc_name: <pvc_name>          # Name of the target PVC.
   pod_name: <pod_name>          # Name of the pod where the PVC is mounted. It will be ignored if the pvc_name is defined.

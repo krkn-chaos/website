@@ -35,7 +35,7 @@ To run the recommender with a config file specify the config file path with the 
 You can customize the default values by editing the `recommender_config.yaml` file. The configuration file contains the following options:
 
   - `application`: Specify the application name.
-  - `namespaces`: Specify the namespaces names (separated by coma or space). If you want to profile
+  - `namespaces`: Specify the namespaces names (separated by comma or space). If you want to profile
   - `labels`: Specify the labels (not used).
   - `kubeconfig`: Specify the location of the kubeconfig file (not used).
   - `prometheus_endpoint`: Specify the prometheus endpoint (must).
@@ -93,7 +93,7 @@ You can also provide the input values through command-line arguments launching t
   -N NETWORK [NETWORK ...], --NETWORK NETWORK [NETWORK ...]
                         Network related chaos tests (space separated list)
   -G GENERIC [GENERIC ...], --GENERIC GENERIC [GENERIC ...]
-                        Memory related chaos tests (space separated list)
+                        Generic related chaos tests (space separated list)
   --threshold THRESHOLD
                         Threshold
   --cpu_threshold CPU_THRESHOLD

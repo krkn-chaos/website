@@ -54,7 +54,7 @@ cd visualize/krkn-visualize
 
 ## Dashboards by Category
 
-There are 23 dashboards organized into three categories. Use the **Chaos** dashboards to analyze a specific run by UUID (needs Elasticsearch connection); use the **General** and **K8s** dashboards to monitor overall cluster health before, during, and after a scenario (via prometheus conncection)
+There are 23 dashboards organized into three categories. Use the **Chaos** dashboards to analyze a specific run by UUID (needs Elasticsearch connection); use the **General** and **K8s** dashboards to monitor overall cluster health before, during, and after a scenario (via prometheus connection).
 
 ---
 

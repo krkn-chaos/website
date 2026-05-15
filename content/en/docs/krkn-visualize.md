@@ -54,7 +54,7 @@ cd visualize/krkn-visualize
 
 ## Dashboards by Category
 
-There are 23 dashboards organized into three categories. Use the **Chaos** dashboards to analyze a specific run by UUID (needs Elasticsearch connection); use the **General** and **K8s** dashboards to monitor overall cluster health before, during, and after a scenario (via promethues conncection)
+There are 23 dashboards organized into three categories. Use the **Chaos** dashboards to analyze a specific run by UUID (needs Elasticsearch connection); use the **General** and **K8s** dashboards to monitor overall cluster health before, during, and after a scenario (via prometheus conncection)
 
 ---
 
@@ -124,7 +124,7 @@ While viewing your scenario-specific results, open a second tab with a General o
 
 - **Etcd** — check if etcd latency spiked during your run window
 - **API Performance** — check if API request duration increased
-- **KubeVirt Performance** — watch VMI's on your cluster
+- **KubeVirt Performance** — watch VMIs on your cluster
 - **Node Overview** / **OCP Performance** — check cluster-wide health impact
 - **OVN Monitoring** — check networking stack for latency increases
 

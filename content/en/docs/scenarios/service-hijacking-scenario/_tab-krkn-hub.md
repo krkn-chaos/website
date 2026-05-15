@@ -59,9 +59,9 @@ export <parameter_name>=<value>
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-| Parameter             | Description                                                                                                                                                                                                                               |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  SCENARIO_BASE64 | Base64 encoded service-hijacking scenario file. Note that the __-w0__ option in the command substitution `SCENARIO_BASE64="$(base64 -w0 <scenario_file>)"` is __mandatory__ in order to remove line breaks from the base64 command output |
+| Parameter        | Description                                                                                                                                                                                                                               | Type   | Default |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|---------|
+| SCENARIO_BASE64  | Base64 encoded service-hijacking scenario file. Note that the __-w0__ option in the command substitution `SCENARIO_BASE64="$(base64 -w0 <scenario_file>)"` is __mandatory__ in order to remove line breaks from the base64 command output | string | ""      |
 
 
 A sample scenario file can be found [here](service-hijacking-scenarios-krkn.md#sample-scenario), you'll need to customize it based on your wanted response codes for API calls

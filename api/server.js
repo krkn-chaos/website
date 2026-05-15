@@ -5,6 +5,8 @@ const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
+const isProduction = process.env.NODE_ENV === 'production' || (process.env.NETLIFY === 'true' && process.env.CONTEXT === 'production');
+
 // Load configuration
 const config = require('./config.js');
 
@@ -340,7 +342,7 @@ app.post('/api/admin/rebuild-index', async (req, res) => {
         logger.error('Index rebuild endpoint error:', error);
         res.status(500).json({
             error: 'Failed to rebuild documentation index',
-            message: error.message
+            message: isProduction ? 'Internal server error' : error.message
         });
     }
 });
@@ -386,7 +388,7 @@ app.all('/webhook/rebuild-docs', async (req, res) => {
         logger.error('Webhook rebuild error:', error);
         res.status(500).json({
             error: 'Failed to rebuild documentation index via webhook',
-            message: error.message
+            message: isProduction ? 'Internal server error' : error.message
         });
     }
 });

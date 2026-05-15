@@ -11,6 +11,8 @@ if (typeof globalThis.File === 'undefined') {
 
 const DocumentationIndex = require('../../api/services/DocumentationIndex');
 
+const isProduction = process.env.NODE_ENV === 'production' || (process.env.NETLIFY === 'true' && process.env.CONTEXT === 'production');
+
 let documentationIndex;
 
 const initializeServices = async () => {
@@ -67,7 +69,7 @@ exports.handler = async (event, context) => {
             headers,
             body: JSON.stringify({
                 error: 'Failed to rebuild documentation index',
-                message: error.message,
+                message: isProduction ? 'Internal server error' : error.message,
                 timestamp: new Date().toISOString()
             })
         };

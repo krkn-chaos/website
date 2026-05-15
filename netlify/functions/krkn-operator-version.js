@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const isProduction = process.env.NODE_ENV === 'production' || (process.env.NETLIFY === 'true' && process.env.CONTEXT === 'production');
+
 exports.handler = async function() {
   try {
     // Try to get redirect without following it
@@ -41,7 +43,7 @@ exports.handler = async function() {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ error: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message })
+      body: JSON.stringify({ error: isProduction ? 'Internal server error' : error.message })
     };
   }
 };

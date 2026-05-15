@@ -19,6 +19,7 @@ functions = "netlify/functions"
 [context.production.environment]
 HUGO_VERSION = "0.146.0"
 SECRETS_SCAN_OMIT_KEYS = "LLM_PROVIDER,LLM_MODEL"
+NODE_ENV = "production"
 
 [context.deploy-preview]
 command = "npm install && npm run build:preview && node scripts/post-build.js"

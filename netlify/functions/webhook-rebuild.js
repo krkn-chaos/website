@@ -136,7 +136,7 @@ exports.handler = async (event, context) => {
             headers,
             body: JSON.stringify({
                 error: 'Failed to rebuild documentation index via webhook',
-                message: error.message,
+                message: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message,
                 timestamp: new Date().toISOString()
             })
         };

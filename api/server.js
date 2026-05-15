@@ -340,7 +340,7 @@ app.post('/api/admin/rebuild-index', async (req, res) => {
         logger.error('Index rebuild endpoint error:', error);
         res.status(500).json({
             error: 'Failed to rebuild documentation index',
-            message: error.message
+            message: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message
         });
     }
 });
@@ -386,7 +386,7 @@ app.all('/webhook/rebuild-docs', async (req, res) => {
         logger.error('Webhook rebuild error:', error);
         res.status(500).json({
             error: 'Failed to rebuild documentation index via webhook',
-            message: error.message
+            message: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message
         });
     }
 });

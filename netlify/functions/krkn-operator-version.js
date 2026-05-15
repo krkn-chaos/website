@@ -41,7 +41,7 @@ exports.handler = async function() {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message })
     };
   }
 };

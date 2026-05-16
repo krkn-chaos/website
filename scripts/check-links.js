@@ -40,7 +40,8 @@ async function main() {
     linksToSkip: skipPatterns
   });
 
-  console.log(`\nScanned ${result.links.length} links. Broken: ${result.broken.length}`);
+  const brokenLinks = result.links.filter(link => link.state === 'BROKEN');
+  console.log(`\nScanned ${result.links.length} links. Broken: ${brokenLinks.length}`);
 
   if (!result.passed) {
     console.warn('NOTE: Not failing the build due to broken links until Issue #448 is resolved.');

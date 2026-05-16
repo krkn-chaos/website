@@ -35,7 +35,7 @@ Backend API service for the Krkn documentation chatbot, providing AI-powered res
 - `GET /api/search` - Search documentation
 - `GET /api/topics` - Get available documentation topics
 - `POST /api/admin/rebuild-index` - Manually trigger a full rebuild of the documentation index. Useful when documentation content has changed and needs to be re-indexed immediately without restarting the server.
-- `POST /webhook/rebuild-docs` - Webhook endpoint for external systems to trigger a documentation index rebuild. Accepts POST requests and is designed for use in local development and CI/CD pipelines.
+- `ALL /webhook/rebuild-docs` - Webhook endpoint for external systems to trigger a documentation index rebuild. Accepts any HTTP method (`GET`, `POST`, `PUT`, etc.). Signature verification is optional — requests are allowed when `WEBHOOK_SECRET` is not configured. Designed for use in local development and CI/CD pipelines.
 
 ## Configuration
 

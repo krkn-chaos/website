@@ -6,10 +6,17 @@ weight: 2
 
 ### Health Checks
 
-Health checks provide real-time visibility into the impact of chaos scenarios on application availability and performance. Health check configuration supports application endpoints accessible via http / https along with authentication mechanism such as bearer token and authentication credentials.
-Health checks are configured in the ```config.yaml```
+Health checks provide real-time visibility into the impact of chaos scenarios on application availability and performance. They run continuously in the background throughout the chaos run, detecting outages, measuring downtime duration, and recording results in telemetry.
 
-The system periodically checks the provided URLs based on the defined interval and records the results in Telemetry. The telemetry data includes:
+Krkn supports multiple health check types through a plugin-based architecture:
+
+- **`http_health_check`** — monitors HTTP/HTTPS endpoints (documented on this page)
+- **`virt_health_check`** — monitors KubeVirt VMI SSH connectivity (see [Kube Virt Checks](virt-checks.md))
+- **Custom plugins** — extend the system with your own health check logic (see [Health Check Plugins](../developers-guide/health-check-plugins.md))
+
+Health checks are configured in the ```config.yaml``` under the `health_checks` key.
+
+The `http_health_check` plugin periodically checks the provided URLs based on the defined interval and records the results in Telemetry. The telemetry data includes:
 
 - Success response ```200``` when the application is running normally.
 - Failure response other than 200 if the application experiences downtime or errors.
@@ -66,3 +73,8 @@ health_checks:
             }
         ],
 ```
+
+### See Also
+
+- [Kube Virt Checks](virt-checks.md) — monitor KubeVirt VMI SSH connectivity during chaos
+- [Health Check Plugins](../developers-guide/health-check-plugins.md) — create a custom health check plugin

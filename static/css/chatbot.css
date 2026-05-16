@@ -425,14 +425,15 @@
 
 .krkn-chat-clear {
     background: none;
-    border: none;
+    border: 1px solid var(--krkn-chat-border);
     color: var(--krkn-chat-text-subtle);
     cursor: pointer;
     font-size: var(--krkn-chat-font-sm);
     font-family: inherit;
-    padding: 2px var(--krkn-chat-spacing-xs);
-    border-radius: 4px;
-    transition: color 0.2s, background-color 0.2s;
+    padding: 0 var(--krkn-chat-spacing-sm);
+    border-radius: 25px;
+    height: 36px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
     flex-shrink: 0;
     white-space: nowrap;
 }
@@ -440,6 +441,7 @@
 .krkn-chat-clear:hover {
     color: var(--krkn-chat-text);
     background: var(--krkn-chat-close-hover);
+    border-color: var(--krkn-chat-border-prominent);
 }
 
 .krkn-chat-clear:focus {

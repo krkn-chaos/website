@@ -20,39 +20,40 @@ class KrknChatbot {
     detectPageContext() {
         const path = window.location.pathname;
 
-        // Map URL path segments to human-readable doc section labels
+        // Map URL path segments to human-readable doc section labels.
+        // Patterns are ordered most-specific first to avoid early broad matches.
         const contextMap = [
-            { pattern: /\/docs\/scenarios\/pod-scenario/,          label: 'Pod Scenarios' },
-            { pattern: /\/docs\/scenarios\/container-scenario/,    label: 'Container Scenarios' },
-            { pattern: /\/docs\/scenarios\/node-scenarios/,        label: 'Node Scenarios' },
-            { pattern: /\/docs\/scenarios\/network-chaos/,         label: 'Network Chaos' },
-            { pattern: /\/docs\/scenarios\/pod-network-scenario/,  label: 'Pod Network Chaos' },
-            { pattern: /\/docs\/scenarios\/application-outage/,    label: 'Application Outage' },
-            { pattern: /\/docs\/scenarios\/service-disruption/,    label: 'Service Disruption' },
-            { pattern: /\/docs\/scenarios\/service-hijacking/,     label: 'Service Hijacking' },
-            { pattern: /\/docs\/scenarios\/zone-outage/,           label: 'Zone Outage Scenarios' },
-            { pattern: /\/docs\/scenarios\/power-outage/,          label: 'Power Outage Scenarios' },
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/cpu/,    label: 'CPU Hog Scenario' },
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/memory/, label: 'Memory Hog Scenario' },
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/io/,     label: 'IO Hog Scenario' },
-            { pattern: /\/docs\/scenarios\/pvc-scenario/,          label: 'PVC Disk Fill Scenario' },
-            { pattern: /\/docs\/scenarios\/time-scenarios/,        label: 'Time Skew Scenarios' },
-            { pattern: /\/docs\/scenarios\/dns-outage/,            label: 'DNS Outage Scenario' },
-            { pattern: /\/docs\/scenarios\/etcd-split-brain/,      label: 'ETCD Split Brain' },
-            { pattern: /\/docs\/scenarios\/aurora-disruption/,     label: 'Aurora Disruption' },
-            { pattern: /\/docs\/scenarios\/efs-disruption/,        label: 'EFS Disruption' },
-            { pattern: /\/docs\/scenarios\/syn-flood/,             label: 'Syn Flood Scenario' },
-            { pattern: /\/docs\/scenarios\/http-load/,             label: 'HTTP Load Scenario' },
-            { pattern: /\/docs\/scenarios\/kubevirt/,              label: 'KubeVirt VM Outage' },
-            { pattern: /\/docs\/scenarios\/network-chaos-ng/,      label: 'Network Chaos NG' },
-            { pattern: /\/docs\/scenarios/,                        label: 'Chaos Scenarios' },
-            { pattern: /\/docs\/krkn_ai/,                          label: 'Krkn AI' },
-            { pattern: /\/docs\/krkn-operator/,                    label: 'Krkn Operator' },
-            { pattern: /\/docs\/cerberus/,                         label: 'Cerberus' },
-            { pattern: /\/docs\/krknctl/,                          label: 'krknctl CLI' },
-            { pattern: /\/docs\/installation/,                     label: 'Installation' },
-            { pattern: /\/docs\/getting-started/,                  label: 'Getting Started' },
-            { pattern: /\/docs\/krkn/,                             label: 'Krkn Core' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,    label: 'CPU Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/, label: 'Memory Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/io-hog-scenario/,     label: 'IO Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,         label: 'Network Chaos NG' },
+            { pattern: /\/docs\/scenarios\/network-chaos-scenario/,             label: 'Network Chaos' },
+            { pattern: /\/docs\/scenarios\/pod-network-scenario/,               label: 'Pod Network Chaos' },
+            { pattern: /\/docs\/scenarios\/pod-scenario/,                       label: 'Pod Scenarios' },
+            { pattern: /\/docs\/scenarios\/container-scenario/,                 label: 'Container Scenarios' },
+            { pattern: /\/docs\/scenarios\/node-scenarios/,                     label: 'Node Scenarios' },
+            { pattern: /\/docs\/scenarios\/application-outage/,                 label: 'Application Outage' },
+            { pattern: /\/docs\/scenarios\/service-disruption-scenarios/,       label: 'Service Disruption' },
+            { pattern: /\/docs\/scenarios\/service-hijacking-scenario/,         label: 'Service Hijacking' },
+            { pattern: /\/docs\/scenarios\/zone-outage-scenarios/,              label: 'Zone Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/power-outage-scenarios/,             label: 'Power Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/pvc-scenario/,                       label: 'PVC Disk Fill Scenario' },
+            { pattern: /\/docs\/scenarios\/time-scenarios/,                     label: 'Time Skew Scenarios' },
+            { pattern: /\/docs\/scenarios\/dns-outage/,                         label: 'DNS Outage Scenario' },
+            { pattern: /\/docs\/scenarios\/etcd-split-brain/,                   label: 'ETCD Split Brain' },
+            { pattern: /\/docs\/scenarios\/aurora-disruption/,                  label: 'Aurora Disruption' },
+            { pattern: /\/docs\/scenarios\/efs-disruption/,                     label: 'EFS Disruption' },
+            { pattern: /\/docs\/scenarios\/syn-flood-scenario/,                 label: 'Syn Flood Scenario' },
+            { pattern: /\/docs\/scenarios\/http-load-scenario/,                 label: 'HTTP Load Scenario' },
+            { pattern: /\/docs\/scenarios\/kubevirt-vm-outage-scenario/,        label: 'KubeVirt VM Outage' },
+            { pattern: /\/docs\/scenarios/,                                     label: 'Chaos Scenarios' },
+            { pattern: /\/docs\/krkn_ai/,                                       label: 'Krkn AI' },
+            { pattern: /\/docs\/krkn-operator/,                                 label: 'Krkn Operator' },
+            { pattern: /\/docs\/cerberus/,                                      label: 'Cerberus' },
+            { pattern: /\/docs\/krknctl/,                                       label: 'krknctl CLI' },
+            { pattern: /\/docs\/installation/,                                  label: 'Installation' },
+            { pattern: /\/docs\/getting-started/,                               label: 'Getting Started' },
+            { pattern: /\/docs\/krkn/,                                          label: 'Krkn Core' },
         ];
 
         for (const entry of contextMap) {
@@ -69,11 +70,20 @@ class KrknChatbot {
     // Session persistence: save/restore conversation from sessionStorage so
     // messages survive page navigation within the same browser tab.
     // ---------------------------------------------------------------------------
+
+    // Sanitize a string for safe storage and rendering — strips HTML tags
+    // to prevent persisted XSS payloads from replaying across navigations.
+    sanitizeText(text) {
+        const div = document.createElement('div');
+        div.textContent = typeof text === 'string' ? text : '';
+        return div.textContent;
+    }
+
     saveSession() {
         try {
             const toSave = this.messages.slice(-this.maxPersistedMessages).map(msg => ({
-                text: msg.text,
-                sender: msg.sender,
+                text: this.sanitizeText(msg.text),
+                sender: msg.sender === 'user' ? 'user' : 'bot',
                 timestamp: msg.timestamp
             }));
             sessionStorage.setItem(this.sessionKey, JSON.stringify(toSave));
@@ -86,7 +96,15 @@ class KrknChatbot {
         try {
             const raw = sessionStorage.getItem(this.sessionKey);
             if (!raw) return [];
-            return JSON.parse(raw);
+            const parsed = JSON.parse(raw);
+            // Validate shape: must be an array of objects with text and sender fields
+            if (!Array.isArray(parsed)) return [];
+            return parsed.filter(msg =>
+                msg &&
+                typeof msg.text === 'string' &&
+                msg.text.trim().length > 0 &&
+                (msg.sender === 'user' || msg.sender === 'bot')
+            );
         } catch (e) {
             return [];
         }
@@ -118,6 +136,46 @@ class KrknChatbot {
 
         const suggestionMap = [
             {
+                pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,
+                suggestions: [
+                    { emoji: '📈', label: 'CPU load', question: 'How do I set the CPU load percentage for hog scenario?' },
+                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for CPU hog?' },
+                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of CPU hog?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/,
+                suggestions: [
+                    { emoji: '💾', label: 'Memory amount', question: 'How do I set the memory amount for memory hog?' },
+                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for memory hog?' },
+                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of memory hog?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,
+                suggestions: [
+                    { emoji: '🔌', label: 'Node interface', question: 'How do I bring down a node network interface?' },
+                    { emoji: '📡', label: 'Pod network filter', question: 'How does pod network filter work in network chaos NG?' },
+                    { emoji: '🖥️', label: 'VMI chaos', question: 'How do I apply network chaos to a VMI?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/network-chaos-scenario/,
+                suggestions: [
+                    { emoji: '📡', label: 'Packet loss', question: 'How do I inject packet loss with network chaos?' },
+                    { emoji: '⏳', label: 'Add latency', question: 'How do I add network latency to a pod?' },
+                    { emoji: '📊', label: 'Bandwidth limit', question: 'How do I restrict bandwidth in network chaos?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/pod-network-scenario/,
+                suggestions: [
+                    { emoji: '📡', label: 'Pod packet loss', question: 'How do I inject packet loss at the pod level?' },
+                    { emoji: '🏷️', label: 'Exclude label', question: 'How do I use exclude_label in pod network chaos?' },
+                    { emoji: '⏳', label: 'Pod latency', question: 'How do I add latency to a specific pod?' }
+                ]
+            },
+            {
                 pattern: /\/docs\/scenarios\/pod-scenario/,
                 suggestions: [
                     { emoji: '⏱️', label: 'Recovery time metrics', question: 'How does Krkn measure pod recovery time?' },
@@ -134,22 +192,6 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/network-chaos/,
-                suggestions: [
-                    { emoji: '📡', label: 'Packet loss', question: 'How do I inject packet loss with network chaos?' },
-                    { emoji: '⏳', label: 'Add latency', question: 'How do I add network latency to a pod?' },
-                    { emoji: '📊', label: 'Bandwidth limit', question: 'How do I restrict bandwidth in network chaos?' }
-                ]
-            },
-            {
-                pattern: /\/docs\/scenarios\/pod-network-scenario/,
-                suggestions: [
-                    { emoji: '📡', label: 'Pod packet loss', question: 'How do I inject packet loss at the pod level?' },
-                    { emoji: '🏷️', label: 'Exclude label', question: 'How do I use exclude_label in pod network chaos?' },
-                    { emoji: '⏳', label: 'Pod latency', question: 'How do I add latency to a specific pod?' }
-                ]
-            },
-            {
                 pattern: /\/docs\/scenarios\/application-outage/,
                 suggestions: [
                     { emoji: '🚫', label: 'Block traffic', question: 'How do I block ingress traffic with application outage?' },
@@ -158,23 +200,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/hog-scenarios\/cpu/,
-                suggestions: [
-                    { emoji: '📈', label: 'CPU load', question: 'How do I set the CPU load percentage for hog scenario?' },
-                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for CPU hog?' },
-                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of CPU hog?' }
-                ]
-            },
-            {
-                pattern: /\/docs\/scenarios\/hog-scenarios\/memory/,
-                suggestions: [
-                    { emoji: '💾', label: 'Memory amount', question: 'How do I set the memory amount for memory hog?' },
-                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for memory hog?' },
-                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of memory hog?' }
-                ]
-            },
-            {
-                pattern: /\/docs\/scenarios\/zone-outage/,
+                pattern: /\/docs\/scenarios\/zone-outage-scenarios/,
                 suggestions: [
                     { emoji: '🌍', label: 'Zone config', question: 'How do I configure a zone outage scenario?' },
                     { emoji: '☁️', label: 'Cloud support', question: 'Which clouds support zone outage scenarios?' },
@@ -182,7 +208,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/cerberus|\/docs\/cerberus/,
+                pattern: /\/docs\/cerberus/,
                 suggestions: [
                     { emoji: '🛡️', label: 'Health signal', question: 'How does Cerberus provide a go/no-go signal?' },
                     { emoji: '⚙️', label: 'Setup Cerberus', question: 'How do I set up and configure Cerberus?' },
@@ -313,22 +339,9 @@ class KrknChatbot {
                     <div id="krkn-page-context-bar" class="krkn-page-context-bar" hidden>
                         <span class="krkn-page-context-label">Asking about:</span>
                         <span id="krkn-page-context-name" class="krkn-page-context-name"></span>
-                        <button id="krkn-chat-clear" class="krkn-chat-clear" title="Clear conversation">
-                            Clear
-                        </button>
                     </div>
 
-                    <div class="krkn-quick-questions">
-                        <button class="krkn-quick-btn" data-question="How do I get started with Krkn?">
-                            🚀 Getting Started
-                        </button>
-                        <button class="krkn-quick-btn" data-question="What chaos scenarios are available?">
-                            ⚡ Available Scenarios
-                        </button>
-                        <button class="krkn-quick-btn" data-question="How do I install Krkn?">
-                            📦 Installation
-                        </button>
-                    </div>
+                    <div class="krkn-quick-questions" id="krkn-quick-questions"></div>
                     
                     <div class="krkn-chat-input-wrapper">
                         <input 
@@ -337,6 +350,9 @@ class KrknChatbot {
                             placeholder="Ask about Krkn documentation..." 
                             autocomplete="off"
                         >
+                        <button id="krkn-chat-clear" class="krkn-chat-clear" title="Clear conversation">
+                            Clear
+                        </button>
                         <button id="krkn-chat-send" class="krkn-chat-send">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M18 2L9 11L4 6L2 8L9 15L20 4L18 2Z" fill="currentColor"/>

@@ -390,6 +390,63 @@
     padding: var(--krkn-chat-spacing-md);
 }
 
+/* ---------------------------------------------------------------------------
+   Page Context Bar
+   Shows which doc section the user is currently reading so the chatbot
+   can surface more relevant answers.
+   --------------------------------------------------------------------------- */
+.krkn-page-context-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--krkn-chat-spacing-xs);
+    margin-bottom: var(--krkn-chat-spacing-sm);
+    padding: var(--krkn-chat-spacing-xs) var(--krkn-chat-spacing-sm);
+    background: var(--krkn-chat-elevated);
+    border: 1px solid var(--krkn-chat-border);
+    border-radius: 20px;
+    font-size: var(--krkn-chat-font-sm);
+    line-height: 1.4;
+}
+
+.krkn-page-context-label {
+    color: var(--krkn-chat-text-subtle);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.krkn-page-context-name {
+    color: var(--krkn-chat-primary);
+    font-weight: 600;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.krkn-chat-clear {
+    background: none;
+    border: none;
+    color: var(--krkn-chat-text-subtle);
+    cursor: pointer;
+    font-size: var(--krkn-chat-font-sm);
+    font-family: inherit;
+    padding: 2px var(--krkn-chat-spacing-xs);
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.krkn-chat-clear:hover {
+    color: var(--krkn-chat-text);
+    background: var(--krkn-chat-close-hover);
+}
+
+.krkn-chat-clear:focus {
+    outline: 2px solid var(--krkn-chat-primary);
+    outline-offset: 2px;
+}
+
 /* Quick Questions */
 .krkn-quick-questions {
     display: flex;

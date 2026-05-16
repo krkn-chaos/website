@@ -14,9 +14,8 @@ const DailyUsageTracker = require('./utils/dailyUsageTracker');
 const logger = require('./utils/logger');
 
 const app = express();
-// In api/server.js line 17 — replace with:
 if (process.env.NODE_ENV === 'production') {
-    app.set('trust proxy', 1); // Trust Netlify's load balancer in production only
+    app.set('trust proxy', 1);
 }
 const PORT = config.port;
 

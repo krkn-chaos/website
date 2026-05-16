@@ -36,7 +36,7 @@ This project follows
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** v18 or later
+- **Node.js** v20 or later
 - **npm** v9 or later
 - **Go** v1.21 or later (required by Hugo modules)
 - **Hugo Extended** v0.146.0 or later
@@ -86,7 +86,7 @@ npm install
 npm start
 ```
 
-The API server starts at `http://localhost:3000` by default.
+The API server starts at `http://localhost:3001` by default.
 
 ### DCO Sign-off
 

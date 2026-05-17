@@ -24,7 +24,8 @@ const initializeServices = async () => {
 // Verify webhook signature for security
 function verifyWebhookSignature(payload, signature, secret) {
     if (!secret) return true;
-    if (!signature) return false;
+    if (typeof payload !== 'string' && !Buffer.isBuffer(payload)) return false;
+    if (typeof signature !== 'string') return false;
     
     const expectedSignature = crypto
         .createHmac('sha256', secret)
@@ -85,6 +86,15 @@ exports.handler = async (event, context) => {
         const signature = event.headers['x-hub-signature-256'] || event.headers['x-webhook-signature'];
         
         if (webhookSecret && event.httpMethod === 'POST') {
+            if (typeof event.body !== 'string') {
+                console.error('Invalid webhook signature');
+                return {
+                    statusCode: 401,
+                    headers,
+                    body: JSON.stringify({ error: 'Invalid webhook signature' })
+                };
+            }
+
             const isValid = verifyWebhookSignature(event.body, signature, webhookSecret);
             if (!isValid) {
                 console.error('Invalid webhook signature');

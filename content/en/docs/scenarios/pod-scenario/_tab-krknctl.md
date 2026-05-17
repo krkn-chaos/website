@@ -1,5 +1,5 @@
 ```bash
-krknctl run pod-scenarios [--<parameter> <value>]
+krknctl run pod-scenarios [--<parameter>:<value>]
 ```
 
 Use this command to run a pod disruption scenario. Pass the optional flags below to target specific pods and control how the run behaves. Global `krknctl` flags are listed [here](../all-scenario-env-krknctl.md).

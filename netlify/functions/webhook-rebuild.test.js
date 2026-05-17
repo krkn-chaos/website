@@ -1,11 +1,29 @@
-const test = require('node:test');
+const { test, afterEach } = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('crypto');
 
-function loadHandler() {
-    const modulePath = require.resolve('./webhook-rebuild.js');
-    const servicePath = require.resolve('../../api/services/DocumentationIndex');
+const modulePath = require.resolve('./webhook-rebuild.js');
+const servicePath = require.resolve('../../api/services/DocumentationIndex');
+const originalWebhookSecret = process.env.WEBHOOK_SECRET;
+const originalServiceModule = require.cache[servicePath];
 
+afterEach(() => {
+    if (originalWebhookSecret === undefined) {
+        delete process.env.WEBHOOK_SECRET;
+    } else {
+        process.env.WEBHOOK_SECRET = originalWebhookSecret;
+    }
+
+    delete require.cache[modulePath];
+
+    if (originalServiceModule) {
+        require.cache[servicePath] = originalServiceModule;
+    } else {
+        delete require.cache[servicePath];
+    }
+});
+
+function loadHandler() {
     delete require.cache[modulePath];
     delete require.cache[servicePath];
 
@@ -79,4 +97,19 @@ test('accepts correctly signed webhook requests when WEBHOOK_SECRET is configure
 
     assert.equal(response.statusCode, 200);
     assert.equal(JSON.parse(response.body).message, 'Documentation index rebuilt successfully via webhook');
+});
+
+test('rejects signed webhook requests with no body when WEBHOOK_SECRET is configured', async () => {
+    process.env.WEBHOOK_SECRET = 'secret-value';
+
+    const handler = loadHandler();
+    const response = await handler({
+        httpMethod: 'POST',
+        headers: {
+            'x-hub-signature-256': 'sha256=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+    });
+
+    assert.equal(response.statusCode, 401);
+    assert.deepEqual(JSON.parse(response.body), { error: 'Invalid webhook signature' });
 });

@@ -2,6 +2,7 @@
 title: VMI Network Chaos
 description:
 date: 2017-01-04
+weight: 2
 ---
 <krkn-hub-scenario id="vmi-network-chaos">
 Injects network degradation into a KubeVirt Virtual Machine Instance (VMI) by shaping traffic on the VM's tap interface inside the virt-launcher network namespace. Supports configurable bandwidth limiting, latency injection, and packet loss. Unlike node or pod network chaos, this scenario targets the tap device that connects QEMU to the bridge, so only the specific VMI is affected without disrupting OVN's BFD heartbeats or other workloads on the same node.

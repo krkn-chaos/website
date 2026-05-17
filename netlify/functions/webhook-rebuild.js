@@ -23,7 +23,8 @@ const initializeServices = async () => {
 
 // Verify webhook signature for security
 function verifyWebhookSignature(payload, signature, secret) {
-    if (!secret || !signature) return true; // Allow unsigned webhooks if no secret configured
+    if (!secret) return true;
+    if (!signature) return false;
     
     const expectedSignature = crypto
         .createHmac('sha256', secret)
@@ -33,6 +34,10 @@ function verifyWebhookSignature(payload, signature, secret) {
     const providedSignature = signature.startsWith('sha256=') 
         ? signature.slice(7) 
         : signature;
+
+    if (!/^[a-fA-F0-9]{64}$/.test(providedSignature)) {
+        return false;
+    }
     
     return crypto.timingSafeEqual(
         Buffer.from(expectedSignature, 'hex'),

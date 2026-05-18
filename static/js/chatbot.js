@@ -6,7 +6,307 @@ class KrknChatbot {
         this.apiEndpoint = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:3001/api/chat' 
             : '/.netlify/functions/chat';
+        // Session storage key for persisting conversation across page navigations
+        this.sessionKey = 'krkn-chat-session';
+        // Maximum messages to persist (keep last 20 to avoid storage bloat)
+        this.maxPersistedMessages = 20;
         this.createChatbot();
+    }
+
+    // ---------------------------------------------------------------------------
+    // Page context: detect which doc section the user is currently reading
+    // so the chatbot can surface more relevant answers without any backend change.
+    // ---------------------------------------------------------------------------
+    detectPageContext() {
+        const path = window.location.pathname;
+
+        // Map URL path segments to human-readable doc section labels.
+        // Patterns are ordered most-specific first to avoid early broad matches.
+        const contextMap = [
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,    label: 'CPU Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/, label: 'Memory Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/io-hog-scenario/,     label: 'IO Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,         label: 'Network Chaos NG' },
+            { pattern: /\/docs\/scenarios\/network-chaos-scenario/,             label: 'Network Chaos' },
+            { pattern: /\/docs\/scenarios\/pod-network-scenario/,               label: 'Pod Network Chaos' },
+            { pattern: /\/docs\/scenarios\/pod-scenario/,                       label: 'Pod Scenarios' },
+            { pattern: /\/docs\/scenarios\/container-scenario/,                 label: 'Container Scenarios' },
+            { pattern: /\/docs\/scenarios\/node-scenarios/,                     label: 'Node Scenarios' },
+            { pattern: /\/docs\/scenarios\/application-outage/,                 label: 'Application Outage' },
+            { pattern: /\/docs\/scenarios\/service-disruption-scenarios/,       label: 'Service Disruption' },
+            { pattern: /\/docs\/scenarios\/service-hijacking-scenario/,         label: 'Service Hijacking' },
+            { pattern: /\/docs\/scenarios\/zone-outage-scenarios/,              label: 'Zone Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/power-outage-scenarios/,             label: 'Power Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/pvc-scenario/,                       label: 'PVC Disk Fill Scenario' },
+            { pattern: /\/docs\/scenarios\/time-scenarios/,                     label: 'Time Skew Scenarios' },
+            { pattern: /\/docs\/scenarios\/dns-outage/,                         label: 'DNS Outage Scenario' },
+            { pattern: /\/docs\/scenarios\/etcd-split-brain/,                   label: 'ETCD Split Brain' },
+            { pattern: /\/docs\/scenarios\/aurora-disruption/,                  label: 'Aurora Disruption' },
+            { pattern: /\/docs\/scenarios\/efs-disruption/,                     label: 'EFS Disruption' },
+            { pattern: /\/docs\/scenarios\/syn-flood-scenario/,                 label: 'Syn Flood Scenario' },
+            { pattern: /\/docs\/scenarios\/http-load-scenario/,                 label: 'HTTP Load Scenario' },
+            { pattern: /\/docs\/scenarios\/kubevirt-vm-outage-scenario/,        label: 'KubeVirt VM Outage' },
+            { pattern: /\/docs\/scenarios/,                                     label: 'Chaos Scenarios' },
+            { pattern: /\/docs\/krkn_ai/,                                       label: 'Krkn AI' },
+            { pattern: /\/docs\/krkn-operator/,                                 label: 'Krkn Operator' },
+            { pattern: /\/docs\/cerberus/,                                      label: 'Cerberus' },
+            { pattern: /\/docs\/krknctl/,                                       label: 'krknctl CLI' },
+            { pattern: /\/docs\/installation/,                                  label: 'Installation' },
+            { pattern: /\/docs\/getting-started/,                               label: 'Getting Started' },
+            { pattern: /\/docs\/krkn/,                                          label: 'Krkn Core' },
+        ];
+
+        for (const entry of contextMap) {
+            if (entry.pattern.test(path)) {
+                return entry.label;
+            }
+        }
+
+        // No specific doc section detected — return null so no pill is shown
+        return null;
+    }
+
+    // ---------------------------------------------------------------------------
+    // Session persistence: save/restore conversation from sessionStorage so
+    // messages survive page navigation within the same browser tab.
+    // ---------------------------------------------------------------------------
+
+    // Sanitize a string for safe storage and rendering — strips HTML tags
+    // to prevent persisted XSS payloads from replaying across navigations.
+    sanitizeText(text) {
+        const div = document.createElement('div');
+        div.textContent = typeof text === 'string' ? text : '';
+        return div.textContent;
+    }
+
+    saveSession() {
+        try {
+            const toSave = this.messages.slice(-this.maxPersistedMessages).map(msg => ({
+                text: this.sanitizeText(msg.text),
+                sender: msg.sender === 'user' ? 'user' : 'bot',
+                timestamp: msg.timestamp
+            }));
+            sessionStorage.setItem(this.sessionKey, JSON.stringify(toSave));
+        } catch (e) {
+            // sessionStorage may be unavailable (private browsing restrictions) — fail silently
+        }
+    }
+
+    loadSession() {
+        try {
+            const raw = sessionStorage.getItem(this.sessionKey);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            // Validate shape: must be an array of objects with text and sender fields
+            if (!Array.isArray(parsed)) return [];
+            return parsed.filter(msg =>
+                msg &&
+                typeof msg.text === 'string' &&
+                msg.text.trim().length > 0 &&
+                (msg.sender === 'user' || msg.sender === 'bot')
+            );
+        } catch (e) {
+            return [];
+        }
+    }
+
+    clearSession() {
+        try {
+            sessionStorage.removeItem(this.sessionKey);
+        } catch (e) {
+            // fail silently
+        }
+        this.messages = [];
+        const messagesContainer = document.getElementById('krkn-chat-messages');
+        if (messagesContainer) {
+            messagesContainer.innerHTML = '';
+        }
+        this.addMessage("Hi! I'm your Krkn assistant. I can help you with questions about chaos engineering, installation, scenarios, and more. What would you like to know?", 'bot');
+        this.updatePageContextPill();
+        this.updateQuickButtons();
+    }
+
+    // ---------------------------------------------------------------------------
+    // Page-specific quick question suggestions.
+    // Returns 3 questions relevant to the current doc section, or the default
+    // set when the user is not on a specific doc page.
+    // ---------------------------------------------------------------------------
+    getPageSuggestions() {
+        const path = window.location.pathname;
+
+        const suggestionMap = [
+            {
+                pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,
+                suggestions: [
+                    { emoji: '📈', label: 'CPU load', question: 'How do I set the CPU load percentage for hog scenario?' },
+                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for CPU hog?' },
+                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of CPU hog?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/,
+                suggestions: [
+                    { emoji: '💾', label: 'Memory amount', question: 'How do I set the memory amount for memory hog?' },
+                    { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for memory hog?' },
+                    { emoji: '⏱️', label: 'Hog duration', question: 'How do I configure the duration of memory hog?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,
+                suggestions: [
+                    { emoji: '🔌', label: 'Node interface', question: 'How do I bring down a node network interface?' },
+                    { emoji: '📡', label: 'Pod network filter', question: 'How does pod network filter work in network chaos NG?' },
+                    { emoji: '🖥️', label: 'VMI chaos', question: 'How do I apply network chaos to a VMI?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/network-chaos-scenario/,
+                suggestions: [
+                    { emoji: '📡', label: 'Packet loss', question: 'How do I inject packet loss with network chaos?' },
+                    { emoji: '⏳', label: 'Add latency', question: 'How do I add network latency to a pod?' },
+                    { emoji: '📊', label: 'Bandwidth limit', question: 'How do I restrict bandwidth in network chaos?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/pod-network-scenario/,
+                suggestions: [
+                    { emoji: '📡', label: 'Pod packet loss', question: 'How do I inject packet loss at the pod level?' },
+                    { emoji: '🏷️', label: 'Exclude label', question: 'How do I use exclude_label in pod network chaos?' },
+                    { emoji: '⏳', label: 'Pod latency', question: 'How do I add latency to a specific pod?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/pod-scenario/,
+                suggestions: [
+                    { emoji: '⏱️', label: 'Recovery time metrics', question: 'How does Krkn measure pod recovery time?' },
+                    { emoji: '🏷️', label: 'Exclude label', question: 'How do I use exclude_label to protect pods?' },
+                    { emoji: '🖥️', label: 'Target specific nodes', question: 'How do I target pods on specific nodes?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/node-scenarios/,
+                suggestions: [
+                    { emoji: '☁️', label: 'Cloud providers', question: 'Which cloud providers does node scenario support?' },
+                    { emoji: '🔄', label: 'Node recovery', question: 'How does Krkn recover a node after chaos?' },
+                    { emoji: '⚙️', label: 'Node config', question: 'What are the required config fields for node scenarios?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/application-outage/,
+                suggestions: [
+                    { emoji: '🚫', label: 'Block traffic', question: 'How do I block ingress traffic with application outage?' },
+                    { emoji: '🔌', label: 'Egress block', question: 'How do I block egress traffic for an application?' },
+                    { emoji: '⏱️', label: 'Outage duration', question: 'How do I set the duration of an application outage?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios\/zone-outage-scenarios/,
+                suggestions: [
+                    { emoji: '🌍', label: 'Zone config', question: 'How do I configure a zone outage scenario?' },
+                    { emoji: '☁️', label: 'Cloud support', question: 'Which clouds support zone outage scenarios?' },
+                    { emoji: '🔄', label: 'Zone recovery', question: 'How does the cluster recover from a zone outage?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/cerberus/,
+                suggestions: [
+                    { emoji: '🛡️', label: 'Health signal', question: 'How does Cerberus provide a go/no-go signal?' },
+                    { emoji: '⚙️', label: 'Setup Cerberus', question: 'How do I set up and configure Cerberus?' },
+                    { emoji: '🔔', label: 'Slack alerts', question: 'How do I configure Cerberus Slack notifications?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/krkn_ai/,
+                suggestions: [
+                    { emoji: '🤖', label: 'How it works', question: 'How does Krkn AI discover chaos scenarios?' },
+                    { emoji: '📊', label: 'Fitness function', question: 'What is a fitness function in Krkn AI?' },
+                    { emoji: '🚀', label: 'Run Krkn AI', question: 'How do I run Krkn AI against my cluster?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/krknctl/,
+                suggestions: [
+                    { emoji: '📋', label: 'List scenarios', question: 'How do I list available scenarios with krknctl?' },
+                    { emoji: '▶️', label: 'Run scenario', question: 'How do I run a scenario using krknctl?' },
+                    { emoji: '⚙️', label: 'Install krknctl', question: 'How do I install krknctl?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/installation/,
+                suggestions: [
+                    { emoji: '📦', label: 'Install krknctl', question: 'How do I install krknctl?' },
+                    { emoji: '🐳', label: 'Krkn-hub', question: 'How do I run scenarios using krkn-hub containers?' },
+                    { emoji: '🐍', label: 'Python install', question: 'How do I install Krkn as a Python package?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/getting-started/,
+                suggestions: [
+                    { emoji: '▶️', label: 'First scenario', question: 'How do I run my first chaos scenario?' },
+                    { emoji: '🔑', label: 'Kubeconfig', question: 'How do I point Krkn to my kubeconfig?' },
+                    { emoji: '📊', label: 'Read results', question: 'How do I read the results after a chaos run?' }
+                ]
+            },
+            {
+                pattern: /\/docs\/scenarios/,
+                suggestions: [
+                    { emoji: '🌐', label: 'Network chaos', question: 'What network chaos scenarios are available?' },
+                    { emoji: '📦', label: 'Pod scenarios', question: 'How do pod disruption scenarios work?' },
+                    { emoji: '🖥️', label: 'Node failures', question: 'What node failure scenarios does Krkn support?' }
+                ]
+            }
+        ];
+
+        for (const entry of suggestionMap) {
+            if (entry.pattern.test(path)) {
+                return entry.suggestions;
+            }
+        }
+
+        // Default suggestions for non-doc pages (homepage, blog, community)
+        return [
+            { emoji: '🚀', label: 'Getting Started', question: 'How do I get started with Krkn?' },
+            { emoji: '⚡', label: 'Available Scenarios', question: 'What chaos scenarios are available?' },
+            { emoji: '📦', label: 'Installation', question: 'How do I install Krkn?' }
+        ];
+    }
+
+    // Replace quick buttons with page-specific suggestions
+    updateQuickButtons() {
+        const container = document.querySelector('.krkn-quick-questions');
+        if (!container) return;
+
+        const suggestions = this.getPageSuggestions();
+
+        container.innerHTML = suggestions.map(s =>
+            `<button class="krkn-quick-btn" data-question="${s.question.replace(/"/g, '&quot;')}">
+                ${s.emoji} ${s.label}
+            </button>`
+        ).join('');
+
+        // Re-attach click listeners to the new buttons
+        container.querySelectorAll('.krkn-quick-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const question = e.currentTarget.getAttribute('data-question');
+                this.sendMessage(question);
+            });
+        });
+    }
+
+    // Show or hide the page context pill based on current URL
+    updatePageContextPill() {
+        const bar = document.getElementById('krkn-page-context-bar');
+        const nameEl = document.getElementById('krkn-page-context-name');
+        const pageContext = this.detectPageContext();
+
+        if (bar && nameEl) {
+            if (pageContext) {
+                nameEl.textContent = pageContext;
+                bar.hidden = false;
+            } else {
+                bar.hidden = true;
+            }
+        }
     }
 
     createChatbot() {
@@ -36,17 +336,12 @@ class KrknChatbot {
                 <div id="krkn-chat-messages" class="krkn-chat-messages"></div>
                 
                 <div class="krkn-chat-input-container">
-                    <div class="krkn-quick-questions">
-                        <button class="krkn-quick-btn" data-question="How do I get started with Krkn?">
-                            🚀 Getting Started
-                        </button>
-                        <button class="krkn-quick-btn" data-question="What chaos scenarios are available?">
-                            ⚡ Available Scenarios
-                        </button>
-                        <button class="krkn-quick-btn" data-question="How do I install Krkn?">
-                            📦 Installation
-                        </button>
+                    <div id="krkn-page-context-bar" class="krkn-page-context-bar" hidden>
+                        <span class="krkn-page-context-label">Asking about:</span>
+                        <span id="krkn-page-context-name" class="krkn-page-context-name"></span>
                     </div>
+
+                    <div class="krkn-quick-questions" id="krkn-quick-questions"></div>
                     
                     <div class="krkn-chat-input-wrapper">
                         <input 
@@ -55,6 +350,9 @@ class KrknChatbot {
                             placeholder="Ask about Krkn documentation..." 
                             autocomplete="off"
                         >
+                        <button id="krkn-chat-clear" class="krkn-chat-clear" title="Clear conversation">
+                            Clear
+                        </button>
                         <button id="krkn-chat-send" class="krkn-chat-send">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M18 2L9 11L4 6L2 8L9 15L20 4L18 2Z" fill="currentColor"/>
@@ -83,6 +381,12 @@ class KrknChatbot {
             }
         });
 
+        // Clear conversation button
+        const chatClear = document.getElementById('krkn-chat-clear');
+        if (chatClear) {
+            chatClear.addEventListener('click', () => this.clearSession());
+        }
+
         // Quick question buttons
         document.querySelectorAll('.krkn-quick-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -92,9 +396,23 @@ class KrknChatbot {
         });
 
         this.setupBasicDragging();
-        
-        // Add welcome message
-        this.addMessage("Hi! I'm your Krkn assistant. I can help you with questions about chaos engineering, installation, scenarios, and more. What would you like to know?", 'bot');
+
+        // Restore previous session messages (if any) before showing welcome message
+        const savedMessages = this.loadSession();
+        if (savedMessages.length > 0) {
+            savedMessages.forEach(msg => {
+                this.addMessage(msg.text, msg.sender, /* skipSave */ true);
+            });
+        } else {
+            // Add welcome message only when there is no prior session
+            this.addMessage("Hi! I'm your Krkn assistant. I can help you with questions about chaos engineering, installation, scenarios, and more. What would you like to know?", 'bot', /* skipSave */ true);
+        }
+
+        // Show page context pill if user is on a specific doc page
+        this.updatePageContextPill();
+
+        // Replace quick buttons with page-specific suggestions
+        this.updateQuickButtons();
     }
 
     setupBasicDragging() {
@@ -191,6 +509,10 @@ class KrknChatbot {
                 content: msg.text
             }));
 
+            // Include the current doc page as context so the backend can
+            // prioritise results from the section the user is already reading
+            const pageContext = this.detectPageContext();
+
             const response = await fetch(this.apiEndpoint, {
                 method: 'POST',
                 headers: {
@@ -198,7 +520,7 @@ class KrknChatbot {
                 },
                 body: JSON.stringify({
                     message: message,
-                    context: 'krkn-documentation',
+                    context: pageContext ? `krkn-documentation: ${pageContext}` : 'krkn-documentation',
                     conversationHistory: recentMessages
                 })
             });
@@ -217,7 +539,7 @@ class KrknChatbot {
         }
     }
 
-    addMessage(text, sender) {
+    addMessage(text, sender, skipSave = false) {
         const messagesContainer = document.getElementById('krkn-chat-messages');
         const messageId = `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         
@@ -241,6 +563,11 @@ class KrknChatbot {
             sender: sender,
             timestamp: new Date()
         });
+
+        // Persist to sessionStorage unless this is a restore call
+        if (!skipSave) {
+            this.saveSession();
+        }
     }
 
     formatMessage(text) {

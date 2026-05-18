@@ -20,7 +20,7 @@ How to:
 
 In order to submit a change or a PR, please fork the project and follow instructions:
 ```bash
-$ git clone http://github.com/<me>/krkn-hub
+$ git clone https://github.com/<me>/krkn-hub
 $ cd krkn-hub
 $ git checkout -b <branch_name>
 $ <make change>

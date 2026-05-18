@@ -44,7 +44,7 @@ npm run build:production
 
 ```
 ├── content/en/          # Markdown content (docs, blog, community)
-│   └── docs/scenarios/  # 20+ chaos scenario pages
+│   └── docs/scenarios/  # 25+ chaos scenario pages
 ├── layouts/             # Hugo template overrides
 ├── assets/scss/         # Custom SCSS (dark/light theme)
 ├── static/              # Static assets (images, JS, CSS)

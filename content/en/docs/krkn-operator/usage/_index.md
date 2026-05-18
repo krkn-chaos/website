@@ -50,7 +50,7 @@ Krkn Operator supports two types of registries:
 
 The default option is the official Krkn Chaos registry on Quay.io, which contains all the pre-built, tested chaos scenarios maintained by the Krkn community. This is the recommended choice for most users as it provides:
 
-- Immediate access to 20+ chaos scenarios
+- Immediate access to 25+ chaos scenarios
 - Regular updates and new scenario releases
 - Pre-validated and tested scenario images
 

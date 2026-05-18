@@ -5,5 +5,5 @@ This scenario disrupts a targeted zone in the public cloud by blocking egress an
 ```bash
 podman run -v ~/.kube/config:/home/krkn/.kube/config:z -e TEST_DURATION="60" \
     -e INGRESS="false" -e EGRESS="true" -e PROTOCOLS="tcp" -e PORTS="3306,5432" \
-    -e POD_NAME="target-pod" quay.io/krkn-chaos/krkn-hub:pod-network-filter
+    -e POD_NAME="target-pod" containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-network-filter
 ```

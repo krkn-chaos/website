@@ -1,3 +1,5 @@
+const { safeCompare } = require('./utils/adminAuth')
+
 // Polyfill for Web APIs in Node.js environment
 if (typeof globalThis.File === 'undefined') {
     globalThis.File = class File {
@@ -21,6 +23,10 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
+    if (!safeCompare(event.headers['x-admin-key'], process.env.ADMIN_API_KEY)) {
+        return { statusCode: 401, body: JSON.stringify({ error: 'Unauthorized' }) }
+    }
+
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',

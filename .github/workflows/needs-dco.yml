@@ -1,4 +1,4 @@
-name: Needs Rebase
+name: Needs DCO Signoff
 
 on:
   pull_request_target:
@@ -12,5 +12,5 @@ permissions:
   contents: read
 
 jobs:
-  rebase:
-    uses: krkn-chaos/actions/.github/workflows/needs-rebase.yml@main
+  dco:
+    uses: krkn-chaos/actions/.github/workflows/needs-dco.yml@main

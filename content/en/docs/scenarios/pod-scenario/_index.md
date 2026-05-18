@@ -23,7 +23,7 @@ Modern applications demand high availability, low downtime, and resilient infras
  ```bash
 kubectl delete pod <pod-name> -n <namespace>
 kubectl get pods -n <namespace> -w # watch for new pods
-```
+```bash
 
 2. Deleting multiple pods simultaneously
 - **Use Case:** Simulates a larger failure event, such as a node crash or AZ outage.

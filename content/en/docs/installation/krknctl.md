@@ -71,7 +71,7 @@ The first step to have the best experience with the tool is to install the autoc
 will be able to suggest to the user the available command and the description simply hitting `tab` twice.
 
 ### Bash (linux):
-```
+```bash
 source <(krknctl completion bash)
 ```
 {{% alert title="Tip" %}}
@@ -79,7 +79,7 @@ To install autocompletion permanently add this command to `.bashrc` (setting the
 {{% /alert %}}
 
 ### zsh (MacOS):
-```
+```bash
 autoload -Uz compinit
 compinit
 source <(krknctl completion zsh)
@@ -97,11 +97,11 @@ runtime through Unix socket. If both container runtimes are installed in the sys
 Steps required to enable the Podman support
 #### Linux:
 - enable and activate the podman API daemon
-```
+```bash
 sudo systemctl enable --now podman
 ```
 - activate the user socket
-```
+```bash
 systemctl enable --user --now podman.socket 
 ```
 
@@ -111,7 +111,7 @@ If both Podman and Docker are installed be sure that the docker compatibility is
 ### Docker:
 #### Linux:
 Check that the user has been added to the `docker` group and can correctly connect to the Docker unix socket  
-running the command `podman ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
+running the command `docker ps` if an error is returned  run the command `sudo usermod -aG docker $USER`
 
 
 ### What's next?

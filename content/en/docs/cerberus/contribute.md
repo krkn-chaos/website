@@ -56,6 +56,6 @@ In the interactive rebase screen, set the first commit to `pick` and all others 
 
 Push your rebased commits (you may need to force), then issue your PR.
 
-```
+```bash
 $ git push origin <my-working-branch> --force
 ```

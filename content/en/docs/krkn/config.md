@@ -44,6 +44,12 @@ Refer to [signal.md](signal.md) for more details
 
 **port**: port to listen/post the signal state to
 
+### Auto Rollback
+
+**auto_rollback**: Enable auto rollback for scenarios. When set to True, krkn will attempt to roll back changes made by a scenario if it fails.
+
+**rollback_versions_directory**: Directory to store rollback version files. If empty, a secure temp directory is created automatically.
+
 ### Chaos Scenarios 
 
 **chaos_scenarios**: List of different types of chaos scenarios you want to run with paths to their specific yaml file configurations.
@@ -256,6 +262,8 @@ Utilizing kube virt checks observe VMI's ssh connection behavior during chaos in
 kraken:
     kubeconfig_path: ~/.kube/config                     # Path to kubeconfig
     exit_on_failure: False                                 # Exit when a post action scenario fails
+    auto_rollback: True                                    # Enable auto rollback for scenarios.
+    rollback_versions_directory:                           # Directory to store rollback version files. If empty, a secure temp directory is created automatically.
     publish_kraken_status: True                            # Can be accessed at http://0.0.0.0:8081
     signal_state: RUN                                      # Will wait for the RUN signal when set to PAUSE before running the scenarios, refer docs/signal.md for more details
     signal_address: 0.0.0.0                                # Signal listening address

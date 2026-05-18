@@ -17,7 +17,7 @@ $ docker inspect <container-name or container-id> --format "{{.State.ExitCode}}"
 
 **TIP**: Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
 ```bash
-kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:<scenario>
+kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~/kubeconfig:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:<scenario>
 ```
 
 
@@ -35,13 +35,13 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 |-------------------------------| -----------------------------------------------------------------     | ------------------------------------ |
 | TOTAL_CHAOS_DURATION          | Duration in seconds to keep the interface(s) down                    | 60                                   |
 | RECOVERY_TIME                 | Seconds to wait after bringing the interface(s) back up              | 0                                    |
-| NODE_SELECTOR                 | Label selector to choose target nodes. If not specified, a schedulable node will be chosen at random | "node-role.kubernetes.io/worker=" |
+| NODE_SELECTOR                 | Label selector to choose target nodes. If not specified, a schedulable node will be chosen at random | "" |
 | NODE_NAME                     | The node name to target (used when label selector is not set)        |                                      |
 | INSTANCE_COUNT                | Restricts the number of nodes selected by the label selector         | 1                                    |
 | EXECUTION                     | Execution mode for multiple nodes: `serial` or `parallel`            | parallel                               |
 | INTERFACES                    | Comma-separated list of interface names to bring down (e.g. `eth0` or `eth0,bond0`). Leave empty to auto-detect the default interface | "" |
 | NAMESPACE                     | Namespace where the chaos workload pod will be deployed              | default                              |
-| TAINTS                        | List of taints for which tolerations need to be created. Example: `["node-role.kubernetes.io/master:NoSchedule"]` | [] |
+| TAINTS                        | List of taints for which tolerations need to be created. Example: `["node-role.kubernetes.io/master:NoSchedule"]` | "" |
 | SERVICE_ACCOUNT               | Optional service account for the chaos workload pod                  | "" |
 
 

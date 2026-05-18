@@ -58,7 +58,7 @@ docker run $(./get_docker_params.sh) \
   --name=<container_name> \
   --net=host \
   --pull=always \
-  -v ~kubeconfig:/home/krkn/.kube/config:Z \
+  -v ~/kubeconfig:/home/krkn/.kube/config:Z \
   -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>
 ```
 #### Supported parameters

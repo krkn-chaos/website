@@ -113,7 +113,7 @@ Known Weakness. krkn-lib static code analysis should be added to the roadmap.
 
 #### Container image scanning
 
-Our base image on top of which all the tags are build is scanned on the building phase by [Snyk](https://snyk.io) CLI in the CI pipeline.
+Known Weakness. Container image scanning should be added to the roadmap. The `docker-image.yml` CI workflow builds and pushes images but does not currently include a Snyk CLI scan or equivalent vulnerability scanner step.
 
 #### Input validation protocol
 Python's flexible typing has made user input validation a challenge for the Krkn core. To solve this, we've established a new validation protocol between the Krknctl CLI and our container images. By making Krknctl the main entry point for running Krkn, we can now rely on it to ensure all user input is robustly validated.

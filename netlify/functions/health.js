@@ -1,9 +1,20 @@
 // Health check endpoint for Netlify Functions
 
+const { isOriginAllowed, getCorsHeaders } = require('./_cors');
+
 exports.handler = async (event, context) => {
+    const corsHeaders = getCorsHeaders(event);
+
+    if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
+        return {
+            statusCode: 403,
+            body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
+        };
+    }
+
     // Handle CORS
     const headers = {
-        'Access-Control-Allow-Origin': '*',
+        ...corsHeaders,
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Content-Type': 'application/json'
@@ -11,6 +22,9 @@ exports.handler = async (event, context) => {
 
     // Handle preflight OPTIONS request
     if (event.httpMethod === 'OPTIONS') {
+        if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
+            return { statusCode: 403, body: '' };
+        }
         return {
             statusCode: 200,
             headers,

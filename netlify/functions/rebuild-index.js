@@ -9,6 +9,7 @@ if (typeof globalThis.File === 'undefined') {
     };
 }
 
+const { isOriginAllowed, getCorsHeaders } = require('./_cors');
 const DocumentationIndex = require('../../api/services/DocumentationIndex');
 
 let documentationIndex;
@@ -21,8 +22,17 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
+    const corsHeaders = getCorsHeaders(event);
+
+    if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
+        return {
+            statusCode: 403,
+            body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
+        };
+    }
+
     const headers = {
-        'Access-Control-Allow-Origin': '*',
+        ...corsHeaders,
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Content-Type': 'application/json'
@@ -30,6 +40,9 @@ exports.handler = async (event, context) => {
 
     // Handle CORS preflight
     if (event.httpMethod === 'OPTIONS') {
+        if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
+            return { statusCode: 403, body: '' };
+        }
         return { statusCode: 200, headers, body: '' };
     }
 

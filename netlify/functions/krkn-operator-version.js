@@ -1,6 +1,16 @@
 const axios = require('axios');
+const { isOriginAllowed, getCorsHeaders } = require('./_cors');
 
-exports.handler = async function() {
+exports.handler = async function(event) {
+  const corsHeaders = getCorsHeaders(event);
+
+  if (!isOriginAllowed(event) && (event?.headers?.origin || event?.headers?.Origin)) {
+    return {
+      statusCode: 403,
+      body: JSON.stringify({ error: 'Forbidden: origin not allowed' })
+    };
+  }
+
   try {
     // Try to get redirect without following it
     const response = await axios.head('https://github.com/krkn-chaos/krkn-operator/releases/latest', {
@@ -17,9 +27,9 @@ exports.handler = async function() {
         return {
           statusCode: 200,
           headers: {
+            ...corsHeaders,
             'Content-Type': 'application/json',
             'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
-            'Access-Control-Allow-Origin': '*'
           },
           body: JSON.stringify({ version: match[1] })
         };
@@ -29,8 +39,8 @@ exports.handler = async function() {
     return {
       statusCode: 404,
       headers: {
+        ...corsHeaders,
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({ error: 'Version not found' })
     };
@@ -38,8 +48,8 @@ exports.handler = async function() {
     return {
       statusCode: 500,
       headers: {
+        ...corsHeaders,
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({ error: error.message })
     };

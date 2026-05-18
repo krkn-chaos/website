@@ -2,6 +2,7 @@
 title: VMI Network Filter
 description:
 date: 2017-01-04
+weight: 2
 ---
 <krkn-hub-scenario id="vmi-network-filter">
 Injects iptables-based network filtering into a KubeVirt Virtual Machine Instance (VMI) by applying INPUT and OUTPUT rules inside the virt-launcher network namespace via nsenter. Supports port and protocol-specific filtering so you can selectively block DNS, SSH, HTTP, or any other traffic without cutting all connectivity. The tap interface (tap0) is targeted directly so only the specific VMI is isolated, leaving OVN's BFD heartbeats and other node workloads unaffected.

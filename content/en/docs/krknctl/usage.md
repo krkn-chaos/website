@@ -12,7 +12,9 @@ Commands are grouped by action and may include one or more subcommands to furthe
 - #### `available`:
     Builds a list of all the available scenarios in krkn-hub
 
-    ```% krknctl list available ```
+    ```bash
+    % krknctl list available
+    ```
 
     | Name | Size | Digest | Last Modified | 
     | -------- | --- | ------- | --------- |

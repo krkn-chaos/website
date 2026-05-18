@@ -26,6 +26,7 @@ scenarios:
       vm_name: <my-application-vm>
       namespace: <vm-workloads>
       timeout: 60
+      disable_auto_restart: false
       kill_count: 3
 ```
 
@@ -36,6 +37,7 @@ scenarios:
 | vm_name | The name of the VMI to delete | Yes | N/A | "database-vm", "web-server-vm" |
 | namespace | The namespace where the VMI is located | No | "default" | "openshift-cnv", "vm-workloads" |
 | timeout | How long to wait (in seconds) for VMI to become running before attempting recovery | No | 60 | 30, 120, 300 |
+| disable_auto_restart | When set to true, patches spec.running=False on the VM so it does not auto-restart after deletion. | No | false | true, false |
 | kill_count | How many VMI's to kill serially | No | 1 | 3 |
 
 ## Execution Flow
@@ -63,7 +65,8 @@ scenarios:
     parameters:
       vm_name: my-vm
       namespace: kubevirt
-      duration: 60
+      timeout: 60
+      disable_auto_restart: false
       kill_count: 3
 ```
 
@@ -76,7 +79,8 @@ scenarios:
     parameters:
       vm_name: app-vm
       namespace: application
-      duration: 120
+      timeout: 120
+      disable_auto_restart: false
       kill_count: 1
   
   - name: "kubevirt outage test - database VM"
@@ -84,7 +88,8 @@ scenarios:
     parameters:
       vm_name: db-vm
       namespace: database
-      duration: 180
+      timeout: 180
+      disable_auto_restart: false
       kill_count: 2
 ```
 

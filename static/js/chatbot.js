@@ -11,23 +11,23 @@ class KrknChatbot {
 
     createChatbot() {
         const chatbotHTML = `
-            <div id="krkn-chat-button" class="krkn-chat-button" title="Chat with Krkn Assistant - Ask about chaos engineering, scenarios, and installation">
-                <img src="/img/2024_krkn_logo__Krkn_Full.svg" alt="Krkn Logo" class="krkn-chat-button-logo">
+            <div id="krkn-chat-button" class="krkn-chat-button" role="button" tabindex="0" aria-controls="krkn-chat-window" aria-expanded="false" aria-label="Open Krkn documentation assistant chat" title="Chat with Krkn Assistant - Ask about chaos engineering, scenarios, and installation">
+                <img src="/img/2024_krkn_logo__Krkn_Full.svg" alt="" class="krkn-chat-button-logo" aria-hidden="true">
                 <span class="krkn-chat-text">Ask about Krkn</span>
             </div>
-            <div id="krkn-chat-window" class="krkn-chat-window">
+            <div id="krkn-chat-window" class="krkn-chat-window" role="dialog" aria-modal="true" aria-label="Krkn Documentation Assistant">
                 <div id="krkn-chat-header" class="krkn-chat-header">
                     <div class="krkn-chat-title">
                         <div class="krkn-chat-title-content">
-                            <img src="/img/2024_krkn_logo__Krkn_Full.svg" alt="Krkn Logo" class="krkn-chat-logo">
+                            <img src="/img/2024_krkn_logo__Krkn_Full.svg" alt="" class="krkn-chat-logo" aria-hidden="true">
                             <div class="krkn-chat-title-text">
                                 <h3>Krkn Assistant</h3>
                                 <p>Ask me anything about chaos engineering with Krkn!</p>
                             </div>
                         </div>
                     </div>
-                    <button id="krkn-chat-close" class="krkn-chat-close">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <button type="button" id="krkn-chat-close" class="krkn-chat-close" aria-label="Close chat">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
                             <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </button>
@@ -37,13 +37,13 @@ class KrknChatbot {
                 
                 <div class="krkn-chat-input-container">
                     <div class="krkn-quick-questions">
-                        <button class="krkn-quick-btn" data-question="How do I get started with Krkn?">
+                        <button type="button" class="krkn-quick-btn" data-question="How do I get started with Krkn?">
                             🚀 Getting Started
                         </button>
-                        <button class="krkn-quick-btn" data-question="What chaos scenarios are available?">
+                        <button type="button" class="krkn-quick-btn" data-question="What chaos scenarios are available?">
                             ⚡ Available Scenarios
                         </button>
-                        <button class="krkn-quick-btn" data-question="How do I install Krkn?">
+                        <button type="button" class="krkn-quick-btn" data-question="How do I install Krkn?">
                             📦 Installation
                         </button>
                     </div>
@@ -55,8 +55,8 @@ class KrknChatbot {
                             placeholder="Ask about Krkn documentation..." 
                             autocomplete="off"
                         >
-                        <button id="krkn-chat-send" class="krkn-chat-send">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <button type="button" id="krkn-chat-send" class="krkn-chat-send" aria-label="Send message">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
                                 <path d="M18 2L9 11L4 6L2 8L9 15L20 4L18 2Z" fill="currentColor"/>
                             </svg>
                         </button>
@@ -69,12 +69,18 @@ class KrknChatbot {
 
         // Add event listeners
         const chatButton = document.getElementById('krkn-chat-button');
-        const chatWindow = document.getElementById('krkn-chat-window');
         const chatClose = document.getElementById('krkn-chat-close');
         const chatSend = document.getElementById('krkn-chat-send');
         const chatInput = document.getElementById('krkn-chat-input');
 
         chatButton.addEventListener('click', () => this.toggleChat());
+        chatButton.addEventListener('keydown', (e) => {
+            if (e.repeat) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.toggleChat();
+            }
+        });
         chatClose.addEventListener('click', () => this.toggleChat());
         chatSend.addEventListener('click', () => this.sendMessage());
         chatInput.addEventListener('keypress', (e) => {
@@ -86,10 +92,14 @@ class KrknChatbot {
         // Quick question buttons
         document.querySelectorAll('.krkn-quick-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const question = e.target.getAttribute('data-question');
+                const question = e.currentTarget.getAttribute('data-question');
                 this.sendMessage(question);
             });
         });
+
+        this._previouslyFocused = null;
+        this._onDocumentKeydown = this._onDocumentKeydown.bind(this);
+        document.addEventListener('keydown', this._onDocumentKeydown);
 
         this.setupBasicDragging();
         
@@ -155,21 +165,85 @@ class KrknChatbot {
         });
     }
 
+    getFocusableDialogElements() {
+        const dialog = document.getElementById('krkn-chat-window');
+        if (!dialog) return [];
+        const selector =
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+        return Array.from(dialog.querySelectorAll(selector)).filter(
+            (el) => el.getAttribute('aria-hidden') !== 'true' && !el.closest('[aria-hidden="true"]')
+        );
+    }
+
+    _onDocumentKeydown(e) {
+        if (!this.isOpen) return;
+        const dialog = document.getElementById('krkn-chat-window');
+        if (!dialog || !dialog.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            this.toggleChat();
+            return;
+        }
+
+        if (e.key !== 'Tab') return;
+
+        const focusables = this.getFocusableDialogElements();
+        if (focusables.length === 0) return;
+
+        if (focusables.length === 1) {
+            e.preventDefault();
+            focusables[0].focus();
+            return;
+        }
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+
+        if (e.shiftKey) {
+            if (active === first || !dialog.contains(active)) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else if (!dialog.contains(active) || active === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
+
     toggleChat() {
         const chatWindow = document.getElementById('krkn-chat-window');
         const chatButton = document.getElementById('krkn-chat-button');
-        
+
         if (this.isOpen) {
             chatWindow.classList.remove('active');
             chatButton.classList.remove('active');
+            chatButton.setAttribute('aria-expanded', 'false');
             this.isOpen = false;
+
+            const restore = this._previouslyFocused;
+            this._previouslyFocused = null;
+            const invalidRestore =
+                !restore ||
+                restore === document.body ||
+                restore === document.documentElement ||
+                typeof restore.focus !== 'function' ||
+                !document.body.contains(restore);
+            const target = invalidRestore ? chatButton : restore;
+            if (target) {
+                target.focus();
+            }
         } else {
+            this._previouslyFocused = document.activeElement;
             chatWindow.classList.add('active');
             chatButton.classList.add('active');
+            chatButton.setAttribute('aria-expanded', 'true');
             this.isOpen = true;
-            
+
             setTimeout(() => {
-                document.getElementById('krkn-chat-input').focus();
+                const input = document.getElementById('krkn-chat-input');
+                if (input) input.focus();
             }, 300);
         }
     }
@@ -279,9 +353,24 @@ class KrknChatbot {
             typingIndicator.remove();
         }
     }
+
+    destroy() {
+        if (this._onDocumentKeydown) {
+            document.removeEventListener('keydown', this._onDocumentKeydown);
+            this._onDocumentKeydown = null;
+        }
+        const button = document.getElementById('krkn-chat-button');
+        const win = document.getElementById('krkn-chat-window');
+        if (button) button.remove();
+        if (win) win.remove();
+        this.isOpen = false;
+    }
 }
 
 // Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.krknChatbot && typeof window.krknChatbot.destroy === 'function') {
+        window.krknChatbot.destroy();
+    }
     window.krknChatbot = new KrknChatbot();
 });

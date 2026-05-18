@@ -66,6 +66,16 @@ Equivalent CLI / hub mappings: [krknctl flags](../scenarios/all-scenario-env-krk
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#kraken) · [krkn-hub variables](../scenarios/all-scenario-env.md#kraken)
 
+### Minimal example
+
+```yaml
+kraken:
+  kubeconfig_path: ~/.kube/config
+  chaos_scenarios:
+    - pod_disruption_scenarios:
+        - scenarios/openshift/etcd.yml
+```
+
 ### Distribution detection
 
 Krkn detects **OpenShift vs Kubernetes** after client init. On OpenShift it may **automatically discover Prometheus URL and bearer token** when `performance_monitoring.prometheus_url` is empty. On plain Kubernetes you must set Prometheus URL and token yourself when using monitoring features.
@@ -143,6 +153,14 @@ In the tables below, **Default** is the value Krkn applies when the key is **omi
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#cerberus) · [krkn-hub variables](../scenarios/all-scenario-env.md#cerberus)
 
+### Minimal example
+
+```yaml
+cerberus:
+  cerberus_enabled: true
+  cerberus_url: http://cerberus.cerberus:8080
+```
+
 ### Behavior notes
 
 - **`cerberus_enabled: true` requires `cerberus_url`.** Missing URL → exit.
@@ -184,7 +202,7 @@ After each **`chaos_scenarios` batch**, Krkn queries firing critical alerts. If 
 
 ### Keys not consumed by `run_kraken.py`
 
-Some sample YAML (for example `deploy_dashboards`, `repo` in `config_performance.yaml`) supports **install/automation workflows** — Krkn’s main runner **does not read them**. Prefer documenting infra automation beside that file, not here.
+Some sample YAML keys in automation-focused configs support **install/setup workflows** outside the core runner — Krkn’s main runner **does not read them**. Prefer documenting that automation beside those files, not in this runtime reference.
 
 ### Performance monitoring reference
 
@@ -198,6 +216,15 @@ Some sample YAML (for example `deploy_dashboards`, `repo` in `config_performance
 | `alert_profile` | string | `null` / unset | **Local path** — YAML list (`expr`, `description`, `severity` per entry). Required when `enable_alerts` is true. |
 | `metrics_profile` | string | `null` / unset | **Local path** — YAML with `metrics:` list (see [SLOs validation](SLOs_validation.md)). Required when `enable_metrics` is true. |
 | `check_critical_alerts` | boolean | `false` | Query critical alerts after each scenario batch; may break inner loop. |
+
+### Minimal example
+
+```yaml
+performance_monitoring:
+  prometheus_url: https://prometheus-k8s.openshift-monitoring.svc:9091
+  enable_alerts: true
+  alert_profile: config/alerts.yaml
+```
 
 ---
 
@@ -229,7 +256,7 @@ Unknown values → warning + fallback to `standalone`.
 | `resiliency_run_mode` | string (`standalone` \| `detailed` \| `disabled`) | `standalone` | How scores are computed and surfaced (see [modes](#modes) above). Unknown values → `standalone`. |
 | `resiliency_file` | string | falls back to `performance_monitoring.alert_profile`, then **`config/alerts.yaml`** | Path to SLO definitions YAML; file **must exist** when scoring is enabled (`run_mode != disabled`). |
 
-Example:
+### Minimal example
 
 ```yaml
 resiliency:
@@ -248,11 +275,13 @@ Deep dive: [Resiliency scoring](resiliency-score.md).
 
 **Why use it.** Centralized search and dashboards across many runs and clusters — especially when paired with enabled Prometheus profiles.
 
-**Trade-offs.** Credential handling and cluster sizing; failures degrade to logged errors for pushes.
+**Trade-offs.** Requires provisioning and operating an external Elasticsearch service (storage, retention, and access controls). Push failures are logged but do not stop scenario execution.
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#elastic) · [krkn-hub variables](../scenarios/all-scenario-env.md#elastic)
 
 Indexing occurs only when `enable_elastic: true` **and** connectivity params resolve. Alerts/metrics Elasticsearch writes additionally respect `performance_monitoring.enable_alerts` / `enable_metrics`.
+
+### Elasticsearch reference
 
 | Parameter | Type | Default | Purpose |
 | --------- | ---- | ------- | ------- |
@@ -267,6 +296,15 @@ Indexing occurs only when `enable_elastic: true` **and** connectivity params res
 | `telemetry_index` | string | `"krkn-telemetry"` | Index for consolidated telemetry document. |
 | `run_tag` | string | `""` | Tag stored on telemetry (`chaos_telemetry.tag`). |
 
+### Minimal example
+
+```yaml
+elastic:
+  enable_elastic: true
+  elastic_url: elasticsearch.logging.svc
+  elastic_port: 9200
+```
+
 ---
 
 ## Tunings (`tunings`) {#tunings}
@@ -274,6 +312,8 @@ Indexing occurs only when `enable_elastic: true` **and** connectivity params res
 **What it is.** Controls **how long to pause between scenario files** and how many **top-level iterations** repeat the entire `chaos_scenarios` list.
 
 **Why use it.** Lets blast radius dissipate between injections and supports soak testing.
+
+### Tunings reference
 
 | Parameter | Type | Default | Behavior |
 | --------- | ---- | ------- | -------- |
@@ -286,6 +326,14 @@ Indexing occurs only when `enable_elastic: true` **and** connectivity params res
 {{< /notice >}}
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#tunings) · [krkn-hub variables](../scenarios/all-scenario-env.md#tunings)
+
+### Minimal example
+
+```yaml
+tunings:
+  wait_duration: 60
+  iterations: 1
+```
 
 ---
 
@@ -322,7 +370,7 @@ If `archive_path` is empty / unset, Krkn creates a **secure temporary directory*
 
 On non-OpenShift clusters Krkn logs **“telemetry disabled, skipping cluster metadata collection”** — this refers specifically to **OpenShift-only metadata enrichment**, not the whole telemetry subsystem.
 
-### Telemetry reference (selected)
+### Telemetry reference (`telemetry`)
 
 Most telemetry keys are read **without** `run_kraken.py` fallbacks — treat upstream [`config/config.yaml`](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml) as the completeness checklist. The **Default** column lists values applied in Python **when the key is omitted**, where implemented.
 
@@ -348,6 +396,15 @@ Most telemetry keys are read **without** `run_kraken.py` fallbacks — treat ups
 | `oc_cli_path` | string | — | Path to `oc` CLI (optional). |
 | `events_backup` | boolean | — | Capture Kubernetes events per scenario window when `true`. |
 
+### Minimal example
+
+```yaml
+telemetry:
+  enabled: false
+  api_url: ""
+  archive_path: ""
+```
+
 ---
 
 ## HTTP health checks (`health_checks`) {#health-checks}
@@ -370,6 +427,8 @@ Use **`auth: "username,password"`** (comma-separated string) — Krkn splits int
 
 Per-endpoint `exit_on_failure: true` sets the plugin return value to **`3`** when failures occur while `ret_value` was still `0` — influencing final process exit (see [Exit codes](#exit-codes)).
 
+### Health checks reference
+
 Top-level `health_checks`:
 
 | Parameter | Type | Default | Purpose |
@@ -387,6 +446,16 @@ Each entry in `config`:
 | `verify_url` | boolean | `true` | TLS verification for HTTPS. |
 | `exit_on_failure` | boolean | `false` | Set plugin exit **`3`** on sustained failure path when `true`. |
 
+### Minimal example
+
+```yaml
+health_checks:
+  interval: 2
+  config:
+    - url: https://console-openshift-console.apps.example.com/health
+      verify_url: true
+```
+
 ---
 
 <a id="virt-checks"></a>
@@ -402,6 +471,8 @@ See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl
 
 Details: [virt-checks.md](virt-checks.md)
 
+### KubeVirt checks reference
+
 | Parameter | Type | Default | Purpose |
 | --------- | ---- | ------- | ------- |
 | `interval` | integer | `2` | Seconds between checks ([`virt_health_check_plugin.py`](https://github.com/krkn-chaos/krkn/blob/main/krkn/health_checks/virt_health_check_plugin.py)). |
@@ -412,6 +483,15 @@ Details: [virt-checks.md](virt-checks.md)
 | `ssh_node` | string | `""` | Optional fallback SSH jump host. |
 | `node_names` | string | `""` | Comma-separated worker filter (string form in samples). |
 | `exit_on_failure` | boolean | `false` | Fail run via plugin return code when failures persist (see plugin behavior). |
+
+### Minimal example
+
+```yaml
+kubevirt_checks:
+  interval: 2
+  namespace: runner
+  name: ".*"
+```
 
 ---
 
@@ -468,15 +548,15 @@ Priority ordering matches comments in `run_kraken.py`: scenario failures win bef
 
 ## Sample configuration file {#sample-configuration}
 
-The YAML below is illustrative — replace endpoints, credentials, and scenario paths for your environment. **`deploy_dashboards`** appears in upstream performance automation samples but **is ignored by Krkn’s main runner**.
+The YAML below is illustrative — replace endpoints, credentials, and scenario paths for your environment.
 
 ```yaml
 kraken:
     kubeconfig_path: ~/.kube/config
     exit_on_failure: False                                 # See Cerberus warning above — keep false unless intentional
-    publish_kraken_status: True
+    publish_kraken_status: False                           # Enable only when an external orchestrator needs RUN/PAUSE/STOP
     signal_state: RUN
-    signal_address: 0.0.0.0
+    signal_address: 127.0.0.1                              # Keep loopback by default; widen only on trusted networks
     port: 8081
     auto_rollback: False
     rollback_versions_directory: ""                         # Defaults to ~/.krkn/rollback when empty
@@ -557,8 +637,8 @@ tunings:
     daemon_mode: False
 
 telemetry:
-    enabled: True
-    api_url: https://your-telemetry-endpoint.example.com   # Both enabled=true AND non-empty URL required for upload
+    enabled: False
+    api_url: ""                                             # Upload only when enabled=true AND api_url is non-empty
     username: REPLACE_ME
     password: REPLACE_ME
     prometheus_backup: True

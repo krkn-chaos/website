@@ -63,7 +63,7 @@ CLOUD_TYPE              | Cloud platform on top of which cluster is running, [su
 TIMEOUT                 | Time in seconds to wait for each node to be stopped or running after the cluster comes back | number | 600                                |
 
 
-The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
+The following environment variables need to be set for the scenarios that requires interacting with the cloud platform API to perform the actions:
 
 Amazon Web Services
 ```bash

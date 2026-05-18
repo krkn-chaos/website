@@ -66,7 +66,7 @@ VPC_ID                  | cluster virtual private network to target ( REQUIRED f
 SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | string | ""                                   |
 ZONE                  | zone you want to target ( REQUIRED for GCP )                             | string | ""                                   |
 DEFAULT_ACL_ID          | (Optional) AWS Network ACL ID to reuse instead of creating a new one. If provided, this ACL will not be deleted after the scenario | string | ""                                   |
-The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
+The following environment variables need to be set for the scenarios that requires interacting with the cloud platform API to perform the actions:
 
 Amazon Web Services
 ```bash

@@ -72,7 +72,7 @@ __Common flags:__
 |-------------------|--------------------------------------------------------------|
 | --kubeconfig      | kubeconfig path (if empty will default to ~/.kube/config)    |
 | --detached        | will run the scenario in detached mode (background) will <br/>be possible to reattach the tool to the container logs with the attach command |
-| --alerts-profile  | will mount in the container a custom alert profile <br/>(check krkn [documentation](https://github.com/krkn-chaos/krkn) for further info)rmation |
+| --alerts-profile  | will mount in the container a custom alert profile <br/>(check krkn [documentation](https://github.com/krkn-chaos/krkn) for further information) |
 | --metrics-profile | will mount in the container scenario a custom metrics<br/> profile (check krkn [documentation](https://github.com/krkn-chaos/krkn) for further information) |
 
 See [all global krknctl variables](/docs/scenarios/all-scenario-env-krknctl/) for the full list of common flags available across all scenarios.

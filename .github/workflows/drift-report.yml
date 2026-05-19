@@ -1,0 +1,47 @@
+name: Weekly drift report
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  drift-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate app token
+        uses: tibdex/github-app-token@v2
+        id: app-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Clone bot brain
+        run: |
+          git clone https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/StrikerEureka34/krkn-docs-bot.git _bot
+
+      - name: Checkout krkn-hub (source of truth)
+        uses: actions/checkout@v4
+        with:
+          repository: krkn-chaos/krkn-hub
+          path: krkn-hub
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install bot dependencies
+        run: pip install -r _bot/requirements.txt
+
+      - name: Run drift scanner and post GitHub issue
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          PYTHONPATH=_bot python -m bot.drift_scanner \
+            --krkn-hub krkn-hub \
+            --website . \
+            --repo ${{ github.repository }}

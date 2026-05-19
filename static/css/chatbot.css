@@ -537,17 +537,32 @@
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
     .krkn-chat-window {
-        width: calc(100vw - 2 * var(--krkn-chat-spacing-md));
-        height: calc(100vh - 2 * var(--krkn-chat-spacing-md));
-        bottom: var(--krkn-chat-spacing-md);
-        right: var(--krkn-chat-spacing-md);
-        left: var(--krkn-chat-spacing-md);
-        max-height: 600px;
+        width: calc(100vw - 1.5rem);
+        height: auto;
+        top: calc(0.75rem + env(safe-area-inset-top, 0px));
+        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        right: calc(0.75rem + env(safe-area-inset-right, 0px));
+        left: 0.75rem;
+        max-height: 90vh;
     }
 
     .krkn-chat-button {
-        bottom: var(--krkn-chat-spacing-md);
-        right: var(--krkn-chat-spacing-md);
+        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        right: calc(0.75rem + env(safe-area-inset-right, 0px));
+        max-width: 44px;
+        min-width: 44px;
+        height: 44px;
+        padding: 0;
+        transform: none;
+    }
+
+    .krkn-chat-text {
+        display: none;
+    }
+
+    .krkn-chat-button-logo {
+        width: 34px;
+        height: 34px;
     }
 
     .krkn-quick-questions {
@@ -576,6 +591,8 @@
     }
 
     .krkn-chat-button {
+        bottom: calc(var(--krkn-chat-spacing-md) + env(safe-area-inset-bottom, 0px));
+        right: calc(var(--krkn-chat-spacing-md) + env(safe-area-inset-right, 0px));
         padding: var(--krkn-chat-spacing-sm);
         border-radius: 50%;
         max-width: none;

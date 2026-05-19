@@ -181,6 +181,10 @@ html {
 .td-home main,
 .krkn-home {
   margin-top: -4rem;
+
+  @media (max-width: 768px) {
+    margin-top: -4.75rem;
+  }
 }
 
 // Ensure hero section content clears the fixed navbar.
@@ -191,6 +195,11 @@ section.hero-section {
   padding-bottom: 2rem !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+
+  @media (max-width: 768px) {
+    padding-top: 6.5rem !important;
+    padding-bottom: 3rem !important;
+  }
 
   @media (min-width: 1024px) {
     padding-top: 10rem !important;
@@ -267,6 +276,118 @@ h6,
 
 // Responsive adjustments
 @media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    padding-top: 4.75rem;
+  }
+
+  .td-main,
+  .td-main main,
+  .td-content,
+  .krkn-home,
+  .krkn-blog,
+  .krkn-community,
+  .docs-landing {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .td-main,
+  .td-main main,
+  .td-content,
+  .td-outer,
+  .container,
+  .container-fluid {
+    min-width: 0;
+  }
+
+  .step-card,
+  .card,
+  .feature-card,
+  .doc-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  img,
+  svg,
+  video,
+  canvas,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  pre,
+  code,
+  .highlight,
+  .chroma {
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  pre,
+  .highlight,
+  .chroma,
+  pre.chroma {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  pre code,
+  .highlight code,
+  .chroma code,
+  pre.chroma code {
+    white-space: pre;
+    word-break: normal;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+  }
+
+  .tabs,
+  .tab-list,
+  .nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .grid,
+  .cards-grid,
+  .feature-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .scenario-categories,
+  .scenario-category__list,
+  .scenario-category {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .scenario-category__clouds {
+    overflow-wrap: anywhere;
+  }
 
   .section-dark,
   .section-surface,
@@ -276,6 +397,15 @@ h6,
 
   .section-title {
     font-size: 1.75rem;
+  }
+
+  main,
+  .main-wrapper,
+  .content-wrapper,
+  .docs-wrapper,
+  .td-main main {
+    // Reserve breathing room for floating chatbot button on small screens.
+    padding-bottom: 8rem;
   }
 }
 

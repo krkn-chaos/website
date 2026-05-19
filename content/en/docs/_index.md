@@ -222,6 +222,61 @@ type: "docs/scenarios"
 .docs-landing .feature-card:hover .feature-card__title {
   color: var(--krkn-primary);
 }
+
+@media (max-width: 768px) {
+  .docs-landing .docs-hero {
+    padding: 2.75rem 0 3.25rem;
+  }
+
+  .docs-landing .docs-hero__title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .docs-landing .docs-hero__subtitle {
+    font-size: 1rem;
+    line-height: 1.55;
+    padding: 0 0.75rem;
+  }
+
+  .docs-landing .docs-quick-start,
+  .docs-landing .docs-explore,
+  .docs-landing .docs-why {
+    padding: 2.75rem 0 3.25rem;
+  }
+
+  .docs-landing .docs-explore__grid:has(.docs-explore__row) {
+    display: block;
+  }
+
+  .docs-landing .docs-explore__row {
+    display: block;
+    margin-bottom: 1rem;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .docs-landing .docs-explore__grid--rectangles .docs-explore__row:not(.docs-explore__row--single) {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .docs-landing .docs-explore__row .feature-card,
+  .docs-landing .docs-explore__grid--rectangles .docs-explore__row:not(.docs-explore__row--single) .feature-card,
+  .docs-landing .docs-explore__row--single .feature-card {
+    width: 100%;
+    flex: 1 1 auto;
+    aspect-ratio: auto;
+    height: auto !important;
+    min-height: 0 !important;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .docs-landing .docs-explore__row .feature-card:last-child {
+    margin-bottom: 0;
+  }
+}
 </style>
 
 <div class="docs-landing">

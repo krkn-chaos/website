@@ -165,6 +165,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
+<h3><a href="pod-path-provisioner/">Pod Path Provisioner</a></h3>
+<span class="scenario-badge">pod_disruption_scenarios</span>
+<p class="scenario-description">Test kind cluster storage resilience by terminating the local-path-provisioner pod</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+<div class="scenario-card">
 <h3><a href="container-scenario/">Container Failures</a></h3>
 <span class="scenario-badge">container_scenarios</span>
 <p class="scenario-description">Injects container failures based on the provided kill signal</p>

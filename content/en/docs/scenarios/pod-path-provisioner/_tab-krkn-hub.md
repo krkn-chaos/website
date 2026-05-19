@@ -1,0 +1,63 @@
+## krkn-hub
+
+The pod path provisioner scenario runs via the pod-scenarios krkn-hub container.
+
+If enabling [Cerberus](/docs/cerberus/) to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
+
+```bash
+$ podman run \
+  --name=<container_name> \
+  --net=host \
+  --pull=always \
+  --env-host=true \
+  -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-scenarios
+$ podman logs -f <container_name or container_id> # Streams Kraken logs
+$ podman inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+```
+
+{{% alert title="Note" %}} --env-host: This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines.
+Without the --env-host option you'll have to set each environment variable on the podman command line like  `-e <VARIABLE>=<value>`
+{{% /alert %}}
+
+```bash
+$ docker run $(./get_docker_params.sh) \
+  --name=<container_name> \
+  --net=host \
+  --pull=always \
+  -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-scenarios
+$ docker logs -f <container_name or container_id> # Streams Kraken logs
+$ docker inspect <container-name or container-id> \
+  --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
+```
+
+{{% alert title="Tip" %}} Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
+```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~/kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:pod-scenarios``` {{% /alert %}}
+
+#### Supported parameters
+
+The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
+
+Example if --env-host is used:
+```bash
+export <parameter_name>=<value>
+```
+OR on the command line like example:
+
+```bash
+-e <VARIABLE>=<value>
+```
+
+See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
+
+Parameter               | Description                                                           | Type   | Default
+----------------------- | --------------------------------------------------------------------- | ------ | -----------------------------------
+NAMESPACE               | Targeted namespace in the cluster ( supports regex )                 | string | openshift-.*
+POD_LABEL               | Label selector to match target pods                                   | string | ""
+DISRUPTION_COUNT        | Number of pods to terminate                                           | number | 1
+KILL_TIMEOUT            | Timeout to wait for the target pod(s) to be removed in seconds       | number | 180
+EXPECTED_RECOVERY_TIME  | Fails if the pods do not recover within the timeout set              | number | 120
+NODE_LABEL_SELECTOR     | Label of the node(s) to target                                        | string | ""
+NODE_NAMES              | Name of the node(s) to target. Example: ["worker-node-1","master-node-1"] | string | []

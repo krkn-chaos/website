@@ -407,6 +407,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 </div>
 
+<div class="scenario-card">
+<h3><a href="storage-throttle-scenario/">Storage I/O Throttle</a></h3>
+<span class="scenario-badge">storage_throttle_scenarios</span>
+<p class="scenario-description">Limits read/write IOPS and bandwidth on PVC-backed volumes using Linux cgroup I/O controls</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
 </div>
 </section>
 

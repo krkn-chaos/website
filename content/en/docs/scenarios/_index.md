@@ -143,6 +143,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
+<h3><a href="custom-app-pod/">Custom App Pod</a></h3>
+<span class="scenario-badge">pod_disruption_scenarios</span>
+<p class="scenario-description">Test application resilience by terminating specific application pods using pattern matching</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+<div class="scenario-card">
 <h3><a href="container-scenario/">Container Failures</a></h3>
 <span class="scenario-badge">container_scenarios</span>
 <p class="scenario-description">Injects container failures based on the provided kill signal</p>

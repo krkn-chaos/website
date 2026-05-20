@@ -13,7 +13,7 @@ The following ManagedCluster chaos scenarios are supported:
 5. **stop_klusterlet_scenario**: Scenario to stop the klusterlet of the ManagedCluster instance.
 6. **stop_start_klusterlet_scenario**: Scenario to stop and start the klusterlet of the ManagedCluster instance.
 
-ManagedCluster scenarios can be injected by placing the ManagedCluster scenarios config files under `managedcluster_scenarios` option in the Kraken config. Refer to [managedcluster_scenarios_example](https://github.com/redhat-chaos/krkn/blob/main/scenarios/kube/managedcluster_scenarios_example.yml) config file.
+ManagedCluster scenarios can be injected by placing the ManagedCluster scenarios config files under `managedcluster_scenarios` option in the Kraken config. Refer to [managedcluster_scenarios_example](https://github.com/krkn-chaos/krkn/blob/main/scenarios/kube/managedcluster_scenarios_example.yml) config file.
 
 ```bash
 managedcluster_scenarios:

@@ -1,0 +1,30 @@
+name: Bot Comment Handler
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle-comment:
+    if: contains(github.event.comment.body, '@krkn-bot') && github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Process Comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TARGET_REPO: ${{ github.repository }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: python scripts/handle_comment.py

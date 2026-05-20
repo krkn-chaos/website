@@ -39,7 +39,6 @@ api/server.log
 # Cursor IDE
 .cursor/
 
-# Dev screenshots & scripts
+# Dev screenshots
 screenshots/
-scripts/
 .beads

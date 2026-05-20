@@ -61,6 +61,40 @@ Design: Apple-inspired dark theme, cinematic, generous whitespace.
       font-size: 0.95rem;
       padding: 0 0.5rem;
     }
+
+    .steps-grid {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0 1rem;
+    }
+
+    .step-card,
+    .feature-card {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .hero-title {
+      font-size: 2rem !important;
+      line-height: 1.2;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .hero-cta .btn-primary-krkn,
+    .hero-cta .btn-outline-krkn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   /* About grid layout */
@@ -1258,6 +1292,7 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
             <li><a href="/docs/scenarios/hog-scenarios/memory-hog-scenario/">Memory Hog</a></li>
             <li><a href="/docs/scenarios/hog-scenarios/io-hog-scenario/">IO Hog</a></li>
             <li><a href="/docs/scenarios/pvc-scenario/">PVC Disk Fill</a></li>
+            <li><a href="/docs/scenarios/storage-throttle-scenario/">Storage I/O Throttle</a></li>
           </ul>
         </div>
 

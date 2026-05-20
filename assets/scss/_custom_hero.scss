@@ -430,7 +430,6 @@
   opacity: 0;
   z-index: 0;
 
-  // Only show on wide screens
   @media (min-width: 1025px) {
     opacity: 0.07;
     animation: hero-glow-pulse 10s ease-in-out infinite;
@@ -454,7 +453,7 @@
   letter-spacing: -0.02em;
 
   @media (max-width: 480px) {
-    font-size: 2.5rem; // Explicit fallback for very small screens
+    font-size: 2rem; // Explicit fallback for very small screens
   }
 }
 
@@ -559,6 +558,72 @@
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 1rem;
+  }
+
+  .hero-layout-grid {
+    gap: 1.5rem;
+  }
+
+  .hero-text-content {
+    max-width: 100%;
+  }
+
+  .hero-badge {
+    margin-bottom: 1.25rem;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-cta {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .hero-cta .btn-primary-krkn,
+  .hero-cta .btn-outline-krkn {
+    width: 100%;
+  }
+
+  .hero-cluster {
+    width: Min(300px, 86vw);
+    max-width: none;
+    height: Min(300px, 86vw);
+    max-height: none;
+    margin-top: 0.5rem;
+  }
+
+  .hero-cluster__node {
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  .hero-cluster__lines,
+  .hero-glow-ring {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-title {
+    font-size: 1.9rem;
+  }
+
+  .hero-cluster {
+    width: Min(260px, 82vw);
+    height: Min(260px, 82vw);
   }
 }
 

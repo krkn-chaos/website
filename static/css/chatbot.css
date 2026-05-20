@@ -390,6 +390,65 @@
     padding: var(--krkn-chat-spacing-md);
 }
 
+/* ---------------------------------------------------------------------------
+   Page Context Bar
+   Shows which doc section the user is currently reading so the chatbot
+   can surface more relevant answers.
+   --------------------------------------------------------------------------- */
+.krkn-page-context-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--krkn-chat-spacing-xs);
+    margin-bottom: var(--krkn-chat-spacing-sm);
+    padding: var(--krkn-chat-spacing-xs) var(--krkn-chat-spacing-sm);
+    background: var(--krkn-chat-elevated);
+    border: 1px solid var(--krkn-chat-border);
+    border-radius: 20px;
+    font-size: var(--krkn-chat-font-sm);
+    line-height: 1.4;
+}
+
+.krkn-page-context-label {
+    color: var(--krkn-chat-text-subtle);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.krkn-page-context-name {
+    color: var(--krkn-chat-primary);
+    font-weight: 600;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.krkn-chat-clear {
+    background: none;
+    border: 1px solid var(--krkn-chat-border);
+    color: var(--krkn-chat-text-subtle);
+    cursor: pointer;
+    font-size: var(--krkn-chat-font-sm);
+    font-family: inherit;
+    padding: 0 var(--krkn-chat-spacing-sm);
+    border-radius: 25px;
+    height: 36px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.krkn-chat-clear:hover {
+    color: var(--krkn-chat-text);
+    background: var(--krkn-chat-close-hover);
+    border-color: var(--krkn-chat-border-prominent);
+}
+
+.krkn-chat-clear:focus {
+    outline: 2px solid var(--krkn-chat-primary);
+    outline-offset: 2px;
+}
+
 /* Quick Questions */
 .krkn-quick-questions {
     display: flex;
@@ -478,17 +537,32 @@
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
     .krkn-chat-window {
-        width: calc(100vw - 2 * var(--krkn-chat-spacing-md));
-        height: calc(100vh - 2 * var(--krkn-chat-spacing-md));
-        bottom: var(--krkn-chat-spacing-md);
-        right: var(--krkn-chat-spacing-md);
-        left: var(--krkn-chat-spacing-md);
-        max-height: 600px;
+        width: calc(100vw - 1.5rem);
+        height: auto;
+        top: calc(0.75rem + env(safe-area-inset-top, 0px));
+        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        right: calc(0.75rem + env(safe-area-inset-right, 0px));
+        left: 0.75rem;
+        max-height: 90vh;
     }
 
     .krkn-chat-button {
-        bottom: var(--krkn-chat-spacing-md);
-        right: var(--krkn-chat-spacing-md);
+        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        right: calc(0.75rem + env(safe-area-inset-right, 0px));
+        max-width: 44px;
+        min-width: 44px;
+        height: 44px;
+        padding: 0;
+        transform: none;
+    }
+
+    .krkn-chat-text {
+        display: none;
+    }
+
+    .krkn-chat-button-logo {
+        width: 34px;
+        height: 34px;
     }
 
     .krkn-quick-questions {
@@ -517,6 +591,8 @@
     }
 
     .krkn-chat-button {
+        bottom: calc(var(--krkn-chat-spacing-md) + env(safe-area-inset-bottom, 0px));
+        right: calc(var(--krkn-chat-spacing-md) + env(safe-area-inset-right, 0px));
         padding: var(--krkn-chat-spacing-sm);
         border-radius: 50%;
         max-width: none;

@@ -41,7 +41,7 @@ $ docker inspect <container-name or container-id> \
   --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
 ```
 {{% alert title="Tip" %}} Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands:
-```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
+```kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host --pull=always -v ~/kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>``` {{% /alert %}}
 #### Supported parameters
 
 The following environment variables can be set on the host running the container to tweak the scenario/faults being injected:
@@ -66,7 +66,7 @@ VPC_ID                  | cluster virtual private network to target ( REQUIRED f
 SUBNET_ID               | subnet-id to deny both ingress and egress traffic ( REQUIRED for AWS ). Format: [subenet1, subnet2]                    | string | ""                                   |
 ZONE                  | zone you want to target ( REQUIRED for GCP )                             | string | ""                                   |
 DEFAULT_ACL_ID          | (Optional) AWS Network ACL ID to reuse instead of creating a new one. If provided, this ACL will not be deleted after the scenario | string | ""                                   |
-The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
+The following environment variables need to be set for the scenarios that requires interacting with the cloud platform API to perform the actions:
 
 Amazon Web Services
 ```bash

@@ -18,7 +18,7 @@ How to:
 
 In order to submit a change or a PR, please fork the project and follow instructions:
 ```bash
-$ git clone http://github.com/<me>/cerberus
+$ git clone https://github.com/<me>/cerberus
 $ cd cerberus
 $ git checkout -b <branch_name>
 $ <make change>

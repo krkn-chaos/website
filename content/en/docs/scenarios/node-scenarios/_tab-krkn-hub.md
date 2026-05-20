@@ -92,7 +92,7 @@ $ podman run \
   -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:node-scenarios
 ```
 
-The following environment variables need to be set for the scenarios that requires intereacting with the cloud platform API to perform the actions:
+The following environment variables need to be set for the scenarios that requires interacting with the cloud platform API to perform the actions:
 
 Amazon Web Services
 ```bash

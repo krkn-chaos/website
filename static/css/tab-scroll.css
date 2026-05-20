@@ -7,9 +7,16 @@
 .td-content .nav-tabs {
     border-bottom: 2px solid var(--krkn-border-subtle);
     gap: 0.25rem;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
 }
 
 .td-content .nav-tabs .nav-link {
+    flex: 0 0 auto;
     color: var(--krkn-text-muted) !important;
     background: transparent !important;
     border: 1px solid transparent;
@@ -37,6 +44,7 @@
 
 /* ── Tab pane scrolling ── */
 .tab-pane {
+    max-width: 100%;
     overflow-x: auto;
     overflow-y: visible;
 }

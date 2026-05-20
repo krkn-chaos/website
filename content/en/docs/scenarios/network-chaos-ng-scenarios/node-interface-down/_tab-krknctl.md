@@ -17,5 +17,5 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 | `--instance-count`   | number  | Number of nodes to target from those matching the selector                                     | false    | 1                                                |
 | `--execution`        | enum    | Execution mode when targeting multiple nodes: `serial` or `parallel`                           | false    | parallel                                           |
 | `--interfaces`       | string  | Comma-separated list of interface names to bring down. Leave empty to auto-detect the default interface | false |                                             |
-| `--image`            | string  | The chaos workload container image                                                             | false    | quay.io/redhat-chaos/krkn-ng-tools:latest        |
+| `--image`            | string  | The chaos workload container image                                                             | false    | quay.io/krkn-chaos/krkn-network-chaos:latest     |
 | `--taints`           | string  | List of taints for which tolerations need to be created                                        | false    |                                                  |

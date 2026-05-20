@@ -80,13 +80,13 @@ We want to look at this in terms of CPU, Memory, Disk, Throughput, Network etc.
 
 
 ### Tooling
-Now that we looked at the best practices, In this section, we will go through how [Kraken](https://github.com/redhat-chaos/krkn) - a chaos testing framework can help test the resilience of Kubernetes and make sure the applications and services are following the best practices.
+Now that we looked at the best practices, In this section, we will go through how [Kraken](https://github.com/krkn-chaos/krkn) - a chaos testing framework can help test the resilience of Kubernetes and make sure the applications and services are following the best practices.
 
 #### Cluster recovery checks, metrics evaluation and pass/fail criteria
 - Most of the scenarios have built in checks to verify if the targeted component recovered from the failure after the specified duration of time but there might be cases where other components might have an impact because of a certain failure and it’s extremely important to make sure that the system/application is healthy as a whole post chaos. This is exactly where [Cerberus](/docs/cerberus) comes to the rescue.
 If the monitoring tool, cerberus is enabled it will consume the signal and continue running chaos or not based on that signal.
 
-- Apart from checking the recovery and cluster health status, it’s equally important to evaluate the performance metrics like latency, resource usage spikes, throughput, etcd health like disk fsync, leader elections etc. To help with this, Kraken has a way to evaluate promql expressions from the incluster prometheus and set the exit status to 0 or 1 based on the severity set for each of the query. Details on how to use this feature can be found [here](https://github.com/redhat-chaos/krkn#alerts).
+- Apart from checking the recovery and cluster health status, it’s equally important to evaluate the performance metrics like latency, resource usage spikes, throughput, etcd health like disk fsync, leader elections etc. To help with this, Kraken has a way to evaluate promql expressions from the incluster prometheus and set the exit status to 0 or 1 based on the severity set for each of the query. Details on how to use this feature can be found [here](https://github.com/krkn-chaos/krkn#alerts).
 
 - The overall pass or fail of kraken is based on the recovery of the specific component (within a certain amount of time), the cerberus health signal which tracks the health of the entire cluster and metrics evaluation from incluster prometheus.
 
@@ -249,7 +249,7 @@ oc apply -f https://github.com/startxfr/tekton-catalog/raw/stable/task/kraken-sc
 ```
 
 Then you must change content of `kraken-aws-creds` secret, `kraken-kubeconfig` and `kraken-config-example` configMap
-to reflect your cluster configuration. Refer to the [kraken configuration](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml)
+to reflect your cluster configuration. Refer to the [kraken configuration](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml)
 and [configuration examples](https://github.com/startxfr/tekton-catalog/blob/stable/task/kraken-scenario/0.1/samples/) 
 for details on how to configure theses resources.
 

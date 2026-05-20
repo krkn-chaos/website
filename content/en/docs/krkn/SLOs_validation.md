@@ -17,7 +17,7 @@ performance_monitoring:
 ```
 
 ### Validation and alerting based on the queries defined by the user during chaos
-Takes PromQL queries as input and modifies the return code of the run to determine pass/fail. It's especially useful in case of automated runs in CI where user won't be able to monitor the system. This feature can be enabled in the [config](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml) by setting the following:
+Takes PromQL queries as input and modifies the return code of the run to determine pass/fail. It's especially useful in case of automated runs in CI where user won't be able to monitor the system. This feature can be enabled in the [config](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml) by setting the following:
 
 ```yaml
 performance_monitoring:
@@ -28,7 +28,7 @@ performance_monitoring:
 ```
 
 #### Alert profile
-A couple of [alert profiles](https://github.com/redhat-chaos/krkn/tree/main/config) [alerts](https://github.com/redhat-chaos/krkn/blob/main/config/alerts.yaml) are shipped by default and can be tweaked to add more queries to alert on. User can provide a URL or path to the file in the [config](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml). The following are a few alerts examples:
+A couple of [alert profiles](https://github.com/krkn-chaos/krkn/tree/main/config) [alerts](https://github.com/krkn-chaos/krkn/blob/main/config/alerts.yaml) are shipped by default and can be tweaked to add more queries to alert on. User can provide a URL or path to the file in the [config](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml). The following are a few alerts examples:
 
 ```yaml
 - expr: avg_over_time(histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[2m]))[5m:]) > 0.01
@@ -54,7 +54,7 @@ critical: Prints a fatal message with the alarm description to stdout and exits 
 ```
 
 #### Metrics Profile
-A couple of [metric profiles](https://github.com/redhat-chaos/krkn/tree/main/config), [metrics.yaml](https://github.com/redhat-chaos/krkn/blob/main/config/metrics.yaml), and [metrics-aggregated.yaml](https://github.com/redhat-chaos/krkn/blob/main/config/metrics-aggregated.yaml) are shipped by default and can be tweaked to add more metrics to capture during the run. The following are the API server metrics for example:
+A couple of [metric profiles](https://github.com/krkn-chaos/krkn/tree/main/config), [metrics.yaml](https://github.com/krkn-chaos/krkn/blob/main/config/metrics.yaml), and [metrics-aggregated.yaml](https://github.com/krkn-chaos/krkn/blob/main/config/metrics-aggregated.yaml) are shipped by default and can be tweaked to add more metrics to capture during the run. The following are the API server metrics for example:
 
 ```yaml
 metrics:

@@ -28,7 +28,7 @@ Docker is also supported but all variables you want to set (separate from the de
 
 You can take advantage of the [get_docker_params.sh](https://github.com/krkn-chaos/krkn-hub/blob/main/get_docker_params.sh) script to create your parameters string This will take all environment variables and put them in the form "-e =" to make a long string that can get passed to the command
 
-For example: `docker run $(./get_docker_params.sh) --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/redhat-chaos/krkn-hub:power-outages`
+For example: `docker run $(./get_docker_params.sh) --net=host -v <path-to-kube-config>:/home/krkn/.kube/config:Z -d quay.io/krkn-chaos/krkn-hub:power-outages`
 
 {{% alert title="Tip" %}}Because the container runs with a non-root user, ensure the kube config is globally readable before mounting it in the container. You can achieve this with the following commands: `kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker run $(./get_docker_params.sh) --name=<container_name> --net=host -v ~/kubeconfig:/home/krkn/.kube/config:Z -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:<scenario>` {{% /alert %}}
 

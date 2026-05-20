@@ -341,7 +341,6 @@
           card.style.removeProperty('aspectRatio');
         });
         // #region agent log
-        fetch('http://127.0.0.1:7905/ingest/58111621-164e-4fc0-80aa-1a565995fece',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'008ba3'},body:JSON.stringify({sessionId:'008ba3',location:'body-end.html:measureAndSetRowHeights',message:'row measure',data:{rowIndex:rowIndex,titles:titles,scrollHeights:scrollHeights,maxContentH:maxContentH,rowHeightPx:rowHeightPx,rowWidth:rowWidth},timestamp:Date.now(),hypothesisId:'H1-H5'})}).catch(function(){});
         // #endregion
       });
       requestAnimationFrame(function() {

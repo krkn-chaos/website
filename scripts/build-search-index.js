@@ -54,7 +54,7 @@ class BuildTimeIndexer {
                 const topic = this.extractTopic(filePath);
                 
                 const document = {
-                    id: filePath,
+                    id: url,
                     title: parsed.title,
                     description: parsed.description || '',
                     content: parsed.content,

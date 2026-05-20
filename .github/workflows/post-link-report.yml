@@ -1,0 +1,38 @@
+name: "Post Link Checker Report"
+
+on:
+  workflow_run:
+    workflows: ["Python Documentation Link Checker"]
+    types:
+      - completed
+
+jobs:
+  post-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: github.event.workflow_run.event == 'pull_request'
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: link-checker-report
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Read PR number
+        id: read_pr
+        run: |
+          if [ -f "pr_number.txt" ]; then
+            echo "pr_number=$(cat pr_number.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "PR number file not found."
+            exit 1
+          fi
+
+      - name: Post Warning Comment on PR
+        if: hashFiles('broken_links_report.md') != ''
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ steps.read_pr.outputs.pr_number }}
+          body-path: broken_links_report.md

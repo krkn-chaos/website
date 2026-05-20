@@ -123,7 +123,7 @@ Example Output:
 
 There are two configuration options for rollback scenarios in the `kraken` section of the configuration file: `auto_rollback` and `rollback_versions_directory`.
 
-By default, these options are set as follows and can be overridden in [config/config.yaml](https://github.com/redhat-chaos/krkn/blob/main/config/config.yaml) file.
+By default, these options are set as follows and can be overridden in [config/config.yaml](https://github.com/krkn-chaos/krkn/blob/main/config/config.yaml) file.
 
 ```yaml
 kraken:

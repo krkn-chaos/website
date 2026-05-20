@@ -9,7 +9,7 @@ weight: 19
 The [krkn-chaos/visualize](https://github.com/krkn-chaos/visualize) repository deploys a Grafana instance to your cluster pre-loaded with dashboards for monitoring chaos engineering runs. Dashboards pull from two datasources:
 
 - **Prometheus** — cluster-level metrics (always available once Prometheus is installed)
-- **Elasticsearch** — per-run chaos data indexed by run UUID (requires Elasticsearch and [krkn elastic enabled](krkn/config.md#elastic))
+- **Elasticsearch** — per-run chaos data indexed by run UUID (requires Elasticsearch and [krkn elastic enabled](krkn/config.md#elasticsearch))
 
 ```bash
 git clone https://github.com/krkn-chaos/visualize

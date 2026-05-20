@@ -16,7 +16,7 @@ export <parameter_name>=<value>
 
 ## Kraken
 
-Signal and status publishing settings. See [Kraken config](../krkn/config.md#kraken) for full details.
+Signal and status publishing settings. See [Kraken config](../krkn/config.md#krkn-core-kraken) for full details.
 
 Parameter | Description | Default
 --- | --- | ---
@@ -29,7 +29,7 @@ Parameter | Description | Default
 
 ## Cerberus
 
-Cluster health monitoring integration. See [Cerberus config](../krkn/config.md#cerberus) for full details.
+Cluster health monitoring integration. See [Cerberus config](../krkn/config.md#cerberus-integration-cerberus) for full details.
 
 Parameter | Description | Default
 --- | --- | ---
@@ -54,7 +54,7 @@ Parameter | Description | Default
 
 ## Resiliency Score
 
-Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.md#resiliency-score) for full details.
+Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.md#resiliency-scoring) for full details.
 
 Parameter | Description | Default
 --- | --- | ---
@@ -65,7 +65,7 @@ Parameter | Description | Default
 
 ## Elastic
 
-Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/config.md#elastic) for full details.
+Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/config.md#elasticsearch) for full details.
 
 Parameter | Description | Default
 --- | --- | ---
@@ -129,7 +129,7 @@ Parameter | Description | Default
 
 ## Virt Checks
 
-KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](../krkn/config.md#virt-checks) for full details.
+KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](../krkn/config.md#kubevirt-checks) for full details.
 
 Parameter | Description | Default
 --- | --- | ---

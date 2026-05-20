@@ -52,7 +52,7 @@ krknctl run <scenario> --<parameter> <value>
 
 ## Kraken
 
-General run settings. See [Kraken config](../krkn/config.md#kraken) for full details.
+General run settings. See [Kraken config](../krkn/config.md#krkn-core-kraken) for full details.
 
 <div class="wide-params-table">
 
@@ -68,7 +68,7 @@ General run settings. See [Kraken config](../krkn/config.md#kraken) for full det
 
 ## Cerberus
 
-Cluster health monitoring integration. See [Cerberus config](../krkn/config.md#cerberus) for full details.
+Cluster health monitoring integration. See [Cerberus config](../krkn/config.md#cerberus-integration-cerberus) for full details.
 
 <div class="wide-params-table">
 
@@ -101,7 +101,7 @@ Prometheus metrics collection and alert evaluation. See [Performance Monitoring 
 
 ## Resiliency Score
 
-Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.md#resiliency-score) for full details.
+Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.md#resiliency-scoring) for full details.
 
 <div class="wide-params-table">
 
@@ -117,7 +117,7 @@ Resiliency scoring configuration. See [Resiliency Score config](../krkn/config.m
 
 ## Elastic
 
-Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/config.md#elastic) for full details.
+Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/config.md#elasticsearch) for full details.
 
 <div class="wide-params-table">
 
@@ -205,7 +205,7 @@ Application endpoint monitoring during chaos. See [Health Checks config](../krkn
 
 ## Virt Checks
 
-KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](../krkn/config.md#virt-checks) for full details.
+KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](../krkn/config.md#kubevirt-checks) for full details.
 
 <div class="wide-params-table">
 

@@ -184,6 +184,7 @@
     border-radius: var(--krkn-chat-radius-lg) var(--krkn-chat-radius-lg) 0 0;
     cursor: move;
     user-select: none;
+    touch-action: none;
     transition: background-color 0.2s;
 }
 

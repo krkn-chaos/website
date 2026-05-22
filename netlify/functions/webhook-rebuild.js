@@ -23,17 +23,17 @@ const initializeServices = async () => {
 
 // Verify webhook signature for security
 function verifyWebhookSignature(payload, signature, secret) {
-    if (!secret || !signature) return true; // Allow unsigned webhooks if no secret configured
-    
+    if (!secret || !signature) return false;
+
     const expectedSignature = crypto
         .createHmac('sha256', secret)
         .update(payload)
         .digest('hex');
-    
-    const providedSignature = signature.startsWith('sha256=') 
-        ? signature.slice(7) 
+
+    const providedSignature = signature.startsWith('sha256=')
+        ? signature.slice(7)
         : signature;
-    
+
     return crypto.timingSafeEqual(
         Buffer.from(expectedSignature, 'hex'),
         Buffer.from(providedSignature, 'hex')
@@ -44,7 +44,7 @@ exports.handler = async (event, context) => {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type, X-Hub-Signature-256, X-Webhook-Signature',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
 
@@ -53,17 +53,19 @@ exports.handler = async (event, context) => {
         return { statusCode: 200, headers, body: '' };
     }
 
-    // Support both GET and POST
-    if (!['GET', 'POST'].includes(event.httpMethod)) {
+    // Only accept POST requests (webhooks should use POST)
+    if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
             headers,
-            body: JSON.stringify({ error: 'Method not allowed' })
+            body: JSON.stringify({ error: 'Method not allowed — only POST is accepted' })
         };
     }
 
     try {
         const startTime = Date.now();
+
+        const webhookSecret = process.env.WEBHOOK_SECRET;
 
         // Parse webhook payload
         let webhookData = {};
@@ -75,11 +77,18 @@ exports.handler = async (event, context) => {
             }
         }
 
-        // Verify webhook signature if configured
-        const webhookSecret = process.env.WEBHOOK_SECRET;
-        const signature = event.headers['x-hub-signature-256'] || event.headers['x-webhook-signature'];
-        
-        if (webhookSecret && event.httpMethod === 'POST') {
+        // Signature verification is mandatory for POST requests
+        if (event.httpMethod === 'POST') {
+            if (!webhookSecret) {
+                console.error('WEBHOOK_SECRET is not configured — rejecting unverifiable request');
+                return {
+                    statusCode: 500,
+                    headers,
+                    body: JSON.stringify({ error: 'Server misconfiguration — WEBHOOK_SECRET is not set' })
+                };
+            }
+
+            const signature = event.headers['x-hub-signature-256'] || event.headers['x-webhook-signature'];
             const isValid = verifyWebhookSignature(event.body, signature, webhookSecret);
             if (!isValid) {
                 console.error('Invalid webhook signature');

@@ -66,16 +66,32 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
-    const allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://krkn-chaos.dev';
+    // Build allow-list from env (supports comma-separated origins)
+    const allowedOrigins = (process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || 'https://krkn-chaos.dev')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    // Read the incoming Origin header (case-insensitive lookup)
+    const requestOrigin = event.headers?.origin || event.headers?.Origin || '';
+
+    // Check if the request origin is in the allow-list
+    const isAllowedOrigin = allowedOrigins.includes(requestOrigin);
+
+    // Build CORS headers — echo back the matched origin and add Vary: Origin
     const headers = {
-        'Access-Control-Allow-Origin': allowedOrigin,
+        'Access-Control-Allow-Origin': isAllowedOrigin ? requestOrigin : allowedOrigins[0],
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Vary': 'Origin'
     };
 
     // Handle preflight OPTIONS request
     if (event.httpMethod === 'OPTIONS') {
+        if (!isAllowedOrigin) {
+            return { statusCode: 403, headers, body: JSON.stringify({ error: 'Origin not allowed' }) };
+        }
         return {
             statusCode: 200,
             headers,
@@ -89,6 +105,16 @@ exports.handler = async (event, context) => {
             statusCode: 405,
             headers,
             body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+
+    // Server-side origin enforcement — reject requests without a valid origin
+    // before processing the message or consuming daily quota
+    if (!requestOrigin || !isAllowedOrigin) {
+        return {
+            statusCode: 403,
+            headers,
+            body: JSON.stringify({ error: 'Forbidden — origin not allowed' })
         };
     }
 

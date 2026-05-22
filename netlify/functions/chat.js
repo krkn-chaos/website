@@ -26,23 +26,23 @@ const DAILY_LIMIT = parseInt(process.env.DAILY_CHAT_LIMIT) || 100;
 
 function checkDailyLimit() {
     const today = new Date().toISOString().split('T')[0];
-    
+
     // Reset if new day
     if (dailyUsage.date !== today) {
         dailyUsage = { date: today, count: 0 };
     }
-    
+
     return dailyUsage.count < DAILY_LIMIT;
 }
 
 function incrementUsage() {
     const today = new Date().toISOString().split('T')[0];
-    
+
     // Reset if new day
     if (dailyUsage.date !== today) {
         dailyUsage = { date: today, count: 0 };
     }
-    
+
     dailyUsage.count++;
     return dailyUsage.count;
 }
@@ -52,7 +52,7 @@ const initializeServices = async () => {
         documentationIndex = new DocumentationIndex();
         await documentationIndex.initialize();
     }
-    
+
     if (!chatService) {
         chatService = new ChatService({
             documentationIndex,
@@ -66,9 +66,9 @@ const initializeServices = async () => {
 };
 
 exports.handler = async (event, context) => {
-    // Handle CORS
+    const allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://krkn-chaos.dev';
     const headers = {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowedOrigin,
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ exports.handler = async (event, context) => {
 
     } catch (error) {
         console.error('Chat function error:', error);
-        
+
         return {
             statusCode: 500,
             headers,

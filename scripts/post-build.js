@@ -22,18 +22,25 @@ async function rebuildDocumentationIndex() {
     }
 
     const rebuildUrl = `${siteUrl}/api/admin/rebuild-index`;
-    
+    const adminApiKey = process.env.ADMIN_API_KEY;
+
+    if (!adminApiKey) {
+        console.log('⚠️  ADMIN_API_KEY not configured — skipping index rebuild');
+        return;
+    }
+
     console.log('🔄 Triggering automatic documentation index rebuild...');
     console.log(`Calling: ${rebuildUrl}`);
 
     return new Promise((resolve, reject) => {
         const postData = JSON.stringify({});
-        
+
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(postData)
+                'Content-Length': Buffer.byteLength(postData),
+                'x-admin-key': adminApiKey
             },
             timeout: 30000
         };
@@ -43,17 +50,17 @@ async function rebuildDocumentationIndex() {
         const requestModule = isHttps ? https : http;
         const req = requestModule.request(rebuildUrl, options, (res) => {
             let data = '';
-            
+
             res.on('data', (chunk) => {
                 data += chunk;
             });
-            
+
             res.on('end', () => {
                 if (res.statusCode === 200) {
                     const result = JSON.parse(data);
                     console.log('✅ Documentation index rebuilt successfully!');
                     console.log(`📊 Indexed ${result.documentCount} documents`);
-                    
+
                     // Debug: Show full API response
                     console.log('🔍 Full API Response:', JSON.stringify(result, null, 2));
                     resolve(result);

@@ -33,6 +33,8 @@ function verifyWebhookSignature(payload, signature, secret) {
     const providedSignature = signature.startsWith('sha256=')
         ? signature.slice(7)
         : signature;
+    if (!/^[0-9a-f]+$/.test(providedSignature)) return false;
+    if (providedSignature.length !== expectedSignature.length) return false;
 
     return crypto.timingSafeEqual(
         Buffer.from(expectedSignature, 'hex'),

@@ -8,7 +8,7 @@ This functionality allows a user to be able to pause or stop the Krkn run at any
 
 If publish_kraken_status is set to True in the config, Krkn will start up a connection to a url at a certain port to decide if it should continue running.
 
-By default, it will get posted to http://0.0.0.0:8081/
+By default, Krkn binds the signal server to `0.0.0.0:8081`. From the local host, clients should connect to `http://127.0.0.1:8081`.
 
 An example use case for this feature would be coordinating Krkn runs based on the status of the service installation or load on the cluster.
 
@@ -27,7 +27,7 @@ There are 3 states in the Krkn status:
 
 ## API Reference
 
-When `publish_kraken_status` is enabled, Krkn runs an HTTP server at the configured `signal_address:port` (default `http://0.0.0.0:8081`).
+When `publish_kraken_status` is enabled, Krkn runs an HTTP server at the configured `signal_address` and `port` (default `http://0.0.0.0:8081`).
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -39,7 +39,7 @@ When `publish_kraken_status` is enabled, Krkn runs an HTTP server at the configu
 ### Check Status
 
 ```bash
-curl http://0.0.0.0:8081/
+curl http://127.0.0.1:8081/
 # Returns: RUN
 ```
 
@@ -65,7 +65,7 @@ You can reset the Krkn status during Krkn execution with a `set_stop_signal.py` 
 ```bash
 import http.client as cli
 
-conn = cli.HTTPConnection("0.0.0.0", "<port>")
+conn = cli.HTTPConnection("127.0.0.1", "<port>")
 
 conn.request("POST", "/STOP", {})
 
@@ -83,15 +83,15 @@ Make sure to set the correct port number in your set_stop_signal script.
 To stop run:
 
 ```bash
-curl -X POST http://0.0.0.0:8081/STOP
+curl -X POST http://127.0.0.1:8081/STOP
 ```
 
 To pause run:
 ```bash
-curl -X POST http://0.0.0.0:8081/PAUSE
+curl -X POST http://127.0.0.1:8081/PAUSE
 ```
 
 To start running again:
 ```bash
-curl -X POST http://0.0.0.0:8081/RUN
+curl -X POST http://127.0.0.1:8081/RUN
 ```

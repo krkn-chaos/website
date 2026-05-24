@@ -82,7 +82,8 @@ class BuildTimeIndexer {
 
     parseMarkdown(content) {
         try {
-            const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/); let frontmatter = {};
+            const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+            let frontmatter = {};
             let markdownContent = content;
 
             if (frontmatterMatch) {

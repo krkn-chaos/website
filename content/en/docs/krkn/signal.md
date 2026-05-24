@@ -25,6 +25,26 @@ There are 3 states in the Krkn status:
 
 
 
+## API Reference
+
+When `publish_kraken_status` is enabled, Krkn runs an HTTP server at the configured `signal_address:port` (default `http://0.0.0.0:8081`).
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Returns the current signal status (`RUN`, `PAUSE`, or `STOP`) |
+| `/STOP` | POST | Sets status to STOP — terminates the run |
+| `/PAUSE` | POST | Sets status to PAUSE — pauses between scenarios |
+| `/RUN` | POST | Sets status to RUN — resumes execution |
+
+### Check Status
+
+```bash
+curl http://0.0.0.0:8081/
+# Returns: RUN
+```
+
+The response is a plain text string: `RUN`, `PAUSE`, or `STOP`.
+
 ## Configuration
 
 In the config you need to set these parameters to tell Krkn which port to post the Krkn run status to.
@@ -34,6 +54,7 @@ The signal is set to `RUN` by default, meaning it will continue to run the scena
     port: 8081
     publish_kraken_status: True
     signal_state: RUN
+    signal_address: 0.0.0.0
 ```
 
 
@@ -62,15 +83,15 @@ Make sure to set the correct port number in your set_stop_signal script.
 To stop run:
 
 ```bash
-curl -X POST http:/0.0.0.0:8081/STOP
+curl -X POST http://0.0.0.0:8081/STOP
 ```
 
 To pause run:
 ```bash
-curl -X POST http:/0.0.0.0:8081/PAUSE
+curl -X POST http://0.0.0.0:8081/PAUSE
 ```
 
 To start running again:
 ```bash
-curl -X POST http:/0.0.0.0:8081/RUN
+curl -X POST http://0.0.0.0:8081/RUN
 ```

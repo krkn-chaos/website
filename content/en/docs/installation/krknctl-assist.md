@@ -24,16 +24,10 @@ git clone https://github.com/krkn-chaos/krknctl-assist.git ~/krknctl-assist
 cd ~/krknctl-assist
 ```
 
-### Install the launcher
+### Run the installation script
 
 ```bash
 bash ./scripts/install_krknctl_assist.sh
-```
-
-Verify installation:
-
-```bash
-krknctl-assist
 ```
 
 ## Run krknctl-assist
@@ -41,7 +35,7 @@ krknctl-assist
 Start the interactive assistant:
 
 ```bash
-krknctl assist run
+krknctl-assist
 ```
 
 {{% alert title="Note" %}}

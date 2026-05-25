@@ -7,7 +7,7 @@ weight: 12
 `krknctl-assist` is a local assistant designed to help users discover [krkn](../krkn/) chaos scenarios through natural-language prompts.
 It works alongside [krknctl](../krknctl/) by translating plain-English testing intent into relevant scenario recommendations.
 
-Its primary objective is to make scenario discovery faster by providing features like:
+Its primary objective is to make scenario discovery faster by providing the following features:
 
 - Takes a natural-language query and returns the relevant scenario match
 - Runs locally via a container runtime (no hosted dependency)

@@ -14,6 +14,7 @@ Krkn provides multiple ways to run chaos scenarios. Choose the method that best 
 | Tool                         | What is it?                   | Best For                                               |
 |------------------------------|-------------------------------|--------------------------------------------------------|
 | **[krknctl](krknctl.md)**    | CLI tool with auto-completion | Complex workflow orchestration, querying and running scenarios, ease of use |
+| **[krknctl-assist](krknctl-assist.md)** | Natural-language assistant for krknctl | Scenario discovery, query-driven exploration, faster scenario lookup |
 | **[krkn-hub](krkn-hub.md)**  | Pre-built container images    | CI/CD pipelines, automation                            |
 | **[krkn Dashboard](krkn-dashboard.md)** | Web UI for running scenarios | Visual runs, demos, teams that prefer a GUI            |
 | **[krkn](krkn.md)**          | Standalone Python program     | Full control, development, and customization           |

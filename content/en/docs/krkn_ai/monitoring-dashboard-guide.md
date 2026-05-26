@@ -28,7 +28,7 @@ uv run krkn_ai run \
 
 This starts the dashboard as a background process pointing at the run's output directory. By default it listens on port **8501**. Open your browser at:
 
-```
+```text
 http://localhost:8501
 ```
 
@@ -84,7 +84,7 @@ uv run krkn_ai monitor -o ./results/3f8a1c2d-9b4e-4f1a-8c7d-1234567890ab
 
 Each `krkn_ai run` invocation creates a subdirectory named by its UUID inside `--output`:
 
-```
+```text
 results/
 └── <run-uuid>/
     ├── run.log                   # Full execution log
@@ -140,6 +140,8 @@ The dashboard is divided into a **sidebar** (controls and global filters) and **
 ### Dashboard
 
 The **Dashboard** tab shows a high-level experiment summary.
+
+![Krkn-AI Monitoring Dashboard](/img/krkn-ai-dashboard.png)
 
 | Panel | Description |
 |-------|-------------|

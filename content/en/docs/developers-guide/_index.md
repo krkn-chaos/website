@@ -34,5 +34,5 @@ We’re happy to assist. Now, __release the Krkn!__
 
 ## Follow Contribution Guide
 
-Once all you're happy with your changes, follow the [contribution](#docs/git-pointers.md) guide on how to create your own branch and squash your commits
+Once all you're happy with your changes, follow the [contribution guide](../contribution-guidelines/git-pointers.md) on how to create your own branch and squash your commits
  

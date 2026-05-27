@@ -297,15 +297,31 @@ Skip TLS verfication cannot be done by CLI, docker daemon needs to be configured
 
 
 #### Example: Running krknctl on quay.io private registry
+
 {{% alert title="Note" %}}
-This example will run only on Docker since the token authentication is not yet implemented on the podman SDK
+This example (using both Option A and Option B) will run only on Docker, since token-based authentication is not supported by the Podman SDK.
 {{% /alert %}}
 
-I will use for that example an invented private registry on quay.io: `my-quay-user/krkn-hub`
+I will use for this example an invented private registry on quay.io: `my-quay-user/krkn-hub`
 
 - mirror some krkn-hub scenarios on a private registry on quay.io
 
-- obtain the quay.io token with cURL:
+##### Option A: Automatic OAuth2 Fallback (Recommended)
+`krknctl` automatically detects if the registry requires OAuth2 Bearer token authentication. If you provide your registry username and password, it will automatically handle the token exchange and cache the token for subsequent requests. *(Note: Since this relies on token authentication, this flow is only supported on Docker).*
+
+```bash
+krknctl \
+  --private-registry quay.io \
+  --private-registry-scenarios my-quay-user/krkn-hub \
+  --private-registry-username <username> \
+  --private-registry-password <password> \
+  list available
+```
+
+##### Option B: Manual Token Exchange
+If you prefer not to supply your registry password directly to `krknctl`, or if you are using a runtime SDK that has basic auth limitations, you can manually fetch the token first:
+
+- Obtain the quay.io token with cURL:
 
 ```bash
 curl -s -X GET \
@@ -314,14 +330,14 @@ curl -s -X GET \
   -k | jq -r '.token'
 ```
 
-- run krknctl with the private registry flags:
+- Run `krknctl` with the token directly:
 
 ```bash
 krknctl \
---private-registry quay.io \
---private-registry-scenarios my-quay-user/krkn-hub \
---private-registry-token <your token obtained in the previous step> \
-list available
+  --private-registry quay.io \
+  --private-registry-scenarios my-quay-user/krkn-hub \
+  --private-registry-token <your token obtained in the previous step> \
+  list available
 ```
 
 - your images should be listed on the console
@@ -330,5 +346,7 @@ list available
 To make krknctl commands more concise, it's more convenient to export the corresponding environment variables instead of prepending flags to every command. The relevant variables are:
 - KRKNCTL_PRIVATE_REGISTRY
 - KRKNCTL_PRIVATE_REGISTRY_SCENARIOS
+- KRKNCTL_PRIVATE_REGISTRY_USERNAME
+- KRKNCTL_PRIVATE_REGISTRY_PASSWORD
 - KRKNCTL_PRIVATE_REGISTRY_TOKEN
 {{% /alert %}}

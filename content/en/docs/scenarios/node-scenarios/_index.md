@@ -25,17 +25,17 @@ The following node chaos scenarios are supported:
 11. **node_disk_detach_attach_scenario**: Scenario to detach and reattach disks (only for baremetals).
 
 ## Clouds
-Supported cloud supported:
-- [AWS](node-scenarios-krkn.md#aws)
-- [Azure](node-scenarios-krkn.md#azure)
-- [OpenStack](node-scenarios-krkn.md#openstack)
-- [BareMetal](node-scenarios-krkn.md#baremetal)
-- [GCP](node-scenarios-krkn.md#gcp)
-- [VMware](node-scenarios-krkn.md#vmware)
-- [Alibaba](node-scenarios-krkn.md#alibaba)
-- [Docker](node-scenarios-krkn.md#docker)
-- [IBMCloud](node-scenarios-krkn.md#ibmcloud)
-- [IBMCloud Power](node-scenarios-krkn.md#ibmcloud-power)
+Supported cloud providers:
+- [AWS](#aws)
+- [Azure](#azure)
+- [OpenStack](#openstack)
+- [BareMetal](#baremetal)
+- [GCP](#gcp)
+- [VMware](#vmware)
+- [Alibaba](#alibaba)
+- [Docker](#docker)
+- [IBMCloud](#ibmcloud)
+- [IBMCloud Power](#ibmcloud-power)
 
 {{% alert title="Note" %}}If the node does not recover from the node_crash_scenario injection, reboot the node to get it back to Ready state. {{% /alert %}}
 

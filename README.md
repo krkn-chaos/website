@@ -18,6 +18,16 @@
 The official documentation and marketing website for [Krkn](https://github.com/krkn-chaos/krkn) — a chaos engineering tool for Kubernetes/OpenShift clusters. Live at **[krkn-chaos.dev](https://krkn-chaos.dev)**.
 
 ## Quick Start
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** v20 or later
+- **npm** v9 or later
+- **Go** v1.21 or later (required by Hugo modules)
+- **Hugo Extended** v0.146.0 or later
+
+### Installation
 
 ```bash
 # Install dependencies

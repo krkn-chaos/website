@@ -23,7 +23,7 @@ Modern applications demand high availability, low downtime, and resilient infras
  ```bash
 kubectl delete pod <pod-name> -n <namespace>
 kubectl get pods -n <namespace> -w # watch for new pods
-```bash
+```
 
 2. Deleting multiple pods simultaneously
 - **Use Case:** Simulates a larger failure event, such as a node crash or AZ outage.
@@ -164,6 +164,47 @@ node_names:
 2. The selection is further filtered to only include pods running on the specified nodes
 3. If `exclude_label` is also specified, it's applied after node filtering
 4. The remaining pods are subjected to chaos
+
+## Real-World Examples
+
+### Kill coredns pods by name pattern
+
+Targets coredns pods in kube-system by name pattern to test DNS resilience:
+
+```yaml
+- id: kill-coredns
+  config:
+    namespace_pattern: "^kube-system$"
+    name_pattern: "coredns.*"
+    krkn_pod_recovery_time: 120
+    kill: 1
+```
+
+### Kill kind local-path-provisioner pod
+
+Targets the local-path-provisioner in kind clusters to test storage provisioner recovery:
+
+```yaml
+- id: kill-path-provisioner
+  config:
+    namespace_pattern: "^local-path-storage$"
+    label_selector: "app=local-path-provisioner"
+    krkn_pod_recovery_time: 20
+    kill: 1
+```
+
+### Kill multiple worker pods in a namespace
+
+Disrupts two worker pods in a production namespace to test multi-replica recovery:
+
+```yaml
+- id: kill-worker-pods
+  config:
+    namespace_pattern: "^production$"
+    name_pattern: "worker-.*"
+    krkn_pod_recovery_time: 120
+    kill: 2
+```
 
 ## Recovery Time Metrics in Krkn Telemetry
 

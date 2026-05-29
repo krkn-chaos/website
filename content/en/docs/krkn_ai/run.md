@@ -37,3 +37,23 @@ By default, Krkn-AI uses [krknctl](../krknctl/) as engine. You can switch to [kr
 ```bash
 $ uv run krkn_ai run -r krknhub -c ./krkn-ai.yaml -o ./tmp/results/
 ```
+
+### Output Structure
+
+Each run creates a UUID-named subdirectory under the path passed to `-o`, so multiple runs don't overwrite each other.
+
+```text
+tmp/results/
+└── <run-uuid>/
+    ├── krkn-ai.yaml         # config snapshot (useful for re-running)
+    ├── reports/
+    │   ├── health_check_report.csv  # app health across scenarios
+    │   ├── all.csv                  # metrics for every scenario
+    │   ├── best_scenarios.yaml      # top scenarios found by the algorithm
+    │   └── graphs/                  # per-scenario PNG plots
+    ├── yaml/
+    │   ├── generation_0/    # scenario files for gen 0
+    │   ├── generation_1/    # scenario files for gen 1
+    │   └── ...
+    └── log/                 # per-scenario logs
+```

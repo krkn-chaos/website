@@ -76,7 +76,9 @@ uv run krkn_ai monitor -o ./results/ -p 9090
 uv run krkn_ai monitor -o ./results/3f8a1c2d-9b4e-4f1a-8c7d-1234567890ab
 ```
 
-> **Tip:** When `-o` points to a **parent directory** (e.g., `./results/`) the dashboard automatically discovers all UUID-named sub-directories and lets you switch between runs from the sidebar. When `-o` points directly to a single run directory the sidebar run-selector is hidden.
+{{% alert title="Note" %}}
+When `-o` points to a **parent directory** (e.g., `./results/`) the dashboard automatically discovers all UUID-named sub-directories and lets you switch between runs from the sidebar. When `-o` points directly to a single run directory the sidebar run-selector is hidden.
+{{% /alert %}}
 
 ---
 

@@ -5,4 +5,4 @@ contact_links:
     about: Ask questions in the #krkn Kubernetes Slack channel
   - name: 📖 Contributing Guide
     url: https://github.com/krkn-chaos/website/blob/main/CONTRIBUTING.md
-    about: Read the contributing guide before opening a PR
+    about: Read the contributing guide before opening an issue or PR

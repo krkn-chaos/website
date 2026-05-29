@@ -8,13 +8,18 @@ on:
 jobs:
   prepare-doc-sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
     steps:
       - name: Checkout Website Repo
         uses: actions/checkout@v4
 
       - name: Identify Upstream Source
+        env:
+          UPSTREAM_REPO: ${{ github.event.client_payload.repository }}
         run: |
-          echo "Triggered by a merge in: ${{ github.event.client_payload.repository }}"
+          echo "Triggered by a merge in: $UPSTREAM_REPO"
           echo "Preparing environment for Doc Sync..."
 
       # (This is where your future LFX Mentorship LLM Python script will run)

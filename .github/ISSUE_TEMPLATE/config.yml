@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Slack Channel
+    url: https://kubernetes.slack.com/archives/C05SFMHRWK1
+    about: Ask questions in the #krkn Kubernetes Slack channel
+  - name: 📖 Contributing Guide
+    url: https://github.com/krkn-chaos/website/blob/main/CONTRIBUTING.md
+    about: Read the contributing guide before opening a PR

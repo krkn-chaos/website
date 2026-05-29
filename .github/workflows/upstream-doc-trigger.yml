@@ -1,0 +1,36 @@
+name: Upstream Doc Sync Trigger
+
+# Listen for a custom webhook event from upstream repos (like krkn-hub or krknctl)
+on:
+  repository_dispatch:
+    types: [upstream_pr_merged]
+
+jobs:
+  prepare-doc-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Checkout Website Repo
+        uses: actions/checkout@v4
+
+      - name: Identify Upstream Source
+        env:
+          UPSTREAM_REPO: ${{ github.event.client_payload.repository }}
+        run: |
+          echo "Triggered by a merge in: $UPSTREAM_REPO"
+          echo "Preparing environment for Doc Sync..."
+
+      # (This is where your future LFX Mentorship LLM Python script will run)
+      - name: Run Doc Sync Bot (Stub)
+        run: |
+          echo "LLM Agent parses changes here and generates markdown files."
+
+      # Triggering the neighboring workflow directly using your CI expertise!
+      - name: Trigger Native Search Index Rebuild
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Triggering rebuild-docs-index.yml..."
+          gh workflow run rebuild-docs-index.yml

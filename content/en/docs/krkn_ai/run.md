@@ -15,12 +15,16 @@ Usage: krkn_ai run [OPTIONS]
   Run Krkn-AI tests
 
 Options:
+  -k, --kubeconfig TEXT                 Path to cluster kubeconfig file. Overrides value in config file.
   -c, --config TEXT                     Path to Krkn-AI config file.
   -o, --output TEXT                     Directory to save results.
   -f, --format [json|yaml]              Format of the output file.  [default: yaml]
   -r, --runner-type [krknctl|krknhub]   Type of chaos engine to use.
   -p, --param TEXT                      Additional parameters for config file in key=value format.
+  -s, --seed INTEGER                    Random seed for reproducible runs. Overrides seed in config file.
   -v, --verbose                         Increase verbosity of output.  [default: 0]
+  -m, --monitoring                      Launch live monitoring dashboard in the background.
+  --port INTEGER                        Port to run Streamlit server on when monitoring is enabled.  [default: 8501]
   --help                                Show this message and exit.
 ```
 

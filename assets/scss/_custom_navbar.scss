@@ -655,6 +655,15 @@ button.krkn-navbar__search {
 // ---------------------------------------------------------------------------
 // Search overlay  (Cmd/Ctrl+K or magnifying-glass click)
 // ---------------------------------------------------------------------------
+
+// The Cmd+K overlay is the single search entry point. Docsy v0.12 doesn't honor
+// `sidebar_search_disable`, so hide its sidebar/offline box here. The hidden
+// index-source wrapper only exists to expose the Lunr index URL to krkn-search.js.
+.td-sidebar__search,
+.krkn-search-index-src {
+  display: none !important;
+}
+
 .krkn-search-overlay {
   position: fixed;
   inset: 0;
@@ -725,39 +734,31 @@ button.krkn-navbar__search {
     color: var(--krkn-text-muted);
   }
 
-  // Docsy's .td-search wrapper — make it fill remaining space
-  .td-search {
+  // Our search input — fills the remaining header space
+  .krkn-search-overlay__input {
     flex: 1;
-    // Reset Docsy's default styling
-    position: relative;
-
-    .td-search__icon {
-      display: none; // we have our own icon
-    }
-  }
-
-  // The actual search input
-  .td-search__input,
-  .td-search input[type="search"] {
-    width: 100% !important;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color: var(--krkn-text) !important;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: var(--krkn-text);
     font-family: 'General Sans', sans-serif;
     font-size: 1.0625rem;
     padding: 0.25rem 0;
     -webkit-appearance: none;
     appearance: none;
 
-    [data-theme="light"] & {
-      background: transparent !important;
-    }
-
     &::placeholder {
       color: var(--krkn-text-muted);
       opacity: 0.7;
+    }
+
+    // Hide the native search field decorations (we have our own icon + close button)
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+      appearance: none;
     }
   }
 }
@@ -793,48 +794,148 @@ button.krkn-navbar__search {
 }
 
 .krkn-search-overlay__hint {
-  padding: 0.5rem 1.25rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 1.25rem 0.75rem;
+  border-top: 1px solid var(--krkn-border-subtle);
   font-family: 'General Sans', sans-serif;
   font-size: 0.75rem;
   color: var(--krkn-text-muted);
-  opacity: 0.6;
 
   [data-theme="light"] & {
     color: var(--krkn-text-subtle);
+    border-top-color: rgba(0, 0, 0, 0.06);
+  }
+
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4em;
+    padding: 0.1em 0.4em;
+    background: var(--krkn-elevated);
+    border: 1px solid var(--krkn-border-subtle);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.85em;
+    line-height: 1;
+    color: var(--krkn-text-muted);
+
+    [data-theme="light"] & {
+      background: var(--krkn-bg);
+      border-color: rgba(0, 0, 0, 0.08);
+    }
   }
 }
 
-// Override Docsy's popover for search results so it appears inside our panel
-.td-offline-search-results {
-  max-width: 600px !important;
-  width: 95vw !important;
+// ---------------------------------------------------------------------------
+// Pagefind search results (rendered into the overlay panel by krkn-search.js)
+// ---------------------------------------------------------------------------
+.krkn-search-overlay__results {
+  // Collapsed when empty so the panel hugs the input + hint
+  max-height: 0;
+  overflow-y: auto;
+  transition: max-height 0.18s ease;
 
-  .popover-body {
-    background: var(--krkn-surface) !important;
-    color: var(--krkn-text) !important;
-    border-radius: 0 0 16px 16px;
-    max-height: 60vh;
-    overflow-y: auto;
-    padding: 1rem 1.25rem;
-    font-family: 'General Sans', sans-serif;
+  &--filled {
+    max-height: Min(60vh, 520px);
+    border-top: 1px solid var(--krkn-border-subtle);
 
-    a {
-      color: var(--krkn-primary) !important;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
+    [data-theme="light"] & {
+      border-top-color: rgba(0, 0, 0, 0.06);
     }
+  }
+}
 
-    small,
-    .text-body-secondary {
-      color: var(--krkn-text-muted) !important;
+.krkn-search-count {
+  padding: 0.65rem 1.25rem 0.35rem;
+  font-family: 'General Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--krkn-text-subtle);
+}
+
+.krkn-search-msg {
+  padding: 1.25rem;
+  font-family: 'General Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--krkn-text-muted);
+  text-align: center;
+
+  &__hint {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--krkn-text-subtle);
+  }
+
+  code {
+    padding: 0.1em 0.4em;
+    background: var(--krkn-elevated);
+    border-radius: 5px;
+    font-size: 0.85em;
+    color: var(--krkn-text);
+  }
+}
+
+.krkn-search-result {
+  display: block;
+  padding: 0.7rem 1.25rem;
+  border-left: 3px solid transparent;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+
+  &:hover,
+  &--active {
+    background: var(--krkn-nav-hover-bg, rgba(255, 255, 255, 0.04));
+    border-left-color: var(--krkn-primary);
+
+    [data-theme="light"] & {
+      background: var(--krkn-elevated);
     }
   }
 
-  .popover-arrow {
-    display: none !important;
+  &__title {
+    display: block;
+    font-family: 'Satoshi', 'General Sans', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--krkn-text);
+    margin-bottom: 0.12rem;
+  }
+
+  &__path {
+    display: block;
+    font-family: 'General Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--krkn-text-subtle);
+    margin-bottom: 0.3rem;
+  }
+
+  &__sep {
+    opacity: 0.6;
+    margin: 0 0.1rem;
+  }
+
+  &__excerpt {
+    display: block;
+    font-family: 'General Sans', sans-serif;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    color: var(--krkn-text-muted);
+
+    // Pagefind wraps matched terms in <mark>
+    mark {
+      background: transparent;
+      color: var(--krkn-primary);
+      font-weight: 600;
+      padding: 0;
+    }
   }
 }
 

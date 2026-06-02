@@ -124,7 +124,10 @@ params:
   # Google Custom Search Engine ID. Remove or comment out to disable search.
   # gcs_engine_id: d72aa9b2712488cc3
 
-  # Enable Lunr.js offline search
+  # Hugo/Lunr offline search index is generated inline at build time (works in
+  # `hugo server` dev too). We keep Docsy's index + Lunr engine, but render results
+  # with our own UI (static/js/krkn-search.js → the Cmd+K overlay in navbar.html):
+  # live-as-you-type, highlighted in-context snippets, and keyboard navigation.
   offlineSearch: true
 
   # Disable Prism — we use Hugo's built-in Chroma highlighter with custom CSS classes.
@@ -141,8 +144,8 @@ params:
     sidebar_menu_truncate: 1000
     # Set to true to disable breadcrumb navigation.
     breadcrumb_disable: false
-    # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
-    sidebar_search_disable: false
+    # Sidebar search box hidden — the Pagefind-powered Cmd+K overlay is the single search entry point.
+    sidebar_search_disable: true
     # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
     navbar_logo: true
     footer_about_enable: false

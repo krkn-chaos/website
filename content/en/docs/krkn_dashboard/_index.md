@@ -26,14 +26,14 @@ You can run chaos scenarios from the **Run Kraken** page by choosing a scenario 
 
 1. **Choose a scenario** — e.g. pod-scenarios, container-scenarios, node-cpu-hog, node-io-hog, node-memory-hog, pvc-scenarios, node-scenarios, time-scenarios.
 2. **Set parameters** — Namespace, selectors, disruption counts, durations, and other scenario-specific options (the fields map to the environment variables used by krkn-hub).
-3. **Provide cluster access** — Upload a kubeconfig file for the run
+3. **Provide cluster access** — Choose a group and upload or select a kubeconfig the group is allowed to use (see [Users and access](/docs/krkn_dashboard/users-and-access/)).
 4. **Start the run** — The dashboard starts the corresponding krkn-hub container (via Podman/Docker). The **Running Kraken containers** table lists containers that are still running. When a run finishes, you can open **Past Runs** to see stored logs, outcomes, and replay options.
 
 ### Save and Replay Runs
 
-The **Past Runs** page lists chaos jobs that have completed on the machine where the dashboard server runs. Selecting a run shows metadata and captured logs.
+The **Past Runs** page lists chaos jobs that have completed on the machine where the dashboard server runs. You only see runs for groups you belong to. Selecting a run shows metadata and captured logs.
 
-You can save the current scenario and parameters and load them later. From **Past Runs**, you can open a finished job and use the Replay button to send the same scenario settings back to **Run Kraken**, adjust them if needed, and run the experiment again.
+You can save the current scenario and parameters and load them later. From **Past Runs**, you can open a finished job and use the Replay button to send the same scenario settings back to **Run Kraken**, adjust them if needed, and run the experiment again. Replaying a run by default uses the original run’s group.
 
 This history does not require Elasticsearch.
 
@@ -52,8 +52,18 @@ Elasticsearch configuration is optional. The dashboard will still work without E
 
 When Elasticsearch is connected and you supply an optional **Grafana base URL** at connect time, the dashboard can link each run to its corresponding metrics and visualizations in Grafana. Grafana configuration is optional.
 
+### Users, groups, and access control
+
+Every person signs in with their own account. 
+* **Platform admins** manage users, groups, kubeconfigs, and policies in **Administration** 
+* **Platform users** run experiments and manage kubeconfigs for their groups.
+
+See [Users, groups, and access control](/docs/krkn_dashboard/users-and-access/) for more information on platform roles, group roles, and cluster permissions.
+
 ---
 
 ## Getting Started
 
-Follow the [installation steps](/docs/installation/krkn-dashboard/) to run the dashboard.
+1. Follow the [installation steps](/docs/installation/krkn-dashboard/) to run the dashboard and sign in with the initial admin account.
+2. Read [Using the UI](/docs/krkn_dashboard/using-the-ui/) to run scenarios and review past runs.
+3. Configure [users and access](/docs/krkn_dashboard/users-and-access/) for your team.

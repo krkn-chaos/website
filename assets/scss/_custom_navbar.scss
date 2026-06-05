@@ -601,7 +601,7 @@ button.krkn-navbar__search {
 // Algolia/Docsy search dropdown
 .td-navbar .td-search-results {
   background: var(--krkn-surface);
-  border: 1px solid var(--krkn-border-subtle);
+  border: 2px solid var(--krkn-border-subtle);
   border-radius: 0.75rem;
 }
 
@@ -691,7 +691,7 @@ button.krkn-navbar__search {
   width: 95%;
   max-width: 620px;
   background: var(--krkn-surface);
-  border: 1px solid var(--krkn-border-subtle);
+  border: 2px solid var(--krkn-border-subtle);
   border-radius: 16px;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
   overflow: hidden;
@@ -808,15 +808,19 @@ button.krkn-navbar__search {
 .td-offline-search-results {
   max-width: 600px !important;
   width: 95vw !important;
+  border: 2px solid var(--krkn-border-subtle) !important;
+  border-top: none !important;
+  border-radius: 0 0 16px 16px !important;
+  overflow: hidden !important;
 
   .popover-body {
     background: var(--krkn-surface) !important;
     color: var(--krkn-text) !important;
-    border-radius: 0 0 16px 16px;
     max-height: 60vh;
     overflow-y: auto;
     padding: 1rem 1.25rem;
     font-family: 'General Sans', sans-serif;
+    border-radius: 0 0 16px 16px !important;
 
     a {
       color: var(--krkn-primary) !important;

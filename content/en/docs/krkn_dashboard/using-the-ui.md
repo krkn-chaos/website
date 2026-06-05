@@ -7,7 +7,8 @@ weight: 10
 
 ## Using the UI
 
-Once the dashboard is running, open **http://localhost:3000** (or the port shown in the terminal) in your browser. The side menu has three views: **Run Kraken**, **Past Runs**, and **Elastic Runs**. Each is described below.
+When starting the dashboard, if you are not signed in, you will be sent to the **login** page. Use the initial admin credentials from [installation](/docs/installation/krkn-dashboard/#first-time-setup-initial-admin-account) on first startup, or the username and password your administrator created for you. 
+The side menu has five views: **Run Kraken**, **Past Runs**, **Elastic Runs**, **Account Settings**, and **Administration**. Each is described below.
 
 ---
 
@@ -16,7 +17,7 @@ Once the dashboard is running, open **http://localhost:3000** (or the port shown
 **Run Kraken** is the default landing page. Everything for starting a new chaos job is on this single page:
 
 - **Scenarios** — Scenario tiles (**Pod Scenarios**, **Node CPU hog**, **Node IO hog**, **Node Memory hog**). Click a tile to select that scenario for the next run.
-- **Supported Parameters** — Fields for the selected scenario, kubeconfig file upload, and **Start Kraken** to launch the krkn-hub container. If you arrived here by **Replay**, an inline notice shows the source run.
+- **Supported Parameters** — Fields for the selected scenario, **group** selection, kubeconfig upload or choice, and **Start Kraken** to launch the krkn-hub container. Your account must have permission to run on that cluster for the selected group. If you arrived here by **Replay**, an inline notice shows the source run (the group defaults to the original run’s group).
 - **Running Kraken containers** — A table of krkn-hub containers that are currently running on the host.
 
 ![Run Kraken page](/img/run-kraken-dashboard-page.png)
@@ -25,7 +26,7 @@ Once the dashboard is running, open **http://localhost:3000** (or the port shown
 
 ## Past Runs
 
-**Past Runs** lists jobs recorded by the dashboard.
+**Past Runs** lists jobs recorded by the dashboard for **groups you are a member of**. Platform admins can see all runs.
 
 - **Filters** — Narrow by name, run type (all, original only, replay only), image substring, and start/end dates; use **Apply filters** and **Refresh** as needed.
 - **Summary cards** — Examine the job count, passes, failures, and pass rate.
@@ -47,3 +48,37 @@ Once the dashboard is running, open **http://localhost:3000** (or the port shown
 Grafana opens pre-built dashboards for individual chaos runs; those links are produced through [krkn visualize](https://github.com/krkn-chaos/visualize). Your grafana link may look something like "http://krkn-visualize-krkn-visualize . . . openshift.com/".
 
 ![Elastic Runs page](/img/es-runs-dashboard-page.png)
+
+---
+
+## Account Settings
+
+**Account Settings** is available to every signed-in user from the side menu. Platform admins use it for their own profile; platform **users** also use it to upload kubeconfigs for their groups.
+
+### Username and password
+
+At the top of the page you can update your sign-in **username** and **password**:
+
+- **Username** — Required. Change it if you need a different sign-in name.
+- **Current password** — Required whenever you change the username or set a new password.
+- **New password** and **Confirm new password** — Leave blank to keep your current password. When you set a new password, it must be at least **8 characters** and match the confirmation field.
+
+![Account Settings page](/img/account-settings-dashboard-page.png)
+
+---
+
+## Administration (platform admins)
+
+Open **Administration** from the side menu to:
+
+- **Users** — Create users, set platform role (**Admin** or **User**), and assign group memberships with group roles. Required fields are marked.
+- **Groups** — Create groups, open a group to manage its policies and membership, or delete a group.
+- **Kubeconfigs** — Upload kubeconfigs on behalf of groups (platform-wide management).
+- **Audit** — View the audit trail for actions across users.
+
+When creating a platform **User**, you can only assign **group user** or **group viewer** roles—not **group admin**. Platform Admin accounts may also be **group admin** in selected groups.
+
+![Administration page](/img/administration-dashboard-page.png)
+
+See [Users, groups, and access control](/docs/krkn_dashboard/users-and-access/) for the full role and permission model.
+

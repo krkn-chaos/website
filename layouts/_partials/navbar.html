@@ -235,6 +235,22 @@
   if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
   if (searchClose) searchClose.addEventListener('click', closeSearch);
 
+  
+  document.addEventListener('focusin', function(e) {
+    if (!e.target.matches('.td-search__input')) return;
+
+    // Remove any existing search result popovers
+    document.querySelectorAll('.td-offline-search-results')
+      .forEach(function(popover) {
+       popover.remove();
+    });
+
+    if (searchOverlay && searchOverlay.classList.contains('krkn-search-overlay--open') && !searchOverlay.contains(e.target)
+    ) {
+      closeSearch();
+    }
+  });
+
   // Ctrl/Cmd + K shortcut to open search
   document.addEventListener('keydown', function(e) {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {

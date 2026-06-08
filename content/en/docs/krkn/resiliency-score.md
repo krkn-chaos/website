@@ -286,6 +286,112 @@ Final Score = Σ(scenario_score × scenario_weight) / Σ(scenario_weight)
 
 This allows you to prioritize certain scenarios over others when calculating the overall resiliency score for a chaos run.
 
+### Historical Resiliency Scoring
+
+In addition to scoring chaos runs in real time, Krkn can query Prometheus over a **past time window** and compute a resiliency score without running any chaos scenarios. This is useful for:
+
+- Auditing how your cluster performed during an incident or maintenance window
+- Establishing a baseline score before starting a new round of chaos testing
+- Integrating resiliency checks into CI/CD pipelines that don't orchestrate chaos directly
+
+When a historical window is provided, **chaos scenarios are skipped entirely** — Krkn evaluates the SLOs against Prometheus data from the specified period and produces the same report format as a live run.
+
+{{% alert title="Note" %}}
+Historical resiliency scoring uses the `kubeconfig_path` specified in your `config.yaml` (under the `kraken` section). No separate kubeconfig flag is needed — the same cluster connection used for chaos runs is used for Prometheus access.
+{{% /alert %}}
+
+#### Specifying the Time Window
+
+There are two ways to define a historical window:
+
+**Option 1: Trailing duration with `--past-resiliency-score`**
+
+Pass a duration string to look back from the current time. Supported units: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks).
+
+```bash
+# Score the last 24 hours
+kraken --config config/config.yaml --past-resiliency-score 24h
+
+# Score the last 7 days
+kraken --config config/config.yaml --past-resiliency-score 7d
+
+# Score the last 90 minutes
+kraken --config config/config.yaml --past-resiliency-score 90m
+```
+
+**Option 2: Explicit range with `--start-time` / `--end-time`**
+
+Use UTC timestamps to target a specific window. The `--resiliency-score` flag is required to activate historical mode when using explicit timestamps.
+
+```bash
+kraken --config config/config.yaml \
+  --resiliency-score \
+  --start-time 2026-05-25T08:00:00 \
+  --end-time   2026-05-25T09:00:00
+```
+
+Accepted datetime formats: `YYYY-MM-DDTHH:MM:SS` or `YYYY-MM-DD`.
+
+{{% alert title="Note" %}}
+`--past-resiliency-score` and `--start-time`/`--end-time` are mutually exclusive. When using `--start-time`, you must also supply `--end-time` and the `--resiliency-score` flag.
+{{% /alert %}}
+
+#### The `resiliency-score` Subcommand
+
+For clarity, Krkn also exposes a dedicated subcommand. It behaves identically to passing the flags above but makes the intent explicit and requires a time window to be set:
+
+```bash
+# Trailing window
+kraken resiliency-score --config config/config.yaml --past-resiliency-score 24h
+
+# Explicit range
+kraken resiliency-score --config config/config.yaml \
+  --start-time 2026-05-25T08:00:00 \
+  --end-time   2026-05-25T09:00:00
+```
+
+If no time window is provided, the command exits with an error.
+
+#### Historical Scoring CLI Flags
+
+| Flag | Description |
+|------|-------------|
+| `--past-resiliency-score <duration>` | Score over a trailing window ending now (e.g. `24h`, `7d`). Mutually exclusive with `--start-time`/`--end-time`. |
+| `--resiliency-score` | Activate historical mode when using `--start-time`/`--end-time`. Implied automatically by the `resiliency-score` subcommand. |
+| `--start-time <datetime>` | Start of the explicit historical window (UTC). Must be paired with `--end-time` and `--resiliency-score`. |
+| `--end-time <datetime>` | End of the explicit historical window (UTC). Must be paired with `--start-time` and `--resiliency-score`. |
+
+#### Output
+
+The historical scoring report uses the same format as a live chaos run. The score and SLO breakdown are written to `resiliency-report.json` and embedded in `kraken.report`.
+
+```json
+{
+  "scenarios": [
+    {
+      "name": "historical",
+      "window": {
+        "start": "2026-05-25T08:00:00+00:00",
+        "end":   "2026-05-25T09:00:00+00:00"
+      },
+      "score": 91,
+      "weight": 1.0,
+      "breakdown": {
+        "total_points": 45,
+        "points_lost": 4,
+        "passed": 24,
+        "failed": 3
+      },
+      "slo_results": {
+        "10 minutes avg. 99th etcd fsync latency higher than 10ms": true,
+        "etcd cluster has no leader": true,
+        "API server 5xx error rate": false
+      }
+    }
+  ]
+}
+```
+
 ### Best Practices
 
 1. **Start with Severity-based Weights:** Use the default severity-based weights (critical=3, warning=1) as a baseline.

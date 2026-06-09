@@ -140,6 +140,8 @@ The resiliency scoring system supports:
 ## Elastic
 We have enabled the ability to store telemetry, metrics and alerts into ElasticSearch based on the below keys and values.
 
+For details on what is stored in each index and how to query it, see [Elasticsearch Storage](elastic.md).
+
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#elastic) · [krkn-hub variables](../scenarios/all-scenario-env.md#elastic)
 
 **enable_elastic**: True or False; If true, the telemetry data will be stored in the telemetry_index defined below. Based on if value of performance_monitoring.enable_alerts and performance_monitoring.enable_metrics are true or false, alerts and metrics will be saved in addition to each of the indexes

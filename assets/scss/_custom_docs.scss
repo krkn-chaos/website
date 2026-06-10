@@ -1,6 +1,22 @@
 // =============================================================================
 // Krkn Theme - Documentation Page Overrides
 // Dark styling for Docsy docs layout: sidebar, content, TOC.
+
+[data-theme="dark"] {
+  .form-control,
+  .form-select,
+  .td-search-input,
+  .td-search input[type="search"] {
+    background-color: var(--krkn-surface) !important;
+    border: 1.5px solid var(--krkn-primary) !important;
+    color: var(--krkn-text) !important;
+
+    &::placeholder {
+      color: var(--krkn-text-muted) !important;
+    }
+  }
+}
+
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -548,7 +564,8 @@ table td {
   text-align: left;
   overflow-wrap: break-word;
   vertical-align: top;
-  min-width: 120px; /* Prevents columns from compressing into single letters on mobile */
+  min-width: 120px;
+  /* Prevents columns from compressing into single letters on mobile */
 }
 
 // Keep short, fixed-vocabulary columns from being squeezed onto two lines.
@@ -574,7 +591,8 @@ table td {
 .td-content thead th,
 table th,
 table thead th {
-  white-space: nowrap; /* Keeps headers clean on a single line */
+  white-space: nowrap;
+  /* Keeps headers clean on a single line */
   background: var(--krkn-elevated) !important;
   color: var(--krkn-text) !important;
   font-weight: 600;
@@ -1553,7 +1571,7 @@ table tbody tr:hover {
   .td-search-input,
   .td-search input[type="search"] {
     background-color: var(--krkn-surface) !important;
-    border-color: var(--krkn-border-subtle) !important;
+    border: 1.5px solid var(--krkn-primary) !important;
     color: var(--krkn-text) !important;
 
     &::placeholder {
@@ -1706,7 +1724,7 @@ table tbody tr:hover {
   }
 
   .td-main .row,
-  .td-main .row > [class*="col-"] {
+  .td-main .row>[class*="col-"] {
     width: 100%;
     max-width: 100%;
     min-width: 0;

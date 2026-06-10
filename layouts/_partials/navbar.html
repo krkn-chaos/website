@@ -199,13 +199,22 @@
 
   function openSearch() {
     if (!searchOverlay) return;
+
+    // Remove any existing Docsy search popovers
+    document
+      .querySelectorAll('.td-offline-search-results')
+      .forEach(el => el.remove());
     searchOverlay.classList.add('krkn-search-overlay--open');
     searchOverlay.setAttribute('aria-hidden', 'false');
-    if (searchTrigger) searchTrigger.setAttribute('aria-expanded', 'true');
+    if (searchTrigger) {
+      searchTrigger.setAttribute('aria-expanded', 'true');
+    }
     document.body.style.overflow = 'hidden';
     // Focus input after CSS transition
-    setTimeout(function() { if (searchInput) searchInput.focus(); }, 120);
-  }
+    setTimeout(function () {
+      if (searchInput) searchInput.focus();
+    }, 120);
+}
 
   function closeSearch() {
     if (!searchOverlay) return;
@@ -225,6 +234,22 @@
   if (searchTrigger) searchTrigger.addEventListener('click', openSearch);
   if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
   if (searchClose) searchClose.addEventListener('click', closeSearch);
+
+  
+  document.addEventListener('focusin', function(e) {
+    if (!e.target.matches('.td-search__input')) return;
+
+    // Remove any existing search result popovers
+    document.querySelectorAll('.td-offline-search-results')
+      .forEach(function(popover) {
+       popover.remove();
+    });
+
+    if (searchOverlay && searchOverlay.classList.contains('krkn-search-overlay--open') && !searchOverlay.contains(e.target)
+    ) {
+      closeSearch();
+    }
+  });
 
   // Ctrl/Cmd + K shortcut to open search
   document.addEventListener('keydown', function(e) {

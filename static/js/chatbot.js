@@ -413,6 +413,13 @@ class KrknChatbot {
 
         // Replace quick buttons with page-specific suggestions
         this.updateQuickButtons();
+
+        // Close chatbot window when user presses Escape key (accessibility)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.toggleChat();
+            }
+        });
     }
 
     setupBasicDragging() {

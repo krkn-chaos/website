@@ -3,10 +3,10 @@
 {{ $mermaidJS := printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaidVersion -}}
 <script src="{{ $mermaidJS }}"></script>
 <script>
-  mermaid.initialize(
-    {
-      theme: '{{ .Site.Params.mermaid.theme | default "default" }}'
-    }
-  );
+  const isDark = document.documentElement.dataset.theme === 'dark';
+
+  mermaid.initialize({
+    theme: isDark ? 'dark' : 'default'
+  });
 </script>
 {{ end -}}

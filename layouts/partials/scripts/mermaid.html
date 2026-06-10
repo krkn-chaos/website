@@ -3,55 +3,10 @@
 {{ $mermaidJS := printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaidVersion -}}
 <script src="{{ $mermaidJS }}"></script>
 <script>
-  // Preserve the original Mermaid source before Mermaid replaces it
-  // with a generated SVG. This allows diagrams to be re-rendered later
-  // when the site theme changes.
-  document.querySelectorAll('.mermaid').forEach(function (el) {
-    if (!el.dataset.src) {
-      el.dataset.src = el.textContent.trim();
+  mermaid.initialize(
+    {
+      theme: '{{ .Site.Params.mermaid.theme | default "default" }}'
     }
-  });
-
-  function initializeMermaid() {
-    const theme = localStorage.getItem('krkn-theme') || 'dark';
-
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: theme === 'dark' ? 'dark' : 'default'
-    });
-  }
-
-    initializeMermaid();
-
-  document.addEventListener('krkn-theme-changed', async function (e) {
-    const theme = e.detail.theme;
-
-    // Update Mermaid configuration for the new theme
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: theme === 'dark' ? 'dark' : 'default'
-    });
-
-    const diagrams = document.querySelectorAll('.mermaid');
-
-    for (let i = 0; i < diagrams.length; i++) {
-      const diagram = diagrams[i];
-      const source = diagram.dataset.src;
-
-      if (!source) continue;
-
-      try {
-        const { svg } = await mermaid.render(
-          `mermaid-theme-${Date.now()}-${i}`,
-          source
-        );
-
-        diagram.innerHTML = svg;
-        diagram.setAttribute('data-processed', 'true');
-      } catch (err) {
-        console.error('Failed to rerender Mermaid diagram', err);
-      }
-    }
-  });
+  );
 </script>
 {{ end -}}

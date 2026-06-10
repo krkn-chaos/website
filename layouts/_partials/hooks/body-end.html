@@ -405,6 +405,57 @@
 })();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+
+<script>
+(function() {
+
+  document.querySelectorAll('.mermaid').forEach(function(el) {
+    if (!el.dataset.src) {
+      el.dataset.src = el.textContent.trim();
+    }
+  });
+
+  const initialTheme = localStorage.getItem('krkn-theme') || 'dark';
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: initialTheme === 'dark' ? 'dark' : 'default'
+  });
+  mermaid.run();
+
+  document.addEventListener('krkn-theme-changed', async function(e) {
+
+    const theme = e.detail.theme;
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: theme === 'dark' ? 'dark' : 'default'
+    });
+
+    const diagrams = document.querySelectorAll('.mermaid');
+
+    for (let i = 0; i < diagrams.length; i++) {
+      const diagram = diagrams[i];
+      const source = diagram.dataset.src;
+
+      if (!source) continue;
+
+      try {
+        const { svg } = await mermaid.render(
+          `mermaid-theme-${Date.now()}-${i}`,
+          source
+        );
+
+        diagram.innerHTML = svg;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+})();
+</script>
+
 <!-- Scroll animations -->
 <script src="{{ "js/scroll-animations.js" | relURL }}" defer></script>
 

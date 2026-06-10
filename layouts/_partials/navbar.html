@@ -328,6 +328,14 @@
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('krkn-theme', theme);
+
+    //Notify Mermaid 
+    document.dispatchEvent(
+       new CustomEvent('krkn-theme-changed', {
+       detail: { theme: theme }
+       })
+    );
+
     if (themeToggle) {
       themeToggle.setAttribute('aria-label',
         theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'

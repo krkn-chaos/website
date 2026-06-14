@@ -1,14 +1,14 @@
 ---
 title: Scenarios
-description: Available Kkrn-AI Scenarios
+description: Available Krkn-AI Scenarios
 weight: 4
 ---
 
-The following Krkn scenarios are currently supported by Kkrn-AI.
+The following Krkn scenarios are currently supported by Krkn-AI.
 
-> At least one scenario must be enabled for the Kkrn-AI experiment to run.
+> At least one scenario must be enabled for the Krkn-AI experiment to run.
 
-| **Scenario**        	| **Kkrn-AI Config (YAML)**                      	|
+| **Scenario**        	| **Krkn-AI Config (YAML)**                      	|
 |---------------------	|------------------------------------------	|
 | [Pod Scenario](../../scenarios/pod-scenario/)        	| *scenario.pod-scenarios*       	|
 | [Application Outages](../../scenarios/application-outage/) 	| *scenario.application-outages* 	|

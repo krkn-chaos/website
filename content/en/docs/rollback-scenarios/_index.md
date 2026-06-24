@@ -81,7 +81,7 @@ Example Output:
 
 ### execute-rollback
 - `execute-rollback`: Execute rollback version files and cleanup if successful
-    - By default, **all version files** located in the `rollback_versions_directory` (`/tmp/kraken-rollback/`) will be executed.
+    - By default, **all version files** located in the `rollback_versions_directory` (`~/.krkn/rollback`) will be executed.
     - The version files will be renamed with `.executed` suffix for further inspection.
     - `-r RUN_UUID, --run_uuid=RUN_UUID` Flag: **Optional**. Specify the Run UUID to filter the execution of rollback version files.
     - `-s SCENARIO_TYPE, --scenario_type=SCENARIO_TYPE` Flag: **Optional**. Specify the Scenario Type to filter the execution of rollback version files.

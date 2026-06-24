@@ -71,7 +71,7 @@ python run_kraken.py list-rollback --config config/config.yaml -r <run_uuid> -s 
 
 Example Output:
 ```bash
-/tmp/kraken-rollback/
+~/.krkn/rollback
 ├── 1755488223093251000-168dce4c-fdb4-4e8c-aa5b-7f919777801b
 │   └── network_chaos_scenarios_1755488221668750000_fphcbojh.py
 ├── 1755496143932815000-7d32bf81-2c0d-4d56-b75b-b0702b2c45f9
@@ -105,16 +105,16 @@ Example Output:
 2025-08-22 15:54:06,137 [WARNING] scenario_type is not specified, executing all scenarios in rollback directory
 2025-08-22 15:54:06,137 [INFO] Executing rollback for run_uuid=d3f0859b-91f7-490a-afb9-878478b1574a, scenario_type=*
 2025-08-22 15:54:06,137 [INFO] Executing rollback version files for run_uuid=d3f0859b-91f7-490a-afb9-878478b1574a, scenario_type=*
-2025-08-22 15:54:06,137 [INFO] Executing rollback version file: /tmp/kraken-rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py
+2025-08-22 15:54:06,137 [INFO] Executing rollback version file: ~/.krkn/rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py
 2025-08-22 15:54:06,139 [INFO] Executing rollback callable...
 2025-08-22 15:54:06,139 [INFO] Rolling back network policy: krkn-deny-xafee in namespace: test-application-outage
 2025-08-22 15:54:06,148 [INFO] Network policy already deleted
 2025-08-22 15:54:06,148 [INFO] Network policy rollback completed successfully.
 2025-08-22 15:54:06,148 [INFO] Rollback completed.
-2025-08-22 15:54:06,148 [INFO] Executed /tmp/kraken-rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py successfully.
+2025-08-22 15:54:06,148 [INFO] Executed ~/.krkn/rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py successfully.
 2025-08-22 15:54:06,149 [INFO] Rollback execution completed successfully, cleaning up version files
 2025-08-22 15:54:06,149 [INFO] Cleaning up rollback version files for run_uuid=d3f0859b-91f7-490a-afb9-878478b1574a, scenario_type=None
-2025-08-22 15:54:06,149 [INFO] Removed /tmp/kraken-rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py successfully.
+2025-08-22 15:54:06,149 [INFO] Removed ~/.krkn/rollback/1755523355298089000-d3f0859b-91f7-490a-afb9-878478b1574a/application_outages_scenarios_1755523353558511000_mfsaltfl.py successfully.
 2025-08-22 15:54:06,149 [INFO] Rollback execution and cleanup completed successfully
 ```
 
@@ -127,7 +127,7 @@ By default, these options are set as follows and can be overridden in [config/co
 ```yaml
 kraken:
     auto_rollback: True                                    # Enable auto rollback for scenarios.
-    rollback_versions_directory: /tmp/kraken-rollback      # Directory to store rollback version files.
+    rollback_versions_directory: ~/.krkn/rollback      # Directory to store rollback version files.
 ```
 
 ## Details of Rollback Scenario
@@ -157,14 +157,14 @@ The lifecycle of a rollback operation is scoped to **each chaos scenario**.
 ### Version Files Directory Structure
 
 The version files directory structure will be organized by
-- **Versions Directory**: The root directory for all version files, defaulting to `/tmp/kraken-rollback`.
+- **Versions Directory**: The root directory for all version files, defaulting to `~/.krkn/rollback`.
     - **Rollback Context Directory**: The Rollback Context Directory is formatted as `<timestamp (ns)>-<run_uuid>`. Since each _Run_ of a chaos scenario generates a unique **Run UUID**, which is used to identify the context of the rollback operation.
         - **Version Files**: Each version file will be named as `<chaos_scenario_name>_<timestamp (ns)>_<random_suffix>.py`.
 
 Here is an example of the directory structure:
 
 ```bash
-/tmp/kraken-rollback
+~/.krkn/rollback
 ├── 1755488223093251000-168dce4c-fdb4-4e8c-aa5b-7f919777801b
 │   └── network_chaos_scenarios_1755488221668750000_fphcbojh.py
 ├── 1755496143932815000-7d32bf81-2c0d-4d56-b75b-b0702b2c45f9

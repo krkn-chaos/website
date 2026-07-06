@@ -58,3 +58,7 @@ This design enables organizations to integrate krkn-operator with their existing
 ## Getting Started
 
 Documentation for installation and configuration is coming soon.
+
+## Releases
+
+Learn about release cadence, roadmap planning, OCM compatibility, and support expectations.

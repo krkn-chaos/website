@@ -50,15 +50,19 @@ The above command generates a config file that contains the basic setup to help 
 # Path to your kubeconfig file
 kubeconfig_file_path: "./path/to/kubeconfig.yaml"
 
-# Genetic algorithm parameters
-generations: 5
-population_size: 10
-composition_rate: 0.3
-population_injection_rate: 0.1
-scenario_mutation_rate: 0.6
-
 # Duration to wait before running next scenario (seconds)
 wait_duration: 30
+
+# Algorithm selector
+algorithm: genetic
+
+# Genetic algorithm parameters
+genetic:
+  generations: 5
+  population_size: 10
+  composition_rate: 0.3
+  population_injection_rate: 0.1
+  scenario_mutation_rate: 0.6
 
 # Specify how result filenames are formatted
 output:

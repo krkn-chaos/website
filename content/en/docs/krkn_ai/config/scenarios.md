@@ -21,6 +21,8 @@ The following Krkn scenarios are currently supported by Krkn-AI.
 | [Network Scenarios](../../scenarios/network-chaos-scenario/)       	| *scenario.network-scenarios*      	|
 | [DNS Outage](../../scenarios/dns-outage/)       	| *scenario.dns-outage*      	|
 | [PVC Scenario](../../scenarios/pvc-scenario/)       	| *scenario.pvc-scenarios*      	|
+| [KubeVirt VM Outage](../../scenarios/kubevirt-vm-outage-scenario/)       	| *scenario.kubevirt-scenarios*      	|
+| [Storage Throttle](../../scenarios/storage-throttle-scenario/)       	| *scenario.storage-throttle*      	|
 
 
 By default, scenarios are not enabled. Depending on your use case, you can enable or disable these scenarios in the `krkn-ai.yaml` config file by setting the `enable` field to `true` or `false`.
@@ -58,5 +60,11 @@ scenario:
     enable: true
 
   pvc-scenarios:
+    enable: false
+
+  kubevirt-scenarios:
+    enable: false
+
+  storage-throttle:
     enable: false
 ```

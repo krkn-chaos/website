@@ -5,7 +5,11 @@ date: 2017-01-04
 weight: 3
 ---
 
+<krkn-hub-scenario id="storage-throttle">
+
 This scenario throttles storage I/O on a PVC-backed volume used by a target pod. It limits **read/write IOPS** and **bandwidth** (bytes per second) using Linux cgroup controllers, allowing you to observe how your application behaves under degraded disk performance.
+
+</krkn-hub-scenario>
 
 - **cgroups v2:** writes to `io.max`
 - **cgroups v1:** writes to `blkio.throttle.*_device`

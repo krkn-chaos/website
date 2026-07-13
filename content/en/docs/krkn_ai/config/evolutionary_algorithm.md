@@ -87,6 +87,18 @@ What's the size of random samples that gets added to new population (Default: 2)
 
 Time to wait after scenario execution. Sets Krkn's `--wait-duration` parameter. (Default: 120 seconds)
 
+#### `selection_strategy`
+
+Strategy used to select parent scenarios from the population for producing the next generation. (Default: roulette)
+
+Supported values:
+- `"roulette"`: Selection probability is proportional to fitness.
+- `"tournament"`: Randomly selects a subset of candidates (defined by `tournament_size`) and chooses the best one.
+
+#### `tournament_size`
+
+The number of candidate scenarios selected to participate in each tournament when `selection_strategy` is set to `"tournament"`. (Default: 3)
+
 #### `stopping_criteria`
 
 Configuration for advanced stopping conditions based on fitness, saturation, or exploration limits. See [Stopping Criteria](stopping_criteria.md) for full details.

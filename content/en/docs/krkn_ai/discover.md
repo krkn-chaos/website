@@ -26,6 +26,9 @@ Options:
   -v, --verbose           Increase verbosity of output.
   --skip-pod-name TEXT    Pod name to skip. Supports comma separated values
                           with regex.
+  --save-strategy [skip|overwrite|merge]
+                          How to save: skip, overwrite (replace), or merge
+                          (add new).
   --help                  Show this message and exit.
 ```
 
@@ -47,15 +50,19 @@ The above command generates a config file that contains the basic setup to help 
 # Path to your kubeconfig file
 kubeconfig_file_path: "./path/to/kubeconfig.yaml"
 
-# Genetic algorithm parameters
-generations: 5
-population_size: 10
-composition_rate: 0.3
-population_injection_rate: 0.1
-scenario_mutation_rate: 0.6
-
 # Duration to wait before running next scenario (seconds)
 wait_duration: 30
+
+# Algorithm selector
+algorithm: genetic
+
+# Genetic algorithm parameters
+genetic:
+  generations: 5
+  population_size: 10
+  composition_rate: 0.3
+  population_injection_rate: 0.1
+  scenario_mutation_rate: 0.6
 
 # Specify how result filenames are formatted
 output:
@@ -143,3 +150,20 @@ cluster_components:
     taints: []
 ```
 
+### Save Strategy
+
+By default `discover` won't overwrite an existing output file. Control this with `--save-strategy`:
+
+| Strategy         | Behavior                                              |
+|------------------|-------------------------------------------------------|
+| `skip` (default) | Keep the existing file, do nothing.                   |
+| `overwrite`      | Replace the file with a fresh config.                 |
+| `merge`          | Keep your edits, add newly discovered components.     |
+
+```bash
+uv run krkn_ai discover -k ./tmp/kubeconfig.yaml -o ./krkn-ai.yaml --save-strategy merge
+```
+
+`merge` preserves manual edits (e.g. `disabled: true`) and adds newly discovered components.
+
+> **Note:** Comments inside `cluster_components` are not preserved after a merge.

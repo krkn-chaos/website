@@ -6,6 +6,10 @@ description: >
 weight: 11
 ---
 
+{{% alert title="Deprecated" color="warning" %}}
+**krkn-dashboard is deprecated** and will be archived. If you are looking for a UI to interact with krkn, please migrate to [krkn-operator](https://github.com/krkn-chaos/krkn-operator).
+{{% /alert %}}
+
 Krkn Dashboard is the **visualization and control component** of [krkn-hub](https://github.com/krkn-chaos/krkn-hub). It provides a user-friendly web interface to run chaos experiments, watch runs in real time, and—when configured—inspect historical runs and metrics via Elasticsearch and Grafana. Instead of using the CLI or editing config files, you can trigger and monitor Krkn scenarios from your browser.
 
 ---

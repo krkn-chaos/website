@@ -4,7 +4,11 @@ description:
 date: 2017-01-04
 weight: 2
 ---
+<krkn-hub-scenario id="node-interface-down">
+
 Brings one or more network interfaces down on a target node for a configurable duration, then restores them. Can be used to simulate network partitions, NIC failures, or loss of connectivity at the node level.
+
+</krkn-hub-scenario>
 
 ## How to Run Node Interface Down Scenarios
 

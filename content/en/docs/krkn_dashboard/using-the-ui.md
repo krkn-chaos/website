@@ -5,6 +5,10 @@ description: How to run scenarios and use the dashboard once it is running.
 weight: 10
 ---
 
+{{% alert title="Deprecated" color="warning" %}}
+**krkn-dashboard is deprecated** and will be archived. If you are looking for a UI to interact with krkn, please migrate to [krkn-operator](https://github.com/krkn-chaos/krkn-operator).
+{{% /alert %}}
+
 ## Using the UI
 
 When starting the dashboard, if you are not signed in, you will be sent to the **login** page. Use the initial admin credentials from [installation](/docs/installation/krkn-dashboard/#first-time-setup-initial-admin-account) on first startup, or the username and password your administrator created for you. 

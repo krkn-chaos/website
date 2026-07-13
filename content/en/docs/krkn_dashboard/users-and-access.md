@@ -5,6 +5,10 @@ description: Platform roles, groups, group roles, and cluster permissions in the
 weight: 5
 ---
 
+{{% alert title="Deprecated" color="warning" %}}
+**krkn-dashboard is deprecated** and will be archived. If you are looking for a UI to interact with krkn, please migrate to [krkn-operator](https://github.com/krkn-chaos/krkn-operator).
+{{% /alert %}}
+
 The dashboard uses platform roles, groups, group roles, and cluster policies to restrict access.
 
 ---

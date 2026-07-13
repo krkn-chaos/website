@@ -8,7 +8,7 @@ The stopping criteria framework lets users define when the genetic algorithm sho
 
 ### Configurations
 
-You can configure the following options under the `stopping_criteria` section of the Krkn-AI config file. All fields are optional and, with the exception of `saturation_threshold`, default to disabled (`null`).
+You can configure the following options under the `genetic.stopping_criteria` section of the Krkn-AI config file. All fields are optional and, with the exception of `saturation_threshold`, default to disabled (`null`).
 
 #### `fitness_threshold`
 
@@ -41,9 +41,10 @@ If the improvement in fitness is less than this threshold, it is treated as stag
 ### Example Configuration
 
 ```yaml
-stopping_criteria:
-  fitness_threshold: 200        # stop when fitness >= 200
-  generation_saturation: 5      # stop if no improvement for 5 generations
-  exploration_saturation: 3     # stop if no new scenarios for 3 generations
-  saturation_threshold: 0.0001  # minimum improvement to reset saturation counter
+genetic:
+  stopping_criteria:
+    fitness_threshold: 200        # stop when fitness >= 200
+    generation_saturation: 5      # stop if no improvement for 5 generations
+    exploration_saturation: 3     # stop if no new scenarios for 3 generations
+    saturation_threshold: 0.0001  # minimum improvement to reset saturation counter
 ```

@@ -270,6 +270,110 @@ krknctl visualize --delete
 
 <br/>
 
+### `operator <subcommand>`:
+Commands for installing and managing the krkn operator on a Kubernetes cluster.
+
+The operator exposes the krkn chaos engine as a native Kubernetes API, and includes a web console
+accessible at port `3000` inside the cluster. Two cluster targets are supported:
+
+- **KinD** — krknctl creates a fresh single-node cluster for you (requires `kind` in `PATH`)
+- **Existing cluster** — provide a kubeconfig to deploy onto any reachable cluster
+
+---
+
+- #### `install [flags]`:
+
+Installs the krkn operator using Helm. Exactly one of `--kind` or `--kubeconfig` must be provided.
+
+After a successful install the console is automatically port-forwarded in the background
+(default: `http://localhost:8080` → service port `3000`). The port-forward runs as a detached
+daemon process — the `install` command returns immediately and the tunnel keeps running until
+you call `krknctl operator uninstall` or manually stop it.
+
+```bash
+# Deploy onto a fresh single-node KinD cluster
+krknctl operator install --kind
+
+# Deploy onto an existing cluster
+krknctl operator install --kubeconfig ~/.kube/config
+
+# Use a local chart checkout instead of the remote OCI chart
+krknctl operator install --kubeconfig ~/.kube/config \
+  --chart-path /path/to/krkn-operator/charts/krkn-operator
+
+# Install a specific chart version without port-forwarding
+krknctl operator install --kubeconfig ~/.kube/config \
+  --operator-version 0.2.2-beta --port-forward=false
+
+# Use a custom local port for the console
+krknctl operator install --kubeconfig ~/.kube/config --local-port 9090
+```
+
+{{% alert title="Note" %}}
+`--kind` and `--kubeconfig` are mutually exclusive. The `kind` binary must be present in `PATH`
+only when using `--kind`.
+{{% /alert %}}
+
+{{% alert title="Tip" %}}
+When using `--kind`, the KinD cluster kubeconfig is saved to `~/.krknctl/<cluster-name>.kubeconfig`.
+To use it with other tools run: `kind get kubeconfig --name krkn-operator`
+{{% /alert %}}
+
+{{% alert title="Tip" %}}
+The background port-forward PID is stored in `~/.krknctl/port-forward.pid`. To stop it manually:
+```bash
+kill $(cat ~/.krknctl/port-forward.pid)
+```
+Running `krknctl operator uninstall` will stop it automatically.
+{{% /alert %}}
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--kind` | `false` | Create a new single-node KinD cluster and deploy the operator onto it |
+| `--kubeconfig` | | Path to an existing kubeconfig to deploy the operator on |
+| `--cluster-name` | `krkn-operator` | KinD cluster name (only used with `--kind`) |
+| `--namespace` | `krkn-operator-system` | Namespace to install the operator into |
+| `--operator-version` | `0.3.1-beta` | Chart version to pull from the remote OCI registry |
+| `--chart-path` | | Local path to the Helm chart (overrides the remote OCI default) |
+| `--port-forward` | `true` | After install, start a background port-forward of the console |
+| `--local-port` | `8080` | Local port to use for the console port-forward |
+
+<br/>
+
+- #### `uninstall [flags]`:
+
+Removes the krkn operator. Exactly one of `--kind` or `--kubeconfig` must be provided.
+Any background port-forward started by `install` is automatically stopped before the cluster is modified.
+
+- **`--kind`** deletes the entire KinD cluster in one shot — no Helm step needed.
+- **`--kubeconfig`** runs `helm uninstall` against the existing cluster. Pass `--delete-namespace`
+  to also remove the namespace afterwards.
+
+```bash
+# Delete the KinD cluster entirely
+krknctl operator uninstall --kind --cluster-name krkn-operator
+
+# Helm-uninstall from an existing cluster
+krknctl operator uninstall --kubeconfig ~/.kube/config
+
+# Also remove the namespace after uninstall
+krknctl operator uninstall --kubeconfig ~/.kube/config --delete-namespace
+```
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--kind` | `false` | Delete the entire KinD cluster |
+| `--kubeconfig` | | Path to the kubeconfig of the cluster to uninstall from |
+| `--cluster-name` | `krkn-operator` | KinD cluster name to delete (only used with `--kind`) |
+| `--namespace` | `krkn-operator-system` | Namespace the operator was installed into |
+| `--delete-namespace` | `false` | Also delete the namespace after `helm uninstall` (only with `--kubeconfig`) |
+
+<br/>
+
 ### Running krknctl on a disconnected environment with a private registry
 
 If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.

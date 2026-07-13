@@ -1,14 +1,14 @@
 ---
 title: Scenarios
-description: Available Kkrn-AI Scenarios
+description: Available Krkn-AI Scenarios
 weight: 4
 ---
 
-The following Krkn scenarios are currently supported by Kkrn-AI.
+The following Krkn scenarios are currently supported by Krkn-AI.
 
-> At least one scenario must be enabled for the Kkrn-AI experiment to run.
+> At least one scenario must be enabled for the Krkn-AI experiment to run.
 
-| **Scenario**        	| **Kkrn-AI Config (YAML)**                      	|
+| **Scenario**        	| **Krkn-AI Config (YAML)**                      	|
 |---------------------	|------------------------------------------	|
 | [Pod Scenario](../../scenarios/pod-scenario/)        	| *scenario.pod-scenarios*       	|
 | [Application Outages](../../scenarios/application-outage/) 	| *scenario.application-outages* 	|
@@ -21,6 +21,8 @@ The following Krkn scenarios are currently supported by Kkrn-AI.
 | [Network Scenarios](../../scenarios/network-chaos-scenario/)       	| *scenario.network-scenarios*      	|
 | [DNS Outage](../../scenarios/dns-outage/)       	| *scenario.dns-outage*      	|
 | [PVC Scenario](../../scenarios/pvc-scenario/)       	| *scenario.pvc-scenarios*      	|
+| [KubeVirt VM Outage](../../scenarios/kubevirt-vm-outage-scenario/)       	| *scenario.kubevirt-scenarios*      	|
+| [Storage Throttle](../../scenarios/storage-throttle-scenario/)       	| *scenario.storage-throttle*      	|
 
 
 By default, scenarios are not enabled. Depending on your use case, you can enable or disable these scenarios in the `krkn-ai.yaml` config file by setting the `enable` field to `true` or `false`.
@@ -58,5 +60,11 @@ scenario:
     enable: true
 
   pvc-scenarios:
+    enable: false
+
+  kubevirt-scenarios:
+    enable: false
+
+  storage-throttle:
     enable: false
 ```

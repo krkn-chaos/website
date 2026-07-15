@@ -9,10 +9,7 @@ weight: 1
 The Jobs list is the home screen of the platform. It displays all scenario executions for your group, with real-time status updates and access to logs and results.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Jobs & Execution Monitoring Walkthrough</strong></p>
-    <p class="krkn-video__duration">~3 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/_AktRHZw48o" title="Jobs & Execution Monitoring Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

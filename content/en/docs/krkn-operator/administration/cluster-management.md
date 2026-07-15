@@ -9,10 +9,7 @@ weight: 1
 Register target Kubernetes clusters that will be available for chaos scenario execution. The operator runs on a control plane cluster and executes scenarios against registered targets — it never runs chaos against itself.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Cluster Management Walkthrough</strong></p>
-    <p class="krkn-video__duration">~2 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/PigarWI5sbU" title="Cluster Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

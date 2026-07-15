@@ -9,10 +9,7 @@ weight: 3
 Execute a chaos scenario on one or more target clusters through a guided step-by-step wizard. All scenarios can run simultaneously across multiple clusters.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Run Scenarios Walkthrough</strong></p>
-    <p class="krkn-video__duration">~4 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/rl6h9gdLy_M" title="Run Scenarios Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

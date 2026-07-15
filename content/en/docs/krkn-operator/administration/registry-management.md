@@ -9,10 +9,7 @@ weight: 3
 Configure private container registries for chaos scenario images and control which groups can access them. By default, scenarios are pulled from the public Quay.io registry. Private registries enable air-gapped deployments and custom scenario images.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Registry Management Walkthrough</strong></p>
-    <p class="krkn-video__duration">~2 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/lPmjLX_dKHk" title="Registry Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

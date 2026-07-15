@@ -9,10 +9,7 @@ weight: 2
 A built-in terminal for exploring target clusters using read-only `oc` and `kubectl` commands. Useful for inspecting cluster state before, during or after chaos experiments.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Cluster Terminal Walkthrough</strong></p>
-    <p class="krkn-video__duration">~1.5 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/TTlpq0kZn8g" title="Cluster Terminal Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

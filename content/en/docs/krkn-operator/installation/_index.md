@@ -10,10 +10,7 @@ custom_js: ["/js/krkn-operator-version.js"]
 Deploy Krkn Operator on Kubernetes or OpenShift using Helm.
 
 <div class="krkn-video">
-  <div class="krkn-video__placeholder">
-    <p>Video: <strong>Installation Walkthrough</strong></p>
-    <p class="krkn-video__duration">~3 min</p>
-  </div>
+  <iframe src="https://www.youtube.com/embed/kEajOXY46Nc" title="Installation Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

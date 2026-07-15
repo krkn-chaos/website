@@ -1938,6 +1938,62 @@ table tbody tr:hover {
   }
 }
 
+// -----------------------------------------------------------------------------
+// Permission Badges (Krkn Operator docs)
+// -----------------------------------------------------------------------------
+.krkn-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  margin-left: 8px;
+
+  &--admin { background: var(--krkn-primary); color: #fff; }
+  &--read { background: var(--krkn-secondary); color: #fff; }
+  &--run { background: #059669; color: #fff; }
+  &--delete { background: #DC2626; color: #fff; }
+}
+
+// -----------------------------------------------------------------------------
+// Video Embed (Krkn Operator docs)
+// -----------------------------------------------------------------------------
+.krkn-video {
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--krkn-border-subtle);
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+  }
+
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: var(--krkn-surface);
+    text-align: center;
+    color: var(--krkn-text-muted);
+
+    p {
+      margin: 0.25rem 0;
+    }
+  }
+
+  &__duration {
+    font-size: 0.85rem;
+    color: var(--krkn-text-subtle);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Feedback Form (.krkn-feedback)
 // Matches feature-card / community-card design language

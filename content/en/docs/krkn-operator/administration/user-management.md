@@ -28,7 +28,7 @@ Groups also receive permission flags that control what operations their members 
 
 | Permission | What it grants |
 |------------|---------------|
-| **Read** | View jobs and execution results |
+| **View** | View jobs and execution results |
 | **Run** | Execute scenarios, use Chaos Studio, access cluster terminal |
 | **Delete** | Remove jobs and execution history |
 
@@ -54,7 +54,7 @@ Users are created and assigned to a group during creation.
 ```text
 Group "SRE Team"
   ├── Clusters: production-us, production-eu
-  ├── Permissions: Read, Run
+  ├── Permissions: View, Run
   └── Members: alice, bob
         │
         ├── alice → can run scenarios on production-us, production-eu

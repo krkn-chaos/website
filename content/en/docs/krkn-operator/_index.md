@@ -29,7 +29,7 @@ Full access to the platform. Administrators configure the infrastructure that us
 
 Operational access scoped by group membership. Every user must belong to a group — the group determines which clusters, registries and features are accessible.
 
-- View and manage **jobs** (based on Read/Delete permissions)
+- View and manage **jobs** (based on View/Delete permissions)
 - Use the **cluster terminal** (requires Run permission)
 - **Run scenarios** on assigned clusters (requires Run permission)
 - Design workflows in **Chaos Studio** (requires Run permission)
@@ -54,7 +54,7 @@ Users only see jobs from their own group. A cluster-wide indicator shows the nam
     │             │
   Clusters     Clusters
   Permissions  Permissions
-  (Read,Run,   (Read)
+  (View,Run,   (View)
    Delete)
     │             │
   Users        Users
@@ -64,7 +64,7 @@ Permissions are assigned at the group level:
 
 | Permission | Grants |
 |------------|--------|
-| **Read** | View jobs and execution results |
+| **View** | View jobs and execution results |
 | **Run** | Execute scenarios, use Chaos Studio, access cluster terminal |
 | **Delete** | Remove jobs and execution history |
 

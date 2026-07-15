@@ -4,7 +4,7 @@ description: Monitor and inspect chaos experiment execution
 weight: 1
 ---
 
-# Jobs <span class="krkn-badge krkn-badge--read">Read</span> <span class="krkn-badge krkn-badge--delete">Delete</span>
+# Jobs <span class="krkn-badge krkn-badge--view">View</span> <span class="krkn-badge krkn-badge--delete">Delete</span>
 
 The Jobs list is the home screen of the platform. It displays all scenario executions for your group, with real-time status updates and access to logs and results.
 

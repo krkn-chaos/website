@@ -14,7 +14,7 @@ The operational features of Krkn Operator are available to all users, scoped by 
 
 | Feature | Required Permission |
 |---------|-------------------|
-| View Jobs | <span class="krkn-badge krkn-badge--read">Read</span> |
+| View Jobs | <span class="krkn-badge krkn-badge--view">View</span> |
 | Delete Jobs | <span class="krkn-badge krkn-badge--delete">Delete</span> |
 | Cluster Terminal | <span class="krkn-badge krkn-badge--run">Run</span> |
 | Run Scenarios | <span class="krkn-badge krkn-badge--run">Run</span> |

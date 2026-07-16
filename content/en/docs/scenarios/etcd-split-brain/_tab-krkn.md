@@ -69,5 +69,3 @@ kraken:
 ```bash
 python run_kraken.py --config config/config.yaml
 ```
-
-{{< notice type="danger" >}} This scenario carries a significant risk: it **might break the cluster API**, making it impossible to automatically revert the applied network rules. The `iptables` rules will be printed to the console, allowing for manual reversal via a shell on the affected node. This scenario is **best suited for disposable clusters** and should be **used at your own risk**. {{< /notice >}}

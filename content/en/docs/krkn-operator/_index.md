@@ -10,6 +10,21 @@ Krkn Operator is a Kubernetes-native platform to deploy, configure and orchestra
 
 ---
 
+## Multi-Cluster Chaos Testing
+
+Multi-cluster execution is a core capability of the platform. Every chaos scenario can target one or more clusters simultaneously, regardless of how those clusters were registered:
+
+- **Manual targets** — clusters registered directly by an administrator through the web console
+- **OCM/ACM discovery** — clusters discovered automatically through Open Cluster Management or Red Hat Advanced Cluster Management
+
+Both methods produce the same unified cluster pool. When executing a scenario, users select any combination of available targets and the platform runs the experiment in parallel across all of them. This enables cross-environment resilience testing (dev, staging, production), regional failover validation, and multi-tenant chaos campaigns — all from a single execution.
+
+{{% notice info %}}
+**Multi-cluster is always available.** OCM/ACM integration is optional and adds automatic cluster discovery, but multi-cluster execution works identically with manually registered targets. No external cluster management platform is required.
+{{% /notice %}}
+
+---
+
 ## Personas
 
 The platform defines two roles with different access levels.

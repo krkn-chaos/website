@@ -44,20 +44,6 @@ Critical security vulnerabilities and high-impact issues may be addressed throug
 Community contributions for bug fixes, testing, and validation are always welcome.
 
 
-## Open Cluster Management (OCM) Compatibility
-
-Krkn Operator can be deployed and used independently or integrated with Open Cluster Management (OCM) for multi-cluster management and orchestration use cases.
-
-For OCM-integrated deployments, the Krkn community aims to test and validate Krkn Operator against the latest two supported OCM releases. While compatibility with older OCM releases may work, it is not actively tested or guaranteed.
-
-As Krkn Operator and OCM evolve, we will continue to collaborate on maintaining compatibility and ensure users can take advantage of new capabilities while minimizing upgrade challenges.
-
-### Reference Documentation
-
-* OCM Releases: https://open-cluster-management.io/docs/release/
-* OCM Project: https://open-cluster-management.io/
-
-
 ## Release Notes
 
 Each release includes documentation for:

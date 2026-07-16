@@ -4,7 +4,7 @@ description: Execute single chaos scenarios on target clusters
 weight: 3
 ---
 
-# Run Scenarios <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a>
+# Run Scenarios <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a>
 
 Execute a chaos scenario on one or more target clusters through a guided step-by-step wizard. All scenarios can run simultaneously across multiple clusters.
 

@@ -4,7 +4,7 @@ description: Explore target clusters with read-only commands
 weight: 2
 ---
 
-# Cluster Terminal <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a>
+# Cluster Terminal <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a>
 
 A built-in terminal for exploring target clusters using read-only `oc` and `kubectl` commands. Useful for inspecting cluster state before, during or after chaos experiments.
 
@@ -19,4 +19,4 @@ A built-in terminal for exploring target clusters using read-only `oc` and `kube
 - **Read-only**: only read commands are available — no modifications to the cluster are possible
 - **Supported commands**: `oc` and `kubectl`
 - **Target selection**: only clusters accessible to your group are available
-- Requires <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a> permission
+- Requires <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> permission

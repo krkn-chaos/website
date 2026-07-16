@@ -75,13 +75,31 @@ Users only see jobs from their own group. A cluster-wide indicator shows the nam
   Users        Users
 ```
 
-Permissions are assigned at the group level:
+Permissions are assigned at the group level and determine what users can do on clusters accessible to their group.
 
-| Permission | Grants |
-|------------|--------|
-| **View** | View jobs and execution results |
-| **Run** | Execute scenarios, use Chaos Studio, access cluster terminal |
-| **Delete** | Remove jobs and execution history |
+### View {#permission-view}
+
+<span class="krkn-badge krkn-badge--view">View</span>
+
+Allows users to see jobs and their execution results. Users with this permission can inspect single run outcomes, console logs, graph run nodes, and Resiliency Scores — but cannot execute or delete anything.
+
+**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
+
+### Run {#permission-run}
+
+<span class="krkn-badge krkn-badge--run">Run</span>
+
+Allows users to execute chaos experiments on the clusters assigned to their group. This includes running single scenarios, designing and executing Chaos Studio workflows, and accessing the cluster terminal for read-only inspection.
+
+**Applies to:** [Run Scenarios](/docs/krkn-operator/usage/run-scenarios/) · [Chaos Studio](/docs/krkn-operator/usage/chaos-studio/) · [Cluster Terminal](/docs/krkn-operator/usage/cluster-terminal/)
+
+### Delete {#permission-delete}
+
+<span class="krkn-badge krkn-badge--delete">Delete</span>
+
+Allows users to remove completed jobs and their execution history. Without this permission, jobs remain visible but cannot be deleted.
+
+**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
 
 ---
 
@@ -109,6 +127,8 @@ Permissions are assigned at the group level:
 - Open Cluster Management (OCM)
 - Red Hat Advanced Cluster Management (ACM)
 
+See the [Compatibility Matrix](compatibility/) for tested ACM/OCM versions and platform details.
+
 ---
 
 ## Next Steps
@@ -116,3 +136,4 @@ Permissions are assigned at the group level:
 - [Installation](installation/) — Deploy Krkn Operator with Helm
 - [Administration](administration/) — Configure clusters, users, registries and providers
 - [Usage](usage/) — Run scenarios, use Chaos Studio, manage jobs
+- [Compatibility Matrix](compatibility/) — Supported platforms and ACM/OCM versions

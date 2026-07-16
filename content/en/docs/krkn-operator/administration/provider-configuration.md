@@ -4,7 +4,7 @@ description: Configure target providers for cluster discovery
 weight: 4
 ---
 
-# Provider Configuration <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
+# Provider Configuration <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Configure target providers that integrate with external cluster management platforms. The provider configuration interface adapts dynamically based on the selected provider.
 

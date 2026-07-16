@@ -4,7 +4,7 @@ description: Platform administration for Krkn Operator
 weight: 2
 ---
 
-# Administration <span class="krkn-badge krkn-badge--admin">Admin</span>
+# Administration <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Administrators configure the platform infrastructure that users operate on. This includes registering clusters, managing users and groups, setting up private registries and configuring target providers.
 

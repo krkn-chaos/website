@@ -4,7 +4,7 @@ description: Configure private container registries and visibility
 weight: 3
 ---
 
-# Registry Management <span class="krkn-badge krkn-badge--admin">Admin</span>
+# Registry Management <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Configure private container registries for chaos scenario images and control which groups can access them. By default, scenarios are pulled from the public Quay.io registry. Private registries enable air-gapped deployments and custom scenario images.
 

@@ -4,7 +4,7 @@ description: Design visual chaos workflows with serial and parallel execution
 weight: 4
 ---
 
-# Chaos Studio <span class="krkn-badge krkn-badge--run">Run</span>
+# Chaos Studio <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a>
 
 A visual drag-and-drop editor for designing complex chaos workflows. Build graphs of scenarios that execute in series or parallel, and measure application resilience with the Resiliency Score.
 

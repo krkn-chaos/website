@@ -1956,6 +1956,15 @@ table tbody tr:hover {
   &--view { background: var(--krkn-secondary); color: var(--krkn-text-on-color); }
   &--run { background: var(--krkn-success); color: var(--krkn-text-on-color); }
   &--delete { background: var(--krkn-danger); color: var(--krkn-text-on-color); }
+
+  a & {
+    text-decoration: none;
+    color: var(--krkn-text-on-color);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }
 
 // -----------------------------------------------------------------------------

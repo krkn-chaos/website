@@ -5,7 +5,7 @@ weight: 1
 custom_js: ["/js/krkn-operator-version.js"]
 ---
 
-# Installation <span class="krkn-badge krkn-badge--admin">Admin</span>
+# Installation <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Deploy Krkn Operator on Kubernetes or OpenShift using Helm.
 

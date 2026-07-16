@@ -4,7 +4,7 @@ description: Manage groups and users on the platform
 weight: 2
 ---
 
-# User Management <span class="krkn-badge krkn-badge--admin">Admin</span>
+# User Management <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Organize users through groups that define cluster access and permissions. The group is the central unit of the permission model — users inherit all capabilities from their assigned group.
 

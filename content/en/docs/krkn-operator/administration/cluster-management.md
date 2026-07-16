@@ -4,7 +4,7 @@ description: Register and manage target Kubernetes clusters
 weight: 1
 ---
 
-# Cluster Management <span class="krkn-badge krkn-badge--admin">Admin</span>
+# Cluster Management <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 
 Register target Kubernetes clusters that will be available for chaos scenario execution. The operator runs on a control plane cluster and executes scenarios against registered targets — it never runs chaos against itself.
 

@@ -14,11 +14,11 @@ The operational features of Krkn Operator are available to all users, scoped by 
 
 | Feature | Required Permission |
 |---------|-------------------|
-| View Jobs | <span class="krkn-badge krkn-badge--view">View</span> |
-| Delete Jobs | <span class="krkn-badge krkn-badge--delete">Delete</span> |
-| Cluster Terminal | <span class="krkn-badge krkn-badge--run">Run</span> |
-| Run Scenarios | <span class="krkn-badge krkn-badge--run">Run</span> |
-| Chaos Studio | <span class="krkn-badge krkn-badge--run">Run</span> |
+| View Jobs | <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--view">View</span></a> |
+| Delete Jobs | <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--delete">Delete</span></a> |
+| Cluster Terminal | <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a> |
+| Run Scenarios | <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a> |
+| Chaos Studio | <a href="/docs/krkn-operator/administration/#permission-model"><span class="krkn-badge krkn-badge--run">Run</span></a> |
 | File Management | Group visibility |
 
 {{% notice info %}}

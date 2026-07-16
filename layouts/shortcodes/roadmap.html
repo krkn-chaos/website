@@ -1,0 +1,39 @@
+{{- $releases := .Site.Data.roadmap.releases -}}
+<div class="krkn-roadmap">
+  {{- range $i, $release := $releases -}}
+  <div class="krkn-roadmap__release krkn-roadmap__release--{{ $release.status }}">
+    <div class="krkn-roadmap__line">
+      <div class="krkn-roadmap__marker">
+        {{- if eq $release.status "released" -}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        {{- else if eq $release.status "in-progress" -}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"></circle></svg>
+        {{- end -}}
+      </div>
+    </div>
+    <div class="krkn-roadmap__card">
+      <div class="krkn-roadmap__header">
+        <span class="krkn-roadmap__version">{{ $release.version }}</span>
+        <span class="krkn-roadmap__status-badge">
+          {{- if eq $release.status "released" -}}Released
+          {{- else if eq $release.status "in-progress" -}}In Progress
+          {{- else -}}Planned
+          {{- end -}}
+        </span>
+      </div>
+      <h3 class="krkn-roadmap__title">{{ $release.title }}</h3>
+      <time class="krkn-roadmap__date" datetime="{{ $release.date }}">
+        {{- $t := time $release.date -}}
+        {{ $t.Format "January 2006" }}
+      </time>
+      {{- if $release.tasks }}
+      <ul class="krkn-roadmap__tasks">
+        {{- range $release.tasks }}
+        <li>{{ . | markdownify }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }}
+</div>

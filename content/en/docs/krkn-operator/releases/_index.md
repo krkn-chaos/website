@@ -1,10 +1,16 @@
 ---
-title: Releases
-description: Krkn Operator release strategy and compatibility matrix
+title: Releases & Roadmap
+description: Krkn Operator release strategy, roadmap, and compatibility matrix
 weight: 4
 ---
 
-This document outlines the Krkn Operator release strategy, Open Cluster Management (OCM) compatibility goals, and how the community prioritizes features, bug fixes, and security updates.
+This document outlines the Krkn Operator release strategy, roadmap, and how the community prioritizes features, bug fixes, and security updates.
+
+## Roadmap
+
+{{< roadmap >}}
+
+---
 
 ## Release Cadence
 

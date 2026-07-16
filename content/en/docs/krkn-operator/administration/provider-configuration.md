@@ -9,7 +9,7 @@ weight: 4
 Configure target providers that integrate with external cluster management platforms. The provider configuration interface adapts dynamically based on the selected provider.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/VNDRfiKNMc8" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/MPd9beJWrzY" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

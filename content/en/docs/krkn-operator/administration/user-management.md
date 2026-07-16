@@ -9,7 +9,7 @@ weight: 2
 Organize users through groups that define cluster access and permissions. The group is the central unit of the permission model — users inherit all capabilities from their assigned group.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/8DlhhojjVu4" title="User & Group Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/gCh4xj8KmP8" title="User & Group Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

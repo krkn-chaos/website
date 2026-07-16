@@ -9,7 +9,7 @@ weight: 5
 Upload and manage text-based configuration files that can be used across scenario executions and Chaos Studio workflows.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/OA4UgbPxsVw" title="File Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/esQlDsPW-Jg" title="File Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

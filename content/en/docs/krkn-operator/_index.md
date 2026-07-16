@@ -1,6 +1,6 @@
 ---
 title: Krkn Operator
-linkTitle: Operator
+linkTitle: Krkn Operator
 weight: 8
 description: >
   A Kubernetes-native platform for orchestrating Chaos Engineering experiments through a web interface.

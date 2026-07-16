@@ -27,19 +27,22 @@ Deploy Krkn Operator on Kubernetes or OpenShift using Helm.
 **Latest Version:** <code id="krkn-operator-version" style="color: var(--krkn-primary);">loading...</code>
 
 ```bash
-helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator --version <VERSION>
+helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+  --version <VERSION> \
+  --namespace krkn-operator-system \
+  --create-namespace
 ```
 
 Verify:
 
 ```bash
-kubectl get pods -l app.kubernetes.io/name=krkn-operator
+kubectl get pods -n krkn-operator-system -l app.kubernetes.io/name=krkn-operator
 ```
 
 Access the console (local):
 
 ```bash
-kubectl port-forward svc/krkn-operator-console 3000:3000
+kubectl port-forward -n krkn-operator-system svc/krkn-operator-console 3000:3000
 ```
 
 ---

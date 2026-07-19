@@ -70,6 +70,11 @@ npm run dev
 
 This starts a Hugo development server at `http://localhost:1313` with live reload enabled.
 
+> **Note:** The `--disableFastRender` flag is included so that SCSS compile errors are surfaced
+> immediately during incremental builds, rather than being silently skipped. This matches the
+> practice recommended in `CLAUDE.md` and prevents committing broken styles that only fail in CI.
+
+
 ### Building the Site
 
 ```bash

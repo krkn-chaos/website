@@ -302,7 +302,7 @@ If the total number of scenarios crosses a new threshold, update these counts:
 - **Homepage title:** `layouts/index.html` — search for "20+ Chaos Scenarios"
 - **Docs landing page:** `content/en/docs/_index.md` — search for "20+ chaos scenarios"
 
-*(Tip: You can check the exact current count by running: `ls -1 content/en/docs/scenarios/ | grep -v "_index.md" | wc -l` or `find content/en/docs/scenarios -mindepth 1 -maxdepth 1 -type d | wc -l`)*
+*(Tip: To get the exact scenario count, run: `find content/en/docs/scenarios -mindepth 1 -maxdepth 1 -type d | wc -l` — this counts only directories, avoiding false positives from stray `.md` files in the same folder.)*
 
 ### Step 5: Sidebar navigation
 

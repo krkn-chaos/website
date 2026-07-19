@@ -13,13 +13,25 @@ const cheerio = require('cheerio');
 
 class LinkChecker {
   constructor(options = {}) {
-    this.baseUrl = options.baseUrl || 'https://krkn-chaos.dev';
+    // Load config file if it exists
+    const configPath = path.join(__dirname, '../.linkcheck.json');
+    let config = {};
+    try {
+      const configFile = require('fs').readFileSync(configPath, 'utf-8');
+      config = JSON.parse(configFile);
+    } catch (error) {
+      // Config file doesn't exist or is invalid, use defaults
+    }
+
+    this.baseUrl = options.baseUrl || config.baseUrl || 'https://krkn-chaos.dev';
     this.publicDir = options.publicDir || path.join(__dirname, '../public');
-    this.timeout = options.timeout || 10000;
-    this.maxRetries = options.maxRetries || 1;
+    this.timeout = options.timeout || config.timeout || 10000;
+    this.maxRetries = options.maxRetries || config.maxRetries || 1;
     this.checkExternal = options.checkExternal !== false; // Default to true, but can be disabled
-    this.maxConcurrent = options.maxConcurrent || 5;
-    this.excludePatterns = options.excludePatterns || [
+    this.maxConcurrent = options.maxConcurrent || config.maxConcurrent || 5;
+    // Build exclude patterns from config and options
+    const configExcludePatterns = (config.excludePatterns || []).map(pattern => new RegExp(pattern));
+    const defaultExcludePatterns = [
       // Skip localhost and development URLs
       /^https?:\/\/localhost/,
       /^https?:\/\/127\.0\.0\.1/,
@@ -37,6 +49,8 @@ class LinkChecker {
       /github\.com.*\/stargazers/,
       /github\.com.*\/network\/members/,
     ];
+    
+    this.excludePatterns = options.excludePatterns || [...configExcludePatterns, ...defaultExcludePatterns];
     
     this.pendingChecks = new Set();
     this.checkedUrls = new Map(); // Cache results
@@ -304,7 +318,7 @@ async function main() {
     const checker = new LinkChecker({
       baseUrl: process.env.SITE_URL || 'https://krkn-chaos.dev',
       publicDir: path.join(__dirname, '../public'),
-      timeout: parseInt(process.env.LINK_CHECK_TIMEOUT) || 10000,
+      timeout: parseInt(process.env.LINK_CHECK_TIMEOUT) || undefined, // Let config file take precedence if env not set
       checkExternal: process.env.LINK_CHECK_EXTERNAL !== 'false'
     });
 

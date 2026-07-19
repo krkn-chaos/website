@@ -17,7 +17,7 @@ class BuildTimeIndexer {
         this.contentPath = contentPath;
         this.indexData = [];
         this.topics = new Map();
-        
+
         // Configure marked for parsing markdown
         marked.setOptions({
             gfm: true,
@@ -32,10 +32,10 @@ class BuildTimeIndexer {
 
     async processDirectory(dirPath) {
         const entries = await fs.readdir(dirPath, { withFileTypes: true });
-        
+
         for (const entry of entries) {
             const fullPath = path.join(dirPath, entry.name);
-            
+
             if (entry.isDirectory()) {
                 await this.processDirectory(fullPath);
             } else if (entry.isFile() && entry.name.endsWith('.md')) {
@@ -45,14 +45,15 @@ class BuildTimeIndexer {
     }
 
     async processMarkdownFile(filePath) {
+        const relPath = path.relative(this.contentPath, filePath);
         try {
             const content = await fs.readFile(filePath, 'utf-8');
-            const parsed = this.parseMarkdown(content);
-            
+            const parsed = this.parseMarkdown(content, relPath);
+
             if (parsed && parsed.title) {
                 const url = this.generateUrl(filePath);
                 const topic = this.extractTopic(filePath);
-                
+
                 const document = {
                     id: filePath,
                     title: parsed.title,
@@ -64,9 +65,9 @@ class BuildTimeIndexer {
                     lastModified: (await fs.stat(filePath)).mtime,
                     wordCount: this.countWords(parsed.content)
                 };
-                
+
                 this.indexData.push(document);
-                
+
                 // Add to topics map
                 if (topic) {
                     if (!this.topics.has(topic)) {
@@ -76,17 +77,17 @@ class BuildTimeIndexer {
                 }
             }
         } catch (error) {
-            console.warn(`⚠️  Skipped: ${filePath} — ${error.message}`);
+            console.warn(`⚠️  Skipped: ${relPath} — ${error.message}`);
         }
     }
 
-    parseMarkdown(content) {
+    parseMarkdown(content, filePath = '<unknown>') {
         try {
             // Extract frontmatter
             const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
             let frontmatter = {};
             let markdownContent = content;
-            
+
             if (frontmatterMatch) {
                 markdownContent = content.substring(frontmatterMatch[0].length);
                 const yamlLines = frontmatterMatch[1].split('\n');
@@ -99,32 +100,32 @@ class BuildTimeIndexer {
                     }
                 }
             }
-            
+
             // Convert markdown to HTML then extract text
             const html = marked(markdownContent);
             const $ = cheerio.load(html);
             const textContent = $.text().replace(/\s+/g, ' ').trim();
-            
+
             // Extract title
             let title = frontmatter.title;
             if (!title) {
                 const firstHeading = $('h1, h2').first().text().trim();
                 title = firstHeading || 'Untitled';
             }
-            
+
             // Extract description  
             let description = frontmatter.description;
             if (!description) {
                 const firstParagraph = $('p').first().text().trim();
                 description = firstParagraph.substring(0, 200) + (firstParagraph.length > 200 ? '...' : '');
             }
-            
+
             // Extract tags
             let tags = [];
             if (frontmatter.tags) {
                 tags = frontmatter.tags.split(',').map(tag => tag.trim());
             }
-            
+
             return {
                 title,
                 description,
@@ -132,7 +133,7 @@ class BuildTimeIndexer {
                 tags
             };
         } catch (error) {
-            console.warn(`⚠️  Failed to parse markdown: ${error.message}`);
+            console.warn(`⚠️  Failed to parse markdown in ${filePath}: ${error.message}`);
             return null;
         }
     }
@@ -156,12 +157,12 @@ class BuildTimeIndexer {
 
 async function buildSearchIndex() {
     console.log('Building search index...');
-    
+
     try {
         const contentPath = path.join(__dirname, '../content/en');
         const indexer = new BuildTimeIndexer(contentPath);
         await indexer.buildIndex();
-        
+
         const indexData = {
             documents: indexer.indexData,
             topics: Array.from(indexer.topics.entries()).map(([name, docs]) => ({
@@ -170,12 +171,12 @@ async function buildSearchIndex() {
             })),
             buildTime: new Date().toISOString()
         };
-        
+
         const outputPath = path.join(__dirname, '../static/search-index.json');
         await fs.writeFile(outputPath, JSON.stringify(indexData, null, 2));
-        
+
         console.log(`✅ Indexed ${indexData.documents.length} documents`);
-        
+
     } catch (error) {
         console.error('Failed to build search index:', error);
         process.exit(1);

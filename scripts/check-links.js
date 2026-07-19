@@ -29,6 +29,8 @@ class LinkChecker {
     this.maxRetries = options.maxRetries || config.maxRetries || 2; // Changed default to match config
     this.checkExternal = options.checkExternal !== false; // Default to true, but can be disabled
     this.maxConcurrent = options.maxConcurrent || config.maxConcurrent || 5;
+    this.allowedStatusCodes = options.allowedStatusCodes || config.allowedStatusCodes || [200, 201, 202, 204, 301, 302, 307, 308];
+    this.warningStatusCodes = options.warningStatusCodes || config.warningStatusCodes || [401, 403, 429];
     // Build exclude patterns from config and options
     const configExcludePatterns = (config.excludePatterns || []).map(pattern => new RegExp(pattern));
     const defaultExcludePatterns = [
@@ -239,7 +241,7 @@ class LinkChecker {
       try {
         const response = await axios.head(link, {
           timeout: this.timeout,
-          validateStatus: (status) => status < 400,
+          validateStatus: (status) => this.allowedStatusCodes.includes(status),
           headers: {
             'User-Agent': 'Krkn-Website-LinkChecker/1.0 (+https://krkn-chaos.dev)',
             'Accept': '*/*'
@@ -255,7 +257,7 @@ class LinkChecker {
           try {
             const response = await axios.get(link, {
               timeout: this.timeout,
-              validateStatus: (status) => status < 400,
+              validateStatus: (status) => this.allowedStatusCodes.includes(status),
               headers: {
                 'User-Agent': 'Krkn-Website-LinkChecker/1.0 (+https://krkn-chaos.dev)',
                 'Accept': '*/*',
@@ -281,7 +283,7 @@ class LinkChecker {
         }
         
         // Check if it's an expected error (auth required, etc.)
-        if (error.response && [401, 403, 429].includes(error.response.status)) {
+        if (error.response && this.warningStatusCodes.includes(error.response.status)) {
           console.log(`⚠️  ${link} (${error.response.status} - auth/rate limited)`);
           this.results.warnings.push({
             url: link,

@@ -76,7 +76,7 @@ class BuildTimeIndexer {
                 }
             }
         } catch (error) {
-            // Skip files that can't be processed
+            console.warn(`⚠️  Skipped: ${filePath} — ${error.message}`);
         }
     }
 
@@ -132,6 +132,7 @@ class BuildTimeIndexer {
                 tags
             };
         } catch (error) {
+            console.warn(`⚠️  Failed to parse markdown: ${error.message}`);
             return null;
         }
     }

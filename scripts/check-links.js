@@ -25,8 +25,8 @@ class LinkChecker {
 
     this.baseUrl = options.baseUrl || config.baseUrl || 'https://krkn-chaos.dev';
     this.publicDir = options.publicDir || path.join(__dirname, '../public');
-    this.timeout = options.timeout || config.timeout || 10000;
-    this.maxRetries = options.maxRetries || config.maxRetries || 1;
+    this.timeout = options.timeout || config.timeout || 30000; // Changed default to match config
+    this.maxRetries = options.maxRetries || config.maxRetries || 2; // Changed default to match config
     this.checkExternal = options.checkExternal !== false; // Default to true, but can be disabled
     this.maxConcurrent = options.maxConcurrent || config.maxConcurrent || 5;
     // Build exclude patterns from config and options

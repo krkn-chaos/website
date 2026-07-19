@@ -218,14 +218,17 @@ class LinkChecker {
     try {
       await fs.access(targetPath);
       console.log(`✅ ${link} (relative)`);
+      this.checkedUrls.set(link, { broken: false });
     } catch (error) {
       console.log(`❌ ${link} (relative)`);
-      this.results.broken.push({
+      const brokenLink = {
         url: link,
         type: 'relative',
         error: 'File not found',
         source: sourceFile
-      });
+      };
+      this.results.broken.push(brokenLink);
+      this.checkedUrls.set(link, { broken: true, ...brokenLink });
     }
   }
 
@@ -244,8 +247,33 @@ class LinkChecker {
         });
         
         console.log(`✅ ${link} (${response.status})`);
+        this.checkedUrls.set(link, { broken: false });
         return;
       } catch (error) {
+        // HEAD request failed, try GET as fallback for 405/501 Method Not Allowed
+        if (retries === 0 && error.response && [405, 501].includes(error.response.status)) {
+          try {
+            const response = await axios.get(link, {
+              timeout: this.timeout,
+              validateStatus: (status) => status < 400,
+              headers: {
+                'User-Agent': 'Krkn-Website-LinkChecker/1.0 (+https://krkn-chaos.dev)',
+                'Accept': '*/*',
+                'Range': 'bytes=0-0' // Only request first byte to avoid downloading full content
+              },
+              maxRedirects: 5,
+              maxContentLength: 1024 // Limit response body to 1KB
+            });
+            
+            console.log(`✅ ${link} (${response.status} via GET)`);
+            this.checkedUrls.set(link, { broken: false });
+            return;
+          } catch (getFallbackError) {
+            // GET also failed, continue with normal retry logic
+            error = getFallbackError;
+          }
+        }
+
         if (retries < this.maxRetries) {
           retries++;
           await this.sleep(1000 * retries); // Exponential backoff
@@ -261,16 +289,19 @@ class LinkChecker {
             error: `HTTP ${error.response.status}`,
             source: sourceFile
           });
+          this.checkedUrls.set(link, { broken: false, warning: true });
           return;
         }
         
         console.log(`❌ ${link} (external)`);
-        this.results.broken.push({
+        const brokenLink = {
           url: link,
           type: 'external',
           error: error.message || 'Request failed',
           source: sourceFile
-        });
+        };
+        this.results.broken.push(brokenLink);
+        this.checkedUrls.set(link, { broken: true, ...brokenLink });
       }
     }
   }

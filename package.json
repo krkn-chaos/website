@@ -27,7 +27,9 @@
     "postbuild:production": "npm run _check:links",
     "serve": "npm run _serve",
     "test": "npm run check:links",
-    "dev": "hugo server --buildDrafts --buildFuture"
+    "dev": "hugo server --buildDrafts --buildFuture",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "axios": "^1.6.2",
@@ -47,6 +49,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "cross-env": "^7.0.3",
+    "eslint": "^9.39.5",
     "hugo-extended": "^0.146.0",
     "postcss-cli": "^11.0.0"
   },

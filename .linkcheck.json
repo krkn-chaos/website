@@ -9,7 +9,8 @@
     "^https?://.*\\.example$",
     "^https?://your-.*$",
     "kubernetes\\.slack\\.com",
-    "github\\.com.*/settings"
+    "github\\.com.*/settings",
+    "redhat-chaos\\.github\\.io/krkn"
   ],
   "allowedStatusCodes": [200, 201, 202, 204, 301, 302, 307, 308],
   "warningStatusCodes": [401, 403, 429]

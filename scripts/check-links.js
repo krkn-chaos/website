@@ -319,6 +319,7 @@ async function main() {
       baseUrl: process.env.SITE_URL || 'https://krkn-chaos.dev',
       publicDir: path.join(__dirname, '../public'),
       timeout: parseInt(process.env.LINK_CHECK_TIMEOUT) || undefined, // Let config file take precedence if env not set
+      maxConcurrent: parseInt(process.env.LINK_CHECK_MAX_CONCURRENT) || undefined, // Let config file take precedence if env not set
       checkExternal: process.env.LINK_CHECK_EXTERNAL !== 'false'
     });
 

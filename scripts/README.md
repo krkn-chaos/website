@@ -21,6 +21,7 @@ npm run _check:links:verbose
 
 - `LINK_CHECK_EXTERNAL=false` - Disable external link checking
 - `LINK_CHECK_TIMEOUT=10000` - Request timeout in milliseconds
+- `LINK_CHECK_MAX_CONCURRENT=5` - Max number of links checked in parallel
 - `LINK_CHECK_VERBOSE=true` - Show warnings and additional info
 - `SITE_URL=https://krkn-chaos.dev` - Base URL for the site
 
@@ -28,7 +29,8 @@ npm run _check:links:verbose
 
 Edit `.linkcheck.json` to customize:
 - Excluded URL patterns
-- Timeout settings
+- Timeout and retry settings
+- Max concurrent link checks
 - Allowed/warning status codes
 
 ### CI Integration
@@ -45,6 +47,7 @@ For CI environments, consider using `LINK_CHECK_EXTERNAL=false` to avoid rate li
 - ✅ **Internal link validation** - Checks all internal site links
 - ✅ **External link validation** - Validates external URLs with retry logic  
 - ✅ **Caching** - Avoids duplicate checks for the same URL
+- ✅ **Bounded concurrency** - Checks multiple links in parallel, capped by `maxConcurrent`
 - ✅ **Smart exclusions** - Skips Hugo print pages and known problematic URLs
 - ✅ **Configurable timeouts** - Adjustable request timeouts
 - ✅ **Detailed reporting** - Clear breakdown of broken links with source files

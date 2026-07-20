@@ -7,7 +7,6 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const { URL } = require('url');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -51,12 +50,19 @@ class LinkChecker {
       /github\.com.*\/stargazers/,
       /github\.com.*\/network\/members/,
     ];
-    
+
     this.excludePatterns = options.excludePatterns || [...configExcludePatterns, ...defaultExcludePatterns];
-    
-    this.pendingChecks = new Set();
-    this.checkedUrls = new Map(); // Cache results
-    
+
+    // In-flight external checks, keyed by URL, so that when the same link is
+    // referenced from multiple pages we fire exactly one network request for
+    // it instead of one per occurrence (see getExternalStatus()).
+    this.pendingChecks = new Map();
+    this.checkedUrls = new Map(); // Cache of resolved results, keyed by URL
+
+    // Links discovered while scanning are queued here and processed together
+    // in runLinkChecks() with bounded concurrency (this.maxConcurrent).
+    this.linkTasks = [];
+
     this.results = {
       total: 0,
       broken: [],
@@ -67,7 +73,7 @@ class LinkChecker {
 
   async checkLinks() {
     console.log('🔍 Starting link check...');
-    
+
     // Check if public directory exists
     try {
       await fs.access(this.publicDir);
@@ -76,21 +82,22 @@ class LinkChecker {
     }
 
     await this.scanDirectory(this.publicDir);
+    await this.runLinkChecks();
     return this.generateReport();
   }
 
   async scanDirectory(dirPath, relativePath = '') {
     const entries = await fs.readdir(dirPath, { withFileTypes: true });
-    
+
     for (const entry of entries) {
       const fullPath = path.join(dirPath, entry.name);
       const currentRelativePath = path.join(relativePath, entry.name);
-      
+
       // Skip Hugo print pages and other generated directories
       if (entry.isDirectory() && this.shouldSkipDirectory(entry.name)) {
         continue;
       }
-      
+
       if (entry.isDirectory()) {
         await this.scanDirectory(fullPath, currentRelativePath);
       } else if (entry.isFile() && entry.name.endsWith('.html')) {
@@ -124,9 +131,9 @@ class LinkChecker {
         }
       });
 
-      // Check each unique link
+      // Queue each unique link for checking once scanning is complete
       for (const link of links) {
-        await this.checkLink(link, relativePath);
+        this.linkTasks.push({ link, sourceFile: relativePath });
       }
     } catch (error) {
       console.warn(`⚠️  Failed to parse ${relativePath}: ${error.message}`);
@@ -137,9 +144,36 @@ class LinkChecker {
     }
   }
 
+  /**
+   * Processes every queued (link, sourceFile) pair with a bounded number of
+   * concurrent workers (this.maxConcurrent / .linkcheck.json's
+   * "maxConcurrent"). Internal/relative links resolve almost instantly (a
+   * single fs.access call), so this mainly matters for external links,
+   * where it caps how many outbound HTTP requests are in flight at once.
+   */
+  async runLinkChecks() {
+    if (this.linkTasks.length === 0) {
+      return;
+    }
+
+    let cursor = 0;
+    const next = () => this.linkTasks[cursor++];
+
+    const worker = async () => {
+      let task = next();
+      while (task) {
+        await this.checkLink(task.link, task.sourceFile);
+        task = next();
+      }
+    };
+
+    const workerCount = Math.max(1, Math.min(this.maxConcurrent, this.linkTasks.length));
+    await Promise.all(Array.from({ length: workerCount }, worker));
+  }
+
   async checkLink(link, sourceFile) {
     this.results.total++;
-    
+
     // Skip excluded patterns
     if (this.excludePatterns.some(pattern => pattern.test(link))) {
       this.results.skipped.push({
@@ -150,12 +184,9 @@ class LinkChecker {
       return;
     }
 
-    // Check cache first
+    // Serve from cache when we already know the outcome for this URL
     if (this.checkedUrls.has(link)) {
-      const cached = this.checkedUrls.get(link);
-      if (cached.broken) {
-        this.results.broken.push({ ...cached, source: sourceFile });
-      }
+      this.recordCachedResult(link, sourceFile, this.checkedUrls.get(link));
       return;
     }
 
@@ -165,7 +196,8 @@ class LinkChecker {
         await this.checkInternalLink(link, sourceFile);
       } else if (link.startsWith('http')) {
         if (this.checkExternal) {
-          await this.checkExternalLink(link, sourceFile);
+          const status = await this.getExternalStatus(link);
+          this.recordCachedResult(link, sourceFile, status);
         } else {
           this.results.skipped.push({
             url: link,
@@ -182,12 +214,31 @@ class LinkChecker {
     }
   }
 
+  // Attributes a cached (or just-resolved) result to the page that
+  // referenced it, so broken/warning links are reported once per source
+  // file even though the underlying check only ever runs once per URL.
+  recordCachedResult(link, sourceFile, cached) {
+    if (cached.broken) {
+      this.results.broken.push({ ...cached, source: sourceFile });
+    } else if (cached.warning) {
+      this.results.warnings.push({
+        url: cached.url || link,
+        type: cached.type,
+        error: cached.error,
+        source: sourceFile
+      });
+    }
+  }
+
   async checkInternalLink(link, sourceFile) {
-    // Remove anchor fragments for file checking
-    const linkWithoutAnchor = link.split('#')[0];
-    
+    // Strip anchor fragments and query strings — neither corresponds to a
+    // separate file on disk, and leaving them in previously produced
+    // false "broken" reports for otherwise-valid links such as
+    // "/search/?q=chaos".
+    const linkPath = link.split('#')[0].split('?')[0];
+
     // Convert to file path
-    let filePath = linkWithoutAnchor === '/' ? '/index.html' : linkWithoutAnchor;
+    let filePath = linkPath === '/' ? '/index.html' : linkPath;
     if (!filePath.endsWith('.html') && !filePath.endsWith('/')) {
       filePath += '/index.html';
     } else if (filePath.endsWith('/')) {
@@ -195,13 +246,13 @@ class LinkChecker {
     }
 
     const fullPath = path.join(this.publicDir, filePath.replace(/^\//, ''));
-    
+
     try {
       await fs.access(fullPath);
-      console.log(`✅ ${linkWithoutAnchor}`);
+      console.log(`✅ ${linkPath}`);
       this.checkedUrls.set(link, { broken: false });
     } catch (error) {
-      console.log(`❌ ${linkWithoutAnchor} (internal)`);
+      console.log(`❌ ${linkPath} (internal)`);
       const brokenLink = {
         url: link,
         type: 'internal',
@@ -214,15 +265,18 @@ class LinkChecker {
   }
 
   async checkRelativeLink(link, sourceFile) {
+    // Same reasoning as checkInternalLink: anchors/query strings don't map
+    // to files on disk and would otherwise cause false positives.
+    const linkPath = link.split('#')[0].split('?')[0];
     const sourceDir = path.dirname(sourceFile);
-    const targetPath = path.resolve(this.publicDir, sourceDir, link);
-    
+    const targetPath = path.resolve(this.publicDir, sourceDir, linkPath);
+
     try {
       await fs.access(targetPath);
-      console.log(`✅ ${link} (relative)`);
+      console.log(`✅ ${linkPath} (relative)`);
       this.checkedUrls.set(link, { broken: false });
     } catch (error) {
-      console.log(`❌ ${link} (relative)`);
+      console.log(`❌ ${linkPath} (relative)`);
       const brokenLink = {
         url: link,
         type: 'relative',
@@ -234,9 +288,36 @@ class LinkChecker {
     }
   }
 
-  async checkExternalLink(link, sourceFile) {
+  // Resolves (and caches) the status of an external URL exactly once, even
+  // when multiple concurrent workers ask for it at the same time — later
+  // callers await the same in-flight promise instead of firing a duplicate
+  // request.
+  async getExternalStatus(link) {
+    if (this.checkedUrls.has(link)) {
+      return this.checkedUrls.get(link);
+    }
+
+    if (this.pendingChecks.has(link)) {
+      return this.pendingChecks.get(link);
+    }
+
+    const promise = this.resolveExternalLink(link).finally(() => {
+      this.pendingChecks.delete(link);
+    });
+    this.pendingChecks.set(link, promise);
+
+    const status = await promise;
+    this.checkedUrls.set(link, status);
+    return status;
+  }
+
+  // Performs the actual HEAD/GET request(s) for a single external URL and
+  // returns a plain status object. This is intentionally source-agnostic
+  // (no sourceFile, no pushing into this.results) so the result can be
+  // shared across every page that links to the same URL.
+  async resolveExternalLink(link) {
     let retries = 0;
-    
+
     while (retries <= this.maxRetries) {
       try {
         const response = await axios.head(link, {
@@ -247,10 +328,9 @@ class LinkChecker {
             'Accept': '*/*'
           }
         });
-        
+
         console.log(`✅ ${link} (${response.status})`);
-        this.checkedUrls.set(link, { broken: false });
-        return;
+        return { broken: false };
       } catch (error) {
         // HEAD request failed, try GET as fallback for 405/501 Method Not Allowed
         if (retries === 0 && error.response && [405, 501].includes(error.response.status)) {
@@ -266,10 +346,9 @@ class LinkChecker {
               maxRedirects: 5,
               maxContentLength: 1024 // Limit response body to 1KB
             });
-            
+
             console.log(`✅ ${link} (${response.status} via GET)`);
-            this.checkedUrls.set(link, { broken: false });
-            return;
+            return { broken: false };
           } catch (getFallbackError) {
             // GET also failed, continue with normal retry logic
             error = getFallbackError;
@@ -281,31 +360,32 @@ class LinkChecker {
           await this.sleep(1000 * retries); // Exponential backoff
           continue;
         }
-        
+
         // Check if it's an expected error (auth required, etc.)
         if (error.response && this.warningStatusCodes.includes(error.response.status)) {
           console.log(`⚠️  ${link} (${error.response.status} - auth/rate limited)`);
-          this.results.warnings.push({
+          return {
+            broken: false,
+            warning: true,
             url: link,
             type: 'external',
-            error: `HTTP ${error.response.status}`,
-            source: sourceFile
-          });
-          this.checkedUrls.set(link, { broken: false, warning: true });
-          return;
+            error: `HTTP ${error.response.status}`
+          };
         }
-        
+
         console.log(`❌ ${link} (external)`);
-        const brokenLink = {
+        return {
+          broken: true,
           url: link,
           type: 'external',
-          error: error.message || 'Request failed',
-          source: sourceFile
+          error: error.message || 'Request failed'
         };
-        this.results.broken.push(brokenLink);
-        this.checkedUrls.set(link, { broken: true, ...brokenLink });
       }
     }
+
+    // Unreachable in practice (the loop above always returns), but guards
+    // against silently resolving as "not broken" if that ever changes.
+    return { broken: true, url: link, type: 'external', error: 'Retries exhausted' };
   }
 
   sleep(ms) {
@@ -338,7 +418,7 @@ class LinkChecker {
     }
 
     console.log(`\n${this.results.broken.length === 0 ? '✅' : '❌'} Link check ${this.results.broken.length === 0 ? 'passed' : 'failed'}`);
-    
+
     return {
       success: this.results.broken.length === 0,
       ...this.results

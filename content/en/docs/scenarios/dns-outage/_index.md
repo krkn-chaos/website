@@ -5,7 +5,11 @@ date: 2017-01-04
 weight: 3
 ---
 
+<krkn-hub-scenario id="pod-network-filter">
+
 This scenario blocks all outgoing DNS traffic from a specific pod, effectively preventing it from resolving any hostnames or service names.
+
+</krkn-hub-scenario>
 
 ## How to Run DNS Outage Scenarios
 

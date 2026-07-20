@@ -94,12 +94,12 @@ If the monitoring tool, cerberus is enabled it will consume the signal and conti
 
 Let us take a look at how to run the chaos scenarios on your Kubernetes clusters using Kraken-hub - a lightweight wrapper around Kraken to ease the runs by providing the ability to run them by just running container images using podman with parameters set as environment variables. This eliminates the need to carry around and edit configuration files and makes it easy for any CI framework integration. Here are the scenarios supported:
 
-- Pod Scenarios ([Documentation](../scenarios/pod-scenario/))
+- Pod Scenarios ([Documentation](../scenarios/pod-scenarios/))
   - Disrupts Kubernetes/Kubernetes and applications deployed as pods:
     - Helps understand the availability of the application, the initialization timing and recovery status.
   - [Demo](https://asciinema.org/a/452351?speed=3&theme=solarized-dark)
 
-- Container Scenarios ([Documentation](../scenarios/container-scenario))
+- Container Scenarios ([Documentation](../scenarios/container-scenarios))
   - Disrupts Kubernetes/Kubernetes and applications deployed as containers running as part of a pod(s) using a specified kill signal to mimic failures:
     - Helps understand the impact and recovery timing when the program/process running in the containers are disrupted - hangs, paused, killed etc., using various kill signals, i.e. SIGHUP, SIGTERM, SIGKILL etc.
   - [Demo](https://asciinema.org/a/BXqs9JSGDSEKcydTIJ5LpPZBM?speed=3&theme=solarized-dark)
@@ -119,7 +119,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
     - Currently, only set up for AWS cloud platform: 1 VPC and multiples subnets within the VPC can be specified.
     - [Demo](https://asciinema.org/a/452672?speed=3&theme=solarized-dark)
 
-- Application Outages ([Documentation](../scenarios/application-outage))
+- Application Outages ([Documentation](../scenarios/application-outages))
   - Scenario to block the traffic ( Ingress/Egress ) of an application matching the labels for the specified duration of time to understand the behavior of the service/other services which depend on it during the downtime.
     - Helps understand how the dependent services react to the unavailability.
     - [Demo](https://asciinema.org/a/452403?speed=3&theme=solarized-dark)

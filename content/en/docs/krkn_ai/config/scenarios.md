@@ -10,9 +10,9 @@ The following Krkn scenarios are currently supported by Krkn-AI.
 
 | **Scenario**        	| **Krkn-AI Config (YAML)**                      	|
 |---------------------	|------------------------------------------	|
-| [Pod Scenario](../../scenarios/pod-scenario/)        	| *scenario.pod-scenarios*       	|
-| [Application Outages](../../scenarios/application-outage/) 	| *scenario.application-outages* 	|
-| [Container Scenario](../../scenarios/container-scenario/)  	| *scenario.container-scenarios* 	|
+| [Pod Scenario](../../scenarios/pod-scenarios/)        	| *scenario.pod-scenarios*       	|
+| [Application Outages](../../scenarios/application-outages/) 	| *scenario.application-outages* 	|
+| [Container Scenario](../../scenarios/container-scenarios/)  	| *scenario.container-scenarios* 	|
 | [Node CPU Hog](../../scenarios/hog-scenarios/cpu-hog-scenario/)       	| *scenario.node-cpu-hog*        	|
 | [Node Memory Hog](../../scenarios/hog-scenarios/memory-hog-scenario/)     	| *scenario.node-memory-hog*     	|
 | [Node IO Hog](../../scenarios/hog-scenarios/io-hog-scenario/)     	| *scenario.node-io-hog*     	|

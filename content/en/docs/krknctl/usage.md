@@ -164,7 +164,7 @@ This is might be also helpful to run multiple chaos scenarios at large scale.
 
 Will create the structure for a random plan execution, so without any dependency between the scenarios. Once properly configured this can
 be used as a `seed` to generate large test plans for large scale tests.
-This subcommand supports base scaffolding mode by allowing users to specify desired scenario names or generate a plan file of any size using pre-configured scenarios as a template (or seed). This mode is extensively covered in the [scale testing](scale-testing.md) section.
+This subcommand supports base scaffolding mode by allowing users to specify desired scenario names or generate a plan file of any size using pre-configured scenarios as a template (or seed). This mode is extensively covered in the [randomized chaos testing](../randomized-chaos-testing/) section.
 
 
 

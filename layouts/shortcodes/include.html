@@ -2,6 +2,7 @@
 {{ $data := resources.GetRemote $file }}
 {{ if $data }}
 {{ $content := $data.Content }}
+{{ $content = replace $content "](GOVERNANCE.md)" "](https://github.com/krkn-chaos/krkn/blob/main/GOVERNANCE.md)" }}
 {{ $content | markdownify }}
 {{ else }}
 <div class="alert alert-warning">

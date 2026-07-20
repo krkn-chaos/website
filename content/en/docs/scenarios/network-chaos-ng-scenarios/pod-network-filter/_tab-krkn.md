@@ -73,9 +73,6 @@ kraken:
 ```
 {{% /alert %}}
 
-### Examples
-
-Please refer to the [use cases section](docs/getting-started/use-cases.md) for some real usage scenarios.
 ### Run 
 
 ```bash

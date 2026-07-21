@@ -114,9 +114,11 @@ console:
 
 ---
 
-## ACM Integration
+## OCM/ACM Integration
 
-Enable cluster discovery through Red Hat Advanced Cluster Management:
+Enable automatic cluster discovery through [Open Cluster Management (OCM)](https://open-cluster-management.io/) or [Red Hat Advanced Cluster Management (ACM)](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/):
+
+See the [OCM/ACM Compatibility](/docs/krkn-operator/compatibility/) page for tested versions.
 
 ```bash
 helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \

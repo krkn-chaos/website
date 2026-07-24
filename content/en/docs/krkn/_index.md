@@ -72,6 +72,10 @@ Information on enabling and leveraging this feature can be found [here](SLOs_val
 Health checks provide real-time visibility into the impact of chaos scenarios on application availability and performance. The system periodically checks the provided URLs based on the defined interval and records the results in Telemetry. To read more about how to properly configure health checks in your krkn run and sample output see [health checks](health-checks.md) document. 
 
 
+### Event-Driven Triggers
+Triggers allow Krkn to delay chaos injection until specific environmental conditions are met. Instead of using a fixed wait time, Krkn can actively poll command outputs or HTTP endpoints and automatically proceed once your conditions are satisfied. This is useful for synchronizing chaos with deployments, health checks, or external CI/CD pipelines. Find detailed configuration options and examples [here](triggers.md).
+
+
 ### Telemetry
 We gather some basic details of the cluster configuration and scenarios ran as part of a `telemetry` set of data that is printed off at the end of each krkn run. You can also opt in to the telemetry being stored in AWS S3 bucket or elasticsearch for long term storage. Find more details and configuration specifics [here](telemetry.md)
 

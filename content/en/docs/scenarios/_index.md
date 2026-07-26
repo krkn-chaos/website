@@ -7,7 +7,7 @@ weight: 4
 ---
 
 {{% alert title="Tip" %}}
-Many pod scenarios now support the `exclude_label` parameter to protect critical pods while testing others. See individual scenario pages ([Pod Failures](pod-scenario/_index.md), [Pod Network Chaos](pod-network-scenario/_index.md)) for details.
+Many pod scenarios now support the `exclude_label` parameter to protect critical pods while testing others. See individual scenario pages ([Pod Failures](pod-scenarios/_index.md), [Pod Network Chaos](pod-network-scenario/_index.md)) for details.
 {{% /alert %}}
 
 ## Supported Chaos Scenarios
@@ -156,7 +156,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="pod-scenario/">Pod Failures</a></h3>
+<h3><a href="pod-scenarios/">Pod Failures</a></h3>
 <span class="scenario-badge">pod_disruption_scenarios</span>
 <p class="scenario-description">Injects pod failures to test application resilience and recovery mechanisms</p>
 <div class="cloud-badges">
@@ -165,7 +165,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="container-scenario/">Container Failures</a></h3>
+<h3><a href="container-scenarios/">Container Failures</a></h3>
 <span class="scenario-badge">container_scenarios</span>
 <p class="scenario-description">Injects container failures based on the provided kill signal</p>
 <div class="cloud-badges">
@@ -345,7 +345,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="application-outage/">Application Outages</a></h3>
+<h3><a href="application-outages/">Application Outages</a></h3>
 <span class="scenario-badge">application_outages_scenarios</span>
 <p class="scenario-description">Isolates application Ingress/Egress traffic to test dependency handling and recovery timing</p>
 <div class="cloud-badges">

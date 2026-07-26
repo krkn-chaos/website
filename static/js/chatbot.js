@@ -29,10 +29,10 @@ class KrknChatbot {
             { pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,         label: 'Network Chaos NG' },
             { pattern: /\/docs\/scenarios\/network-chaos-scenario/,             label: 'Network Chaos' },
             { pattern: /\/docs\/scenarios\/pod-network-scenario/,               label: 'Pod Network Chaos' },
-            { pattern: /\/docs\/scenarios\/pod-scenario/,                       label: 'Pod Scenarios' },
-            { pattern: /\/docs\/scenarios\/container-scenario/,                 label: 'Container Scenarios' },
+            { pattern: /\/docs\/scenarios\/pod-scenarios/,                       label: 'Pod Scenarios' },
+            { pattern: /\/docs\/scenarios\/container-scenarios/,                 label: 'Container Scenarios' },
             { pattern: /\/docs\/scenarios\/node-scenarios/,                     label: 'Node Scenarios' },
-            { pattern: /\/docs\/scenarios\/application-outage/,                 label: 'Application Outage' },
+            { pattern: /\/docs\/scenarios\/application-outages/,                 label: 'Application Outage' },
             { pattern: /\/docs\/scenarios\/service-disruption-scenarios/,       label: 'Service Disruption' },
             { pattern: /\/docs\/scenarios\/service-hijacking-scenario/,         label: 'Service Hijacking' },
             { pattern: /\/docs\/scenarios\/zone-outage-scenarios/,              label: 'Zone Outage Scenarios' },
@@ -176,7 +176,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/pod-scenario/,
+                pattern: /\/docs\/scenarios\/pod-scenarios/,
                 suggestions: [
                     { emoji: '⏱️', label: 'Recovery time metrics', question: 'How does Krkn measure pod recovery time?' },
                     { emoji: '🏷️', label: 'Exclude label', question: 'How do I use exclude_label to protect pods?' },
@@ -192,7 +192,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/application-outage/,
+                pattern: /\/docs\/scenarios\/application-outages/,
                 suggestions: [
                     { emoji: '🚫', label: 'Block traffic', question: 'How do I block ingress traffic with application outage?' },
                     { emoji: '🔌', label: 'Egress block', question: 'How do I block egress traffic for an application?' },

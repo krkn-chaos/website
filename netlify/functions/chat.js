@@ -92,6 +92,29 @@ exports.handler = async (event, context) => {
         };
     }
 
+    // Parse and validate the request body before the main processing path.
+    // Invalid JSON is a client error (400), not a server error (500).
+    let parsedBody;
+    try {
+        parsedBody = JSON.parse(event.body);
+    } catch (parseError) {
+        return {
+            statusCode: 400,
+            headers,
+            body: JSON.stringify({ error: 'Invalid JSON in request body' })
+        };
+    }
+
+    const { message, conversationHistory = [] } = parsedBody || {};
+
+    if (!message || typeof message !== 'string') {
+        return {
+            statusCode: 400,
+            headers,
+            body: JSON.stringify({ error: 'Message is required' })
+        };
+    }
+
     try {
         // Check daily limit first
         if (!checkDailyLimit()) {
@@ -112,17 +135,6 @@ exports.handler = async (event, context) => {
 
         // Initialize services
         await initializeServices();
-
-        // Parse request body
-        const { message, conversationHistory = [] } = JSON.parse(event.body);
-
-        if (!message || typeof message !== 'string') {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({ error: 'Message is required' })
-            };
-        }
 
         // Process message
         const response = await chatService.processMessage(message, {

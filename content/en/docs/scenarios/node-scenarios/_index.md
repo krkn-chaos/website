@@ -36,6 +36,7 @@ Supported cloud providers:
 - [Docker](#docker)
 - [IBMCloud](#ibmcloud)
 - [IBMCloud Power](#ibmcloud-power)
+- [SSH (Standalone)](#ssh-standalone)
 
 {{% alert title="Note" %}}If the node does not recover from the node_crash_scenario injection, reboot the node to get it back to Ready state. {{% /alert %}}
 

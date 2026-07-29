@@ -3,7 +3,7 @@ type: "docs/scenarios"
 title: Scenarios
 description: Krkn scenario list
 date: 2017-01-04
-weight: 4
+weight: 6
 ---
 
 {{% alert title="Tip" %}}
@@ -129,29 +129,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 }
 </style>
 
-<div class="scenario-filter" id="scenario-filter">
-<div class="scenario-filter__row">
-<span class="scenario-filter__label">Category</span>
-<div class="scenario-filter__pills" role="group" aria-label="Filter by category">
-<button class="scenario-filter__btn scenario-filter__btn--active" data-filter="all" type="button" aria-pressed="true">All</button>
-<button class="scenario-filter__btn" data-filter="pod-container" type="button" aria-pressed="false">Pod &amp; Container</button>
-<button class="scenario-filter__btn" data-filter="node-cluster" type="button" aria-pressed="false">Node &amp; Cluster</button>
-<button class="scenario-filter__btn" data-filter="network" type="button" aria-pressed="false">Network</button>
-<button class="scenario-filter__btn" data-filter="application-service" type="button" aria-pressed="false">Application &amp; Service</button>
-<button class="scenario-filter__btn" data-filter="storage-data" type="button" aria-pressed="false">Storage &amp; Data</button>
-<button class="scenario-filter__btn" data-filter="system-time" type="button" aria-pressed="false">System &amp; Time</button>
-</div>
-</div>
-<div class="scenario-filter__row scenario-filter__row--search">
-<label class="scenario-filter__label" for="scenario-filter-search">Search</label>
-<input class="scenario-filter__search" id="scenario-filter-search" type="search" placeholder="Search scenarios..." autocomplete="off" />
-<button class="scenario-filter__reset" id="scenario-filter-reset" type="button">Reset</button>
-</div>
-<div class="scenario-filter__empty" id="scenario-filter-empty" hidden>No scenarios match your filters.</div>
-</div>
-
-<section class="scenario-category" data-category="pod-container">
-<h3 class="category-header">Pod &amp; Container Disruptions</h3>
+### Pod & Container Disruptions
 
 <div class="scenario-grid">
 
@@ -183,10 +161,8 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
-</section>
 
-<section class="scenario-category" data-category="node-cluster">
-<h3 class="category-header">Node &amp; Cluster Failures</h3>
+### Node & Cluster Failures
 
 <div class="scenario-grid">
 
@@ -204,6 +180,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="cloud-badge">IBM Power</span>
 <span class="cloud-badge">GCP</span>
 <span class="cloud-badge">OpenStack</span>
+<span class="cloud-badge">SSH (Standalone)</span>
 <span class="cloud-badge">VMWare</span>
 </div>
 </div>
@@ -265,10 +242,8 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 
 
 </div>
-</section>
 
-<section class="scenario-category" data-category="network">
-<h3 class="category-header">Network Disruptions</h3>
+### Network Disruptions
 
 <div class="scenario-grid">
 
@@ -336,11 +311,9 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
-</section>
 
 
-<section class="scenario-category" data-category="application-service">
-<h3 class="category-header">Application &amp; Service Disruptions</h3>
+### Application & Service Disruptions
 
 <div class="scenario-grid">
 
@@ -380,21 +353,10 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 </div>
 
-<div class="scenario-card">
-<h3><a href="http-load-scenario/">HTTP Load</a></h3>
-<span class="scenario-badge">http_load_scenarios</span>
-<p class="scenario-description">Generates distributed HTTP load against target endpoints using Vegeta load testing pods deployed inside the cluster</p>
-<div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
-</div>
-</div>
-
 
 </div>
-</section>
 
-<section class="scenario-category" data-category="storage-data">
-<h3 class="category-header">Storage &amp; Data Disruptions</h3>
+### Storage & Data Disruptions
 
 <div class="scenario-grid">
 
@@ -407,20 +369,9 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 </div>
 
-<div class="scenario-card">
-<h3><a href="storage-throttle-scenario/">Storage I/O Throttle</a></h3>
-<span class="scenario-badge">storage_throttle_scenarios</span>
-<p class="scenario-description">Limits read/write IOPS and bandwidth on PVC-backed volumes using Linux cgroup I/O controls</p>
-<div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
-</div>
 </div>
 
-</div>
-</section>
-
-<section class="scenario-category" data-category="system-time">
-<h3 class="category-header">System &amp; Time Disruptions</h3>
+### System & Time Disruptions
 
 <div class="scenario-grid">
 
@@ -434,6 +385,55 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 </div>
-</section>
 
-<script src="/js/scenario-filter.js" defer></script>
+### Virtualization Scenarios
+
+<div class="scenario-grid">
+
+<div class="scenario-card">
+<h3><a href="vm-migration-chaos/">VM Migration Chaos</a></h3>
+<span class="scenario-badge">vm_migration_chaos_scenarios</span>
+<p class="scenario-description">Tests live migration resilience under network stress, CPU pressure, and node drain in OpenShift Virtualization</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+<div class="scenario-card">
+<h3><a href="vm-storage-chaos/">VM Storage Chaos</a></h3>
+<span class="scenario-badge">vm_storage_chaos_scenarios</span>
+<p class="scenario-description">Disrupts storage services, generates IO bursts, and fills storage volumes in VM environments</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+<div class="scenario-card">
+<h3><a href="vmware-migration-validation/">VMware Migration Validation</a></h3>
+<span class="scenario-badge">5-step validation pack</span>
+<p class="scenario-description">Structured 5-step chaos validation process for VMware-to-OpenShift Virtualization migrations</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+</div>
+
+### Standalone Mode
+
+<div class="scenario-grid">
+
+<div class="scenario-card">
+<h3><a href="standalone-mode/">Standalone Mode</a></h3>
+<span class="scenario-badge">execution_mode: standalone</span>
+<p class="scenario-description">Run chaos experiments on bare-metal, RHEL, and VM hosts via SSH without requiring Kubernetes</p>
+<div class="cloud-badges">
+<span class="cloud-badge">SSH</span>
+<span class="cloud-badge">Bare Metal</span>
+<span class="cloud-badge">RHEL/CentOS</span>
+<span class="cloud-badge">VMware</span>
+</div>
+</div>
+
+</div>
+

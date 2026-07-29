@@ -156,6 +156,42 @@ See a sample of ibm cloud node scenarios [example config file](https://github.co
 The cloud type in the scenario yaml file needs to be `ibmpower` or `ibmcloudpower`
 
 
+## SSH (Standalone)
+
+The SSH provider enables node chaos scenarios on any Linux host reachable via SSH, without requiring a cloud provider or Kubernetes API. Use `cloud_type: ssh` and provide a `targets` list of host IPs or hostnames instead of `node_name` or `label_selector`.
+
+This is part of krkn's [Standalone Mode](../standalone-mode/), which lets you run chaos on bare-metal servers, RHEL/CentOS VMs, or any other Linux host.
+
+**Supported actions via SSH:**
+- `node_reboot_scenario` (hard reboot via sysrq or soft reboot via `sudo reboot`)
+- `node_stop_scenario` (graceful shutdown via `sudo shutdown -h now`)
+- `node_crash_scenario` (kernel crash via sysrq trigger)
+- `stop_kubelet_scenario` (stop kubelet service if present)
+- `restart_kubelet_scenario` (restart kubelet service if present)
+
+{{% alert title="Note" %}}`node_start_scenario` and `node_termination_scenario` are not supported via SSH. These actions require a cloud provider API to power on or destroy instances.{{% /alert %}}
+
+Sample scenario config:
+```yaml
+node_scenarios:
+  - actions:
+      - node_reboot_scenario
+    cloud_type: ssh
+    targets:
+      - 192.168.1.100
+      - 192.168.1.101
+    ssh_user: root
+    ssh_private_key: ~/.ssh/id_rsa
+    ssh_port: 22
+    runs: 1
+    timeout: 360
+    kube_check: false
+    soft_reboot: true
+```
+
+{{% alert title="Note" %}}When using `cloud_type: ssh`, set `kube_check: false` unless the target hosts are Kubernetes nodes with a working kubeconfig. The SSH provider uses SSH connectivity checks instead of Kubernetes API calls to verify node recovery.{{% /alert %}}
+
+
 ## General
 {{% alert title="Note" %}} The `node_crash_scenario` and `stop_kubelet_scenario` scenarios are supported independent of the cloud platform.{{% /alert %}}
 

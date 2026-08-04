@@ -1,6 +1,6 @@
 This scenario reroutes traffic intended for a target service to a custom web service that is automatically deployed by Krkn. 
 This web service responds with user-defined HTTP statuses, MIME types, and bodies. 
-For more details, please refer to the following [documentation](/docs/scenarios/service-hijacking-scenario/_index.md).
+For more details, please refer to the following [documentation](/docs/scenarios/service-hijacking/_index.md).
 #### Run
 
 Unlike other krkn-hub scenarios, this one requires a specific configuration due to its unique structure. 

@@ -149,7 +149,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
   - Fills up the persistent volumes, up to a given percentage, used by the pod for the specified duration.
     - Helps understand how an application deals when it is no longer able to write data to the disk. For example, kafka’s behavior when it is not able to commit data to the disk.
 
-- Network Chaos ([Documentation](../scenarios/network-chaos-scenario))
+- Network Chaos ([Documentation](../scenarios/network-chaos))
   - Scenarios supported includes:
     - Network latency
     - Packet loss
@@ -165,7 +165,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
 - Service Disruption Scenarios ([Documentation](../scenarios/service-disruption-scenarios))
   - Using this type of scenario configuration one is able to delete crucial objects in a specific namespace, or a namespace matching a certain regex string.
 
-- Service Hijacking Scenarios ([Documentation](../scenarios/service-hijacking-scenario))
+- Service Hijacking Scenarios ([Documentation](../scenarios/service-hijacking))
   - Service Hijacking Scenarios aim to simulate fake HTTP responses from a workload targeted by a Service already deployed in the cluster. This scenario is executed by deploying a custom-made web service and modifying the target Service selector to direct traffic to this web service for a specified duration.
 
 

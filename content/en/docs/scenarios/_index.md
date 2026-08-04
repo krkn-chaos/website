@@ -273,7 +273,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <div class="scenario-grid">
 
 <div class="scenario-card">
-<h3><a href="network-chaos-scenario/">Network Chaos</a></h3>
+<h3><a href="network-chaos/">Network Chaos</a></h3>
 <span class="scenario-badge">network_chaos_scenarios</span>
 <p class="scenario-description">Introduces network latency, packet loss, and bandwidth restriction using tc and Netem</p>
 <div class="cloud-badges">
@@ -363,7 +363,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="service-hijacking-scenario/">Service Hijacking</a></h3>
+<h3><a href="service-hijacking/">Service Hijacking</a></h3>
 <span class="scenario-badge">service_hijacking_scenarios</span>
 <p class="scenario-description">Hijacks service HTTP traffic to simulate custom responses and test client error handling</p>
 <div class="cloud-badges">
@@ -372,7 +372,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="syn-flood-scenario/">Syn Flood</a></h3>
+<h3><a href="syn-flood/">Syn Flood</a></h3>
 <span class="scenario-badge">syn_flood_scenarios</span>
 <p class="scenario-description">Generates substantial TCP traffic directed at Kubernetes services to test DDoS resilience</p>
 <div class="cloud-badges">
@@ -381,7 +381,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="http-load-scenario/">HTTP Load</a></h3>
+<h3><a href="http-load/">HTTP Load</a></h3>
 <span class="scenario-badge">http_load_scenarios</span>
 <p class="scenario-description">Generates distributed HTTP load against target endpoints using Vegeta load testing pods deployed inside the cluster</p>
 <div class="cloud-badges">
@@ -408,7 +408,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="storage-throttle-scenario/">Storage I/O Throttle</a></h3>
+<h3><a href="storage-throttle/">Storage I/O Throttle</a></h3>
 <span class="scenario-badge">storage_throttle_scenarios</span>
 <p class="scenario-description">Limits read/write IOPS and bandwidth on PVC-backed volumes using Linux cgroup I/O controls</p>
 <div class="cloud-badges">

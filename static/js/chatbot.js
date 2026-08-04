@@ -27,7 +27,7 @@ class KrknChatbot {
             { pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/, label: 'Memory Hog Scenario' },
             { pattern: /\/docs\/scenarios\/hog-scenarios\/io-hog-scenario/,     label: 'IO Hog Scenario' },
             { pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,         label: 'Network Chaos NG' },
-            { pattern: /\/docs\/scenarios\/network-chaos\//,                    label: 'Network Chaos' },
+            { pattern: /\/docs\/scenarios\/network-chaos(?:\/|$)/,              label: 'Network Chaos' },
             { pattern: /\/docs\/scenarios\/pod-network-scenario/,               label: 'Pod Network Chaos' },
             { pattern: /\/docs\/scenarios\/pod-scenarios/,                       label: 'Pod Scenarios' },
             { pattern: /\/docs\/scenarios\/container-scenarios/,                 label: 'Container Scenarios' },
@@ -160,7 +160,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/network-chaos\//,
+                pattern: /\/docs\/scenarios\/network-chaos(?:\/|$)/,
                 suggestions: [
                     { emoji: '📡', label: 'Packet loss', question: 'How do I inject packet loss with network chaos?' },
                     { emoji: '⏳', label: 'Add latency', question: 'How do I add network latency to a pod?' },

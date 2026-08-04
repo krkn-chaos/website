@@ -23,6 +23,8 @@ A json named telemetry.json containing:
 - A partial/full backup of the prometheus binary logs (currently available on OCP only)
 - Any firing critical alerts on the cluster
 
+This telemetry JSON is printed at the end of every krkn run and can optionally be stored long-term in Elasticsearch. See [Elasticsearch Storage](elastic.md) for details on storing and querying telemetry, metrics, and alerts.
+
 ### Deploy your own telemetry AWS service 
 The *krkn-telemetry* project aims to provide a basic, but fully working example on how to deploy your own Krkn telemetry collection API. We currently do not support the telemetry collection as a service for community users and we discourage to handover your infrastructure telemetry metadata to third parties since may contain confidential infos.
 
@@ -160,3 +162,80 @@ telemetry:
     "critical_alerts": null
 }
 ```
+
+### Telemetry Output Field Reference
+
+#### Top-level fields
+
+| Field | Type | Description |
+|---|---|---|
+| `run_uuid` | string | Unique identifier for this krkn run, used to correlate records across indices in Elasticsearch |
+| `timestamp` | string (ISO 8601) | Time when the telemetry was captured at the end of the run |
+| `job_status` | bool | Overall pass/fail of the run (`true` = passed) |
+| `cloud_infrastructure` | string | Cloud provider detected (e.g. `GCP`, `AWS`, `Azure`, `baremetal`) |
+| `cloud_type` | string | Whether the cluster is `self-managed` or a managed cloud service |
+| `cluster_version` | string | Full cluster version string (OCP nightly build or Kubernetes version) |
+| `major_version` | string | Major.minor version extracted from `cluster_version` (e.g. `4.18`) |
+| `total_node_count` | int | Total number of nodes in the cluster at the time of the run |
+| `network_plugins` | list | CNI plugins active on the cluster (e.g. `OVNKubernetes`) |
+| `kubernetes_objects_count` | map | Count of each Kubernetes resource type present cluster-wide (e.g. `Pod`, `Deployment`, `ConfigMap`) |
+| `critical_alerts` | list or null | Any critical Prometheus alerts firing at the end of the run; `null` if none |
+| `health_checks` | list or null | Results of URL health checks if configured — see [Health Checks](health-checks.md) |
+
+#### `scenarios[]` — one entry per scenario executed
+
+| Field | Type | Description |
+|---|---|---|
+| `scenario` | string | Path to the scenario config file that was run |
+| `scenario_type` | string | Category of scenario (e.g. `pod_disruption_scenarios`, `node_scenarios`) |
+| `start_timestamp` | float | Unix epoch when the scenario started |
+| `end_timestamp` | float | Unix epoch when the scenario finished |
+| `exit_status` | int | `0` = scenario passed; non-zero = scenario failed |
+| `parameters` | list | Scenario configuration parameters as parsed from the config file |
+| `parameters_base64` | string | Base64-encoded copy of raw parameters (for lossless round-tripping) |
+| `affected_pods` | object | Pods disrupted during the scenario, split into `recovered` and `unrecovered` lists with per-pod timing |
+| `affected_nodes` | list | Nodes disrupted during the scenario with timing details (not_ready, ready, stopped, running, terminating durations) |
+| `cluster_events` | list | Kubernetes events captured during the scenario window |
+
+##### `affected_pods.recovered[]` / `affected_pods.unrecovered[]`
+
+| Field | Type | Description |
+|---|---|---|
+| `pod_name` | string | Name of the affected pod |
+| `namespace` | string | Namespace the pod belongs to |
+| `total_recovery_time` | float | Seconds from disruption to pod being ready again |
+| `pod_readiness_time` | float | Seconds for the pod to pass its readiness probe after rescheduling |
+| `pod_rescheduling_time` | float | Seconds for the pod to be rescheduled onto a node |
+
+##### `affected_nodes[]`
+
+| Field | Type | Description |
+|---|---|---|
+| `node_name` | string | Kubernetes node name |
+| `node_id` | string | Cloud provider instance ID |
+| `not_ready_time` | float | Seconds the node spent in NotReady state |
+| `ready_time` | float | Seconds the node spent in Ready state after recovery |
+| `stopped_time` | float | Seconds the node was stopped (cloud stop/start scenarios) |
+| `running_time` | float | Seconds the node was running after restart |
+| `terminating_time` | float | Seconds the node spent terminating |
+
+#### `node_summary_infos[]` — one entry per node role/type group
+
+| Field | Type | Description |
+|---|---|---|
+| `count` | int | Number of nodes in this group |
+| `nodes_type` | string | Node role (e.g. `master`, `worker`) |
+| `architecture` | string | CPU architecture (e.g. `amd64`, `arm64`) |
+| `instance_type` | string | Cloud instance type (e.g. `n2-standard-4`, `m5.xlarge`) |
+| `kernel_version` | string | Linux kernel version running on these nodes |
+| `kubelet_version` | string | Kubelet version (e.g. `v1.31.6`) |
+| `os_version` | string | Full OS version string (e.g. RHCOS build identifier) |
+
+#### `node_taints[]` — one entry per node taint
+
+| Field | Type | Description |
+|---|---|---|
+| `node_name` | string | Full hostname of the tainted node |
+| `key` | string | Taint key (e.g. `node-role.kubernetes.io/master`) |
+| `value` | string or null | Taint value; `null` if the taint has no value |
+| `effect` | string | Taint effect: `NoSchedule`, `NoExecute`, or `PreferNoSchedule` |

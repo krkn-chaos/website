@@ -16,6 +16,7 @@ enableRobotsTXT: true
 # They are included via the readfile shortcode, not rendered directly.
 ignoreFiles:
   - '_tab-.*\.md$'
+  - 'video-scripts/.*\.md$'
 
 # Will give values to .Lastmod etc.
 enableGitInfo: true

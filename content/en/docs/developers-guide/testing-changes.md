@@ -293,7 +293,7 @@ To get latest podman-compose features we need, use this installation command
 
 
 ### Build Your Changes
-1. Run [build.sh](../build.sh) to create Dockerfile's for each scenario
+1. Run [`build.sh`](https://github.com/krkn-chaos/krkn-hub/blob/main/build.sh) to create Dockerfiles for each scenario
 2. Edit the docker-compose.yaml file to point to your quay.io repository (optional; required if you want to push or are testing krknctl)
 
    For example, change:

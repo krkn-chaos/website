@@ -4,7 +4,12 @@ description: "Injects network degradation (latency, packet loss, bandwidth) into
 date: 2017-01-04
 weight: 2
 ---
+
+<krkn-hub-scenario id="pod-network-chaos">
+
 Injects network degradation (latency, packet loss, bandwidth restriction) into a target pod's network interfaces using Linux `tc` (traffic control) rules. Unlike pod-network-filter which blocks specific ports via iptables, this module shapes traffic at the interface level.
+
+</krkn-hub-scenario>
 
 ## How to Run Pod Network Chaos Scenarios
 

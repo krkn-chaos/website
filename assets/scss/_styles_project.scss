@@ -38,6 +38,9 @@
   --krkn-secondary-alpha-hover: rgba(59, 130, 246, 0.22); // blue tint hover (dark)
   --krkn-primary-alpha: rgba(236, 28, 36, 0.12);    // red tint for active states (dark)
   --krkn-primary-alpha-hover: rgba(236, 28, 36, 0.18); // red tint hover (dark)
+  --krkn-success: #059669;
+  --krkn-danger: #DC2626;
+  --krkn-text-on-color: #FFFFFF;
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-white.svg');
   color-scheme: dark;
@@ -68,6 +71,9 @@
   --krkn-secondary-alpha-hover: rgba(37, 99, 235, 0.16); // blue tint hover (light)
   --krkn-primary-alpha: rgba(220, 38, 38, 0.08);    // red tint for active states (light)
   --krkn-primary-alpha-hover: rgba(220, 38, 38, 0.14); // red tint hover (light)
+  --krkn-success: #059669;
+  --krkn-danger: #DC2626;
+  --krkn-text-on-color: #FFFFFF;
   --krkn-logo-filter: none;
   --krkn-cncf-logo: url('/img/cncf-color.png');
   color-scheme: light;

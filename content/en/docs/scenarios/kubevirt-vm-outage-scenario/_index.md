@@ -17,7 +17,6 @@ This scenario enables the simulation of VM-level disruptions in clusters where K
 - [Expected Behavior](#expected-behavior)
 - [Advanced Use Cases](#advanced-use-cases)
 - [Recovery Strategies](#recovery-strategies)
-- [Rollback Scenario Support](#rollback-scenario-support)
 - [Limitations](#limitations)
 - [Troubleshooting](#troubleshooting)
 
@@ -118,10 +117,6 @@ These metrics appear in the telemetry output under `PodsStatus.recovered` for su
   "unrecovered": []
 }
 ```
-
-## Rollback Scenario Support
-
-Krkn supports rollback for KubeVirt VM Outage Scenario. For more details, please refer to the [Rollback Scenarios](../../rollback-scenarios/_index.md) documentation.
 
 ## Limitations
 

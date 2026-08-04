@@ -1,0 +1,43 @@
+name: 🐛 Bug Report
+description: Report a bug on the Krkn documentation website
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the details below.
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: The URL of the page where you found the bug
+      placeholder: https://krkn-chaos.dev/docs/...
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Documentation content
+        - Website UI/layout
+        - Chatbot
+        - Search
+        - Build/deployment
+        - Other
+    validations:
+      required: true

@@ -40,7 +40,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | INSTANCE_COUNT       | restricts the number of selected pods by the selector                                                                            | number | "1"                               |
 | EXECUTION            | sets the execution mode of the scenario on multiple pods, can be parallel or serial                                              | enum | "parallel"                        |
 | INGRESS              | sets the network filter on incoming traffic, can be true or false                                                                | boolean | false                             |
-| EGRESS               | sets the network filter on outgoing traffic, can be true or false                                                                | boolean | true                              |
+| EGRESS               | sets the network filter on outgoing traffic, can be true or false                                                                | boolean | false                             |
 | INTERFACES           | a list of comma separated names of network interfaces (eg. eth0 or eth0,eth1,eth2) to filter for outgoing traffic                | string | ""                                |
 | PORTS                | a list of comma separated port numbers (eg 8080 or 8080,8081,8082) to filter for both outgoing and incoming traffic              | string | ""                                |
 | PROTOCOLS            | a list of comma separated network protocols  (tcp, udp or both of them e.g. tcp,udp)                                             | string | "tcp"                             |

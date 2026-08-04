@@ -32,17 +32,17 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 
 | Parameter              | Description                                                                                          | Type    | Default                                      |
 |------------------------|------------------------------------------------------------------------------------------------------|---------|----------------------------------------------|
-| TOTAL_CHAOS_DURATION   | Chaos duration in seconds                                                                            | number  | 120                                          |
-| NAMESPACE              | Namespace containing the target VMIs (required)                                                      | string  |                                              |
-| VMI_NAME               | Regex to match VMI names (e.g. `virt-server-.*` or `.*` for all)                                    | string  | `.*`                                         |
+| TOTAL_CHAOS_DURATION   | Chaos duration in seconds                                                                            | number  | 60                                           |
+| NAMESPACE              | Namespace containing the target VMIs                                                                 | string  | default                                      |
+| VMI_NAME               | Regex to match VMI names (e.g. `virt-server-.*` or `.*` for all)                                    | string  | `""`                                         |
 | LABEL_SELECTOR         | Label selector to filter VMIs (e.g. `app=myapp`)                                                     | string  | `""`                                         |
 | INSTANCE_COUNT         | Maximum number of VMIs to target                                                                     | number  | 1                                            |
-| EXECUTION              | Execution mode: `serial` or `parallel`                                                               | enum    | `serial`                                     |
-| INGRESS                | Apply DROP rules to incoming traffic                                                                 | boolean | true                                         |
-| EGRESS                 | Apply DROP rules to outgoing traffic                                                                 | boolean | true                                         |
+| EXECUTION              | Execution mode: `serial` or `parallel`                                                               | enum    | `parallel`                                   |
+| INGRESS                | Apply DROP rules to incoming traffic                                                                 | boolean | false                                        |
+| EGRESS                 | Apply DROP rules to outgoing traffic                                                                 | boolean | false                                        |
 | INTERFACES             | Comma-separated tap interface names (empty to auto-detect)                                           | string  | `""`                                         |
 | PORTS                  | Comma-separated port numbers to block (empty = all ports)                                            | string  | `""`                                         |
-| PROTOCOLS              | Comma-separated protocols to filter: `tcp`, `udp`, or both                                          | string  | `tcp,udp`                                    |
+| PROTOCOLS              | Comma-separated protocols to filter: `tcp`, `udp`, or both                                          | string  | `tcp`                                        |
 | WAIT_DURATION          | Seconds to wait before running the next scenario in the same file                                    | number  | 300                                          |
 | IMAGE                  | Network chaos injection workload image                                                               | string  | `quay.io/krkn-chaos/krkn-network-chaos:latest` |
 | TAINTS                 | List of taints for which tolerations are created (e.g. `["node-role.kubernetes.io/master:NoSchedule"]`) | string | `[]`                                        |

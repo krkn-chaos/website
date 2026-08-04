@@ -132,6 +132,7 @@ Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/co
 | `--es-metrics-index` | Index name for metrics in Elasticsearch | string | - | krkn-metrics |
 | `--es-alerts-index` | Index name for alerts in Elasticsearch | string | - | krkn-alerts |
 | `--es-telemetry-index` | Index name for telemetry in Elasticsearch | string | - | krkn-telemetry |
+| `--es-run-tag` | Tag to identify the run in Elasticsearch | string | - | - |
 
 </div>
 
@@ -218,6 +219,6 @@ KubeVirt VMI SSH connection monitoring during chaos. See [Virt Checks config](..
 | `--kubevirt-disconnected` | KubeVirt checks in disconnected mode, bypassing the cluster's API | enum | True/False | false |
 | `--kubevirt-ssh-node` | KubeVirt backup node to SSH into when checking VMI IP address status | string | - | false |
 | `--kubevirt-exit-on-failure` | KubeVirt fails run if VMs still have false status | enum | True/False | false |
-| `--kubevirt-node-node` | Only track VMs in KubeVirt on given node name | string | - | false |
+| `--kubevirt-node-name` | Only track VMs in KubeVirt on given node name | string | - | false |
 
 </div>

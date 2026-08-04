@@ -33,7 +33,7 @@ The health check system uses a plugin architecture:
 
 ## Built-in Plugins
 
-### [HTTP Health Check](../krkn/health-checks.md) (`health_checks`)
+### [HTTP Health Check](/docs/krkn/health-checks/) (`health_checks`)
 
 Monitors HTTP endpoints by making periodic GET requests. Tracks status changes, measures downtime duration, and records telemetry for each state transition.
 
@@ -68,7 +68,7 @@ health_checks:
 
 ---
 
-### [KubeVirt VM Health Check](../krkn/virt-checks.md) (`virt_health_check`)
+### [KubeVirt VM Health Check](/docs/krkn/virt-checks/) (`virt_health_check`)
 
 Monitors KubeVirt VirtualMachineInstance (VMI) connectivity during chaos experiments. It tracks SSH/network access to VMs, detects disconnections, and records recovery data.
 

@@ -41,5 +41,9 @@ api/server.log
 
 # Dev screenshots & scripts
 screenshots/
-scripts/
+scripts/*
+!scripts/check-links.js
 .beads
+
+# Local Netlify folder
+.netlify

@@ -44,7 +44,7 @@ This design preserves the original Krkn architecture (chaos runs from outside th
    kubectl port-forward svc/krkn-operator-console 3000:3000 -n krkn-operator-system
    ```
 
-3. **Register target clusters** — as an administrator, open **Admin Settings → Cluster Targets → Add Target** and provide the cluster name and credentials for each cluster you want to target. See [Configuration](../../krkn-operator/configuration/_index.md) for the three supported auth methods (kubeconfig, service account token, username/password).
+3. **Register target clusters** — as an administrator, open **Admin Settings → Cluster Targets → Add Target** and provide the cluster name and credentials for each cluster you want to target. See [Cluster Management](../../krkn-operator/administration/cluster-management/) for details.
 
 4. **Run a scenario across multiple clusters** — click **Run Scenario**, select one or more registered target clusters, choose a scenario, configure its parameters, and launch. The operator executes the scenario on all selected targets concurrently.
 
@@ -66,5 +66,5 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 
 - [krkn-operator overview](../../krkn-operator/_index.md) — architecture and security model
 - [Installation](../../krkn-operator/installation/_index.md) — Helm values for Kubernetes, OpenShift, and ACM
-- [Configuration](../../krkn-operator/configuration/_index.md) — adding target clusters and ACM integration
+- [Administration](../../krkn-operator/administration/) — managing clusters, users, registries and providers
 - [Usage](../../krkn-operator/usage/_index.md) — running and monitoring scenarios via the web console

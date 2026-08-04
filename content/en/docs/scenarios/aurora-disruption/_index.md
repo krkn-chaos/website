@@ -5,7 +5,11 @@ date: 2017-01-04
 weight: 3
 ---
 
+<krkn-hub-scenario id="pod-network-filter">
+
 This scenario blocks a pod's outgoing MySQL and PostgreSQL traffic, effectively preventing it from connecting to any AWS Aurora SQL engine. It works just as well for standard MySQL and PostgreSQL connections too.
+
+</krkn-hub-scenario>
 
 This uses the pod network filter scenario but set with specific parameters to disrupt aurora
 

@@ -8,17 +8,17 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 
 | Argument            | Type    | Description                                                                                       | Required | Default Value                                |
 |:--------------------|:--------|:--------------------------------------------------------------------------------------------------|:---------|:---------------------------------------------|
-| `--chaos-duration`  | number  | Chaos duration in seconds                                                                         | false    | 120                                          |
-| `--namespace`       | string  | Namespace containing the target VMIs                                                              | true     |                                              |
-| `--target`          | string  | Regex to match VMI names (e.g. `<vmi-name-prefix>-.*` or `.*` for all)                                 | false    | `.*`                                         |
+| `--chaos-duration`  | number  | Chaos duration in seconds                                                                         | false    | 60                                           |
+| `--namespace`       | string  | Namespace containing the target VMIs                                                              | false    | default                                      |
+| `--vmi-name`        | string  | Regex to match VMI names (e.g. `<vmi-name-prefix>-.*` or `.*` for all)                                 | false    |                                              |
 | `--label-selector`  | string  | Label selector to filter VMIs (e.g. `app=myapp`)                                                  | false    |                                              |
 | `--instance-count`  | number  | Maximum number of VMIs to target                                                                  | false    | 1                                            |
-| `--execution`       | enum    | Execution mode: `parallel` or `serial`                                                            | false    | serial                                       |
-| `--ingress`         | boolean | Apply DROP rules to incoming traffic                                                              | false    | true                                         |
-| `--egress`          | boolean | Apply DROP rules to outgoing traffic                                                              | false    | true                                         |
+| `--execution`       | enum    | Execution mode: `parallel` or `serial`                                                            | false    | parallel                                     |
+| `--ingress`         | boolean | Apply DROP rules to incoming traffic                                                              | true     |                                              |
+| `--egress`          | boolean | Apply DROP rules to outgoing traffic                                                              | true     |                                              |
 | `--interfaces`      | string  | Comma-separated tap interface names (empty to auto-detect)                                        | false    |                                              |
-| `--ports`           | string  | Comma-separated port numbers to block (e.g. `53`, `22,443,6443`). Empty = all ports              | false    |                                              |
-| `--protocols`       | string  | Protocols to filter: `tcp`, `udp`, or `tcp,udp`                                                  | false    | `tcp,udp`                                    |
+| `--ports`           | string  | Comma-separated port numbers to block (e.g. `53`, `22,443,6443`). Empty = all ports              | true     |                                              |
+| `--protocols`       | string  | Protocols to filter: `tcp`, `udp`, or `tcp,udp`                                                  | false    | `tcp`                                        |
 | `--image`           | string  | Network chaos injection workload image                                                            | false    | quay.io/krkn-chaos/krkn-network-chaos:latest |
 | `--taints`          | string  | Comma-separated taints for which tolerations are created (e.g. `node-role.kubernetes.io/master:NoSchedule`) | false |                                   |
 | `--service-account` | string  | Optional service account for the scenario workload                                                | false    |                                              |

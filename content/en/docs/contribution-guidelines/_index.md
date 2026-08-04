@@ -16,7 +16,19 @@ We're excited to have you consider contributing to our chaos! Contributions are 
 If you would like to contribute to Krkn, but are not sure exactly what to work on, you can find a number of open issues that are awaiting contributions in
 [issues.](https://github.com/krkn-chaos/krkn/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 
-Please start by discussing potential solutions and your proposed approach for the issue you plan to work on. We encourage you to gather feedback from maintainers and contributors and to have the issue assigned to you before opening a pull request with a solution.
+Please start by discussing potential solutions and your proposed approach for the issue you plan to work on. We encourage you to gather feedback from maintainers and contributors and require that the issue be approved and assigned to you before opening a pull request with a solution.
+
+## Pull Request Requirements 
+
+To ensure that your PR is accepted and reviewed, it must meet the following criteria.
+1. your PR must be linked to an APPROVED and existing github issue. You can do this by adding `Fixes #<issue-number>` in the description (the issue MUST be linked in the description)
+2. The person who opens the PR must be the person assigned to the linked issue. Note: PRs without a linked issue, or PRs opened by a contributor who is not assigned to the linked issue, will receive an automated warning comment and will not be routed to maintainers for review.
+
+### Steps to contribute 
+
+1. Open an issue or comment on an existing issue expressing your interest in working on it, and wait for a maintainer to approve (shown by the triage/accepted label) and assign you to the issue
+2. If you have been assigned to the issue, work on your changes, open a PR, and link the issue by adding "Fixes #<issue-number>" in the description
+3. Wait for maintainers to review it, and please be patient as there are many issues/PRs that need to be approved/reviewed!! 
 
 ## Adding New Scenarios and Configurations
 
@@ -31,7 +43,7 @@ Please read [this file](../developers-guide/) for more information on updates.
 
 If you're gearing up to develop new scenarios, take a moment to review our
 [Scenario Plugin API Documentation](../developers-guide/scenario_plugin_api.md).
-It’s the perfect starting point to tap into your chaotic creativity!
+It's the perfect starting point to tap into your chaotic creativity!
 
 ### New Configuration to Scenarios 
 
@@ -50,7 +62,7 @@ Here's a quick checklist for a good PR, more details below:
 - One feature/change per PR
 - One commit per PR [squash your commits](git-pointers.md#squash-commits)
 - PR rebased on main ([git rebase](git-pointers.md#rebase-with-upstream), not git pull)
-- Good descriptive commit message, with link to issue
+- Good descriptive commit message, with link to issue in the description
 - No changes to code not directly related to your PR
 - Includes functional/integration test (more applicable to krkn-lib)
 - Includes link to documentation PR (documentation hosted in https://github.com/krkn-chaos/website)
@@ -59,7 +71,7 @@ Here's a quick checklist for a good PR, more details below:
 Refer to the docs below to be able to test your own images with any changes and be able to contribute them to the repository
 - [Getting Started](/docs/getting-started/getting-started-krkn.md)
 - [Contribute - Git Pointers](/docs/contribution-guidelines/git-pointers.md)
-- [Testing Your Krkn-hub Changes](/docs/developers-guide/testing-changes.md)
+- [Testing Your Krkn Changes](/docs/developers-guide/testing-changes.md)
 
 ## Questions?
 

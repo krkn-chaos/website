@@ -119,7 +119,7 @@ $ export IBMC_APIKEY=<ibmcloud_api_key>
 ```
 
 Baremetal <br/>
-Check [Bare Metal Documentation](node-scenarios-bm-krkn-hub.md)
+Check [Bare Metal Documentation](node-scenarios-bm/)
 
 Google Cloud Platform
 ```bash

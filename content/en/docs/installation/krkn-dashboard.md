@@ -35,7 +35,18 @@ Run the dashboard on your machine with Node.js.
    npm install
    ```
 
-4. **Start the application.**
+4. **Optional: set initial admin credentials** — You may preset your initial username and password through exporting the following environement variables in your terminal:
+
+   ```bash
+   export DASHBOARD_ADMIN_USERNAME=<admin>
+   export DASHBOARD_ADMIN_PASSWORD=your-secure-password
+   ```
+
+   {{< notice type="warning" >}}
+   Initial admin environment variables apply **only** when the user table is empty. If you omit these variables, the server generates a random username and password automatically.
+   {{< /notice >}}
+
+5. **Start the application.**
 
    ```bash
    npm run dev
@@ -64,7 +75,18 @@ Run the dashboard in a container on your host. The container uses Podman on the 
    
    *In all cases, you can skip this configuration and upload a different kubeconfig from the dashboard UI.*
 
-2. **Start the container.** From the `krkn-dashboard` repository root, run:
+2. **Optional: set initial admin credentials** — You may preset your initial username and password through exporting the following environement variables in your terminal:
+
+   ```bash
+   export DASHBOARD_ADMIN_USERNAME=<admin>
+   export DASHBOARD_ADMIN_PASSWORD=your-secure-password
+   ```
+
+   {{< notice type="warning" >}}
+   Initial admin environment variables apply **only** when the user table is empty. If you omit these variables, the server generates a random username and password automatically.
+   {{< /notice >}}
+
+3. **Start the container.** From the `krkn-dashboard` repository root, run:
 
    ```bash
    bash containers/podman-run.sh
@@ -90,12 +112,22 @@ You can start the Krkn Dashboard using **krknctl** instead of cloning the reposi
 
 ## Open the dashboard 
 
-When the dashboard is running, open **http://localhost:3000** in your browser. Use the dashboard to trigger Krkn scenarios.
+When the dashboard is running, open **http://localhost:3000** in your browser. You are redirected to sign in if you are not already authenticated. Use the 
+dashboard to trigger Krkn scenarios.
+
+---
+
+## First-time setup: initial admin account
+
+When the dashboard is first run with no database setup, it creates an initial **platform admin** account in **`default-group`**. The username and password for this account can either be **automatically generated**, or they can be set by exporting **`DASHBOARD_ADMIN_USERNAME`** and **`DASHBOARD_ADMIN_PASSWORD`** (see the optional steps under [local](#local-installation) or [container](#container-installation) installation above).
+
+Use this initial admin account to add users and group memberships in the **Administration** tab. For platform roles, groups, group roles, and cluster permissions, see [Users, groups, and access control](/docs/krkn_dashboard/users-and-access/).
 
 ---
 
 ## Documentation
 
 - [Krkn Dashboard overview and features](/docs/krkn_dashboard/) — what is krkn dashboard and how it fits with krkn-hub.
+- [Users, groups, and access control](/docs/krkn_dashboard/users-and-access/) — platform roles, groups, and cluster policies.
 - [Using the UI](/docs/krkn_dashboard/using-the-ui/) — navigating the dashboard.
 

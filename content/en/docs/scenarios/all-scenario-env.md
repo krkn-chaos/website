@@ -20,6 +20,7 @@ Signal and status publishing settings. See [Kraken config](../krkn/config.md#kra
 
 Parameter | Description | Default
 --- | --- | ---
+`KRKN_KUBE_CONFIG` | Path to the kubeconfig file for cluster access | _required_
 `PUBLISH_KRAKEN_STATUS` | Publish kraken status to the signal address | True
 `SIGNAL_ADDRESS` | Address to publish kraken status to | 0.0.0.0
 `PORT` | Port to publish kraken status to | 8081
@@ -44,8 +45,11 @@ Prometheus metrics collection and alert evaluation. See [Performance Monitoring 
 
 Parameter | Description | Default
 --- | --- | ---
-`DEPLOY_DASHBOARDS` | Deploys mutable grafana loaded with dashboards visualizing performance metrics pulled from in-cluster prometheus. The dashboard will be exposed as a route. | False
+`PROMETHEUS_URL` | URL to Prometheus instance; auto-detected on OpenShift, required for Kubernetes | _blank_
+`PROMETHEUS_TOKEN` | Bearer token for Prometheus authentication; auto-detected on OpenShift, required for Kubernetes | _blank_
+`UUID` | UUID for the run; auto-generated if not set | _blank_
 `CAPTURE_METRICS` | Captures metrics as specified in the profile from in-cluster prometheus. Default metrics captures are listed [here](https://github.com/krkn-chaos/krkn/blob/master/config/metrics-aggregated.yaml) | False
+`METRICS_PATH` | Path to the metrics profile to use when CAPTURE_METRICS is set | config/metrics-aggregated.yaml
 `ENABLE_ALERTS` | Evaluates expressions from in-cluster prometheus and exits 0 or 1 based on the severity set. [Default profile](https://github.com/krkn-chaos/krkn/blob/master/config/alerts.yaml). | False
 `ALERTS_PATH` | Path to the alerts file to use when ENABLE_ALERTS is set | config/alerts
 `CHECK_CRITICAL_ALERTS` | When enabled will check prometheus for critical alerts firing post chaos | False
@@ -69,8 +73,16 @@ Elasticsearch storage for telemetry and metrics. See [Elastic config](../krkn/co
 
 Parameter | Description | Default
 --- | --- | ---
-`ELASTIC_SERVER` | URL of the Elasticsearch instance to store telemetry data | _blank_
-`ELASTIC_INDEX` | Elasticsearch index pattern to post results to | _blank_
+`ENABLE_ES` | Enable Elasticsearch integration | False
+`ES_VERIFY_CERTS` | Verify SSL certificates when connecting to Elasticsearch | True
+`ES_SERVER` | URL of the Elasticsearch instance | _blank_
+`ES_PORT` | Port of the Elasticsearch instance | _blank_
+`ES_USERNAME` | Username for Elasticsearch authentication | _blank_
+`ES_PASSWORD` | Password for Elasticsearch authentication | _blank_
+`ES_METRICS_INDEX` | Elasticsearch index for metrics data | _blank_
+`ES_ALERTS_INDEX` | Elasticsearch index for alerts data | _blank_
+`ES_TELEMETRY_INDEX` | Elasticsearch index for telemetry data | _blank_
+`ES_RUN_TAG` | Tag to identify the run in Elasticsearch | _blank_
 
 ---
 
@@ -97,7 +109,7 @@ Parameter | Description | Default
 `TELEMETRY_USERNAME` | Telemetry service username | redhat-chaos
 `TELEMETRY_PASSWORD` | Telemetry service password | No default
 `TELEMETRY_PROMETHEUS_BACKUP` | Enables/disables prometheus data collection | True
-`TELEMTRY_FULL_PROMETHEUS_BACKUP` | If set to False only the /prometheus/wal folder will be downloaded | False
+`TELEMETRY_FULL_PROMETHEUS_BACKUP` | If set to False only the /prometheus/wal folder will be downloaded | False
 `TELEMETRY_BACKUP_THREADS` | Number of telemetry download/upload threads | 5
 `TELEMETRY_ARCHIVE_PATH` | Local path where the archive files will be temporarily stored | /tmp
 `TELEMETRY_MAX_RETRIES` | Maximum number of upload retries (if 0 will retry forever) | 0
@@ -105,8 +117,9 @@ Parameter | Description | Default
 `TELEMETRY_GROUP` | If set will archive the telemetry in the S3 bucket on a folder named after the value | default
 `TELEMETRY_ARCHIVE_SIZE` | The size of the prometheus data archive in KB | 1000
 `TELEMETRY_LOGS_BACKUP` | Logs backup to S3 | False
-`TELEMETRY_FILTER_PATTER` | Filter logs based on certain timestamp patterns | `["(\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+).+", ...]`
+`TELEMETRY_FILTER_PATTERN` | Filter logs based on certain timestamp patterns | `["(\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d+).+", ...]`
 `TELEMETRY_CLI_PATH` | OC CLI path, if not specified will be searched in $PATH | _blank_
+`TELEMETRY_EVENTS_BACKUP` | Enables/disables events backup to S3 | False
 
 {{% alert title="Note" %}} For setting the `TELEMETRY_ARCHIVE_SIZE`, the lower the value the higher the number of archive files produced and uploaded (processed by `TELEMETRY_BACKUP_THREADS` simultaneously). For unstable or slow connections, keep this value low and increase `TELEMETRY_BACKUP_THREADS` so that on upload failure only the failed chunk is retried. {{% /alert %}}
 

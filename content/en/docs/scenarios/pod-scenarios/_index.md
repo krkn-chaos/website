@@ -3,6 +3,8 @@ title: Pod Scenarios
 description: 
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/pod-scenario/
 ---
 
 This scenario disrupts the pods matching the label, excluded label or pod name in the specified namespace on a Kubernetes/OpenShift cluster.

@@ -24,6 +24,12 @@ triggers:
     - type: http
       url: "http://my-service.default.svc:8080/health"
       expected_status: 200
+    - type: k8s
+      apiVersion: apps/v1
+      kind: Deployment
+      name: nginx
+      namespace: default
+      condition: "status.readyReplicas >= 1"
 ```
 
 ### Global Trigger Settings
@@ -73,3 +79,68 @@ The `http` trigger polls an HTTP/HTTPS endpoint and passes when the endpoint ret
 | `headers` | A dictionary of custom HTTP headers. | `{}` |
 | `bearer_token` | Automatically sets the `Authorization: Bearer <token>` header. | |
 | `body_contains` | If set, the response body must contain this exact substring. | |
+
+### 3. Kubernetes Trigger
+
+The `k8s` trigger polls a Kubernetes resource and passes when a field on the resource matches a condition. It is kind-agnostic — the same code path handles built-in resources (Deployments, Pods, Nodes) and CRDs (e.g. KubeVirt `VirtualMachineInstanceMigration`) using the Kubernetes dynamic client.
+
+This is useful for waiting on rollout readiness, catching narrow timing windows during live migrations, or any case where a native API check replaces a brittle `kubectl` wrapper.
+
+#### Basic example — wait for a Deployment to be ready
+
+```yaml
+  - type: k8s
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+    namespace: default
+    condition: "status.readyReplicas >= 1"
+```
+
+#### CRD example — wait for a KubeVirt live migration to reach Running
+
+```yaml
+  - type: k8s
+    apiVersion: kubevirt.io/v1
+    kind: VirtualMachineInstanceMigration
+    name: test-migration
+    namespace: vm-ns
+    condition: "status.phase == Running"
+```
+
+#### Cross-cluster example — use a specific kubeconfig context
+
+```yaml
+  - type: k8s
+    context: staging-cluster
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+    namespace: production
+    condition: "status.readyReplicas >= 3"
+```
+
+| Field | Description | Default |
+|-------|-------------|---------|
+| `type` | Must be `k8s` | |
+| `apiVersion` | Kubernetes API version (e.g. `apps/v1`, `v1`, `kubevirt.io/v1`). | (Required) |
+| `kind` | Resource kind (e.g. `Deployment`, `Pod`, `Node`, or any CRD kind). | (Required) |
+| `name` | Name of the specific resource to watch. | (Required) |
+| `namespace` | Namespace of the resource. Omit for cluster-scoped resources like Nodes. | |
+| `context` | Kubeconfig context to use. Omit to use the default context. Useful for cross-cluster triggers. | |
+| `condition` | Expression to evaluate against the resource. Uses dot-path field access and a comparison operator. | (Required) |
+
+#### Condition syntax
+
+Conditions follow the format `field.path <operator> value`:
+
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `==` | Equal (numeric-aware) | `status.phase == Running` |
+| `!=` | Not equal | `status.phase != Pending` |
+| `>=` | Greater than or equal | `status.readyReplicas >= 1` |
+| `<=` | Less than or equal | `status.replicas <= 5` |
+| `>` | Greater than | `status.availableReplicas > 0` |
+| `<` | Less than | `status.unavailableReplicas < 1` |
+
+The field path uses dot notation to traverse nested fields (e.g. `status.readyReplicas`). For `==` and `!=`, numeric values are compared numerically when possible, falling back to string comparison. For ordering operators (`>=`, `<=`, `>`, `<`), both sides must be numeric.

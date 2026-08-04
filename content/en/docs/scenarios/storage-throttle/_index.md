@@ -3,6 +3,8 @@ title: Storage I/O Throttle
 description: Limits read/write IOPS and bandwidth on PVC-backed volumes using Linux cgroup I/O controls
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/storage-throttle-scenario/
 ---
 
 <krkn-hub-scenario id="storage-throttle">

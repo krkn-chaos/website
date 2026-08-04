@@ -3,6 +3,8 @@ title: Syn Flood Scenarios
 description:
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/syn-flood-scenario/
 ---
 
 <krkn-hub-scenario id="syn-flood">

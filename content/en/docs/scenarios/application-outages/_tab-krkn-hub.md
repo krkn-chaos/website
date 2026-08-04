@@ -1,4 +1,4 @@
-This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer [docs](/docs/scenarios/application-outage/_index.md) for more details.
+This scenario disrupts the traffic to the specified application to be able to understand the impact of the outage on the dependent service/user experience. Refer [docs](/docs/scenarios/application-outages/_index.md) for more details.
 
 #### Run
 

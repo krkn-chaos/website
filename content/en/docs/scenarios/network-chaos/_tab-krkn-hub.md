@@ -1,4 +1,4 @@
-This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using the tc and Netem. For more information refer the following [documentation](/docs/scenarios/network-chaos-scenario/_index.md).
+This scenario introduces network latency, packet loss, bandwidth restriction in the egress traffic of a Node's interface using the tc and Netem. For more information refer the following [documentation](/docs/scenarios/network-chaos/_index.md).
 
 #### Run
 

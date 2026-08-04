@@ -3,6 +3,8 @@ title: Network Chaos Scenario
 description:
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/network-chaos-scenario/
 ---
 
 <krkn-hub-scenario id="network-chaos">

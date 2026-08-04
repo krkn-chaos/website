@@ -44,6 +44,9 @@ Refer to [signal.md](signal.md) for more details
 
 **port**: port to listen/post the signal state to
 
+**generate_pdf_report**: Generates a PDF summary report after the run if set to True
+
+
 ### Auto Rollback
 
 **auto_rollback**: Enable auto rollback for scenarios. When set to True, krkn will attempt to roll back changes made by a scenario if it fails.
@@ -270,6 +273,7 @@ kraken:
     signal_state: RUN                                      # Will wait for the RUN signal when set to PAUSE before running the scenarios, refer docs/signal.md for more details
     signal_address: 0.0.0.0                                # Signal listening address
     port: 8081                                             # Signal port
+    generate_pdf_report: True                              # Generate a PDF summary report after the run
     chaos_scenarios:
         # List of policies/chaos scenarios to load
         - hog_scenarios:

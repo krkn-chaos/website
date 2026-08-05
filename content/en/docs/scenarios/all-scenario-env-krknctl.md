@@ -62,6 +62,7 @@ General run settings. See [Kraken config](../krkn/config.md#kraken) for full det
 | `--uuid` | Sets krkn run uuid instead of generating it | string | - | - |
 | `--krkn-debug` | Enables debug mode for Krkn | enum | True/False | False |
 | `--generate-pdf-report` | When enabled, generates a PDF report summarizing the chaos run results at the end of each scenario | enum | True/False | False |
+| `--generate-html-report` | When enabled, generates an HTML report summarizing the chaos run results at the end of each scenario | enum | True/False | False |
 
 </div>
 

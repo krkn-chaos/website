@@ -1,5 +1,5 @@
 ```bash
-krknctl run vmi-network-chaos [--<parameter> <value>]
+krknctl run vmi-network [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../../all-scenario-env-krknctl.md)
@@ -47,7 +47,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 
 **Add latency and packet loss to all VMIs in a namespace:**
 ```bash
-krknctl run vmi-network-chaos \
+krknctl run vmi-network \
   --namespace <namespace> \
   --target ".*" \
   --latency 100ms \
@@ -57,7 +57,7 @@ krknctl run vmi-network-chaos \
 
 **Bandwidth cap on a specific VMI:**
 ```bash
-krknctl run vmi-network-chaos \
+krknctl run vmi-network \
   --namespace <namespace> \
   --target "<vmi-name>" \
   --bandwidth 1mbit \
@@ -68,7 +68,7 @@ krknctl run vmi-network-chaos \
 
 **Catastrophic combined degradation:**
 ```bash
-krknctl run vmi-network-chaos \
+krknctl run vmi-network \
   --namespace <namespace> \
   --target "<vmi-name-prefix>-.*" \
   --instance-count 3 \
@@ -81,7 +81,7 @@ krknctl run vmi-network-chaos \
 
 **DNS blackout simulation (high latency, no packet drop):**
 ```bash
-krknctl run vmi-network-chaos \
+krknctl run vmi-network \
   --namespace <namespace> \
   --target ".*" \
   --latency 5000ms \

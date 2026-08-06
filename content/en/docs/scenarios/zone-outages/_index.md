@@ -3,6 +3,8 @@ title: Zone Outage Scenarios
 description:
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/zone-outage-scenarios/
 ---
 
 <krkn-hub-scenario id="zone-outages">

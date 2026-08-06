@@ -3,6 +3,8 @@ title: Power Outage Scenarios
 description:
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/power-outage-scenarios/
 ---
 
 <krkn-hub-scenario id="power-outages">

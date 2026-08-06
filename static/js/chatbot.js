@@ -23,9 +23,9 @@ class KrknChatbot {
         // Map URL path segments to human-readable doc section labels.
         // Patterns are ordered most-specific first to avoid early broad matches.
         const contextMap = [
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,    label: 'CPU Hog Scenario' },
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/, label: 'Memory Hog Scenario' },
-            { pattern: /\/docs\/scenarios\/hog-scenarios\/io-hog-scenario/,     label: 'IO Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/node-cpu-hog/,        label: 'CPU Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/node-memory-hog/,     label: 'Memory Hog Scenario' },
+            { pattern: /\/docs\/scenarios\/hog-scenarios\/node-io-hog/,         label: 'IO Hog Scenario' },
             { pattern: /\/docs\/scenarios\/network-chaos-ng-scenarios/,         label: 'Network Chaos NG' },
             { pattern: /\/docs\/scenarios\/network-chaos(?:\/|$)/,              label: 'Network Chaos' },
             { pattern: /\/docs\/scenarios\/pod-network-scenario/,               label: 'Pod Network Chaos' },
@@ -35,8 +35,8 @@ class KrknChatbot {
             { pattern: /\/docs\/scenarios\/application-outages/,                 label: 'Application Outage' },
             { pattern: /\/docs\/scenarios\/service-disruption-scenarios/,       label: 'Service Disruption' },
             { pattern: /\/docs\/scenarios\/service-hijacking/,                  label: 'Service Hijacking' },
-            { pattern: /\/docs\/scenarios\/zone-outage-scenarios/,              label: 'Zone Outage Scenarios' },
-            { pattern: /\/docs\/scenarios\/power-outage-scenarios/,             label: 'Power Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/zone-outages/,                       label: 'Zone Outage Scenarios' },
+            { pattern: /\/docs\/scenarios\/power-outages/,                      label: 'Power Outage Scenarios' },
             { pattern: /\/docs\/scenarios\/pvc-scenario/,                       label: 'PVC Disk Fill Scenario' },
             { pattern: /\/docs\/scenarios\/time-scenarios/,                     label: 'Time Skew Scenarios' },
             { pattern: /\/docs\/scenarios\/dns-outage/,                         label: 'DNS Outage Scenario' },
@@ -45,7 +45,7 @@ class KrknChatbot {
             { pattern: /\/docs\/scenarios\/efs-disruption/,                     label: 'EFS Disruption' },
             { pattern: /\/docs\/scenarios\/syn-flood/,                          label: 'Syn Flood Scenario' },
             { pattern: /\/docs\/scenarios\/http-load/,                          label: 'HTTP Load Scenario' },
-            { pattern: /\/docs\/scenarios\/kubevirt-vm-outage-scenario/,        label: 'KubeVirt VM Outage' },
+            { pattern: /\/docs\/scenarios\/kubevirt-outage/,                    label: 'KubeVirt VM Outage' },
             { pattern: /\/docs\/scenarios/,                                     label: 'Chaos Scenarios' },
             { pattern: /\/docs\/krkn_ai/,                                       label: 'Krkn AI' },
             { pattern: /\/docs\/krkn-operator/,                                 label: 'Krkn Operator' },
@@ -136,7 +136,7 @@ class KrknChatbot {
 
         const suggestionMap = [
             {
-                pattern: /\/docs\/scenarios\/hog-scenarios\/cpu-hog-scenario/,
+                pattern: /\/docs\/scenarios\/hog-scenarios\/node-cpu-hog/,
                 suggestions: [
                     { emoji: '📈', label: 'CPU load', question: 'How do I set the CPU load percentage for hog scenario?' },
                     { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for CPU hog?' },
@@ -144,7 +144,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/hog-scenarios\/memory-hog-scenario/,
+                pattern: /\/docs\/scenarios\/hog-scenarios\/node-memory-hog/,
                 suggestions: [
                     { emoji: '💾', label: 'Memory amount', question: 'How do I set the memory amount for memory hog?' },
                     { emoji: '🎯', label: 'Target node', question: 'How do I target a specific node for memory hog?' },
@@ -200,7 +200,7 @@ class KrknChatbot {
                 ]
             },
             {
-                pattern: /\/docs\/scenarios\/zone-outage-scenarios/,
+                pattern: /\/docs\/scenarios\/zone-outages/,
                 suggestions: [
                     { emoji: '🌍', label: 'Zone config', question: 'How do I configure a zone outage scenario?' },
                     { emoji: '☁️', label: 'Cloud support', question: 'Which clouds support zone outage scenarios?' },

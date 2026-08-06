@@ -3,6 +3,8 @@ title: KubeVirt VM Outage Scenario
 description: Simulating VM-level disruptions in KubeVirt/OpenShift CNV environments
 date: 2017-01-04
 weight: 3
+aliases:
+  - /docs/scenarios/kubevirt-vm-outage-scenario/
 ---
 
 <krkn-hub-scenario id="kubevirt-outage">

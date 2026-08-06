@@ -35,9 +35,9 @@ These scenarios involve deploying one or more workloads in the cluster. Based on
 
 ### Available Scenarios
 #### Hog scenarios:
-- [CPU Hog](/docs/scenarios/hog-scenarios/cpu-hog-scenario/_index.md)
-- [Memory Hog](/docs/scenarios/hog-scenarios/memory-hog-scenario/_index.md)
-- [I/O Hog](/docs/scenarios/hog-scenarios/io-hog-scenario/_index.md)
+- [CPU Hog](/docs/scenarios/hog-scenarios/node-cpu-hog/_index.md)
+- [Memory Hog](/docs/scenarios/hog-scenarios/node-memory-hog/_index.md)
+- [I/O Hog](/docs/scenarios/hog-scenarios/node-io-hog/_index.md)
 
 
 ### Rollback Scenario Support

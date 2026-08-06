@@ -113,7 +113,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
     - etc.
   - [Demo](https://asciinema.org/a/ANZY7HhPdWTNaWt4xMFanF6Q5)
 
-- Zone Outages ([Documentation](../scenarios/zone-outage-scenarios))
+- Zone Outages ([Documentation](../scenarios/zone-outages))
   - Creates outage of availability zone(s) in a targeted region in the public cloud where the Kubernetes cluster is running by tweaking the network acl of the zone to simulate the failure, and that in turn will stop both ingress and egress traffic from all nodes in a particular zone for the specified duration and reverts it back to the previous state.
     - Helps understand the impact on both Kubernetes/Kubernetes control plane as well as applications and services running on the worker nodes in that zone.
     - Currently, only set up for AWS cloud platform: 1 VPC and multiples subnets within the VPC can be specified.
@@ -124,7 +124,7 @@ Let us take a look at how to run the chaos scenarios on your Kubernetes clusters
     - Helps understand how the dependent services react to the unavailability.
     - [Demo](https://asciinema.org/a/452403?speed=3&theme=solarized-dark)
 
-- Power Outages ([Documentation](../scenarios/power-outage-scenarios))
+- Power Outages ([Documentation](../scenarios/power-outages))
   - This scenario imitates a power outage by shutting down of the entire cluster for a specified duration of time, then restarts all the nodes after the specified time and checks the health of the cluster.
     - There are various use cases in the customer environments. For example, when some of the clusters are shutdown in cases where the applications are not needed to run in a particular time/season in order to save costs.
     - The nodes are stopped in parallel to mimic a power outage i.e., pulling off the plug

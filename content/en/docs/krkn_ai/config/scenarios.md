@@ -13,15 +13,15 @@ The following Krkn scenarios are currently supported by Krkn-AI.
 | [Pod Scenario](../../scenarios/pod-scenarios/)        	| *scenario.pod-scenarios*       	|
 | [Application Outages](../../scenarios/application-outages/) 	| *scenario.application-outages* 	|
 | [Container Scenario](../../scenarios/container-scenarios/)  	| *scenario.container-scenarios* 	|
-| [Node CPU Hog](../../scenarios/hog-scenarios/cpu-hog-scenario/)       	| *scenario.node-cpu-hog*        	|
-| [Node Memory Hog](../../scenarios/hog-scenarios/memory-hog-scenario/)     	| *scenario.node-memory-hog*     	|
-| [Node IO Hog](../../scenarios/hog-scenarios/io-hog-scenario/)     	| *scenario.node-io-hog*     	|
+| [Node CPU Hog](../../scenarios/hog-scenarios/node-cpu-hog/)       	| *scenario.node-cpu-hog*        	|
+| [Node Memory Hog](../../scenarios/hog-scenarios/node-memory-hog/)     	| *scenario.node-memory-hog*     	|
+| [Node IO Hog](../../scenarios/hog-scenarios/node-io-hog/)     	| *scenario.node-io-hog*     	|
 | [Syn Flood](../../scenarios/syn-flood/)       	| *scenario.syn-flood*      	|
 | [Time Scenario](../../scenarios/time-scenarios/)       	| *scenario.time-scenarios*      	|
 | [Network Scenarios](../../scenarios/network-chaos/)       	| *scenario.network-scenarios*      	|
 | [DNS Outage](../../scenarios/dns-outage/)       	| *scenario.dns-outage*      	|
 | [PVC Scenario](../../scenarios/pvc-scenario/)       	| *scenario.pvc-scenarios*      	|
-| [KubeVirt VM Outage](../../scenarios/kubevirt-vm-outage-scenario/)       	| *scenario.kubevirt-scenarios*      	|
+| [KubeVirt VM Outage](../../scenarios/kubevirt-outage/)       	| *scenario.kubevirt-scenarios*      	|
 | [Storage Throttle](../../scenarios/storage-throttle/)       	| *scenario.storage-throttle*      	|
 
 

@@ -174,7 +174,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="kubevirt-vm-outage-scenario/">KubeVirt VM Outage</a></h3>
+<h3><a href="kubevirt-outage/">KubeVirt VM Outage</a></h3>
 <span class="scenario-badge">kubevirt_vm_outage</span>
 <p class="scenario-description">Simulates VM-level disruptions by deleting Virtual Machine Instances to test resilience and recovery</p>
 <div class="cloud-badges">
@@ -209,7 +209,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="power-outage-scenarios/">Power Outages</a></h3>
+<h3><a href="power-outages/">Power Outages</a></h3>
 <span class="scenario-badge">cluster_shut_down_scenarios</span>
 <p class="scenario-description">Shuts down the cluster for a specified duration and verifies cluster health upon restart</p>
 <div class="cloud-badges">
@@ -227,7 +227,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="zone-outage-scenarios/">Zone Outages</a></h3>
+<h3><a href="zone-outages/">Zone Outages</a></h3>
 <span class="scenario-badge">zone_outages_scenarios</span>
 <p class="scenario-description">Creates zone outages to observe impact on cluster availability and application resilience</p>
 <div class="cloud-badges">
@@ -237,7 +237,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="hog-scenarios/cpu-hog-scenario/">Node CPU Hog</a></h3>
+<h3><a href="hog-scenarios/node-cpu-hog/">Node CPU Hog</a></h3>
 <span class="scenario-badge">hog_scenarios</span>
 <p class="scenario-description">Hogs CPU resources on targeted nodes to test resource contention</p>
 <div class="cloud-badges">
@@ -246,7 +246,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="hog-scenarios/memory-hog-scenario/">Node Memory Hog</a></h3>
+<h3><a href="hog-scenarios/node-memory-hog/">Node Memory Hog</a></h3>
 <span class="scenario-badge">hog_scenarios</span>
 <p class="scenario-description">Hogs memory resources on targeted nodes to test memory pressure handling</p>
 <div class="cloud-badges">
@@ -255,7 +255,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
-<h3><a href="hog-scenarios/io-hog-scenario/">Node IO Hog</a></h3>
+<h3><a href="hog-scenarios/node-io-hog/">Node IO Hog</a></h3>
 <span class="scenario-badge">hog_scenarios</span>
 <p class="scenario-description">Hogs IO resources on targeted nodes to test disk performance degradation</p>
 <div class="cloud-badges">

@@ -90,6 +90,30 @@ exclude_label: "key=value"
         kill: 2
 ```
 
+## Serial vs Parallel Execution
+
+By default, when `kill` is set to greater than 1, pods are deleted **serially** (one by one). This is useful for testing how an application handles rolling disruptions and allowing the cluster time to reschedule each pod before deleting the next one.
+
+However, some chaos scenarios require true simultaneous failure, such as simulating an etcd quorum loss or an availability zone outage. To achieve this, you can set the `execution` configuration to `parallel`.
+
+**Format:**
+
+```yaml
+execution: parallel    # optional: serial (default) | parallel
+```
+
+### Example: Simulate etcd Quorum Loss
+
+```yaml
+- id: kill_pods
+  config:
+    namespace_pattern: ^openshift-etcd$
+    label_selector: k8s-app=etcd
+    krkn_pod_recovery_time: 120
+    kill: 2
+    execution: parallel
+```
+
 ## Targeting Pods on Specific Nodes
 
 By default, pod scenarios target all pods matching the namespace and label selectors regardless of which node they run on. However, you can narrow down the scope to only affect pods running on specific nodes using two options:

@@ -68,6 +68,7 @@ NAME_PATTERN            | Regex pattern to match the pods in NAMESPACE  when POD
 DISRUPTION_COUNT        | Number of pods to disrupt                                             | number | 1                                    |
 KILL_TIMEOUT            | Timeout to wait for the target pod(s) to be removed in seconds        | number | 180                                  |
 EXPECTED_RECOVERY_TIME           | Fails if the pod disrupted do not recover within the timeout set      | number | 120                                  |
+EXECUTION               | Execution mode for pod deletion (serial or parallel)                                         | enum | serial                                   |
 NODE_LABEL_SELECTOR           | Label of the node(s) to target                                         | string | ""                                   |
 NODE_NAMES            | Name of the node(s) to target. Example: ["worker-node-1","worker-node-2","master-node-1"]                                         | string | []                                   |
 

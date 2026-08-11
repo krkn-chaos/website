@@ -36,7 +36,7 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 | LABEL_SELECTOR                | Label selector to target one or more nodes (e.g. `node-role.kubernetes.io/worker=`). If omitted, NODE_NAME is used instead | ""                         |
 | NODE_NAME                     | Exact node name to target when LABEL_SELECTOR is not specified                                | ""                                               |
 | INSTANCE_COUNT                | Number of nodes matching the selector to apply chaos on simultaneously                        | 1                                                |
-| INTERFACES                    | YAML-style list of interface names to shape (e.g. `[br-ex]` or `[eth0,eth1]`). Leave empty to target the node's default interface | "[]"        |
+| INTERFACES                    | YAML-style list of interface names to shape (e.g. `[br-ex]` or `[eth0,eth1]`). Leave empty to target all interfaces | "[]"        |
 | TRAFFIC_TYPE                  | Direction of traffic to shape. Accepted values: `[egress]`, `[ingress]`, or `[egress,ingress]` | "[egress]"                                      |
 | LATENCY                       | Artificial delay to add to matching packets. Format: `<number><unit>` where unit is `us`, `ms`, or `s` (e.g. `200ms`). Leave empty to skip | ""    |
 | LOSS                          | Percentage of packets to drop. Digits only, no `%` symbol (e.g. `10` means 10%). Leave empty to skip | ""                                         |

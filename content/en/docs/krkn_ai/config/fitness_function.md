@@ -9,6 +9,7 @@ The **fitness function** is a crucial element in the Krkn-AI algorithm. It evalu
 - The fitness function can be defined as an SLO or as cluster metrics using a Prometheus query.
 - Fitness scores are calculated for the time range during which the Chaos scenario is executed.
 
+
 ## Example
 
 Let's look at a simple fitness function that calculates the total number of restarts in a namespace:
@@ -91,6 +92,8 @@ fitness_function:
     type: point
 ```
 
+> **Note:** `query` and `items` are alternatives. If both are set, `query` is used and `items` is ignored.
+
 ## Krkn Failures
 
 Krkn-AI uses [krknctl](../../krknctl/) under the hood to trigger Chaos testing experiments on the cluster. As part of the CLI, it captures various feedback and returns a non-zero status code (exit status 2) when a failure occurs. By default, feedback from these failures is included in the Krkn-AI Fitness Score calculation.
@@ -108,7 +111,100 @@ fitness_function:
 
 ## Health Check
 
-Results from application health checks are also incorporated into the fitness score. You can learn more about health checks and how to configure them in more detail [here](./health_check.md).
+Results from application health checks are also incorporated into the fitness score, controlled by `include_health_check_failure` and `include_health_check_response_time`. Both default to `true`. You can learn more about health checks and how to configure them in more detail [here](./health_check.md).
+
+## Automatic Recommendations
+
+Writing valid PromQL for an unfamiliar cluster is usually the slowest part of a first run, so [discover](../discover.md) proposes fitness queries that are already verified against your cluster's Prometheus.
+
+Krkn-AI ships a catalog of queries covering common failure signals, in [catalog.yaml](https://github.com/krkn-chaos/krkn-ai/blob/main/krkn_ai/utils/catalog.yaml). Each entry is a PromQL template plus the metrics it depends on.
+
+| Category | Example queries |
+|-----------------|-----------------------------------------------------------------|
+| `availability`  | `pod-restarts`, `crashloop-pods`, `deployment-replicas-missing` |
+| `resource`      | `oom-kills`, `cpu-throttle`                                     |
+| `node`          | `node-pressure`, `node-not-ready`                               |
+| `control_plane` | `apiserver-errors`, `apiserver-latency`                         |
+| `etcd`          | `etcd-request-latency`, `etcd-leader-changes`                   |
+| `storage`       | `pvc-pending`                                                   |
+
+For every entry, Krkn-AI checks:
+
+- **Are the metrics available?** Every metric the query needs must be scraped by your Prometheus, otherwise the query is rejected.
+- **Which namespaces?** Namespace scoped queries are generated once per discovered namespace, named `<key>:<namespace>`, for example `pod-restarts:robot-shop`.
+- **Does it return a single value?** The query is run against Prometheus and must return one series, since a fitness function has to produce one number.
+- **How much should it count?** Accepted queries are given weights that add up to 1.
+
+Accepted queries are written under `items`. Rejected ones are commented out with the reason, so you can see what your cluster is missing.
+
+```yaml
+fitness_function:
+  include_krkn_failure: true
+  include_health_check_failure: true
+  include_health_check_response_time: true
+  # Fitness queries validated against the cluster's Prometheus.
+  items:
+  # pod-restarts:robot-shop
+  - query: '(sum(increase(kube_pod_container_status_restarts_total{namespace="robot-shop"}[$range$]))) or vector(0)'
+    type: range
+    weight: 0.5
+  # node-pressure
+  - query: '(sum(kube_node_status_condition{condition=~"MemoryPressure|DiskPressure|PIDPressure", status="true"})) or vector(0)'
+    type: range
+    weight: 0.5
+  # cpu-throttle:robot-shop (metric(s) not scraped: container_cpu_cfs_throttled_periods_total)
+  # - query: '...'
+  #   type: range
+```
+
+Every query is wrapped in `or vector(0)`. A Prometheus query that matches nothing returns an empty result, which would fail the scenario; the wrapper turns "nothing happened" into a score of `0`.
+
+### Prometheus Access
+
+Krkn-AI needs to reach Prometheus during `discover` to validate the queries.
+
+On OpenShift, the URL is discovered from the Thanos Query route and the token from your kubeconfig credentials. If token discovery comes back empty, as it does for exec or certificate-based auth, set `PROMETHEUS_TOKEN` explicitly. On other clusters, set the URL yourself:
+
+```bash
+export PROMETHEUS_URL="http://localhost:9090"
+export PROMETHEUS_TOKEN="<token>"
+```
+
+If Prometheus cannot be reached, `discover` still succeeds and writes a single default query that you can replace later.
+
+### Learned Weights
+
+Not every fitness query is equally useful. A query whose value is the same for every scenario tells the algorithm nothing.
+
+After a run, Krkn-AI writes `learned_weights.json` into the run's output directory, scoring each query by how much its value varied across scenarios. Feed that back into the next `discover` to bias the weights towards the queries that actually distinguish scenarios:
+
+```bash
+uv run krkn_ai discover -k ./tmp/kubeconfig.yaml -o ./krkn-ai.yaml \
+  --learned-weights ./results/<run-uuid>/learned_weights.json
+```
+
+Weights are matched per query and namespace, so they only apply when you discover the same namespaces again. They are used as a starting point and are still normalized to add up to 1.
+
+### Adding a Query to the Catalog
+
+To contribute a query, add an entry to [catalog.yaml](https://github.com/krkn-chaos/krkn-ai/blob/main/krkn_ai/utils/catalog.yaml):
+
+```yaml
+- key: my-metric
+  category: availability
+  name: Human readable name
+  query_template: 'sum(increase(my_metric_total{namespace="$ns"}[$range$]))'
+  requires: [my_metric_total]
+  scope: namespace
+```
+
+- `key` and `query_template` are the only required fields.
+- `$ns` is replaced with each discovered namespace and `$range$` with the scenario duration. Use `scope: cluster` for queries that are not namespace specific.
+- The query must aggregate to a single series, so wrap it in `sum()`, `max()` or `avg()`.
+- List every metric the query reads in `requires`, so Krkn-AI can skip it on clusters that do not scrape them.
+- Do not add `or vector(0)` yourself, Krkn-AI adds it.
+
+Run `discover` against a cluster that has the metric and check that your entry comes back enabled.
 
 ## How to Define a Good Fitness Function
 

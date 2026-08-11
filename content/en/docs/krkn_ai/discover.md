@@ -26,11 +26,16 @@ Options:
   -v, --verbose           Increase verbosity of output.
   --skip-pod-name TEXT    Pod name to skip. Supports comma separated values
                           with regex.
-  --save-strategy [skip|overwrite|merge]
+  -S, --save-strategy [skip|overwrite|merge]
                           How to save: skip, overwrite (replace), or merge
-                          (add new).
+                          (add new components, keep your edits). Note: merge
+                          does not preserve comments.
+  --learned-weights TEXT  Path to a learned_weights.json from a previous run,
+                          to prioritize fitness queries.
   --help                  Show this message and exit.
 ```
+
+Alongside `cluster_components`, `discover` also fills in the [scenarios](./config/scenarios.md) your cluster can run, [health check URLs](./config/health_check.md) built from LoadBalancer services, and [fitness queries](./config/fitness_function.md) validated against your Prometheus.
 
 ### Example
 
@@ -70,24 +75,42 @@ output:
   graph_name_fmt: "scenario_%s.png"
   log_name_fmt: "scenario_%s.log"
 
-# Fitness function configuration for defining SLO
-# In the below example, we use Total Restarts in "robot-shop" namespace as the SLO
-fitness_function: 
-  query: 'sum(kube_pod_container_status_restarts_total{namespace="robot-shop"})'
-  type: point
+# Fitness queries recommended from the cluster's Prometheus
+fitness_function:
   include_krkn_failure: true
+  include_health_check_failure: true
+  include_health_check_response_time: true
+  items:
+  # pod-restarts:robot-shop
+  - query: '(sum(increase(kube_pod_container_status_restarts_total{namespace="robot-shop"}[$range$]))) or vector(0)'
+    type: range
+    weight: 0.5
+  # node-pressure
+  - query: '(sum(kube_node_status_condition{condition=~"MemoryPressure|DiskPressure|PIDPressure", status="true"})) or vector(0)'
+    type: range
+    weight: 0.5
 
-# Chaos scenarios to consider during testing
+# Application endpoints discovered from LoadBalancer services
+health_checks:
+  stop_watcher_on_failure: false
+  stop_timeout: 5
+  applications:
+  - name: "cart"
+    url: "http://192.0.2.10:80/health"
+
+# Chaos scenarios your cluster can run, decided during discovery
 scenario:
   pod-scenarios:
     enable: true
   application-outages:
     enable: true
   container-scenarios:
-    enable: false
+    enable: true
   node-cpu-hog:
-    enable: false
+    enable: true
   node-memory-hog:
+    enable: true
+  kubevirt-scenarios:
     enable: false
 
 # Cluster components to consider for Krkn-AI testing
@@ -167,3 +190,11 @@ uv run krkn_ai discover -k ./tmp/kubeconfig.yaml -o ./krkn-ai.yaml --save-strate
 `merge` preserves manual edits (e.g. `disabled: true`) and adds newly discovered components.
 
 > **Note:** Comments inside `cluster_components` are not preserved after a merge.
+
+The save strategy also decides how much of the config is regenerated. Scenario enablement and health checks are only worked out when the file is written fresh, either because it does not exist yet or because you passed `overwrite`. Fitness queries are also refreshed on `merge`.
+
+| Strategy | Cluster components | Scenarios and health checks | Fitness queries |
+|---|---|---|---|
+| `skip` (file exists) | unchanged | unchanged | unchanged |
+| `overwrite` | replaced | regenerated | regenerated |
+| `merge` | added to | unchanged | new ones added |

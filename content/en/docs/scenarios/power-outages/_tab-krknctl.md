@@ -13,7 +13,7 @@ Scenario specific parameters:
 `--timeout` | Time in seconds to wait for each node to be stopped or running after the cluster comes back | number | No | 180| 
 `--shutdown-duration` | Duration in seconds to shut down the cluster | number | No | 1200 | 
 `--vsphere-ip` | vSphere IP address | string | No | 
-`--vsphere-username` | vSphere IP address | string (secret)| No | 
+`--vsphere-username` | vSphere username | string (secret)| No | 
 `--vsphere-password` | vSphere password | string (secret)| No | 
 `--aws-access-key-id` | AWS Access Key Id | string (secret)| No | 
 `--aws-secret-access-key` | AWS Secret Access Key | string (secret)| No | 

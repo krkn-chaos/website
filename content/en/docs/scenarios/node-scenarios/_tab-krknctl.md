@@ -20,7 +20,7 @@ Scenario specific parameters:  (be sure to scroll to right)
 `--timeout` | Duration to wait for completion of node scenario injection | number | No | 180| 
 `--duration` | Duration to wait for completion of node scenario injection | number | No | 120 | 
 `--vsphere-ip` | vSphere IP address | string | No | 
-`--vsphere-username` | vSphere IP address | string (secret)| No | 
+`--vsphere-username` | vSphere username | string (secret)| No | 
 `--vsphere-password` | vSphere password | string (secret)| No | 
 `--aws-access-key-id` | AWS Access Key Id | string (secret)| No | 
 `--aws-secret-access-key` | AWS Secret Access Key | string (secret)| No | 

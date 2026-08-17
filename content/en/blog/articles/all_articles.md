@@ -18,6 +18,7 @@ description: >
 - Blog post on LFX Mentorship Term 2 2025 experience working with the krkn team on the rollback feature: https://blog.zhu424.dev/open-source-contribution/lfx-mentorship-2025-cncf-krkn
 - Blog post on creating custom chaos scenarios in krkn: https://medium.com/@abhinavs1920/krkn-custom-chaos-engineering-plugins-70d73c7e2118
 - Blog post on Resiliency Scoring Feature: https://medium.com/@abhinavs1920/we-replaced-pass-fail-chaos-testing-with-a-score-heres-the-math-e0eeafb5d938
+- Blog post on Krkn-Operator Developer Preview in Red Hat Advanced Cluster Management, use cases and capabilities: https://developers.redhat.com/articles/2026/08/17/krkn-operator-developer-preview-red-hat-acm
 
 ### Chaos Testing Guide
 Guide covering the best practices, recommendations that an OpenShift platform as well as the applications running on top it should follow to be resilient, performant and reliable in addition to instructions on how to leverage tooling to achieve it: https://redhat-chaos.github.io/krkn/.

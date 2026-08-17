@@ -67,3 +67,33 @@ node_bundler = "esbuild"
   to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=community&campaign=1.0"
   status = 302
   force = true
+
+[[redirects]]
+  from = "/go/1.0/cncf-slack"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=cncf-slack&campaign=1.0"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/go/1.0/cncf-slack-ocm"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=cncf-slack-ocm&campaign=1.0"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/go/1.0/devto"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=devto&campaign=1.0"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/go/1.0/x"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=x&campaign=1.0"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/go/1.0/facebook"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=facebook&campaign=1.0"
+  status = 302
+  force = true

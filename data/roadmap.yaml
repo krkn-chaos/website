@@ -9,18 +9,18 @@ releases:
 
   - version: "v1.0.0"
     title: "OCM Cluster communication improvements"
-    date: "2026-08-09"
-    status: in-progress
+    date: "2026-08-17"
+    status: released
     tasks:
       - "Scenario Save/Replay"
       - "[Cluster Proxy](https://open-cluster-management.io/docs/getting-started/integration/cluster-proxy/) Support"
       - "Per node resiliency score"
       - "Save/Edit/Delete Workflow Templates"
 
-  - version: "v1.0.1"
+  - version: "v1.1.0"
     title: "Scenario Rollback"
-    date: "2026-09-09"
-    status: planned
+    date: "2026-09-17"
+    status: in-progress
     tasks:
       - "Scenario Rollback"
       - "Cluster liveness check"

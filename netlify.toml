@@ -103,3 +103,9 @@ node_bundler = "esbuild"
   to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=slashdot&campaign=1.0"
   status = 302
   force = true
+
+[[redirects]]
+  from = "/go/1.0/phoronix"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=phoronix&campaign=1.0"
+  status = 302
+  force = true

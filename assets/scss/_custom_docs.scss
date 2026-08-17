@@ -153,8 +153,6 @@
 }
 
 // Sidebar badges (e.g., beta, new, etc.)
-// Only show badge on main krkn-operator page, not sub-chapters
-.td-sidebar-nav a[href$="/krkn-operator/"],
 .td-sidebar-nav a[href$="/resiliency-score/"] {
   position: relative;
   display: inline-flex;

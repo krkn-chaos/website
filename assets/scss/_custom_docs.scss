@@ -1955,7 +1955,7 @@ table tbody tr:hover {
   &--admin { background: var(--krkn-primary); color: var(--krkn-text-on-color); }
   &--view { background: var(--krkn-secondary); color: var(--krkn-text-on-color); }
   &--run { background: var(--krkn-success); color: var(--krkn-text-on-color); }
-  &--delete { background: var(--krkn-danger); color: var(--krkn-text-on-color); }
+  &--cancel { background: var(--krkn-danger); color: var(--krkn-text-on-color); }
 
   a & {
     text-decoration: none;

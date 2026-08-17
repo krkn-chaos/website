@@ -15,7 +15,7 @@ The operational features of Krkn Operator are available to all users, scoped by 
 | Feature | Required Permission |
 |---------|-------------------|
 | View Jobs | <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> |
-| Delete Jobs | <a href="/docs/krkn-operator/#permission-delete"><span class="krkn-badge krkn-badge--delete">Delete</span></a> |
+| Cancel Jobs | <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a> |
 | Cluster Terminal | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |
 | Run Scenarios | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |
 | Chaos Studio | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |

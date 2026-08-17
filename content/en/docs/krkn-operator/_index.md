@@ -44,7 +44,7 @@ Full access to the platform. Administrators configure the infrastructure that us
 
 Operational access scoped by group membership. Every user must belong to a group — the group determines which clusters, registries and features are accessible.
 
-- View and manage **jobs** (based on View/Delete permissions)
+- View and manage **jobs** (based on View/Cancel permissions)
 - Use the **cluster terminal** (requires Run permission)
 - **Run scenarios** on assigned clusters (requires Run permission)
 - Design workflows in **Chaos Studio** (requires Run permission)
@@ -70,7 +70,7 @@ Users only see jobs from their own group. A cluster-wide indicator shows the nam
   Clusters     Clusters
   Permissions  Permissions
   (View,Run,   (View)
-   Delete)
+   Cancel)
     │             │
   Users        Users
 ```
@@ -81,7 +81,7 @@ Permissions are assigned at the group level and determine what users can do on c
 
 <span class="krkn-badge krkn-badge--view">View</span>
 
-Allows users to see jobs and their execution results. Users with this permission can inspect single run outcomes, console logs, graph run nodes, and Resiliency Scores — but cannot execute or delete anything.
+Allows users to see jobs and their execution results. Users with this permission can inspect single run outcomes, console logs, graph run nodes, and Resiliency Scores — but cannot execute, cancel or remove anything.
 
 **Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
 
@@ -93,11 +93,11 @@ Allows users to execute chaos experiments on the clusters assigned to their grou
 
 **Applies to:** [Run Scenarios](/docs/krkn-operator/usage/run-scenarios/) · [Chaos Studio](/docs/krkn-operator/usage/chaos-studio/) · [Cluster Terminal](/docs/krkn-operator/usage/cluster-terminal/)
 
-### Delete {#permission-delete}
+### Cancel {#permission-cancel}
 
-<span class="krkn-badge krkn-badge--delete">Delete</span>
+<span class="krkn-badge krkn-badge--cancel">Cancel</span>
 
-Allows users to remove completed jobs and their execution history. Without this permission, jobs remain visible but cannot be deleted.
+Allows users to cancel running scenarios and to remove scenario runs and their execution history. Without this permission, jobs remain visible but cannot be cancelled or removed.
 
 **Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
 

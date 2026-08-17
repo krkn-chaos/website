@@ -30,7 +30,7 @@ Groups also receive permission flags that control what operations their members 
 |------------|---------------|
 | **View** | View jobs and execution results |
 | **Run** | Execute scenarios, use Chaos Studio, access cluster terminal |
-| **Delete** | Remove jobs and execution history |
+| **Cancel** | Cancel running jobs, and remove jobs and execution history |
 
 ---
 

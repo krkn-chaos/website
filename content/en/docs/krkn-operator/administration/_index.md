@@ -15,7 +15,7 @@ Administrators configure the platform infrastructure that users operate on. This
 The Admin creates **groups** that define what users can do on the platform. Each group specifies:
 
 - Which **clusters** are accessible
-- Which **permissions** are granted (View, Run, Delete)
+- Which **permissions** are granted (View, Run, Cancel)
 - Which **registries** are visible
 
 Users inherit all permissions from their assigned group.
@@ -24,7 +24,7 @@ Users inherit all permissions from their assigned group.
 Admin creates Group
       │
       ├── Assigns Clusters (target-1, target-2, ...)
-      ├── Assigns Permissions (View, Run, Delete)
+      ├── Assigns Permissions (View, Run, Cancel)
       └── Assigns Registry Visibility
             │
             └── Users in this group inherit everything

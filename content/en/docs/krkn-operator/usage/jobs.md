@@ -4,7 +4,7 @@ description: Monitor and inspect chaos experiment execution
 weight: 1
 ---
 
-# Jobs <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> <a href="/docs/krkn-operator/#permission-delete"><span class="krkn-badge krkn-badge--delete">Delete</span></a>
+# Jobs <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a>
 
 The Jobs list is the home screen of the platform. It displays all scenario executions for your group, with real-time status updates and access to logs and results.
 
@@ -39,7 +39,7 @@ Graph runs can include a **Resiliency Score** — a calculated metric based on P
 
 - Only jobs from **your own group** are displayed
 - A cluster-wide tip shows the **names** of scenarios currently running across all groups (no details)
-- Deleting jobs requires <a href="/docs/krkn-operator/#permission-delete"><span class="krkn-badge krkn-badge--delete">Delete</span></a> permission
+- Cancelling or removing jobs requires <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a> permission
 
 ![Jobs Dashboard](/images/krkn-operator/main-screen.png)
 

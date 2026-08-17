@@ -3,7 +3,7 @@ title: OCM/ACM Compatibility
 description: Supported platforms and ACM/OCM versions for Krkn Operator
 weight: 5
 ---
-<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=718ce007-5ae3-4c7f-ae2c-571353cb6b86" />
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=718ce007-5ae3-4c7f-ae2c-571353cb6b86" alt="" width="1" height="1" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;" />
 
 # OCM/ACM Compatibility
 

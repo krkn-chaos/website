@@ -4,7 +4,7 @@ description: Install Krkn Operator using Helm
 weight: 1
 custom_js: ["/js/krkn-operator-version.js"]
 ---
-<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=8544b80d-373c-4c02-b2f7-e25d80b51854" />
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=8544b80d-373c-4c02-b2f7-e25d80b51854" alt="" width="1" height="1" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;" />
 
 # Installation <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
 

@@ -5,7 +5,7 @@ weight: 8
 description: >
   A Kubernetes-native platform for orchestrating Chaos Engineering experiments through a web interface.
 ---
-<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=b6153e03-2a9a-4d95-a2ce-89c05ede15f2" />
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=b6153e03-2a9a-4d95-a2ce-89c05ede15f2" alt="" width="1" height="1" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;" />
 
 Krkn Operator is a Kubernetes-native platform to deploy, configure and orchestrate Chaos Engineering experiments through a web console. Instead of manually executing scenarios, the Operator provides a complete platform to manage users, clusters, permissions and experiment execution from a single place.
 

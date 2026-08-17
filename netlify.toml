@@ -109,3 +109,10 @@ node_bundler = "esbuild"
   to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/launch?source=phoronix&campaign=1.0"
   status = 302
   force = true
+
+# catch trailing-slash variants of all /go/1.0/* short links
+[[redirects]]
+  from = "/go/1.0/*/"
+  to = "/go/1.0/:splat"
+  status = 302
+  force = true

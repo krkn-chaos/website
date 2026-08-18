@@ -46,6 +46,9 @@ Refer to [signal.md](signal.md) for more details
 
 **generate_pdf_report**: Generates a PDF summary report after the run if set to True
 
+**generate_html_report**: Generates a HTML summary report after the run if set to True
+
+
 
 ### Auto Rollback
 
@@ -274,6 +277,7 @@ kraken:
     signal_address: 0.0.0.0                                # Signal listening address
     port: 8081                                             # Signal port
     generate_pdf_report: True                              # Generate a PDF summary report after the run
+    generate_html_report: True                             # Generate a HTML summary report after the run
     chaos_scenarios:
         # List of policies/chaos scenarios to load
         - hog_scenarios:

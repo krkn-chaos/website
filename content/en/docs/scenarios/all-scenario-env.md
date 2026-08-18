@@ -26,6 +26,7 @@ Parameter | Description | Default
 `PORT` | Port to publish kraken status to | 8081
 `SIGNAL_STATE` | Waits for the RUN signal when set to PAUSE before running the scenarios, refer [docs](../krkn/signal.md) for more details | RUN
 `GENERATE_PDF_REPORT` | When enabled, generates a PDF report summarizing the chaos run results at the end of each scenario | False
+`GENERATE_HTML_REPORT` | When enabled, generates an HTML report summarizing the chaos run results at the end of each scenario | False
 
 ---
 

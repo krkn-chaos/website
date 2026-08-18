@@ -1038,17 +1038,19 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
         <div class="feature-card reveal" data-delay="200">
           <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
-            <path d="M12 17h.01" />
-            <path d="M12 8v1" />
-            <path d="M12 12l.5.5" />
-            <path d="M14 10l1.5-1.5" />
+            <rect x="3" y="4" width="18" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="18" x2="12" y2="21" />
+            <circle cx="8" cy="9" r="1" />
+            <circle cx="12" cy="9" r="1" />
+            <circle cx="16" cy="9" r="1" />
           </svg>
-          <h3>Chaos Recommender</h3>
-          <p>Profiles your app's CPU, memory, and network usage to recommend the chaos scenarios most likely to cause
-            failures.</p>
+          <h3>Krkn Operator</h3>
+          <p>Kubernetes-native web console to orchestrate multi-cluster chaos experiments with user, group, and
+            permission management.</p>
         </div>
+
+        <!-- Row 2 -->
         <div class="feature-card reveal" data-delay="250">
           <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1059,8 +1061,6 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <h3>krknctl CLI</h3>
           <p>Simple CLI tool to discover, run, and orchestrate chaos scenarios without complexity.</p>
         </div>
-
-        <!-- Row 2 -->
         <div class="feature-card reveal" data-delay="300">
           <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1084,6 +1084,8 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <p>Versioned rollback system writes recovery state to disk before changes — automatically restores your
             cluster if chaos goes wrong.</p>
         </div>
+
+        <!-- Row 3 -->
         <div class="feature-card reveal" data-delay="400">
           <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1108,6 +1110,20 @@ $ krknctl run pod-scenarios --kubeconfig ~/.kube/config
           <h3>Telemetry & Observability</h3>
           <p>Collects run metadata, recovery times, and Prometheus backups. Ships data to S3 or Elasticsearch for
             long-term analysis.</p>
+        </div>
+        <div class="feature-card reveal" data-delay="500">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+            <path d="M12 17h.01" />
+            <path d="M12 8v1" />
+            <path d="M12 12l.5.5" />
+            <path d="M14 10l1.5-1.5" />
+          </svg>
+          <h3>Chaos Recommender</h3>
+          <p>Profiles your app's CPU, memory, and network usage to recommend the chaos scenarios most likely to cause
+            failures.</p>
         </div>
       </div>
     </div>

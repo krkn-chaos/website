@@ -110,11 +110,57 @@ node_bundler = "esbuild"
   status = 302
   force = true
 
+# REPO REDIRECTS
+
+# Hacker News
 [[redirects]]
   from = "/repo/hn"
   to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=hackernews"
   status = 302
   force = true
+
+# Reddit - DevOps
+[[redirects]]
+  from = "/repo/reddit-devops"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=reddit-devops"
+  status = 302
+  force = true
+
+# Reddit - Kubernetes
+[[redirects]]
+  from = "/repo/reddit-kubernetes"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=reddit-kubernetes"
+  status = 302
+  force = true
+
+# Reddit - SRE
+[[redirects]]
+  from = "/repo/reddit-sre"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=reddit-sre"
+  status = 302
+  force = true
+
+# Reddit - OpenShift
+[[redirects]]
+  from = "/repo/reddit-openshift"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=reddit-openshift"
+  status = 302
+  force = true
+
+# CNCF community
+[[redirects]]
+  from = "/repo/cncf"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=cncf"
+  status = 302
+  force = true
+
+# OCM / ACM community
+[[redirects]]
+  from = "/repo/ocm"
+  to = "https://krkn-chaos.gateway.scarf.sh/krkn-operator/repo?source=ocm"
+  status = 302
+  force = true
+
 
 # catch trailing-slash variants of all /go/1.0/* short links
 [[redirects]]

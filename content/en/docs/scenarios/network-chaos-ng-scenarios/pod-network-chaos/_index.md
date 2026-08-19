@@ -5,11 +5,14 @@ date: 2017-01-04
 weight: 2
 ---
 
-<krkn-hub-scenario id="pod-network-chaos">
+<!-- krkn-hub-scenario: none. This page documents the network_chaos_ng module, which
+     has no krkn-hub image of its own. krkn-hub's pod-network-chaos image wraps the
+     legacy scenarios/pod_network_scenario.yaml, so the id belongs to
+     /docs/scenarios/pod-network-scenario/. Adding a marker here would make the id
+     ambiguous and fail CI. -->
 
 Injects network degradation (latency, packet loss, bandwidth restriction) into a target pod's network interfaces using Linux `tc` (traffic control) rules. Unlike pod-network-filter which blocks specific ports via iptables, this module shapes traffic at the interface level.
 
-</krkn-hub-scenario>
 
 ## How to Run Pod Network Chaos Scenarios
 

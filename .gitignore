@@ -43,6 +43,7 @@ api/server.log
 screenshots/
 scripts/*
 !scripts/check-links.js
+!scripts/check-scenario-markers.py
 .beads
 
 # Local Netlify folder

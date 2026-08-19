@@ -5,11 +5,13 @@ date: 2017-01-04
 weight: 3
 ---
 
-<krkn-hub-scenario id="pod-network-filter">
+<!-- krkn-hub-scenario: none. This page runs the pod-network-filter image with
+     parameters tuned for DNS traffic. The id belongs to
+     /docs/scenarios/network-chaos-ng-scenarios/pod-network-filter/ which documents the
+     image itself. Adding a marker here would make the id ambiguous and fail CI. -->
 
 This scenario blocks all outgoing DNS traffic from a specific pod, effectively preventing it from resolving any hostnames or service names.
 
-</krkn-hub-scenario>
 
 ## How to Run DNS Outage Scenarios
 

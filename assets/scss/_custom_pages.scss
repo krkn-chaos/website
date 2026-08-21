@@ -117,6 +117,14 @@
   }
 }
 
+// Featured grid has 4 cards — use 2 columns on desktop for an even 2x2
+// instead of inheriting the 3-column layout, which would leave 1 card alone.
+.krkn-blog__grid--featured {
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 // Blog card
 .krkn-blog__card {
   display: flex;

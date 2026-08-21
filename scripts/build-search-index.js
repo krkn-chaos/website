@@ -17,6 +17,7 @@ class BuildTimeIndexer {
         this.contentPath = contentPath;
         this.indexData = [];
         this.topics = new Map();
+        this.skippedFiles = [];
         
         // Configure marked for parsing markdown
         marked.setOptions({
@@ -28,6 +29,22 @@ class BuildTimeIndexer {
 
     async buildIndex() {
         await this.processDirectory(this.contentPath);
+
+        // Quality report — warn about any files that failed to index
+        if (this.skippedFiles.length > 0) {
+            console.warn(`\n⚠️  Search index quality warning: ${this.skippedFiles.length} file(s) could not be indexed:`);
+            this.skippedFiles.forEach(({ path: filePath, reason }) => {
+                console.warn(`   - ${filePath}: ${reason}`);
+            });
+
+            // Fail the build if more than 10% of discovered files were skipped
+            const total = this.indexData.length + this.skippedFiles.length;
+            const skipRate = this.skippedFiles.length / total;
+            if (skipRate > 0.1) {
+                console.error(`\n❌ Index build failed: ${Math.round(skipRate * 100)}% of files skipped (threshold: 10%). Fix the files listed above.`);
+                process.exit(1);
+            }
+        }
     }
 
     async processDirectory(dirPath) {
@@ -76,7 +93,11 @@ class BuildTimeIndexer {
                 }
             }
         } catch (error) {
-            // Skip files that can't be processed
+            // Record the skipped file with its reason for the quality report
+            this.skippedFiles.push({
+                path: filePath,
+                reason: error.message || 'Unknown parse error'
+            });
         }
     }
 

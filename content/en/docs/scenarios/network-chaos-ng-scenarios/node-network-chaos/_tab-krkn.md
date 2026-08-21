@@ -27,7 +27,7 @@ For the common module settings please refer to the [documentation](../network-ch
 - `latency`: network latency to inject. Format: integer followed by `us` (microseconds), `ms` (milliseconds), or `s` (seconds). Example: `100ms`. Set to empty string to skip.
 - `loss`: packet loss percentage as a plain integer (no `%` symbol). Example: `10` means 10% packet loss. Set to empty string to skip.
 - `bandwidth`: bandwidth limit. Format: integer followed by `bit`, `kbit`, `mbit`, `gbit`, or `tbit`. Example: `100mbit`. Set to empty string to skip.
-- `interfaces`: list of network interface names to target. Leave empty to auto-detect the node's default interface.
+- `interfaces`: list of network interface names to target. Leave empty to target all interfaces.
 - `ingress`: apply rules to incoming traffic (default: `true`)
 - `egress`: apply rules to outgoing traffic (default: `true`)
 - `target`: the node name to target (used when `label_selector` is not set)

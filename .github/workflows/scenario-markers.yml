@@ -1,0 +1,39 @@
+name: Scenario Markers
+
+on:
+  pull_request:
+    paths:
+      - 'content/en/docs/scenarios/**'
+      - 'scripts/check-scenario-markers.py'
+      - '.github/workflows/scenario-markers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'content/en/docs/scenarios/**'
+      - 'scripts/check-scenario-markers.py'
+      - '.github/workflows/scenario-markers.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: scenario-markers-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-markers:
+    name: krkn-hub-scenario markers
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check scenario markers
+        run: python scripts/check-scenario-markers.py

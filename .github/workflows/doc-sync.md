@@ -12,7 +12,9 @@ on:
         required: false
   # The comment must start with "/fix <target>" or "/resync" as its first text.
   roles: [admin, maintainer, write]
-  bots: [krkn-docs-bot]
+  # The App slug exactly. A near miss falls through to the repository-role
+  # check, which an App installation can never satisfy.
+  bots: [krkn-doc-sync-bot]
 
 permissions: read-all
 
@@ -242,6 +244,11 @@ safe-outputs:
   # Off: it reuses the engine, so it doubles the calls against a rate-limited
   # free tier. Belongs here, not under create-pull-request.
   threat-detection: false
+  # This workflow opens pull requests, never issues. A failed run is a red run.
+  # The weekly docs-drift issue comes from drift-report.yml, which is unaffected.
+  report-failure-as-issue: false
+  noop:
+    report-as-issue: false
   github-app:
     app-id: ${{ vars.DOC_SYNC_BOT_APP_ID }}
     private-key: ${{ secrets.DOC_SYNC_BOT_APP_PRIVATE_KEY }}
@@ -250,6 +257,9 @@ safe-outputs:
     draft: true
     title-prefix: "[docs-sync] "
     max: 1
+    # A push that cannot land should fail the run, not open an issue restating
+    # the diff. One issue per attempt buries the real cause.
+    fallback-as-issue: false
   push-to-pull-request-branch:
     target-repo: "krkn-chaos/website"
 ---

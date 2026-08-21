@@ -1,0 +1,77 @@
+{{/* param-table: renders a parameter table from data/params/<scenario>/<source>.yaml.
+
+     Optional columns appear only when a row uses them.
+
+     The optional group= filter selects one group out of a file that holds several.
+     The global pages use it, since all of a source's params live in one file and
+     each row carries its group. Per-scenario tables omit it and render every row.
+
+     Filtering happens before column detection on purpose: a group with no
+     possible_values must not inherit that column from a sibling group. */}}
+{{- $scenario := .Get "scenario" -}}
+{{- $source := .Get "source" -}}
+{{- $group := .Get "group" -}}
+{{/* prefix is prepended to every name. The krknctl pages pass "--" because the
+     source stores the bare flag name but a reader types --telemetry-enabled. */}}
+{{- $prefix := .Get "prefix" | default "" -}}
+{{- $data := false -}}
+{{- with site.Data.params -}}
+  {{- with index . $scenario -}}{{- $data = index . $source -}}{{- end -}}
+{{- end -}}
+{{- if or (not $data) (not $data.params) -}}
+  {{- errorf "param-table: no data for scenario=%q source=%q (expected data/params/%s/%s.yaml)" $scenario $source $scenario $source -}}
+{{- else -}}
+  {{- $rows := $data.params -}}
+  {{- with $group -}}{{- $rows = where $rows "group" . -}}{{- end -}}
+  {{- if and $group (not $rows) -}}
+    {{- errorf "param-table: group %q has no params in data/params/%s/%s.yaml" $group $scenario $source -}}
+  {{- else -}}
+  {{- $showType := false -}}{{- $showValues := false -}}{{- $showDefault := false -}}{{- $showRequired := false -}}
+  {{- range $rows -}}
+    {{- if isset . "type" }}{{ $showType = true }}{{ end -}}
+    {{- if isset . "possible_values" }}{{ $showValues = true }}{{ end -}}
+    {{- if isset . "default" }}{{ $showDefault = true }}{{ end -}}
+    {{- if isset . "required" }}{{ $showRequired = true }}{{ end -}}
+  {{- end -}}
+<table class="krkn-param-table">
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      {{- if $showType }}<th>Type</th>{{ end }}
+      {{- if $showDefault }}<th>Default</th>{{ end }}
+      {{- if $showRequired }}<th>Required</th>{{ end }}
+      {{- if $showValues }}<th>Possible Values</th>{{ end }}
+    </tr>
+  </thead>
+  <tbody>
+    {{- range $rows }}
+    {{/* Presence is tracked apart from value. A param with no default and one
+         that defaults to empty string are different things, and `with` would
+         also read a 0 default as absent. */}}
+    {{- $hasDefault := isset . "default" -}}
+    {{- $d := "" -}}{{- if $hasDefault }}{{ $d = printf "%v" (index . "default") }}{{ end -}}
+    <tr>
+      {{/* The krknctl pages list CLI flags; name stays the env var in the data
+           so drift_scanner and the skip list keep matching on it. */}}
+      <td><code>{{ $prefix }}{{ if isset . "flag" }}{{ index . "flag" }}{{ else }}{{ index . "name" }}{{ end }}</code></td>
+      <td>{{ $.Page.RenderString (index . "description") }}</td>
+      {{- if $showType }}<td>{{ index . "type" | default "-" }}{{ if isset . "secret" }} (secret){{ end }}</td>{{ end }}
+      {{/* Long defaults (TELEMETRY_FILTER_PATTERN is a ~250 char regex array)
+           would wreck the layout, so show the head and keep the rest on hover. */}}
+      {{- if $showDefault }}<td{{ if gt (len $d) 60 }} title="{{ $d }}"{{ end }}>
+        {{- if not $hasDefault }}-
+        {{- else if eq $d "" }}<code>""</code>
+        {{- else if gt (len $d) 60 }}<code>{{ substr $d 0 60 }}...</code>
+        {{- else }}<code>{{ $d }}</code>{{ end -}}
+      </td>{{ end }}
+      {{- if $showRequired }}<td>{{ if isset . "required" }}{{ if index . "required" }}Yes{{ else }}No{{ end }}{{ else }}-{{ end }}</td>{{ end }}
+      {{/* Blank, not a dash: two thirds of rows are non-enum. Default keeps its
+           dash, where it means "no default declared" rather than default: "". */}}
+      {{- if $showValues }}<td>{{ with index . "possible_values" }}{{ delimit . "/" }}{{ end }}</td>{{ end }}
+    </tr>
+    {{- end }}
+  </tbody>
+</table>
+  {{- end -}}
+{{- end -}}

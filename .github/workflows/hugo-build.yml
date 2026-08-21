@@ -1,0 +1,30 @@
+name: Hugo Build Check
+
+# Fails the PR if any generated page or shortcode does not render.
+# Mirrors the Netlify production build (see netlify.toml).
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22.2"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - name: Build site
+        run: npm run build:production
+        env:
+          HUGO_CACHEDIR: /tmp/hugo-cache

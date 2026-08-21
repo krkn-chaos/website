@@ -1,0 +1,25 @@
+{{/* crd-ref: link a hand-written page to the generated API reference for one
+     custom resource.
+
+       {{< crd-ref crd="krknusers" >}}
+
+     The kind and short name are read from data/krkn_operator_crds.yaml rather
+     than typed here, so the link text cannot drift from the CRD. A crd that no
+     longer exists fails the build, the same gate param-table uses: a stale
+     reference should be a red build, not a 404 a reader finds first.
+
+     That gate proves the kind exists, not that this is the right page for it.
+     A call on a page that does not describe the kind renders fine, and the
+     drift scan then counts the kind as linked, so placement stays a human
+     judgement. bot/operator.py still links the mapped page regardless, which
+     makes a misplaced call a stray link rather than a broken one. */}}
+{{- $crd := .Get "crd" -}}
+{{- $index := site.Data.krkn_operator_crds -}}
+{{- $entry := false -}}
+{{- with $index }}{{ $entry = index . $crd }}{{ end -}}
+{{- if not $entry -}}
+  {{- errorf "crd-ref: %q is not a known custom resource (expected it in data/krkn_operator_crds.yaml, which the docs bot generates from config/crd/bases)" $crd -}}
+{{- else -}}
+<a class="krkn-crd-ref" href="{{ relURL (printf "docs/krkn-operator/api-reference/%s/" $crd) }}"
+   title="{{ $entry.fields }} fields{{ with $entry.short }}, short name {{ . }}{{ end }}"><code>{{ $entry.kind }}</code></a>
+{{- end -}}

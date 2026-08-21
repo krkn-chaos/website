@@ -61,7 +61,7 @@ General run settings. See [Kraken config](../krkn/config.md#kraken) for full det
 | `--krkn-kubeconfig` | Sets the path where krkn will search for kubeconfig in container | string | - | /home/krkn/.kube/config |
 | `--uuid` | Sets krkn run uuid instead of generating it | string | - | - |
 | `--krkn-debug` | Enables debug mode for Krkn | enum | True/False | False |
-| `--generate-pdf-report` | When enabled, generates a PDF report summarizing the chaos run results at the end of each scenario | enum | True/False | False |
+| `--report-formats` | List of report formats to generate after each scenario (e.g., `pdf`, `html`) | list | pdf, html | pdf, html |
 
 </div>
 

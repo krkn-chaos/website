@@ -44,7 +44,7 @@ Refer to [signal.md](signal.md) for more details
 
 **port**: port to listen/post the signal state to
 
-**generate_pdf_report**: Generates a PDF summary report after the run if set to True
+**report_formats**: List of report formats to generate after the run (e.g., `pdf`, `html`). Leave empty or omit to disable report generation.
 
 
 ### Auto Rollback
@@ -273,7 +273,9 @@ kraken:
     signal_state: RUN                                      # Will wait for the RUN signal when set to PAUSE before running the scenarios, refer docs/signal.md for more details
     signal_address: 0.0.0.0                                # Signal listening address
     port: 8081                                             # Signal port
-    generate_pdf_report: True                              # Generate a PDF summary report after the run
+    report_formats:                                          # List of report formats to generate (pdf, html)
+        - pdf
+        - html
     chaos_scenarios:
         # List of policies/chaos scenarios to load
         - hog_scenarios:

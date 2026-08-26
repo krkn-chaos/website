@@ -112,3 +112,70 @@ git checkout -b krkn/<your-feature-or-fix>
 2. Open a Pull Request against `krkn-chaos/website:main`
 3. Fill in the PR template with a clear description of your changes
 4. Ensure all CI checks pass before requesting a review
+
+---
+
+## Scenario Page Markers
+
+Every scenario page under `content/en/docs/scenarios/` declares which krkn-hub scenario it
+documents. The declaration is a marker in `_index.md`, placed under the front matter and
+wrapping the page's descriptive content:
+
+```html
+<krkn-hub-scenario id="node-scenarios">
+
+This scenario disrupts the node(s) matching the label or node name(s) on your cluster.
+
+</krkn-hub-scenario>
+```
+
+The `id` is the krkn-hub directory name for that scenario. The wrapper does not show up on the
+rendered page, and the prose inside it renders normally.
+
+This marker is how [krkn-doc-sync-bot](https://github.com/krkn-chaos/docsync-bot), the app that
+opens the `[docs-sync]` pull requests on this repo, finds which page documents which scenario.
+If it is missing or points at the wrong scenario, the generated parameter tables land on the
+wrong page.
+
+### One id, one page
+
+An id names a single krkn-hub scenario, so exactly one page may claim it. Two pages claiming
+the same id means the docs disagree about which page owns that scenario, and the bot has no
+way to pick.
+
+Some pages document a real scenario but run another page's image with different parameters.
+Those pages do not own the id, so they say so instead of claiming it. This is the opt-out on
+`aurora-disruption`:
+
+```html
+<!-- krkn-hub-scenario: none. This page runs the pod-network-filter image with
+     parameters tuned for AWS Aurora. The id belongs to
+     /docs/scenarios/network-chaos-ng-scenarios/pod-network-filter/ which documents the
+     image itself. Adding a marker here would make the id ambiguous and fail CI. -->
+```
+
+The reason is required. A bare `<!-- krkn-hub-scenario: none -->` is rejected, because an
+unexplained absence is exactly the ambiguity this is meant to prevent. A reader should never
+have to guess whether a marker was left out on purpose or simply forgotten.
+
+To find the current opt-outs and read why each one is there, grep for them:
+
+```bash
+grep -rl "krkn-hub-scenario: none" content/en/docs/scenarios/
+```
+
+### Check before you push
+
+```bash
+python scripts/check-scenario-markers.py
+```
+
+Standard library only, no dependencies. It enforces three rules:
+
+1. One page per id.
+2. One marker per page. Only the first is ever read, so a second one is dead.
+3. A page with no marker carries an opt-out that gives a reason.
+
+A page counts as a scenario page when its directory holds `_tab-*.md` files, so section
+landing pages are skipped. The same check runs in CI on any pull request touching
+`content/en/docs/scenarios/`.

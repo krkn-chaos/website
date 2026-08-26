@@ -228,6 +228,32 @@ weight: 3
 ---
 ```
 
+**`_index.md` must declare its krkn-hub scenario.** Place the marker under the front matter,
+wrapping the page's descriptive content:
+
+```html
+<krkn-hub-scenario id="<scenario-slug>">
+
+Description of what the scenario does.
+
+</krkn-hub-scenario>
+```
+
+The `id` is the krkn-hub directory name. It is how
+[krkn-doc-sync-bot](https://github.com/krkn-chaos/docsync-bot) decides which page a scenario's
+parameter tables belong on, and CI fails the PR if two pages claim the same id.
+
+If the page has no krkn-hub scenario of its own, for example because it runs another page's
+image with different parameters, replace the marker with an opt-out that gives the reason:
+
+```html
+<!-- krkn-hub-scenario: none. <why this page has none, and which page owns the id> -->
+```
+
+The reason is required; a bare `none` is rejected. See the "Scenario Page Markers" section in
+`CONTRIBUTING.md` for the full rules and worked examples. Verify with
+`python scripts/check-scenario-markers.py`.
+
 **`_index.md` must include the tabpane block** for the "How to Run" section:
 
 ```
@@ -322,6 +348,8 @@ Shareable tab URLs follow this format:
 
 - [ ] Created `content/en/docs/scenarios/<slug>/_index.md` with front matter and tabpane
 - [ ] Created `_tab-krkn.md`, `_tab-krkn-hub.md`, `_tab-krknctl.md` (no front matter)
+- [ ] Added `<krkn-hub-scenario id="<slug>">` to `_index.md`, or an opt-out comment saying why the page has none
+- [ ] Ran `python scripts/check-scenario-markers.py` and it passed
 - [ ] Added scenario card to `content/en/docs/scenarios/_index.md` in the right category
 - [ ] Added scenario link to `layouts/index.html` in the right homepage category
 - [ ] Updated scenario counts in homepage and docs landing if threshold crossed

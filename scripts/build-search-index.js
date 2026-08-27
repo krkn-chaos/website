@@ -41,9 +41,14 @@ function expandShortcodes(markdown) {
             const data = readData('params', a.scenario || '', `${a.source || ''}.yaml`);
             let rows = (data && data.params) || [];
             if (a.group) rows = rows.filter(r => r.group === a.group);
-            return rows
-                .map(r => `${a.prefix || ''}${r.name} ${r.description || ''}`)
-                .join(' ');
+            return rows.map(r => [
+                // flag when present, the same identifier the shortcode renders
+                `${a.prefix || ''}${r.flag || r.name}`,
+                r.description, r.type,
+                r.secret === undefined ? '' : 'secret',
+                r.default === undefined ? '' : String(r.default),
+                ...(r.possible_values || []),
+            ].filter(Boolean).join(' ')).join(' ');
         })
         .replace(CRD_REF, (_match, raw) => {
             const a = shortcodeAttrs(raw);

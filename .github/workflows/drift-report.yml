@@ -46,7 +46,7 @@ jobs:
       - name: Install docs bot
         run: pip install "git+https://github.com/krkn-chaos/docsync-bot.git@main"
 
-      # Post the issue as the krkn-docs-bot app, not github-actions[bot], so the
+      # Post the issue as the krkn-doc-sync-bot app, not github-actions[bot], so the
       # rolling issue has a stable author and no PAT is involved.
       - name: Mint app token
         id: app-token

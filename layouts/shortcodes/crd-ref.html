@@ -1,4 +1,4 @@
-{{/* crd-ref: link a hand-written page to the generated API reference for one
+{{/* crd-ref: link a hand-written page to the generated CRD reference for one
      custom resource.
 
        {{< crd-ref crd="krknusers" >}}
@@ -20,6 +20,6 @@
 {{- if not $entry -}}
   {{- errorf "crd-ref: %q is not a known custom resource (expected it in data/krkn_operator_crds.yaml, which the docs bot generates from config/crd/bases)" $crd -}}
 {{- else -}}
-<a class="krkn-crd-ref" href="{{ relURL (printf "docs/krkn-operator/api-reference/%s/" $crd) }}"
+<a class="krkn-crd-ref" href="{{ relURL (printf "docs/krkn-operator/crd-reference/%s/" $crd) }}"
    title="{{ $entry.fields }} fields{{ with $entry.short }}, short name {{ . }}{{ end }}"><code>{{ $entry.kind }}</code></a>
 {{- end -}}

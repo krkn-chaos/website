@@ -6,10 +6,52 @@
  */
 
 const fs = require('fs').promises;
+const fsSync = require('fs');
 const path = require('path');
 const { marked } = require('marked');
 const cheerio = require('cheerio');
 const Fuse = require('fuse.js');
+const yaml = require('yaml');
+
+const DATA_PATH = path.join(__dirname, '../data');
+const PARAM_TABLE = /\{\{<\s*param-table\s+([^>]*?)>\}\}/g;
+const CRD_REF = /\{\{<\s*crd-ref\s+([^>]*?)>\}\}/g;
+
+function shortcodeAttrs(raw) {
+    const out = {};
+    for (const m of raw.matchAll(/(\w+)="([^"]*)"/g)) out[m[1]] = m[2];
+    return out;
+}
+
+function readData(...parts) {
+    try {
+        return yaml.parse(fsSync.readFileSync(path.join(DATA_PATH, ...parts), 'utf-8'));
+    } catch {
+        // Hugo already fails the build on a shortcode it cannot resolve.
+        return null;
+    }
+}
+
+// marked() leaves Hugo shortcodes alone, so a page using param-table would
+// index the literal "{{< param-table ... >}}" instead of its parameters.
+function expandShortcodes(markdown) {
+    return markdown
+        .replace(PARAM_TABLE, (_match, raw) => {
+            const a = shortcodeAttrs(raw);
+            const data = readData('params', a.scenario || '', `${a.source || ''}.yaml`);
+            let rows = (data && data.params) || [];
+            if (a.group) rows = rows.filter(r => r.group === a.group);
+            return rows
+                .map(r => `${a.prefix || ''}${r.name} ${r.description || ''}`)
+                .join(' ');
+        })
+        .replace(CRD_REF, (_match, raw) => {
+            const a = shortcodeAttrs(raw);
+            const index = readData('krkn_operator_crds.yaml');
+            const entry = index && index[a.crd];
+            return entry ? `${entry.kind || a.crd} ${entry.short || ''}` : (a.crd || '');
+        });
+}
 
 // Build-time version that reads markdown files directly
 class BuildTimeIndexer {
@@ -47,7 +89,7 @@ class BuildTimeIndexer {
     async processMarkdownFile(filePath) {
         try {
             const content = await fs.readFile(filePath, 'utf-8');
-            const parsed = this.parseMarkdown(content);
+            const parsed = this.parseMarkdown(expandShortcodes(content));
             
             if (parsed && parsed.title) {
                 const url = this.generateUrl(filePath);

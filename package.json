@@ -39,7 +39,8 @@
     "helmet": "^7.1.0",
     "marked": "^10.0.0",
     "natural": "^6.10.0",
-    "winston": "^3.11.0"
+    "winston": "^3.11.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

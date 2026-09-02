@@ -15,7 +15,7 @@ params:
   default: 1m
   required: false
 - name: IO_WORKERS
-  description: Number of stressorts
+  description: Number of stressor instances
   description_source: published-table
   type: number
   default: '5'

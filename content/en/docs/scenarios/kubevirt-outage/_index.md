@@ -42,14 +42,7 @@ Before using this scenario, ensure the following:
 
 ## Parameters
 
-The scenario supports the following parameters:
-
-| Parameter | Description | Required | Default |
-|-----------|-------------|----------|---------|
-| vm_name | The name of the VMI to delete | Yes | N/A |
-| namespace | The namespace where the VMI is located | No | "default" |
-| timeout | How long to wait (in seconds) before attempting recovery for VMI to start running again | No | 60 |
-| kill_count | How many VMI's to kill serially | No | 1 |
+See the parameter tables in the [How to Run](#how-to-run-kubevirt-vm-outage-scenarios) section below for the supported parameters and their defaults, which vary slightly by run method (Krkn-hub vs. Krknctl).
 
 ## Expected Behavior
 

@@ -57,16 +57,7 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-|  Parameter                    | Description                                                           | Default
-|-------------------------------| -----------------------------------------------------------------     | ------------------------------------ |
-| TOTAL_CHAOS_DURATION          | Set chaos duration (in sec) as desired                                | 60                                  |
-| MEMORY_CONSUMPTION_PERCENTAGE | percentage  (expressed with the suffix %) or amount (expressed with the suffix b, k, m or g) of memory to be consumed by the scenario | 90% |
-| NUMBER_OF_WORKERS             | Total number of workers (stress-ng threads)   | 1    |
-| NAMESPACE                     | Namespace where the scenario container will be deployed | default |
-| NODE_SELECTOR                 | defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector.                                     | "" |                             |
-| TAINTS               | List of taints for which tolerations need to be created. Example: ["node-role.kubernetes.io/master:NoSchedule"] | [] |
-| NUMBER_OF_NODES               | restricts the number of selected nodes by the selector                                     | "" |                             |
-| IMAGE                         | the container image of the stress workload|quay.io/krkn-chaos/krkn-hog||                          
+{{< param-table scenario="node-memory-hog" source="krkn-hub" >}}
 
 
 {{% alert title="Note" %}} In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`.{{% /alert %}}

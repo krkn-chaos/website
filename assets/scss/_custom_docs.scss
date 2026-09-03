@@ -2586,3 +2586,22 @@ table tbody tr:hover {
     transform: rotate(180deg);
   }
 }
+
+.krkn-param-table {
+  table-layout: fixed;
+  width: 100%;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 18%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 42%;
+  }
+
+  td {
+    word-break: break-word;
+  }
+}

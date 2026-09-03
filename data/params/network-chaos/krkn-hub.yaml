@@ -8,42 +8,77 @@ params:
   type: number
   default: '300'
   required: false
+  group: egress
+- name: DURATION
+  description: Duration in seconds - during with network chaos will be applied.
+  description_source: published-table
+  type: number
+  default: '300'
+  required: false
+  group: ingress
 - name: LABEL_SELECTOR
   description: When NODE_NAME is not specified, a node with matching label_selector is selected for running.
   description_source: published-table
   type: string
   default: node-role.kubernetes.io/master
   required: false
+  group: egress
+- name: LABEL_SELECTOR
+  description: When NODE_NAME is not specified, a node with matching label_selector is selected for running.
+  description_source: published-table
+  type: string
+  default: node-role.kubernetes.io/master
+  required: false
+  group: ingress
 - name: NODE_NAME
   description: Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma
   description_source: published-table
   type: string
   default: ''
   required: false
+  group: egress
 - name: INSTANCE_COUNT
   description: Targeted instance count matching the label selector
   description_source: published-table
   type: number
   default: '1'
   required: false
+  group: egress
+- name: INSTANCE_COUNT
+  description: Targeted instance count matching the label selector
+  description_source: published-table
+  type: number
+  default: '1'
+  required: false
+  group: ingress
 - name: INTERFACES
   description: List of interface on which to apply the network restriction.
   description_source: published-table
   type: string
   default: '[]'
   required: false
+  group: egress
 - name: EXECUTION
   description: Execute each of the egress option as a single scenario(parallel) or as separate scenario(serial).
   description_source: published-table
   type: enum
   default: parallel
   required: false
+  group: egress
+- name: EXECUTION
+  description: Execute each of the egress option as a single scenario(parallel) or as separate scenario(serial).
+  description_source: published-table
+  type: enum
+  default: parallel
+  required: false
+  group: ingress
 - name: EGRESS
   description: 'Dictonary of values to set  network latency(latency: 50ms), packet loss(loss: 0.02), bandwidth restriction(bandwidth: 100mbit)'
   description_source: published-table
   type: string
   default: '{bandwidth: 100mbit}'
   required: false
+  group: egress
 - name: SCENARIO_TYPE
   description: Plugin key krkn dispatches the scenario on. Fixed by the container image, not a knob to change.
   description_source: built-in
@@ -66,21 +101,32 @@ params:
   type: string
   default: quay.io/krkn-chaos/krkn:tools
   required: false
+  group: egress
+- name: IMAGE
+  description: Image used to disrupt network on a pod
+  description_source: published-table
+  type: string
+  default: quay.io/krkn-chaos/krkn:tools
+  required: false
+  group: ingress
 - name: TARGET_NODE_AND_INTERFACE
-  description: '# Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: &#123;ip-10-0-216-2.us-west-2.compute.internal: [ens5]}'
+  description: 'Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: &#123;ip-10-0-216-2.us-west-2.compute.internal: [ens5]}'
   description_source: published-table
   type: string
   default: ''
   required: false
+  group: ingress
 - name: NETWORK_PARAMS
   description: 'latency, loss and bandwidth are the three supported network parameters to alter for the chaos test. For example: &#123;latency: 50ms, loss: ''0.02''}'
   description_source: published-table
   type: string
   default: ''
   required: false
+  group: ingress
 - name: WAIT_DURATION
   description: Ensure that it is at least about twice of test_duration
   description_source: published-table
   type: number
   default: '300'
   required: false
+  group: ingress

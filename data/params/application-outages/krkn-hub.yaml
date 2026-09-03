@@ -12,7 +12,7 @@ params:
   description: Namespace to target - all application routes will go inaccessible if pod selector is empty ( Required )
   description_source: published-table
   type: string
-  default: <namespace>
+  default: default
   required: false
 - name: POD_SELECTOR
   description: 'Pods to target. For example "&#123;app: foo}"'

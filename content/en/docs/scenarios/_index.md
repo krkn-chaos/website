@@ -140,6 +140,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <button class="scenario-filter__btn" data-filter="application-service" type="button" aria-pressed="false">Application &amp; Service</button>
 <button class="scenario-filter__btn" data-filter="storage-data" type="button" aria-pressed="false">Storage &amp; Data</button>
 <button class="scenario-filter__btn" data-filter="system-time" type="button" aria-pressed="false">System &amp; Time</button>
+<button class="scenario-filter__btn" data-filter="ai-accelerators" type="button" aria-pressed="false">AI &amp; Accelerators</button>
 </div>
 </div>
 <div class="scenario-filter__row scenario-filter__row--search">
@@ -428,6 +429,23 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <h3><a href="time-scenarios/">Time Skew</a></h3>
 <span class="scenario-badge">time_scenarios</span>
 <p class="scenario-description">Skews system time and date to test time-sensitive applications and certificate handling</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="scenario-category" data-category="ai-accelerators">
+<h3 class="category-header">AI &amp; Accelerators Disruptions</h3>
+
+<div class="scenario-grid">
+
+<div class="scenario-card">
+<h3><a href="gpu-device-plugin-scenario/">GPU Device Plugin</a></h3>
+<span class="scenario-badge">pod_disruption_scenarios</span>
+<p class="scenario-description">Kills NVIDIA device plugin pods on GPU nodes and verifies they recover</p>
 <div class="cloud-badges">
 <span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
 </div>

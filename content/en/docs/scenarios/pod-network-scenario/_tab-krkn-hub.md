@@ -58,19 +58,7 @@ OR on the command line like example:
 ```
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-NAMESPACE               | Required - Namespace of the pod to which filter need to be applied    | ""                                     |
-IMAGE               | Image used to disrupt network on a pod   | "quay.io/krkn-chaos/krkn:tools"                                     |
-LABEL_SELECTOR          | Label of the pod(s) to target                                         | ""                                   | 
-POD_NAME                | When label_selector is not specified, pod matching the name will be selected for the chaos scenario | "" |
-EXCLUDE_LABEL           | Pods matching this label will be excluded from the chaos even if they match other criteria | "" |
-INSTANCE_COUNT          | Number of pods to perform action/select that match the label selector | 1 |
-TRAFFIC_TYPE            | List of directions to apply filters - egress/ingress ( needs to be a list ) | [ingress, egress] |
-INGRESS_PORTS           | Ingress ports to block ( needs to be a list ) | [] i.e all ports |
-EGRESS_PORTS            | Egress ports to block ( needs to be a list ) | [] i.e all ports |
-WAIT_DURATION           | The duration (in seconds) that the network chaos (traffic shaping, packet loss, etc.) persists on the target pods. This is the actual time window where the network disruption is active. It must be longer than TEST_DURATION to ensure the fault is active for the entire test. | 300 |
-TEST_DURATION           | Duration of the test run (e.g. workload or verification) | 120 |
+{{< param-table scenario="pod-network-chaos" source="krkn-hub" >}}
 
 {{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
 

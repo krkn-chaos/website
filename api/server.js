@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { body, validationResult } = require('express-validator');
+const { body, query: queryValidator, validationResult } = require('express-validator');
 require('dotenv').config();
 
 // Load configuration
@@ -254,13 +254,24 @@ app.post('/api/chat',
 // Documentation search endpoint
 app.get('/api/search',
     [
-        body('query')
+        queryValidator('query')
             .trim()
-            .isLength({ min: 1, max: 200 })
+            .notEmpty()
+            .isString()
+            .isLength({ max: 200 })
             .withMessage('Query must be between 1 and 200 characters')
     ],
     async (req, res) => {
         try {
+            // Validate query param — uses queryValidator() so req.query is checked correctly
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    error: 'Validation failed',
+                    details: errors.array()
+                });
+            }
+
             const { query, limit = 10 } = req.query;
             
             if (!query) {

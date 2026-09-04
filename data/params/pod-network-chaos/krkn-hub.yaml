@@ -15,13 +15,13 @@ params:
   default: '[ingress, egress]'
   required: false
 - name: INGRESS_PORTS
-  description: Ingress ports to block ( needs to be a list )
+  description: Ingress ports to block. Empty list (`[]`) blocks all ingress traffic; otherwise provide port numbers as a bracket list (e.g. `[8443]` or `[22,80]`).
   description_source: published-table
   type: string
   default: '[]'
   required: false
 - name: EGRESS_PORTS
-  description: Egress ports to block ( needs to be a list )
+  description: Egress ports to block. Empty list (`[]`) blocks all egress traffic; otherwise provide port numbers as a bracket list (e.g. `[8443]` or `[22,80]`).
   description_source: published-table
   type: string
   default: '[]'

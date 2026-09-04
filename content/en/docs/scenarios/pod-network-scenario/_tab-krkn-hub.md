@@ -60,6 +60,11 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 
 {{< param-table scenario="pod-network-chaos" source="krkn-hub" >}}
 
+#### Parameter Dependencies
+
+- **`INGRESS_PORTS` / `EGRESS_PORTS`:** When left empty (`[]`), **all** ports are blocked for that traffic direction. Specify port numbers as a bracket list (e.g. `[8443]` or `[22,80]`) to restrict the filter to only those ports.
+- **`WAIT_DURATION`:** Must be longer than `TEST_DURATION` to ensure the network disruption is active for the entire test run.
+
 {{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
 
 

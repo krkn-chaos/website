@@ -51,14 +51,14 @@ params:
   flag: traffic-type
   required: false
 - name: INGRESS_PORTS
-  description: Ingress ports to block ( needs to be a list )
+  description: Ingress ports to block. Use `[]` to block all ingress ports, or a bracket list of port numbers (e.g. `[22,80]`).
   description_source: krknctl
   type: string
   default: '[]'
   flag: ingress-ports
   required: false
 - name: EGRESS_PORTS
-  description: Egress ports to block ( needs to be a list )
+  description: Egress ports to block. Use `[]` to block all egress ports, or a bracket list of port numbers (e.g. `[22,80]`).
   description_source: krknctl
   type: string
   default: '[]'

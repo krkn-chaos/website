@@ -75,13 +75,13 @@ params:
 - name: VERIFY_SESSION
   description: Verify the SSH session during node scenarios
   description_source: published-table
-  type: string
+  type: enum
   default: 'false'
   required: false
 - name: SKIP_OPENSHIFT_CHECKS
   description: Skip OpenShift-specific cluster checks (set to true for vanilla Kubernetes)
   description_source: published-table
-  type: string
+  type: enum
   default: 'false'
   required: false
 - name: KUBE_CHECK

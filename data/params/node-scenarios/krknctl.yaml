@@ -106,6 +106,26 @@ params:
   default: '120'
   flag: duration
   required: false
+- name: VERIFY_SESSION
+  description: Verify the vSphere client session using certificates
+  description_source: krknctl
+  type: enum
+  default: 'false'
+  flag: verify-session
+  possible_values:
+  - 'true'
+  - 'false'
+  required: false
+- name: SKIP_OPENSHIFT_CHECKS
+  description: Skip waiting for node status changes on OpenShift before completing the scenario
+  description_source: krknctl
+  type: enum
+  default: 'false'
+  flag: skip-openshift-checks
+  possible_values:
+  - 'true'
+  - 'false'
+  required: false
 - name: VSPHERE_IP
   description: vSphere IP address
   description_source: krknctl

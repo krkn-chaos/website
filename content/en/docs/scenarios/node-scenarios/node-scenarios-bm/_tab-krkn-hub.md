@@ -33,10 +33,7 @@ kubectl config view --flatten > ~/kubeconfig && chmod 444 ~/kubeconfig && docker
 
 See list of variables that apply to all scenarios [here](../../all-scenario-env.md) that can be used/set in addition to these scenario-specific variables.
 
-| Parameter        | Description                                                                                                                  | Type   | Default | Required |
-|------------------|------------------------------------------------------------------------------------------------------------------------------|--------|---------|----------|
-| SCENARIO_BASE64  | Base64-encoded contents of a baremetal node scenario YAML (`base64 -w0 baremetal_node_scenarios.yml`)                        | string |         | **Yes**  |
-| KRKN_DEBUG       | When set to `True`, prints the decoded scenario and config files before running and enables `--debug True`                   | bool   | `False` | No       |
+{{< param-table scenario="node-scenarios-bm" source="krkn-hub" >}}
 
 The contents of `SCENARIO_BASE64` are validated against the [node-scenarios-bm JSON schema](https://github.com/krkn-chaos/krkn-hub/blob/main/node-scenarios-bm/config-schema.json) before Krkn starts — invalid scenarios fail fast with a schema error.
 

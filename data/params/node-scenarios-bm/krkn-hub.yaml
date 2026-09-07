@@ -6,5 +6,4 @@ params:
   description: Base64-encoded contents of a baremetal node scenario YAML (`base64 -w0 baremetal_node_scenarios.yml`)
   description_source: published-table
   type: file_base64
-  default: '1'
   required: false

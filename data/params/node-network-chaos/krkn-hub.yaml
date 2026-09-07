@@ -3,7 +3,8 @@ source_repo: krkn-hub
 source_ref: HEAD
 params:
 - name: LABEL_SELECTOR
-  description: e.g. "node-role.kubernetes.io/worker"
+  description: Label selector to target one or more nodes (e.g. node-role.kubernetes.io/worker). If omitted, NODE_NAME is used instead.
+  description_source: krknctl
   type: string
   default: ''
   required: false

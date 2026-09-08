@@ -19,7 +19,7 @@ releases:
 
   - version: "v1.1.0"
     title: "Scenario Rollback"
-    date: "2026-09-17"
+    date: "2026-10-20"
     status: in-progress
     tasks:
       - "Scenario Rollback"
@@ -28,4 +28,6 @@ releases:
       - "Chaos Studio scenario import"
       - "Elasticsearch views (summary charts, metric views, and alerts)"
       - "Signed krkn-hub images"
+      - "Operator Backup/Restore"
+      - "Krkn AI"
 

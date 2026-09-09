@@ -57,12 +57,7 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-Parameter               | Description                                                           | Type | Default
------------------------ | -----------------------------------------------------------------     | ---- | ------------------------------------ |
-NAMESPACE          | VMI Namespace to target                                                  | string | ""      |
-VM_NAME               | VMI name to delete, supports regex   | string | ""                                   |
-TIMEOUT               | Timeout to wait for VMI to start running again, will fail if timeout is hit  | number | 60                                   |
-KILL_COUNT               | Number of VMI's to kill (will perform serially)  | number | 1                                   |
+{{< param-table scenario="kubevirt-outage" source="krkn-hub" >}}
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:
 ```bash

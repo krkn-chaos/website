@@ -55,30 +55,12 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 
 ##### Egress Scenarios
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-DURATION                | Duration in seconds - during with network chaos will be applied.         | 300                                  |
-IMAGE | Image used to disrupt network on a pod  |  quay.io/krkn-chaos/krkn:tools | 
-NODE_NAME               | Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma      | ""                                   |
-LABEL_SELECTOR          | When NODE_NAME is not specified, a node with matching label_selector is selected for running.          | node-role.kubernetes.io/master       |
-INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                   |
-INTERFACES          | List of interface on which to apply the network restriction.                   | []                                    |
-EXECUTION          | Execute each of the egress option as a single scenario(parallel) or as separate scenario(serial).                   | parallel                                    |
-EGRESS          | Dictonary of values to set  network latency(latency: 50ms), packet loss(loss: 0.02), bandwidth restriction(bandwidth: 100mbit)                  | {bandwidth: 100mbit}                                    |
+{{< param-table scenario="network-chaos" source="krkn-hub" group="egress" >}}
 
 
 ##### Ingress Scenarios
 
-Parameter               | Description                                                           | Default
------------------------ | -----------------------------------------------------------------     | ------------------------------------ |
-DURATION                | Duration in seconds - during with network chaos will be applied.         | 300                                  |
-IMAGE | Image used to disrupt network on a pod  |  quay.io/krkn-chaos/krkn:tools | 
-TARGET_NODE_AND_INTERFACE               |  # Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: {ip-10-0-216-2.us-west-2.compute.internal: [ens5]}      | ""                                   |
-LABEL_SELECTOR          | When NODE_NAME is not specified, a node with matching label_selector is selected for running.          | node-role.kubernetes.io/master       |
-INSTANCE_COUNT          | Targeted instance count matching the label selector                   | 1                                   |
-EXECUTION          |  Used to specify whether you want to apply filters on interfaces one at a time or all at once.                   | parallel|
-NETWORK_PARAMS     | latency, loss and bandwidth are the three supported network parameters to alter for the chaos test. For example: {latency: 50ms, loss: '0.02'} | "" |
-WAIT_DURATION           | Ensure that it is at least about twice of test_duration               | 300                                   |
+{{< param-table scenario="network-chaos" source="krkn-hub" group="ingress" >}}
 
 {{% alert title="Note" %}} For disconnected clusters, be sure to also mirror the helper image of quay.io/krkn-chaos/krkn:tools and set the mirrored image path properly  {{% /alert %}}
 

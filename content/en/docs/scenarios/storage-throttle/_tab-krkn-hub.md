@@ -77,19 +77,7 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-| Parameter | Description | Type | Default |
-| --------- | ----------- | ---- | ------- |
-| `PVC_NAME` | Target PVC name. If set, `POD_NAME` is auto-resolved from PVC | string | |
-| `POD_NAME` | Target pod name. Ignored if `PVC_NAME` is set | string | |
-| `NAMESPACE` | Namespace of the target pod/PVC | string | `default` |
-| `MOUNT_PATH` | Specific mount path to throttle (absolute path, example: `/data`) | string | |
-| `THROTTLE_TYPE` | Throttle mode to apply (`bandwidth`, `iops`, `both`) | string | `bandwidth` |
-| `READ_IOPS` | Maximum read IOPS (used for `iops`/`both`) | number | `100` |
-| `WRITE_IOPS` | Maximum write IOPS (used for `iops`/`both`) | number | `50` |
-| `READ_BPS` | Maximum read bytes/sec (example: `1Mi`, `512Ki`, `1000000`) | string | `1Mi` |
-| `WRITE_BPS` | Maximum write bytes/sec (example: `512Ki`, `1Mi`, `500000`) | string | `512Ki` |
-| `DURATION` | Duration to hold throttling (example: `30s`, `1m`, `120`) | string | `1m` |
-| `IMAGE` | Image used for privileged helper pod that writes cgroup values | string | `quay.io/krkn-chaos/krkn:tools` |
+{{< param-table scenario="storage-throttle" source="krkn-hub" >}}
 
 #### Parameter dependencies
 

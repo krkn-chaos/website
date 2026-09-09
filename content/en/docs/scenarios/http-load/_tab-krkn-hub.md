@@ -75,20 +75,7 @@ OR on the command line like example:
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
 
-|Parameter | Description | Default |
-|----------|-------------|---------|
-|TARGET_ENDPOINTS| Semicolon-separated list of target endpoints. Format: METHOD URL;METHOD URL HEADER1:VAL1,HEADER2:VAL2 BODY. Example: GET https://myapp.example.com/health;POST https://myapp.example.com/api Content-Type:application/json {\"key\":\"value\"} | **Required** |
-|RATE| Request rate per pod (e.g. 50/1s, 1000/1m, 0 for max throughput) |50/1s|
-|TOTAL_CHAOS_DURATION| Duration of the load test (e.g. 30s, 5m, 1h) |30s|
-|NAMESPACE| The namespace where the attacker pods will be deployed |default|
-|NUMBER_OF_PODS| The number of attacker pods that will be deployed |2|
-|WORKERS| Initial number of concurrent workers per pod |10|
-|MAX_WORKERS| Maximum number of concurrent workers per pod (auto-scales) |100|
-|CONNECTIONS| Maximum number of idle open connections per host |100|
-|TIMEOUT| Per-request timeout (e.g. 10s, 30s) |10s|
-|IMAGE| The container image that will be used to perform the scenario |quay.io/krkn-chaos/krkn-http-load:latest|
-|INSECURE| Skip TLS certificate verification (for self-signed certs) |false|
-|NODE_SELECTORS| The node selectors are used to guide the cluster on where to deploy attacker pods. You can specify one or more labels in the format key=value;key=value2 (even using the same key) to choose one or more node categories. If left empty, the pods will be scheduled on any available node, depending on the cluster's capacity. ||
+{{< param-table scenario="http-load" source="krkn-hub" >}}
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:
 ```bash

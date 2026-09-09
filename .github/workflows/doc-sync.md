@@ -144,8 +144,8 @@ steps:
     env:
       TARGETS: ${{ steps.scn.outputs.scenarios }}
     run: |
-      git config user.name "krkn-docs-bot"
-      git config user.email "krkn-docs-bot@users.noreply.github.com"
+      git config user.name "krkn-doc-sync-bot"
+      git config user.email "krkn-doc-sync-bot@users.noreply.github.com"
       git checkout -b "docs-sync-${{ github.run_number }}"
       git add -A
 
@@ -165,7 +165,7 @@ steps:
       Generated from:
       - krkn-hub/env.sh and each scenario's krknctl-input.json
       - krkn/containers/krknctl-input.json for the global parameters
-      - krkn-operator/config/crd/bases for the api-reference pages
+      - krkn-operator/config/crd/bases for the crd-reference pages
 
       These files are derived. Edit the source, not the table.
 
@@ -191,6 +191,9 @@ steps:
       RUN_NUMBER: ${{ github.run_number }}
       RESYNC_PR: ${{ steps.scn.outputs.resync_pr }}
       COMMITTED: ${{ steps.commit.outputs.committed }}
+      # Through the env, never the script. Resolve scenarios already
+      # validated these to a-z0-9- and exits otherwise.
+      TARGETS: ${{ steps.scn.outputs.scenarios }}
     run: |
       OUT="${GH_AW_SAFE_OUTPUTS:-${RUNNER_TEMP}/gh-aw/safeoutputs/outputs.jsonl}"
       mkdir -p "$(dirname "$OUT")"
@@ -199,6 +202,15 @@ steps:
       python3 - >> "$OUT" <<'SAFE_OUTPUT'
       import json, os
       run = os.environ["RUN_NUMBER"]
+      # The website squash-merges, so this title lands on main. globals and
+      # operator are literal targets, not directories.
+      alias = {"globals": "global parameters", "operator": "krkn-operator CRDs"}
+      names = [alias.get(t, t) for t in os.environ.get("TARGETS", "").split()]
+      what = names[0] if len(names) == 1 else ", ".join(names)
+      # Three names covers every multi-scenario push in krkn-hub's last 300
+      # commits. The length cap bounds the rest.
+      if len(names) > 3 or len(what) > 60:
+          what = f"{len(names)} targets"
       if os.environ.get("RESYNC_PR"):
           item = {"type": "push_to_pull_request_branch",
                   "message": "docs-sync: regenerate parameter tables"}
@@ -206,7 +218,8 @@ steps:
           item = {
               "type": "create_pull_request",
               "branch": "docs-sync-" + run,
-              "title": "Regenerate parameter tables",
+              "title": f"Parameter tables: {what}" if names
+                       else "Regenerate parameter tables",
               "body": (
                   "Parameter tables regenerated from source. The commit message "
                   "lists the targets, the file counts and the source files.\n\n"

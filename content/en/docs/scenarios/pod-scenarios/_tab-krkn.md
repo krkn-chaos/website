@@ -47,17 +47,29 @@ You can then create the scenario file with the following contents:
   config:
     namespace_pattern: ^kube-system$
     label_selector: k8s-app=kube-scheduler
-    krkn_pod_recovery_time: 120
+    name_pattern: ''
     #Not needed by default, but can be used if you want to target pods on specific nodes
     # Option 1: Target pods on nodes with specific labels [master/worker nodes]
-    node_label_selector: node-role.kubernetes.io/control-plane=      # Target control-plane nodes (works on both k8s and openshift)
-    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
+    node_label_selector: node-role.kubernetes.io/control-plane=
     # Option 2: Target pods of specific nodes (testing mixed node types)
-    node_names:
-      - ip-10-0-31-8.us-east-2.compute.internal      # Worker node 1
-      - ip-10-0-48-188.us-east-2.compute.internal    # Worker node 2
-      - ip-10-0-14-59.us-east-2.compute.internal     # Master node 1
+    node_names: []
+    exclude_label: 'critical=true' # Optional - Pods matching this label will be excluded from the chaos
+    kill: 1
+    timeout: 120
+    duration: 10
+    krkn_pod_recovery_time: 120
+    execution: serial  # Supported values: serial or parallel
+    force: false
 ```
+
+`label_selector` and `name_pattern` select the target pods. Use `node_label_selector`
+or `node_names` to narrow the target nodes, and `exclude_label` to protect matching
+pods. Set `execution` to `parallel` to disrupt multiple pods concurrently.
+
+The scenario uses `kill` to determine how many pods to disrupt, waits up to `timeout`
+seconds for deletion, waits `duration` seconds between disruption and recovery checks,
+and allows up to `krkn_pod_recovery_time` seconds for the pods to recover. Set `force`
+to `true` to delete pods immediately without respecting their termination grace period.
 
 Please adjust the schema reference to point to the [schema file](https://github.com/krkn-chaos/krkn/blob/main/scenarios/plugin.schema.json). This file will give you code completion and documentation for the available options in your IDE.
 

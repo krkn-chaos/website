@@ -545,4 +545,15 @@ svg.scenario-card__icon {
   color: var(--krkn-text-muted);
   font-size: 0.8125rem;
   margin: 0;
+
+  a {
+    color: var(--krkn-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--krkn-text);
+    }
+  }
 }

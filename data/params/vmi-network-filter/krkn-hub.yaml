@@ -76,7 +76,7 @@ params:
   description: Network chaos injection workload image
   description_source: published-table
   type: string
-  default: quay.io/krkn-chaos/krkn-network-chaos:latest
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-network-chaos
   required: false
 - name: PROTOCOLS
   description: 'Comma-separated protocols to filter: `tcp`, `udp`, or both'

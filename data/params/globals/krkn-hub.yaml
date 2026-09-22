@@ -126,6 +126,10 @@ params:
   description_source: krknctl
   group: kraken
   default: 'False'
+- name: DISABLE_IMAGE_SIGNATURE
+  description: ''
+  group: other
+  default: 'False'
 - name: RETRY_WAIT
   description: ''
   group: other

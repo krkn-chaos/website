@@ -173,3 +173,11 @@ Parameters found in the source that no section above covers.
 Parameters found in the source that no section above covers.
 
 {{< param-table scenario="globals" source="krknctl" group="triggers" prefix="--" >}}
+
+---
+
+## Object State Checks
+
+Parameters found in the source that no section above covers.
+
+{{< param-table scenario="globals" source="krknctl" group="object_state_checks" prefix="--" >}}

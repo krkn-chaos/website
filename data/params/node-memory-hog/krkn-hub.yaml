@@ -58,5 +58,5 @@ params:
   description: the container image of the stress workload
   description_source: published-table
   type: string
-  default: quay.io/krkn-chaos/krkn-hog
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-hog
   required: false

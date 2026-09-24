@@ -132,6 +132,6 @@ Run a PromQL query and wait for it to return a result. Set the Prometheus URL an
 
 ## Object State Checks
 
-Parameters found in the source that no section above covers.
+Configure checks for Kubernetes object states and conditions.
 
 {{< param-table scenario="globals" source="krkn-hub" group="object_state_checks" >}}

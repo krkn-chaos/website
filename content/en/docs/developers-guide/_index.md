@@ -25,6 +25,9 @@ Once a scenario gets added to krkn, changes will be need in krkn-hub and krknctl
 - [Add New Scenario to Krkn-hub](./editing-krkn-hub.md) and test your changes
 - [Add New Scenario to Krknctl](./krknctl-edits.md) and test your changes
 
+If you are adding a new config parameter (global or scenario-specific), see:
+- [Adding a New Config Parameter](./adding-config-parameter.md): Checklist for updating krkn, krkn-hub, krknctl, and the website
+
 
 ## Questions?
 For any questions or further guidance, feel free to reach out to us on the 

@@ -1,0 +1,60 @@
+# Doc Sync Bot - Automated documentation sync from upstream krkn-chaos changes
+#
+# Polls upstream repos for merged PRs that touch documentation-impacting files.
+# Uses an LLM (Claude) to generate updated docs and opens a draft PR for review.
+#
+# Required secrets:
+#   - ANTHROPIC_API_KEY: API key for Claude (doc generation)
+#   - GITHUB_TOKEN: automatically provided, needs contents:write + pull-requests:write
+#
+# TODO: Add issue_comment trigger for comment-driven refinement workflow (Phase 2)
+
+name: Doc Sync Bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_pr:
+        description: 'Upstream PR number to sync (format: repo:number, e.g. krkn-ai:42)'
+        required: false
+        type: string
+  schedule:
+    - cron: '0 */6 * * *'
+
+concurrency:
+  group: doc-sync-bot
+  cancel-in-progress: false
+
+jobs:
+  doc-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout website repo
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/doc_sync/requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name "doc-sync-bot"
+          git config user.email "doc-sync-bot@krkn-chaos.dev"
+
+      - name: Run doc sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          UPSTREAM_PR: ${{ inputs.upstream_pr || '' }}
+        run: python .github/scripts/doc_sync/doc_sync.py

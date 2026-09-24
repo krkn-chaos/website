@@ -40,7 +40,7 @@ jobs:
           # Try to get from Netlify API or use default
           SITE_URL="${{ secrets.NETLIFY_SITE_URL }}"
           if [ -z "$SITE_URL" ]; then
-            SITE_URL="https://krkn-chaos.netlify.app"
+            SITE_URL="https://krkn-chaos.dev"
           fi
           echo "SITE_URL=$SITE_URL" >> $GITHUB_OUTPUT
           echo "🌐 Using site URL: $SITE_URL"

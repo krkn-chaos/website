@@ -91,6 +91,16 @@ params:
   description_source: published-table
   group: health_checks
   default: 'False'
+- name: HEALTH_CHECK_RUN_DURING
+  description: 'When to run health checks: pre (before chaos), during (continuous), post (after chaos), or combination like [pre,post]'
+  description_source: krknctl
+  group: health_checks
+  default: during
+- name: HEALTH_CHECK_ONLY_FAILURES
+  description: Only create telemetry records for failed health checks
+  description_source: krknctl
+  group: health_checks
+  default: 'False'
 - name: KRKN_KUBE_CONFIG
   description: Path to the kubeconfig file for cluster access
   description_source: published-table
@@ -125,6 +135,65 @@ params:
   description: Enables debug mode for Krkn
   description_source: krknctl
   group: kraken
+  default: 'False'
+- name: OBJECT_STATE_CHECK_INTERVAL
+  description: How often to check object states (seconds)
+  description_source: krknctl
+  group: object_state_checks
+  default: '2'
+- name: OBJECT_STATE_CHECK_RUN_DURING
+  description: 'When to run checks: pre (before chaos), during (continuous), post (after chaos), or combination like [pre,during]'
+  description_source: krknctl
+  group: object_state_checks
+  default: during
+- name: OBJECT_STATE_CHECK_EXIT_ON_FAILURE
+  description: Exit on failure when object state check fails
+  description_source: krknctl
+  group: object_state_checks
+  default: 'False'
+- name: OBJECT_STATE_CHECK_ONLY_FAILURES
+  description: Only create telemetry records for failed object state checks
+  description_source: krknctl
+  group: object_state_checks
+  default: 'False'
+- name: OBJECT_STATE_CHECK_NAME
+  description: Name of the object state check (e.g., etcd-ready-pods)
+  description_source: krknctl
+  group: object_state_checks
+  default: ''
+- name: OBJECT_STATE_CHECK_KIND
+  description: Kubernetes resource kind to check (Pod, Deployment, StatefulSet, DaemonSet, ReplicaSet, Service, Job, etc.)
+  description_source: krknctl
+  group: object_state_checks
+  default: Pod
+- name: OBJECT_STATE_CHECK_OBJECT_NAME
+  description: Name or regex pattern of objects to check (leave empty for all)
+  description_source: krknctl
+  group: object_state_checks
+  default: ''
+- name: OBJECT_STATE_CHECK_NAMESPACE
+  description: Kubernetes namespace to check objects in
+  description_source: krknctl
+  group: object_state_checks
+  default: ''
+- name: OBJECT_STATE_CHECK_LABEL_SELECTOR
+  description: Kubernetes label selector to filter objects (e.g., app=nginx)
+  description_source: krknctl
+  group: object_state_checks
+  default: ''
+- name: OBJECT_STATE_CHECK_CONDITION_TYPE
+  description: Kubernetes condition type to check (Ready, Available, Progressing, etc.)
+  description_source: krknctl
+  group: object_state_checks
+  default: Ready
+- name: OBJECT_STATE_CHECK_CONDITION_STATUS
+  description: Expected status for the condition (True, False, or Unknown)
+  description_source: krknctl
+  group: object_state_checks
+  default: 'True'
+- name: DISABLE_IMAGE_SIGNATURE
+  description: ''
+  group: other
   default: 'False'
 - name: RETRY_WAIT
   description: ''

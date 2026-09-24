@@ -6,6 +6,9 @@
      The global pages use it, since all of a source's params live in one file and
      each row carries its group. Per-scenario tables omit it and render every row.
 
+     A row with no group is shared: it renders in every group, so one page can show
+     several tables without storing a param once per table.
+
      Filtering happens before column detection on purpose: a group with no
      possible_values must not inherit that column from a sibling group. */}}
 {{- $scenario := .Get "scenario" -}}
@@ -22,8 +25,20 @@
   {{- errorf "param-table: no data for scenario=%q source=%q (expected data/params/%s/%s.yaml)" $scenario $source $scenario $source -}}
 {{- else -}}
   {{- $rows := $data.params -}}
-  {{- with $group -}}{{- $rows = where $rows "group" . -}}{{- end -}}
-  {{- if and $group (not $rows) -}}
+  {{/* $declared is the typo guard: a group no row names is still an error, even
+       though the shared rows below would otherwise fill the table. */}}
+  {{- $declared := false -}}
+  {{- if $group -}}
+    {{- $declared = where $rows "group" $group -}}
+    {{- $sel := slice -}}
+    {{- range $rows -}}
+      {{- if or (not (isset . "group")) (eq (index . "group") $group) -}}
+        {{- $sel = $sel | append . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $rows = $sel -}}
+  {{- end -}}
+  {{- if and $group (not $declared) -}}
     {{- errorf "param-table: group %q has no params in data/params/%s/%s.yaml" $group $scenario $source -}}
   {{- else -}}
   {{- $showType := false -}}{{- $showValues := false -}}{{- $showDefault := false -}}{{- $showRequired := false -}}

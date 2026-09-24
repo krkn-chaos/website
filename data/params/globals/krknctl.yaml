@@ -134,12 +134,33 @@ params:
   possible_values:
   - 'True'
   - 'False'
+- name: health-check-run-during
+  description: 'When to run health checks: pre (before chaos), during (continuous), post (after chaos), or combination like [pre,post]'
+  description_source: krknctl
+  group: health_check
+  type: string
+  default: during
+- name: health-check-only-failures
+  description: Only create telemetry records for failed health checks
+  description_source: krknctl
+  group: health_check
+  type: enum
+  default: 'False'
+  possible_values:
+  - 'True'
+  - 'False'
 - name: krkn-kubeconfig
   description: Sets the path where krkn will search for kubeconfig (in container)
   description_source: krknctl
   group: kraken
   type: string
   default: /home/krkn/.kube/config
+- name: disable-image-signature
+  description: Disables workload image signature verification before deployment
+  description_source: krknctl
+  group: kraken
+  type: boolean
+  default: 'False'
 - name: generate-pdf-report
   description: Generates a PDF report summarizing the chaos run results at the end of each scenario
   description_source: krknctl
@@ -227,6 +248,82 @@ params:
   group: kubevirt
   type: string
   default: ''
+- name: object-state-check-interval
+  description: How often to check object states (seconds)
+  description_source: krknctl
+  group: object_state_checks
+  type: number
+  default: '2'
+- name: object-state-check-run-during
+  description: 'When to run checks: pre (before chaos), during (continuous), post (after chaos), or combination like [pre,during]'
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: during
+- name: object-state-check-exit-on-failure
+  description: Exit on failure when object state check fails
+  description_source: krknctl
+  group: object_state_checks
+  type: enum
+  default: 'False'
+  possible_values:
+  - 'True'
+  - 'False'
+- name: object-state-check-only-failures
+  description: Only create telemetry records for failed object state checks
+  description_source: krknctl
+  group: object_state_checks
+  type: enum
+  default: 'False'
+  possible_values:
+  - 'True'
+  - 'False'
+- name: object-state-check-name
+  description: Name of the object state check (e.g., etcd-ready-pods)
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: ''
+- name: object-state-check-kind
+  description: Kubernetes resource kind to check (Pod, Deployment, StatefulSet, DaemonSet, ReplicaSet, Service, Job, etc.)
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: Pod
+- name: object-state-check-object-name
+  description: Name or regex pattern of objects to check (leave empty for all)
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: ''
+- name: object-state-check-namespace
+  description: Kubernetes namespace to check objects in
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: default
+- name: object-state-check-label-selector
+  description: Kubernetes label selector to filter objects (e.g., app=nginx)
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: ''
+- name: object-state-check-condition-type
+  description: Kubernetes condition type to check (Ready, Available, Progressing, etc.)
+  description_source: krknctl
+  group: object_state_checks
+  type: string
+  default: Ready
+- name: object-state-check-condition-status
+  description: Expected status for the condition (True, False, or Unknown)
+  description_source: krknctl
+  group: object_state_checks
+  type: enum
+  default: 'True'
+  possible_values:
+  - 'True'
+  - 'False'
+  - Unknown
 - name: prometheus-url
   description: Prometheus url for when running on kuberenetes
   description_source: krknctl
@@ -269,6 +366,30 @@ params:
   group: prometheus
   type: string
   default: config/alerts.yaml
+- name: alerts-run-during
+  description: 'Phases for Prometheus alert health checks: pre, during, post, or a comma-separated combination'
+  description_source: krknctl
+  group: prometheus
+  type: string
+  default: ''
+- name: alerts-exit-on-failure
+  description: Fail the run when a critical or error Prometheus alert health check fails
+  description_source: krknctl
+  group: prometheus
+  type: enum
+  default: 'False'
+  possible_values:
+  - 'True'
+  - 'False'
+- name: alerts-only-failures
+  description: Only include failed Prometheus alert evaluations in telemetry and reports
+  description_source: krknctl
+  group: prometheus
+  type: enum
+  default: 'False'
+  possible_values:
+  - 'True'
+  - 'False'
 - name: metrics-path
   description: Allows to specify a different metrics file path
   description_source: krknctl

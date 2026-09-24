@@ -101,3 +101,11 @@ Parameters found in the source that no section above covers.
 Parameters found in the source that no section above covers.
 
 {{< param-table scenario="globals" source="krkn-hub" group="triggers" >}}
+
+---
+
+## Object State Checks
+
+Parameters found in the source that no section above covers.
+
+{{< param-table scenario="globals" source="krkn-hub" group="object_state_checks" >}}

@@ -63,7 +63,7 @@ When executed, the scenario will:
 ## Validating VMI SSH Connection
 
 While the VMI outage is running you can enable kube virt checks to check the ssh connection to a list of VMIs to test if an outage of one VMI effects any others become unready/unconnectable.
-See more details on how to enable these checks in [kubevirt checks](../../krkn/virt-checks.md)
+See more details on how to enable these checks in [kubevirt checks](../../krkn/health-checks/virt-checks.md)
 
 
 ## Advanced Use Cases

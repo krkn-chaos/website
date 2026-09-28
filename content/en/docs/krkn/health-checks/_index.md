@@ -9,7 +9,8 @@ Krkn provides comprehensive health check capabilities to monitor your applicatio
 ## Health Check Types
 
 - **[HTTP Health Checks](../#sample-health-check-config)** - Monitor HTTP/HTTPS endpoints
-- **[KubeVirt Health Checks](../virt-checks.md)** - Monitor VMI SSH connectivity  
+- **[Prometheus Alert Health Checks](prometheus-alerts.md)** - Evaluate PromQL alerts at health-check phases
+- **[KubeVirt Health Checks](virt-checks.md)** - Monitor VMI SSH connectivity
 - **[Object State Health Checks](object-state.md)** - Monitor Kubernetes resource conditions
 
 ## Advanced Features

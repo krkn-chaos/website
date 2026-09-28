@@ -252,7 +252,7 @@ Utilizing health check endpoints to observe application behavior during chaos in
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#virt-checks) · [krkn-hub variables](../scenarios/all-scenario-env.md#virt-checks)
 
-Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](virt-checks.md)
+Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](health-checks/virt-checks.md)
 
 **interval**: Interval in seconds to perform virt checks, default value is 2 seconds
 

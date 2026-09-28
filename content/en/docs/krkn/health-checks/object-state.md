@@ -227,4 +227,4 @@ object_state_checks:
 
 - [Health Check Run Timing](run-during.md) - Control when health checks execute
 - [Health Checks Overview](../) - HTTP and VMI health checks
-- [Kube Virt Checks](../virt-checks.md) - VMI SSH connectivity checks
+- [Kube Virt Checks](virt-checks.md) - VMI SSH connectivity checks

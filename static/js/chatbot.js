@@ -424,13 +424,14 @@ class KrknChatbot {
         let isDragging = false;
         let dragStart = { x: 0, y: 0 };
         let windowStart = { x: 0, y: 0 };
+        let activeTouchId = null;
 
-        chatHeader.addEventListener('mousedown', (e) => {
-            if (e.target.closest('.krkn-chat-close')) return;
+        const handleStart = (clientX, clientY, e) => {
+            if (e.target.closest('.krkn-chat-close')) return false;
             
             isDragging = true;
-            dragStart.x = e.clientX;
-            dragStart.y = e.clientY;
+            dragStart.x = clientX;
+            dragStart.y = clientY;
             
             const rect = chatWindow.getBoundingClientRect();
             windowStart.x = rect.left;
@@ -438,14 +439,14 @@ class KrknChatbot {
             
             chatWindow.style.transition = 'none';
             document.body.style.userSelect = 'none';
-            e.preventDefault();
-        });
+            return true;
+        };
 
-        document.addEventListener('mousemove', (e) => {
+        const handleMove = (clientX, clientY, e) => {
             if (!isDragging) return;
             
-            const deltaX = e.clientX - dragStart.x;
-            const deltaY = e.clientY - dragStart.y;
+            const deltaX = clientX - dragStart.x;
+            const deltaY = clientY - dragStart.y;
             
             let newX = windowStart.x + deltaX;
             let newY = windowStart.y + deltaY;
@@ -461,16 +462,72 @@ class KrknChatbot {
             chatWindow.style.top = newY + 'px';
             chatWindow.style.right = 'auto';
             chatWindow.style.bottom = 'auto';
-        });
+            
+            if (e) e.preventDefault();
+        };
 
-        document.addEventListener('mouseup', () => {
+        const handleEnd = () => {
             if (isDragging) {
                 isDragging = false;
-                
+                activeTouchId = null;
                 chatWindow.style.transition = '';
                 document.body.style.userSelect = '';
+                removeDynamicListeners();
+            }
+        };
+
+        // Dynamic event listeners for move/end
+        const onMouseMove = (e) => handleMove(e.clientX, e.clientY, e);
+        const onMouseUp = () => handleEnd();
+
+        const onTouchMove = (e) => {
+            if (!isDragging || activeTouchId === null) return;
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                if (e.changedTouches[i].identifier === activeTouchId) {
+                    handleMove(e.changedTouches[i].clientX, e.changedTouches[i].clientY, e);
+                    break;
+                }
+            }
+        };
+
+        const onTouchEnd = (e) => {
+            if (activeTouchId === null) return;
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                if (e.changedTouches[i].identifier === activeTouchId) {
+                    handleEnd();
+                    break;
+                }
+            }
+        };
+
+        const removeDynamicListeners = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onTouchMove, { passive: false });
+            document.removeEventListener('touchend', onTouchEnd);
+            document.removeEventListener('touchcancel', onTouchEnd);
+        };
+
+        // Attach start listeners to header
+        chatHeader.addEventListener('mousedown', (e) => {
+            if (handleStart(e.clientX, e.clientY, e)) {
+                e.preventDefault();
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
             }
         });
+
+        chatHeader.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 1 && isDragging) return;
+            const touch = e.changedTouches[0];
+            if (handleStart(touch.clientX, touch.clientY, e)) {
+                activeTouchId = touch.identifier;
+                e.preventDefault();
+                document.addEventListener('touchmove', onTouchMove, { passive: false });
+                document.addEventListener('touchend', onTouchEnd);
+                document.addEventListener('touchcancel', onTouchEnd);
+            }
+        }, { passive: false });
     }
 
     toggleChat() {

@@ -30,11 +30,12 @@ Backend API service for the Krkn documentation chatbot, providing AI-powered res
    ```
 
 ## API Endpoints
-
 - `POST /api/chat` - Process chat messages with AI assistance
-- `GET /api/health` - Health check and usage statistics  
+- `GET /api/health` - Health check and usage statistics
 - `GET /api/search` - Search documentation
 - `GET /api/topics` - Get available documentation topics
+- `POST /api/admin/rebuild-index` - Manually trigger a full rebuild of the documentation index. Useful when documentation content has changed and needs to be re-indexed immediately without restarting the server.
+- `ALL /webhook/rebuild-docs` - Webhook endpoint for external systems to trigger a documentation index rebuild. Accepts any HTTP method (`GET`, `POST`, `PUT`, etc.). Signature verification is optional — requests are allowed when `WEBHOOK_SECRET` is not configured. Designed for use in local development and CI/CD pipelines.
 
 ## Configuration
 

@@ -23,21 +23,27 @@ const initializeServices = async () => {
 
 // Verify webhook signature for security
 function verifyWebhookSignature(payload, signature, secret) {
-    if (!secret || !signature) return true; // Allow unsigned webhooks if no secret configured
-    
+    // No secret configured → allow all requests (unsigned mode)
+    if (!secret) return true;
+    // Secret configured but signature header missing → reject immediately
+    if (!signature) return false;
+
     const expectedSignature = crypto
         .createHmac('sha256', secret)
         .update(payload)
         .digest('hex');
-    
-    const providedSignature = signature.startsWith('sha256=') 
-        ? signature.slice(7) 
+
+    const providedSignature = signature.startsWith('sha256=')
+        ? signature.slice(7)
         : signature;
-    
-    return crypto.timingSafeEqual(
-        Buffer.from(expectedSignature, 'hex'),
-        Buffer.from(providedSignature, 'hex')
-    );
+
+    const expectedBuffer = Buffer.from(expectedSignature, 'hex');
+    const providedBuffer = Buffer.from(providedSignature, 'hex');
+
+    // Guard against timingSafeEqual throwing TypeError on length mismatch
+    if (expectedBuffer.length !== providedBuffer.length) return false;
+
+    return crypto.timingSafeEqual(expectedBuffer, providedBuffer);
 }
 
 exports.handler = async (event, context) => {

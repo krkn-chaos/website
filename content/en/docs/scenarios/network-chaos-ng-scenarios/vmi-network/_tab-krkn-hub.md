@@ -30,24 +30,7 @@ ex.)
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-| Parameter              | Description                                                                                          | Type    | Default                                      |
-|------------------------|------------------------------------------------------------------------------------------------------|---------|----------------------------------------------|
-| TOTAL_CHAOS_DURATION   | Chaos duration in seconds                                                                            | number  | 120                                          |
-| NAMESPACE              | Namespace containing the target VMIs (required)                                                      | string  |                                              |
-| VMI_NAME               | Regex to match VMI names (e.g. `virt-server-.*` or `.*` for all)                                    | string  | `.*`                                         |
-| LABEL_SELECTOR         | Label selector to filter VMIs (e.g. `app=myapp`)                                                     | string  | `""`                                         |
-| INSTANCE_COUNT         | Maximum number of VMIs to target                                                                     | number  | 1                                            |
-| EXECUTION              | Execution mode: `serial` or `parallel`                                                               | enum    | `serial`                                     |
-| INGRESS                | Shape incoming traffic to the VM                                                                     | boolean | true                                         |
-| EGRESS                 | Shape outgoing traffic from the VM                                                                   | boolean | true                                         |
-| INTERFACES             | Comma-separated tap interface names (empty to auto-detect)                                           | string  | `""`                                         |
-| LATENCY                | Artificial latency added to packets (e.g. `100ms`, `500ms`)                                         | string  | `""`                                         |
-| LOSS                   | Packet loss percentage (e.g. `10` for 10%)                                                          | string  | `""`                                         |
-| BANDWIDTH              | Maximum throughput cap (e.g. `100mbit`, `1gbit`)                                                    | string  | `""`                                         |
-| WAIT_DURATION          | Seconds to wait before running the next scenario in the same file                                    | number  | 300                                          |
-| IMAGE                  | Network chaos injection workload image                                                               | string  | `quay.io/krkn-chaos/krkn-network-chaos:latest` |
-| TAINTS                 | List of taints for which tolerations are created (e.g. `["node-role.kubernetes.io/master:NoSchedule"]`) | string | `[]`                                        |
-| SERVICE_ACCOUNT        | Optional service account for the scenario workload                                                   | string  | `""`                                         |
+{{< param-table scenario="vmi-network" source="krkn-hub" >}}
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:
 ```bash

@@ -69,7 +69,7 @@ params:
   description: The container image that will be used to perform the scenario
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn-http-load:latest
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-http-load
   flag: image
   required: false
 - name: INSECURE

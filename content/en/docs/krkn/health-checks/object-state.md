@@ -217,11 +217,25 @@ object_state_checks:
 
 ## Supported Resource Kinds
 
+The following built-in Kubernetes resource kinds are supported. Namespaced
+resources require a `namespace`; cluster-scoped resources do not.
+
+### Namespaced Resources
+
 - Pod
 - Deployment
 - StatefulSet
 - DaemonSet
 - ReplicaSet
+- Service
+- PersistentVolumeClaim
+- Job
+- CronJob
+
+### Cluster-Scoped Resources
+
+- Node
+- PersistentVolume
 
 ## See Also
 

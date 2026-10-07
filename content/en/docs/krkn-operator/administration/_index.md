@@ -47,3 +47,4 @@ Every user **must** belong to a group. A user without a group has no access to t
 | [Provider Configuration](provider-configuration/) | Configure target providers (ACM integration) |
 | [Elasticsearch Management](elasticsearch-management/) | Configure saved Elasticsearch endpoints for observability |
 | [Cloud Credentials Management](cloud-credentials-management/) | Configure saved cloud provider credentials for scenario injection |
+| [Backup and Restore](backup-restore/) | Back up and restore operator configuration state |

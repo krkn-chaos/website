@@ -13,7 +13,6 @@ The Krkn Operator includes a built-in backup and restore feature accessible from
 - **Users and groups**
 - **Private registries**
 - **Elasticsearch configuration**
-- **Provider configuration**
 
 The backup also includes the operator-managed secrets required for these settings.
 

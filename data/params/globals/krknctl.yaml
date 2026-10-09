@@ -367,13 +367,13 @@ params:
   type: string
   default: config/alerts.yaml
 - name: alerts-run-during
-  description: Prometheus alert health-check phases
+  description: 'Phases for Prometheus alert health checks: pre, during, post, or a comma-separated combination'
   description_source: krknctl
   group: prometheus
   type: string
   default: during
 - name: alerts-exit-on-failure
-  description: Fail on critical or error alert health-check failures
+  description: Fail the run when a critical or error Prometheus alert health check fails
   description_source: krknctl
   group: prometheus
   type: enum
@@ -382,7 +382,7 @@ params:
   - 'True'
   - 'False'
 - name: alerts-only-failures
-  description: Include only failed alert evaluations in telemetry and reports
+  description: Only include failed Prometheus alert evaluations in telemetry and reports
   description_source: krknctl
   group: prometheus
   type: enum

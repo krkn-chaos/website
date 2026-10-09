@@ -202,3 +202,9 @@ See the [krkn installation guide](../installation/krkn.md) and [configuration hi
 - **[Installation Options](../installation/)** — Detailed setup for krknctl, krkn-hub, and krkn
 - **[Chaos Testing Guide](../chaos-testing-guide/)** — Best practices for chaos engineering
 - **[Debugging Tips](../debugging/)** — Common errors and how to fix them
+
+---
+
+## Analyzing Results
+
+After a run completes, Krkn generates a `kraken.report` log and a `resiliency-report.json` with scored SLO results. See [Analyzing the Kraken Report](analyzing-report.md) for a full guide on interpreting the output.

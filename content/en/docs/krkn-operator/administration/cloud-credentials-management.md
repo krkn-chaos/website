@@ -1,7 +1,7 @@
 ---
 title: Cloud Credentials Management
 description: Configure saved cloud provider credentials for chaos scenario injection
-weight: 6
+weight: 7
 ---
 
 # Cloud Credentials Management <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
@@ -9,10 +9,7 @@ weight: 6
 Administrators can configure and save cloud provider credentials that users select when running cloud-dependent chaos scenarios. Credentials are stored as Kubernetes Secrets and injected into scenario pods via `SecretKeyRef` — plaintext cloud secrets never appear in the Custom Resource or pod environment values.
 
 <div class="krkn-video">
-  <video controls width="100%" preload="metadata">
-    <source src="/videos/cloud-credentials.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <iframe src="https://www.youtube.com/embed/TISQpi6aJWQ" title="Cloud Credentials Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

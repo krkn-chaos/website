@@ -48,11 +48,11 @@ cosign load --dir ./workload-krkn-hog "$MIRROR:workload-krkn-hog"
 
 ## Verify the mirror
 
-On a connected staging machine, obtain the [Krkn Cosign public key](https://github.com/krkn-chaos/krknctl/blob/main/pkg/verify/cosign.pub) through a trusted channel, then verify **both destination images**:
+On a connected staging machine, obtain the [Krkn Cosign public key](https://github.com/krkn-chaos/krknctl/blob/991cbce5383836e40f2134ef456dd71c0b40ceec/pkg/verify/cosign.pub) from the Krknctl `v0.14.2-beta` revision used by Operator 1.1.0 through a trusted channel, then verify **both destination images**:
 
 ```bash
 MIRROR=registry.example.com/chaos/krkn-hub-multiarch
-curl -fsSLo cosign.pub https://raw.githubusercontent.com/krkn-chaos/krknctl/main/pkg/verify/cosign.pub
+curl -fsSLo cosign.pub https://raw.githubusercontent.com/krkn-chaos/krknctl/991cbce5383836e40f2134ef456dd71c0b40ceec/pkg/verify/cosign.pub
 cosign verify --key cosign.pub --insecure-ignore-tlog=true "$MIRROR:node-cpu-hog"
 cosign verify --key cosign.pub --insecure-ignore-tlog=true "$MIRROR:workload-krkn-hog"
 ```

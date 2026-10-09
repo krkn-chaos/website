@@ -10,23 +10,26 @@ custom_js: ["/js/krkn-operator-version.js"]
 
 Deploy Krkn Operator on Kubernetes or OpenShift using Helm.
 
-## Upgrade from 1.0.x to 1.1.1
+## Upgrade from 1.0.x to 1.1.0
 
-Upgrade an existing Helm release in place. The 1.1.x chart includes hooks that preserve existing custom resources while the operator updates their Custom Resource Definitions (CRDs) and migrates legacy run fields. Upgrading from 1.0.x to 1.1.x with `helm upgrade` does not require deleting CRDs or recreating runs, and does not lose existing run data.
+Upgrade an existing Helm release in place. The 1.1.x chart includes hooks that preserve existing custom resources while the operator updates their Custom Resource Definitions (CRDs) and migrates legacy run fields. Upgrading from 1.0.x to 1.1.x with `helm upgrade` does not require deleting CRDs or recreating runs, and is designed to preserve existing run data. Back up your configuration before upgrading.
 
 1. Confirm the release name and namespace, and save the current Helm values for reference:
 
    ```bash
-   helm list --namespace krkn-operator-system
-   helm get values krkn-operator --namespace krkn-operator-system -o yaml > krkn-operator-values-backup.yaml
+   # Set these to your existing installation.
+   RELEASE_NAME=krkn-operator
+   RELEASE_NAMESPACE=krkn-operator-system
+   helm list --namespace "$RELEASE_NAMESPACE"
+   helm get values "$RELEASE_NAME" --namespace "$RELEASE_NAMESPACE" -o yaml > krkn-operator-values-backup.yaml
    ```
 
-2. Upgrade the existing release to chart version 1.1.1, retaining its configured values:
+2. Upgrade the existing release to chart version 1.1.0, retaining its configured values:
 
    ```bash
-   helm upgrade krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
-     --version 1.1.1 \
-     --namespace krkn-operator-system \
+   helm upgrade "$RELEASE_NAME" oci://quay.io/krkn-chaos/charts/krkn-operator \
+     --version 1.1.0 \
+     --namespace "$RELEASE_NAMESPACE" \
      --reuse-values \
      --wait \
      --timeout 10m
@@ -35,11 +38,11 @@ Upgrade an existing Helm release in place. The 1.1.x chart includes hooks that p
 3. Check the release and operator pods:
 
    ```bash
-   helm status krkn-operator --namespace krkn-operator-system
-   kubectl get pods -n krkn-operator-system -l app.kubernetes.io/name=krkn-operator
+   helm status "$RELEASE_NAME" --namespace "$RELEASE_NAMESPACE"
+   kubectl get pods -n "$RELEASE_NAMESPACE" -l app.kubernetes.io/name=krkn-operator
    ```
 
-During the upgrade, a pre-upgrade hook saves legacy run fields and pauses run reconciliation. After the new operator starts, a post-upgrade hook updates the CRDs, completes the run migration, and resumes reconciliation. Helm does not upgrade files in a chart's `crds/` directory by itself; the operator's upgrade hooks handle that step. If the migration hook fails, inspect its logs and retry the same `helm upgrade` command. The migration can resume from the saved state.
+During the upgrade, a pre-upgrade hook saves legacy run fields and pauses run reconciliation. After the new operator starts, a post-upgrade hook updates the CRDs, completes the run migration, and resumes reconciliation. Helm does not upgrade files in a chart's `crds/` directory by itself; the operator's upgrade hooks handle that step. While the migration guard exists in the release namespace, scenario and graph run creation and mutation requests return HTTP 503. The hook jobs have a six-minute deadline. If a hook fails, the guard remains active: inspect the hook logs, fix the reported cause, then retry the same `helm upgrade` command. The hooks resume from saved migration annotations. For an individually blocked run, restore its missing current-API scenario or graph identity and, for private scenarios, its registry name before retrying. Do not remove the guard to bypass an incomplete migration.
 
 ---
 

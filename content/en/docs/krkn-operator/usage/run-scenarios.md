@@ -29,6 +29,8 @@ Choose the container registry for scenario images:
 | **Public** (Quay.io) | Default registry with all community scenarios |
 | **Private** | Configured by admin, only mirrored scenarios available. Visibility controlled by group permissions |
 
+For a disconnected target, follow [Mirror Signed Images](../../administration/mirroring-signed-images/) before selecting a private registry. Scenario signatures and any helper workload images must be available in the mirror.
+
 ### 3. Select Scenario
 
 Browse and select a chaos scenario from the chosen registry.
@@ -42,6 +44,8 @@ Each scenario defines its own parameter set, divided into three categories:
 | **Mandatory** | Must be configured before execution. Not all scenarios have them |
 | **Optional** | Fine-grained control over scenario behavior (label selectors, timing, filters) |
 | **Global** | Framework-level settings (Elasticsearch, Prometheus, Cerberus integration). Applied only if modified from defaults |
+
+When a scenario starts a helper workload, set its **`IMAGE`** parameter to the mirrored `workload-*` image URL. Selecting a private scenario registry does not change the workload image automatically. See [Mirror Signed Images](../../administration/mirroring-signed-images/) for an example.
 
 #### Elasticsearch in Global Parameters
 

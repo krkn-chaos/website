@@ -8,6 +8,10 @@ weight: 3
 
 Configure private container registries for chaos scenario images and control which groups can access them. By default, scenarios are pulled from the public Quay.io registry. Private registries enable air-gapped deployments and custom scenario images.
 
+{{% notice warning %}}
+Before running scenarios from a private registry, follow [Mirror Signed Images](../mirroring-signed-images/) to copy the scenario **and its Cosign signature**. Mirror any helper workload image too, and override the scenario's `IMAGE` parameter with its private registry URL. An image-only mirror is insufficient for signed scenario execution.
+{{% /notice %}}
+
 <div class="krkn-video">
   <iframe src="https://www.youtube.com/embed/B9F6rEFIACI" title="Registry Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -34,6 +38,8 @@ Each registry has a visibility setting that controls who can use it:
 ## Impact on Scenario Selection
 
 When a user selects a private registry during scenario execution, only the scenarios that have been mirrored to that registry will be available. Scenarios not present in the private registry will not appear in the selection list.
+
+The Operator requires a valid signature for each selected scenario image by default. For the commands and workload-image override, see [Mirror Signed Images](../mirroring-signed-images/).
 
 {{% notice info %}}
 **Air-Gapped Environments**: The operator uses OCI registry APIs for scenario metadata. A private registry configuration allows the platform to function completely in disconnected environments without external connectivity.

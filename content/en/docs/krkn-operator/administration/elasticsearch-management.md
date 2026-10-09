@@ -1,7 +1,7 @@
 ---
 title: Elasticsearch Management
 description: Configure saved Elasticsearch endpoints for platform-wide observability
-weight: 5
+weight: 6
 ---
 
 # Elasticsearch Management <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

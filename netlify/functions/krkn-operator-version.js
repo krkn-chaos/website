@@ -3,9 +3,12 @@ const cheerio = require('cheerio');
 
 const RELEASES_URL = 'https://github.com/krkn-chaos/krkn-operator/releases';
 const LATEST_RELEASE_URL = `${RELEASES_URL}/latest`;
+const MAX_RELEASE_PAGES = 20;
+const RELEASES_ORIGIN = 'https://github.com';
+const RELEASES_PATH = '/krkn-chaos/krkn-operator/releases';
 
 function isStableVersion(version) {
-  return /^v\d+\.\d+\.\d+$/.test(version);
+  return /^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/.test(version);
 }
 
 function response(version) {
@@ -21,23 +24,37 @@ function response(version) {
 }
 
 async function getLatestStableReleaseFromPage() {
-  const releases = await axios.get(RELEASES_URL, {
-    headers: { 'User-Agent': 'krkn-website-release-checker' }
-  });
-  const $ = cheerio.load(releases.data);
+  const visited = new Set();
+  let nextUrl = RELEASES_URL;
 
-  const releaseLinks = $('a[href*="/releases/tag/"]');
-  for (const element of releaseLinks.toArray()) {
-    const href = $(element).attr('href');
-    if (!href) continue;
+  for (let page = 0; page < MAX_RELEASE_PAGES && nextUrl; page += 1) {
+    const pageUrl = new URL(nextUrl, RELEASES_ORIGIN);
+    if (pageUrl.origin !== RELEASES_ORIGIN || pageUrl.pathname !== RELEASES_PATH || visited.has(pageUrl.href)) break;
+    visited.add(pageUrl.href);
 
-    const tag = decodeURIComponent(href.split('/releases/tag/')[1]);
-    const releaseContainer = $(element).closest('.Box');
-    const isPrerelease = /pre-release/i.test(releaseContainer.text());
-
-    if (!isPrerelease && isStableVersion(tag)) {
-      return tag;
+    const releases = await axios.get(pageUrl.href, {
+      headers: { 'User-Agent': 'krkn-website-release-checker' }
+    });
+    const $ = cheerio.load(releases.data);
+    const releaseLinks = $('a[href*="/releases/tag/"]');
+    for (const element of releaseLinks.toArray()) {
+      const href = $(element).attr('href');
+      if (!href) continue;
+      const releaseUrl = new URL(href, RELEASES_ORIGIN);
+      if (releaseUrl.origin !== RELEASES_ORIGIN) continue;
+      const match = releaseUrl.pathname.match(/^\/krkn-chaos\/krkn-operator\/releases\/tag\/([^/]+)$/);
+      if (!match) continue;
+      const tag = decodeURIComponent(match[1]);
+      const releaseContainer = $(element).closest('.Box');
+      const isPrerelease = /pre-release/i.test(releaseContainer.text());
+      if (!isPrerelease && isStableVersion(tag)) return tag;
     }
+
+    const next = $('a.next_page[href], a[rel="next"][href]').first().attr('href');
+    if (!next) break;
+    const nextPageUrl = new URL(next, pageUrl);
+    if (nextPageUrl.origin !== RELEASES_ORIGIN || nextPageUrl.pathname !== RELEASES_PATH) break;
+    nextUrl = nextPageUrl.href;
   }
 
   return null;

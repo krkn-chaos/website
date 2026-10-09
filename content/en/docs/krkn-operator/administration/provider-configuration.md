@@ -23,12 +23,12 @@ Configure target providers that integrate with external cluster management platf
 ![ACM Provider Configuration](/images/krkn-operator/provider-configuration-acm.png)
 
 {{% notice info %}}
-This section covers ACM/OCM cluster discovery. Cloud credentials are managed separately; see the section below.
+The provider configuration interface is extensible. New integration operators can add their configuration panels here. Cloud credentials are managed separately; see the section below.
 {{% /notice %}}
 
 ---
 
-## Cloud Provider Credentials
+## Cloud Provider Configuration
 
 Krkn Operator supports cloud scenarios that use saved provider credentials. Administrators create and manage these credentials through [Cloud Credentials Management](../cloud-credentials-management/). Users can select credentials their group is allowed to access.
 

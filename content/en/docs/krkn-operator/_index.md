@@ -116,7 +116,7 @@ Allows users to cancel running scenarios and to remove scenario runs and their e
 | Cloud Credentials | Save cloud provider credentials and inject them into scenario pods via SecretKeyRef |
 | Chaos Studio | Design reusable visual workflows with serial and parallel execution |
 | Multi-cluster Execution | Run experiments on one or more clusters simultaneously |
-| Resiliency Score | Measure application resilience using PromQL-based metrics |
+| Resiliency Score | Measure application resilience using PromQL-based metrics and compare results in the [Resiliency Score Report](usage/job-categories-resiliency-score-report/) |
 | Jobs | Monitor experiment progress and inspect execution logs |
 | Cluster Terminal | Explore managed clusters using read-only kubectl and oc commands |
 | File Management | Store reusable configuration files and PromQL queries |

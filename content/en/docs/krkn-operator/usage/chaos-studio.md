@@ -9,7 +9,7 @@ weight: 4
 A visual drag-and-drop editor for designing complex chaos workflows. Build graphs of scenarios that execute in series or parallel, and measure application resilience with the Resiliency Score.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/zlbXnIdRexc" title="Chaos Studio Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/qz0Hmitkxqs" title="Chaos Studio Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -45,13 +45,6 @@ A visual drag-and-drop editor for designing complex chaos workflows. Build graph
 2. The workflow is automatically saved to your workspace
 3. Saved workflows appear in the **Chaos Studio** workflow list
 4. You can edit saved workflows by selecting them from the list
-
-### Video Walkthrough
-
-<video controls style="width: 100%; max-width: 800px; margin: 1rem 0;">
-  <source src="/videos/workflow.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 ---
 

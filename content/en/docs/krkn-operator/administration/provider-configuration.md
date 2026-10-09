@@ -9,7 +9,7 @@ weight: 4
 Configure target providers that integrate with external cluster management platforms. The provider configuration interface adapts dynamically based on the selected provider.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/MPd9beJWrzY" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/oCCkchyGu9w" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -18,17 +18,17 @@ Configure target providers that integrate with external cluster management platf
 
 | Provider | Description |
 |----------|-------------|
-| **ACM / OCM** | Automatically discover and synchronize managed Kubernetes clusters through Red Hat Advanced Cluster Management or Open Cluster Management |
+| **ACM / OCM** | Discover and synchronize managed Kubernetes clusters through Red Hat Advanced Cluster Management or Open Cluster Management |
 
 ![ACM Provider Configuration](/images/krkn-operator/provider-configuration-acm.png)
 
 {{% notice info %}}
-The provider configuration interface is designed to be extensible. As new integration operators are developed, their configuration panels will appear automatically in this section.
+This section covers ACM/OCM cluster discovery. Cloud credentials are managed separately; see the section below.
 {{% /notice %}}
 
 ---
 
-## Cloud Provider Configuration
+## Cloud Provider Credentials
 
 Krkn Operator supports cloud scenarios that use saved provider credentials. Administrators create and manage these credentials through [Cloud Credentials Management](../cloud-credentials-management/). Users can select credentials their group is allowed to access.
 

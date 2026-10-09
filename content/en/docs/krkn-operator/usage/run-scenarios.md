@@ -6,10 +6,10 @@ weight: 3
 
 # Run Scenarios <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a>
 
-Execute a chaos scenario on one or more target clusters through a guided step-by-step wizard. All scenarios can run simultaneously across multiple clusters.
+Use the guided wizard to execute a chaos scenario on one or more target clusters in parallel.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/3_7ebCMAK3o" title="Run Scenarios Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/RwSCc1OBu9M" title="Run Scenarios Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

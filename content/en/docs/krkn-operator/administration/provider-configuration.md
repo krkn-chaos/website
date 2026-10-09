@@ -20,8 +20,6 @@ Configure target providers that integrate with external cluster management platf
 |----------|-------------|
 | **ACM / OCM** | Discover and synchronize managed Kubernetes clusters through Red Hat Advanced Cluster Management or Open Cluster Management |
 
-![ACM Provider Configuration](/images/krkn-operator/provider-configuration-acm.png)
-
 {{% notice info %}}
 The provider configuration interface is extensible. New integration operators can add their configuration panels here. Cloud credentials are managed separately; see the section below.
 {{% /notice %}}

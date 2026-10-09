@@ -18,8 +18,6 @@ Configure private container registries for chaos scenario images and control whi
 
 Configure a private registry by providing its connection settings (URL, credentials, TLS configuration).
 
-![Private Registry Configuration](/images/krkn-operator/private-registry.png)
-
 ---
 
 ## Visibility

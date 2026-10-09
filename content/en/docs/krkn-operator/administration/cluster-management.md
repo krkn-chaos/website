@@ -23,7 +23,3 @@ Register target Kubernetes clusters for chaos scenario execution. Krkn Operator 
 | **Delete Cluster** | Remove a cluster from the platform |
 
 Once registered, clusters become available for assignment to groups through [User Management](../user-management/).
-
-![Add New Target](/images/krkn-operator/add-new-target.png)
-
-![Target Clusters](/images/krkn-operator/targets.png)

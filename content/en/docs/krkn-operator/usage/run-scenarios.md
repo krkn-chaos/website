@@ -20,8 +20,6 @@ Use the guided wizard to execute a chaos scenario on one or more target clusters
 
 Choose one or more clusters to run the scenario on. All selected clusters execute the scenario simultaneously.
 
-![Select Target Clusters](/images/krkn-operator/select-target.png)
-
 ### 2. Select Registry
 
 Choose the container registry for scenario images:
@@ -31,13 +29,9 @@ Choose the container registry for scenario images:
 | **Public** (Quay.io) | Default registry with all community scenarios |
 | **Private** | Configured by admin, only mirrored scenarios available. Visibility controlled by group permissions |
 
-![Select Registry](/images/krkn-operator/select-registry.png)
-
 ### 3. Select Scenario
 
 Browse and select a chaos scenario from the chosen registry.
-
-![Select Scenario](/images/krkn-operator/select-scenario.png)
 
 ### 4. Configure Parameters
 
@@ -81,10 +75,6 @@ You can **select** from saved cloud credentials but **cannot create** new ones. 
 
 Selecting a credential stores only the credential **name** on the run (`cloudCredentialRef`). The console and API **strip** plaintext cloud environment variables from the payload so they cannot land in the Custom Resource. The operator injects secret values into the scenario pod via `SecretKeyRef`.
 
-![Mandatory Parameters](/images/krkn-operator/scenario-mandatory.png)
-![Optional Parameters](/images/krkn-operator/scenario-optional.png)
-![Global Options](/images/krkn-operator/scenario-global.png)
-
 ### 5. Mount Files
 
 Optionally attach configuration files previously uploaded through [File Management](../file-management/). Files are available via a select dropdown.
@@ -92,8 +82,6 @@ Optionally attach configuration files previously uploaded through [File Manageme
 ### 6. Preview
 
 Review a summary of all configured parameters before execution.
-
-![Preview](/images/krkn-operator/scenario-preview.png)
 
 ### 7. Run
 

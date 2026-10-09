@@ -23,13 +23,24 @@ Configure target providers that integrate with external cluster management platf
 ![ACM Provider Configuration](/images/krkn-operator/provider-configuration-acm.png)
 
 {{% notice info %}}
-This section covers ACM/OCM cluster discovery. Cloud credentials are managed separately; see the section below.
+The provider configuration interface is extensible. New integration operators can add their configuration panels here. Cloud credentials are managed separately; see the section below.
 {{% /notice %}}
 
 ---
 
-## Cloud Provider Credentials
+## Cloud Provider Configuration
 
-Some chaos scenarios interact with cloud infrastructure and need provider credentials to perform node-level operations. Administrators manage saved credentials on the [Cloud Credentials Management](../cloud-credentials-management/) page.
+Krkn Operator supports cloud scenarios that use saved provider credentials. Administrators create and manage these credentials through [Cloud Credentials Management](../cloud-credentials-management/). Users can select credentials their group is allowed to access.
 
-Users can select an authorized credential when configuring a [scenario](../../usage/run-scenarios/#load-cloud-credential) or a node in [Chaos Studio](../../usage/chaos-studio/#cloud-credentials-in-workflows). The Operator injects the corresponding secret values into the scenario pod; credentials are not stored as plaintext in the run configuration.
+The following scenarios interact with provider infrastructure and need the corresponding cloud or bare-metal credentials:
+
+| Scenario | Why Cloud Provider Is Required |
+|----------|-------------------------------|
+| **node-scenarios** | Stops, terminates, or reboots nodes via the cloud provider API |
+| **node-scenarios-bm** | Controls bare metal nodes via BMC/IPMI credentials |
+| **power-outages** | Shuts down and restarts the entire cluster through the cloud provider |
+| **zone-outages** | Simulates availability zone failures by manipulating cloud network resources |
+
+{{% notice info %}}
+Cloud credentials are stored as Kubernetes Secrets and injected into scenario pods through `SecretKeyRef`. Users must have access to the saved credential through their group. For setup and provider-specific fields, see [Cloud Credentials Management](../cloud-credentials-management/).
+{{% /notice %}}

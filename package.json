@@ -24,7 +24,8 @@
     "postbuild:production": "npm run _check:links",
     "serve": "npm run _serve",
     "test": "npm run check:links",
-    "dev": "hugo server --buildDrafts --buildFuture"
+    "dev": "hugo server --buildDrafts --buildFuture",
+    "test:krkn-operator-version": "node --test tests/krkn-operator-version.test.js"
   },
   "dependencies": {
     "axios": "^1.6.2",

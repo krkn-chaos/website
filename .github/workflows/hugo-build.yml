@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: "20"
       - run: npm install
+      - name: Test stable Operator version lookup
+        run: npm run test:krkn-operator-version
       - name: Build site
         run: npm run build:production
         env:

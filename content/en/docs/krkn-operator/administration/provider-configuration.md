@@ -9,7 +9,7 @@ weight: 4
 Configure target providers that integrate with external cluster management platforms. The provider configuration interface adapts dynamically based on the selected provider.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/MPd9beJWrzY" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/oCCkchyGu9w" title="Provider Configuration Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -18,27 +18,18 @@ Configure target providers that integrate with external cluster management platf
 
 | Provider | Description |
 |----------|-------------|
-| **ACM / OCM** | Automatically discover and synchronize managed Kubernetes clusters through Red Hat Advanced Cluster Management or Open Cluster Management |
+| **ACM / OCM** | Discover and synchronize managed Kubernetes clusters through Red Hat Advanced Cluster Management or Open Cluster Management |
 
 ![ACM Provider Configuration](/images/krkn-operator/provider-configuration-acm.png)
 
 {{% notice info %}}
-The provider configuration interface is designed to be extensible. As new integration operators are developed, their configuration panels will appear automatically in this section.
+This section covers ACM/OCM cluster discovery. Cloud credentials are managed separately; see the section below.
 {{% /notice %}}
 
 ---
 
-## Cloud Provider Configuration
+## Cloud Provider Credentials
 
-Some chaos scenarios interact directly with cloud infrastructure and require cloud provider credentials (AWS, GCP, Azure, OpenStack, etc.) to perform node-level operations. The following scenarios are not currently available in Krkn Operator until cloud provider configuration support is added:
+Some chaos scenarios interact with cloud infrastructure and need provider credentials to perform node-level operations. Administrators manage saved credentials on the [Cloud Credentials Management](../cloud-credentials-management/) page.
 
-| Scenario | Why Cloud Provider Is Required |
-|----------|-------------------------------|
-| **node-scenarios** | Stops, terminates, or reboots nodes via the cloud provider API |
-| **node-scenarios-bm** | Controls bare metal nodes via BMC/IPMI credentials |
-| **power-outages** | Shuts down and restarts the entire cluster through the cloud provider |
-| **zone-outages** | Simulates availability zone failures by manipulating cloud network resources |
-
-{{% notice warning %}}
-Cloud provider configuration is [not yet supported](https://github.com/krkn-chaos/krkn-operator/issues/43) in Krkn Operator. The scenarios above cannot be executed until cloud provider credential management is introduced. This page will be updated when that support becomes available.
-{{% /notice %}}
+Users can select an authorized credential when configuring a [scenario](../../usage/run-scenarios/#load-cloud-credential) or a node in [Chaos Studio](../../usage/chaos-studio/#cloud-credentials-in-workflows). The Operator injects the corresponding secret values into the scenario pod; credentials are not stored as plaintext in the run configuration.

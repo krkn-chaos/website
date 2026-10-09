@@ -6,10 +6,10 @@ weight: 1
 
 # Jobs <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a>
 
-The Jobs list is the home screen of the platform. It displays all scenario executions for your group, with real-time status updates and access to logs and results.
+The Jobs page is the platform home screen. It lists scenario executions available to your group, with status updates and access to logs and results.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/BFLJtRIgoU4" title="Jobs & Execution Monitoring Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/cgdOzdkMsG0" title="Jobs and Execution Monitoring Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

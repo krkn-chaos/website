@@ -10,9 +10,36 @@ custom_js: ["/js/krkn-operator-version.js"]
 
 Deploy Krkn Operator on Kubernetes or OpenShift using Helm.
 
-<div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/3pIL-afzIN0" title="Installation Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## Upgrade from 1.0.x to 1.1.1
+
+Upgrade an existing Helm release in place. The 1.1.x chart includes hooks that preserve existing custom resources while the operator updates their Custom Resource Definitions (CRDs) and migrates legacy run fields. Upgrading from 1.0.x to 1.1.x with `helm upgrade` does not require deleting CRDs or recreating runs, and does not lose existing run data.
+
+1. Confirm the release name and namespace, and save the current Helm values for reference:
+
+   ```bash
+   helm list --namespace krkn-operator-system
+   helm get values krkn-operator --namespace krkn-operator-system -o yaml > krkn-operator-values-backup.yaml
+   ```
+
+2. Upgrade the existing release to chart version 1.1.1, retaining its configured values:
+
+   ```bash
+   helm upgrade krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
+     --version 1.1.1 \
+     --namespace krkn-operator-system \
+     --reuse-values \
+     --wait \
+     --timeout 10m
+   ```
+
+3. Check the release and operator pods:
+
+   ```bash
+   helm status krkn-operator --namespace krkn-operator-system
+   kubectl get pods -n krkn-operator-system -l app.kubernetes.io/name=krkn-operator
+   ```
+
+During the upgrade, a pre-upgrade hook saves legacy run fields and pauses run reconciliation. After the new operator starts, a post-upgrade hook updates the CRDs, completes the run migration, and resumes reconciliation. Helm does not upgrade files in a chart's `crds/` directory by itself; the operator's upgrade hooks handle that step. If the migration hook fails, inspect its logs and retry the same `helm upgrade` command. The migration can resume from the saved state.
 
 ---
 
@@ -130,15 +157,6 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 ```
 
 ---
-
-## Upgrade
-
-```bash
-helm upgrade krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
-  --version <VERSION> \
-  --namespace krkn-operator-system \
-  -f values.yaml
-```
 
 ## Uninstall
 

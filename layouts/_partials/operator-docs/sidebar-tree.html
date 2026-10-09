@@ -1,0 +1,42 @@
+{{- $context := .context -}}
+{{- $page := .page -}}
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  {{ if not $page.Site.Params.ui.sidebar_search_disable }}
+  <form class="td-sidebar__search d-flex align-items-center">
+    {{ partial "search-input.html" $page }}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation"></button>
+  </form>
+  {{ end }}
+  <nav class="td-sidebar-nav collapse{{ if $page.Site.Params.ui.sidebar_menu_foldable }} foldable-nav{{ end }}" id="td-section-nav" aria-label="{{ $context.versionTag }} Operator documentation">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      {{ template "operator-docs-nav-section" (dict "page" $page "section" $context.releaseRoot "ulNr" 0 "ulShow" 2) }}
+    </ul>
+  </nav>
+</div>
+
+{{ define "operator-docs-nav-section" -}}
+  {{- $section := .section -}}
+  {{- $page := .page -}}
+  {{- $depth := .ulNr -}}
+  {{- $ulShow := .ulShow -}}
+  {{- $items := where (union $section.Pages $section.Sections).ByWeight ".Params.toc_hide" "!=" true -}}
+  {{- $hasChildren := gt (len $items) 0 -}}
+  {{- $active := eq $section $page -}}
+  {{- $activePath := or $active ($page.IsDescendant $section) -}}
+  {{- $show := or (lt $depth $ulShow) $activePath (not $page.Site.Params.ui.sidebar_menu_compact) -}}
+  {{- $mid := printf "operator-docs-%s" ($section.RelPermalink | anchorize) -}}
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section{{ if $hasChildren }} with-child{{ else }} without-child{{ end }}{{ if $activePath }} active-path{{ end }}{{ if and (not $show) $page.Site.Params.ui.sidebar_menu_foldable }} collapse{{ end }}" id="{{ $mid }}-li">
+    {{- if and $page.Site.Params.ui.sidebar_menu_foldable (ge $depth 1) -}}
+      <input type="checkbox" id="{{ $mid }}-check"{{ if $activePath }} checked{{ end }}>
+      <label for="{{ $mid }}-check"><a href="{{ $section.RelPermalink }}" class="align-left ps-0 td-sidebar-link{{ if $active }} active{{ end }}" id="{{ $mid }}"><span>{{ $section.LinkTitle }}</span></a></label>
+    {{- else -}}
+      <a href="{{ $section.RelPermalink }}" class="align-left ps-0 td-sidebar-link{{ if $active }} active{{ end }}" id="{{ $mid }}"><span>{{ $section.LinkTitle }}</span></a>
+    {{- end }}
+    {{- if $hasChildren }}
+      {{- $nextDepth := add $depth 1 }}
+      <ul class="ul-{{ $nextDepth }}{{ if gt $nextDepth 1 }} foldable{{ end }}">
+        {{- range $items }}{{ template "operator-docs-nav-section" (dict "page" $page "section" . "ulNr" $nextDepth "ulShow" $ulShow) }}{{ end -}}
+      </ul>
+    {{- end }}
+  </li>
+{{- end }}

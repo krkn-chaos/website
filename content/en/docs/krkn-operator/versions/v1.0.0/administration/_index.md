@@ -1,0 +1,52 @@
+---
+title: Administration
+description: Platform administration for Krkn Operator
+weight: 2
+operator_docs_version: v1.0.0
+operator_docs_page_key: administration
+---
+
+# Administration <a href="/docs/krkn-operator/versions/v1.0.0/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
+
+Administrators configure the platform infrastructure that users operate on. This includes registering clusters, managing users and groups, setting up private registries, cloud credentials, observability endpoints and target providers.
+
+---
+
+## Permission Model
+
+The Admin creates **groups** that define what users can do on the platform. Each group specifies:
+
+- Which **clusters** are accessible
+- Which **permissions** are granted (View, Run, Cancel)
+- Which **registries** and **cloud credentials** are visible
+
+Users inherit all permissions from their assigned group.
+
+```text
+Admin creates Group
+      │
+      ├── Assigns Clusters (target-1, target-2, ...)
+      ├── Assigns Permissions (View, Run, Cancel)
+      ├── Assigns Registry Visibility
+      └── Assigns Cloud Credential Visibility
+            │
+            └── Users in this group inherit everything
+```
+
+{{% notice warning %}}
+Every user **must** belong to a group. A user without a group has no access to the platform.
+{{% /notice %}}
+
+---
+
+## Admin Features
+
+| Feature | Description |
+|---------|-------------|
+| [Cluster Management](cluster-management/) | Register and remove target Kubernetes clusters |
+| [User Management](user-management/) | Create groups and users, assign permissions |
+| [Registry Management](registry-management/) | Configure private container registries and visibility |
+| [Provider Configuration](provider-configuration/) | Configure target providers (ACM integration) |
+| [Elasticsearch Management](elasticsearch-management/) | Configure saved Elasticsearch endpoints for observability |
+| [Cloud Credentials Management](cloud-credentials-management/) | Configure saved cloud provider credentials for scenario injection |
+| [Backup and Restore](backup-restore/) | Back up and restore operator configuration state |

@@ -1,0 +1,10 @@
+{{- $page := . -}}
+{{- $context := partial "operator-docs/context.html" $page -}}
+{{- if $context.enabled -}}
+  <h1 class="title">{{ $page.Title }}</h1>
+  {{- with $page.Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end -}}
+  {{- $capturedAt := time.AsTime $context.release.captured_at -}}
+  <p class="krkn-operator-docs-print-provenance">Krkn Operator documentation {{ $context.versionTag }}; captured {{ $capturedAt.Format "January 2, 2006" }} from website commit {{ $context.release.website_commit }}.</p>
+{{- else -}}
+  {{- partial "default-print/page-heading.html" $page -}}
+{{- end -}}

@@ -9,7 +9,7 @@
   "scripts": {
     "_build": "npm run _hugo-dev --",
     "_check:links": "node scripts/check-links.js",
-    "_hugo": "hugo --cleanDestinationDir",
+    "_hugo": "node scripts/hugo-with-operator-docs.js --cleanDestinationDir",
     "_hugo-dev": "npm run _hugo -- -e dev -DFE",
     "_local": "npx cross-env HUGO_MODULE_WORKSPACE=docsy.work",
     "_serve": "npm run _hugo-dev -- --minify serve --renderToMemory",
@@ -18,13 +18,17 @@
     "_build:index": "node scripts/build-search-index.js",
     "build": "npm run _build -- ",
     "check:links": "npm run _check:links",
+    "check:operator-docs": "node scripts/check-operator-docs.js",
+    "test:operator-docs": "node --test scripts/tests/*.test.js",
+    "test:operator-docs:site": "node --test scripts/tests/operator-docs-site.js",
+    "preview:operator-source": "cross-env OPERATOR_DOCS_AUTHORING_PREVIEW=1 node scripts/hugo-with-operator-docs.js server --buildDrafts --buildFuture",
     "clean": "rm -Rf public/* resources",
     "local": "npm run _local -- npm run",
     "postbuild:preview": "npm run _check:links",
     "postbuild:production": "npm run _check:links",
     "serve": "npm run _serve",
     "test": "npm run check:links",
-    "dev": "hugo server --buildDrafts --buildFuture"
+    "dev": "node scripts/hugo-with-operator-docs.js server --buildDrafts --buildFuture"
   },
   "dependencies": {
     "axios": "^1.6.2",

@@ -1,0 +1,84 @@
+{{- $page := . -}}
+{{- $defaultTag := .Site.Params.operator_docs_default_tag -}}
+{{- $printTag := $defaultTag -}}
+{{- $root := .CurrentSection -}}
+{{- $defaultRoot := false -}}
+{{- range .Site.Pages -}}
+  {{- if and (eq .Params.operator_docs_version $defaultTag) (eq (.Params.operator_docs_page_key | default "") "") -}}
+    {{- $defaultRoot = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (strings.HasPrefix $root.RelPermalink "/docs/krkn-operator/versions/") $root.Params.operator_docs_version -}}
+  {{- $printTag = $root.Params.operator_docs_version -}}
+{{- else if and (eq $root.RelPermalink "/docs/krkn-operator/") $defaultRoot -}}
+  {{- $root = $defaultRoot -}}
+{{- end -}}
+<div class="td-content">
+  <div class="pageinfo pageinfo-primary d-print-none">
+    <p>{{ T "print_printable_section" }} <a href="#" onclick="print();return false;">{{ T "print_click_to_print" }}</a>.</p>
+    <p><a href="{{ $page.RelPermalink }}">{{ T "print_show_regular" }}</a>.</p>
+  </div>
+  {{ partial "print/page-heading.html" $root }}
+  {{ if not ($root.Param "print.disable_toc") }}
+    <ul>{{ template "operator-docs-print-toc" (dict "section" $root "psid" "" "printTag" $printTag "defaultRoot" $defaultRoot) }}</ul>
+  {{ end }}
+  <div class="content">{{ $root.Content }}</div>
+</div>
+{{ template "operator-docs-print-content" (dict "section" $root "psid" "" "printTag" $printTag "defaultRoot" $defaultRoot) }}
+
+{{ define "operator-docs-print-toc" -}}
+  {{- $section := .section -}}
+  {{- $sectionID := .psid -}}
+  {{- $counter := 1 -}}
+  {{- range (union $section.Pages $section.Sections).ByWeight -}}
+    {{- $child := . -}}
+    {{- if ne $child.Params.no_print true -}}
+      {{- if and $child.Params.operator_docs_redirect (eq $child.RelPermalink "/docs/krkn-operator/") $.defaultRoot -}}
+        {{- $id := printf "%s%d" $sectionID $counter -}}
+        {{- $counter = add $counter 1 -}}
+        {{- partial "print/toc-li.html" (dict "sid" $id "Page" $.defaultRoot) -}}
+        {{- template "operator-docs-print-toc" (dict "section" $.defaultRoot "psid" (printf "%s." $id) "printTag" $.printTag "defaultRoot" $.defaultRoot) -}}
+      {{- else if not $child.Params.operator_docs_redirect -}}
+        {{- if or (not $child.Params.operator_docs_version) (eq $child.Params.operator_docs_version $.printTag) -}}
+          {{- $id := printf "%s%d" $sectionID $counter -}}
+          {{- $counter = add $counter 1 -}}
+          {{- partial "print/toc-li.html" (dict "sid" $id "Page" $child) -}}
+          {{- if $child.IsSection -}}<ul>{{ template "operator-docs-print-toc" (dict "section" $child "psid" (printf "%s." $id) "printTag" $.printTag "defaultRoot" $.defaultRoot) }}</ul>{{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end }}
+
+{{ define "operator-docs-print-content" -}}
+  {{- $section := .section -}}
+  {{- $sectionID := .psid -}}
+  {{- $counter := 1 -}}
+  {{- $breakOnWordCount := default 50 ($section.Site.Param "print.section_break_wordcount") -}}
+  {{- $doPageBreak := gt (countwords $section.Content) $breakOnWordCount -}}
+  {{- range (union $section.Pages $section.Sections).ByWeight -}}
+    {{- $child := . -}}
+    {{- if ne $child.Params.no_print true -}}
+      {{- if and $child.Params.operator_docs_redirect (eq $child.RelPermalink "/docs/krkn-operator/") $.defaultRoot -}}
+        {{- $id := printf "%s%d" $sectionID $counter -}}
+        {{- $counter = add $counter 1 -}}
+        {{- $operatorContext := partial "operator-docs/context.html" $.defaultRoot -}}
+        {{- if $operatorContext.enabled -}}
+          {{- $capturedAt := time.AsTime $operatorContext.release.captured_at -}}
+          <p class="krkn-operator-docs-print-provenance">Krkn Operator documentation {{ $operatorContext.versionTag }}; captured {{ $capturedAt.Format "January 2, 2006" }} from website commit {{ $operatorContext.release.website_commit }}.</p>
+        {{- end -}}
+        {{- partial "print/content.html" (dict "Page" $.defaultRoot "PageNum" $id "DoPageBreak" $doPageBreak) -}}
+        {{- template "operator-docs-print-content" (dict "section" $.defaultRoot "psid" (printf "%s." $id) "printTag" $.printTag "defaultRoot" $.defaultRoot) -}}
+        {{- $doPageBreak = true -}}
+      {{- else if not $child.Params.operator_docs_redirect -}}
+        {{- if or (not $child.Params.operator_docs_version) (eq $child.Params.operator_docs_version $.printTag) -}}
+          {{- $id := printf "%s%d" $sectionID $counter -}}
+          {{- $counter = add $counter 1 -}}
+          {{- partial "print/content.html" (dict "Page" $child "PageNum" $id "DoPageBreak" $doPageBreak) -}}
+          {{- if $child.IsSection -}}{{- template "operator-docs-print-content" (dict "section" $child "psid" (printf "%s." $id) "printTag" $.printTag "defaultRoot" $.defaultRoot) -}}{{- end -}}
+          {{- $doPageBreak = true -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end }}

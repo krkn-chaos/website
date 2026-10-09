@@ -1,0 +1,12 @@
+schema_version: 1
+adoption_boundary_published_at: 2026-09-26T13:03:34Z
+releases:
+  - tag: v1.0.0
+    github_release_id: 371909258
+    published_at: 2026-08-17T19:37:57Z
+    operator_commit: de12bfea87fcb5927ce6945e5fbe6e4772c31a5e
+    website_commit: 7c35229ddbec37d65ef6a9c53945443b6fa8bf6e
+    helm_chart_version: 1.0.0
+    chart_reference: oci://quay.io/krkn-chaos/charts/krkn-operator
+    captured_at: 2026-10-09T15:36:27Z
+    snapshot_record: operator-docs/snapshots/v1.0.0.json

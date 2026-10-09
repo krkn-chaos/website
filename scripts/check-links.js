@@ -30,6 +30,29 @@ function bin(name) {
   return file;
 }
 
+function hugoWrapper() {
+  const file = path.join(ROOT, 'scripts', 'hugo-with-operator-docs.js');
+  if (!fs.existsSync(file)) throw new Error('Operator-aware Hugo wrapper is missing');
+  return file;
+}
+
+function hugoServerArgs({ host = HOST, port = PORT } = {}) {
+  const base = `http://${host}:${port}`;
+  return [
+    hugoWrapper(),
+    'server',
+    '--bind',
+    host,
+    '--port',
+    String(port),
+    '--baseURL',
+    `${base}/`,
+    '--disableFastRender',
+    '--watch=false',
+    '--renderToMemory',
+  ];
+}
+
 function waitForServer(url) {
   const start = Date.now();
   return new Promise((resolve, reject) => {
@@ -186,18 +209,8 @@ async function main() {
   console.log(`   ${BASE}  soft-fail=${SOFT_FAIL}`);
 
   const hugo = spawn(
-    bin('hugo'),
-    [
-      'server',
-      '--bind',
-      HOST,
-      '--port',
-      String(PORT),
-      '--baseURL',
-      `${BASE}/`,
-      '--disableFastRender',
-      '--watch=false',
-    ],
+    process.execPath,
+    hugoServerArgs({ host: HOST, port: PORT }),
     {
       cwd: ROOT,
       stdio: ['ignore', 'pipe', 'pipe'],
@@ -237,4 +250,8 @@ async function main() {
   process.exit(exitCode);
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = { hugoServerArgs };

@@ -1,0 +1,5 @@
+# Used only by `npm run preview:operator-source`.
+# The base contentDir remains content/en so Operator authors see the moving source tree.
+contentDir: content/en
+params:
+  operator_docs_authoring_preview: true

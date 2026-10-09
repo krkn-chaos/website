@@ -30,7 +30,9 @@ The provider configuration interface is designed to be extensible. As new integr
 
 ## Cloud Provider Configuration
 
-Some chaos scenarios interact directly with cloud infrastructure and require cloud provider credentials (AWS, GCP, Azure, OpenStack, etc.) to perform node-level operations. The following scenarios are not currently available in Krkn Operator until cloud provider configuration support is added:
+Krkn Operator supports cloud scenarios that use saved provider credentials. Administrators create and manage these credentials through [Cloud Credentials Management](../cloud-credentials-management/). Users can select credentials their group is allowed to access.
+
+The following scenarios interact with provider infrastructure and need the corresponding cloud or bare-metal credentials:
 
 | Scenario | Why Cloud Provider Is Required |
 |----------|-------------------------------|
@@ -39,6 +41,6 @@ Some chaos scenarios interact directly with cloud infrastructure and require clo
 | **power-outages** | Shuts down and restarts the entire cluster through the cloud provider |
 | **zone-outages** | Simulates availability zone failures by manipulating cloud network resources |
 
-{{% notice warning %}}
-Cloud provider configuration is [not yet supported](https://github.com/krkn-chaos/krkn-operator/issues/43) in Krkn Operator. The scenarios above cannot be executed until cloud provider credential management is introduced. This page will be updated when that support becomes available.
+{{% notice info %}}
+Cloud credentials are stored as Kubernetes Secrets and injected into scenario pods through `SecretKeyRef`. Users must have access to the saved credential through their group. For setup and provider-specific fields, see [Cloud Credentials Management](../cloud-credentials-management/).
 {{% /notice %}}

@@ -1,0 +1,73 @@
+name: Prepare Operator release documentation metadata
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      source_pull_number:
+        description: Merged Website docs/operator-source/vMAJOR.MINOR.PATCH PR to retry
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: operator-docs-release-preparation
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'docs/operator-source/'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Mint documentation automation token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.DOC_SYNC_BOT_APP_ID }}
+          private-key: ${{ secrets.DOC_SYNC_BOT_APP_PRIVATE_KEY }}
+          owner: krkn-chaos
+          repositories: |
+            website
+            krkn-operator
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Checkout trusted Website main
+        uses: actions/checkout@v4
+        with:
+          repository: krkn-chaos/website
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: azure/setup-helm@v4
+      - run: npm install
+      - name: Prepare metadata PR from authoritative merged source
+        id: metadata
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          SOURCE_PULL_NUMBER: ${{ github.event.pull_request.number || inputs.source_pull_number }}
+        run: node scripts/operator-docs-metadata-pr.js
+      - name: Capture an already published initial release
+        if: steps.metadata.outputs.mode == 'bootstrap' || steps.metadata.outputs.mode == 'snapshot'
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          OPERATOR_TAG: ${{ steps.metadata.outputs.operator_tag }}
+          WEBSITE_COMMIT: ${{ steps.metadata.outputs.website_commit }}
+          CHART_VERSION: ${{ steps.metadata.outputs.chart_version }}
+          CAPTURE_MODE: ${{ steps.metadata.outputs.mode }}
+          HUGO_CACHEDIR: /tmp/hugo-cache
+        run: |
+          set -euo pipefail
+          args=(--tag "$OPERATOR_TAG")
+          if [[ "$CAPTURE_MODE" == bootstrap ]]; then
+            args+=(--bootstrap-website-commit "$WEBSITE_COMMIT" --bootstrap-chart-version "$CHART_VERSION")
+          fi
+          node scripts/operator-docs-release-pr.js "${args[@]}"

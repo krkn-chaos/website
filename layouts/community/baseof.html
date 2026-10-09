@@ -18,6 +18,7 @@
       </div>
       {{ partial "footer.html" . }}
     </div>
-    {{ partialCached "scripts.html" . }}
+    {{/* scripts.html runs page-specific hooks such as custom_js. */}}
+    {{ partial "scripts.html" . }}
   </body>
 </html>

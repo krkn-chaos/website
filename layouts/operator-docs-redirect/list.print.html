@@ -1,0 +1,7 @@
+<h1>{{ .Title }}</h1>
+{{ if .Params.operator_docs_fallback }}
+  <p>This section is not available in the latest Operator release.</p>
+{{ else }}
+  <p>This section redirects to the latest Operator release.</p>
+{{ end }}
+<p><a href="{{ .Params.operator_docs_target }}">{{ .Params.operator_docs_target }}</a></p>

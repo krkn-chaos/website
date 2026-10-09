@@ -1,4 +1,13 @@
-{{- $releases := .Site.Data.roadmap.releases -}}
+{{- $context := partial "operator-docs/context.html" .Page -}}
+{{- $roadmap := .Site.Data.roadmap -}}
+{{- if $context.enabled -}}
+  {{- $releaseData := index .Site.Data.operator_docs.releases $context.versionTag -}}
+  {{- if not $releaseData.roadmap -}}
+    {{- errorf "Operator roadmap snapshot is missing for %s" $context.versionTag -}}
+  {{- end -}}
+  {{- $roadmap = $releaseData.roadmap -}}
+{{- end -}}
+{{- $releases := $roadmap.releases -}}
 <div class="krkn-roadmap">
   {{- range $i, $release := $releases -}}
   <div class="krkn-roadmap__release krkn-roadmap__release--{{ $release.status }}">

@@ -1,0 +1,21 @@
+{{- $context := .context -}}
+{{- $pageKey := .pageKey -}}
+{{- $targets := dict -}}
+{{- $releases := $context.releaseRoot.Site.Params.operator_docs_release_records | default $context.releaseRoot.Site.Data.operator_doc_versions.releases -}}
+{{- range $releases -}}
+  {{- $tag := .tag -}}
+  {{- $target := false -}}
+  {{- $overview := false -}}
+  {{- range $context.releaseRoot.Site.Pages -}}
+    {{- if eq .Params.operator_docs_version $tag -}}
+      {{- if eq (.Params.operator_docs_page_key | default "") "" -}}{{- $overview = . -}}{{- end -}}
+      {{- if eq (.Params.operator_docs_page_key | default "") $pageKey -}}{{- $target = . -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $fallback := not $target -}}
+  {{- if $fallback -}}{{- $target = $overview -}}{{- end -}}
+  {{- if $target -}}
+    {{- $targets = merge $targets (dict $tag (dict "page" $target "href" $target.RelPermalink "fallback" $fallback)) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $targets -}}

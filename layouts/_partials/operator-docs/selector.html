@@ -1,0 +1,35 @@
+{{- $context := . -}}
+{{- $targets := partial "operator-docs/targets.html" (dict "context" $context "pageKey" $context.pageKey) -}}
+<section class="krkn-operator-docs-version-picker" aria-labelledby="operator-docs-version-label">
+  <label id="operator-docs-version-label" for="operator-docs-version">Operator documentation version</label>
+  <div class="krkn-operator-docs-version-picker__controls">
+    <select id="operator-docs-version" data-operator-docs-version>
+      {{- $releases := $context.releaseRoot.Site.Params.operator_docs_release_records | default $context.releaseRoot.Site.Data.operator_doc_versions.releases -}}
+      {{- range $context.releaseRoot.Site.Params.operator_docs_release_tags -}}
+        {{- $releaseRows := where $releases "tag" . -}}
+        {{- $release := index $releaseRows 0 -}}
+        {{- $target := index $targets $release.tag -}}
+        {{- with $target -}}
+        <option value="{{ .href }}"{{ if eq $context.versionTag $release.tag }} selected{{ end }}>
+          {{- $release.tag }}{{ if eq $release.tag $context.defaultRelease.tag }} (Latest){{ end }}{{ if .fallback }} (overview){{ end }}
+        </option>
+        {{- end -}}
+      {{- end -}}
+    </select>
+    <button class="krkn-operator-docs-version-picker__go" type="button" data-operator-docs-version-go>Go</button>
+  </div>
+  <a class="krkn-operator-docs-version-picker__home" href="/docs/">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    <span>Back to all Krkn docs</span>
+  </a>
+  <noscript>
+    <nav aria-label="Operator documentation versions">
+      {{- range $context.releaseRoot.Site.Params.operator_docs_release_tags -}}
+        {{- $releaseRows := where $releases "tag" . -}}
+        {{- $release := index $releaseRows 0 -}}
+        {{- $target := index $targets $release.tag -}}
+        {{- with $target }}<a href="{{ .href }}">{{ $release.tag }}{{ if .fallback }} (overview){{ end }}</a>{{ end -}}
+      {{- end -}}
+    </nav>
+  </noscript>
+</section>

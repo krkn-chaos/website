@@ -24,6 +24,12 @@ jobs:
         with:
           node-version: "20"
       - run: npm install
+      - name: Check Operator documentation integrity
+        run: npm run check:operator-docs
+      - name: Test Operator documentation helpers
+        run: npm run test:operator-docs
+      - name: Test generated Operator documentation site
+        run: npm run test:operator-docs:site
       - name: Build site
         run: npm run build:production
         env:

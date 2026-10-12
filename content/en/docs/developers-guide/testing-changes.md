@@ -141,17 +141,17 @@ python -m coverage report
 
 **Run specific test file:**
 ```bash
-python -m unittest tests.test_kubevirt_vm_outage -v
+python -m unittest tests.test_vmi_outage -v
 ```
 
 **Run specific test class:**
 ```bash
-python -m unittest tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin -v
+python -m unittest tests.test_vmi_outage.TestVmiOutageScenarioPlugin -v
 ```
 
 **Run specific test method:**
 ```bash
-python -m unittest tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin.test_successful_injection_and_recovery -v
+python -m unittest tests.test_vmi_outage.TestVmiOutageScenarioPlugin.test_successful_injection_and_recovery -v
 ```
 
 #### Viewing Coverage Results
@@ -177,7 +177,7 @@ Example output:
 ```text
 Name                                                          Stmts   Miss  Cover
 ---------------------------------------------------------------------------------
-krkn/scenario_plugins/kubevirt_vm_outage/...                   215     12    94%
+krkn/scenario_plugins/vmi_outage/...                   215     12    94%
 krkn/scenario_plugins/node_actions/ibmcloud_node_scenarios.py  185      8    96%
 ---------------------------------------------------------------------------------
 TOTAL                                                          2847    156    95%
@@ -193,11 +193,11 @@ Unit test output shows:
 
 Example output:
 ```text
-test_successful_injection_and_recovery (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+test_successful_injection_and_recovery (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
 Test successful deletion and recovery of a VMI using detailed mocking ... ok
-test_injection_failure (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+test_injection_failure (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
 Test failure during VMI deletion ... ok
-test_validation_failure (tests.test_kubevirt_vm_outage.TestKubevirtVmOutageScenarioPlugin)
+test_validation_failure (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
 Test validation failure when KubeVirt is not installed ... ok
 
 ----------------------------------------------------------------------

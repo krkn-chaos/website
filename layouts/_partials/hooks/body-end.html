@@ -1,5 +1,11 @@
 <!-- Include Krkn Documentation Chatbot -->
-{{ partial "chatbot.html" . }}
+{{- $operatorDocs := partial "operator-docs/context.html" . -}}
+{{- if not $operatorDocs.isOlder }}
+  {{ partial "chatbot.html" . }}
+{{- end }}
+{{- if $operatorDocs.enabled }}
+<script src="{{ "js/operator-docs-selector.js" | relURL }}" defer></script>
+{{- end }}
 
 <!-- Tab activation from URL hash + hash update on tab click -->
 <script>

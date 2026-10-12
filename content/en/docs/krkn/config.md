@@ -109,6 +109,12 @@ See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl
 
 **alert_profile**: Path or URL to alert profile with the prometheus queries, see a sample of an [alerts file](https://github.com/tsebastiani/krkn/blob/main/config/alerts.yaml) of some preconfigured alerts we have set up and more documentation around it [here](SLOs_validation.md#alert-profile)
 
+**run_during**: Controls when Prometheus alert health checks run. Use `pre`, `during`, `post`, or a list of phases such as `["pre", "during", "post"]`. During checks run once after chaos and `wait_duration` over the complete chaos window; they are not interval-polled.
+
+**exit_on_failure**: True or False; when enabled, failed `critical` and `error` alert evaluations fail the run. `warning` and `info` evaluations are non-blocking.
+
+**only_failures**: True or False; when True, only failed alert evaluations are included in telemetry and reports.
+
 **metrics_profile**: Path or URL to metrics profile with the prometheus queries to capture certain metrics on, see more details around [metrics](SLOs_validation.md#metrics-profile) on its documentation page
 
 **check_critical_alerts**: True or False; When enabled will check prometheus for critical alerts firing post chaos. Read more about this functionality in [SLOs validation](SLOs_validation.md#checking-for-critical-alerts-post-chaos)
@@ -246,7 +252,7 @@ Utilizing health check endpoints to observe application behavior during chaos in
 
 See equivalent parameters: [krknctl flags](../scenarios/all-scenario-env-krknctl.md#virt-checks) · [krkn-hub variables](../scenarios/all-scenario-env.md#virt-checks)
 
-Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](virt-checks.md)
+Utilizing kube virt checks observe VMI's ssh connection behavior during chaos injection, see more details about how this works and different ways to configure [here](health-checks/virt-checks.md)
 
 **interval**: Interval in seconds to perform virt checks, default value is 2 seconds
 
@@ -331,6 +337,9 @@ performance_monitoring:
     enable_alerts: False                                  # Runs the queries specified in the alert profile and displays the info or exits 1 when severity=error
     enable_metrics: False
     alert_profile: config/alerts.yaml                          # Path or URL to alert profile with the prometheus queries
+    run_during: []                                           # "pre", "during", "post", or a list of phases
+    exit_on_failure: False                                   # Fail on critical/error alert health-check failures
+    only_failures: False                                     # Only include failed alert evaluations in telemetry
     metrics_profile: config/metrics-report.yaml
     check_critical_alerts: False                          # When enabled will check prometheus for critical alerts firing post chaos
 

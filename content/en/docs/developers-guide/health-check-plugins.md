@@ -68,7 +68,7 @@ health_checks:
 
 ---
 
-### [KubeVirt VM Health Check](/docs/krkn/virt-checks/) (`virt_health_check`)
+### [KubeVirt VM Health Check](/docs/krkn/health-checks/virt-checks/) (`virt_health_check`)
 
 Monitors KubeVirt VirtualMachineInstance (VMI) connectivity during chaos experiments. It tracks SSH/network access to VMs, detects disconnections, and records recovery data.
 

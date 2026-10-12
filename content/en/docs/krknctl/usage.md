@@ -110,6 +110,7 @@ Any graph configuration is supported except cycles (self dependencies or transit
 | Flag              | Description                                                  |
 |-------------------|--------------------------------------------------------------|
 | --global-env      | if set this flag will add global environment variables to each scenario in the graph|
+| --weight          | set resiliency weights for scenarios by name (format: scenario-name=weight or scenario-name:weight, e.g. --weight pod-scenarios=2.0) |
 
 
 - #### `run <json execution plan path> [flags]`:
@@ -132,6 +133,7 @@ format: krknctl-<scenario-name>-<scenario-id>-<timestamp>.log.
 | --alerts-profile  | will mount in the container a custom alert profile <br/>(check krkn [documentation](https://github.com/krkn-chaos/krkn) for further information)|
 | --metrics-profile | will mount in the container scenario a custom metrics <br/>profile (check krkn [documentation](https://github.com/krkn-chaos/krkn) for further information)|
 | --exit-on-error   | if set this flag will the workflow will be interrupted and the tool will exit with a status greater than 0 |
+| --weight          | override resiliency weights for scenarios by Scenario ID (format: ScenarioID=weight or ScenarioID:weight, e.g. --weight critical-service=3.0) |
 
 
 #### Supported graph configurations:
@@ -152,6 +154,148 @@ code to support what is essentially a specific case of graph execution.
 Instead, we developed a scenario called `dummy-scenario`. This scenario performs no actual actions but simply pauses 
 for a set duration. It serves as an ideal root node, allowing all dependent nodes to execute in parallel without adding 
 unnecessary complexity to the codebase.
+
+##### Weighted Graph Scenarios:
+
+The `--weight` flag allows you to assign different importance levels to scenarios in a dependency graph. This affects how the final resiliency score is calculated, prioritizing critical services in your test results.
+
+###### Overview:
+
+When running chaos scenarios, each scenario produces a resiliency score. By default, all scenarios have equal weight (1.0) in the final score calculation. Using weights, you can emphasize the impact of critical services or de-emphasize less critical ones.
+
+**Resiliency Score Formula:**
+```
+ResiliencyScore = (score₁ × weight₁ + score₂ × weight₂ + ...) / (weight₁ + weight₂ + ...)
+```
+
+###### Weight Format:
+
+Both `graph run` and `graph scaffold` commands accept weights using either `=` or `:` as separators. Weights can be integers or floats:
+
+```bash
+--weight scenario-id=2.5    # float with =
+--weight scenario-id:2.5    # float with :
+--weight scenario-id=2      # integer with =
+--weight scenario-id:2      # integer with :
+```
+
+###### Graph Run with Weights:
+
+Define `resiliencyWeight` in your graph JSON:
+
+```json
+{
+  "critical-service": {
+    "image": "quay.io/krkn-chaos/krkn-hub:pod-scenarios",
+    "name": "pod-scenarios",
+    "resiliencyWeight": 3.0,
+    "depends_on": null
+  },
+  "important-service": {
+    "resiliencyWeight": 2.0,
+    "depends_on": "critical-service"
+  }
+}
+```
+
+Override weights at runtime using **Scenario ID** (the JSON top-level key):
+
+```bash
+krknctl graph run my-graph.json \
+  --kubeconfig ~/.kube/config \
+  --weight critical-service=5.0 \
+  --weight important-service=3.0
+```
+
+**Important**: Use the **Scenario ID** (JSON key), not the `name` field:
+- ✓ `--weight critical-service=2.0` (Scenario ID)
+- ✗ `--weight pod-scenarios=2.0` (name field)
+
+###### Graph Scaffold with Weights:
+
+When scaffolding, reference scenarios by their **scenario name** (the type, e.g., `pod-scenarios`):
+
+```bash
+krknctl graph scaffold pod-scenarios node-scenarios \
+  --weight pod-scenarios=3 \
+  --weight node-scenarios=2 > my-graph.json
+```
+
+The generated graph includes the weights:
+
+```json
+{
+  "pod-delete-scenarios-abc123": {
+    "name": "pod-scenarios",
+    "resiliencyWeight": 3.0
+  },
+  "node-drain-scenarios-def456": {
+    "name": "node-scenarios",
+    "resiliencyWeight": 2.0,
+    "depends_on": "pod-delete-scenarios-abc123"
+  }
+}
+```
+
+**Key Difference**: When scaffolding, use scenario **names**. When running, use Scenario **IDs** for overrides.
+
+###### Complete Workflow:
+
+```bash
+# Step 1: Scaffold with weights
+krknctl graph scaffold pod-scenarios node-scenarios \
+  --weight pod-scenarios=2.0 \
+  --weight node-scenarios=1.0 > my-graph.json
+
+# Step 2: Run with JSON weights
+krknctl graph run my-graph.json --kubeconfig ~/.kube/config
+
+# Step 3: Override at runtime using Scenario ID
+krknctl graph run my-graph.json \
+  --kubeconfig ~/.kube/config \
+  --weight "pod-delete-scenarios-xyz123=3.5"
+```
+
+###### Error Handling:
+
+**Unknown Scenario ID:**
+```bash
+krknctl graph run graph.json --weight unknown-node=2.0
+# Error: unknown scenario 'unknown-node' in --weight flag. 
+#        Available scenarios: critical-service, important-service
+```
+
+**Invalid weight (must be > 0):**
+```bash
+krknctl graph run graph.json --weight critical-service=0
+# Error: invalid weight value 0.00 for scenario 'critical-service': weight must be greater than 0
+```
+
+**Invalid format:**
+```bash
+krknctl graph run graph.json --weight critical-service-2.0
+# Error: invalid --weight format 'critical-service-2.0'. 
+#        Expected format: ScenarioID=weight or ScenarioID:weight (e.g., critical-service=2 or critical-service=2.5)
+```
+
+###### Resiliency Score Calculation Example:
+
+If three scenarios produce these scores:
+- `critical-service`: 95.0
+- `important-service`: 90.0
+- `background-job`: 70.0
+
+**Without weights** (all = 1.0):
+```
+(95×1 + 90×1 + 70×1) / (1+1+1) = 255/3 = 85.0
+```
+
+**With weights** (3.0, 2.0, 0.5):
+```
+(95×3.0 + 90×2.0 + 70×0.5) / (3.0+2.0+0.5) = 500/5.5 = 90.9
+```
+
+The weighted score (90.9) is higher because critical services that performed well have more influence.
 
 
 ### `random <subcommand>`

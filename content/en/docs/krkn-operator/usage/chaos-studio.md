@@ -30,6 +30,7 @@ A visual drag-and-drop editor for designing complex chaos workflows. Build graph
    - **Registry**: Choose your scenario source
    - **Scenario**: Select the chaos scenario to run
    - **Parameters**: Set mandatory and optional parameters
+   - **Cloud credential**: Optionally load a saved cloud credential for cloud-dependent scenarios
    - **Files**: Mount any required configuration files
 
 ### Connecting Nodes
@@ -66,7 +67,7 @@ A visual drag-and-drop editor for designing complex chaos workflows. Build graph
 
 ## Node Configuration
 
-Each node is configured exactly like a [single scenario](../run-scenarios/): select a registry, choose a scenario, set mandatory/optional/global parameters, and mount files.
+Each node is configured exactly like a [single scenario](../run-scenarios/): select a registry, choose a scenario, set mandatory/optional/global parameters, optionally load a cloud credential, and mount files.
 
 ### Global Parameters in Workflows
 
@@ -78,6 +79,22 @@ When configuring global parameters for workflow nodes:
 
 {{% notice tip %}}
 Configure **Elasticsearch** in global parameters to track metrics across all nodes in a workflow. This provides centralized observability for complex multi-scenario executions.
+{{% /notice %}}
+
+### Cloud Credentials in Workflows
+
+Cloud-dependent nodes can use saved credentials configured under [Cloud Credentials Management](../../administration/cloud-credentials-management/).
+
+When configuring a node:
+
+1. Open **Load Cloud Credential**
+2. Select a credential available to your group
+3. Cloud fields for that provider become masked; other providers' fields are hidden
+
+Each node can select its own credential (for example one AWS credential on a zone-outage node and a BMC credential on a power-outage node).
+
+{{% notice info %}}
+You can **select** credentials available to your group but **cannot create** new ones from Chaos Studio. Contact your administrator to add credentials.
 {{% /notice %}}
 
 **Clone**: duplicate a configured node to repeat the same scenario multiple times within the workflow.

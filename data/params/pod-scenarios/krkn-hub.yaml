@@ -37,6 +37,9 @@ params:
   description_source: published-table
   type: enum
   default: serial
+  possible_values:
+  - serial
+  - parallel
   required: false
 - name: KILL_TIMEOUT
   description: Timeout to wait for the target pod(s) to be removed in seconds
@@ -49,6 +52,12 @@ params:
   description_source: published-table
   type: number
   default: '120'
+  required: false
+- name: DURATION
+  description: Duration in seconds to wait after pod disruption before verifying recovery
+  description_source: kraken
+  type: number
+  default: '10'
   required: false
 - name: NODE_LABEL_SELECTOR
   description: Label of the node(s) to target

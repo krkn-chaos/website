@@ -64,20 +64,20 @@ These dashboards filter by **run UUID** (from Elasticsearch) to show metrics spe
 
 | Dashboard | File | Key Panels | Use When Running |
 |-----------|------|------------|-----------------|
-| Pod Scenarios | `Chaos/pod-scenarios.json` | Pod recovery time, console health, etcd WAL latency, alerts | `pod-scenarios`, `application-outages` |
-| Node Scenarios | `Chaos/node-scenarios.json` | Node ready/not-ready time, node running/stopped time | `node-scenarios` |
+| Application Outage Scenarios | `Chaos/app-scenarios.json` | Console health/downtime duration, etcd latency, OVN master CPU | `application-outages` |
+| Cluster Shut Down Scenarios | `Chaos/cluster-shut-down-scenarios.json` | Node running time, node stopped time | `cluster-shut-down` |
 | Container Scenarios | `Chaos/container-scenarios.json` | Container recovery time, console health, etcd recovery | `container-scenarios` |
 | Hog Scenarios | `Chaos/hog-scenarios.json` | CPU hog duration, memory hog duration, IO hog | `node-cpu-hog`, `node-memory-hog`, `node-io-hog` |
 | Network Chaos Scenarios | `Chaos/network-chaos-scenarios.json` | Network latency introduced, packet loss rate | `network-chaos-ng` |
+| Node Scenarios | `Chaos/node-scenarios.json` | Node ready/not-ready time, node running/stopped time | `node-scenarios` |
+| Pod Scenarios | `Chaos/pod-scenarios.json` | Pod recovery time, console health, etcd WAL latency, alerts | `pod-scenarios`, `pod-disruption` |
 | Pod Network Scenarios | `Chaos/pod-network-scenarios.json` | Pod network latency, pod packet loss | `pod-network-chaos` |
-| Zone Outage Scenarios | `Chaos/zone-outage-scenarios.json` | Zone recovery time, affected node count | `zone-outages` |
-| Cluster Shut Down Scenarios | `Chaos/cluster-shut-down-scenarios.json` | Node running time, node stopped time | `cluster-shut-down` |
-| Service Hijacking Scenarios | `Chaos/service-hijacking-scenarios.json` | Service hijacking metrics, service response time | `service-hijacking` |
 | PVC Scenarios | `Chaos/pvc-scenarios.json` | PVC recovery time, attach/detach duration | `pvc-scenarios` |
-| Time Scenarios | `Chaos/time-scenarios.json` | Clock skew duration, NTP recovery time | `time-scenarios` |
+| Service Hijacking Scenarios | `Chaos/service-hijacking-scenarios.json` | Service hijacking metrics, service response time | `service-hijacking` |
 | SYN Flood Scenarios | `Chaos/syn-flood-scenarios.json` | Active connection count during flood, service recovery time | `syn-flood` |
-| KubeVirt Disruption | `Chaos/kubevirt-disruption.json` | VM recovery time, OVN disruption impact, console health | `kubevirt-vm-outage` |
-| Application Outage Scenarios | `Chaos/app-scenarios.json` | Console health/downtime duration, etcd latency, OVN master CPU | `application-outages` |
+| Time Scenarios | `Chaos/time-scenarios.json` | Clock skew duration, NTP recovery time | `time-scenarios` |
+| VMI Disruption | `Chaos/vmi-disruption.json` | VM recovery time, OVN disruption impact, console health | `vmi-outage` |
+| Zone Outage Scenarios | `Chaos/zone-outage-scenarios.json` | Zone recovery time, affected node count | `zone-outages` |
 
 ---
 

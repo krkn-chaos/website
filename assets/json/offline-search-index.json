@@ -1,0 +1,18 @@
+{{- $.Scratch.Add "offline-search-index" slice -}}
+{{- $defaultOperatorTag := .Site.Params.operator_docs_default_tag -}}
+{{- range .Site.AllPages -}}
+  {{- $pageTag := .Params.operator_docs_version -}}
+  {{- $include := and (ne .Params.exclude_search true) (or (not $pageTag) (eq $pageTag $defaultOperatorTag)) -}}
+  {{- if $include -}}
+    {{- $.Scratch.Add "offline-search-index" (dict
+      "ref" .RelPermalink
+      "title" .Title
+      "categories" (.Params.categories | default "")
+      "tags" (.Params.tags | default "")
+      "description" (.Description | default "")
+      "body" (.Plain | htmlUnescape)
+      "excerpt" ((.Description | default .Plain) | htmlUnescape | truncate (.Site.Params.offlineSearchSummaryLength | default 70) | htmlUnescape)
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $.Scratch.Get "offline-search-index" | jsonify -}}

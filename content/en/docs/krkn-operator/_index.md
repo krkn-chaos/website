@@ -38,18 +38,20 @@ Full access to the platform. Administrators configure the infrastructure that us
 - Create **groups** with cluster access and permissions
 - Create **users** and assign them to groups
 - Configure **private registries** and their visibility
+- Configure **cloud credentials** and their visibility
 - Configure **target providers** (e.g. ACM integration)
 - All operational features available to users
 
 ### User
 
-Operational access scoped by group membership. Every user must belong to a group — the group determines which clusters, registries and features are accessible.
+Operational access scoped by group membership. Every user must belong to a group — the group determines which clusters, registries, credentials and features are accessible.
 
 - View and manage **jobs** (based on View/Cancel permissions)
 - Use the **cluster terminal** (requires Run permission)
 - **Run scenarios** on assigned clusters (requires Run permission)
 - Design workflows in **Chaos Studio** (requires Run permission)
 - Upload and manage **files** (scoped by group visibility)
+- Select **cloud credentials** available to their group when running cloud scenarios
 
 {{% notice info %}}
 Users only see jobs from their own group. A cluster-wide indicator shows the names of running scenarios across all groups, but no details.
@@ -111,6 +113,7 @@ Allows users to cancel running scenarios and to remove scenario runs and their e
 | Cluster Management | Register and manage target Kubernetes clusters |
 | User & Group Management | Organize users through groups with granular permissions |
 | Private Registries | Configure private container registries with group-based visibility |
+| Cloud Credentials | Save cloud provider credentials and inject them into scenario pods via SecretKeyRef |
 | Chaos Studio | Design reusable visual workflows with serial and parallel execution |
 | Multi-cluster Execution | Run experiments on one or more clusters simultaneously |
 | Resiliency Score | Measure application resilience using PromQL-based metrics |
@@ -135,6 +138,6 @@ See the [Compatibility Matrix](compatibility/) for tested ACM/OCM versions and p
 ## Next Steps
 
 - [Installation](installation/) — Deploy Krkn Operator with Helm
-- [Administration](administration/) — Configure clusters, users, registries and providers
+- [Administration](administration/) — Configure clusters, users, registries, credentials and providers
 - [Usage](usage/) — Run scenarios, use Chaos Studio, manage jobs
 - [Compatibility Matrix](compatibility/) — Supported platforms and ACM/OCM versions

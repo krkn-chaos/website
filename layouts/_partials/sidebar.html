@@ -1,0 +1,7 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- if $context.enabled -}}
+  {{ partial "operator-docs/selector.html" $context }}
+  {{ partial "operator-docs/sidebar-tree.html" (dict "context" $context "page" .) }}
+{{- else -}}
+  {{ partial "default-sidebar.html" . }}
+{{- end -}}

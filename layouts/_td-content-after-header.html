@@ -1,0 +1,8 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- if $context.enabled }}
+  {{ partial "operator-docs/banner.html" $context }}
+{{- else if .Site.Params.operator_docs_authoring_preview }}
+  <aside class="krkn-operator-docs-authoring-banner" aria-label="Authoring preview">
+    Authoring preview — not published documentation.
+  </aside>
+{{- end -}}

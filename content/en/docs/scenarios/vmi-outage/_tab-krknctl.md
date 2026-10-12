@@ -1,6 +1,6 @@
 
 ```bash
-krknctl run kubevirt-outage [--<parameter> <value>]
+krknctl run vmi-outage [--<parameter> <value>]
 ```
 
 Can also set any global variable listed [here](../all-scenario-env-krknctl.md)
@@ -15,5 +15,5 @@ Scenario specific parameters:  (be sure to scroll to right)
 
 To see all available scenario options 
 ```bash
-krknctl run kubevirt-outage --help
+krknctl run vmi-outage --help
 ```

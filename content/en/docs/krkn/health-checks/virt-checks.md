@@ -1,13 +1,15 @@
 ---
 title: Kube Virt Checks
 description: Kube Virt Checks to analyze down times of VMIs
-weight: 2
+weight: 3
+aliases:
+  - /docs/krkn/virt-checks/
 ---
 
 ### Kube Virt Checks
 
 Virt checks provide real-time visibility into the impact of chaos scenarios on VMI ssh connectivity and performance.
-Virt checks are configured in the ```config.yaml``` [here](config.md#virt-checks)
+Virt checks are configured in the ```config.yaml``` [here](../config.md#virt-checks)
 
 The system periodically checks the VMI's in the provided namespace based on the defined interval and records the results in Telemetry. The checks will run continuously from the very beginning of krkn until all scenarios are done and wait durations are complete. The telemetry data includes:
 
@@ -139,5 +141,6 @@ Notice here that the vm with name windows-vm-1 had a false status (not able to f
 
 ### See Also
 
-- [HTTP Health Checks](health-checks.md) — monitor HTTP/HTTPS endpoints during chaos
-- [Health Check Plugins](../developers-guide/health-check-plugins.md) — create a custom health check plugin
+- [HTTP Health Checks](../health-checks.md) — monitor HTTP/HTTPS endpoints during chaos
+- [Prometheus Alert Health Checks](prometheus-alerts.md) — evaluate PromQL alert profiles during chaos
+- [Health Check Plugins](../../developers-guide/health-check-plugins.md) — create a custom health check plugin

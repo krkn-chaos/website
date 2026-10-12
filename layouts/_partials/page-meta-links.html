@@ -1,0 +1,15 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- if $context.enabled -}}
+  {{- if .File -}}
+    {{- $prefix := printf "docs/krkn-operator/versions/%s/" $context.versionTag -}}
+    {{- $sourcePath := strings.TrimPrefix $prefix .File.Path -}}
+    {{- $sourceURL := printf "https://github.com/krkn-chaos/website/blob/%s/content/en/docs/krkn-operator/%s" $context.release.website_commit $sourcePath -}}
+    <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+      <a href="{{ $sourceURL }}" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View source at captured commit</a>
+      <a href="https://github.com/krkn-chaos/website/issues/new" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Report an issue</a>
+      {{- with .CurrentSection.AlternativeOutputFormats.Get "print" }}<a id="print" href="{{ .RelPermalink | safeURL }}"><i class="fa-solid fa-print fa-fw"></i> {{ T "print_entire_section" }}</a>{{ end }}
+    </div>
+  {{- end -}}
+{{- else -}}
+  {{- partial "default-page-meta-links.html" . -}}
+{{- end -}}

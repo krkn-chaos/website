@@ -1,0 +1,34 @@
+{{- $disabled := dict "enabled" false "versionTag" "" "isDefault" false "isOlder" false "pageKey" "" "releaseRoot" false "release" false "defaultRelease" false -}}
+{{- $page := . -}}
+{{- $versionTag := $page.Params.operator_docs_version -}}
+{{- $context := $disabled -}}
+{{- if and $versionTag (strings.HasPrefix $page.RelPermalink "/docs/krkn-operator/versions/") -}}
+  {{- $registry := $page.Site.Data.operator_doc_versions -}}
+  {{- $releases := $page.Site.Params.operator_docs_release_records | default $registry.releases -}}
+  {{- $defaultTag := $page.Site.Params.operator_docs_default_tag -}}
+  {{- $release := false -}}
+  {{- $defaultRelease := false -}}
+  {{- range $releases -}}
+    {{- if eq .tag $versionTag -}}{{- $release = . -}}{{- end -}}
+    {{- if eq .tag $defaultTag -}}{{- $defaultRelease = . -}}{{- end -}}
+  {{- end -}}
+  {{- $releaseRoot := false -}}
+  {{- range $page.Site.Pages -}}
+    {{- if and (eq .Params.operator_docs_version $versionTag) (eq .Params.operator_docs_page_key "") -}}
+      {{- $releaseRoot = . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $release $defaultRelease $releaseRoot -}}
+    {{- $context = dict
+      "enabled" true
+      "versionTag" $versionTag
+      "isDefault" (eq $versionTag $defaultTag)
+      "isOlder" (ne $versionTag $defaultTag)
+      "pageKey" ($page.Params.operator_docs_page_key | default "")
+      "releaseRoot" $releaseRoot
+      "release" $release
+      "defaultRelease" $defaultRelease
+    -}}
+  {{- end -}}
+{{- end -}}
+{{- return $context -}}

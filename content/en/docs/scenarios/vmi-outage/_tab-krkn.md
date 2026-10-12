@@ -1,9 +1,9 @@
 
-# KubeVirt VM Outage Scenario in Kraken
+# VMI Outage Scenario in Kraken
 
-The `kubevirt_vm_outage` scenario in Kraken enables users to simulate VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery capabilities.
+The `vmi_outage` scenario in Kraken enables users to simulate VM-level disruptions by deleting a Virtual Machine Instance (VMI) to test resilience and recovery capabilities.
 
-Example scenario file: [kubevirt-vm-outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/cnv/snapshot_creation_disruption.yaml)
+Example scenario file: [vmi-outage.yaml](https://github.com/krkn-chaos/scenarios-hub/blob/main/cnv/snapshot_creation_disruption.yaml)
 
 ## Implementation
 
@@ -20,8 +20,8 @@ You can use this scenario in your Kraken configuration file as follows:
 
 ```yaml
 scenarios:
-  - name: "kubevirt vm outage"
-    scenario: kubevirt_vm_outage
+  - name: "vmi outage"
+    scenario: vmi_outage
     parameters:
       vm_name: <my-application-vm>
       namespace: <vm-workloads>
@@ -56,12 +56,12 @@ When executed, the scenario follows this process:
 
 ## Sample Configuration
 
-Here's an example configuration for using the `kubevirt_vm_outage` scenario:
+Here's an example configuration for using the `vmi_outage` scenario:
 
 ```yaml
 scenarios:
-  - name: "kubevirt outage test"
-    scenario: kubevirt_vm_outage
+  - name: "vmi outage test"
+    scenario: vmi_outage
     parameters:
       vm_name: my-vm
       namespace: kubevirt
@@ -75,7 +75,7 @@ For multiple VMs in different namespaces:
 ```yaml
 scenarios:
   - name: "kubevirt outage test - app VM"
-    scenario: kubevirt_vm_outage
+    scenario: vmi_outage
     parameters:
       vm_name: app-vm
       namespace: application
@@ -84,7 +84,7 @@ scenarios:
       kill_count: 1
   
   - name: "kubevirt outage test - database VM"
-    scenario: kubevirt_vm_outage
+    scenario: vmi_outage
     parameters:
       vm_name: db-vm
       namespace: database
@@ -104,8 +104,8 @@ kraken:
     chaos_scenarios:
         - hog_scenarios:
             - scenarios/kube/cpu-hog.yml
-        -  kubevirt_vm_outage:
-               - scenarios/kubevirt/kubevirt-vm-outage.yaml
+        -  vmi_outage:
+               - scenarios/kubevirt/vmi-outage.yaml
 ```
 
 {{% alert title="Note" %}}
@@ -113,24 +113,24 @@ You can specify multiple scenario files of the same type by adding additional pa
 ```yaml
 kraken:
     chaos_scenarios:
-        - kubevirt_vm_outage:
-            - scenarios/kubevirt/kubevirt-vm-outage-1.yaml
-            - scenarios/kubevirt/kubevirt-vm-outage-2.yaml
-            - scenarios/kubevirt/kubevirt-vm-outage-3.yaml
+        - vmi_outage:
+            - scenarios/kubevirt/vmi-outage-1.yaml
+            - scenarios/kubevirt/vmi-outage-2.yaml
+            - scenarios/kubevirt/vmi-outage-3.yaml
 ```
 
 You can also combine multiple different scenario types in the same config.yaml file. Scenario types can be specified in any order, and you can include the same scenario type multiple times:
 ```yaml
 kraken:
     chaos_scenarios:
-        - kubevirt_vm_outage:
-            - scenarios/kubevirt/kubevirt-vm-outage.yaml
+        - vmi_outage:
+            - scenarios/kubevirt/vmi-outage.yaml
         - pod_disruption_scenarios:
             - scenarios/pod-kill.yaml
         - node_scenarios:
             - scenarios/node-reboot.yaml
-        - kubevirt_vm_outage:  # Same type can appear multiple times
-            - scenarios/kubevirt/kubevirt-vm-outage-2.yaml
+        - vmi_outage:  # Same type can appear multiple times
+            - scenarios/kubevirt/vmi-outage-2.yaml
 ```
 {{% /alert %}}
 ### Run 

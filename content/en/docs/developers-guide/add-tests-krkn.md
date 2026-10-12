@@ -21,7 +21,7 @@ Place your test file in the `tests/` directory with the naming pattern `test_<fe
 
 ```bash
 tests/
-├── test_kubevirt_vm_outage.py
+├── test_vmi_outage.py
 ├── test_ibmcloud_node_scenarios.py
 ├── test_ibmcloud_power_node_scenarios.py
 └── test_<your_feature>.py

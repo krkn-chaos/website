@@ -10,7 +10,7 @@ $ podman run \
   --pull=always \
   --env-host=true \
   -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
-  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:kubevirt-outage
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:vmi-outage
 $ podman logs -f <container_name or container_id> # Streams Kraken logs
 $ podman inspect <container-name or container-id> \
   --format "{{.State.ExitCode}}" # Outputs exit code which can considered as pass/fail for the scenario
@@ -25,13 +25,13 @@ $ docker run $(./get_docker_params.sh) \
   --net=host \
   --pull=always \
   -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
-  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:kubevirt-outage
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:vmi-outage
 $ docker run \
   -e <VARIABLE>=<value> \
   --net=host \
   --pull=always \
   -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
-  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:kubevirt-outage
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:vmi-outage
 
 $ docker logs -f <container_name or container_id> # Streams Kraken logs
 $ docker inspect <container-name or container-id> \
@@ -69,5 +69,5 @@ $ podman run \
   -v <path-to-custom-metrics-profile>:/home/krkn/kraken/config/metrics-aggregated.yaml \
   -v <path-to-custom-alerts-profile>:/home/krkn/kraken/config/alerts \
   -v <path-to-kube-config>:/home/krkn/.kube/config:Z \
-  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:kubevirt-outage
+  -d containers.krkn-chaos.dev/krkn-chaos/krkn-hub:vmi-outage
 ```

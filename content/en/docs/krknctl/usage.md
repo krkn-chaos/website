@@ -519,6 +519,69 @@ krknctl operator uninstall --kubeconfig ~/.kube/config --delete-namespace
 
 <br/>
 
+- #### `backup <namespace> [flags]`:
+
+Exports operator admin settings—including users, groups, categories, targets, target authentication, provider registrations, provider configuration, cloud credentials, workflow templates, completed scenario/graph run history, and generated reports—from the specified namespace into a timestamped `.tar.gz` archive. This backup contains sensitive information, so treat the archive securely.
+
+Namespace and cluster-specific metadata are normalized so the archive can be restored to another namespace or cluster. Active runs and unrelated runtime state are excluded. Completed, failed, and partially failed scenario/graph run history is included. The JWT signing Secret is intentionally excluded.
+
+```bash
+# Back up from the default namespace
+krknctl operator backup krkn-operator-system
+
+# Back up to a specific directory
+krknctl operator backup krkn-operator-system --output /tmp/backups
+
+# Back up a KinD-based installation
+krknctl operator backup krkn-operator-system --kind --cluster-name krkn-operator
+```
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--output` | `.` | Directory to write the backup archive |
+| `--kubeconfig` | `~/.kube/config` | Path to kubeconfig |
+| `--kind` | `false` | Use the kubeconfig created for a KinD cluster |
+| `--cluster-name` | `krkn-operator` | KinD cluster name (only used with `--kind`) |
+| `--passphrase` | | Encrypt the archive with AES-256-GCM (or set `KRKNCTL_BACKUP_PASSPHRASE`) |
+
+When `--passphrase` is provided, the archive is encrypted and saved as `.tar.gz.enc` instead of `.tar.gz`. Each archive uses a fresh random salt for PBKDF2 key derivation and a separate random nonce for AES-GCM encryption.
+
+<br/>
+
+- #### `restore <archive-path> <namespace> [flags]`:
+
+Restores supported operator resources from a `.tar.gz` or `.tar.gz.enc` archive into the target namespace. Existing resources represented in the archive are updated, and missing resources are created. Unrelated destination resources are not deleted.
+
+Source-cluster provider registrations are not copied to the destination. Standalone krknctl does not apply provider settings; it reports a warning instead. The krkn-operator integration migrates compatible provider settings when a matching destination provider is available.
+
+```bash
+# Restore to a namespace
+krknctl operator restore krkn-backup-20261007-143022.tar.gz krkn-operator-system
+
+# Restore a KinD-based installation
+krknctl operator restore krkn-backup-20261007-143022.tar.gz krkn-operator-system \
+  --kind --cluster-name krkn-operator
+```
+
+{{% alert title="Warning" %}}
+Restoring updates or creates the resources contained in the archive. Verify the archive and destination namespace before proceeding.
+{{% /alert %}}
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--kubeconfig` | `~/.kube/config` | Path to kubeconfig |
+| `--kind` | `false` | Use the kubeconfig created for a KinD cluster |
+| `--cluster-name` | `krkn-operator` | KinD cluster name (only used with `--kind`) |
+| `--passphrase` | | Decrypt an encrypted archive (or set `KRKNCTL_BACKUP_PASSPHRASE`) |
+
+If the archive is encrypted (`.tar.gz.enc`), you must provide the same passphrase used during backup. If you omit `--passphrase` on an encrypted archive, the restore will fail with a message indicating the archive appears to be encrypted.
+
+<br/>
+
 ### Running krknctl on a disconnected environment with a private registry
 
 If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.

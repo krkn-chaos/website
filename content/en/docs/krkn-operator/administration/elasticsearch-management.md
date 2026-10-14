@@ -1,7 +1,7 @@
 ---
 title: Elasticsearch Management
 description: Configure saved Elasticsearch endpoints for platform-wide observability
-weight: 5
+weight: 6
 ---
 
 # Elasticsearch Management <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>
@@ -9,10 +9,7 @@ weight: 5
 Administrators can configure and save Elasticsearch endpoints that users can reference when executing chaos scenarios. This enables centralized observability configuration without requiring users to manually enter connection details.
 
 <div class="krkn-video">
-  <video controls width="100%" preload="metadata">
-    <source src="/videos/elasticsearch.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <iframe src="https://www.youtube.com/embed/2f7XpVqo1J0" title="Elasticsearch Management Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---

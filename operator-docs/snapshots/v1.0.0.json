@@ -51,10 +51,8 @@
     "data/roadmap.yaml": "17e8074a8c2df62ba71f9cb347b804826e21490d1af6bddc81ce54a45169df9c"
   },
   "output_hashes": {
-    "content/en/docs/krkn-operator/versions/v1.0.0/_index.md": "1e06f7169362d7e00ba55f0c528a0b2a8e3c5841e60b0e1dee45f2d6f9c1f4dd",
-    "content/en/docs/krkn-operator/versions/v1.0.0/administration/_index.md": "e9e473ec745bfd40d9733d02c73db23024c7eae7c625f512224e67b54aeb3c2d",
-    "content/en/docs/krkn-operator/versions/v1.0.0/administration/backup-restore.md": "66fb4efa382d6c7dae8f6b5e5fd4366008c45700db9e26dfdccacb9b6cb58c27",
-    "content/en/docs/krkn-operator/versions/v1.0.0/administration/cloud-credentials-management.md": "e279c2fb50fbfc39ff9c7951a1233fa5b4d44c5ded4be5cf376a739b771d3eb6",
+    "content/en/docs/krkn-operator/versions/v1.0.0/_index.md": "170beaca78605c898099ac4685219ae33ce2f8c5cd6a64fd2967093362238a3d",
+    "content/en/docs/krkn-operator/versions/v1.0.0/administration/_index.md": "7db24cd8f054d45629bb7de79cc4ffaed38dd64dd6173648d0ed584c7374ff0e",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/cluster-management.md": "84e48bec124fe5f85d693cddf1013e4207af75bd965d62658ffd3e58955b3d5e",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/elasticsearch-management.md": "6368225a5843af927553e693ce9bc3cba32f1f2bf597f894f13d8701ad624a3c",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/provider-configuration.md": "33ead24932afaec048443ba261be98c620c099d045556fe2d12fe33dabb8339c",
@@ -64,12 +62,12 @@
     "content/en/docs/krkn-operator/versions/v1.0.0/feedback/_index.md": "f77f7d91d581a60125f90a86813190a91f79240ac64f89564037704a0deb44a9",
     "content/en/docs/krkn-operator/versions/v1.0.0/installation/_index.md": "120c8af01002fe042828d7da9d9a85fe3380148ec8c46aabdfcb0371f9b88d69",
     "content/en/docs/krkn-operator/versions/v1.0.0/releases/_index.md": "437b69d0bb451a5ef9be8ab4fec00f0934f3608de2f22755cd70009a52534c91",
-    "content/en/docs/krkn-operator/versions/v1.0.0/usage/_index.md": "8d2b731acf8a974cb4073d045eb47ee3b95d2680ea06e47f31836abf3c117ea8",
-    "content/en/docs/krkn-operator/versions/v1.0.0/usage/chaos-studio.md": "4acda323e0ba3b0462f578a916ebd90544cfb415de987caf2143c6fda537e3b3",
+    "content/en/docs/krkn-operator/versions/v1.0.0/usage/_index.md": "ddd7134120c87c5df0de4298335a53b3fdd89fb0d89482e15e740b5ac39befd3",
+    "content/en/docs/krkn-operator/versions/v1.0.0/usage/chaos-studio.md": "ad6591a953334f8fb597f94f16407eeb0bdbf7f3343c6630dc409a42fd0701ad",
     "content/en/docs/krkn-operator/versions/v1.0.0/usage/cluster-terminal.md": "be1ffc035bdfbd6f1f07c4262c470f8508d3dbb360df90e8396cb07ca95ba445",
     "content/en/docs/krkn-operator/versions/v1.0.0/usage/file-management.md": "05550225e9b410d7889fde17154af89c3174a562692aecd00befb4b13faf52b7",
     "content/en/docs/krkn-operator/versions/v1.0.0/usage/jobs.md": "62c1d9566b96f8df69299de505b42419a86d313b8a411a96e3f9226e35a896f1",
-    "content/en/docs/krkn-operator/versions/v1.0.0/usage/run-scenarios.md": "2c73e0773b50821e45d97bce864013efda2d079931ad94a1f63c0263cab0de2a",
+    "content/en/docs/krkn-operator/versions/v1.0.0/usage/run-scenarios.md": "b816b45cb22e175dd401606e1a8529216d81fd7cd1805ef243900605b320ac1a",
     "static/operator-docs/v1.0.0/images/krkn-operator/add-new-target.png": "ff814905dab1a8b17fcc076c048d9e1b2185a05383ff49576a7acf941c66d3b2",
     "static/operator-docs/v1.0.0/images/krkn-operator/admin-menu.png": "671ae643d89ec42fe196a981d2384e5333f2b5466f7bbf5e23e25ae4c0cf0d64",
     "static/operator-docs/v1.0.0/images/krkn-operator/main-screen.png": "be11c1b7ecc78a29af9935afe6e4eba6e90a63c83b89c6c9dca71caef0a535c8",
@@ -86,7 +84,6 @@
     "static/operator-docs/v1.0.0/images/krkn-operator/select-scenario.png": "5c6ff87d503ce4a8959f787b252ead3965c1ebc0d3416924cea9dce4453d4bb7",
     "static/operator-docs/v1.0.0/images/krkn-operator/select-target.png": "ec84a9ebf044fca3a5011ca50dee8cecd5d1e65c6316ead498ead271ebd820ff",
     "static/operator-docs/v1.0.0/images/krkn-operator/targets.png": "fedfab5c0c7479fe772ebacdebbafffaef428e5e0e40a2f8935826dc79744ee0",
-    "static/operator-docs/v1.0.0/videos/cloud-credentials.mp4": "4e88a7d53e4a410ef4a7eac4651559051fc53cb26834835f928d91c8aa96a67c",
     "static/operator-docs/v1.0.0/videos/elasticsearch.mp4": "f2972995bf35d75bc88d31ac5aeaa21865573b50ff378ad39982a1733a5c40b1",
     "static/operator-docs/v1.0.0/videos/workflow.mp4": "87a52746a99a40a894a0556160392e219f3878e2c8df07a63b790865f34b270b",
     "data/operator_docs/releases/v1.0.0/roadmap.yaml": "8a92413287f5917fbb247c9722121b52108140d3248fee7140701d6966523905"
@@ -94,8 +91,6 @@
   "expected_output_inventory": [
     "content/en/docs/krkn-operator/versions/v1.0.0/_index.md",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/_index.md",
-    "content/en/docs/krkn-operator/versions/v1.0.0/administration/backup-restore.md",
-    "content/en/docs/krkn-operator/versions/v1.0.0/administration/cloud-credentials-management.md",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/cluster-management.md",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/elasticsearch-management.md",
     "content/en/docs/krkn-operator/versions/v1.0.0/administration/provider-configuration.md",
@@ -128,7 +123,6 @@
     "static/operator-docs/v1.0.0/images/krkn-operator/select-scenario.png",
     "static/operator-docs/v1.0.0/images/krkn-operator/select-target.png",
     "static/operator-docs/v1.0.0/images/krkn-operator/targets.png",
-    "static/operator-docs/v1.0.0/videos/cloud-credentials.mp4",
     "static/operator-docs/v1.0.0/videos/elasticsearch.mp4",
     "static/operator-docs/v1.0.0/videos/workflow.mp4"
   ],
@@ -145,5 +139,45 @@
     "https://www.youtube.com/embed/gCh4xj8KmP8",
     "https://www.youtube.com/embed/zlbXnIdRexc"
   ],
-  "corrections": []
+  "corrections": [
+    {
+      "corrected_at": "2026-10-13T16:10:03Z",
+      "reason": "Remove backup/restore and cloud-credential management pages and their versioned navigation references because they were mistakenly included in the v1.0.0 snapshot from post-v1.0 content.",
+      "affected_paths": [
+        "content/en/docs/krkn-operator/versions/v1.0.0/administration/_index.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/_index.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/chaos-studio.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/run-scenarios.md"
+      ],
+      "removed_paths": [
+        "content/en/docs/krkn-operator/versions/v1.0.0/administration/backup-restore.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/administration/cloud-credentials-management.md"
+      ]
+    },
+    {
+      "corrected_at": "2026-10-13T16:15:00Z",
+      "reason": "Remove remaining cloud-credential feature descriptions from the v1.0.0 snapshot.",
+      "affected_paths": [
+        "content/en/docs/krkn-operator/versions/v1.0.0/_index.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/administration/_index.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/_index.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/chaos-studio.md",
+        "content/en/docs/krkn-operator/versions/v1.0.0/usage/run-scenarios.md"
+      ]
+    },
+    {
+      "corrected_at": "2026-10-13T19:47:48Z",
+      "reason": "Remove the unreferenced cloud-credentials walkthrough video from the v1.0.0 archive; it documents functionality introduced after v1.0.0.",
+      "removed_paths": [
+        "static/operator-docs/v1.0.0/videos/cloud-credentials.mp4"
+      ]
+    },
+    {
+      "corrected_at": "2026-10-13T20:04:12Z",
+      "reason": "Remove remaining v1.0 overview claims that users can access cloud credentials or configure credentials in Administration; this feature is not documented for v1.0.0.",
+      "affected_paths": [
+        "content/en/docs/krkn-operator/versions/v1.0.0/_index.md"
+      ]
+    }
+  ]
 }

@@ -68,17 +68,18 @@ test('duplicate notifications compare equal only when complete release provenanc
   );
 });
 
-test('registry seeds the current 1.0.0 docs and records the inclusive stable adoption cutoff', () => {
+test('registry includes the current 1.0.0 docs and records the inclusive stable adoption cutoff', () => {
   const registry = YAML.parse(fs.readFileSync(
     path.join(__dirname, '../../data/operator_doc_versions.yaml'),
     'utf8'
   ));
   assert.equal(registry.schema_version, 1);
   assert.equal(registry.adoption_boundary_published_at, '2026-09-26T13:03:34Z');
-  assert.deepEqual(registry.releases.map((entry) => entry.tag), ['v1.0.0']);
-  assert.equal(registry.releases[0].github_release_id, 371909258);
-  assert.equal(registry.releases[0].published_at, '2026-08-17T19:37:57Z');
-  assert.equal(registry.releases[0].website_commit, '7c35229ddbec37d65ef6a9c53945443b6fa8bf6e');
+  const baseline = registry.releases.find((entry) => entry.tag === 'v1.0.0');
+  assert.ok(baseline, 'registry must retain the seeded v1.0.0 release');
+  assert.equal(baseline.github_release_id, 371909258);
+  assert.equal(baseline.published_at, '2026-08-17T19:37:57Z');
+  assert.equal(baseline.website_commit, '7c35229ddbec37d65ef6a9c53945443b6fa8bf6e');
 });
 
 test('the adoption boundary skips releases published at or before the cutoff', () => {

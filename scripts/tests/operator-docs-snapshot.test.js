@@ -504,6 +504,127 @@ test('accepts reviewed corrections only with a timestamp, reason, and inventorie
   assert.throws(() => validateSnapshotRecord(repoRoot, result.release), /correction path is not in snapshot inventory/i);
 });
 
+test('accepts removed correction paths when pinned source hashes prove their provenance', () => {
+  const { repoRoot, commit } = makeGitRepo();
+  const result = captureSnapshot({
+    repoRoot,
+    releaseInputs: gitReleaseInputs(commit),
+    now: () => '2026-10-08T12:00:00Z',
+  });
+  const recordPath = path.join(repoRoot, result.release.snapshot_record);
+  const record = JSON.parse(fs.readFileSync(recordPath, 'utf8'));
+  const removedPage = 'content/en/docs/krkn-operator/versions/v1.0.0/usage/jobs.md';
+  const removedVideo = 'static/operator-docs/v1.0.0/videos/walkthrough.mp4';
+
+  for (const relativePath of [removedPage, removedVideo]) {
+    fs.rmSync(path.join(repoRoot, relativePath));
+    delete record.output_hashes[relativePath];
+    record.expected_output_inventory = record.expected_output_inventory.filter(
+      (inventoryPath) => inventoryPath !== relativePath
+    );
+  }
+  record.corrections = [{
+    corrected_at: '2026-10-08T12:30:00Z',
+    removed_paths: [removedPage, removedVideo],
+    reason: 'Remove pages and media that were mistakenly included in this release snapshot.',
+  }];
+  fs.writeFileSync(recordPath, JSON.stringify(record, null, 2));
+
+  assert.equal(validateSnapshotRecord(repoRoot, result.release).corrections.length, 1);
+});
+
+test('rejects fabricated source hashes for removed snapshot outputs', () => {
+  const { repoRoot, commit } = makeGitRepo();
+  const result = captureSnapshot({
+    repoRoot,
+    releaseInputs: gitReleaseInputs(commit),
+    now: () => '2026-10-08T12:00:00Z',
+  });
+  const recordPath = path.join(repoRoot, result.release.snapshot_record);
+  const record = JSON.parse(fs.readFileSync(recordPath, 'utf8'));
+  const fabricatedSource = 'content/en/docs/krkn-operator/usage/not-in-pinned-commit.md';
+  record.source_hashes[fabricatedSource] = 'c'.repeat(64);
+  record.corrections = [{
+    corrected_at: '2026-10-08T12:30:00Z',
+    removed_paths: [
+      'content/en/docs/krkn-operator/versions/v1.0.0/usage/not-in-pinned-commit.md',
+    ],
+    reason: 'Remove an output with fabricated source provenance.',
+  }];
+  fs.writeFileSync(recordPath, JSON.stringify(record, null, 2));
+
+  assert.throws(
+    () => validateSnapshotRecord(repoRoot, result.release),
+    /source is missing from pinned website commit/i
+  );
+});
+
+test('rejects removed output source hashes that differ from the pinned website commit', () => {
+  const { repoRoot, commit } = makeGitRepo();
+  const result = captureSnapshot({
+    repoRoot,
+    releaseInputs: gitReleaseInputs(commit),
+    now: () => '2026-10-08T12:00:00Z',
+  });
+  const recordPath = path.join(repoRoot, result.release.snapshot_record);
+  const record = JSON.parse(fs.readFileSync(recordPath, 'utf8'));
+  const sourcePath = 'content/en/docs/krkn-operator/usage/jobs.md';
+  const outputPath = 'content/en/docs/krkn-operator/versions/v1.0.0/usage/jobs.md';
+  fs.rmSync(path.join(repoRoot, outputPath));
+  delete record.output_hashes[outputPath];
+  record.expected_output_inventory = record.expected_output_inventory.filter((item) => item !== outputPath);
+  record.source_hashes[sourcePath] = 'c'.repeat(64);
+  record.corrections = [{
+    corrected_at: '2026-10-08T12:30:00Z',
+    removed_paths: [outputPath],
+    reason: 'Remove a page whose source hash was changed.',
+  }];
+  fs.writeFileSync(recordPath, JSON.stringify(record, null, 2));
+
+  assert.throws(
+    () => validateSnapshotRecord(repoRoot, result.release),
+    /source hash does not match pinned website commit/i
+  );
+});
+
+test('rejects removed correction paths without matching pinned source provenance', () => {
+  const { repoRoot, commit } = makeGitRepo();
+  const result = captureSnapshot({
+    repoRoot,
+    releaseInputs: gitReleaseInputs(commit),
+    now: () => '2026-10-08T12:00:00Z',
+  });
+  const recordPath = path.join(repoRoot, result.release.snapshot_record);
+  const record = JSON.parse(fs.readFileSync(recordPath, 'utf8'));
+  record.corrections = [{
+    corrected_at: '2026-10-08T12:30:00Z',
+    removed_paths: ['content/en/docs/krkn-operator/versions/v1.0.0/missing.md'],
+    reason: 'Remove an unverified output.',
+  }];
+  fs.writeFileSync(recordPath, JSON.stringify(record, null, 2));
+
+  assert.throws(
+    () => validateSnapshotRecord(repoRoot, result.release),
+    /correction removed path has no matching source provenance/i
+  );
+});
+
+test('v1.0 overview avoids describing cloud-credential features omitted from the release', () => {
+  const repoRoot = path.resolve(__dirname, '../..');
+  const overviewPath = 'content/en/docs/krkn-operator/versions/v1.0.0/_index.md';
+  const overview = fs.readFileSync(path.join(repoRoot, overviewPath));
+  const record = JSON.parse(fs.readFileSync(
+    path.join(repoRoot, 'operator-docs/snapshots/v1.0.0.json'),
+    'utf8'
+  ));
+
+  assert.doesNotMatch(overview.toString('utf8'), /\bcredentials?\b/i);
+  assert.equal(record.output_hashes[overviewPath], sha256(overview));
+  assert.ok(record.corrections.some((correction) =>
+    correction.affected_paths?.includes(overviewPath) && /credential/i.test(correction.reason)
+  ));
+});
+
 test('detects unregistered files inside a release-owned snapshot tree', () => {
   const { repoRoot, commit } = makeGitRepo();
   const result = captureSnapshot({

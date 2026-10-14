@@ -1,7 +1,7 @@
 ---
 title: Backup and Restore
 description: Back up and restore Krkn Operator configuration state
-weight: 7
+weight: 8
 ---
 
 # Backup and Restore <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

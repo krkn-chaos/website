@@ -6,10 +6,10 @@ weight: 3
 
 # Run Scenarios <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a>
 
-Execute a chaos scenario on one or more target clusters through a guided step-by-step wizard. All scenarios can run simultaneously across multiple clusters.
+Use the guided wizard to execute a chaos scenario on one or more target clusters in parallel.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/3_7ebCMAK3o" title="Run Scenarios Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/RwSCc1OBu9M" title="Run Scenarios Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -20,8 +20,6 @@ Execute a chaos scenario on one or more target clusters through a guided step-by
 
 Choose one or more clusters to run the scenario on. All selected clusters execute the scenario simultaneously.
 
-![Select Target Clusters](/images/krkn-operator/select-target.png)
-
 ### 2. Select Registry
 
 Choose the container registry for scenario images:
@@ -31,13 +29,11 @@ Choose the container registry for scenario images:
 | **Public** (Quay.io) | Default registry with all community scenarios |
 | **Private** | Configured by admin, only mirrored scenarios available. Visibility controlled by group permissions |
 
-![Select Registry](/images/krkn-operator/select-registry.png)
+For a disconnected target, follow [Mirror Signed Images](../../administration/mirroring-signed-images/) before selecting a private registry. Scenario signatures and any helper workload images must be available in the mirror.
 
 ### 3. Select Scenario
 
 Browse and select a chaos scenario from the chosen registry.
-
-![Select Scenario](/images/krkn-operator/select-scenario.png)
 
 ### 4. Configure Parameters
 
@@ -48,6 +44,8 @@ Each scenario defines its own parameter set, divided into three categories:
 | **Mandatory** | Must be configured before execution. Not all scenarios have them |
 | **Optional** | Fine-grained control over scenario behavior (label selectors, timing, filters) |
 | **Global** | Framework-level settings (Elasticsearch, Prometheus, Cerberus integration). Applied only if modified from defaults |
+
+When a scenario starts a helper workload, set its **`IMAGE`** parameter to the mirrored `workload-*` image URL. Selecting a private scenario registry does not change the workload image automatically. See [Mirror Signed Images](../../administration/mirroring-signed-images/) for an example.
 
 #### Elasticsearch in Global Parameters
 
@@ -81,10 +79,6 @@ You can **select** from saved cloud credentials but **cannot create** new ones. 
 
 Selecting a credential stores only the credential **name** on the run (`cloudCredentialRef`). The console and API **strip** plaintext cloud environment variables from the payload so they cannot land in the Custom Resource. The operator injects secret values into the scenario pod via `SecretKeyRef`.
 
-![Mandatory Parameters](/images/krkn-operator/scenario-mandatory.png)
-![Optional Parameters](/images/krkn-operator/scenario-optional.png)
-![Global Options](/images/krkn-operator/scenario-global.png)
-
 ### 5. Mount Files
 
 Optionally attach configuration files previously uploaded through [File Management](../file-management/). Files are available via a select dropdown.
@@ -92,8 +86,6 @@ Optionally attach configuration files previously uploaded through [File Manageme
 ### 6. Preview
 
 Review a summary of all configured parameters before execution.
-
-![Preview](/images/krkn-operator/scenario-preview.png)
 
 ### 7. Run
 

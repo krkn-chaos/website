@@ -24,7 +24,6 @@ const {
 
 const OWNER = 'krkn-chaos';
 const REPOSITORY = 'website';
-const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPOSITORY}`;
 
 function parseArgs(argv) {
   const options = { repoRoot: path.resolve(__dirname, '..') };
@@ -71,31 +70,8 @@ function remoteBranchExists(repoRoot, branch) {
   }
 }
 
-async function githubRequest(token, method, endpoint, body) {
-  const response = await fetch(`${API_ROOT}${endpoint}`, {
-    method,
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Type': 'application/json',
-      'User-Agent': 'krkn-operator-docs-versioning',
-    },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  });
-  if (response.status === 204) return null;
-  const text = await response.text();
-  let payload;
-  try { payload = text ? JSON.parse(text) : null; } catch (_) { payload = text; }
-  if (!response.ok) {
-    throw new Error(`GitHub API ${response.status} for ${endpoint}: ${typeof payload === 'string' ? payload : JSON.stringify(payload)}`);
-  }
-  return payload;
-}
-
-async function listPullRequests(token, branch) {
-  const head = encodeURIComponent(`${OWNER}:${branch}`);
-  return githubRequest(token, 'GET', `/pulls?state=all&head=${head}&per_page=100`);
+async function listPullRequests(githubClient, branch) {
+  return githubClient.listPullRequests(OWNER, REPOSITORY, branch);
 }
 
 function runChecks(repoRoot) {
@@ -115,24 +91,13 @@ function runChecks(repoRoot) {
   }
 }
 
-async function openOrUpdatePullRequest({ token, branch, release, integrity }) {
-  const pulls = await listPullRequests(token, branch);
-  const existing = selectExistingPullRequest(pulls, branch);
+async function openOrUpdatePullRequest({ githubClient, branch, release, integrity }) {
   const title = `docs: archive Krkn Operator ${release.tag}`;
   const body = buildPullRequestBody(release, integrity);
-  if (existing) {
-    return githubRequest(token, 'PATCH', `/pulls/${existing.number}`, {
-      title,
-      body,
-      state: 'open',
-    });
-  }
-  return githubRequest(token, 'POST', '/pulls', {
+  return githubClient.openOrUpdatePullRequest(OWNER, REPOSITORY, {
+    branch,
     title,
-    head: branch,
-    base: 'main',
     body,
-    draft: false,
   });
 }
 
@@ -159,7 +124,7 @@ async function main() {
   }
 
   const branch = releaseBranchName(releaseInputs.tag);
-  const pullRequests = await listPullRequests(token, branch);
+  const pullRequests = await listPullRequests(githubClient, branch);
   const existingPull = selectExistingPullRequest(pullRequests, branch);
   const registeredOnBase = initialRegistry.releases.find((entry) => entry.tag === releaseInputs.tag);
   if (existingPull?.merged_at && !registeredOnBase) {
@@ -209,7 +174,7 @@ async function main() {
   }
 
   const pull = await openOrUpdatePullRequest({
-    token,
+    githubClient,
     branch,
     release: { ...releaseInputs, snapshot_record: `operator-docs/snapshots/${releaseInputs.tag}.json` },
     integrity,

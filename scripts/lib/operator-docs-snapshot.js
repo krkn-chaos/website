@@ -662,6 +662,26 @@ function ensureSafeDestination(repoRoot, relativePath) {
   return absolute;
 }
 
+function sourcePathForRemovedSnapshotOutput(outputPath, tag) {
+  if (
+    typeof outputPath !== 'string' ||
+    path.posix.isAbsolute(outputPath) ||
+    path.posix.normalize(outputPath) !== outputPath ||
+    outputPath.split('/').includes('..')
+  ) {
+    return null;
+  }
+  const outputMappings = [
+    [`${CONTENT_ROOT}/versions/${tag}/`, `${CONTENT_ROOT}/`],
+    [`static/operator-docs/${tag}/`, 'static/'],
+    [`data/operator_docs/releases/${tag}/`, 'data/'],
+  ];
+  const mapping = outputMappings.find(([outputRoot]) => outputPath.startsWith(outputRoot));
+  if (!mapping) return null;
+  const [outputRoot, sourceRoot] = mapping;
+  return `${sourceRoot}${outputPath.slice(outputRoot.length)}`;
+}
+
 function writeSnapshotFiles(repoRoot, files) {
   const repositoryRoot = path.resolve(repoRoot);
   const createdFiles = [];
@@ -852,6 +872,8 @@ function validateSnapshotRecord(repoRoot, release) {
     }
   }
   for (const correction of record.corrections) {
+    const affectedPaths = correction?.affected_paths ?? [];
+    const removedPaths = correction?.removed_paths ?? [];
     if (
       !correction ||
       typeof correction !== 'object' ||
@@ -859,17 +881,51 @@ function validateSnapshotRecord(repoRoot, release) {
       !Number.isFinite(Date.parse(correction.corrected_at)) ||
       typeof correction.reason !== 'string' ||
       !correction.reason.trim() ||
-      !Array.isArray(correction.affected_paths) ||
-      correction.affected_paths.length === 0
+      !Array.isArray(affectedPaths) ||
+      !Array.isArray(removedPaths) ||
+      affectedPaths.length + removedPaths.length === 0
     ) {
       throw new Error(`invalid snapshot correction entry for ${release.tag}`);
     }
-    const affectedPaths = new Set();
-    for (const affectedPath of correction.affected_paths) {
-      if (!expected.includes(affectedPath) || affectedPaths.has(affectedPath)) {
+    const correctionPaths = new Set();
+    for (const affectedPath of affectedPaths) {
+      if (!expected.includes(affectedPath) || correctionPaths.has(affectedPath)) {
         throw new Error(`correction path is not in snapshot inventory for ${release.tag}`);
       }
-      affectedPaths.add(affectedPath);
+      correctionPaths.add(affectedPath);
+    }
+    for (const removedPath of removedPaths) {
+      const sourcePath = sourcePathForRemovedSnapshotOutput(removedPath, release.tag);
+      const sourceHash = sourcePath && sourceHashes[sourcePath];
+      if (
+        !sourcePath ||
+        !Object.hasOwn(sourceHashes, sourcePath) ||
+        correctionPaths.has(removedPath) ||
+        expected.includes(removedPath)
+      ) {
+        throw new Error(`correction removed path has no matching source provenance for ${release.tag}`);
+      }
+      let pinnedSourceBytes;
+      try {
+        pinnedSourceBytes = runGit(repoRoot, [
+          'show',
+          `${record.website_commit}:${sourcePath}`,
+        ]);
+      } catch (_) {
+        throw new Error(
+          `correction removed path source is missing from pinned website commit for ${release.tag}: ${sourcePath}`
+        );
+      }
+      if (sha256(pinnedSourceBytes) !== sourceHash) {
+        throw new Error(
+          `correction removed path source hash does not match pinned website commit for ${release.tag}: ${sourcePath}`
+        );
+      }
+      const removedAbsolutePath = ensureSafeDestination(repoRoot, removedPath);
+      if (fs.existsSync(removedAbsolutePath)) {
+        throw new Error(`correction removed path still exists in snapshot for ${release.tag}: ${removedPath}`);
+      }
+      correctionPaths.add(removedPath);
     }
   }
   const actualFiles = new Set();

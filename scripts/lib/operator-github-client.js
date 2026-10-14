@@ -2,11 +2,22 @@
 
 const { execFileSync } = require('node:child_process');
 const YAML = require('yaml');
+const { selectExistingPullRequest } = require('./operator-docs-automation');
 
-function createGithubClient({ token = process.env.GITHUB_TOKEN, fetchImpl = globalThis.fetch, helmBin = 'helm' } = {}) {
+function createGithubClient({
+  token = process.env.GITHUB_TOKEN,
+  fetchImpl = globalThis.fetch,
+  helmBin = 'helm',
+  sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
+  maxAttempts = 3,
+  retryDelayMs = 250,
+} = {}) {
   if (typeof fetchImpl !== 'function') throw new TypeError('Fetch API is required');
+  if (!Number.isSafeInteger(maxAttempts) || maxAttempts < 1) {
+    throw new TypeError('maxAttempts must be a positive integer');
+  }
 
-  async function request(owner, repository, endpoint) {
+  async function request(owner, repository, endpoint, { method = 'GET', body } = {}) {
     const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repository)}${endpoint}`;
     const headers = {
       Accept: 'application/vnd.github+json',
@@ -14,24 +25,103 @@ function createGithubClient({ token = process.env.GITHUB_TOKEN, fetchImpl = glob
       'User-Agent': 'krkn-operator-docs-versioning',
     };
     if (token) headers.Authorization = `Bearer ${token}`;
-    let response;
+    const options = { headers };
+    if (method !== 'GET') options.method = method;
+    if (body !== undefined) {
+      headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
+    }
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+      let response;
+      try {
+        response = await fetchImpl(url, options);
+      } catch (error) {
+        if (attempt === maxAttempts) {
+          const failure = new Error(
+            `GitHub API ${method} ${endpoint} failed after ${maxAttempts} attempts: ${error.message}`,
+            { cause: error }
+          );
+          failure.retryable = true;
+          throw failure;
+        }
+        await sleep(retryDelayMs * attempt);
+        continue;
+      }
+      if (response.status === 404) {
+        if (method === 'GET') return null;
+        const error = new Error(`GitHub API 404 for ${method} ${endpoint}`);
+        error.status = 404;
+        error.retryable = false;
+        throw error;
+      }
+      if (response.status === 204) return null;
+      if (!response.ok) {
+        const detail = await response.text().catch(() => '');
+        const error = new Error(
+          `GitHub API ${response.status} for ${method} ${endpoint}: ${detail.slice(0, 300)}`
+        );
+        error.status = response.status;
+        error.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+        if (!error.retryable || attempt === maxAttempts) throw error;
+        await sleep(retryDelayMs * attempt);
+        continue;
+      }
+      try {
+        return await response.json();
+      } catch (cause) {
+        const error = new Error(
+          `GitHub API ${method} ${endpoint} response body could not be read: ${cause.message}`,
+          { cause }
+        );
+        error.retryable = true;
+        // A PR create may have succeeded even though its response body was lost.
+        // Let openOrUpdatePullRequest reconcile by deterministic branch before retrying.
+        if (method === 'POST' || attempt === maxAttempts) throw error;
+        await sleep(retryDelayMs * attempt);
+      }
+    }
+    throw new Error(`GitHub API request failed for ${endpoint}`);
+  }
+
+  async function listPullRequests(owner, repository, branch) {
+    const head = encodeURIComponent(`${owner}:${branch}`);
+    return request(owner, repository, `/pulls?state=all&head=${head}&per_page=100`);
+  }
+
+  async function openOrUpdatePullRequest(owner, repository, { branch, title, body: pullBody }) {
+    const existing = selectExistingPullRequest(
+      await listPullRequests(owner, repository, branch),
+      branch
+    );
+    const update = (pull) => request(owner, repository, `/pulls/${pull.number}`, {
+      method: 'PATCH',
+      body: { title, body: pullBody, state: 'open' },
+    });
+    if (existing) return update(existing);
+
     try {
-      response = await fetchImpl(url, { headers });
+      return await request(owner, repository, '/pulls', {
+        method: 'POST',
+        body: { title, head: branch, base: 'main', body: pullBody, draft: false },
+      });
     } catch (error) {
-      error.retryable = true;
+      // A lost POST response can mean GitHub created the PR. Re-read by the
+      // deterministic branch before surfacing the network error or retrying.
+      if (!error.retryable && error.status !== 422) throw error;
+      const created = selectExistingPullRequest(
+        await listPullRequests(owner, repository, branch),
+        branch
+      );
+      if (created) return update(created);
       throw error;
     }
-    if (response.status === 404) return null;
-    if (!response.ok) {
-      const detail = await response.text().catch(() => '');
-      const error = new Error(`GitHub API ${response.status} for ${endpoint}: ${detail.slice(0, 300)}`);
-      if (response.status === 429 || response.status >= 500) error.retryable = true;
-      throw error;
-    }
-    return response.json();
   }
 
   return {
+    request,
+    listPullRequests,
+    openOrUpdatePullRequest,
     async getReleaseByTag(owner, repository, tag) {
       return request(owner, repository, `/releases/tags/${encodeURIComponent(tag)}`);
     },

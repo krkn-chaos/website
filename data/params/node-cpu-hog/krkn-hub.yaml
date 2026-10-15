@@ -48,7 +48,7 @@ params:
   description: The container image of the stress workload
   description_source: published-table
   type: string
-  default: quay.io/krkn-chaos/krkn-hog
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-hog
   required: false
 - name: SCENARIO_TYPE
   description: Plugin key krkn dispatches the scenario on. Fixed by the container image, not a knob to change.

@@ -53,6 +53,6 @@ params:
   description: The hog container image. Can be changed if the hog image is mirrored on a private repository
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn-hog
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-hog
   flag: image
   required: false

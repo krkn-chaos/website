@@ -96,7 +96,7 @@ params:
   description: Container image used for the chaos helper pod that applies tc rules on the node.
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn-network-chaos:latest
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-network-chaos
   flag: image
   required: false
 - name: SERVICE_ACCOUNT

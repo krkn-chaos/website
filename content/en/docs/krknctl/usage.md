@@ -519,6 +519,63 @@ krknctl operator uninstall --kubeconfig ~/.kube/config --delete-namespace
 
 <br/>
 
+- #### `backup <namespace> [flags]`:
+
+Exports operator admin settings - users, groups, targets, target authentication, provider registrations, provider configuration, cloud credentials, and saved workflow templates from the specified namespace into a timestamped `.tar.gz` archive. This backup contains sensitive information, so protect the archive as sensitive data.
+
+Namespace and cluster-specific metadata are normalized so the archive can be restored to another namespace or cluster. Runtime/status state and the JWT signing Secret are intentionally excluded. 
+
+```bash
+# Back up from the default namespace
+krknctl operator backup krkn-operator-system
+
+# Back up to a specific directory
+krknctl operator backup krkn-operator-system --output /tmp/backups
+
+# Back up a KinD-based installation
+krknctl operator backup krkn-operator-system --kind --cluster-name krkn-operator
+```
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--output` | `.` | Directory to write the backup archive |
+| `--kubeconfig` | `~/.kube/config` | Path to kubeconfig |
+| `--kind` | `false` | Use the kubeconfig created for a KinD cluster |
+| `--cluster-name` | `krkn-operator` | KinD cluster name (only used with `--kind`) |
+
+<br/>
+
+- #### `restore <archive-path> <namespace> [flags]`:
+
+Restores supported operator resources from a `.tar.gz` archive into the target namespace. Existing resources with the same name are updated, and missing resources are created.
+
+Source-cluster provider registrations are not copied to the destination. Standalone krknctl does not apply provider settings; it reports a warning instead. The operator console migrates  provider settings when a compatible destination provider registration is available.
+
+```bash
+# Restore to a namespace
+krknctl operator restore krkn-backup-20261007-143022.tar.gz krkn-operator-system
+
+# Restore a KinD-based installation
+krknctl operator restore krkn-backup-20261007-143022.tar.gz krkn-operator-system \
+  --kind --cluster-name krkn-operator
+```
+
+{{% alert title="Warning" %}}
+Restoring replaces existing operator-managed resources with the contents of the archive. Verify the archive and destination namespace before proceeding.
+{{% /alert %}}
+
+##### Supported flags:
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--kubeconfig` | `~/.kube/config` | Path to kubeconfig |
+| `--kind` | `false` | Use the kubeconfig created for a KinD cluster |
+| `--cluster-name` | `krkn-operator` | KinD cluster name (only used with `--kind`) |
+
+<br/>
+
 ### Running krknctl on a disconnected environment with a private registry
 
 If you're using krknctl in a disconnected environment, you can mirror the desired krkn-hub images to your private registry and configure krknctl to use that registry as the backend. Krknctl supports this through global flags or environment variables.

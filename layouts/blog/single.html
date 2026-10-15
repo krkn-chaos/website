@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="krkn-blog-article">
+  <header class="krkn-blog-article__header">
+    <p class="krkn-blog-article__eyebrow">Krkn Blog</p>
+    <h1 class="krkn-blog-article__title">{{ .Title }}</h1>
+    <p class="krkn-blog-article__meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+      {{ with .Params.tags }}<span aria-hidden="true">&middot;</span><span>{{ delimit . ", " }}</span>{{ end }}
+    </p>
+  </header>
+
+  <div class="krkn-blog-article__content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

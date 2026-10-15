@@ -21,6 +21,20 @@ A simple `pass` or `fail` doesn't tell the whole story. A score of **95%** indic
 **How does it work?**
 After a chaos scenario completes, Krkn evaluates a list of pre-defined SLOs (which are Prometheus alert expressions) over the chaos time window. It counts how many SLOs passed and failed, applies a weighted scoring model, and embeds a detailed report in the final telemetry output.
 
+### Evaluation Window
+
+Resiliency SLOs are evaluated over the scenario's **during window**. The window starts when the scenario begins and ends when the scenario telemetry is complete. Every expression in the configured resiliency alert file is queried against Prometheus over that range.
+
+This is separate from Prometheus health-check alerts configured with `performance_monitoring.run_during`:
+
+* `pre` and `post` run instant checks before and after the chaos scenario.
+* `during` runs a health-check query over the chaos window.
+* These health-check phases do not change the resiliency-score window.
+
+For example, with health checks configured for `pre` and `post`, those checks can pass at both sample points while a resiliency SLO still fails because it detected a transient violation during the scenario. The report displays these as separate health-check alerts and resiliency SLO results.
+
+For multiple scenarios, Krkn evaluates each scenario over its own start and end timestamps. The per-scenario scores are then combined using the configured scenario weights.
+
 ### The Scoring Algorithm
 
 The final score is calculated using a weighted pass/fail model. By default, weights are based on SLO severity, but you can also assign custom weights to individual SLOs for more granular control.
@@ -258,9 +272,9 @@ A single `Resiliency` class in `krkn/resiliency/resiliency.py` manages the entir
    - Uses the `evaluate_slos()` function from `krkn/prometheus/collector.py`
 
 3. **Result Mapping**
-   - A non-empty query result marks the SLO as **failed**
-   - An empty result marks it as **passed**
-   - SLOs that return no data from Prometheus are **excluded** from scoring
+   - A query result containing a violating value marks the SLO as **failed**
+   - A query result with no violating values marks it as **passed**
+   - SLOs that return no data from Prometheus are treated as passing and remain part of the score calculation
 
 4. **Scoring**
    - For each SLO, determines the weight: uses custom weight if specified, otherwise uses severity-based weight (critical = 3, warning = 1)

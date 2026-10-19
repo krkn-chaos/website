@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { body, validationResult } = require('express-validator');
+const { body, query: queryValidator, validationResult } = require('express-validator');
 require('dotenv').config();
 
 // Load configuration
@@ -52,15 +52,15 @@ let dailyUsageTracker;
 async function initializeServices() {
     try {
         logger.info('Initializing services...');
-        
+
         // Initialize daily usage tracker
         dailyUsageTracker = new DailyUsageTracker();
         await dailyUsageTracker.initialize();
-        
+
         // Initialize documentation index
         documentationIndex = new DocumentationIndex();
         await documentationIndex.initialize();
-        
+
         // Initialize chat service with documentation context
         chatService = new ChatService({
             documentationIndex,
@@ -72,7 +72,7 @@ async function initializeServices() {
             projectId: config.llm.projectId,
             location: config.llm.location
         });
-        
+
         logger.info('Services initialized successfully');
     } catch (error) {
         logger.error('Failed to initialize services:', error);
@@ -85,7 +85,7 @@ app.get('/api/health', async (req, res) => {
     try {
         const currentUsage = dailyUsageTracker ? await dailyUsageTracker.getCurrentUsage() : 0;
         const remainingUsage = dailyUsageTracker ? await dailyUsageTracker.getRemainingUsage(config.rateLimiting.dailyLimit) : config.rateLimiting.dailyLimit;
-        
+
         res.json({
             status: 'healthy',
             timestamp: new Date().toISOString(),
@@ -129,7 +129,7 @@ const dailyLimitMiddleware = async (req, res, next) => {
         // Check if daily limit exceeded
         if (await dailyUsageTracker.hasExceededLimit(config.rateLimiting.dailyLimit)) {
             const currentUsage = await dailyUsageTracker.getCurrentUsage();
-            
+
             logger.warn('Daily chat limit exceeded', {
                 currentUsage,
                 limit: config.rateLimiting.dailyLimit,
@@ -184,7 +184,7 @@ app.post('/api/chat',
             }
 
             const { message, context, conversationHistory } = req.body;
-            
+
             // Log the request (without sensitive data)
             logger.info('Chat request received', {
                 messageLength: message.length,
@@ -213,7 +213,7 @@ app.post('/api/chat',
                 try {
                     const newUsageCount = await dailyUsageTracker.incrementUsage();
                     const remaining = await dailyUsageTracker.getRemainingUsage(config.rateLimiting.dailyLimit);
-                    
+
                     logger.info('Daily usage incremented', {
                         currentUsage: newUsageCount,
                         remaining: remaining,
@@ -237,9 +237,9 @@ app.post('/api/chat',
 
         } catch (error) {
             logger.error('Chat endpoint error:', error);
-            
+
             // Don't expose internal errors to clients
-            const errorMessage = process.env.NODE_ENV === 'production' 
+            const errorMessage = process.env.NODE_ENV === 'production'
                 ? 'I\'m having trouble processing your request right now. Please try again later.'
                 : error.message;
 
@@ -254,15 +254,23 @@ app.post('/api/chat',
 // Documentation search endpoint
 app.get('/api/search',
     [
-        body('query')
+        queryValidator('query')
+            .isString()
+            .withMessage('Query must be a string')
             .trim()
             .isLength({ min: 1, max: 200 })
             .withMessage('Query must be between 1 and 200 characters')
     ],
     async (req, res) => {
+        // Check for validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         try {
             const { query, limit = 10 } = req.query;
-            
+
             if (!query) {
                 return res.status(400).json({
                     error: 'Query parameter is required'
@@ -305,7 +313,7 @@ app.get('/api/topics', async (req, res) => {
         }
 
         const topics = await documentationIndex.getTopics();
-        
+
         res.json({
             topics,
             timestamp: new Date().toISOString()
@@ -329,7 +337,7 @@ app.post('/api/admin/rebuild-index', async (req, res) => {
         }
 
         const result = await documentationIndex.rebuildIndex();
-        
+
         res.json({
             message: 'Documentation index rebuilt successfully',
             ...result,
@@ -349,7 +357,7 @@ app.post('/api/admin/rebuild-index', async (req, res) => {
 app.all('/webhook/rebuild-docs', async (req, res) => {
     try {
         const startTime = Date.now();
-        
+
         if (!documentationIndex) {
             return res.status(503).json({
                 error: 'Documentation service not available'
@@ -396,7 +404,7 @@ app.use((err, req, res, next) => {
     logger.error('Unhandled error:', err);
     res.status(500).json({
         error: 'Internal server error',
-        message: process.env.NODE_ENV === 'production' 
+        message: process.env.NODE_ENV === 'production'
             ? 'Something went wrong'
             : err.message
     });
@@ -413,24 +421,24 @@ app.use((req, res) => {
 // Graceful shutdown
 process.on('SIGINT', async () => {
     logger.info('Received SIGINT, shutting down gracefully...');
-    
+
     // Close any open connections or cleanup
     if (chatService && typeof chatService.cleanup === 'function') {
         await chatService.cleanup();
     }
-    
-    
+
+
     process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
     logger.info('Received SIGTERM, shutting down gracefully...');
-    
+
     if (chatService && typeof chatService.cleanup === 'function') {
         await chatService.cleanup();
     }
-    
-    
+
+
     process.exit(0);
 });
 
@@ -438,7 +446,7 @@ process.on('SIGTERM', async () => {
 async function startServer() {
     try {
         await initializeServices();
-        
+
         app.listen(PORT, () => {
             logger.info(`Krkn Chatbot API server running on port ${PORT}`);
             logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);

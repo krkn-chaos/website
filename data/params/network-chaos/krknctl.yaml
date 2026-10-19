@@ -15,7 +15,7 @@ params:
   description: Image used to disrupt network on a pod.
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn:tools
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools
   flag: image
   required: false
 - name: DURATION
@@ -52,6 +52,7 @@ params:
 - name: NODE_NAME
   description: Node name to inject faults in case of targeting a specific node; Can set multiple node names separated by a comma.
   description_source: krknctl
+  group: egress
   type: string
   default: ''
   flag: node-name
@@ -59,6 +60,7 @@ params:
 - name: INTERFACES
   description: List of interface on which to apply the network restriction. eg. [eth0,eth1,eth2].
   description_source: krknctl
+  group: egress
   type: string
   default: '[]'
   flag: interfaces
@@ -66,6 +68,7 @@ params:
 - name: EGRESS
   description: 'Dictionary of values to set network latency(latency: 50ms), packet loss(loss: 0.02), bandwidth restriction(bandwidth: 100mbit) eg. &#123;bandwidth: 100mbit}.'
   description_source: krknctl
+  group: egress
   type: string
   default: '{bandwidth: 100mbit}'
   flag: egress
@@ -73,12 +76,14 @@ params:
 - name: TARGET_NODE_AND_INTERFACE
   description: 'Dictionary with key as node name(s) and value as a list of its interfaces to test. For example: &#123;ip-10-0-216-2.us-west-2.compute.internal: [ens5]}.'
   description_source: krknctl
+  group: ingress
   type: string
   flag: target-node-interface
   required: false
 - name: NETWORK_PARAMS
   description: 'latency, loss and bandwidth are the three supported network parameters to alter for the chaos test. For example: &#123;latency: 50ms, loss: 0.02}.'
   description_source: krknctl
+  group: ingress
   type: string
   flag: network-params
   required: false

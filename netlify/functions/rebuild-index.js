@@ -23,8 +23,8 @@ const initializeServices = async () => {
 exports.handler = async (event, context) => {
     const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
 
@@ -38,7 +38,19 @@ exports.handler = async (event, context) => {
         return {
             statusCode: 405,
             headers,
-            body: JSON.stringify({ error: 'Method not allowed' })
+            body: JSON.stringify({ error: 'Method not allowed — only POST is accepted' })
+        };
+    }
+
+    // Auth guard — require x-admin-key header
+    const adminApiKey = process.env.ADMIN_API_KEY;
+    const providedKey = event.headers['x-admin-key'];
+    if (!adminApiKey || !providedKey || providedKey !== adminApiKey) {
+        console.error('Unauthorized rebuild-index request — missing or invalid x-admin-key');
+        return {
+            statusCode: 401,
+            headers,
+            body: JSON.stringify({ error: 'Unauthorized — valid x-admin-key header required' })
         };
     }
 

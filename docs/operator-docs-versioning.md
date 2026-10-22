@@ -15,6 +15,19 @@ published just because their Website PR is merged. The local command
 `npm run preview:operator-source` is explicitly labeled as an unpublished
 authoring preview.
 
+Netlify deploy previews make these edits reviewable before release: the
+editable source appears at the ordinary, unversioned Operator URLs, with an
+"Upcoming Operator documentation preview — not published" notice. Browser
+search includes the editable source, and the documentation assistant is hidden
+on these pages because it uses published documentation. Registered release
+URLs remain mounted from their frozen snapshots. For example, while
+preparing v1.2.0, inspect the roadmap at
+`<deploy-preview-url>/docs/krkn-operator/releases/`; the page at
+`<deploy-preview-url>/docs/krkn-operator/versions/v1.1.0/releases/` continues
+to show the captured v1.1.0 roadmap. Production builds do not enable this
+preview mode: source pages stay hidden and unversioned links redirect to the
+newest published stable snapshot.
+
 Previously shared unversioned URLs keep working through generated redirect
 pages that send readers to the corresponding article in the newest published
 stable snapshot, or its overview if the article is unavailable. Those pages
@@ -127,5 +140,6 @@ NETLIFY=false LINK_CHECK_SOFT_FAIL=0 npm run check:links
 
 A raw `hugo` command bypasses snapshot preparation and integrity checks. The
 `preview:operator-source` command is only for authors to inspect unpublished
-source; use a production build or Website PR preview to check what readers
-will see.
+source locally. In a Website PR deploy preview, use unversioned Operator URLs
+to review pending source edits and versioned URLs to verify archived releases.
+Use a production build to check what public readers will see.

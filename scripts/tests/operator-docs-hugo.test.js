@@ -153,6 +153,46 @@ test('prepared builds only mount releases in the registry', () => {
   assert.equal(fs.existsSync(path.join(repoRoot, '.cache/operator-docs/preview-test-snapshot')), false);
 });
 
+test('deploy previews expose editable Operator source while keeping registered snapshots', () => {
+  const { repoRoot } = setupRepo();
+  const registry = readRegistry(repoRoot);
+  const result = prepareHugoInputs(repoRoot, registry, {
+    includeAuthoringSourcePreview: true,
+  });
+  const config = YAML.parse(fs.readFileSync(result.hugoConfigPath, 'utf8'));
+
+  assert.equal(result.enabled, true);
+  assert.deepEqual(result.redirects, []);
+  assert.equal(config.params.operator_docs_authoring_preview, true);
+  assert.deepEqual(config.params.operator_docs_release_tags, ['v1.1.0', 'v1.0.0']);
+  assert.ok(config.module.mounts.some((mount) =>
+    mount.source === 'content/en/docs/krkn-operator' &&
+    mount.target === 'content/docs/krkn-operator' &&
+    mount.excludeFiles.includes('versions/**')
+  ));
+  assert.ok(config.module.mounts.some((mount) =>
+    mount.source === 'content/en/docs/krkn-operator/versions' &&
+    mount.target === 'content/docs/krkn-operator/versions'
+  ));
+  assert.ok(!config.module.mounts.some((mount) => mount.source === '.cache/operator-docs/redirects'));
+  assert.equal(fs.existsSync(path.join(repoRoot, '.cache/operator-docs/redirects')), false);
+});
+
+test('empty-registry deploy previews still enable the unpublished-source notice', () => {
+  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'operator-docs-preview-empty-'));
+  fs.mkdirSync(path.join(repoRoot, 'data'), { recursive: true });
+  fs.writeFileSync(path.join(repoRoot, 'data/operator_doc_versions.yaml'), 'schema_version: 1\nreleases: []\n');
+
+  const result = prepareHugoInputs(repoRoot, readRegistry(repoRoot), {
+    includeAuthoringSourcePreview: true,
+  });
+
+  assert.ok(result.hugoConfigPath);
+  const config = YAML.parse(fs.readFileSync(result.hugoConfigPath, 'utf8'));
+  assert.equal(config.params.operator_docs_authoring_preview, true);
+  assert.equal(config.module, undefined);
+});
+
 test('final redirects append exact temporary rules and preserve existing API rules', () => {
   const { repoRoot } = setupRepo();
   prepareHugoInputs(repoRoot, readRegistry(repoRoot));

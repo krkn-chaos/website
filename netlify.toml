@@ -27,6 +27,7 @@ command = "npm install && npm run build:preview && node scripts/post-build.js"
 
 [context.deploy-preview.environment]
 HUGO_VERSION = "0.146.0"
+OPERATOR_DOCS_DEPLOY_PREVIEW = "1"
 
 # Function-specific settings
 [functions]

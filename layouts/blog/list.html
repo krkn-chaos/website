@@ -19,6 +19,7 @@
         <div class="krkn-filter__pills" role="group" aria-label="Filter by category">
           <button class="krkn-filter__btn krkn-filter__btn--active" data-group="category" data-filter="all" aria-pressed="true" type="button">All</button>
           <button class="krkn-filter__btn" data-group="category" data-filter="announcement"   aria-pressed="false" type="button">Announcement</button>
+          <button class="krkn-filter__btn" data-group="category" data-filter="krkn-operator" aria-pressed="false" type="button">Krkn Operator</button>
           <button class="krkn-filter__btn" data-group="category" data-filter="ai"             aria-pressed="false" type="button">AI</button>
           <button class="krkn-filter__btn" data-group="category" data-filter="cli"            aria-pressed="false" type="button">CLI</button>
           <button class="krkn-filter__btn" data-group="category" data-filter="introduction"   aria-pressed="false" type="button">Introduction</button>
@@ -52,9 +53,17 @@
       <h2 class="krkn-blog__section-title">Featured</h2>
       <div class="krkn-blog__grid krkn-blog__grid--featured">
 
+        <a href="/blog/articles/krkn-operator-1-1/" class="krkn-blog__card krkn-blog__card--featured"
+           data-category="krkn-operator" data-type="featured">
+          <span class="krkn-blog__card-badge">Announcement</span>
+          <h3 class="krkn-blog__card-title">Krkn Operator 1.1: From Chaos Runs to Resilience Insights</h3>
+          <p class="krkn-blog__card-desc">Explore richer workflow authoring, resiliency history, telemetry, safer operations, and broader distribution in Krkn Operator 1.1.</p>
+          <span class="krkn-blog__card-source">Krkn Blog</span>
+        </a>
+
         <a href="https://developers.redhat.com/articles/2026/08/17/krkn-operator-developer-preview-red-hat-acm" target="_blank" rel="noopener"
            class="krkn-blog__card krkn-blog__card--featured"
-           data-category="announcement" data-type="featured">
+           data-category="krkn-operator" data-type="featured">
           <span class="krkn-blog__card-badge">Announcement</span>
           <h3 class="krkn-blog__card-title">Krkn Operator Developer Preview in Red Hat Advanced Cluster Management</h3>
           <p class="krkn-blog__card-desc">Run Kubernetes-native chaos engineering at scale with the Krkn Operator developer preview, now integrated with Red Hat Advanced Cluster Management and OCM.</p>
@@ -98,7 +107,7 @@
 
          <a href="https://developers.redhat.com/articles/2026/08/17/krkn-operator-developer-preview-red-hat-acm" target="_blank" rel="noopener"
             class="krkn-blog__card"
-            data-category="announcement" data-type="article">
+            data-category="krkn-operator" data-type="article">
           <span class="krkn-blog__card-badge">Announcement</span>
           <h3 class="krkn-blog__card-title">Krkn Operator Developer Preview in Red Hat Advanced Cluster Management</h3>
           <p class="krkn-blog__card-desc">Run Kubernetes-native chaos engineering at scale with the Krkn Operator developer preview, now integrated with Red Hat Advanced Cluster Management and OCM.</p>
@@ -106,7 +115,7 @@
          </a>
 
         <a href="/blog/articles/krkn-operator-1-1/" class="krkn-blog__card"
-           data-category="announcement" data-type="article">
+           data-category="krkn-operator" data-type="article">
           <span class="krkn-blog__card-badge">Announcement</span>
           <h3 class="krkn-blog__card-title">Krkn Operator 1.1: From Chaos Runs to Resilience Insights</h3>
           <p class="krkn-blog__card-desc">Explore the new workflow, resiliency history, telemetry, target health, security, and operations features in Krkn Operator 1.1.</p>

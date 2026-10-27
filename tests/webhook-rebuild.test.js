@@ -2,8 +2,8 @@ const { test, afterEach } = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('crypto');
 
-const modulePath = require.resolve('./webhook-rebuild.js');
-const servicePath = require.resolve('../../api/services/DocumentationIndex');
+const modulePath = require.resolve('../netlify/functions/webhook-rebuild.js');
+const servicePath = require.resolve('../api/services/DocumentationIndex');
 const originalWebhookSecret = process.env.WEBHOOK_SECRET;
 const originalServiceModule = require.cache[servicePath];
 
@@ -44,7 +44,7 @@ function loadHandler() {
         }
     };
 
-    return require('./webhook-rebuild.js').handler;
+    return require('../netlify/functions/webhook-rebuild.js').handler;
 }
 
 test('rejects unsigned webhook requests when WEBHOOK_SECRET is configured', async () => {

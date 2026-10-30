@@ -22,7 +22,7 @@ cd visualize/krkn-visualize
 ./deploy.sh -e <elasticsearch_url> -p <grafana_password> -k oc
 ```
 
-> **Note:** Prometheus must be installed before deploying dashboards. On Kubernetes, install it manually. On OpenShift, it is included by default. If you need Prometheus or Elasticsearch, see [these install commands](developers-guide/testing-changes.md#install-elasticsearch-and-prometheus).
+> **Note:** Prometheus must be installed before deploying dashboards. On Kubernetes, follow the [kube-prometheus-stack Helm installation instructions](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#usage). On OpenShift, it is included by default. To install Elasticsearch on Kubernetes, [install ECK with Helm](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/install-using-helm-chart), then [deploy and access an Elasticsearch cluster](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/elasticsearch-deployment-quickstart) using a version compatible with your Krkn runtime.
 
 ### Deploy with krknctl
 

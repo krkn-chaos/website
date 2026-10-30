@@ -13,7 +13,7 @@ This journey is well suited to CI/CD pipelines where you cannot watch the cluste
 ## What you need
 
 - Everything from the [Getting Started guide](../../) (install krknctl, create a test workload, and run a first scenario)
-- A Prometheus instance accessible from where Krkn runs (auto-detected on OpenShift; set via scenario flags on Kubernetes) — need to set one up? See [installing Prometheus on a kind cluster](../../developers-guide/testing-changes.md#prometheus)
+- A Prometheus instance accessible from where Krkn runs (auto-detected on OpenShift; set via scenario flags on Kubernetes) — for Kubernetes installation, follow the [kube-prometheus-stack Helm instructions](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#usage).
 - krknctl installed
 
 ## Steps
@@ -46,7 +46,7 @@ This journey is well suited to CI/CD pipelines where you cannot watch the cluste
 
 - [SLO Validation](../../krkn/SLOs_validation.md) — full details on alert profiles and PromQL configuration
 - [krknctl usage](../../krknctl/_index.md) — full flag reference for `run`
-- [Installing Prometheus on a kind cluster](../../developers-guide/testing-changes.md#prometheus) — Helm-based setup for local testing
+- [Prometheus Helm installation](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#usage) — chart prerequisites and installation commands for Kubernetes
 
 ## Next steps
 

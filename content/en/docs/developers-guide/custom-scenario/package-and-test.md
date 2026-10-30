@@ -75,7 +75,7 @@ integer range: a generic `number` field alone does not restrict input to an
 integer from 0 to 60.
 
 `Dockerfile.template` embeds the JSON in `krknctl.input_fields`, together with
-the identification and runtime labels:
+the other labels included in the companion image:
 
 ```dockerfile
 LABEL krknctl.is_a_scenario="true"
@@ -86,6 +86,14 @@ LABEL krknctl.title="Dev Demo"
 LABEL krknctl.description="Waits, then logs pod names from one Kubernetes namespace."
 LABEL krknctl.input_fields='$KRKNCTL_INPUT'
 ```
+
+{{% alert title="Tip: an image label does not configure a volume mount" color="info" %}}
+`krknctl.kubeconfig_path` is metadata in this template; krknctl and the operator
+do not use it to select the mount destination. The operator uses the run's
+`kubeconfigPath` or its default, `/home/krkn/.kube/config`, which this lab keeps.
+With a custom path, align the run configuration, the mount, and the startup
+script's `KUBECONFIG` value. See [Kubeconfig mount path](/docs/developers-guide/krknctl-edits/#kubeconfig-mount-path).
+{{% /alert %}}
 
 The same Dockerfile copies the startup script with an explicit executable bit:
 
@@ -199,7 +207,8 @@ export KRKN_TEST_NAMESPACE=default
 {{% alert title="Tip: match the operator's startup conditions" color="info" %}}
 `--network kind` makes the internal Kind API address reachable. Each `-e`
 sets a container environment variable, while `-v host:container:ro` mounts the
-kubeconfig read-only at the path declared by the image. `--user 1001:1001`
+kubeconfig read-only at the container path supplied in that argument.
+`KUBECONFIG` tells the startup script where to read it. `--user 1001:1001`
 tests non-root access. Overriding the entrypoint with `bash -c 'exec ...'`
 executes `run.sh` directly, exposing a missing executable bit. `--rm` removes
 the finished container; the subshell's `trap` removes only the generated

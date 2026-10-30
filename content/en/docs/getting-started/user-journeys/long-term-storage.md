@@ -13,7 +13,7 @@ This journey enables regression analysis — for example, detecting that API ser
 ## What you need
 
 - Everything from [Metrics Validation](../metrics-validation/)
-- An Elasticsearch instance (self-hosted or managed) — need to set one up? See [installing Elasticsearch on a kind cluster](../../developers-guide/testing-changes.md#elasticsearch)
+- An Elasticsearch instance (self-hosted or managed) — for Kubernetes, [install ECK with Helm](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/install-using-helm-chart), then follow Elastic's [Elasticsearch deployment and access quickstart](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/elasticsearch-deployment-quickstart). Choose an Elasticsearch version compatible with the client in your Krkn runtime.
 - krknctl installed
 
 ## Steps
@@ -63,7 +63,8 @@ This journey enables regression analysis — for example, detecting that API ser
 - [krknctl usage](../../krknctl/_index.md) — full flag reference for `run` and `visualize`
 - [Performance Dashboards](../../krkn-visualize.md) — krkn-visualize dashboards and manual deploy script
 - [Telemetry](../../krkn/telemetry.md) — understanding the data Krkn captures and stores per run
-- [Installing Elasticsearch on a kind cluster](../../developers-guide/testing-changes.md#elasticsearch) — Helm-based setup for local testing
+- [Install ECK with Helm](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/install-using-helm-chart) — install the Kubernetes operator and CRDs
+- [Deploy and access Elasticsearch](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/elasticsearch-deployment-quickstart) — create the cluster, check readiness, and obtain credentials and connection details
 
 ## Next steps
 

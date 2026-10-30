@@ -21,8 +21,9 @@ and [type validators](https://github.com/krkn-chaos/krknctl/blob/main/pkg/typing
 - **`krknctl.is_a_scenario`** identifies scenario images when set to `"true"`.
 - **`krknctl.title`** and **`krknctl.description`** describe the scenario.
 - **`krknctl.input_fields`** contains a JSON array of field descriptors.
-- **`krknctl.kubeconfig_path`** declares the path expected for the target
-  kubeconfig, conventionally `/home/krkn/.kube/config`.
+- **`krknctl.kubeconfig_path`** appears in the companion image as metadata.
+  The clients used in this lab do not read it to configure the kubeconfig mount.
+  Set the [runtime mount path](#kubeconfig-mount-path) independently.
 - **`krknctl.privileged`** declares a privilege requirement. It is not an RBAC
   grant; actual permissions depend on the client, runtime, and target credentials.
 - **`krknctl.has_rollback`** describes rollback capability. Set it to match
@@ -130,6 +131,24 @@ The script can launch Krkn or another implementation that obeys the same
 runtime contract. It must read the declared inputs, use the configured file
 paths, and exit with a meaningful status. For the Krkn plugin path, return
 `0` or `1` from the plugin and preserve the engine's process status with `exec`.
+
+### Kubeconfig mount path
+
+Krkn Operator selects the container mount path from the run's
+`spec.kubeconfigPath` (`kubeconfigPath` in the API request). When omitted, it
+uses the krknctl configuration default, `/home/krkn/.kube/config` in this lab.
+Krknctl also uses its own configured `kubeconfig_path` for the mount destination;
+the image label does not override that setting.
+
+For a custom path, configure the client's mount destination and make the
+startup script read the same path. The demo's script reads `KUBECONFIG` and
+writes it into `kraken.kubeconfig_path`, so update that environment value or
+the script's default as well. Changing `spec.kubeconfigPath` moves the mount;
+it does not rewrite the script or the Krkn YAML. Changing only the image label
+does neither.
+
+See the operator's [mount-path selection](https://github.com/krkn-chaos/krkn-operator/blob/dfdf002f4643a53ec035fde6705fec4fee4e23d9/internal/controller/krknscenariorun_controller.go#L503-L507)
+and krknctl's [default configuration](https://github.com/krkn-chaos/krknctl/blob/051b77cb0ba7eb4efbda77e7197cbf87fd4d0336/pkg/config/config.json).
 
 ## Inspect the built contract
 

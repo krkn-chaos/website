@@ -100,7 +100,7 @@ scripts under `CI/tests/`, and `CI/run.sh`. It writes results to
 and [adding tests guide](/docs/developers-guide/add-tests-krkn/#functional-tests)
 when extending that suite.
 
-### Install Elasticsearch and Prometheus {#install-elasticsearch-and-prometheus}
+### Monitoring installation references {#install-elasticsearch-and-prometheus}
 
 These services support other Krkn test suites and the metrics and long-term
 storage user journeys. Neither is required for the custom scenario lab, which
@@ -111,7 +111,7 @@ the lab's target.
 #### Prometheus {#prometheus}
 
 For a Kubernetes test environment, use the maintained
-[kube-prometheus-stack chart instructions](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack).
+[kube-prometheus-stack Helm installation instructions](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#usage).
 Select a chart version compatible with your Kubernetes version and the test
 requirements, then configure the tests with a reachable Prometheus endpoint.
 A workstation port-forward is suitable for a test process on that workstation;
@@ -122,9 +122,10 @@ A workstation port-forward is suitable for a test process on that workstation;
 Use an Elasticsearch version supported by the library and tests you are
 running. Elastic documents
 [installing ECK with Helm](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/install-using-helm-chart)
-and the separate step of deploying Elasticsearch resources. Installing the
-operator alone does not create an Elasticsearch instance. Supply the resulting
-endpoint, credentials, and TLS configuration to the selected test suite.
+and [deploying and accessing an Elasticsearch cluster](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/elasticsearch-deployment-quickstart).
+Follow both steps: installing the operator alone does not create an
+Elasticsearch instance. Supply the resulting endpoint, credentials, and TLS
+configuration to the selected test suite.
 
 Use these maintained installation references instead of copying old chart
 values or image tags across incompatible releases.

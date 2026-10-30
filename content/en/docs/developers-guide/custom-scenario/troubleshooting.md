@@ -119,10 +119,14 @@ Setting `KUBECONFIG` does not override an explicit
 script sets that configuration key from `KUBECONFIG` and defaults it to
 `/home/krkn/.kube/config`.
 
-Align the mounted path, the environment variable, the main Krkn configuration,
-and the image's `krknctl.kubeconfig_path` label. Running the container as root
-can change a home-directory fallback, which is why the demo uses an explicit
-path and tests startup as UID 1001.
+Align the mounted path, the environment variable, and the main Krkn
+configuration. In the operator, the mount destination comes from the run's
+`spec.kubeconfigPath` or the configured default, `/home/krkn/.kube/config` in
+this lab. The image's `krknctl.kubeconfig_path` label does not control the mount.
+For a custom path, update the run configuration and the startup script's
+`KUBECONFIG` value together. Running the container as root can change a
+home-directory fallback, which is why the demo uses an explicit path and tests
+startup as UID 1001.
 
 ## The kubeconfig works on the host but not in the container
 

@@ -70,7 +70,14 @@ function createSiteFixture() {
     '',
   ].join('\n'));
   write(repoRoot, 'data/operator_doc_versions.yaml', 'schema_version: 1\nreleases: []\n');
-  write(repoRoot, 'data/roadmap.yaml', 'releases: []\n');
+  write(repoRoot, 'data/roadmap.yaml', [
+    'releases:',
+    '  - version: v1.0.0',
+    '    status: released',
+    '    title: First release roadmap',
+    '    date: 2026-09-01',
+    '',
+  ].join('\n'));
   write(repoRoot, 'static/_redirects', '/api/chat /.netlify/functions/chat 200\n');
   write(repoRoot, 'content/en/docs/_index.md', '---\ntitle: Documentation\n---\nAll docs.\n');
   write(repoRoot, 'content/en/docs/scenarios/current.md', '---\ntitle: Other product\n---\nOther product docs.\n');
@@ -79,6 +86,7 @@ function createSiteFixture() {
   write(repoRoot, 'content/en/docs/krkn-operator/usage/_index.md', '---\ntitle: Usage\n---\nAuthoring section.\n');
   write(repoRoot, 'content/en/docs/krkn-operator/usage/jobs.md', '---\ntitle: Jobs\n---\nFirst release job text.\n');
   write(repoRoot, 'content/en/docs/krkn-operator/usage/old.md', '---\ntitle: Old feature\n---\nOnly available in old release.\n');
+  write(repoRoot, 'content/en/docs/krkn-operator/releases/_index.md', '---\ntitle: Release roadmap\n---\n{{< roadmap >}}\n');
   copyTree(
     path.join(sourceRoot, 'content/en/community/operator-feedback.md'),
     path.join(repoRoot, 'content/en/community/operator-feedback.md')
@@ -105,12 +113,33 @@ function createSiteFixture() {
   write(repoRoot, 'content/en/docs/krkn-operator/installation/_index.md', '---\ntitle: Installation\n---\nSecond release installation steps.\n');
   write(repoRoot, 'content/en/docs/krkn-operator/usage/jobs.md', '---\ntitle: Jobs\n---\nSecond release job text.\n');
   fs.rmSync(path.join(repoRoot, 'content/en/docs/krkn-operator/usage/old.md'));
+  write(repoRoot, 'data/roadmap.yaml', [
+    'releases:',
+    '  - version: v1.1.0',
+    '    status: in-progress',
+    '    title: Second release roadmap',
+    '    date: 2026-10-01',
+    '',
+  ].join('\n'));
   const secondCommit = commit(repoRoot, 'second operator documentation release');
   captureSnapshot({
     repoRoot,
     releaseInputs: releaseInputs(repoRoot, 'v1.1.0', 110, '2026-10-01T00:00:00Z', 'b'.repeat(40), secondCommit, '1.1.0'),
     now: () => '2026-10-02T00:00:00Z',
   });
+
+  write(repoRoot, 'data/roadmap.yaml', [
+    'releases:',
+    '  - version: v1.1.0',
+    '    status: released',
+    '    title: Previous release roadmap',
+    '    date: 2026-10-01',
+    '  - version: v1.2.0',
+    '    status: in-progress',
+    '    title: Upcoming release roadmap',
+    '    date: 2026-12-01',
+    '',
+  ].join('\n'));
 
   const operatorPartials = path.join(sourceRoot, 'layouts/_partials/operator-docs');
   copyTree(operatorPartials, path.join(repoRoot, 'layouts/_partials/operator-docs'));
@@ -123,15 +152,18 @@ function createSiteFixture() {
   copyTree(path.join(sourceRoot, 'layouts/_partials/default-page-meta-links.html'), path.join(repoRoot, 'layouts/_partials/default-page-meta-links.html'));
   copyTree(path.join(sourceRoot, 'layouts/_partials/default-page-meta-lastmod.html'), path.join(repoRoot, 'layouts/_partials/default-page-meta-lastmod.html'));
   copyTree(path.join(sourceRoot, 'layouts/_partials/default-print'), path.join(repoRoot, 'layouts/_partials/default-print'));
+  copyTree(path.join(sourceRoot, 'layouts/_td-content-after-header.html'), path.join(repoRoot, 'layouts/partials/td-content-after-header.html'));
   copyTree(path.join(sourceRoot, 'layouts/_partials/hooks/body-end.html'), path.join(repoRoot, 'layouts/_partials/hooks/body-end.html'));
   copyTree(path.join(sourceRoot, 'layouts/_partials/chatbot.html'), path.join(repoRoot, 'layouts/_partials/chatbot.html'));
   copyTree(path.join(sourceRoot, 'layouts/operator-docs-redirect'), path.join(repoRoot, 'layouts/operator-docs-redirect'));
   copyTree(path.join(sourceRoot, 'assets/json/offline-search-index.json'), path.join(repoRoot, 'assets/json/offline-search-index.json'));
   write(repoRoot, 'layouts/_partials/search-input.html', '<input type="search" aria-label="Search">');
+  copyTree(path.join(sourceRoot, 'layouts/shortcodes/roadmap.html'), path.join(repoRoot, 'layouts/shortcodes/roadmap.html'));
   write(repoRoot, 'layouts/_default/single.html', [
     '{{ $ctx := partial "operator-docs/context.html" . }}',
     '<!doctype html><html><body><main>',
-    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ partial "operator-docs/banner.html" $ctx }}{{ end }}',
+    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ end }}',
+    '{{ partial "td-content-after-header.html" . }}',
     '{{ partial "breadcrumb.html" . }}{{ partial "page-meta-links.html" . }}{{ partial "page-meta-lastmod.html" . }}',
     '<h1>{{ .Title }}</h1>{{ .Content }}',
     '{{ $search := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "test-offline-search.json" . }}<link rel="test-search-index" href="{{ $search.RelPermalink }}">',
@@ -141,9 +173,11 @@ function createSiteFixture() {
   write(repoRoot, 'layouts/_default/list.html', [
     '{{ $ctx := partial "operator-docs/context.html" . }}',
     '<!doctype html><html><body><main>',
-    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ partial "operator-docs/banner.html" $ctx }}{{ end }}',
+    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ end }}',
+    '{{ partial "td-content-after-header.html" . }}',
     '{{ partial "breadcrumb.html" . }}{{ partial "page-meta-links.html" . }}{{ partial "page-meta-lastmod.html" . }}',
     '<h1>{{ .Title }}</h1>{{ .Content }}{{ range .RegularPages }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}',
+    '{{ $search := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "test-offline-search.json" . }}<link rel="test-search-index" href="{{ $search.RelPermalink }}">',
     '{{ partial "hooks/body-end.html" . }}',
     '</main></body></html>',
   ].join('\n'));
@@ -213,6 +247,22 @@ function buildFixture(repoRoot) {
   finalizeRedirects(repoRoot, readRegistry(repoRoot), path.join(repoRoot, 'public'));
 }
 
+function buildAuthoringPreviewFixture(repoRoot) {
+  const prepared = prepareHugoInputs(repoRoot, readRegistry(repoRoot), {
+    includeAuthoringSourcePreview: true,
+  });
+  assert.ok(prepared.hugoConfigPath);
+  try {
+    execFileSync(hugoBinary, [
+      '--config', `hugo.yaml,${path.relative(repoRoot, prepared.hugoConfigPath)}`,
+      '--destination', 'public-preview',
+      '--baseURL', 'https://preview.invalid/',
+    ], { cwd: repoRoot, stdio: 'pipe' });
+  } catch (error) {
+    throw new Error(`Hugo authoring-preview build failed: ${String(error.stdout || '')}${String(error.stderr || '')}`);
+  }
+}
+
 test('generated site isolates snapshots, preserves selection, redirects old links, and searches only latest', (t) => {
   if (!fs.existsSync(hugoBinary)) return t.skip('pinned Hugo binary is unavailable');
   const repoRoot = createSiteFixture();
@@ -220,6 +270,8 @@ test('generated site isolates snapshots, preserves selection, redirects old link
 
   const readPublic = (relativePath) => fs.readFileSync(path.join(repoRoot, 'public', relativePath), 'utf8');
   const latestJobs = readPublic('docs/krkn-operator/versions/v1.1.0/usage/jobs/index.html');
+  const frozenRoadmap = readPublic('docs/krkn-operator/versions/v1.1.0/releases/index.html');
+  const legacyRoadmap = readPublic('docs/krkn-operator/releases/index.html');
   const oldOnly = readPublic('docs/krkn-operator/versions/v1.0.0/usage/old/index.html');
   const printDocs = readPublic('docs/index.print.html');
   const printOldRelease = readPublic('docs/krkn-operator/versions/v1.0.0/index.print.html');
@@ -237,6 +289,11 @@ test('generated site isolates snapshots, preserves selection, redirects old link
   assert.match(latestJobs, /v1\.1\.0 \(Latest\)/);
   assert.match(latestJobs, /Second release job text/);
   assert.doesNotMatch(latestJobs, /Authoring overview must stay private/);
+  assert.match(frozenRoadmap, /Second release roadmap/);
+  assert.doesNotMatch(frozenRoadmap, /Upcoming release roadmap|v1\.2\.0/);
+  assert.match(legacyRoadmap, /window\.location\.replace/);
+  assert.match(legacyRoadmap, /versions\/v1\.1\.0\/releases\//);
+  assert.doesNotMatch(legacyRoadmap, /Upcoming release roadmap|Upcoming Operator documentation preview/);
   assert.match(latestJobs, /\/js\/chatbot\.js/);
   assert.match(latestJobs, /\/js\/operator-docs-selector\.js/);
   const latestSidebar = latestJobs.match(/<nav class="td-sidebar-nav[\s\S]*?<\/nav>/)?.[0] || '';
@@ -305,4 +362,38 @@ test('registered test fixtures render changed, added, and removed pages as norma
   assert.ok(offlineSearch);
   assert.ok(JSON.parse(offlineSearch).some((document) => document.ref === '/docs/krkn-operator/versions/v1.1.0/'));
   assert.ok(!JSON.parse(offlineSearch).some((document) => document.ref.includes(`/versions/${testReleaseTag}/`)));
+});
+
+test('deploy preview shows pending roadmap at source URLs and keeps v1.1.0 frozen', (t) => {
+  if (!fs.existsSync(hugoBinary)) return t.skip('pinned Hugo binary is unavailable');
+  const repoRoot = createSiteFixture();
+  buildAuthoringPreviewFixture(repoRoot);
+
+  const readPreview = (relativePath) => fs.readFileSync(path.join(repoRoot, 'public-preview', relativePath), 'utf8');
+  const upcomingRoadmap = readPreview('docs/krkn-operator/releases/index.html');
+  const frozenRoadmap = readPreview('docs/krkn-operator/versions/v1.1.0/releases/index.html');
+  const otherProduct = readPreview('docs/scenarios/current/index.html');
+  const redirects = readPreview('_redirects');
+  const searchPath = upcomingRoadmap.match(/<link rel="test-search-index" href="([^"]+)"/)?.[1];
+  const searchDocuments = searchPath && JSON.parse(readPreview(searchPath.replace(/^\//, '')));
+
+  assert.match(upcomingRoadmap, /Upcoming Operator documentation preview — not published/);
+  assert.match(upcomingRoadmap, /v1\.2\.0/);
+  assert.match(upcomingRoadmap, /Upcoming release roadmap/);
+  assert.match(upcomingRoadmap, /v1\.1\.0/);
+  assert.match(upcomingRoadmap, /Previous release roadmap/);
+  assert.match(frozenRoadmap, /v1\.1\.0/);
+  assert.match(frozenRoadmap, /Second release roadmap/);
+  assert.doesNotMatch(frozenRoadmap, /v1\.2\.0/);
+  assert.doesNotMatch(frozenRoadmap, /Upcoming release roadmap/);
+  assert.doesNotMatch(frozenRoadmap, /Upcoming Operator documentation preview/);
+  assert.match(frozenRoadmap, /This page documents Krkn Operator <strong>v1\.1\.0<\/strong>/);
+  assert.doesNotMatch(otherProduct, /Upcoming Operator documentation preview|Operator documentation release/);
+  assert.doesNotMatch(upcomingRoadmap, /window\.location\.replace/);
+  assert.doesNotMatch(upcomingRoadmap, /\/js\/chatbot\.js/);
+  assert.match(frozenRoadmap, /\/js\/chatbot\.js/);
+  assert.ok(searchDocuments);
+  assert.ok(searchDocuments.some((document) => document.ref === '/docs/krkn-operator/releases/'));
+  assert.match(redirects, /\/api\/chat \/\.netlify\/functions\/chat 200/);
+  assert.doesNotMatch(redirects, /\/docs\/krkn-operator\/releases/);
 });

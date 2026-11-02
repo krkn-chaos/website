@@ -1,6 +1,7 @@
 <!-- Include Krkn Documentation Chatbot -->
 {{- $operatorDocs := partial "operator-docs/context.html" . -}}
-{{- if not $operatorDocs.isOlder }}
+{{- $operatorSourcePreview := and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/") (not $operatorDocs.enabled) -}}
+{{- if and (not $operatorDocs.isOlder) (not $operatorSourcePreview) }}
   {{ partial "chatbot.html" . }}
 {{- end }}
 {{- if $operatorDocs.enabled }}

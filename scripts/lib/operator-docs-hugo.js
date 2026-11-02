@@ -241,44 +241,74 @@ function writeRedirectPages(repoRoot, redirects) {
   );
 }
 
-function writeHugoConfig(repoRoot, defaultTag, registry) {
+function writeHugoConfig(repoRoot, defaultTag, registry, options = {}) {
   const configPath = path.join(repoRoot, CACHE_ROOT, 'hugo.yaml');
   const releaseRecords = sortReleasesNewest(registry);
   const releaseTags = releaseRecords.map((release) => release.tag);
+  const includeAuthoringSourcePreview = options.includeAuthoringSourcePreview === true;
   const mounts = [
     {
       source: 'content/en',
       target: 'content',
       excludeFiles: ['docs/krkn-operator/**'],
     },
-    {
-      source: 'content/en/docs/krkn-operator/versions',
-      target: 'content/docs/krkn-operator/versions',
-    },
-    {
-      source: `${CACHE_ROOT}/redirects`,
-      target: 'content/docs/krkn-operator',
-    },
   ];
+  if (includeAuthoringSourcePreview) {
+    mounts.push(
+      {
+        source: 'content/en/docs/krkn-operator',
+        target: 'content/docs/krkn-operator',
+        excludeFiles: ['versions/**'],
+      },
+      {
+        source: 'content/en/docs/krkn-operator/versions',
+        target: 'content/docs/krkn-operator/versions',
+      }
+    );
+  } else {
+    mounts.push(
+      {
+        source: 'content/en/docs/krkn-operator/versions',
+        target: 'content/docs/krkn-operator/versions',
+      },
+      {
+        source: `${CACHE_ROOT}/redirects`,
+        target: 'content/docs/krkn-operator',
+      }
+    );
+  }
   const config = {
-    module: {
-      mounts,
-    },
     params: {
-      operator_docs_default_tag: defaultTag,
-      operator_docs_release_tags: releaseTags,
-      operator_docs_release_records: releaseRecords,
+      ...(defaultTag ? {
+        operator_docs_default_tag: defaultTag,
+        operator_docs_release_tags: releaseTags,
+        operator_docs_release_records: releaseRecords,
+      } : {}),
+      ...(includeAuthoringSourcePreview ? { operator_docs_authoring_preview: true } : {}),
     },
   };
+  if (registry.releases.length > 0) config.module = { mounts };
   fs.writeFileSync(configPath, YAML.stringify(config));
   return configPath;
 }
 
-function prepareHugoInputs(repoRoot, registry = readRegistry(repoRoot)) {
+function prepareHugoInputs(repoRoot, registry = readRegistry(repoRoot), options = {}) {
   validateRegistry(registry);
   removeGeneratedCache(repoRoot);
+  const includeAuthoringSourcePreview = options.includeAuthoringSourcePreview === true;
   const enabled = registry.releases.length > 0;
   if (!enabled) {
+    if (includeAuthoringSourcePreview) {
+      fs.mkdirSync(path.join(repoRoot, CACHE_ROOT), { recursive: true });
+      const hugoConfigPath = writeHugoConfig(repoRoot, null, registry, options);
+      return {
+        enabled: false,
+        versionTag: null,
+        defaultRelease: null,
+        hugoConfigPath,
+        redirects: [],
+      };
+    }
     return {
       enabled: false,
       versionTag: null,
@@ -291,10 +321,12 @@ function prepareHugoInputs(repoRoot, registry = readRegistry(repoRoot)) {
   validateSnapshots(repoRoot, registry);
   const defaultRelease = selectDefaultRelease(registry);
   const releasePages = collectReleasePages(repoRoot, registry.releases);
-  const redirects = buildRedirects(repoRoot, defaultRelease, releasePages);
+  const redirects = includeAuthoringSourcePreview
+    ? []
+    : buildRedirects(repoRoot, defaultRelease, releasePages);
   fs.mkdirSync(path.join(repoRoot, CACHE_ROOT), { recursive: true });
-  writeRedirectPages(repoRoot, redirects);
-  const hugoConfigPath = writeHugoConfig(repoRoot, defaultRelease.tag, registry);
+  if (!includeAuthoringSourcePreview) writeRedirectPages(repoRoot, redirects);
+  const hugoConfigPath = writeHugoConfig(repoRoot, defaultRelease.tag, registry, options);
   return {
     enabled: true,
     versionTag: defaultRelease.tag,

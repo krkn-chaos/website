@@ -4,7 +4,7 @@
 {{- if and (not $operatorDocs.isOlder) (not $operatorSourcePreview) }}
   {{ partial "chatbot.html" . }}
 {{- end }}
-{{- if $operatorDocs.enabled }}
+{{- if or $operatorDocs.enabled (partial "operator-docs/preview-context.html" .) }}
 <script src="{{ "js/operator-docs-selector.js" | relURL }}" defer></script>
 {{- end }}
 

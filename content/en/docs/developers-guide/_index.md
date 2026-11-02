@@ -1,37 +1,67 @@
 ---
-title: Developers Guide
-description: Developers Guide Overview
-type: "docs/scenarios"
+title: Developer Guide
+linkTitle: Developer Guide
+description: Build a custom Krkn scenario, package its image contract, and run it through Krkn Operator.
 weight: 14
-categories: [New scenarios]
-tags: [docs]
+categories: [Developers Guide]
+tags: [docs, plugins]
 ---
-This document describes how to develop and add to Krkn. Before you start, it is recommended that you read the following documents first:
 
-1. [Krkn Main README](../krkn/_index.md)
-2. [List of all Supported Scenarios](../scenarios/_index.md)
+Develop a scenario once, then expose it through a container image that Krkn's
+clients can discover and configure. This guide follows the full path from a
+Python plugin to an execution managed by Krkn Operator.
 
-Be sure to properly [install](../installation/_index.md) Krkn. Then you can start to develop krkn. The following documents will help you get started:
+The example is deliberately small: wait for a configurable number of seconds,
+list pods in a namespace through `krkn-lib`, and report success or failure. It
+lets you verify the integration without introducing a disruptive experiment.
 
-1. [Add k8s functionality to krkn-lib](./krkn-lib.md)
-2. [Add a New Chaos Scenario using Plugin API](./scenario_plugin_api.md): Adding a new scenario into krkn
-3. [Add a Health Check Plugin](./health-check-plugins.md): Monitor services during chaos using the health check plugin system
-4. [Test your changes](./testing-changes.md)
+**Companion repository:** [krkn-chaos/krkn-dev-demo](https://github.com/krkn-chaos/krkn-dev-demo)
+contains the plugin skeleton, container files, and Kind and registry configuration
+used throughout the lab.
 
+## Start with the hands-on lab
 
-`NOTE: All base kubernetes functionality should be added into krkn-lib and called from krkn`
+[Build a custom scenario](/docs/developers-guide/custom-scenario/) takes you
+through four stages:
 
-Once a scenario gets added to krkn, changes will be need in krkn-hub and krknctl as well. See steps below on help to edit krkn-hub and krknctl
-- [Add New Scenario to Krkn-hub](./editing-krkn-hub.md) and test your changes
-- [Add New Scenario to Krknctl](./krknctl-edits.md) and test your changes
+1. **Implement the plugin.** Complete the two abstract methods and bind a
+   scenario type to a YAML configuration.
+2. **Package and test the image.** Add input metadata, render the configuration,
+   and run the container with Podman.
+3. **Run through the operator.** Install a private registry and Krkn Operator
+   in Kind, publish the image, and execute it against a registered target.
+4. **Diagnose the integration.** Recognize discovery, image pull, permission,
+   kubeconfig, and plugin failures independently.
 
+The lab builds a standalone scenario image from a custom Krkn base image. It
+does not require a krkn-hub checkout or a rebuild of krknctl or the operator.
+Target registration is supplied by the participant and is outside the lab.
 
-## Questions?
-For any questions or further guidance, feel free to reach out to us on the 
-[Kubernetes workspace](https://kubernetes.slack.com/) in the `#krkn` channel. 
-We’re happy to assist. Now, __release the Krkn!__
+## Understand the contracts
 
+Read [Scenario architecture](/docs/developers-guide/scenario-architecture/)
+for the responsibilities of the registry, operator, node runtime, image startup
+script, Python plugin, and target cluster.
 
-## Follow Contribution Guide
+- [Scenario Plugin API](/docs/developers-guide/scenario_plugin_api/) defines
+  discovery rules, method signatures, configuration binding, and return values.
+- [Scenario image contract](/docs/developers-guide/krknctl-edits/) explains OCI
+  labels and the typed input descriptors used by krknctl and the console.
+- [Using and extending krkn-lib](/docs/developers-guide/krkn-lib/) explains how
+  to reuse the authenticated clients supplied to a plugin.
 
-Once all you're happy with your changes, follow the [contribution guide](../contribution-guidelines/git-pointers/) on how to create your own branch and squash your commits
+## Validate and contribute
+
+- [Testing changes](/docs/developers-guide/testing-changes/) covers the checks
+  from plugin behavior through container startup and orchestration.
+- [Adding tests](/docs/developers-guide/add-tests-krkn/) describes the project's
+  unit and functional test suites.
+- [Publishing through krkn-hub](/docs/developers-guide/editing-krkn-hub/) covers
+  the optional path for adding a scenario to the community image collection.
+- [Health check plugins](/docs/developers-guide/health-check-plugins/) covers
+  monitoring that runs alongside chaos scenarios.
+
+For upstream changes, follow the
+[contribution guidelines](/docs/contribution-guidelines/) and include the
+scenario's documentation and relevant tests. Development questions are welcome
+in [#krkn on Kubernetes Slack](https://kubernetes.slack.com/archives/C05SFMHRWK1).

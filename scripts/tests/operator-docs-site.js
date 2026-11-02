@@ -162,7 +162,7 @@ function createSiteFixture() {
   write(repoRoot, 'layouts/_default/single.html', [
     '{{ $ctx := partial "operator-docs/context.html" . }}',
     '<!doctype html><html><body><main>',
-    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ end }}',
+    '{{ if or $ctx.enabled (and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/")) }}{{ partial "sidebar.html" . }}{{ end }}',
     '{{ partial "td-content-after-header.html" . }}',
     '{{ partial "breadcrumb.html" . }}{{ partial "page-meta-links.html" . }}{{ partial "page-meta-lastmod.html" . }}',
     '<h1>{{ .Title }}</h1>{{ .Content }}',
@@ -173,7 +173,7 @@ function createSiteFixture() {
   write(repoRoot, 'layouts/_default/list.html', [
     '{{ $ctx := partial "operator-docs/context.html" . }}',
     '<!doctype html><html><body><main>',
-    '{{ if $ctx.enabled }}{{ partial "sidebar.html" . }}{{ end }}',
+    '{{ if or $ctx.enabled (and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/")) }}{{ partial "sidebar.html" . }}{{ end }}',
     '{{ partial "td-content-after-header.html" . }}',
     '{{ partial "breadcrumb.html" . }}{{ partial "page-meta-links.html" . }}{{ partial "page-meta-lastmod.html" . }}',
     '<h1>{{ .Title }}</h1>{{ .Content }}{{ range .RegularPages }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}',
@@ -378,6 +378,13 @@ test('deploy preview shows pending roadmap at source URLs and keeps v1.1.0 froze
   const searchDocuments = searchPath && JSON.parse(readPreview(searchPath.replace(/^\//, '')));
 
   assert.match(upcomingRoadmap, /Upcoming Operator documentation preview — not published/);
+  assert.match(upcomingRoadmap, /Operator documentation version/);
+  assert.match(upcomingRoadmap, /selected>Upcoming docs \(preview\)/);
+  assert.match(upcomingRoadmap, /value="\/docs\/krkn-operator\/versions\/v1\.1\.0\/releases\//);
+  assert.match(upcomingRoadmap, /\/js\/operator-docs-selector\.js/);
+  const draftSidebar = upcomingRoadmap.match(/<nav class="td-sidebar-nav[\s\S]*?<\/nav>/)?.[0] || '';
+  assert.match(draftSidebar, /\/docs\/krkn-operator\/releases\//);
+  assert.doesNotMatch(draftSidebar, /\/versions\//);
   assert.match(upcomingRoadmap, /v1\.2\.0/);
   assert.match(upcomingRoadmap, /Upcoming release roadmap/);
   assert.match(upcomingRoadmap, /v1\.1\.0/);

@@ -1,0 +1,18 @@
+{{- $context := false -}}
+{{- if and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/") (not (strings.HasPrefix .RelPermalink "/docs/krkn-operator/versions/")) -}}
+  {{- $root := .Site.GetPage "/docs/krkn-operator" -}}
+  {{- $defaultTag := .Site.Params.operator_docs_default_tag -}}
+  {{- $defaultRoot := .Site.GetPage (printf "/docs/krkn-operator/versions/%s" $defaultTag) -}}
+  {{- with $defaultRoot -}}
+    {{- $release := partial "operator-docs/context.html" . -}}
+    {{- if $release.enabled -}}
+      {{- $key := strings.TrimPrefix "/docs/krkn-operator/" $.RelPermalink | strings.TrimSuffix "/" -}}
+      {{- with $.File -}}
+        {{- $key = strings.TrimPrefix "docs/krkn-operator/" .Path | strings.TrimSuffix ".md" | strings.TrimSuffix "_index" | strings.TrimSuffix "/" -}}
+      {{- end -}}
+      {{- if isset $.Params "operator_docs_page_key" -}}{{- $key = $.Params.operator_docs_page_key -}}{{- end -}}
+      {{- $context = dict "isAuthoringPreview" true "previewPage" $ "versionTag" "Upcoming docs (preview)" "pageKey" $key "releaseRoot" $root "defaultRelease" $release.defaultRelease -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $context -}}

@@ -20,7 +20,11 @@ editable source appears at the ordinary, unversioned Operator URLs, with an
 "Upcoming Operator documentation preview — not published" notice. Browser
 search includes the editable source, and the documentation assistant is hidden
 on these pages because it uses published documentation. Registered release
-URLs remain mounted from their frozen snapshots. For example, while
+URLs remain mounted from their frozen snapshots. Draft pages retain the
+Operator version selector: "Upcoming docs (preview)" identifies the draft,
+and published version options open the corresponding archived article (or its
+overview if that article is absent). The draft sidebar shows only editable
+source pages. For example, while
 preparing v1.2.0, inspect the roadmap at
 `<deploy-preview-url>/docs/krkn-operator/releases/`; the page at
 `<deploy-preview-url>/docs/krkn-operator/versions/v1.1.0/releases/` continues

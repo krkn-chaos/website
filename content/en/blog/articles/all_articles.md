@@ -5,6 +5,9 @@ description: >
 
 ### Presentations and Blogs
 
+- Building Kubernetes resilience with Krkn: A 4-phase chaos engineering blueprint: https://developers.redhat.com/articles/2026/10/22/kubernetes-resilience-with-krkn-4-phase-chaos-engineering-blueprint#phase_2__execute_and_harden
+- Chaos engineering in practice: Lessons from enterprise customers: https://www.redhat.com/en/blog/chaos-engineering-practice-lessons-enterprise-customers
+- Beyond pass or fail: The new era of chaos engineering: https://developers.redhat.com/articles/2026/09/30/beyond-pass-or-fail-the-new-era-of-chaos-engineering#bridging_the_infra_gap__kubevirt_virtual_machine_checks
 - Blog post on introduction to Kraken: https://www.openshift.com/blog/introduction-to-kraken-a-chaos-tool-for-openshift/kubernetes
 - Discussion and demo on how Kraken can be leveraged to ensure OpenShift is reliable, performant and scalable: https://www.youtube.com/watch?v=s1PvupI5sD0&ab_channel=OpenShift
 - Blog post emphasizing the importance of making Chaos part of Performance and Scale runs to mimic the production environments: https://www.openshift.com/blog/making-chaos-part-of-kubernetes/openshift-performance-and-scalability-tests

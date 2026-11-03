@@ -37,6 +37,10 @@ jobs:
           curl --fail --location --retry 3 \
             https://github.com/gohugoio/hugo/releases/download/v0.146.0/hugo_extended_0.146.0_linux-amd64.tar.gz \
             --output "$RUNNER_TEMP/hugo-netlify/hugo.tar.gz"
+          # Pinned from Hugo v0.146.0's official release checksums.
+          printf '%s  %s\n' \
+            'ff7bbad837f5dfc403f5e2e1c656533bdf3ec102a303d13f77facd9192a4eb2a' \
+            "$RUNNER_TEMP/hugo-netlify/hugo.tar.gz" | shasum -a 256 -c
           tar -xzf "$RUNNER_TEMP/hugo-netlify/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-netlify"
       - name: Test generated Operator documentation site with Netlify Hugo
         run: npm run test:operator-docs:site

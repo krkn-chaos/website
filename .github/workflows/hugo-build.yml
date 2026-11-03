@@ -31,8 +31,17 @@ jobs:
         run: npm run check:operator-docs
       - name: Test Operator documentation helpers
         run: npm run test:operator-docs
-      - name: Test generated Operator documentation site
+      - name: Install Netlify-pinned Hugo for generated-site regression checks
+        run: |
+          mkdir -p "$RUNNER_TEMP/hugo-netlify"
+          curl --fail --location --retry 3 \
+            https://github.com/gohugoio/hugo/releases/download/v0.146.0/hugo_extended_0.146.0_linux-amd64.tar.gz \
+            --output "$RUNNER_TEMP/hugo-netlify/hugo.tar.gz"
+          tar -xzf "$RUNNER_TEMP/hugo-netlify/hugo.tar.gz" -C "$RUNNER_TEMP/hugo-netlify"
+      - name: Test generated Operator documentation site with Netlify Hugo
         run: npm run test:operator-docs:site
+        env:
+          HUGO_BIN: ${{ runner.temp }}/hugo-netlify/hugo
       - name: Build site
         run: npm run build:production
         env:

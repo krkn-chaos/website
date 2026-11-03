@@ -2,7 +2,13 @@
 {{- if and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/") (not (strings.HasPrefix .RelPermalink "/docs/krkn-operator/versions/")) -}}
   {{- $root := .Site.GetPage "/docs/krkn-operator" -}}
   {{- $defaultTag := .Site.Params.operator_docs_default_tag -}}
-  {{- $defaultRoot := .Site.GetPage (printf "/docs/krkn-operator/versions/%s" $defaultTag) -}}
+  {{/* Hugo 0.146.0 cannot reliably GetPage a section in this nested content mount. */}}
+  {{- $defaultRoot := false -}}
+  {{- range .Site.Pages -}}
+    {{- if and (eq .Params.operator_docs_version $defaultTag) (isset .Params "operator_docs_page_key") (eq .Params.operator_docs_page_key "") -}}
+      {{- $defaultRoot = . -}}
+    {{- end -}}
+  {{- end -}}
   {{- with $defaultRoot -}}
     {{- $release := partial "operator-docs/context.html" . -}}
     {{- if $release.enabled -}}

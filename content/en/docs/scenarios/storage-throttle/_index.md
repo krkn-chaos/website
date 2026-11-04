@@ -9,7 +9,7 @@ aliases:
 
 <krkn-hub-scenario id="storage-throttle">
 
-This scenario throttles storage I/O on a PVC-backed volume used by a target pod. It limits **read/write IOPS** and **bandwidth** (bytes per second) using Linux cgroup controllers, allowing you to observe how your application behaves under degraded disk performance.
+This scenario throttles storage I/O on a PVC-backed volume used by a target pod or KubeVirt VMI. It limits **read/write IOPS** and **bandwidth** (bytes per second) using Linux cgroup controllers, allowing you to observe how your application behaves under degraded disk performance.
 
 </krkn-hub-scenario>
 
@@ -32,7 +32,7 @@ Many production incidents stem from slow or saturated storage, not complete outa
 
 The storage throttle scenario follows these steps:
 
-1. **Resolve the target pod** — If `pvc_name` is provided, the plugin looks up which pod has the PVC mounted. Otherwise, it uses the `pod_name` directly.
+1. **Resolve the target pod** — If `vmi_name` is provided, the plugin finds the VMI's current virt-launcher pod. Otherwise, if `pvc_name` is provided, it looks up a pod using that PVC. If neither is provided, it uses `pod_name` directly.
 2. **Find the PVC volume mount** — The plugin identifies the container and mount path for the PVC-backed volume inside the target pod. If `mount_path` is specified, only that specific mount is targeted.
 3. **Discover the block device** — The block device `major:minor` is extracted from `/proc/self/mountinfo` inside the target container, which is reliable for CSI-provisioned volumes.
 4. **Deploy a privileged helper pod** — A short-lived privileged pod is deployed on the same node as the target workload. It mounts the host root filesystem and uses `chroot` to access host cgroup files.
@@ -51,8 +51,9 @@ The storage throttle scenario follows these steps:
 
 | Parameter | Description | Type | Default |
 |-----------|-------------|------|---------|
-| `pvc_name` | Target PVC name. If set, the pod is auto-resolved from the PVC. | string | `""` |
-| `pod_name` | Target pod name. Ignored if `pvc_name` is set. | string | `""` |
+| `pvc_name` | PVC whose volume should be throttled. If `vmi_name` is empty, its mounted pod is resolved automatically. | string | `""` |
+| `pod_name` | Target pod name. Used when `vmi_name` and `pvc_name` are empty. | string | `""` |
+| `vmi_name` | Target VMI name. Resolves its current virt-launcher pod; use `pvc_name` to select a PVC when the VMI has multiple PVCs. | string | `""` |
 | `namespace` | Namespace of the target PVC or pod. **Required.** | string | `""` |
 | `mount_path` | Specific mount path to throttle. If empty, the first PVC mount is used. | string | `""` |
 | `throttle_type` | Type of throttle to apply: `iops`, `bandwidth`, or `both`. | string | `bandwidth` |
@@ -65,7 +66,7 @@ The storage throttle scenario follows these steps:
 
 ### Parameter Dependencies
 
-- **`pvc_name` vs `pod_name`:** At least one is required. If both are set, `pvc_name` takes precedence and the pod is auto-resolved from the PVC.
+- **Target selection:** At least one of `vmi_name`, `pvc_name`, or `pod_name` is required. `vmi_name` takes precedence when resolving the pod; `pvc_name` selects the volume to throttle.
 - **`throttle_type` controls which limits apply:**
   - `iops` — only `read_iops` and `write_iops` are applied
   - `bandwidth` — only `read_bps` and `write_bps` are applied

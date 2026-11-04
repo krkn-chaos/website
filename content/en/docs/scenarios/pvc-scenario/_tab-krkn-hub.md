@@ -59,6 +59,8 @@ OR on the command line like example:
 
 If both `PVC_NAME` and `POD_NAME` are defined, `POD_NAME` value will be overridden from the `Mounted By:` value on PVC definition.
 
+`FILL_PERCENTAGE` is the target PVC usage percentage. It defaults to `50` when unset or blank. Set it from `1` to `99`, above the PVC's current utilization.
+
 
 See list of variables that apply to all scenarios [here](/docs/scenarios/all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 

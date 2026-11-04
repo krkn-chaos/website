@@ -409,6 +409,15 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 </div>
 
 <div class="scenario-card">
+<h3><a href="vmi-pvc-fill/">VMI PVC Fill</a></h3>
+<span class="scenario-badge">vmi_pvc_fill_scenarios</span>
+<p class="scenario-description">Fills filesystem or block PVC storage attached to a KubeVirt VMI</p>
+<div class="cloud-badges">
+<span class="cloud-badge cloud-badge--agnostic">KubeVirt</span>
+</div>
+</div>
+
+<div class="scenario-card">
 <h3><a href="storage-throttle/">Storage I/O Throttle</a></h3>
 <span class="scenario-badge">storage_throttle_scenarios</span>
 <p class="scenario-description">Limits read/write IOPS and bandwidth on PVC-backed volumes using Linux cgroup I/O controls</p>

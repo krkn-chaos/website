@@ -3,13 +3,19 @@ source_repo: krkn-hub
 source_ref: HEAD
 params:
 - name: PVC_NAME
-  description: Target PVC name. If set, `POD_NAME` is auto-resolved from PVC
+  description: PVC whose volume should be throttled. If `VMI_NAME` is empty, its mounted pod is resolved automatically.
   description_source: published-table
   type: string
   default: ''
   required: false
 - name: POD_NAME
-  description: Target pod name. Ignored if `PVC_NAME` is set
+  description: Target pod name. Used when `VMI_NAME` and `PVC_NAME` are empty.
+  description_source: published-table
+  type: string
+  default: ''
+  required: false
+- name: VMI_NAME
+  description: Target VMI name. Resolves its current virt-launcher pod; use `PVC_NAME` to select a specific PVC when the VMI has multiple PVCs.
   description_source: published-table
   type: string
   default: ''

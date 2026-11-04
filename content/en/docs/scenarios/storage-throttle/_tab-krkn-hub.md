@@ -1,6 +1,13 @@
 ### Storage Throttle scenario
 This scenario applies storage I/O limits (IOPS and/or bandwidth) on a PVC-backed workload by using Linux cgroup controls through a privileged helper pod on the target node.
 
+To target a KubeVirt VMI, set `VMI_NAME` to its name. Add `PVC_NAME` to select one PVC when the VMI has multiple attached PVCs. For example, add these options to the container command:
+
+```bash
+-e VMI_NAME=my-vmi \
+-e PVC_NAME=my-vmi-data
+```
+
 #### Run
 If enabling [Cerberus](/docs/cerberus/) to monitor the cluster and pass/fail the scenario post chaos, refer [docs](/docs/cerberus/). Make sure to start it before injecting the chaos and set `CERBERUS_ENABLED` environment variable for the chaos injection container to autoconnect.
 
@@ -81,8 +88,8 @@ See list of variables that apply to all scenarios [here](/docs/scenarios/all-sce
 
 #### Parameter dependencies
 
-- At least one of `PVC_NAME` or `POD_NAME` should be set.
-- If both are set, `PVC_NAME` takes precedence and `POD_NAME` is ignored.
+- At least one of `VMI_NAME`, `PVC_NAME`, or `POD_NAME` should be set.
+- `VMI_NAME` resolves the current virt-launcher pod. Use `PVC_NAME` to select a specific VMI PVC when needed; otherwise, `PVC_NAME` resolves an associated pod and overrides `POD_NAME`.
 
 **NOTE** In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. For example:
 ```bash

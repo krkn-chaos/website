@@ -90,13 +90,15 @@ jobs:
             });
             
       - name: Summary
+        env:
+          REBUILD_REASON: ${{ github.event.inputs.reason }}
         run: |
           echo "## 🚀 Documentation Index Rebuild Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Site URL**: ${{ steps.get-url.outputs.SITE_URL }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "- **Reason**: ${{ github.event.inputs.reason }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Reason**: $REBUILD_REASON" >> $GITHUB_STEP_SUMMARY
           fi
           echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY

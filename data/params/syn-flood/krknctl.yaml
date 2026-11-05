@@ -61,7 +61,7 @@ params:
   description: The container image that will be used to perform the scenario
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn-syn-flood:latest
+  default: quay.io/krkn-chaos/krkn-hub:workload-krkn-syn-flood
   flag: image
   required: false
 - name: NODE_SELECTORS

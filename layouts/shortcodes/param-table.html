@@ -6,11 +6,14 @@
      The global pages use it, since all of a source's params live in one file and
      each row carries its group. Per-scenario tables omit it and render every row.
 
+     The optional name_prefix= filter narrows a group into smaller related tables.
+
      Filtering happens before column detection on purpose: a group with no
      possible_values must not inherit that column from a sibling group. */}}
 {{- $scenario := .Get "scenario" -}}
 {{- $source := .Get "source" -}}
 {{- $group := .Get "group" -}}
+{{- $namePrefix := .Get "name_prefix" -}}
 {{/* prefix is prepended to every name. The krknctl pages pass "--" because the
      source stores the bare flag name but a reader types --telemetry-enabled. */}}
 {{- $prefix := .Get "prefix" | default "" -}}
@@ -23,6 +26,9 @@
 {{- else -}}
   {{- $rows := $data.params -}}
   {{- with $group -}}{{- $rows = where $rows "group" . -}}{{- end -}}
+  {{- with $namePrefix -}}
+    {{- $rows = where $rows "name" "like" (printf "^%s" $namePrefix) -}}
+  {{- end -}}
   {{- if and $group (not $rows) -}}
     {{- errorf "param-table: group %q has no params in data/params/%s/%s.yaml" $group $scenario $source -}}
   {{- else -}}

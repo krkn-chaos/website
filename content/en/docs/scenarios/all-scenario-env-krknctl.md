@@ -170,9 +170,59 @@ Parameters found in the source that no section above covers.
 
 ## Triggers
 
-Parameters found in the source that no section above covers.
+Configure the condition Krkn waits for before starting chaos. Set the parameters for the trigger type you want to use. Common settings control how conditions are combined and what happens when they time out.
 
-{{< param-table scenario="globals" source="krknctl" group="triggers" prefix="--" >}}
+### Common trigger settings
+
+Set how trigger conditions are combined, how often they are checked, and what to do if they are not met before the timeout.
+
+<div class="wide-params-table">
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="triggers-" prefix="--" >}}
+
+</div>
+
+### Command trigger
+
+Wait for a shell command to exit with the expected return code.
+
+<div class="wide-params-table">
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="trigger-command" prefix="--" >}}
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="trigger-expected-rc" prefix="--" >}}
+
+</div>
+
+### HTTP trigger
+
+Poll an HTTP endpoint until it meets the configured status and optional response-body condition.
+
+<div class="wide-params-table">
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="trigger-http-" prefix="--" >}}
+
+</div>
+
+### Kubernetes trigger
+
+Wait for a Kubernetes resource field to match a condition.
+
+<div class="wide-params-table">
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="trigger-k8s-" prefix="--" >}}
+
+</div>
+
+### Prometheus trigger
+
+Run a PromQL query and wait for it to return a result. Set the Prometheus URL and, when needed, its bearer token.
+
+<div class="wide-params-table">
+
+{{< param-table scenario="globals" source="krknctl" group="triggers" name_prefix="trigger-prom-" prefix="--" >}}
+
+</div>
 
 ---
 

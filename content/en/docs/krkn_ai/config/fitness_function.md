@@ -80,7 +80,7 @@ fitness_function:
 
 Krkn-AI allows you to define multiple fitness function items in the YAML configuration, enabling you to track how individual fitness values vary for different scenarios in the final outcome.
 
-You can assign a `weight` to each fitness function to specify how its value impacts the final score used during Genetic Algorithm selection. Each weight should be between 0 and 1. By default, if no weight is specified, it will be considered as 1.
+Assign each fitness function a non-negative relative `weight`; weights are normalized to sum to 1 when combining multiple `items`. If omitted, a weight defaults to 1.
 
 ```yaml
 fitness_function:
@@ -208,9 +208,8 @@ Run `discover` against a cluster that has the metric and check that your entry c
 
 ## How to Define a Good Fitness Function
 
-- **Scoring**: The higher the fitness score, the more priority will be given to that scenario for generating new sets of scenarios. This also means that scenarios with higher fitness scores are more likely to have an impact on the cluster and should be further investigated.
+- **Scoring and normalization:** For multiple `items`, Krkn-AI applies a signed `log1p` transform to each raw Prometheus score, then min-max normalizes that query's scores within each generation. Relative item weights are normalized to sum to 1. These normalized, weighted values contribute to the final fitness score alongside enabled health-check and Krkn-failure components. The legacy single `query` form is not item-normalized.
+- **Interpretation:** Higher fitness means greater measured disruption, which the algorithm prioritizes for further exploration; it does not mean greater resilience. In scenario results, each item's `fitness_score` is its raw query score, `normalized_score` is its per-generation value, and `weighted_score` is its weighted contribution to the aggregate.
 
-- **Normalization**: Krkn-AI currently does not apply any normalization, except when a fitness function is assigned with weights. While this does not significantly impact the algorithm, from a user interpretation standpoint, it is beneficial to use normalized SLO queries in PromQL. For example, instead of using the maximum CPU for a pod as a fitness function, it may be more convenient to use the CPU percentage of a pod.
-
-- **Use-Case Driven**: The fitness function query should be defined based on your use case. If you want to optimize your cluster for maximum uptime, a good fitness function could be to capture restart counts or the number of unavailable pods. Similarly, if you are interested in optimizing your cluster to ensure no downtime due to resource constraints, a good fitness function would be to measure the maximum CPU or memory percentage.
+- **Use-Case Driven**: Define queries based on the failure signals you want to explore, such as restarts or unavailable pods.
 

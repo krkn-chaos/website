@@ -20,4 +20,10 @@ Krkn-AI leverages evolutionary algorithms to generate experiments based on Krkn 
 
 ## Getting Started
 
+### Run with the CLI
+
 Follow the [installation steps](../installation/krkn-ai.md) to set up the Krkn-AI CLI.
+
+### Run with Krkn Operator
+
+[Enable Krkn-AI](/docs/krkn-operator/installation/#krkn-ai) in your Krkn Operator installation, then follow the [Operator usage guide](/docs/krkn-operator/usage/krkn-ai/) to run experiments from the console.

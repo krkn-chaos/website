@@ -50,6 +50,7 @@ Operational access scoped by group membership. Every user must belong to a group
 - Use the **cluster terminal** (requires Run permission)
 - **Run scenarios** on assigned clusters (requires Run permission)
 - Design workflows in **Chaos Studio** (requires Run permission)
+- Create [Krkn-AI runs](usage/krkn-ai/) (requires Run; View for results)
 - Upload and manage **files** (scoped by group visibility)
 - Select **cloud credentials** available to their group when running cloud scenarios
 
@@ -86,7 +87,7 @@ Permissions are assigned at the group level and determine what users can do on c
 
 Allows users to see jobs and their execution results. Users with this permission can inspect single run outcomes, console logs, graph run nodes, and Resiliency Scores — but cannot execute, cancel or remove anything.
 
-**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
+**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/) · [Krkn-AI results](/docs/krkn-operator/usage/krkn-ai/#results-and-replay)
 
 ### Run {#permission-run}
 
@@ -94,7 +95,7 @@ Allows users to see jobs and their execution results. Users with this permission
 
 Allows users to execute chaos experiments on the clusters assigned to their group. This includes running single scenarios, designing and executing Chaos Studio workflows, and accessing the cluster terminal for read-only inspection.
 
-**Applies to:** [Run Scenarios](/docs/krkn-operator/usage/run-scenarios/) · [Chaos Studio](/docs/krkn-operator/usage/chaos-studio/) · [Cluster Terminal](/docs/krkn-operator/usage/cluster-terminal/)
+**Applies to:** [Run Scenarios](/docs/krkn-operator/usage/run-scenarios/) · [Chaos Studio](/docs/krkn-operator/usage/chaos-studio/) · [Cluster Terminal](/docs/krkn-operator/usage/cluster-terminal/) · [Krkn-AI](/docs/krkn-operator/usage/krkn-ai/)
 
 ### Cancel {#permission-cancel}
 
@@ -102,7 +103,7 @@ Allows users to execute chaos experiments on the clusters assigned to their grou
 
 Allows users to cancel running scenarios and to remove scenario runs and their execution history. Without this permission, jobs remain visible but cannot be cancelled or removed.
 
-**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/)
+**Applies to:** [Jobs](/docs/krkn-operator/usage/jobs/) · [Krkn-AI Runs](/docs/krkn-operator/usage/krkn-ai/#delete-a-run)
 
 ---
 
@@ -115,6 +116,7 @@ Allows users to cancel running scenarios and to remove scenario runs and their e
 | [Private Registries](administration/registry-management/) | Configure private registries and [mirror signed scenario and workload images](administration/mirroring-signed-images/) |
 | Cloud Credentials | Save cloud provider credentials and inject them into scenario pods via SecretKeyRef |
 | Chaos Studio | Design reusable visual workflows with serial and parallel execution |
+| [Krkn AI](usage/krkn-ai/) | Discover and execute high-impact experiments on one target cluster per exploration |
 | Multi-cluster Execution | Run experiments on one or more clusters simultaneously |
 | Resiliency Score | Measure application resilience using PromQL-based metrics and compare results in the [Resiliency Score Report](usage/job-categories-resiliency-score-report/) |
 | Jobs | Monitor experiment progress and inspect execution logs |

@@ -1,19 +1,19 @@
 ---
-title: Getting Started
-description: How to deploy sample microservice and run Krkn-AI test
+title: Getting Started with Krkn-AI CLI
+description: Run Krkn-AI locally from the command line.
 weight : 1
 categories: [Best Practices]
 tags: [docs]
 ---
 
-## Getting Started with Krkn-AI
+## Getting Started with the Krkn-AI CLI
 
-This documentation details how to deploy a sample microservice application on Kubernetes Cluster and run Krkn-AI test.
+This guide walks through deploying a sample microservice to Kubernetes and running Krkn-AI locally with its CLI.
 
 ### Prerequisites
 
-- Follow this [guide](../installation/krkn-ai.md) to install Krkn-AI CLI. 
-- Krkn-AI uses Thanos Querier to fetch SLO metrics by PromQL. You can easily install it by setting up [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) in your cluster.
+- Follow this [guide](../installation/krkn-ai.md) to install the local Krkn-AI CLI.
+- Krkn-AI uses Thanos Querier to fetch SLO metrics by PromQL. You can install it by setting up [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) in your cluster.
 
 
 ### Deploy Sample Microservice

@@ -161,6 +161,107 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 
 ---
 
+## Krkn-AI
+
+Enable [Krkn-AI](../../krkn_ai/_index.md) on the management cluster where Krkn Operator runs.
+
+### Prerequisites
+
+- **Administrator access** to the management cluster or a target cluster.
+- A default **StorageClass** or a writable **existing PVC** in the Operator namespace to persist Krkn-AI results.
+
+
+### Enable the integration
+
+{{< tabpane text=true >}}
+{{% tab header="**Helm**" lang="helm" %}}
+
+For an existing Helm release, keep its name, namespace and existing values.
+
+1. Add the following to your installation's `values.yaml`:
+
+   ```yaml
+   krknAI:
+     enabled: true
+   console:
+     enabled: true
+   aiService:
+     storage:
+       size: 5Gi
+       # storageClassName: your-storage-class
+       # existingClaim: your-existing-pvc
+   ```
+
+2. Install or upgrade using your full values file:
+
+    ```bash
+    helm upgrade --install krkn-operator \
+      oci://quay.io/krkn-chaos/charts/krkn-operator \
+      --version <VERSION> \
+      --namespace krkn-operator-system --create-namespace \
+      -f values.yaml --wait --timeout 10m
+    ```
+
+3. Wait for the AI service to start:
+
+   ```bash
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-ai-service
+   ```
+
+{{% /tab %}}
+{{% tab header="**OLM**" lang="olm" %}}
+
+OLM is included with OpenShift. See the upstream [bundle options](https://github.com/krkn-chaos/krkn-operator#olm--operatorhub-bundles)
+for other installations.
+
+1. Install **Krkn Operator** through your OLM catalog in `krkn-operator-system`.
+
+2. Find and edit the Subscription:
+
+   ```bash
+   kubectl -n krkn-operator-system get subscriptions
+   kubectl -n krkn-operator-system edit subscription <SUBSCRIPTION_NAME>
+   ```
+
+   Add these entries under **`spec.config.env`**, preserving other settings and
+   environment entries. Choose storage before first enabling AI:
+
+   ```yaml
+   spec:
+     config:
+       env:
+         - name: KRKNAI_ENABLED
+           value: "true"
+         - name: KRKNAI_STORAGE_SIZE
+           value: "5Gi"
+   ```
+
+   Optional: `KRKNAI_STORAGE_CLASS_NAME` selects a StorageClass;
+   `KRKNAI_STORAGE_EXISTING_CLAIM` selects an existing writable PVC..
+
+3. Wait for OLM to roll out the Operator and AI service:
+
+   ```bash
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-operator
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-ai-service
+   ```
+
+{{% /tab %}}
+{{< /tabpane >}}
+
+### Check readiness
+
+```bash
+kubectl get crd krknairuns.krkn.krkn-chaos.dev
+kubectl -n krkn-operator-system get pods,pvc
+```
+
+You can also access Krkn console UI to start, run and manage Krkn-AI runs.
+
+**Next:** [Create your first Krkn-AI run (operator)](/docs/krkn-operator/usage/krkn-ai/).
+
+---
+
 ## Uninstall
 
 ```bash

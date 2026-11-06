@@ -28,9 +28,9 @@ Groups also receive permission flags that control what operations their members 
 
 | Permission | What it grants |
 |------------|---------------|
-| **View** | View jobs and execution results |
-| **Run** | Execute scenarios, use Chaos Studio, access cluster terminal |
-| **Cancel** | Cancel running jobs, and remove jobs and execution history |
+| **View** | View jobs and execution results, including Krkn AI runs |
+| **Run** | Execute scenarios, use Chaos Studio, access cluster terminal, start Krkn AI runs |
+| **Cancel** | Cancel running jobs, and remove jobs and execution history; delete Krkn AI runs |
 
 ---
 

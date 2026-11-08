@@ -16,6 +16,8 @@ Krkn-AI supports integration with Elasticsearch to store scenario configurations
 - `verify_certs` (bool): Set to `true` to verify SSL certificates. Default: `true`.
 - `index` (string): Name prefix for the Elasticsearch index where Krkn-AI results will be stored (e.g., `krkn-ai`).
 
+When `enable` is `true`, `username` and `password` must not contain a double quote (`"`) or a backslash (`\`), including values passed with `-p`. krkn-hub writes them into a double-quoted YAML value without escaping, so Krkn-AI rejects such a config when it loads, with an error naming the field. Other special characters are passed through unchanged.
+
 ### Example Configuration
 
 ```yaml

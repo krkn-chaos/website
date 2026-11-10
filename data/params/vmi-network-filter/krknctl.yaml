@@ -83,7 +83,7 @@ params:
   description: The network chaos injection workload container image
   description_source: krknctl
   type: string
-  default: quay.io/krkn-chaos/krkn-network-chaos:latest
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-network-chaos
   flag: image
   required: false
 - name: TAINTS

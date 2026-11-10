@@ -234,7 +234,7 @@ params:
   description: 'Prometheus alert health-check phases: pre, during, post, or a list of phases'
   description_source: published-table
   group: performance_monitoring
-  default: during
+  default: ''
 - name: ALERTS_EXIT_ON_FAILURE
   description: Fail the run for critical or error alert evaluations
   description_source: published-table

@@ -39,10 +39,11 @@ Before using this scenario, ensure the following:
 1. KubeVirt or OpenShift CNV is installed in your cluster
 2. The target VMI exists and is running in the specified namespace
 3. Your cluster credentials have sufficient permissions to delete and create VMIs
+4. For optional guest reachability MTTR (`wait_for_guest_ping`): the Krkn ServiceAccount needs `pods/exec` `create`, and ICMP (default) needs a namespace that allows `NET_RAW` (not OpenShift restricted-v2)
 
 ## Parameters
 
-See the parameter tables in the [How to Run](#how-to-run-kubevirt-vm-outage-scenarios) section below for the supported parameters and their defaults, which vary slightly by run method (Krkn-hub vs. Krknctl).
+See the parameter tables in the [How to Run](#how-to-run-vmi-outage-scenarios) section below for the supported parameters and their defaults, which vary slightly by run method (Krkn-hub vs. Krknctl).
 
 ## Expected Behavior
 
@@ -50,14 +51,18 @@ When executed, the scenario will:
 
 1. Validate that KubeVirt is installed and the target VMI exists
 2. Save the initial state of the VMI
-3. Delete the VMI
-4. Wait for the VMI to become running or hit the timeout
-5. Attempt to recover the VMI:
+3. Optionally prepare an in-cluster helper probe pod (when `wait_for_guest_ping` is enabled)
+4. Delete the VMI
+5. Wait for the VMI to become running or hit the timeout
+6. Optionally wait until the guest answers ICMP ping (default) or TCP, and record `guest_reachable_time`
+7. Attempt to recover the VMI:
    - If the VMI is managed by a VirtualMachine resource with runStrategy: Always, it will automatically recover
    - If automatic recovery doesn't occur, the plugin will manually recreate the VMI using the saved state
-6. Validate that the VMI is running again
+8. Validate that the VMI is running again
 
 {{% alert title="Note" %}}If the VM is managed by a VirtualMachine resource with `runStrategy: Always`, KubeVirt will automatically try to recreate the VMI after deletion. In this case, the scenario will wait for this automatic recovery to complete.{{% /alert %}}
+
+{{% alert title="Guest reachability MTTR" %}}KubeVirt `Running` can mean the guest is still at UEFI. Set `wait_for_guest_ping: true` to measure time until the guest answers ICMP ping (default). Leave `guest_ping_pod` empty so Krkn creates an ephemeral helper with `NET_RAW` before chaos. Use `guest_ping_method: tcp` only when `NET_RAW` is unavailable.{{% /alert %}}
 
 
 ## Validating VMI SSH Connection
@@ -87,17 +92,19 @@ The plugin implements two recovery strategies:
 
 ## Recovery Time Metrics in Krkn Telemetry
 
-Krkn tracks three key recovery time metrics for each affected VMI:
+Krkn tracks these recovery time metrics for each affected VMI:
 
 1. **vmi_rescheduling_time** - The time (in seconds) that the Kubernetes cluster took to reschedule the VMI after it was deleted. This measures the cluster's scheduling efficiency and includes the time from VMI deletion until the replacement VMI is scheduled on a node.
 
 2. **vmi_readiness_time** - The time (in seconds) the VMI took to become ready after being scheduled. This measures VMI startup time, including container image pulls, VM boot process, and readiness probe success.
 
-3. **total_recovery_time** - The total amount of time (in seconds) from VMI deletion until the replacement VMI became fully ready and available. This is the sum of rescheduling time and readiness time.
+3. **guest_reachable_time** - When `wait_for_guest_ping` is enabled, the time (in seconds) from VMI phase=`Running` until the guest first answers ICMP ping (default) or TCP via the in-cluster helper. This is the gap after readiness, not wall-clock from deletion. Omitted when guest ping is disabled.
+
+4. **total_recovery_time** - `vmi_rescheduling_time` + `vmi_readiness_time` + `guest_reachable_time` (guest term only when `wait_for_guest_ping` is enabled).
 
 These metrics appear in the telemetry output under `VMIsStatus.recovered` for successfully recovered VMIs. VMIs that fail to recover within the timeout period appear under `VMIsStatus.unrecovered` without timing data.
 
-**Example telemetry output:**
+**Example telemetry output** (`3.2 + 12.5 + 28.4 = 44.1`):
 ```json
 {
   "recovered": [
@@ -106,7 +113,8 @@ These metrics appear in the telemetry output under `VMIsStatus.recovered` for su
       "namespace": "default",
       "vmi_rescheduling_time": 3.2,
       "vmi_readiness_time": 12.5,
-      "total_recovery_time": 15.7
+      "guest_reachable_time": 28.4,
+      "total_recovery_time": 44.1
     }
   ],
   "unrecovered": []

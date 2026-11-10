@@ -28,17 +28,31 @@ scenarios:
       timeout: 60
       disable_auto_restart: false
       kill_count: 3
+      # Optional: Running → first guest ICMP ping MTTR
+      wait_for_guest_ping: false
 ```
 
 ## Detailed Parameters
 
 | Parameter | Description | Required | Default | Example Values |
 |-----------|-------------|----------|---------|----------------|
-| vm_name | The name of the VMI to delete | Yes | N/A | "database-vm", "web-server-vm" |
+| vm_name | The name of the VMI to delete | Yes* | N/A | "database-vm", "web-server-vm" |
+| label_selector | Label selector to target VMIs; optional if `vm_name` is set | Yes* | N/A | "app=myvm" |
 | namespace | The namespace where the VMI is located | No | "default" | "openshift-cnv", "vm-workloads" |
 | timeout | How long to wait (in seconds) for VMI to become running before attempting recovery | No | 60 | 30, 120, 300 |
 | disable_auto_restart | When set to true, patches spec.running=False on the VM so it does not auto-restart after deletion. | No | false | true, false |
 | kill_count | How many VMI's to kill serially | No | 1 | 3 |
+| wait_for_guest_ping | After VMI is Running, wait until the guest answers ICMP ping (default) and record `guest_reachable_time` | No | false | true, false |
+| guest_ping_timeout | Seconds to wait for first guest ping success after VMI Running | No | 300 | 120, 300 |
+| guest_ping_interval | Seconds between guest ping probes | No | 2 | 1, 2, 5 |
+| guest_ping_method | Reachability probe: `icmp` (default; needs `NET_RAW`) or `tcp` | No | icmp | icmp, tcp |
+| guest_ping_port | TCP port when `guest_ping_method=tcp` (ignored for icmp) | No | 22 | 22, 3389 |
+| guest_ping_namespace | Namespace for the helper probe pod; empty defaults to the VMI namespace | No | scenario namespace | "default" |
+| guest_ping_pod | Leave empty for icmp (ephemeral helper with `NET_RAW`). For tcp, optionally reuse `CI/templates/guest-ping-diagnosis-pod.yaml` | No | empty | krkn-guest-ping-diagnosis |
+| guest_ping_image | Helper image for the ephemeral probe pod (must include ping/nc). Override for disconnected / mirrored registries | No | quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools | registry.local/krkn-tools:latest |
+| guest_ping_settle_seconds | Seconds to sleep after the helper probe pod is Ready, before deleting the VMI | No | 5 | 0, 5 |
+
+\* Either `vm_name` or `label_selector` is required.
 
 ## Execution Flow
 
@@ -47,11 +61,13 @@ When executed, the scenario follows this process:
 1. **Initialization**: Validates KubeVirt is installed and configures the KubeVirt client
 2. **VMI Validation**: Checks if the target VMI exists and is in Running state
 3. **State Preservation**: Saves the initial state of the VMI
-4. **Chaos Injection**: Deletes the VMI using the KubeVirt API
-5. **Wait for Running**: Waits for VMI to become running again, up to the timeout specified
-6. **Recovery Monitoring**: Checks if the VMI is automatically restored
-7. **Manual Recovery**: If automatic recovery doesn't occur, manually recreates the VMI
-8. **Validation**: Confirms the VMI is running correctly
+4. **Probe prep (optional)**: If `wait_for_guest_ping` is true, creates or reuses an in-cluster helper pod and settles before chaos (create/pull stay off the MTTR path)
+5. **Chaos Injection**: Deletes the VMI using the KubeVirt API
+6. **Wait for Running**: Waits for VMI to become running again, up to the timeout specified
+7. **Guest reachability (optional)**: Polls ICMP (default) or TCP until the guest answers; sets `guest_reachable_time`
+8. **Recovery Monitoring**: Checks if the VMI is automatically restored
+9. **Manual Recovery**: If automatic recovery doesn't occur, manually recreates the VMI
+10. **Validation**: Confirms the VMI is running correctly
 
 
 ## Sample Configuration
@@ -68,6 +84,11 @@ scenarios:
       timeout: 60
       disable_auto_restart: false
       kill_count: 3
+      # Optional guest MTTR (off by default). ICMP needs NET_RAW (not
+      # OpenShift restricted-v2). For restricted SCC use method: tcp.
+      # wait_for_guest_ping: true
+      # guest_ping_method: icmp
+      # guest_ping_timeout: 300
 ```
 
 For multiple VMs in different namespaces:

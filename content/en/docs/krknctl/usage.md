@@ -118,6 +118,62 @@ Any graph configuration is supported except cycles (self dependencies or transit
 It will display the resolved dependency graph, detailing all the scenarios executed at each dependency step, and will instruct 
 the container runtime to execute the krkn scenarios accordingly.
 
+##### Wait for a trigger node
+
+Use `nodeType: "trigger"` to add a wait-only node to a graph. krknctl runs the built-in trigger image for this node; do not set an `image` field. The node waits for its configured event conditions to match before dependent nodes start.
+
+```json
+{
+  "before-trigger": {
+    "name": "dummy-scenario",
+    "depends_on": null
+  },
+  "wait-for-service": {
+    "nodeType": "trigger",
+    "name": "trigger",
+    "depends_on": "before-trigger",
+    "env": {
+      "TRIGGER_HTTP_URL": "https://app.example.com/health",
+      "TRIGGER_HTTP_METHOD": "GET",
+      "TRIGGER_HTTP_EXPECTED_STATUS": "200",
+      "TRIGGERS_MODE": "all_of",
+      "TRIGGERS_TIMEOUT": "600",
+      "TRIGGERS_INTERVAL": "5",
+      "TRIGGERS_ON_TIMEOUT": "fail"
+    }
+  },
+  "after-trigger": {
+    "name": "dummy-scenario",
+    "depends_on": "wait-for-service"
+  }
+}
+```
+
+This example uses `dummy-scenario` to keep the focus on graph ordering. Replace it and the health URL with values for your graph. You can make the trigger node a graph root by setting `depends_on` to `null` or omitting it.
+
+The trigger conditions are selected by which condition variables you provide:
+
+| Condition | Environment variables |
+|-----------|-----------------------|
+| Command | `TRIGGER_COMMAND`, optionally `TRIGGER_EXPECTED_RC` |
+| HTTP | `TRIGGER_HTTP_URL`, optionally `TRIGGER_HTTP_METHOD`, `TRIGGER_HTTP_EXPECTED_STATUS`, `TRIGGER_HTTP_BEARER_TOKEN`, and `TRIGGER_HTTP_BODY_CONTAINS` |
+| Kubernetes resource | `TRIGGER_K8S_API_VERSION`, `TRIGGER_K8S_KIND`, `TRIGGER_K8S_NAME`, `TRIGGER_K8S_CONDITION`, and optionally `TRIGGER_K8S_NAMESPACE` |
+| Prometheus | `TRIGGER_PROM_QUERY`, `TRIGGER_PROM_URL`, and optionally `TRIGGER_PROM_TOKEN` |
+
+Set variables for more than one condition to wait on multiple events. `TRIGGERS_MODE` controls how they are combined: `all_of` waits for every configured condition, while `any_of` continues when one condition matches. `TRIGGERS_TIMEOUT` and `TRIGGERS_INTERVAL` set the maximum wait and polling interval in seconds. When the timeout expires, `TRIGGERS_ON_TIMEOUT` can be `skip`, `fail`, or `run_anyway`.
+
+For graph runs, choose `fail` if downstream nodes must not run when the event does not occur before timeout. `skip` lets the trigger image exit successfully after skipping its own scenario list, and `run_anyway` also exits successfully; in both cases dependent graph nodes can continue.
+
+In graph JSON, `nodeType` selects the trigger node. There is no separate `TRIGGER_TYPE` environment variable for CLI graph files; include the environment variables for the condition types you want to configure.
+
+To run the graph, use the regular command:
+
+```bash
+krknctl graph run graph.json --kubeconfig ~/.kube/config
+```
+
+If the trigger exits unsuccessfully, krknctl marks nodes that depend on it as skipped. Nodes on independent branches can still run.
+
 {{% alert title="Note" %}}
 Since multiple scenarios can be executed within a single running plan, the output is redirected 
 to files in the directory where the command is run. These files are named using the following 

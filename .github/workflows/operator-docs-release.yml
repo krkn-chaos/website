@@ -1,0 +1,65 @@
+name: Prepare Operator documentation release PR
+
+on:
+  repository_dispatch:
+    types: [operator-docs-release-ready]
+  workflow_dispatch:
+    inputs:
+      operator_tag:
+        description: Published Operator tag to capture
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: operator-docs-release-preparation
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Capture frozen docs and open review PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Mint website PR token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.DOC_SYNC_BOT_APP_ID }}
+          private-key: ${{ secrets.DOC_SYNC_BOT_APP_PRIVATE_KEY }}
+          owner: krkn-chaos
+          repositories: website
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Checkout trusted website default branch
+        uses: actions/checkout@v4
+        with:
+          repository: krkn-chaos/website
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Resolve release inputs, validate, and prepare PR
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          OPERATOR_TAG: ${{ github.event.client_payload.operator_tag || inputs.operator_tag }}
+          HUGO_CACHEDIR: /tmp/hugo-cache
+        run: |
+          set -euo pipefail
+          node scripts/operator-docs-release-pr.js --tag "$OPERATOR_TAG"

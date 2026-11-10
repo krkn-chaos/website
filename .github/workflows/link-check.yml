@@ -11,6 +11,12 @@ on:
       - 'hugo.yaml'
       - 'package.json'
       - 'scripts/check-links.js'
+      - 'scripts/**'
+      - 'operator-docs/**'
+      - 'config/**'
+      - 'assets/json/**'
+      - 'assets/scss/**'
+      - '.github/workflows/operator-docs-release.yml'
       - '.github/workflows/link-check.yml'
   push:
     branches: [main]
@@ -23,6 +29,12 @@ on:
       - 'hugo.yaml'
       - 'package.json'
       - 'scripts/check-links.js'
+      - 'scripts/**'
+      - 'operator-docs/**'
+      - 'config/**'
+      - 'assets/json/**'
+      - 'assets/scss/**'
+      - '.github/workflows/operator-docs-release.yml'
       - '.github/workflows/link-check.yml'
   workflow_dispatch:
 
@@ -40,7 +52,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Setup Go
         uses: actions/setup-go@v5

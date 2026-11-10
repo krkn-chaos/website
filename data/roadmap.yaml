@@ -18,16 +18,24 @@ releases:
       - "Save/Edit/Delete Workflow Templates"
 
   - version: "v1.1.0"
-    title: "Scenario Rollback"
+    title: "Cluster Management, Reliability & Observability Updates"
     date: "2026-10-20"
-    status: in-progress
+    status: released
     tasks:
-      - "Scenario Rollback"
       - "Cluster liveness check"
       - "Operator Hub distribution channel"
       - "Chaos Studio scenario import"
       - "Elasticsearch views (summary charts, metric views, and alerts)"
       - "Signed krkn-hub images"
       - "Operator Backup/Restore"
+      - "Cloud credentials support for cloud scenarios"
+  - version: "v1.2.0"
+    title: "Scenario Rollback"
+    date: "2026-12-22"
+    status: in-progress
+    tasks:
+      - "Scenario Rollback"
       - "Krkn AI"
+      - "Health Check Plugins and Event Triggers as Nodes in ChaosStudio"
+      - "Auto populate Pod/Node details for selection in scenario"
 

@@ -1,0 +1,10 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- if $context.enabled -}}
+  {{- $capturedAt := time.AsTime $context.release.captured_at -}}
+  <div class="td-page-meta__lastmod">
+    Captured {{ $capturedAt.Format "January 2, 2006" }} from website commit
+    <a href="https://github.com/krkn-chaos/website/commit/{{ $context.release.website_commit }}" target="_blank" rel="noopener noreferrer">{{ slicestr $context.release.website_commit 0 7 }}</a>.
+  </div>
+{{- else -}}
+  {{- partial "default-page-meta-lastmod.html" . -}}
+{{- end -}}

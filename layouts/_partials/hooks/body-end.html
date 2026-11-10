@@ -1,5 +1,12 @@
 <!-- Include Krkn Documentation Chatbot -->
-{{ partial "chatbot.html" . }}
+{{- $operatorDocs := partial "operator-docs/context.html" . -}}
+{{- $operatorSourcePreview := and .Site.Params.operator_docs_authoring_preview (strings.HasPrefix .RelPermalink "/docs/krkn-operator/") (not $operatorDocs.enabled) -}}
+{{- if and (not $operatorDocs.isOlder) (not $operatorSourcePreview) }}
+  {{ partial "chatbot.html" . }}
+{{- end }}
+{{- if or $operatorDocs.enabled (partial "operator-docs/preview-context.html" .) }}
+<script src="{{ "js/operator-docs-selector.js" | relURL }}" defer></script>
+{{- end }}
 
 <!-- Tab activation from URL hash + hash update on tab click -->
 <script>

@@ -1,0 +1,34 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- if $context.enabled -}}
+  {{- $isSingle := true -}}
+  {{- with .Parent -}}{{- $isSingle = .IsHome -}}{{- end -}}
+  <div class="krkn-operator-docs-breadcrumb-row">
+    <nav aria-label="breadcrumb" class="td-breadcrumbs{{ if $isSingle }} td-breadcrumbs__single{{ end }}">
+      <ol class="breadcrumb">{{ template "operator-docs-breadcrumb-nav" (dict "page" . "current" .) }}</ol>
+    </nav>
+    <a class="krkn-operator-docs-breadcrumb-home" href="/docs/">
+      <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+      <span>Browse all Krkn documentation</span>
+    </a>
+  </div>
+{{- else -}}
+  {{- partial "default-breadcrumb.html" . -}}
+{{- end -}}
+
+{{ define "operator-docs-breadcrumb-nav" -}}
+  {{- $page := .page -}}
+  {{- $current := .current -}}
+  {{- if $page.Parent -}}
+    {{- if not $page.Parent.IsHome -}}
+      {{- template "operator-docs-breadcrumb-nav" (dict "page" $page.Parent "current" $current) -}}
+    {{- end -}}
+  {{- else if not $page.IsHome -}}
+    {{- template "operator-docs-breadcrumb-nav" (dict "page" $page.Site.Home "current" $current) -}}
+  {{- end -}}
+  {{- if and (not $page.Params.operator_docs_archive_container) (not $page.Params.operator_docs_redirect) -}}
+    {{- $active := eq $page $current -}}
+    <li class="breadcrumb-item{{ if $active }} active{{ end }}"{{ if $active }} aria-current="page"{{ end }}>
+      {{- if $active -}}{{ $page.LinkTitle }}{{- else -}}<a href="{{ $page.RelPermalink }}">{{ $page.LinkTitle }}</a>{{- end -}}
+    </li>
+  {{- end -}}
+{{- end -}}

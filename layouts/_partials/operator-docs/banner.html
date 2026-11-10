@@ -1,0 +1,13 @@
+{{- $context := . -}}
+{{- $targets := partial "operator-docs/targets.html" (dict "context" $context "pageKey" $context.pageKey) -}}
+{{- $latest := index $targets $context.defaultRelease.tag -}}
+<aside class="krkn-operator-docs-release-banner{{ if $context.isOlder }} krkn-operator-docs-release-banner--older{{ end }}" aria-label="Operator documentation release">
+  <p>
+    This page documents Krkn Operator <strong>{{ $context.versionTag }}</strong>.
+    {{- if $context.isOlder }}
+      Site-wide search uses the latest documentation. <a href="{{ $latest.href }}">Open {{ $context.defaultRelease.tag }} documentation</a>; the documentation assistant is available there.
+    {{- else }}
+      This release documentation is preserved as published.
+    {{- end }}
+  </p>
+</aside>

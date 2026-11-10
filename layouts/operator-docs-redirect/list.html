@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <main class="krkn-operator-docs-redirect">
+    <h1>{{ .Title }}</h1>
+    {{ if .Params.operator_docs_fallback }}
+      <p>This section is not available in the latest Operator release. The overview is opening instead.</p>
+    {{ else }}
+      <p>Opening the latest matching Operator documentation section.</p>
+    {{ end }}
+    <p><a href="{{ .Params.operator_docs_target }}">Continue to the latest Operator documentation</a></p>
+  </main>
+{{ end }}

@@ -180,7 +180,7 @@ params:
   description: Kubernetes namespace to check objects in
   description_source: krknctl
   group: object_state_checks
-  default: ''
+  default: default
 - name: OBJECT_STATE_CHECK_LABEL_SELECTOR
   description: Kubernetes label selector to filter objects (e.g., app=nginx)
   description_source: krknctl

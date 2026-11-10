@@ -37,7 +37,7 @@ Full access to the platform. Administrators configure the infrastructure that us
 - Register and remove target **clusters**
 - Create **groups** with cluster access and permissions
 - Create **users** and assign them to groups
-- Configure **private registries** and their visibility
+- Configure **private registries**, [mirror signed images](administration/mirroring-signed-images/), and control registry visibility
 - Configure **cloud credentials** and their visibility
 - Configure **target providers** (e.g. ACM integration)
 - All operational features available to users
@@ -112,11 +112,11 @@ Allows users to cancel running scenarios and to remove scenario runs and their e
 |------------|-------------|
 | Cluster Management | Register and manage target Kubernetes clusters |
 | User & Group Management | Organize users through groups with granular permissions |
-| Private Registries | Configure private container registries with group-based visibility |
+| [Private Registries](administration/registry-management/) | Configure private registries and [mirror signed scenario and workload images](administration/mirroring-signed-images/) |
 | Cloud Credentials | Save cloud provider credentials and inject them into scenario pods via SecretKeyRef |
 | Chaos Studio | Design reusable visual workflows with serial and parallel execution |
 | Multi-cluster Execution | Run experiments on one or more clusters simultaneously |
-| Resiliency Score | Measure application resilience using PromQL-based metrics |
+| Resiliency Score | Measure application resilience using PromQL-based metrics and compare results in the [Resiliency Score Report](usage/job-categories-resiliency-score-report/) |
 | Jobs | Monitor experiment progress and inspect execution logs |
 | Cluster Terminal | Explore managed clusters using read-only kubectl and oc commands |
 | File Management | Store reusable configuration files and PromQL queries |

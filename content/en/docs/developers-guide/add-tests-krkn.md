@@ -1,9 +1,8 @@
 ---
-title: Adding to Krkn Test Suite
-# date: 2017-01-05
-description:
-weight : 4
-categories: [Best Practices ]
+title: Adding Tests to Krkn
+description: Add focused unit tests and functional coverage to the Krkn test suites.
+weight: 70
+categories: [Developers Guide]
 tags: [docs]
 ---
 

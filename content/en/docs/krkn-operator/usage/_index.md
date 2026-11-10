@@ -35,5 +35,6 @@ Users only see data from their own group. A cluster-wide indicator shows the nam
 - [Run Scenarios](run-scenarios/) — Execute single chaos scenarios (including selecting saved cloud credentials)
 - [Chaos Studio](chaos-studio/) — Design visual workflows with serial and parallel execution
 - [File Management](file-management/) — Upload and manage configuration files
+- [Job Categories & Resiliency Score Report](job-categories-resiliency-score-report/) — Group scenario runs and compare resiliency scores
 
 Cloud credentials themselves are configured by administrators — see [Cloud Credentials Management](../administration/cloud-credentials-management/).

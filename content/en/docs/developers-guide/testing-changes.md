@@ -1,386 +1,161 @@
 ---
-title: Testing your changes
-# date: 2017-01-05
-description: 
-weight : 4
-categories: [Best Practices]
-tags: [docs]
+title: Testing Changes
+description: Verify plugin behavior, the image contract, container startup, and operator execution as separate stages.
+weight: 60
+categories: [Developers Guide]
+tags: [docs, testing]
 ---
 
-- [Configure Kind environment](#configure-kind-testing-environment)
-- [Testing Changes in Krkn-lib](#testing-changes-in-krkn-lib)
-- [Testing Changes in Krkn](#testing-changes-in-krkn)
-- [Testing Changes in Krkn-hub](#testing-changes-for-krkn-hub)
-- [Testing Changes in Krknctl](#testing-changes-in-krknctl)
+Test the behavior at the layer you changed, then verify the next integration
+boundary. A correct Python method does not prove that its image can be
+discovered or started by the operator.
 
-This page gives details about how you can get a kind cluster configured to be able to run on krkn-lib (the lowest level of krkn-chaos repos) up through krknctl (our easiest way to run and highest level repo)
+The [hands-on lab](/docs/developers-guide/custom-scenario/) supplies the concrete
+build and run commands. Use this page when deciding what evidence a scenario
+change needs before contribution.
 
+## Plugin and engine tests {#testing-changes-in-krkn}
 
-## Configure Kind Testing Environment
-1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+For the development scenario, cover:
 
+- A valid configuration and an existing namespace, including one with no pods.
+- A missing namespace and a Kubernetes API failure.
+- Invalid `wait` values: negative, above 60, fractional, boolean, or missing.
+- Missing or invalid namespace values and unreadable or malformed YAML.
+- The expected return code and useful error context for each failure.
 
-2. Create cluster using [kind-config.yml](https://github.com/krkn-chaos/krkn-lib/blob/main/kind-config.yml) under *krkn-lib* base folder
-```bash
-kind create cluster --wait 300s --config=kind-config.yml
-```
+Mock the sleep and cluster helper in unit tests so they remain fast and do not
+depend on credentials. Verify externally meaningful behavior such as whether
+pods are listed after a successful namespace check, rather than reproducing
+the implementation's internal steps in the test.
 
-### Install Elasticsearch and Prometheus
-To be able to run the full test suite of tests you need to have elasticsearch and prometheus properly configured on the cluster 
-
-```bash
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo add stable https://charts.helm.sh/stable
-helm repo update
-```
-
-#### Prometheus
-Deploy prometheus on your cluster
+Krkn's top-level scenario tests live under `tests/`, while plugin-factory tests
+also live under `krkn/tests/`. After installing the dependencies required by the
+checked-out version, run the relevant test module from the repository root.
+The existing factory test is:
 
 ```bash
-kubectl create namespace monitoring
-helm install \
---wait --timeout 360s \
-kind-prometheus \
-prometheus-community/kube-prometheus-stack \
---namespace monitoring \
---set prometheus.service.nodePort=30000 \
---set prometheus.service.type=NodePort \
---set grafana.service.nodePort=31000 \
---set grafana.service.type=NodePort \
---set alertmanager.service.nodePort=32000 \
---set alertmanager.service.type=NodePort \
---set prometheus-node-exporter.service.nodePort=32001 \
---set prometheus-node-exporter.service.type=NodePort \
---set prometheus.prometheusSpec.maximumStartupDurationSeconds=300
+cd "$KRKN_DIR"
+python3 -m unittest krkn.tests.test_plugin_factory -v
 ```
 
+Add a focused test module for your scenario and run it explicitly before the
+broader suite. See [Adding tests](/docs/developers-guide/add-tests-krkn/) for
+test structure and functional CI integration.
 
-#### ElasticSearch 
+## Container and metadata checks {#build-your-changes}
 
-Set environment variables of elasticsearch variables
-```bash
-export ELASTIC_URL="https://localhost"
-export ELASTIC_PORT="9091"
-export ELASTIC_USER="elastic"
-export ELASTIC_PASSWORD="test"
-```
-
-Deploy elasticsearch on your cluster
+Rebuild the custom base after changing plugin Python or dependencies. Rebuild
+the scenario image after changing labels, startup scripts, or templates.
+Inspect the resulting image, rather than only the source Dockerfile:
 
 ```bash
-helm install \
---wait --timeout 360s \
-elasticsearch \
-oci://registry-1.docker.io/bitnamicharts/elasticsearch \
---set master.masterOnly=false \
---set master.replicaCount=1 \
---set data.replicaCount=0 \
---set coordinating.replicaCount=0 \
---set ingest.replicaCount=0 \
---set service.type=NodePort \
---set service.nodePorts.restAPI=32766 \
---set security.elasticPassword=test \
---set security.enabled=true \
---set image.tag=7.17.23-debian-12-r0 \
---set security.tls.autoGenerated=true
+podman image inspect "$KRKN_SCENARIO_IMAGE" |
+  jq '.[0].Config.Labels["krknctl.input_fields"] | fromjson'
+podman run --rm --user 1001:1001 --entrypoint /bin/bash \
+  "$KRKN_SCENARIO_IMAGE" -c 'test -x /home/krkn/run.sh'
 ```
 
-## Testing Changes in Krkn-lib
-To be able to run all the tests in the krkn-lib suite, you'll need to have prometheus and elastic properly configured. See above steps for details
-
-### Install poetry 
-Using a virtual environment install poetry and install krkn-lib requirmenets
-```bash
-$ pip install poetry
-$ poetry install --no-interaction
-```
-
-### Run tests
-
-```bash
-poetry run python3 -m coverage run -a -m unittest discover -v src/krkn_lib/tests/
-```
-
-### Adding tests
-Be sure that if you are adding any new functions or functionality you are adding unit tests for it. We want to keep above an 80% coverage in this repo since its our base functionality
-
-
-## Testing Changes in Krkn
-
-### Unit Tests
-
-Krkn unit tests are located in the `tests/` directory and use Python's `unittest` framework with comprehensive mocking. **IMPORTANT**: These tests do NOT require any external infrastructure, cloud credentials, or Kubernetes cluster - all dependencies are mocked.
-
-#### Prerequisites
-
-Install krkn dependencies in a virtual environment:
-
-```bash
-# Create and activate virtual environment
-python3.11 -m venv chaos
-source chaos/bin/activate
-
-# Install requirements
-pip install -r requirements.txt
-```
-
-#### Running Unit Tests
-
-**Run all unit tests:**
-```bash
-python -m unittest discover -s tests -v
-```
-
-**Run all unit tests with coverage:**
-```bash
-python -m coverage run -a -m unittest discover -s tests -v
-python -m coverage report
-```
-
-**Run specific test file:**
-```bash
-python -m unittest tests.test_vmi_outage -v
-```
-
-**Run specific test class:**
-```bash
-python -m unittest tests.test_vmi_outage.TestVmiOutageScenarioPlugin -v
-```
-
-**Run specific test method:**
-```bash
-python -m unittest tests.test_vmi_outage.TestVmiOutageScenarioPlugin.test_successful_injection_and_recovery -v
-```
-
-#### Viewing Coverage Results
-
-After running tests with coverage, generate an HTML report:
-
-```bash
-# Generate HTML coverage report
-python -m coverage html
-
-# View the report
-open htmlcov/index.html  # macOS
-xdg-open htmlcov/index.html  # Linux
-```
-
-Or view a text summary:
-
-```bash
-python -m coverage report
-```
-
-Example output:
-```text
-Name                                                          Stmts   Miss  Cover
----------------------------------------------------------------------------------
-krkn/scenario_plugins/vmi_outage/...                   215     12    94%
-krkn/scenario_plugins/node_actions/ibmcloud_node_scenarios.py  185      8    96%
----------------------------------------------------------------------------------
-TOTAL                                                          2847    156    95%
-```
-
-#### Test Output
-
-Unit test output shows:
-- Test names and descriptions
-- Pass/fail status for each test
-- Execution time
-- Any assertion failures or errors
-
-Example output:
-```text
-test_successful_injection_and_recovery (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
-Test successful deletion and recovery of a VMI using detailed mocking ... ok
-test_injection_failure (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
-Test failure during VMI deletion ... ok
-test_validation_failure (tests.test_vmi_outage.TestVmiOutageScenarioPlugin)
-Test validation failure when KubeVirt is not installed ... ok
-
-----------------------------------------------------------------------
-Ran 30 tests in 1.234s
-
-OK
-```
-
-#### Adding Unit Tests
-
-When adding new functionality, always add corresponding unit tests. See the [Adding Tests to Krkn](./add-tests-krkn.md#unit-tests) guide for detailed instructions.
-
-Key requirements:
-- Use comprehensive mocking (no external dependencies)
-- Add "IMPORTANT" note in docstring about no credentials needed
-- Test success paths, failure paths, edge cases, and exceptions
-- Organize tests into logical sections
-- Aim for >80% code coverage
-
-### Functional Tests (if able to run scenario on kind cluster)
-#### Configuring test Cluster
-After creating a kind cluster with the steps above, create these test pods on your cluster
-```bash
-kubectl apply -f CI/templates/outage_pod.yaml
-kubectl wait --for=condition=ready pod -l scenario=outage --timeout=300s
-kubectl apply -f CI/templates/container_scenario_pod.yaml
-kubectl wait --for=condition=ready pod -l scenario=container --timeout=300s
-kubectl create namespace namespace-scenario
-kubectl apply -f CI/templates/time_pod.yaml
-kubectl wait --for=condition=ready pod -l scenario=time-skew --timeout=300s
-kubectl apply -f CI/templates/service_hijacking.yaml
-kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=proxy" --timeout=300s
-```
-
-#### Install Requirements
-```bash
-$ python3.11 -m venv chaos
-$ source chaos/bin/activate
-$ pip install -r requirements.txt
-```
-
-#### Run Tests
-1. Add prometheus configuration variables to the test config file
-```bash 
-yq -i '.kraken.port="8081"' CI/config/common_test_config.yaml
-yq -i '.kraken.signal_address="0.0.0.0"' CI/config/common_test_config.yaml
-yq -i '.kraken.performance_monitoring="localhost:9090"' CI/config/common_test_config.yaml
-```
-
-
-2. Add tests to the list of functional tests to run
-```bash
-echo "test_service_hijacking" > ./CI/tests/functional_tests
-echo "test_app_outages" >> ./CI/tests/functional_tests
-echo "test_container"      >> ./CI/tests/functional_tests
-echo "test_pod" >> ./CI/tests/functional_tests
-echo "test_namespace"      >> ./CI/tests/functional_tests
-echo "test_net_chaos"      >> ./CI/tests/functional_tests
-echo "test_time"           >> ./CI/tests/functional_tests
-echo "test_cpu_hog" >> ./CI/tests/functional_tests
-echo "test_memory_hog" >> ./CI/tests/functional_tests
-echo "test_io_hog" >> ./CI/tests/functional_tests
-```
-
-3. Run tests
-```bash
-./CI/run.sh
-```
-
-Results can be seen in `./CI/results.markdown`
-
-
-#### Adding Tests 
-Be sure that if you are adding any new scenario you are adding tests for it based on a 5 (3 master, 2 worker) node kind cluster. See more details on how to add functional tests [here](./add-tests-krkn.md#functional-tests)
-The tests live [here](https://github.com/krkn-chaos/krkn/tree/main/CI)
-
-## Testing Changes for Krkn-hub
-
-### Install Podman/Docker Compose
-You can use either podman-compose or docker-compose for this step
-
-**NOTE:** Podman might not work on Mac's
-
-```bash
-pip3 install docker-compose
-```
-
-OR 
-
-To get latest podman-compose features we need, use this installation command
-
-`pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz`
-
-
-### Build Your Changes
-1. Run [`build.sh`](https://github.com/krkn-chaos/krkn-hub/blob/main/build.sh) to create Dockerfiles for each scenario
-2. Edit the docker-compose.yaml file to point to your quay.io repository (optional; required if you want to push or are testing krknctl)
-
-   For example, change:
-
-   ```text
-   image: containers.krkn-chaos.dev/krkn-chaos/krkn-hub:chaos-recommender
-   ```
-
-   to:
-
-   ```text
-   image: quay.io/<user>/krkn-hub:chaos-recommender
-   ```
-
-3. Build your image(s) from base krkn-hub directory.
-
-   Build all images in the docker-compose file:
-
-   ```bash
-   docker-compose build
-   ```
-
-   Build a single image defined by service/scenario name:
-
-   ```bash
-   docker-compose build <scenario_type>
-   ```
-
-   OR
-
-   Build all images in the podman-compose file:
-
-   ```bash
-   podman-compose build
-   ```
-
-   Build a single image defined by service/scenario name:
-
-   ```bash
-   podman-compose build <scenario_type>
-   ```
-
-
-### Push Images to your quay.io
-Push all Images using docker-compose
-
-```bash
-docker-compose push
-```
-
-Push a single image using docker-compose
-```bash
-docker-compose push <scenario_type>
-```
-
-OR
-
-Single Image (have to go one by one to push images through podman)
-```bash
-podman-compose push <scenario_type>
-```
-OR 
-
-```bash
-podman push quay.io/<username>/krkn-hub:<scenario_type>
-```
-
-### Run your new scenario
-`docker run -d -v <kube_config_path>:/root/.kube/config:Z quay.io/<username>/krkn-hub:<scenario_type>`
-
-OR 
-
-`podman run -d -v <kube_config_path>:/root/.kube/config:Z quay.io/<username>/krkn-hub:<scenario_type>`
-
-See krkn-hub documentation for [each scenario](../scenarios/_index.md) to see all possible variables to use 
-
-
-# Testing Changes in Krknctl
-Once you've created a krknctl-input.json file using the steps [here](./krknctl-edits.md), you'll want to test those changes using the below steps. You will need a either podman or docker installed as well as a quay account.
-
-## Build and Push to personal Quay
-First you will [build your changes](#build-your-changes) of krkn-hub and [push](#push-images-to-your-quayio) changes to your own quay repository for testing
-
-## Run Krknctl with Personal Image
-Once you have your images in quay, you are all set to configure krknctl to look for these new images. You'll edit the config file of krknctl found [here](https://github.com/krkn-chaos/krknctl/blob/main/pkg/config/config.json#L4-L6) and edit the `quay_org` to be set to your quay username
-
-With these updates to your config, you'll build your personal [krknctl binary](../installation/krknctl.md#build-command) and you'll be all set to start testing your new scenario and config options. 
-
-If any krknctl code changes are required, you'll have to make changes and rebuild the the krknctl binary each time to test as well 
-
+Run the container against a disposable target and exercise both success and
+failure. Use the operator's startup convention in the test: execute
+`/home/krkn/run.sh` directly under UID 1001. Check the mounted kubeconfig,
+generated scenario YAML, effective `kraken.kubeconfig_path`, and exit status.
+
+The [local test](/docs/developers-guide/custom-scenario/package-and-test/#run-against-an-existing-kind-cluster)
+handles the internal Kind API address and the Podman Machine mount location.
+
+## Operator integration
+
+Verify these checkpoints in order:
+
+1. The registry lists the scenario tag and its label JSON can be read.
+2. The console shows the expected fields and maps them to the intended
+   environment variables.
+3. The Pod is scheduled in the management cluster and its image is pulled.
+4. The startup script runs with the operator's user and file permissions.
+5. The plugin accesses the selected target and produces the expected result.
+
+Capture the resolved image digest when reporting the test. Pushing a new tag
+value does not change the image reference of an existing Pod. Start a new run
+and inspect its digest after a rebuild.
+
+For a private HTTP registry, test operator API access and node-runtime access
+separately. A successful listing does not validate containerd's transport or
+the kubelet's pull credentials. The
+[troubleshooting guide](/docs/developers-guide/custom-scenario/troubleshooting/)
+shows the relevant evidence for each failure.
+
+## Functional CI infrastructure {#configure-kind-testing-environment}
+
+The small demo needs only a target with namespace and pod read permissions.
+The full repository test suites can require additional nodes, workloads,
+Prometheus, Elasticsearch, or platform-specific resources. Use the fixtures
+and setup in the checked-out repository's CI documentation for the tests you
+select.
+
+Krkn's shell functional runner uses `CI/tests/functional_tests`, individual
+scripts under `CI/tests/`, and `CI/run.sh`. It writes results to
+`CI/results.markdown` and logs under `CI/out/`. Follow the
+[current CI instructions](https://github.com/krkn-chaos/krkn/tree/main/CI)
+and [adding tests guide](/docs/developers-guide/add-tests-krkn/#functional-tests)
+when extending that suite.
+
+### Monitoring installation references {#install-elasticsearch-and-prometheus}
+
+These services support other Krkn test suites and the metrics and long-term
+storage user journeys. Neither is required for the custom scenario lab, which
+disables telemetry export and resiliency scoring. Install them separately in
+an environment appropriate to those tests; this is not part of provisioning
+the lab's target.
+
+#### Prometheus {#prometheus}
+
+For a Kubernetes test environment, use the maintained
+[kube-prometheus-stack Helm installation instructions](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#usage).
+Select a chart version compatible with your Kubernetes version and the test
+requirements, then configure the tests with a reachable Prometheus endpoint.
+A workstation port-forward is suitable for a test process on that workstation;
+`localhost` in a scenario container refers to the container itself.
+
+#### Elasticsearch {#elasticsearch}
+
+Use an Elasticsearch version supported by the library and tests you are
+running. Elastic documents
+[installing ECK with Helm](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/install-using-helm-chart)
+and [deploying and accessing an Elasticsearch cluster](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/elasticsearch-deployment-quickstart).
+Follow both steps: installing the operator alone does not create an
+Elasticsearch instance. Supply the resulting endpoint, credentials, and TLS
+configuration to the selected test suite.
+
+Use these maintained installation references instead of copying old chart
+values or image tags across incompatible releases.
+
+## Library changes {#testing-changes-in-krkn-lib}
+
+Test new `krkn-lib` helpers in the library repository first, using the test
+environment appropriate to their API behavior. Then install the changed
+library into the custom Krkn base image and rerun the affected scenario.
+
+This second check catches dependency-version mismatches and different
+authentication or permission requirements. Updating the host's virtual
+environment does not update a previously built container image.
+
+## Community image packaging {#testing-changes-for-krkn-hub}
+
+When contributing to krkn-hub, follow its template generation and Compose build
+workflow. Build the affected scenario first, inspect its labels, and run the
+same container and operator checks above. A collection-wide build is not a
+prerequisite for testing a standalone custom scenario.
+
+See [Publishing through krkn-hub](/docs/developers-guide/editing-krkn-hub/).
+
+## Krknctl integration {#testing-changes-in-krknctl}
+
+Use the client's private registry support to discover and exercise the
+published scenario. You should not need to edit krknctl's embedded registry
+configuration merely to add an image that uses existing input types.
+
+When changing the type system or client implementation itself, add tests in
+the corresponding krknctl packages and rebuild the client. Validate the
+[image contract](/docs/developers-guide/krknctl-edits/) against both CLI and
+console behavior when the change affects their shared metadata.

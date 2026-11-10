@@ -144,3 +144,29 @@ Conditions follow the format `field.path <operator> value`:
 | `<` | Less than | `status.unavailableReplicas < 1` |
 
 The field path uses dot notation to traverse nested fields (e.g. `status.readyReplicas`). For `==` and `!=`, numeric values are compared numerically when possible, falling back to string comparison. For ordering operators (`>=`, `<=`, `>`, `<`), both sides must be numeric.
+
+### 4. Prometheus Trigger
+
+The `prometheus` trigger runs a PromQL query against a Prometheus server and passes when the query returns at least one result. Put any threshold or comparison logic in the PromQL query itself. An empty result, a query error, or a request timeout leaves the condition unsatisfied, so Krkn tries again at the configured trigger `interval` until the global timeout is reached.
+
+```yaml
+triggers:
+  mode: all_of
+  timeout: 600
+  interval: 10
+  on_timeout: skip
+  conditions:
+    - type: prometheus
+      query: "avg(rate(container_cpu_usage_seconds_total{namespace='production'}[5m])) > 0.8"
+      prometheus_url: "http://prometheus:9090"
+      # prometheus_bearer_token: "optional-token"
+```
+
+| Field | Description | Default |
+|-------|-------------|---------|
+| `type` | Must be `prometheus`. | |
+| `query` | PromQL expression to execute. The condition passes when the query returns a non-empty result. | (Required) |
+| `prometheus_url` | Base URL of the Prometheus server. | (Required) |
+| `prometheus_bearer_token` | Optional bearer token used to authenticate with Prometheus. | |
+
+Each Prometheus request has a 30-second timeout. Query failures and timeouts are logged and treated as an unsatisfied condition; the overall wait behavior is controlled by the trigger settings (`timeout` and `on_timeout`).

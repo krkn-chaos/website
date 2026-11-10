@@ -1,0 +1,11 @@
+{{- $context := partial "operator-docs/context.html" . -}}
+{{- $preview := partial "operator-docs/preview-context.html" . -}}
+{{- if $preview -}}
+  {{ partial "operator-docs/selector.html" $preview }}
+  {{ partial "operator-docs/sidebar-tree.html" (dict "context" $preview "page" .) }}
+{{- else if $context.enabled -}}
+  {{ partial "operator-docs/selector.html" $context }}
+  {{ partial "operator-docs/sidebar-tree.html" (dict "context" $context "page" .) }}
+{{- else -}}
+  {{ partial "default-sidebar.html" . }}
+{{- end -}}

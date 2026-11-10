@@ -44,7 +44,19 @@ screenshots/
 scripts/*
 !scripts/check-links.js
 !scripts/check-scenario-markers.py
+!scripts/snapshot-operator-docs.js
+!scripts/prepare-operator-docs.js
+!scripts/hugo-with-operator-docs.js
+!scripts/finalize-operator-docs.js
+!scripts/check-operator-docs.js
+!scripts/operator-docs-release-pr.js
+!scripts/operator-docs-metadata-pr.js
+!scripts/lib/
+!scripts/lib/**
+!scripts/tests/
+!scripts/tests/**
 .beads
 
 # Local Netlify folder
 .netlify
+.cache/operator-docs/

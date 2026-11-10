@@ -6,9 +6,11 @@ pvc_scenario:
   pvc_name: <pvc_name>          # Name of the target PVC.
   pod_name: <pod_name>          # Name of the pod where the PVC is mounted. It will be ignored if the pvc_name is defined.
   namespace: <namespace_name>   # Namespace where the PVC is.
-  fill_percentage: 50           # Target percentage to fill up the cluster. Value must be higher than current percentage. Valid values are between 0 and 99.
+  fill_percentage: 50           # Target PVC usage percentage (1-99), greater than current usage. Omit or leave blank to use 50.
   duration: 60                  # Duration in seconds for the fault.
 ```
+
+`fill_percentage` must be a number from 1 to 99 and greater than the PVC's current utilization. If omitted or left blank, it defaults to `50`. A quoted numeric value such as `"50"` is also accepted.
 
 ##### Steps
  - Get the pod name where the PVC is mounted.

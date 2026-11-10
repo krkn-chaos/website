@@ -1,0 +1,67 @@
+---
+title: OCM/ACM Compatibility
+description: Supported platforms and ACM/OCM versions for Krkn Operator
+weight: 5
+operator_docs_version: v1.0.0
+operator_docs_page_key: compatibility
+---
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=718ce007-5ae3-4c7f-ae2c-571353cb6b86" alt="" width="1" height="1" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;" />
+
+# OCM/ACM Compatibility
+
+Krkn Operator supports multi-cluster chaos testing on Kubernetes and OpenShift. Cluster discovery can be manual or automated through ACM/OCM integration.
+
+{{% notice info %}}
+**Multi-cluster works without ACM/OCM.** Clusters registered manually through the web console have the exact same capabilities as clusters discovered via ACM. The integration is optional — it adds automatic discovery, not functionality.
+{{% /notice %}}
+
+---
+
+## Platform Support
+
+| Platform | Status |
+|----------|--------|
+| Kubernetes 1.19+ | Supported |
+| OpenShift 4.x | Supported |
+
+---
+
+## ACM Compatibility
+
+The following versions of Red Hat Advanced Cluster Management have been tested and validated with Krkn Operator:
+
+| ACM Version | Status |
+|-------------|--------|
+| 2.14 | Tested |
+| 2.15 | Tested |
+| 2.16 | Tested |
+
+## OCM Compatibility
+
+The following versions of Open Cluster Management have been tested and validated:
+
+| OCM Version | Status |
+|-------------|--------|
+| 1.1.0 | Tested |
+| 1.2.0 | Tested |
+| 1.3.1 | Tested |
+
+{{% notice warning %}}
+Older ACM versions may work but are not actively tested. We recommend running one of the validated versions above.
+{{% /notice %}}
+
+---
+
+## How ACM Integration Works
+
+When ACM is enabled (`--set acm.enabled=true` at install time), Krkn Operator deploys a dedicated component that connects to the ACM hub and automatically discovers managed clusters. Discovered clusters appear in the same cluster pool as manually registered targets — users select from both without distinction.
+
+See [Provider Configuration](/docs/krkn-operator/versions/v1.0.0/administration/provider-configuration/) for setup details and [Installation](/docs/krkn-operator/versions/v1.0.0/installation/) for the Helm flag.
+
+---
+
+## Reference
+
+- [Open Cluster Management (OCM)](https://open-cluster-management.io/)
+- [OCM Releases](https://open-cluster-management.io/docs/release/)
+- [Red Hat ACM Documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/)

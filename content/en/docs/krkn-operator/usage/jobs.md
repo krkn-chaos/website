@@ -6,10 +6,10 @@ weight: 1
 
 # Jobs <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a>
 
-The Jobs list is the home screen of the platform. It displays all scenario executions for your group, with real-time status updates and access to logs and results.
+The Jobs page is the platform home screen. It lists scenario executions available to your group, with status updates and access to logs and results.
 
 <div class="krkn-video">
-  <iframe src="https://www.youtube.com/embed/BFLJtRIgoU4" title="Jobs & Execution Monitoring Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/cgdOzdkMsG0" title="Jobs and Execution Monitoring Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -34,10 +34,6 @@ Single runs can be **replayed** to re-execute the same scenario with the same co
 
 This allows you to quickly iterate on chaos experiments or run the same test across different environments.
 
-![Replay Run](/images/krkn-operator/replay.png)
-
-
-
 ### Graph Run (Chaos Studio)
 
 A workflow execution created through [Chaos Studio](../chaos-studio/). The execution is displayed as a graph where each node represents an individual krkn scenario. For each node you can inspect the outcome and logs independently.
@@ -55,7 +51,3 @@ Graph runs can include a **Resiliency Score** — a calculated metric based on P
 - Only jobs from **your own group** are displayed
 - A cluster-wide tip shows the **names** of scenarios currently running across all groups (no details)
 - Cancelling or removing jobs requires <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a> permission
-
-![Jobs Dashboard](/images/krkn-operator/main-screen.png)
-
-![Scenario Run Detail](/images/krkn-operator/scenario-running-detail.png)

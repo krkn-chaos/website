@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    {{ with .Params.operator_docs_target }}
+      <link rel="canonical" href="{{ . | absURL }}">
+      <meta http-equiv="refresh" content="0;url={{ . }}">
+    {{ end }}
+    {{ block "head" . }}{{ end }}
+  </head>
+  <body data-operator-docs-target="{{ .Params.operator_docs_target }}" data-preserve-fragment="{{ .Params.operator_docs_preserve_fragment }}">
+    {{ block "main" . }}{{ end }}
+    {{ with .Params.operator_docs_target }}
+      <script>
+        (() => {
+          const target = new URL(document.body.dataset.operatorDocsTarget, window.location.origin);
+          if (document.body.dataset.preserveFragment === 'true' && window.location.hash) {
+            target.hash = window.location.hash;
+          }
+          window.location.replace(target.href);
+        })();
+      </script>
+    {{ end }}
+  </body>
+</html>

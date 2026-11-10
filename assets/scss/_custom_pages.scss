@@ -52,6 +52,116 @@
 // BLOG PAGE
 // =============================================================================
 
+// Individual articles use a narrower reading measure than the blog index.
+.krkn-blog-article {
+  min-height: 100vh;
+  padding: 5rem 1.5rem 6rem;
+  background: var(--krkn-bg);
+}
+
+.krkn-blog-article__header,
+.krkn-blog-article__content {
+  width: Min(760px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.krkn-blog-article__header {
+  padding-bottom: 2.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--krkn-border-subtle);
+}
+
+.krkn-blog-article__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--krkn-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.krkn-blog-article__title {
+  margin: 0;
+  color: var(--krkn-text) !important;
+  font-family: 'Satoshi', sans-serif;
+  font-size: Clamp(2.25rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.krkn-blog-article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  color: var(--krkn-text-muted);
+  font-size: 0.875rem;
+}
+
+.krkn-blog-article__content {
+  padding-top: 3rem;
+  color: var(--krkn-text);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.krkn-blog-article__content > :first-child {
+  margin-top: 0;
+}
+
+.krkn-blog-article__content h2 {
+  margin: 3rem 0 1rem;
+  color: var(--krkn-text);
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.krkn-blog-article__content p {
+  margin: 0 0 1.25rem;
+}
+
+.krkn-blog-article__content ul {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.krkn-blog-article__content li {
+  margin-bottom: 0.5rem;
+}
+
+.krkn-blog-article__content a {
+  color: var(--krkn-secondary-light);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.krkn-blog-article__content a:hover {
+  color: var(--krkn-primary);
+}
+
+.krkn-blog-article__content code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  background: var(--krkn-elevated);
+  color: var(--krkn-text);
+  font-size: 0.9em;
+}
+
+@media (max-width: 640px) {
+  .krkn-blog-article {
+    padding: 3.5rem 1.25rem 4rem;
+  }
+
+  .krkn-blog-article__content {
+    padding-top: 2rem;
+    font-size: 1rem;
+  }
+}
+
 // Hero
 .krkn-blog__hero {
   padding: 5rem 0 3rem;

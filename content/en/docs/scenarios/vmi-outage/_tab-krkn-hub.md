@@ -57,7 +57,11 @@ OR on the command line like example:
 
 See list of variables that apply to all scenarios [here](../all-scenario-env.md) that can be used/set in addition to these scenario specific variables
 
-{{< param-table scenario="kubevirt-outage" source="krkn-hub" >}}
+{{< param-table scenario="vmi-outage" source="krkn-hub" >}}
+
+{{% alert title="Guest reachability MTTR (optional)" %}}
+Set `WAIT_FOR_GUEST_PING=True` to keep polling after the VMI is `Running` until the guest answers an **ICMP ping** (default) and record `guest_reachable_time`. Leave `GUEST_PING_POD` empty so Krkn creates an ephemeral helper with `NET_RAW` before chaos (create/pull stay off the MTTR path). The namespace must allow `NET_RAW` (not OpenShift restricted-v2). For restricted SCC, set `GUEST_PING_METHOD=tcp` and optionally reuse `CI/templates/guest-ping-diagnosis-pod.yaml` from krkn via `GUEST_PING_POD`. The Krkn ServiceAccount needs `pods/exec` `create`.
+{{% /alert %}}
 {{% alert title="Note" %}}In case of using custom metrics profile or alerts profile when `CAPTURE_METRICS` or `ENABLE_ALERTS` is enabled, mount the metrics profile from the host on which the container is run using podman/docker under `/home/krkn/kraken/config/metrics-aggregated.yaml` and `/home/krkn/kraken/config/alerts`. {{% /alert %}}
  For example:
 ```bash

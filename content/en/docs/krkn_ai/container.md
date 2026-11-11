@@ -6,6 +6,9 @@ weight: 4
 
 Krkn-AI can be run inside containers, which simplifies integration with continuous testing workflows.
 
+This guide covers the standalone `krkn-ai` image. For Operator-managed runner and
+service images, follow the [Operator installation guide](/docs/krkn-operator/installation/#krkn-ai).
+
 ## Container Image
 
 A pre-built container image is available on Quay.io:

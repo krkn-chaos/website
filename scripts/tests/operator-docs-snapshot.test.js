@@ -206,6 +206,35 @@ test('pins installation docs to the captured chart and removes mutable script', 
   assert.match(markdown, /may show an earlier interface/);
 });
 
+test('captures tabbed installation sections with pinned commands and release-local links', () => {
+  const source = fixtureSource();
+  source.pages[1] = page('installation/_index.md', [
+    '---',
+    'title: Installation',
+    '---',
+    '## Krkn AI',
+    '',
+    '{{< tabpane text=true >}}',
+    '{{% tab header="**Helm**" lang="helm" %}}',
+    '```bash',
+    'helm install krkn-operator chart --version <VERSION>',
+    '```',
+    '[Jobs](/docs/krkn-operator/usage/jobs/)',
+    '{{% /tab %}}',
+    '{{% tab header="**OLM**" lang="olm" %}}',
+    '[Permissions](/docs/krkn-operator/#permission-run)',
+    '{{% /tab %}}',
+    '{{< /tabpane >}}',
+  ].join('\n'));
+  const plan = planSnapshot({ releaseInputs, source });
+  const markdown = fileText(plan, '/installation/_index.md');
+
+  assert.match(markdown, /--version 1\.2\.1/);
+  assert.doesNotMatch(markdown, /<VERSION>/);
+  assert.match(markdown, /\[Jobs\]\(\/docs\/krkn-operator\/versions\/v1\.2\.0\/usage\/jobs\/\)/);
+  assert.match(markdown, /\[Permissions\]\(\/docs\/krkn-operator\/versions\/v1\.2\.0\/#permission-run\)/);
+});
+
 test('rejects uncaptured installation scripts after removing the known live version script', () => {
   const source = fixtureSource();
   source.pages[1] = page(

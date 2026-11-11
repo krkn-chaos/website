@@ -1,9 +1,10 @@
 ---
-title: Krkn-AI
-description: How to install Krkn-AI
+title: Install Krkn-AI CLI (local)
+description: Install the standalone Krkn-AI command-line workflow locally.
 tags: [docs]
 weight: 4
 ---
+
 
 
 ## Installation
@@ -76,3 +77,7 @@ $ uv run krkn_ai --help
 ### Getting Started with Krkn-AI
 
 To configure Krkn-AI testing scenarios, check out [getting started](../krkn_ai/getting-started-krkn-ai.md) doc.
+
+### Related documentation
+
+- [Krkn-AI with the Operator](/docs/krkn-operator/installation/#krkn-ai)

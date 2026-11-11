@@ -3,8 +3,7 @@ source_repo: krkn-hub
 source_ref: HEAD
 params:
 - name: LABEL_SELECTOR
-  description: Label selector to target one or more nodes (e.g. node-role.kubernetes.io/worker). If omitted, NODE_NAME is used instead.
-  description_source: krknctl
+  description: e.g. "node-role.kubernetes.io/worker"
   type: string
   default: ''
   required: false
@@ -76,6 +75,10 @@ params:
 - name: WAIT_DURATION
   description: post-chaos wait (seconds)
   default: '0'
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: kube/node-network-chaos.yml.template
   required: false
 - name: FORCE
   description: true | false

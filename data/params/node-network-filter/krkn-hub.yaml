@@ -66,6 +66,10 @@ params:
   description_source: built-in
   default: scenarios/kube/network-filter.yml
   required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: kube/network-filter.yml.template
+  required: false
 - name: IMAGE
   description: The network chaos injection workload container image
   description_source: krknctl

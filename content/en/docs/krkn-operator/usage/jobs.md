@@ -44,6 +44,10 @@ Graph runs can include a **Resiliency Score** — a calculated metric based on P
 **Resiliency Score** is a key differentiating feature of Krkn Operator. It transforms chaos experiments from pass/fail tests into quantitative resilience measurements. See [Chaos Studio](../chaos-studio/) for details on configuring it.
 {{% /notice %}}
 
+### Krkn-AI Runs
+
+[Krkn-AI](/docs/krkn-operator/usage/krkn-ai/) creates individual scenario runs that also appear on the **Jobs** page. Open a job's linked Krkn-AI run to view details of the parent experiment.
+
 ---
 
 ## Visibility & Permissions

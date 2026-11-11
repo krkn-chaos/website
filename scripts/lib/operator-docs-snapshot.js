@@ -12,9 +12,9 @@ const CONTENT_ROOT = 'content/en/docs/krkn-operator';
 const IMAGE_ROOT = 'static/images/krkn-operator';
 const VIDEO_ROOT = 'static/videos';
 const REGISTRY_PATH = path.join('data', 'operator_doc_versions.yaml');
-const TRANSFORMATION_SCHEMA_VERSION = 3;
+const TRANSFORMATION_SCHEMA_VERSION = 4;
 const STABLE_OPERATOR_TAG_PATTERN = /^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/;
-const ALLOWED_SHORTCODES = new Set(['notice', 'roadmap']);
+const ALLOWED_SHORTCODES = new Set(['notice', 'roadmap', 'tabpane', 'tab']);
 const MEDIA_EXTENSION = /\.(?:avif|gif|jpe?g|png|svg|webp|mp4|webm|ogg|mp3|wav|pdf)$/i;
 
 function sha256(bytes) {

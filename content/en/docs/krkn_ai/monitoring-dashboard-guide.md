@@ -107,7 +107,7 @@ results/
         └── scenario_N.log
 ```
 
-The dashboard reads `reports/all.csv`, `reports/health_check_report.csv`, and the per-scenario YAML telemetry files. `results.json` is used to determine run status (started / in-progress / completed / failed).
+The dashboard reads `reports/all.csv`, `reports/health_check_report.csv`, and per-scenario YAML or JSON telemetry files. `results.json` is used to determine run status (started / in-progress / completed / failed).
 
 ---
 

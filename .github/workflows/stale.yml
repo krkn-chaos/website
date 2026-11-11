@@ -2,8 +2,13 @@ name: Manage Stale Issues and Pull Requests
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    # Run daily at 1:00 AM UTC
+    - cron: "0 1 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   issues: write
@@ -11,4 +16,5 @@ permissions:
 
 jobs:
   stale:
-    uses: krkn-chaos/actions/.github/workflows/stale.yml@main
+    uses: krkn-chaos/actions/.github/workflows/stale-PRs-and-issues.yml@main # main
+    secrets: inherit

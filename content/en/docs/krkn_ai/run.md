@@ -1,10 +1,10 @@
 ---
 title: Run Krkn-AI
-description: Execute automated resilience and chaos testing using the Krkn-AI run command.
+description: Execute AI-driven chaos and resilience testing using the Krkn-AI run command.
 weight: 3
 ---
 
-The `run` command executes automated resilience and chaos testing using Krkn-AI. It initializes a random population samples containing Chaos Experiments based on your Krkn-AI configuration file, then starts the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run the experiments, gather feedback, and continue evolving existing scenarios until stopping criteria is met.
+The `run` command executes AI-driven chaos and resilience testing using Krkn-AI. It initializes a random population of chaos experiments based on your configuration file, then uses the [evolutionary algorithm](./config/evolutionary_algorithm.md) to run experiments, gather feedback, and evolve scenarios until stopping criteria are met.
 
 ### CLI Usage
 
@@ -19,7 +19,7 @@ Options:
   -c, --config TEXT                     Path to Krkn-AI config file.
   -o, --output TEXT                     Directory to save results.
   -f, --format [json|yaml]              Format of the output file.  [default: yaml]
-  -r, --runner-type [krknctl|krknhub]   Type of chaos engine to use.
+  -r, --runner-type [krknctl|krknhub|operator]  Type of chaos engine to use.
   -p, --param TEXT                      Additional parameters for config file in key=value format.
   -s, --seed INTEGER                    Random seed for reproducible runs. Overrides seed in config file.
   -v, --verbose                         Increase verbosity of output.  [default: 0]
@@ -36,7 +36,7 @@ The following command runs Krkn-AI with verbose output (`-vv`), specifies the co
 $ uv run krkn_ai run -vv -c ./krkn-ai.yaml -o ./tmp/results/ -p HOST=$HOST
 ```
 
-By default, Krkn-AI uses [krknctl](../krknctl/) as engine. You can switch to [krknhub](../krkn-hub.md) by using the following flag:
+Automatic local runner selection prefers [krknctl](../krknctl/), then Podman/Krkn Hub. Select Krkn Hub explicitly with:
 
 ```bash
 $ uv run krkn_ai run -r krknhub -c ./krkn-ai.yaml -o ./tmp/results/

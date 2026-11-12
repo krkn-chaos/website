@@ -263,14 +263,14 @@ function buildAuthoringPreviewFixture(repoRoot) {
   }
 }
 
-test('generated site isolates snapshots, preserves selection, redirects old links, and searches only latest', (t) => {
+test('generated site isolates snapshots, shares the current roadmap, redirects old links, and searches only latest', (t) => {
   if (!fs.existsSync(hugoBinary)) return t.skip('pinned Hugo binary is unavailable');
   const repoRoot = createSiteFixture();
   buildFixture(repoRoot);
 
   const readPublic = (relativePath) => fs.readFileSync(path.join(repoRoot, 'public', relativePath), 'utf8');
   const latestJobs = readPublic('docs/krkn-operator/versions/v1.1.0/usage/jobs/index.html');
-  const frozenRoadmap = readPublic('docs/krkn-operator/versions/v1.1.0/releases/index.html');
+  const versionedRoadmap = readPublic('docs/krkn-operator/versions/v1.1.0/releases/index.html');
   const legacyRoadmap = readPublic('docs/krkn-operator/releases/index.html');
   const oldOnly = readPublic('docs/krkn-operator/versions/v1.0.0/usage/old/index.html');
   const printDocs = readPublic('docs/index.print.html');
@@ -289,8 +289,8 @@ test('generated site isolates snapshots, preserves selection, redirects old link
   assert.match(latestJobs, /v1\.1\.0 \(Latest\)/);
   assert.match(latestJobs, /Second release job text/);
   assert.doesNotMatch(latestJobs, /Authoring overview must stay private/);
-  assert.match(frozenRoadmap, /Second release roadmap/);
-  assert.doesNotMatch(frozenRoadmap, /Upcoming release roadmap|v1\.2\.0/);
+  assert.match(versionedRoadmap, /Upcoming release roadmap/);
+  assert.doesNotMatch(versionedRoadmap, /Second release roadmap/);
   assert.match(legacyRoadmap, /window\.location\.replace/);
   assert.match(legacyRoadmap, /versions\/v1\.1\.0\/releases\//);
   assert.doesNotMatch(legacyRoadmap, /Upcoming release roadmap|Upcoming Operator documentation preview/);
@@ -364,14 +364,14 @@ test('registered test fixtures render changed, added, and removed pages as norma
   assert.ok(!JSON.parse(offlineSearch).some((document) => document.ref.includes(`/versions/${testReleaseTag}/`)));
 });
 
-test('deploy preview shows pending roadmap at source URLs and keeps v1.1.0 frozen', (t) => {
+test('deploy preview shows the current roadmap at source and versioned URLs', (t) => {
   if (!fs.existsSync(hugoBinary)) return t.skip('pinned Hugo binary is unavailable');
   const repoRoot = createSiteFixture();
   buildAuthoringPreviewFixture(repoRoot);
 
   const readPreview = (relativePath) => fs.readFileSync(path.join(repoRoot, 'public-preview', relativePath), 'utf8');
   const upcomingRoadmap = readPreview('docs/krkn-operator/releases/index.html');
-  const frozenRoadmap = readPreview('docs/krkn-operator/versions/v1.1.0/releases/index.html');
+  const versionedRoadmap = readPreview('docs/krkn-operator/versions/v1.1.0/releases/index.html');
   const otherProduct = readPreview('docs/scenarios/current/index.html');
   const redirects = readPreview('_redirects');
   const searchPath = upcomingRoadmap.match(/<link rel="test-search-index" href="([^"]+)"/)?.[1];
@@ -389,16 +389,15 @@ test('deploy preview shows pending roadmap at source URLs and keeps v1.1.0 froze
   assert.match(upcomingRoadmap, /Upcoming release roadmap/);
   assert.match(upcomingRoadmap, /v1\.1\.0/);
   assert.match(upcomingRoadmap, /Previous release roadmap/);
-  assert.match(frozenRoadmap, /v1\.1\.0/);
-  assert.match(frozenRoadmap, /Second release roadmap/);
-  assert.doesNotMatch(frozenRoadmap, /v1\.2\.0/);
-  assert.doesNotMatch(frozenRoadmap, /Upcoming release roadmap/);
-  assert.doesNotMatch(frozenRoadmap, /Upcoming Operator documentation preview/);
-  assert.match(frozenRoadmap, /This page documents Krkn Operator <strong>v1\.1\.0<\/strong>/);
+  assert.match(versionedRoadmap, /v1\.2\.0/);
+  assert.match(versionedRoadmap, /Upcoming release roadmap/);
+  assert.doesNotMatch(versionedRoadmap, /Second release roadmap/);
+  assert.doesNotMatch(versionedRoadmap, /Upcoming Operator documentation preview/);
+  assert.match(versionedRoadmap, /This page documents Krkn Operator <strong>v1\.1\.0<\/strong>/);
   assert.doesNotMatch(otherProduct, /Upcoming Operator documentation preview|Operator documentation release/);
   assert.doesNotMatch(upcomingRoadmap, /window\.location\.replace/);
   assert.doesNotMatch(upcomingRoadmap, /\/js\/chatbot\.js/);
-  assert.match(frozenRoadmap, /\/js\/chatbot\.js/);
+  assert.match(versionedRoadmap, /\/js\/chatbot\.js/);
   assert.ok(searchDocuments);
   assert.ok(searchDocuments.some((document) => document.ref === '/docs/krkn-operator/releases/'));
   assert.match(redirects, /\/api\/chat \/\.netlify\/functions\/chat 200/);

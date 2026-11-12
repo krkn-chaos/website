@@ -27,10 +27,11 @@ overview if that article is absent). The draft sidebar shows only editable
 source pages. For example, while
 preparing v1.2.0, inspect the roadmap at
 `<deploy-preview-url>/docs/krkn-operator/releases/`; the page at
-`<deploy-preview-url>/docs/krkn-operator/versions/v1.1.0/releases/` continues
-to show the captured v1.1.0 roadmap. Production builds do not enable this
-preview mode: source pages stay hidden and unversioned links redirect to the
-newest published stable snapshot.
+`<deploy-preview-url>/docs/krkn-operator/versions/v1.1.0/releases/` also shows
+the current roadmap. The roadmap is shared across all Operator documentation
+versions; the rest of each versioned page remains pinned to its captured
+snapshot. Production builds do not enable this preview mode: source pages stay
+hidden and unversioned links redirect to the newest published stable snapshot.
 
 Previously shared unversioned URLs keep working through generated redirect
 pages that send readers to the corresponding article in the newest published

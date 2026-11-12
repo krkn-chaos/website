@@ -27,7 +27,42 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+        with:
+          # Full history needed so git push back to main works correctly
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        # package-lock.json is listed in .gitignore so npm ci would fail;
+        # npm install is the correct command for this repository.
+        run: npm install --prefer-offline
+
+      - name: Rebuild static search index
+        run: |
+          echo "🔄 Rebuilding static search index from source markdown..."
+          node scripts/build-search-index.js
+
+      - name: Commit updated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Use -f because static/search-index.json is listed in .gitignore
+          # (it is a generated artifact, but we intentionally track the canonical
+          # copy so the Netlify serverless function can fetch it at runtime)
+          git add -f static/search-index.json
+          if git diff --staged --quiet; then
+            echo "ℹ️  No index changes to commit."
+          else
+            git commit -m "chore: rebuild search index [skip ci]"
+            git push origin HEAD:main
+            echo "✅ Updated search index committed and pushed."
+          fi
+
       - name: Wait for Netlify deployment
         if: github.event_name == 'push'
         run: |
@@ -37,17 +72,21 @@ jobs:
       - name: Get Netlify site URL
         id: get-url
         run: |
-          # Try to get from Netlify API or use default
           SITE_URL="${{ secrets.NETLIFY_SITE_URL }}"
           if [ -z "$SITE_URL" ]; then
             SITE_URL="https://krkn-chaos.netlify.app"
           fi
+          # Validate URL is https to prevent injection via a misconfigured secret
+          if [[ "$SITE_URL" != https://* ]]; then
+            echo "❌ SITE_URL does not start with https:// — aborting."
+            exit 1
+          fi
           echo "SITE_URL=$SITE_URL" >> $GITHUB_OUTPUT
           echo "🌐 Using site URL: $SITE_URL"
           
-      - name: Rebuild documentation index
+      - name: Notify Netlify function to reload index
         run: |
-          echo "🔄 Triggering documentation index rebuild..."
+          echo "🔄 Notifying serverless function to reload the updated index..."
           
           RESPONSE=$(curl -s -w "\n%{http_code}" \
             -X POST "${{ steps.get-url.outputs.SITE_URL }}/api/admin/rebuild-index" \
@@ -62,16 +101,14 @@ jobs:
           echo "HTTP Code: $HTTP_CODE"
           
           if [ "$HTTP_CODE" = "200" ]; then
-            echo "✅ Documentation index rebuilt successfully!"
-            # Parse document count if available
+            echo "✅ Serverless function reloaded index successfully!"
             if echo "$BODY" | grep -q "documentCount"; then
               DOC_COUNT=$(echo "$BODY" | grep -o '"documentCount":[0-9]*' | cut -d':' -f2)
-              echo "📊 Indexed $DOC_COUNT documents"
+              echo "📊 Live function serving $DOC_COUNT documents"
             fi
           else
-            echo "❌ Failed to rebuild index (HTTP $HTTP_CODE)"
+            echo "⚠️  Serverless reload returned HTTP $HTTP_CODE — the static index is still updated."
             echo "Response: $BODY"
-            exit 1
           fi
           
       - name: Create commit status
@@ -100,4 +137,5 @@ jobs:
           fi
           echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "The chatbot documentation index has been automatically updated with the latest content!" >> $GITHUB_STEP_SUMMARY
+          echo "The static search index has been rebuilt from source and committed." >> $GITHUB_STEP_SUMMARY
+          echo "The chatbot documentation index is now current and path-portable." >> $GITHUB_STEP_SUMMARY

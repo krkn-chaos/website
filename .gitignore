@@ -25,6 +25,11 @@ public/
 public/**
 resources/
 
+# Generated at build time by scripts/build-search-index.js — do not commit manually.
+# The rebuild-docs-index CI workflow regenerates and force-adds this file on every
+# content change so the chatbot search index stays current and path-portable.
+static/search-index.json
+
 # Environment files
 .env
 .env.local

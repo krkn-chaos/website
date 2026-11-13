@@ -1,53 +1,72 @@
 ---
-title: Adding New Scenario to Krkn-hub
-# date: 2017-01-05
-description: 
-weight : 2
-categories: [Best Practices]
-tags: [docs]
+title: Publishing Through Krkn-hub
+description: Add a scenario to the community image collection after validating its standalone image contract.
+weight: 80
+categories: [Developers Guide]
+tags: [docs, contributions, containers]
 ---
 
+Krkn-hub maintains the community collection of packaged scenario images. Add
+your scenario there when you want it distributed through that collection.
+The [custom scenario lab](/docs/developers-guide/custom-scenario/) builds and
+publishes its own image directly, so it does not require changes to this
+repository.
 
-## Adding/Editing a New Scenario to Krkn-hub
-1. Create folder with scenario name under [krkn-hub](https://github.com/krkn-chaos/krkn-hub/tree/main)
+Before contributing packaging, validate the Python plugin, configuration
+template, metadata, and executable startup script. Use the
+[testing guide](/docs/developers-guide/testing-changes/) to cover success and
+failure paths.
 
-2. Create generic scenario template with environment variables
+## Add the scenario package
 
-    a. See [scenario.yaml](https://github.com/krkn-chaos/krkn-hub/blob/main/application-outages/app_outages.yaml.template) for example
-    
-    b. Almost all parameters should be set using a variable (these will be set in the env.sh file or through the command line environment variables)
-    
-3. Add defaults for any environment variables in an "env.sh" file
+Create a scenario directory in
+[krkn-hub](https://github.com/krkn-chaos/krkn-hub) using a neighboring scenario
+as a reference. A package normally includes:
 
-    a.  See [env.sh](https://github.com/krkn-chaos/krkn-hub/blob/main/application-outages/env.sh) for example
-    
-4. Create script to run.sh chaos scenario
-    a. See [run.sh](https://github.com/krkn-chaos/krkn-hub/blob/main/application-outages/run.sh) for example
-    
-    b. edit line 16 with your scenario yaml template
+- A scenario YAML template whose configurable values come from environment
+  variables.
+- `env.sh` with documented runtime defaults.
+- An executable `run.sh` that prepares configuration and starts Krkn.
+- `krknctl-input.json` describing the scenario-specific inputs.
+- `Dockerfile.template` with the scenario labels and required files.
 
-    c. edit line 17 and 23 with your yaml config location
+Keep the names consistent across the JSON descriptor's `variable`, shell
+defaults, YAML placeholders, and plugin configuration fields. The template file
+name used by `run.sh` must match the actual file copied into the image.
 
-5. Create Dockerfile template
-    
-    a. See [dockerfile template](https://github.com/krkn-chaos/krkn-hub/blob/main/application-outages/Dockerfile.template) for example
-    
-    b. Lines to edit
-    
-        i. 12: replace "application-outages" with your folder name
+The base image must already contain the Python plugin and its dependencies.
+Packaging a new scenario type on a base image that predates the plugin will
+produce a discoverable image that fails at engine startup.
 
-        ii. 14: replace "application-outages" with your folder name
+## Connect the build
 
-        iii. 17: replace "application-outages" with your scenario name
+Follow the build conventions in the checked-out krkn-hub revision. In the
+repository's template and Compose workflow, this includes registering the
+scenario directory in `build.sh` and adding its service to `docker-compose.yaml`.
+Use generated Dockerfiles in the build and confirm that the input JSON is
+embedded in the final image labels.
 
-        iv. 18: replace description with a description of your new scenario
-        
-6. Add service/scenario to [docker-compose.yaml](https://github.com/krkn-chaos/krkn-hub/blob/main/docker-compose.yaml) file following syntax of other services
-7. Point the dockerfile parameter in your docker-compose to the Dockerfile file in your new folder
-8. Add the folder name to the list of scenarios in [build.sh](https://github.com/krkn-chaos/krkn-hub/blob/main/build.sh)
-9. Update the krkn website and main README with [new scenario type](https://github.com/krkn-chaos/website/tree/main/content/en/docs/scenarios)
+Only add shared defaults or main-configuration variables to the root templates
+when the behavior is shared across scenarios. A scenario-specific field belongs in
+its own package.
 
-    
-NOTE: 
-1. If you added any main configuration variables or new sections be sure to update [config.yaml.template](https://github.com/krkn-chaos/krkn-hub/blob/main/config.yaml.template) 
-2. Similar to above, also add the default parameter values to [env.sh](https://github.com/krkn-chaos/krkn-hub/blob/main/env.sh)
+See the repository's [build script](https://github.com/krkn-chaos/krkn-hub/blob/main/build.sh)
+and [application outages package](https://github.com/krkn-chaos/krkn-hub/tree/main/application-outages)
+for the current layout. Avoid instructions that depend on fixed source line
+numbers; the surrounding scripts evolve.
+
+## Complete the contribution
+
+Build and test the selected scenario image before running a collection-wide
+build. Confirm that it works through the intended clients and that runtime
+permissions match the scenario's needs. Official release publishing also
+includes the project's image signing and distribution process.
+
+Add a scenario page under `content/en/docs/scenarios/` in the website and follow
+the website's scenario marker conventions. Document inputs, target permissions,
+expected disruption, recovery behavior, and the meaningful success condition.
+
+Use the [contribution guidelines](/docs/contribution-guidelines/) for the
+related code and documentation pull requests. Changes to krknctl itself are
+needed when extending client behavior or the type system, rather than simply
+introducing another image that uses the existing contract.

@@ -7,7 +7,8 @@ Example scenario files:
 ```yaml
 storage_throttle_scenario:
   pvc_name: ""                    # Target PVC name. If set, pod_name is auto-resolved from PVC.
-  pod_name: my-app-pod            # Target pod name. Ignored if pvc_name is set.
+  pod_name: my-app-pod            # Target pod name. Ignored if pvc_name or vmi_name is set.
+  vmi_name: ""                    # Optional VMI name; resolves its current virt-launcher pod.
   namespace: default              # Namespace of the target PVC/pod (required)
   mount_path: ""                  # Specific mount path to throttle. If empty, first PVC mount is used.
   throttle_type: bandwidth        # "iops", "bandwidth", or "both"
@@ -43,6 +44,19 @@ storage_throttle_scenario:
   read_iops: 50
   write_iops: 25
   duration: 90s
+```
+
+**KubeVirt VMI** — target a PVC mounted by the VMI's virt-launcher pod. Set `vmi_name`; add `pvc_name` if the VMI has multiple PVCs and you want to select one explicitly:
+
+```yaml
+storage_throttle_scenario:
+  vmi_name: my-vmi
+  pvc_name: my-vmi-data
+  namespace: default
+  throttle_type: bandwidth
+  read_bps: 1Mi
+  write_bps: 512Ki
+  duration: 1m
 ```
 
 **Both** — apply IOPS and bandwidth limits simultaneously:

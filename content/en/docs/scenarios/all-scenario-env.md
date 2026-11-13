@@ -98,14 +98,40 @@ Parameters found in the source that no section above covers.
 
 ## Triggers
 
-Parameters found in the source that no section above covers.
+Configure the conditions that must be met before chaos starts. The `TRIGGERS_*` variables control how conditions are combined, polled, and handled when they time out. Configure the condition itself with the variables for its trigger type.
 
-{{< param-table scenario="globals" source="krkn-hub" group="triggers" >}}
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGERS_" >}}
+
+### Command trigger
+
+Run a shell command and wait for its expected exit code.
+
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGER_COMMAND" >}}
+
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGER_EXPECTED_RC" >}}
+
+### HTTP trigger
+
+Poll an HTTP endpoint until it meets the configured status and optional response-body condition.
+
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGER_HTTP_" >}}
+
+### Kubernetes trigger
+
+Wait for a Kubernetes resource field to match a condition.
+
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGER_K8S_" >}}
+
+### Prometheus trigger
+
+Run a PromQL query and wait for it to return a result. Set the Prometheus URL and, when needed, its bearer token.
+
+{{< param-table scenario="globals" source="krkn-hub" group="triggers" name_prefix="TRIGGER_PROM_" >}}
 
 ---
 
 ## Object State Checks
 
-Parameters found in the source that no section above covers.
+Configure checks for Kubernetes object states and conditions.
 
 {{< param-table scenario="globals" source="krkn-hub" group="object_state_checks" >}}

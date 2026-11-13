@@ -5,10 +5,8 @@ description: >
   How to use and create health check plugins in Krkn to monitor services during chaos experiments
 categories: [Developers Guide]
 tags: [health-checks, plugins, docs]
-weight: 5
+weight: 90
 ---
-
-# Health Check Plugins
 
 Health check plugins allow Krkn to continuously monitor the health of your services and infrastructure **during** chaos experiments. They run in background threads alongside the chaos scenario, detecting outages, tracking downtime duration, and collecting telemetry data.
 

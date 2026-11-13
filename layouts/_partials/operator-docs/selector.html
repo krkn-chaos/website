@@ -4,6 +4,9 @@
   <label id="operator-docs-version-label" for="operator-docs-version">Operator documentation version</label>
   <div class="krkn-operator-docs-version-picker__controls">
     <select id="operator-docs-version" data-operator-docs-version>
+      {{- if $context.isAuthoringPreview }}
+        <option value="{{ $context.previewPage.RelPermalink }}" selected>Upcoming docs (preview)</option>
+      {{- end }}
       {{- $releases := $context.releaseRoot.Site.Params.operator_docs_release_records | default $context.releaseRoot.Site.Data.operator_doc_versions.releases -}}
       {{- range $context.releaseRoot.Site.Params.operator_docs_release_tags -}}
         {{- $releaseRows := where $releases "tag" . -}}

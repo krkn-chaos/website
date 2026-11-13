@@ -60,24 +60,32 @@ async function main() {
     throw new Error(`Hugo binary not found at ${hugoBin}`);
   }
   const authoringPreview = process.env.OPERATOR_DOCS_AUTHORING_PREVIEW === '1';
+  const deployPreview = process.env.OPERATOR_DOCS_DEPLOY_PREVIEW === '1';
   const registry = authoringPreview ? null : readRegistry(repoRoot);
   const prepared = authoringPreview
     ? { enabled: false }
-    : prepareHugoInputs(repoRoot, registry);
+    : prepareHugoInputs(repoRoot, registry, {
+      includeAuthoringSourcePreview: deployPreview,
+    });
+  const generatedConfig = prepared.hugoConfigPath
+    ? `hugo.yaml,${path.relative(repoRoot, prepared.hugoConfigPath)}`
+    : null;
   const hugoArgs = authoringPreview
     ? ['--config', 'hugo.yaml,config/operator-docs-authoring.yaml', ...args]
-    : prepared.enabled
-      ? ['--config', `hugo.yaml,${path.relative(repoRoot, prepared.hugoConfigPath)}`, ...args]
+    : generatedConfig
+      ? ['--config', generatedConfig, ...args]
       : args;
   if (authoringPreview) {
     console.log('Authoring preview — not published documentation.');
+  } else if (deployPreview) {
+    console.log('Deploy preview — upcoming Operator docs are shown at unversioned URLs; release snapshots remain frozen.');
   }
   const exitCode = await runHugo(hugoArgs);
   if (exitCode !== 0) {
     process.exitCode = exitCode;
     return;
   }
-  if (isStaticBuild(args) && prepared.enabled) {
+  if (isStaticBuild(args) && prepared.enabled && !deployPreview) {
     finalizeRedirects(repoRoot, registry, path.join(repoRoot, 'public'));
   }
 }

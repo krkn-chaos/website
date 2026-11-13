@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="968" viewBox="0 0 1100 968" role="img" aria-labelledby="title desc">
+<title id="title">From a Python plugin to an operator run</title><desc id="desc">Build the plugin into a Krkn base, package the scenario image, and publish it. The registry supplies metadata to the console through the operator. Selected inputs and target credentials reach the scenario Pod, where run.sh renders YAML, Krkn loads the plugin, and krkn-lib accesses the target API.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#466179"/></marker></defs>
+<style>text{font-family:Inter,Arial,sans-serif;fill:#172d42}.label{font-size:20px;font-weight:700;letter-spacing:2px;fill:#9f273a}.heading{font-size:25px;font-weight:700}.body{font-size:22px;fill:#40566a}.small{font-size:20px;fill:#40566a}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:21px;fill:#25435d}.line{fill:none;stroke:#466179;stroke-width:2.5;marker-end:url(#arrow)}</style>
+<rect width="1100" height="968" rx="16" fill="#ffffff"/>
+<text x="40" y="45" class="label" text-anchor="start">01  PACKAGE</text>
+<rect x="40" y="74" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="62" y="111" class="heading" text-anchor="start">Plugin source</text>
+<text x="62" y="145" class="body" text-anchor="start">Python + configuration</text>
+<text x="62" y="174" class="body" text-anchor="start">Two abstract methods</text>
+<rect x="400" y="74" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="422" y="111" class="heading" text-anchor="start">Custom Krkn base</text>
+<text x="422" y="145" class="body" text-anchor="start">Published Krkn runtime</text>
+<text x="422" y="174" class="body" text-anchor="start">+ your plugin package</text>
+<rect x="760" y="74" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="782" y="111" class="heading" text-anchor="start">Scenario image</text>
+<text x="782" y="145" class="body" text-anchor="start">Startup script + labels</text>
+<text x="782" y="174" class="body" text-anchor="start">Input field descriptors</text>
+<path d="M340 140H394" class="line"/>
+<path d="M700 140H754" class="line"/>
+<path d="M910 206V236H260V298" class="line"/>
+<text x="550" y="261" class="small" text-anchor="middle">publish to a registry</text>
+<text x="40" y="283" class="label" text-anchor="start">02  DISCOVER</text>
+<rect x="40" y="306" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="62" y="343" class="heading" text-anchor="start">Registry</text>
+<text x="62" y="377" class="body" text-anchor="start">Tags, manifests, labels</text>
+<text x="62" y="406" class="body" text-anchor="start">Image layers</text>
+<rect x="400" y="306" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="422" y="343" class="heading" text-anchor="start">Console + operator</text>
+<text x="422" y="377" class="body" text-anchor="start">Read image metadata</text>
+<text x="422" y="406" class="body" text-anchor="start">Present typed inputs</text>
+<rect x="760" y="306" width="300" height="132" rx="12" fill="#f7f9fc" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="782" y="343" class="heading" text-anchor="start">Run configuration</text>
+<text x="782" y="377" class="body" text-anchor="start">wait + namespace</text>
+<text x="782" y="406" class="body" text-anchor="start">Selected target</text>
+<path d="M340 371H394" class="line"/>
+<path d="M700 371H754" class="line"/>
+<path d="M910 438V468H260V536" class="line"/>
+<text x="550" y="496" class="small" text-anchor="middle">environment + target kubeconfig</text>
+<text x="40" y="524" class="label" text-anchor="start">03  EXECUTE</text>
+<rect x="24" y="542" width="1052" height="193" rx="12" fill="#edf4fa" stroke="#b6cede" stroke-width="1.5"/>
+<text x="550" y="570" class="small" text-anchor="middle">Scenario Pod in the management cluster</text>
+<rect x="40" y="587" width="300" height="128" rx="12" fill="#ffffff" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="62" y="624" class="heading" text-anchor="start">run.sh</text>
+<text x="62" y="658" class="body" text-anchor="start">Render scenario YAML</text>
+<text x="62" y="687" class="body" text-anchor="start">Start the Krkn engine</text>
+<rect x="400" y="587" width="300" height="128" rx="12" fill="#ffffff" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="422" y="624" class="heading" text-anchor="start">Krkn engine</text>
+<text x="422" y="658" class="body" text-anchor="start">Discover plugin classes</text>
+<text x="422" y="687" class="body" text-anchor="start">Call run(scenario, …)</text>
+<rect x="760" y="587" width="300" height="128" rx="12" fill="#ffffff" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="782" y="624" class="heading" text-anchor="start">Your plugin</text>
+<text x="782" y="658" class="body" text-anchor="start">Read + validate YAML</text>
+<text x="782" y="687" class="body" text-anchor="start">Use injected krkn-lib</text>
+<path d="M340 651H394" class="line"/>
+<path d="M700 651H754" class="line"/>
+<path d="M910 715V775H550V814" class="line"/>
+<text x="550" y="762" class="small" text-anchor="middle">Kubernetes API via the target kubeconfig</text>
+<rect x="330" y="824" width="440" height="105" rx="12" fill="#fff6f3" stroke="#ccd7e1" stroke-width="1.5"/>
+<text x="352" y="861" class="heading" text-anchor="start">Target cluster</text>
+<text x="352" y="895" class="body" text-anchor="start">Namespace + pod resources</text>
+<text x="550" y="955" class="small" text-anchor="middle">Plugin result: 0 = success · 1 = failure</text>
+</svg>

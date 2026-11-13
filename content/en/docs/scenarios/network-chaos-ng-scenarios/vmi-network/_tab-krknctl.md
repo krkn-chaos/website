@@ -6,24 +6,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 
 ### VMI Network Chaos Parameters
 
-| Argument            | Type    | Description                                                                                       | Required | Default Value                                |
-|:--------------------|:--------|:--------------------------------------------------------------------------------------------------|:---------|:---------------------------------------------|
-| `--chaos-duration`  | number  | Chaos duration in seconds                                                                         | false    | 120                                          |
-| `--namespace`       | string  | Namespace containing the target VMIs                                                              | true     |                                              |
-| `--target`          | string  | Regex to match VMI names (e.g. `<vmi-name-prefix>-.*` or `.*` for all)                                 | false    | `.*`                                         |
-| `--label-selector`  | string  | Label selector to filter VMIs (e.g. `app=myapp`)                                                  | false    |                                              |
-| `--instance-count`  | number  | Maximum number of VMIs to target                                                                  | false    | 1                                            |
-| `--execution`       | enum    | Execution mode: `parallel` or `serial`                                                            | false    | serial                                       |
-| `--ingress`         | boolean | Shape incoming traffic to the VM                                                                  | false    | true                                         |
-| `--egress`          | boolean | Shape outgoing traffic from the VM                                                                | false    | true                                         |
-| `--interfaces`      | string  | Comma-separated tap interface names (empty to auto-detect)                                        | false    |                                              |
-| `--latency`         | string  | Artificial latency added to packets (e.g. `100ms`, `500ms`)                                      | false    |                                              |
-| `--loss`            | string  | Packet loss percentage (e.g. `10` for 10%)                                                       | false    |                                              |
-| `--bandwidth`       | string  | Maximum throughput cap (e.g. `100mbit`, `1gbit`, `500kbit`)                                      | false    |                                              |
-| `--image`           | string  | Network chaos injection workload image                                                            | false    | quay.io/krkn-chaos/krkn-network-chaos:latest |
-| `--taints`          | string  | Comma-separated taints for which tolerations are created (e.g. `node-role.kubernetes.io/master:NoSchedule`) | false |                                   |
-| `--service-account` | string  | Optional service account for the scenario workload                                                | false    |                                              |
-| `--wait-duration`   | number  | Seconds to wait before running the next scenario in the same file                                 | false    | 300                                          |
+{{< param-table scenario="vmi-network" source="krknctl" prefix="--" >}}
 
 ### Parameter Format Details
 

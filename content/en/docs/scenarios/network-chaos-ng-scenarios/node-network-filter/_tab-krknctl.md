@@ -8,22 +8,7 @@ Can also set any global variable listed [here](../../all-scenario-env-krknctl.md
 
 krknctl marks `--ingress` and `--egress` as required flags (you should pass both). **Values:** at least one of `--ingress` or `--egress` must be `true`; both may be `true` to filter incoming and outgoing traffic.
 
-| Argument          | Type    | Description                                                                 | Required | Default Value                       |
-| :---------------- | :------ | :-------------------------------------------------------------------------- | :------- | :---------------------------------- |
-| `--chaos-duration`| number  | Chaos duration in seconds                                                   | false    | 60                                  |
-| `--node-selector` | string  | Node label selector (format: `key=value`)                                   | false    |                                     |
-| `--node-name`     | string  | Specific node name to target (alternative to node-selector)                 | false    |                                     |
-| `--namespace`     | string  | Namespace where the scenario container is deployed                          | false    | default                             |
-| `--instance-count`| number  | Number of nodes to target when using node-selector                          | false    | 1                                   |
-| `--execution`     | enum    | Execution mode: `parallel` or `serial`                                      | false    | parallel                            |
-| `--ingress`       | boolean | Filter incoming traffic (`true` / `false`)                                | true     |                                     |
-| `--egress`        | boolean | Filter outgoing traffic (`true` / `false`)                                  | true     |                                     |
-| `--interfaces`    | string  | Network interfaces for **outgoing** traffic (comma-separated, e.g. `eth0,eth1`). Optional; empty uses workload defaults | false    |                                     |
-| `--ports`         | string  | Network ports to filter traffic (comma-separated, e.g., `8080,8081,8082`)   | true     |                                     |
-| `--image`         | string  | The network chaos injection workload container image                        | false    | quay.io/krkn-chaos/krkn-network-chaos:latest |
-| `--protocols`     | string  | Network protocols to filter: `tcp`, `udp`, or `tcp,udp`                     | false    | tcp                                 |
-| `--taints`        | string  | Comma-separated **taints** (tolerations are derived for the workload). Same notation as elsewhere in Network Chaos NG docs, e.g. `node-role.kubernetes.io/master:NoSchedule` | false    |                                     |
-| `--service-account`| string | Service account for the workload (optional)                                 | false    |                                     |
+{{< param-table scenario="node-network-filter" source="krknctl" prefix="--" >}}
 
 ### Parameter Format Details
 

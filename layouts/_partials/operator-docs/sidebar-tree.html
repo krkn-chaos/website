@@ -20,7 +20,16 @@
   {{- $depth := .ulNr -}}
   {{- $ulShow := .ulShow -}}
   {{- $items := where (union $section.Pages $section.Sections).ByWeight ".Params.toc_hide" "!=" true -}}
-  {{- $hasChildren := gt (len $items) 0 -}}
+  {{- if not $section.Params.operator_docs_version -}}
+  {{- $sourceItems := slice -}}
+  {{- range $items -}}
+    {{- if not (strings.HasPrefix .RelPermalink "/docs/krkn-operator/versions/") -}}
+      {{- $sourceItems = $sourceItems | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $items = $sourceItems -}}
+{{- end -}}
+{{- $hasChildren := gt (len $items) 0 -}}
   {{- $active := eq $section $page -}}
   {{- $activePath := or $active ($page.IsDescendant $section) -}}
   {{- $show := or (lt $depth $ulShow) $activePath (not $page.Site.Params.ui.sidebar_menu_compact) -}}

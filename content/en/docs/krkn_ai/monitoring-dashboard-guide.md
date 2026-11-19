@@ -172,6 +172,8 @@ The **Health Checks** tab visualises service availability and latency during cha
 
 Data source: `reports/health_check_report.csv`
 
+The latency columns (`min_response_time`, `max_response_time`, `average_response_time`) are computed only from successful checks, the ones that returned the application's expected `status_code`. Failed checks (timeouts, connection errors or an unexpected status code) count toward `failure_count` but not toward latency. If every check for a component failed, its latency columns are empty.
+
 ---
 
 ### Detailed Scenarios
@@ -230,6 +232,8 @@ Every anomaly record is shown with: `scenario_id`, `scenario`, `generation`, `an
 ### Logs
 
 The **Logs** tab streams scenario execution logs from the `logs/` subdirectory. Use the scenario dropdown to navigate between individual scenario log files.
+
+For each scenario it also shows a summary parsed from the log, including the duration, cluster version, node count and scenario parameters. The **Affected pods** card shows how many pods recovered and how many did not, counted across all scenarios in the log's telemetry. Affected VMIs are not included in these counts.
 
 ---
 

@@ -68,6 +68,8 @@ For each service, the URL is built as `scheme://host:port/path`:
 - Probes of type `exec` or `tcpSocket` are ignored, since they carry no URL.
 - If no usable probe is found, the URL falls back to the service's first port at `/`.
 
+Each entry is named after its service. If services with the same name are found in more than one namespace, those entries are named `<namespace>/<service>` instead (for example `shop-a/frontend` and `shop-b/frontend`), so every health check has a unique name. Names that are already unique are left as they are.
+
 Krkn-AI then sends a GET request to each URL and treats any response below HTTP 500 as reachable. This check runs from the machine where you run `discover`, not from inside the cluster, so an endpoint that only resolves within the cluster network is reported as unreachable.
 
 Only endpoints that have a probe **and** responded are written as active entries. The rest are commented out with the reason, so you can enable them once the cause is fixed.

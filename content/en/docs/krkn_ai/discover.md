@@ -66,7 +66,7 @@ genetic:
   generations: 5
   population_size: 10
   composition_rate: 0.3
-  population_injection_rate: 0.1
+  population_injection_rate: 0.0
   scenario_mutation_rate: 0.6
 
 # Specify how result filenames are formatted

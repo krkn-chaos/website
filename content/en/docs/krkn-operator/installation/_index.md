@@ -161,7 +161,162 @@ helm install krkn-operator oci://quay.io/krkn-chaos/charts/krkn-operator \
 
 ---
 
+## Krkn-AI
+
+Enable [Krkn-AI](../../krkn_ai/_index.md) on the management cluster where Krkn Operator runs.
+
+### Prerequisites
+
+- **Administrator access** to the management cluster to install the integration.
+- A default **StorageClass** or a writable **existing PVC** in the Operator namespace to persist Krkn-AI results.
+
+
+### Enable the integration
+
+{{< tabpane text=true >}}
+{{% tab header="**Helm**" lang="helm" %}}
+
+For an existing Helm release, keep its name, namespace and existing values.
+
+1. Add the following to your installation's `values.yaml`:
+
+   ```yaml
+   krknAI:
+     enabled: true
+   console:
+     enabled: true
+   aiService:
+     serviceToken: "" # Initial install only; empty generates a random token.
+     storage:
+       size: 5Gi
+       # storageClassName: your-storage-class
+       # existingClaim: your-existing-pvc
+   ```
+
+2. Install or upgrade using your full values file:
+
+    ```bash
+    helm upgrade --install krkn-operator \
+      oci://quay.io/krkn-chaos/charts/krkn-operator \
+      --version <VERSION> \
+      --namespace krkn-operator-system --create-namespace \
+      -f values.yaml --wait --timeout 10m
+    ```
+
+3. Wait for the AI service to start:
+
+   ```bash
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-ai-service
+   ```
+
+{{% /tab %}}
+{{% tab header="**OLM**" lang="olm" %}}
+
+OLM is included with OpenShift. See the upstream [bundle options](https://github.com/krkn-chaos/krkn-operator#olm--operatorhub-bundles)
+for other installations.
+
+1. Install **Krkn Operator** through your OLM catalog in `krkn-operator-system`.
+
+2. Find and edit the Subscription:
+
+   ```bash
+   kubectl -n krkn-operator-system get subscriptions
+   kubectl -n krkn-operator-system edit subscription <SUBSCRIPTION_NAME>
+   ```
+
+   Add these entries under **`spec.config.env`**, preserving other settings and
+   environment entries. Choose storage before first enabling AI:
+
+   ```yaml
+   spec:
+     config:
+       env:
+         - name: KRKNAI_ENABLED
+           value: "true"
+         - name: KRKNAI_STORAGE_SIZE
+           value: "5Gi"
+   ```
+
+   Optional: `KRKNAI_STORAGE_CLASS_NAME` selects a StorageClass;
+   `KRKNAI_STORAGE_EXISTING_CLAIM` selects an existing writable PVC.
+   Changing these settings does not resize claims or migrate existing data.
+
+3. Wait for OLM to roll out the Operator and AI service:
+
+   ```bash
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-operator
+   kubectl -n krkn-operator-system rollout status deployment/krkn-operator-ai-service
+   ```
+
+{{% /tab %}}
+{{< /tabpane >}}
+
+### Run resources and storage
+
+You can override these configurations to define custom resources to Krkn-AI orchestrator and runner pods:
+
+| Helm value | OLM Subscription environment variable | Default |
+|---|---|---|
+| `krknAI.orchestrator.resources` | `KRKNAI_ORCHESTRATOR_RESOURCES` | Requests / limits:<br>CPU: `100m` / `500m`<br>Memory: `256Mi` / `512Mi`<br>Ephemeral storage: `256Mi` / `1Gi` |
+| `krknAI.resultUploader.resources` | `KRKNAI_RESULT_UPLOADER_RESOURCES` | Requests / limits:<br>CPU: `50m` / `250m`<br>Memory: `128Mi` / `512Mi`<br>Ephemeral storage: `64Mi` / `256Mi` |
+| `krknAI.volumes.output.sizeLimit` | `KRKNAI_OUTPUT_SIZE_LIMIT` | `512Mi` |
+| `krknAI.volumes.tmp.sizeLimit` | `KRKNAI_TMP_SIZE_LIMIT` | `128Mi` |
+| `krknAI.volumes.uploadState.sizeLimit` | `KRKNAI_UPLOAD_STATE_SIZE_LIMIT` | `16Mi` |
+
+
+### AI service token {#ai-service-token}
+
+The Operator and run uploaders use this token to authenticate to the Krkn-AI
+service. It is generated on first enablement, or supplied through Helm's
+initial-install-only `aiService.serviceToken`. Upgrades retain the existing token.
+
+#### Manual rotation
+
+Stop new submissions and wait for **all active runs and their final uploads** to
+finish. As a Kubernetes administrator, run the following, adjusting names as needed:
+
+```bash
+NAMESPACE=krkn-operator-system
+AI_SERVICE=krkn-operator-ai-service
+OPERATOR=krkn-operator-operator
+
+set -o pipefail
+openssl rand -hex 32 |
+  jq -Rs '{data: {token: (rtrimstr("\n") | @base64)}}' |
+  kubectl -n "$NAMESPACE" patch secret "${AI_SERVICE}-token" \
+    --type merge --patch-file /dev/stdin &&
+kubectl -n "$NAMESPACE" rollout restart deployment/"$AI_SERVICE" &&
+kubectl -n "$NAMESPACE" rollout status deployment/"$AI_SERVICE" --timeout=5m &&
+kubectl -n "$NAMESPACE" rollout restart deployment/"$OPERATOR" &&
+kubectl -n "$NAMESPACE" rollout status deployment/"$OPERATOR" --timeout=5m
+```
+
+Verify discovery or results in the console before resuming runs.
+
+### Prometheus token access
+
+For non-admin users, share the Prometheus token Secret in the Operator namespace
+by labeling it `group.krkn.krkn-chaos.dev/<group>=true`. Users enter the Secret
+name, not its token, when [launching a run](/docs/krkn-operator/usage/krkn-ai/#3-review-and-launch).
+
+### Check readiness
+
+```bash
+kubectl get crd krknairuns.krkn.krkn-chaos.dev
+kubectl -n krkn-operator-system get pods,pvc
+```
+
+You can also access Krkn console UI to start, run and manage Krkn-AI runs.
+
+**Next:** [Create your first Krkn-AI run (operator)](/docs/krkn-operator/usage/krkn-ai/).
+
+---
+
 ## Uninstall
+
+Download needed AI results, delete AI runs and wait for cleanup before removing
+the Operator or disabling AI with Helm. Cleanup needs the artifact service.
+The Helm-managed AI PVC is retained; deleting its namespace can still remove data.
 
 ```bash
 helm uninstall krkn-operator --namespace krkn-operator-system

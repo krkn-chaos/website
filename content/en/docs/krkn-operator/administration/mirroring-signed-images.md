@@ -67,6 +67,23 @@ Krkn uses key-based signatures, so the `--insecure-ignore-tlog=true` option skip
 
 Other scenarios may launch different helper images. For example, `network-chaos` uses `workload-krkn-tools`, and `pod-network-filter` uses `workload-krkn-network-chaos`. Mirror the matching `workload-*` tag with Cosign and set that scenario's `IMAGE` parameter to its private URL. Consult the selected scenario's parameters and the [source tag list](https://quay.io/repository/krkn-chaos/krkn-hub-multiarch?tab=tags) for the exact image.
 
+## Krkn-AI images
+
+For [Krkn-AI runs](/docs/krkn-operator/usage/krkn-ai/), mirror the orchestrator and service images below into your private repository.
+
+| Public Quay image | Private tag |
+|---|---|
+| `quay.io/krkn-chaos/krkn-ai-operator:<release>` | `krkn-ai-operator` |
+| `quay.io/krkn-chaos/krkn-ai-service:<release>` | `krkn-ai-service` |
+
+```bash
+AI_RELEASE=latest
+MIRROR=registry.example.com/chaos/krkn-hub-multiarch
+
+cosign copy "quay.io/krkn-chaos/krkn-ai-operator:$AI_RELEASE" "$MIRROR:krkn-ai-operator"
+cosign copy "quay.io/krkn-chaos/krkn-ai-service:$AI_RELEASE" "$MIRROR:krkn-ai-service"
+```
+
 ## If a run does not start
 
 - **Scenario missing from the list:** confirm its tag exists in the configured scenario repository and the user can access that registry.

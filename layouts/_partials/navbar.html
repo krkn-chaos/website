@@ -27,25 +27,30 @@
 
     {{/* Right actions: Search + GitHub + Hamburger */}}
     <div class="krkn-navbar__actions">
-      {{/* Search trigger + inline Docsy/Lunr search */}}
-      {{ if .Site.Params.offlineSearch }}
-        <button type="button" class="krkn-navbar__search" id="krkn-search-trigger" aria-label="Search" aria-expanded="false">
-          <svg class="krkn-navbar__icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        {{/* Search overlay — contains the real Docsy offline search input */}}
-        <div class="krkn-search-overlay" id="krkn-search-overlay" aria-hidden="true">
-          <div class="krkn-search-overlay__backdrop" id="krkn-search-backdrop"></div>
-          <div class="krkn-search-overlay__panel">
-            <div class="krkn-search-overlay__header">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              {{ partial "search-input.html" . }}
-              <button type="button" class="krkn-search-overlay__close" id="krkn-search-close" aria-label="Close search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
-            </div>
-            <div class="krkn-search-overlay__hint">Press Enter to search &middot; Ctrl+K &middot; Esc to close</div>
+      {{/* Search trigger + custom Cmd+K overlay (results rendered by static/js/krkn-search.js) */}}
+      <button type="button" class="krkn-navbar__search" id="krkn-search-trigger" aria-label="Search" aria-expanded="false">
+        <svg class="krkn-navbar__icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      {{/* Search overlay — results are rendered into #krkn-search-results by krkn-search.js */}}
+      <div class="krkn-search-overlay" id="krkn-search-overlay" aria-hidden="true">
+        <div class="krkn-search-overlay__backdrop" id="krkn-search-backdrop"></div>
+        <div class="krkn-search-overlay__panel" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="krkn-search-results">
+          <div class="krkn-search-overlay__header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="search" id="krkn-search-input" class="krkn-search-overlay__input" placeholder="Search the docs…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Search the documentation" aria-controls="krkn-search-results" aria-autocomplete="list" />
+            <button type="button" class="krkn-search-overlay__close" id="krkn-search-close" aria-label="Close search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
+          <div class="krkn-search-overlay__results" id="krkn-search-results" role="listbox" aria-label="Search results"></div>
+          <div class="krkn-search-overlay__hint"><kbd>↑</kbd><kbd>↓</kbd> to navigate &middot; <kbd>⏎</kbd> to open &middot; <kbd>Esc</kbd> to close</div>
         </div>
+      </div>
+      {{/* Hidden Docsy offline-search input: makes Hugo generate the Lunr index and
+           exposes its (fingerprinted) URL via data-offline-search-index-json-src so
+           krkn-search.js can fetch it. Never shown — the overlay above is the real UI. */}}
+      {{ if .Site.Params.offlineSearch }}
+      <div class="krkn-search-index-src" hidden aria-hidden="true">{{ partial "search-input.html" . }}</div>
       {{ end }}
 
       {{/* Theme toggle */}}
@@ -195,7 +200,8 @@
   var searchOverlay = document.getElementById('krkn-search-overlay');
   var searchBackdrop = document.getElementById('krkn-search-backdrop');
   var searchClose = document.getElementById('krkn-search-close');
-  var searchInput = searchOverlay ? searchOverlay.querySelector('input[type="search"], .td-search__input, .td-search input') : null;
+  var searchInput = document.getElementById('krkn-search-input');
+  var searchResults = document.getElementById('krkn-search-results');
 
   function openSearch() {
     if (!searchOverlay) return;
@@ -213,13 +219,12 @@
     searchOverlay.setAttribute('aria-hidden', 'true');
     if (searchTrigger) searchTrigger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
-    // Clear results popover
+    // Clear the query and any rendered results (krkn-search.js listens for 'input')
     if (searchInput) {
       searchInput.value = '';
-      // Trigger change to clear Lunr popover
-      var evt = new Event('change', { bubbles: true });
-      searchInput.dispatchEvent(evt);
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
+    if (searchResults) searchResults.innerHTML = '';
   }
 
   if (searchTrigger) searchTrigger.addEventListener('click', openSearch);

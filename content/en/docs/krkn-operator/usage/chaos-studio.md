@@ -62,6 +62,53 @@ A visual drag-and-drop editor for designing complex chaos workflows. Build graph
 
 Each node is configured exactly like a [single scenario](../run-scenarios/): select a registry, choose a scenario, set mandatory/optional/global parameters, optionally load a cloud credential, and mount files.
 
+### Wait for a Trigger
+
+Use the **Wait for Trigger** node to pause a workflow until an event condition is met. This node runs the trigger utility and does not inject a chaos scenario itself. Nodes connected after it start after the wait node completes successfully.
+
+1. Add **Wait for Trigger** from the node palette.
+2. Open **Configure** and choose a trigger type: command, HTTP, Kubernetes resource, or Prometheus.
+3. Set the fields shown for that type. Add more trigger conditions if needed.
+4. Choose how multiple conditions are combined:
+   - **All** waits until every condition matches.
+   - **Any** continues when at least one condition matches.
+5. Set the timeout, polling interval, and what should happen if the timeout expires.
+6. Connect the node to its predecessor and to the scenarios that should run after the event.
+
+For graph definitions sent directly to the operator API, mark the node with `nodeType: "trigger"` and use the public `trigger` scenario identity. The operator selects the trigger image from the node type; callers do not provide an image:
+
+```json
+{
+  "wait-for-service": {
+    "nodeType": "trigger",
+    "scenario": {
+      "name": "trigger",
+      "private": false
+    },
+    "depends_on": "prepare-service",
+    "env": {
+      "TRIGGER_HTTP_URL": "https://app.example.com/health",
+      "TRIGGER_HTTP_EXPECTED_STATUS": "200",
+      "TRIGGERS_TIMEOUT": "600",
+      "TRIGGERS_ON_TIMEOUT": "fail"
+    }
+  }
+}
+```
+
+Replace `prepare-service` with the ID of the predecessor node, or omit `depends_on` if the trigger should start at the root of the graph.
+
+The trigger node supports these condition types:
+
+| Type | Example use |
+|------|-------------|
+| Command | Wait for a command to return the configured exit code. |
+| HTTP | Poll a URL until it returns the expected status and, optionally, response body text. |
+| Kubernetes resource | Watch a named resource until its condition expression matches. |
+| Prometheus | Wait until a PromQL query returns a result. |
+
+When a timeout occurs, the configured action determines whether the trigger node fails or completes successfully. Choose **Fail** when downstream nodes must not run unless the event occurs; **Skip** and **Run anyway** complete successfully, so downstream nodes can continue.
+
 ### Global Parameters in Workflows
 
 When configuring global parameters for workflow nodes:

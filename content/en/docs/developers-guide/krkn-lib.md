@@ -38,6 +38,8 @@ and the [library source](https://github.com/krkn-chaos/krkn-lib). The main areas
 - `krkn_lib.k8s` and `krkn_lib.ocp` for cluster operations.
 - `krkn_lib.telemetry` for telemetry collection and integration.
 - `krkn_lib.prometheus` and `krkn_lib.elastic` for metrics and result storage.
+- `krkn_lib.gpu` for [NVIDIA GPU discovery](/docs/developers-guide/gpu_discovery/)
+  and measurements.
 - `krkn_lib.models` for shared models.
 - `krkn_lib.utils` for common utilities.
 

@@ -59,14 +59,14 @@ params:
   flag: guest-ping-interval
   required: false
 - name: GUEST_PING_METHOD
-  description: "Reachability probe: icmp (default system ping; needs NET_RAW) or tcp"
+  description: 'Reachability probe: icmp (default system ping; needs NET_RAW) or tcp'
   description_source: krknctl
   type: string
   default: icmp
   flag: guest-ping-method
   required: false
 - name: GUEST_PING_PORT
-  description: "TCP port used when guest-ping-method=tcp (ignored for icmp)"
+  description: TCP port used when guest-ping-method=tcp (ignored for icmp)
   description_source: krknctl
   type: number
   default: '22'
@@ -90,7 +90,7 @@ params:
   description: Container image for the ephemeral guest probe helper (must include ping/nc). Override for disconnected or mirrored registries
   description_source: krknctl
   type: string
-  default: "quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools"
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools
   flag: guest-ping-image
   required: false
 - name: GUEST_PING_SETTLE_SECONDS

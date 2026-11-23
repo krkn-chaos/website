@@ -37,7 +37,11 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/pvc_scenario.yaml
+  default: pvc_scenario.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: pvc_scenario.yaml.template
   required: false
 - name: BLOCK_SIZE
   description: Block size in bytes for the dd command used to fill the PVC

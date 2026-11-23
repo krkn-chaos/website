@@ -37,9 +37,6 @@ params:
   description_source: published-table
   type: enum
   default: serial
-  possible_values:
-  - serial
-  - parallel
   required: false
 - name: KILL_TIMEOUT
   description: Timeout to wait for the target pod(s) to be removed in seconds
@@ -52,12 +49,6 @@ params:
   description_source: published-table
   type: number
   default: '120'
-  required: false
-- name: DURATION
-  description: Duration in seconds to wait after pod disruption before verifying recovery
-  description_source: kraken
-  type: number
-  default: '10'
   required: false
 - name: NODE_LABEL_SELECTOR
   description: Label of the node(s) to target
@@ -85,5 +76,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/pod_scenario.yaml
+  default: pod_scenario.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: pod_scenario_namespace.yaml.template
   required: false

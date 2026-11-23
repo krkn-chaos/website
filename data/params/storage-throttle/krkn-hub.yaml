@@ -82,5 +82,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/storage_throttle.yaml
+  default: storage_throttle.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: storage_throttle.yaml.template
   required: false

@@ -70,11 +70,15 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/pod_network_scenario.yaml
+  default: pod_network_scenario.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: pod_network_scenario.yaml.template
   required: false
 - name: IMAGE
   description: Image used to disrupt network on a pod
   description_source: published-table
   type: string
-  default: quay.io/krkn-chaos/krkn:tools
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools
   required: false

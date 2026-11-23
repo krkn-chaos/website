@@ -6,8 +6,8 @@ params:
   description: Targeted namespace in the cluster
   description_source: krknctl
   type: string
-  default: default
-  required: true
+  default: ''
+  required: false
 - name: VM_NAME
   description: Name of the vm to delete. Optional if label-selector is set
   description_source: krknctl
@@ -51,13 +51,13 @@ params:
   default: '2'
   required: false
 - name: GUEST_PING_METHOD
-  description: "Reachability probe: icmp (default system ping; needs NET_RAW) or tcp"
+  description: 'Reachability probe: icmp (default system ping; needs NET_RAW) or tcp'
   description_source: krknctl
   type: string
   default: icmp
   required: false
 - name: GUEST_PING_PORT
-  description: "TCP port used when guest-ping-method=tcp (ignored for icmp)"
+  description: TCP port used when guest-ping-method=tcp (ignored for icmp)
   description_source: krknctl
   type: number
   default: '22'
@@ -78,7 +78,7 @@ params:
   description: Container image for the ephemeral guest probe helper (must include ping/nc). Override for disconnected or mirrored registries
   description_source: krknctl
   type: string
-  default: "quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools"
+  default: quay.io/krkn-chaos/krkn-hub-multiarch:workload-krkn-tools
   required: false
 - name: GUEST_PING_SETTLE_SECONDS
   description: Seconds to sleep after the helper probe pod is Ready, before deleting the VMI
@@ -94,5 +94,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/vmi_scenario.yaml
+  default: vmi_scenario.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: vmi_scenario.yaml.template
   required: false

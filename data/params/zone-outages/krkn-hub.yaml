@@ -51,5 +51,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/zone_outage.yaml
+  default: zone_outage.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: zone_outage_scenario_gcp.yaml.template
   required: false

@@ -70,5 +70,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: $KRAKEN_FOLDER/scenarios/syn-flood.yaml
+  default: syn-flood.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: syn-flood.yaml.template
   required: false

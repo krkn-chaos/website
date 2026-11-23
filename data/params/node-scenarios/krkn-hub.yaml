@@ -70,7 +70,7 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/node_scenario.yaml
+  default: node_scenario.yaml
   required: false
 - name: VERIFY_SESSION
   description: Verify the SSH session during node scenarios
@@ -95,6 +95,10 @@ params:
   description_source: published-table
   type: enum
   default: 'False'
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: baremetal_node_scenario.yaml.template
   required: false
 - name: BMC_USER
   description: Only needed for Baremetal ( bm ) - IPMI/bmc username

@@ -8,3 +8,8 @@ params:
   type: file_base64
   default: '1'
   required: false
+- name: SCENARIO_FILE
+  description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
+  description_source: built-in
+  default: service_hijacking.yaml
+  required: false

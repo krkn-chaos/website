@@ -82,7 +82,11 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/kube/vmi-network-chaos.yml
+  default: vmi-network-chaos.yml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: vmi-network-chaos.yml.template
   required: false
 - name: IMAGE
   description: Network chaos injection workload image

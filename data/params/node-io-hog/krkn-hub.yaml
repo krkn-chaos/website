@@ -70,5 +70,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/kube/io-hog.yml
+  default: io-hog.yml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: io-hog.yml.template
   required: false

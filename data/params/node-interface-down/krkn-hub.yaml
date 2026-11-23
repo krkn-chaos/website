@@ -58,7 +58,11 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/kube/node-interface-down.yml
+  default: node-interface-down.yml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: node-interface-down.yml.template
   required: false
 - name: IMAGE
   description: The container image used to run the interface-down workload on the node

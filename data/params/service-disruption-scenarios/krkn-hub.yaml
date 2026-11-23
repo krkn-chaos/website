@@ -40,5 +40,9 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/namespace_scenario.yaml
+  default: namespace_scenario.yaml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: namespace_scenario.yaml.template
   required: false

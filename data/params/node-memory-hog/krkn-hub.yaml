@@ -34,7 +34,11 @@ params:
 - name: SCENARIO_FILE
   description: Path to the scenario file baked into the container image. Fixed by the image, not a knob to change.
   description_source: built-in
-  default: scenarios/kube/memory-hog.yml
+  default: memory-hog.yml
+  required: false
+- name: SCENARIO_TEMPLATE_FILE
+  description: ''
+  default: memory-hog.yml.template
   required: false
 - name: NODE_SELECTOR
   description: defines the node selector for choosing target nodes. If not specified, one schedulable node in the cluster will be chosen at random. If multiple nodes match the selector, all of them will be subjected to stress. If number-of-nodes is specified, that many nodes will be randomly selected from those identified by the selector.

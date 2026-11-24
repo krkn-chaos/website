@@ -12,15 +12,12 @@ The operational features of Krkn Operator are available to all users, scoped by 
 
 ## Permission Summary
 
-| Feature | Required Permission |
-|---------|-------------------|
-| View Jobs | <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> |
-| Cancel Jobs | <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a> |
-| Cluster Terminal | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |
-| Run Scenarios | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |
-| Chaos Studio | <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> |
-| File Management | Group visibility |
-| Select Cloud Credentials | Group visibility (credentials managed by Admin) |
+| Permission | Capabilities |
+|------------|--------------|
+| <a href="/docs/krkn-operator/#permission-view"><span class="krkn-badge krkn-badge--view">View</span></a> | View jobs and Krkn AI run results |
+| <a href="/docs/krkn-operator/#permission-run"><span class="krkn-badge krkn-badge--run">Run</span></a> | Run scenarios, use Chaos Studio and Cluster Terminal, and discover/start Krkn AI runs |
+| <a href="/docs/krkn-operator/#permission-cancel"><span class="krkn-badge krkn-badge--cancel">Cancel</span></a> | Cancel or delete jobs; delete Krkn AI runs |
+| Group visibility | Manage files and select cloud credentials available to your group |
 
 {{% notice info %}}
 Users only see data from their own group. A cluster-wide indicator shows the names of currently running scenarios across all groups, but without details.
@@ -36,5 +33,6 @@ Users only see data from their own group. A cluster-wide indicator shows the nam
 - [Chaos Studio](chaos-studio/) — Design visual workflows with serial and parallel execution
 - [File Management](file-management/) — Upload and manage configuration files
 - [Job Categories & Resiliency Score Report](job-categories-resiliency-score-report/) — Group scenario runs and compare resiliency scores
+- [Krkn AI](krkn-ai/) — Explore experiments with AI, inspect results and replay a finding
 
 Cloud credentials themselves are configured by administrators — see [Cloud Credentials Management](../administration/cloud-credentials-management/).

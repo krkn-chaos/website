@@ -456,7 +456,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="scenario-badge">pod_disruption_scenarios</span>
 <p class="scenario-description">Kills NVIDIA device plugin pods on GPU nodes and verifies they recover</p>
 <div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+<span class="cloud-badge">NVIDIA</span>
 </div>
 </div>
 
@@ -465,7 +465,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="scenario-badge">gpu_scenarios</span>
 <p class="scenario-description">Allocates and holds GPU memory to reduce the VRAM available to workloads</p>
 <div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+<span class="cloud-badge">NVIDIA</span>
 </div>
 </div>
 
@@ -474,7 +474,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="scenario-badge">gpu_scenarios</span>
 <p class="scenario-description">Runs CUDA batches to create compute contention on selected GPUs</p>
 <div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+<span class="cloud-badge">NVIDIA</span>
 </div>
 </div>
 
@@ -483,7 +483,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="scenario-badge">gpu_scenarios</span>
 <p class="scenario-description">Locks the GPU SM clock at a supported frequency to limit compute performance</p>
 <div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+<span class="cloud-badge">NVIDIA</span>
 </div>
 </div>
 
@@ -492,7 +492,7 @@ Many pod scenarios now support the `exclude_label` parameter to protect critical
 <span class="scenario-badge">gpu_scenarios</span>
 <p class="scenario-description">Lowers the GPU board power cap and restores it after the test</p>
 <div class="cloud-badges">
-<span class="cloud-badge cloud-badge--agnostic">Cloud Agnostic</span>
+<span class="cloud-badge">NVIDIA</span>
 </div>
 </div>
 

@@ -1,0 +1,89 @@
+faults:
+  vram-pressure:
+    - key: gpu-vram
+      env: GPU_VRAM
+      description: VRAM to hold as a percentage of total usable VRAM or a size in Ki, Mi, Gi, or Ti.
+      default: Required
+      examples: ['20%', '2Gi', '20%,2Gi']
+    - key: memory-reserve
+      env: GPU_MEMORY_RESERVE
+      description: VRAM to leave free, as a size in binary units.
+      default: '64Mi'
+      examples: ['128Mi']
+  compute-pressure:
+    - key: gpu-compute-duty-cycle
+      env: GPU_COMPUTE_DUTY_CYCLE
+      description: Whole percentage from 1 to 100, with an optional % sign. Higher values shorten the pause between batches.
+      default: Required
+      examples: ['20%', '20%,50%']
+  clock-limit:
+    - key: gpu-clock-mhz
+      env: GPU_CLOCK_MHZ
+      description: Positive whole MHz within the GPU's supported range.
+      default: Required
+      examples: ['750', '750,900']
+  power-limit:
+    - key: gpu-power-limit-w
+      env: GPU_POWER_LIMIT_W
+      description: Positive whole watts within the supported range and below the current configured and enforced caps.
+      default: Required
+      examples: ['40', '40,50']
+
+common:
+  - key: gpu-ids
+    env: GPU_IDS
+    description: Select all eligible devices, or list host GPU indices or physical GPU UUIDs.
+    default: all
+    examples: ['all', '0', '0,1', 'GPU-<uuid-a>,GPU-<uuid-b>']
+  - key: duration
+    env: GPU_DURATION
+    description: Seconds to hold the fault after all workers are ready.
+    default: Required
+    examples: ['30', '60']
+  - key: node-selector
+    env: NODE_SELECTOR
+    description: Label selector for GPU nodes.
+    examples: ['kubernetes.io/hostname=gpu-node']
+  - key: pod-label-selector
+    env: POD_LABEL_SELECTOR
+    description: Label selector for GPU pods.
+    examples: ['app=inference']
+  - key: target-namespace
+    env: TARGET_NAMESPACE
+    description: Namespace containing the target pods.
+    default: Required with pod targeting
+    examples: ['inference']
+  - key: namespace
+    env: NAMESPACE
+    description: Namespace for privileged worker pods.
+    default: default
+    examples: ['krkn-gpu-test']
+  - key: number-of-nodes
+    env: NUMBER_OF_NODES
+    description: Number of matching nodes to target.
+    default: All matching nodes
+    examples: ['1']
+  - key: setup-timeout
+    env: GPU_SETUP_TIMEOUT
+    description: Seconds allowed for worker setup.
+    default: '120'
+  - key: recovery-timeout
+    env: GPU_RECOVERY_TIMEOUT
+    description: Seconds allowed for fault cleanup.
+    default: '30'
+  - key: runtime-class-name
+    env: GPU_RUNTIME_CLASS_NAME
+    description: RuntimeClass for worker pods.
+    default: nvidia if present, otherwise the cluster default
+  - key: service-account
+    env: GPU_SERVICE_ACCOUNT
+    description: Worker service account.
+    default: Namespace default
+  - key: tolerations
+    env: GPU_TOLERATIONS
+    description: YAML list of tolerations for worker pods.
+  - key: image
+    env: GPU_IMAGE
+    description: GPU worker image. Override to use a mirror.
+    default: Required
+    runner_default: Published GPU worker image

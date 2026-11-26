@@ -1,0 +1,35 @@
+{{- $tool := .Get 0 -}}
+{{- $fault := .Page.Params.gpu_fault -}}
+{{- $data := site.Data.gpu_scenario_options -}}
+{{- $faultOptions := index $data.faults $fault -}}
+{{- $keyHeading := index (dict "krkn" "YAML key" "krkn-hub" "Environment variable" "krknctl" "Flag") $tool -}}
+{{- if not (and $faultOptions $keyHeading) -}}
+  {{- errorf "gpu-scenario-options: unknown fault %q or tool %q at %s" $fault $tool .Position -}}
+{{- end -}}
+{{- $faultType := dict "key" "fault-type" "env" "GPU_FAULT_TYPE" "description" "Select this GPU fault." "default" "Required" "examples" (slice $fault) -}}
+{{- $rows := slice $faultType | append $faultOptions | append $data.common -}}
+
+<h3>Options</h3>
+<p>Choose one targeting mode: select GPU nodes by label, or set both a pod label selector and its namespace to target the GPUs assigned to those pods.</p>
+<p>One fault value applies to all selected GPUs. For per-GPU values, list one value per GPU on each node, in the order of the GPU IDs. With <code>all</code>, use ascending host GPU index.</p>
+<table class="krkn-param-table">
+  <thead>
+    <tr><th>{{ $keyHeading }}</th><th>Description</th><th>Default</th><th>Example values</th></tr>
+  </thead>
+  <tbody>
+    {{- range $rows }}
+      {{- $name := .key -}}
+      {{- if eq $tool "krkn-hub" -}}
+        {{- $name = .env -}}
+      {{- else if eq $tool "krknctl" -}}
+        {{- $name = printf "--%s" .key -}}
+      {{- end }}
+      <tr>
+        <td><code>{{ $name }}</code></td>
+        <td>{{ .description }}</td>
+        <td>{{ if and (ne $tool "krkn") .runner_default }}{{ .runner_default }}{{ else }}{{ .default | default "—" }}{{ end }}</td>
+        <td>{{ range $i, $example := .examples }}{{ if $i }}<br>{{ end }}<code>{{ $example }}</code>{{ else }}—{{ end }}</td>
+      </tr>
+    {{- end }}
+  </tbody>
+</table>

@@ -60,3 +60,7 @@ Group "SRE Team"
         ├── alice → can run scenarios on production-us, production-eu
         └── bob   → can run scenarios on production-us, production-eu
 ```
+
+## External users
+
+Users who sign in through an OIDC provider are provisioned as external Krkn Operator users. Their access is still controlled by local groups and permissions; provider groups do not grant access until an administrator maps them. See [Identity Management](identity-management/) for Keycloak setup, group mapping, account controls, and troubleshooting.

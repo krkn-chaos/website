@@ -1,7 +1,7 @@
 ---
 title: Provider Configuration
 description: Configure target providers for cluster discovery
-weight: 5
+weight: 6
 ---
 
 # Provider Configuration <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

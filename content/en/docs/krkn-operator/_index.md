@@ -39,6 +39,7 @@ Full access to the platform. Administrators configure the infrastructure that us
 - Create **users** and assign them to groups
 - Configure **private registries**, [mirror signed images](administration/mirroring-signed-images/), and control registry visibility
 - Configure **cloud credentials** and their visibility
+- Configure external **identity providers** and map remote groups to local permissions
 - Configure **target providers** (e.g. ACM integration)
 - All operational features available to users
 
@@ -112,6 +113,7 @@ Allows users to cancel running scenarios and to remove scenario runs and their e
 |------------|-------------|
 | Cluster Management | Register and manage target Kubernetes clusters |
 | User & Group Management | Organize users through groups with granular permissions |
+| [Identity Management](administration/identity-management/) | Configure external sign-in and map remote group memberships to local Krkn Operator permissions |
 | [Private Registries](administration/registry-management/) | Configure private registries and [mirror signed scenario and workload images](administration/mirroring-signed-images/) |
 | Cloud Credentials | Save cloud provider credentials and inject them into scenario pods via SecretKeyRef |
 | Chaos Studio | Design reusable visual workflows with serial and parallel execution |

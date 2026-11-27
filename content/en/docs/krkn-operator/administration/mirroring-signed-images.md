@@ -1,7 +1,7 @@
 ---
 title: Mirror Signed Images
 description: Mirror signed scenario and workload images into a private registry
-weight: 4
+weight: 5
 ---
 
 # Mirror Signed Images <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

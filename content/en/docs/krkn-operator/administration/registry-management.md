@@ -1,7 +1,7 @@
 ---
 title: Registry Management
 description: Configure private container registries and visibility
-weight: 3
+weight: 4
 ---
 
 # Registry Management <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

@@ -1,7 +1,7 @@
 ---
 title: Cloud Credentials Management
 description: Configure saved cloud provider credentials for chaos scenario injection
-weight: 7
+weight: 8
 ---
 
 # Cloud Credentials Management <a href="/docs/krkn-operator/#permission-model"><span class="krkn-badge krkn-badge--admin">Admin</span></a>

@@ -48,8 +48,8 @@ genetic:
   scenario_mutation_rate: 0.6
   crossover_rate: 0.6
   composition_rate: 0.0
-  selection_strategy: "roulette"
-  # tournament_size: 3
+  selection_strategy: "tournament"
+  tournament_size: 6
   population_injection_rate: 0.0
   population_injection_size: 2
   adaptive_mutation:
@@ -65,14 +65,13 @@ Total number of generation loops to run. (Default: 20)
 - The value for this field should be **at least 1**.
 - Setting this to a higher value increases Krkn-AI testing coverage.
 - Each scenario tested in the current generation retains some properties from the previous generation.
-- Mutually exclusive with `duration` — set one or the other.
+- Ignored when `duration` is set: the run is then bounded by time, not by generation count. At least one of the two must be set.
 
 #### `genetic.duration`
 
 Maximum time (in seconds) the algorithm should run. (Default: disabled)
 
-- When set, the algorithm runs until the duration elapses instead of counting generations.
-- Mutually exclusive with `generations` — set one or the other.
+- When set, the algorithm runs until the duration elapses instead of counting generations, and `generations` is ignored (including its default of 20).
 
 #### `genetic.population_size`
 
@@ -112,14 +111,16 @@ How often a crossover would lead to composition. (Default: 0.0; Range: [0.0, 1.0
 
 #### `genetic.selection_strategy`
 
-Strategy used to select parents for the next generation. (Default: `roulette`)
+Strategy used to select parents for the next generation. (Default: `tournament`)
 
 - `roulette` — Fitness-proportionate selection. Higher-fitness individuals have a greater probability of being selected.
 - `tournament` — Randomly selects a subset of individuals and picks the best. Use `tournament_size` to control the subset size.
 
 #### `genetic.tournament_size`
 
-Number of individuals competing in each tournament round when `selection_strategy` is set to `tournament`. (Default: 3)
+Number of individuals competing in each tournament round when `selection_strategy` is set to `tournament`. (Default: 6; at least 1)
+
+- Values larger than the population size are capped at the population size.
 
 #### `genetic.population_injection_rate`
 

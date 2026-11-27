@@ -11,16 +11,18 @@ When defining the Chaos Config, you can provide details about your application e
 ### Configuration
 
 The `health_checks` block accepts:
-- **stop_watcher_on_failure**: This setting allows you to stop the health check watcher for an endpoint after it encounters a failure.
-- **stop_timeout**: How long to wait for the health check watcher to shut down at the end of a scenario.
+- **stop_watcher_on_failure**: When `true`, the first failed check on any endpoint stops the checks for all endpoints for the rest of that scenario. (Default: `false`)
+- **stop_timeout**: How long, in seconds, to wait for the health check watcher to shut down at the end of a scenario. (Default: `5`)
+- **headers**: HTTP headers sent with every check. Optional.
 - **applications**: The list of endpoints to check.
 
 Each application accepts:
 - **name**: Name of the service.
-- **url**: Service endpoint; supports parameterization with "$<KEY>".
-- **status_code**: Expected status code returned when accessing the service.
-- **timeout**: Timeout period after which the request is canceled.
-- **interval**: How often to check the endpoint.
+- **url**: Service endpoint; supports parameterization with `$KEY`.
+- **status_code**: Expected status code returned when accessing the service. (Default: `200`)
+- **timeout**: Request timeout in seconds. Must be greater than 0. (Default: `4`)
+- **interval**: Seconds to wait between checks. Must be greater than 0. (Default: `2`)
+- **headers**: HTTP headers for this endpoint only. They are merged with the block-level `headers`, and a key set here overrides the same key from the block.
 
 #### Example
 
@@ -54,6 +56,27 @@ In the previous example, the `$HOST` variable in the config can be dynamically r
 ```bash
 uv run krkn_ai run -c krkn-ai.yaml -o results/ -p HOST=http://example.cluster.url/nginx
 ```
+
+#### Headers and Secrets
+
+Header values support the same `$KEY` parameters as the URL. Use the `$KEY` form: `${KEY}` is not substituted. For tokens, prefix the parameter name with `__`, which marks it as private:
+
+```yaml
+health_checks:
+  headers:
+    Authorization: "Bearer $__TOKEN"
+  applications:
+  - name: cart
+    url: "$HOST/cart/health"
+    headers:
+      X-Tenant: shop-a
+```
+
+```bash
+uv run krkn_ai run -c krkn-ai.yaml -o results/ -p HOST=http://example.cluster.url -p __TOKEN=$(cat token.txt)
+```
+
+Headers are filled in when each check is sent, so the config saved with the run results keeps `$__TOKEN` rather than the value. Avoid putting private parameters in the `url`, which is filled in when the config loads.
 
 ### Automatic Discovery
 

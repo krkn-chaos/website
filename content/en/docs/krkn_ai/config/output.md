@@ -30,11 +30,13 @@ Specifies the naming format for log files. These files contain execution logs fo
 
 ## Format String Placeholders
 
+Each format must include `%s`, so that every scenario gets its own file. A format without it is rejected when the config is loaded.
+
 The format strings support the following placeholders:
 
 - `%g` - Generation number
 - `%s` - Scenario ID
-- `%c` - Scenario Name (e.g pod_scenarios)
+- `%c` - Scenario Name (e.g. `pod-scenarios`)
 
 ## Example
 
@@ -48,6 +50,6 @@ output:
 ```
 
 With this configuration, files will be named like:
-- `gen_0_scenario_1_pod_scenarios.yaml`
-- `gen_0_scenario_1_pod_scenarios.png`
-- `gen_0_scenario_1_pod_scenarios.log`
+- `gen_0_scenario_1_pod-scenarios.yaml`
+- `gen_0_scenario_1_pod-scenarios.png`
+- `gen_0_scenario_1_pod-scenarios.log`

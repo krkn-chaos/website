@@ -43,7 +43,7 @@ Every user **must** belong to a group. A user without a group has no access to t
 |---------|-------------|
 | [Cluster Management](cluster-management/) | Register and remove target Kubernetes clusters |
 | [User Management](user-management/) | Create groups and users, assign permissions |
-| [Identity Management](identity-management/) | Configure Keycloak sign-in and map remote groups to local permissions |
+| [Identity Management](identity-management/) | Configure external identity providers and map remote groups to local permissions |
 | [Registry Management](registry-management/) | Configure private container registries and visibility |
 | [Mirror Signed Images](mirroring-signed-images/) | Copy scenario and workload images with their Cosign signatures for private environments |
 | [Provider Configuration](provider-configuration/) | Configure target providers (ACM integration) |

@@ -63,4 +63,4 @@ Group "SRE Team"
 
 ## External users
 
-Users who sign in through an OIDC provider are provisioned as external Krkn Operator users. Their access is still controlled by local groups and permissions; provider groups do not grant access until an administrator maps them. See [Identity Management](identity-management/) for Keycloak setup, group mapping, account controls, and troubleshooting.
+Users who sign in through an external identity provider are provisioned as external Krkn Operator users. Their access is still controlled by local groups and permissions; provider groups do not grant access until an administrator maps them. See [Identity Management](identity-management/) for the shared model, provider setup guides, group mapping, and account controls.
